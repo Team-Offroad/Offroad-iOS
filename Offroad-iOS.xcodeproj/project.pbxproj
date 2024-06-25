@@ -218,8 +218,18 @@
 		4E03946A2C2AA14D007F0517 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				4E0394302C2A9DCE007F0517 /* ViewController.swift */,
 				4E03946B2C2AA15C007F0517 /* Common */,
+				4E03946D2C2AA5E8007F0517 /* Splash */,
+				4E03946E2C2AA5F8007F0517 /* Login */,
+				4E03946F2C2AA61C007F0517 /* NicknameSetting */,
+				4E0394842C2AA9DB007F0517 /* Character */,
+				4E0394722C2AA6C5007F0517 /* Home */,
+				4E0394732C2AA6DB007F0517 /* QuestMap */,
+				4E0394742C2AA70C007F0517 /* QuestQR */,
+				4E0394752C2AA711007F0517 /* QuestList */,
+				4E0394762C2AA721007F0517 /* PlaceList */,
+				4E0394772C2AA72C007F0517 /* MyPage */,
+				4E0394302C2A9DCE007F0517 /* ViewController.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -237,6 +247,188 @@
 			children = (
 			);
 			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		4E03946D2C2AA5E8007F0517 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		4E03946E2C2AA5F8007F0517 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		4E03946F2C2AA61C007F0517 /* NicknameSetting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NicknameSetting;
+			sourceTree = "<group>";
+		};
+		4E0394702C2AA655007F0517 /* ChoosingCharacter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ChoosingCharacter;
+			sourceTree = "<group>";
+		};
+		4E0394712C2AA691007F0517 /* CompleteChoosingCharacter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CompleteChoosingCharacter;
+			sourceTree = "<group>";
+		};
+		4E0394722C2AA6C5007F0517 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		4E0394732C2AA6DB007F0517 /* QuestMap */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = QuestMap;
+			sourceTree = "<group>";
+		};
+		4E0394742C2AA70C007F0517 /* QuestQR */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = QuestQR;
+			sourceTree = "<group>";
+		};
+		4E0394752C2AA711007F0517 /* QuestList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = QuestList;
+			sourceTree = "<group>";
+		};
+		4E0394762C2AA721007F0517 /* PlaceList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PlaceList;
+			sourceTree = "<group>";
+		};
+		4E0394772C2AA72C007F0517 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				4E0394782C2AA767007F0517 /* Character */,
+				4E0394792C2AA783007F0517 /* Coupon */,
+				4E03947A2C2AA78B007F0517 /* Title */,
+				4E03947B2C2AA7EF007F0517 /* Settings */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		4E0394782C2AA767007F0517 /* Character */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Character;
+			sourceTree = "<group>";
+		};
+		4E0394792C2AA783007F0517 /* Coupon */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Coupon;
+			sourceTree = "<group>";
+		};
+		4E03947A2C2AA78B007F0517 /* Title */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Title;
+			sourceTree = "<group>";
+		};
+		4E03947B2C2AA7EF007F0517 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				4E0394822C2AA983007F0517 /* DeleteAccount */,
+				4E0394812C2AA969007F0517 /* LogOut */,
+				4E0394802C2AA936007F0517 /* MarketingConsent */,
+				4E03947F2C2AA913007F0517 /* PrivacyPolicy */,
+				4E03947E2C2AA855007F0517 /* TermsOfService */,
+				4E03947D2C2AA850007F0517 /* PlayGuide */,
+				4E03947C2C2AA842007F0517 /* NotificationsList */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		4E03947C2C2AA842007F0517 /* NotificationsList */ = {
+			isa = PBXGroup;
+			children = (
+				4E0394832C2AA99C007F0517 /* Notification */,
+			);
+			path = NotificationsList;
+			sourceTree = "<group>";
+		};
+		4E03947D2C2AA850007F0517 /* PlayGuide */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PlayGuide;
+			sourceTree = "<group>";
+		};
+		4E03947E2C2AA855007F0517 /* TermsOfService */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TermsOfService;
+			sourceTree = "<group>";
+		};
+		4E03947F2C2AA913007F0517 /* PrivacyPolicy */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PrivacyPolicy;
+			sourceTree = "<group>";
+		};
+		4E0394802C2AA936007F0517 /* MarketingConsent */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MarketingConsent;
+			sourceTree = "<group>";
+		};
+		4E0394812C2AA969007F0517 /* LogOut */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LogOut;
+			sourceTree = "<group>";
+		};
+		4E0394822C2AA983007F0517 /* DeleteAccount */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DeleteAccount;
+			sourceTree = "<group>";
+		};
+		4E0394832C2AA99C007F0517 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		4E0394842C2AA9DB007F0517 /* Character */ = {
+			isa = PBXGroup;
+			children = (
+				4E0394702C2AA655007F0517 /* ChoosingCharacter */,
+				4E0394712C2AA691007F0517 /* CompleteChoosingCharacter */,
+			);
+			path = Character;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
