@@ -16,8 +16,7 @@
 | [김민성](https://github.com/nolanMinsung) | [정지원](https://github.com/codeJiwon) | [조혜린](https://github.com/Johyerin) |
 | :--------: | :--------: | :--------: | 
 | <img src="https://github.com/NOW-SOPT-APP1-YeogiEottae/YeogiEottae-iOS/assets/95562494/c48109e9-60f9-47ba-8e55-77fd277ea141" width="200px"/> | <img src="https://github.com/NOW-SOPT-APP1-YeogiEottae/YeogiEottae-iOS/assets/95562494/9340af4a-7c5f-4140-8836-2290b185c3a0" width="200px" /> | <img src="https://github.com/Team-Offroad/Offroad-iOS/assets/111677378/92124189-fc1b-45ef-af9d-a0578dd08177" width="200px"/> | 
-| 역할 | 역할 | 역할 | 
-| 역할 채우기 | 역할 채우기 | 역할 채우기 | 
+| <p align = "center">`지도`<br/>`QR`<br/>`퀘스트 목록`<br/>`장소 목록` | <p align = "center">`프로필 생성 뷰`<br/>`마이 페이지`<br/>`획득 캐릭터`<br/>`획득 쿠폰` | <p align = "center">`스플래시/로그인 뷰`<br/>`홈뷰`<br/>`탭바`<br/>`획득 칭호`<br/>`설정` | 
 
 <br/>
 
@@ -39,7 +38,7 @@
 
 <br/>
 
-## 📌 Coding Convention (미정, 이전 템플릿 내용 가져오기만 한 상황)
+## 📌 Coding Convention
 ### 1️⃣ **타입 이름**
 
 **UpperCamelCase**를 사용합니다.
@@ -63,11 +62,11 @@
   <details>
     <summary>대문자로만 쓰는 용어 모음</summary>
     <div>
-    <br>
-    - URL<br>
-    - ID<br>
-    - API<br>
-    - 필요시 여기에 추가<br>
+       - URL<br>
+       - ID<br>
+       - API<br>
+       - QR<br>
+       <!-- 필요시 여기에 추가 -->
     </div>
     </details>
 - myContentCollectionViewCell (O)
@@ -83,7 +82,9 @@
 - 상위 클래스의 메서드를 재정의(override)하는 경우에는, super 메서드를 호출하고, 한 줄을 띄어 쓴다.
 
 ### **5️⃣ 주석**
-- 주석은 설명하려는 코드 윗 줄에 작성(자세한 위치는 추후 논의)
+- 주석은 설명하려는 코드 윗 줄에 작성
+- 한 줄에 끝나는 짧은 주석은 코드 오른쪽 끝에 작성
+- 퀵헬프 주석 지향
 - 코드만 봤을 때 이해하기 힘들 것 같은 경우 주석을 달아봅시다!
 
 <br/>
@@ -100,7 +101,7 @@
 - [Merge] - {#이슈번호} Pull Develop
 
 
-### Message(추후 변경 가능성 있음)
+### Message
 
 커밋 메시지 : `[종류/#이슈번호]작업 이름` - 예시 `[Feat/#1] 메인 UI 구현`
 
