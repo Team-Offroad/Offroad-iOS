@@ -1,11 +1,14 @@
 # 🚧 Offroad-iOS
 
 ## 🙆🏻‍♀️🙅🏻‍♂️ 프로젝트 설명 
-🌟 34rd SOPT 앱잼, 팀 오프로드!
+🌟 34rd SOPT 앱잼, 팀 비포장도로!
+
+- 서비스 명: Offroad(오프로드)
+- 서비스 소개: 오프라인에서 모험을 즐길 수 있는 게임형 서비스로, 유저들이 일상을 더 즐겁게 보낼 수 있도록 하며 자영업자들에게는 마케팅 효과를 제공하여 오프라인 상권을 부흥시킨다.
 
 
 ## 🍎 역할 분담 및 주요 기능
-| 김민성 | 정지원 | 조혜린 |
+| [김민성](https://github.com/nolanMinsung) | [정지원](https://github.com/codeJiwon) | [조혜린](https://github.com/Johyerin) |
 | :--------: | :--------: | :--------: | 
 | <img src="https://github.com/NOW-SOPT-APP1-YeogiEottae/YeogiEottae-iOS/assets/95562494/c48109e9-60f9-47ba-8e55-77fd277ea141" width="200px"/> | <img src="https://github.com/NOW-SOPT-APP1-YeogiEottae/YeogiEottae-iOS/assets/95562494/9340af4a-7c5f-4140-8836-2290b185c3a0" width="200px" /> | <img src="https://github.com/Team-Offroad/Offroad-iOS/assets/111677378/92124189-fc1b-45ef-af9d-a0578dd08177" width="200px"/> | 
 | 역할 | 역할 | 역할 | 
