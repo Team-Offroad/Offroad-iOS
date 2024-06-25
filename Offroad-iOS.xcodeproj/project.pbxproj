@@ -100,12 +100,10 @@
 		4E03942B2C2A9DCE007F0517 /* Offroad-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				4E03942C2C2A9DCE007F0517 /* AppDelegate.swift */,
-				4E03942E2C2A9DCE007F0517 /* SceneDelegate.swift */,
-				4E0394302C2A9DCE007F0517 /* ViewController.swift */,
-				4E0394352C2A9DCF007F0517 /* Assets.xcassets */,
-				4E0394372C2A9DCF007F0517 /* LaunchScreen.storyboard */,
-				4E03943A2C2A9DCF007F0517 /* Info.plist */,
+				4E03945E2C2AA096007F0517 /* Application */,
+				4E0394602C2AA0C1007F0517 /* Global */,
+				4E0394662C2AA0F9007F0517 /* Network */,
+				4E03946A2C2AA14D007F0517 /* Presentation */,
 			);
 			path = "Offroad-iOS";
 			sourceTree = "<group>";
@@ -125,6 +123,120 @@
 				4E03944F2C2A9DCF007F0517 /* Offroad_iOSUITestsLaunchTests.swift */,
 			);
 			path = "Offroad-iOSUITests";
+			sourceTree = "<group>";
+		};
+		4E03945E2C2AA096007F0517 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				4E03942C2C2A9DCE007F0517 /* AppDelegate.swift */,
+				4E03942E2C2A9DCE007F0517 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		4E0394602C2AA0C1007F0517 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				4E0394612C2AA0C5007F0517 /* Extensions */,
+				4E0394652C2AA0E7007F0517 /* Literals */,
+				4E0394642C2AA0E4007F0517 /* Protocols */,
+				4E0394632C2AA0DE007F0517 /* Resources */,
+				4E0394622C2AA0C9007F0517 /* SupportingFiles */,
+				4E0394372C2A9DCF007F0517 /* LaunchScreen.storyboard */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		4E0394612C2AA0C5007F0517 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4E0394622C2AA0C9007F0517 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		4E0394632C2AA0DE007F0517 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4E0394352C2A9DCF007F0517 /* Assets.xcassets */,
+				4E03943A2C2A9DCF007F0517 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4E0394642C2AA0E4007F0517 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		4E0394652C2AA0E7007F0517 /* Literals */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Literals;
+			sourceTree = "<group>";
+		};
+		4E0394662C2AA0F9007F0517 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				4E0394672C2AA132007F0517 /* Base */,
+				4E0394682C2AA135007F0517 /* DataModel */,
+				4E0394692C2AA13A007F0517 /* Service */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		4E0394672C2AA132007F0517 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		4E0394682C2AA135007F0517 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		4E0394692C2AA13A007F0517 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		4E03946A2C2AA14D007F0517 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				4E0394302C2A9DCE007F0517 /* ViewController.swift */,
+				4E03946B2C2AA15C007F0517 /* Common */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		4E03946B2C2AA15C007F0517 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				4E03946C2C2AA4CE007F0517 /* UIComponents */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		4E03946C2C2AA4CE007F0517 /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIComponents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,7 +548,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 548W892M42;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Offroad-iOS/Info.plist";
+				INFOPLIST_FILE = "Offroad-iOS/Global/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -463,7 +575,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 548W892M42;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Offroad-iOS/Info.plist";
+				INFOPLIST_FILE = "Offroad-iOS/Global/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
