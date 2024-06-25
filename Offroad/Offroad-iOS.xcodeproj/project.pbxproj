@@ -15,7 +15,6 @@
 		4E0394442C2A9DCF007F0517 /* Offroad_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394432C2A9DCF007F0517 /* Offroad_iOSTests.swift */; };
 		4E03944E2C2A9DCF007F0517 /* Offroad_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E03944D2C2A9DCF007F0517 /* Offroad_iOSUITests.swift */; };
 		4E0394502C2A9DCF007F0517 /* Offroad_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E03944F2C2A9DCF007F0517 /* Offroad_iOSUITestsLaunchTests.swift */; };
-		4E03945D2C2A9E4C007F0517 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 4E03945C2C2A9E4C007F0517 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +47,6 @@
 		4E0394492C2A9DCF007F0517 /* Offroad-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Offroad-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E03944D2C2A9DCF007F0517 /* Offroad_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offroad_iOSUITests.swift; sourceTree = "<group>"; };
 		4E03944F2C2A9DCF007F0517 /* Offroad_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Offroad_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		4E03945C2C2A9E4C007F0517 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +77,6 @@
 		4E0394202C2A9DCE007F0517 = {
 			isa = PBXGroup;
 			children = (
-				4E03945C2C2A9E4C007F0517 /* .gitignore */,
 				4E03942B2C2A9DCE007F0517 /* Offroad-iOS */,
 				4E0394422C2A9DCF007F0517 /* Offroad-iOSTests */,
 				4E03944C2C2A9DCF007F0517 /* Offroad-iOSUITests */,
@@ -218,9 +215,9 @@
 		4E03946A2C2AA14D007F0517 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				4E0394C12C2AB3B2007F0517 /* Login */,
 				4E03946B2C2AA15C007F0517 /* Common */,
 				4E03946D2C2AA5E8007F0517 /* Splash */,
-				4E03946E2C2AA5F8007F0517 /* Login */,
 				4E03946F2C2AA61C007F0517 /* NicknameSetting */,
 				4E0394842C2AA9DB007F0517 /* Character */,
 				4E0394722C2AA6C5007F0517 /* Home */,
@@ -254,13 +251,6 @@
 			children = (
 			);
 			path = Splash;
-			sourceTree = "<group>";
-		};
-		4E03946E2C2AA5F8007F0517 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Login;
 			sourceTree = "<group>";
 		};
 		4E03946F2C2AA61C007F0517 /* NicknameSetting */ = {
@@ -431,6 +421,13 @@
 			path = Character;
 			sourceTree = "<group>";
 		};
+		4E0394C12C2AB3B2007F0517 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -535,7 +532,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E03945D2C2A9E4C007F0517 /* .gitignore in Resources */,
 				4E0394392C2A9DCF007F0517 /* LaunchScreen.storyboard in Resources */,
 				4E0394362C2A9DCF007F0517 /* Assets.xcassets in Resources */,
 			);
