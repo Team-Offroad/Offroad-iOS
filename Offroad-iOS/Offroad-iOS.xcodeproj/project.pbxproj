@@ -150,8 +150,7 @@
 				4E0394652C2AA0E7007F0517 /* Literals */,
 				4E0394642C2AA0E4007F0517 /* Protocols */,
 				4E0394632C2AA0DE007F0517 /* Resources */,
-				4E0394622C2AA0C9007F0517 /* SupportingFiles */,
-				4E0394372C2A9DCF007F0517 /* LaunchScreen.storyboard */,
+				4E0394D62C2ABAA9007F0517 /* SupportingFiles */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -161,13 +160,6 @@
 			children = (
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		4E0394622C2AA0C9007F0517 /* SupportingFiles */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		4E0394632C2AA0DE007F0517 /* Resources */ = {
@@ -438,6 +430,14 @@
 			children = (
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		4E0394D62C2ABAA9007F0517 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				4E0394372C2A9DCF007F0517 /* LaunchScreen.storyboard */,
+			);
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
