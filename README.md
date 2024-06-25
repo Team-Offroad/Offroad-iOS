@@ -155,29 +155,44 @@ default branch : `develop`
 ├── Presentation 
 │   ├── Common
 │   │   ├── UIComponents 
-│   ├── SearchList
+│   ├── Login
 │   │   ├── ViewControllers
 │   │   ├── Views
-│   │   ├── Models
-├───├───├── Cells
-│   ├── HotelDetail
+├───├───├── Models
+│   ├── Splash
 │   │   ├── ViewControllers
 │   │   ├── Views
-│   │   ├── Models
-├───├───├── Cells
-│   ├── RoomDetail
+├───├───├── Models
+│   ├── NicknameSetting
 │   │   ├── ViewControllers
 │   │   ├── Views
-│   │   ├── Models
-├───├───├── Cells
-│   ├── Favorites
+├───├───├── Models
+│   ├── Character
+│   │   ├── ChoosingCharacter
+│   │   ├── CompleteChoosingCharacter
+│   ├── Home
 │   │   ├── ViewControllers
 │   │   ├── Views
-│   │   ├── Models
-├───├───├── Cells
-│   ├── CompareRoom
+├───├───├── Models
+│   ├── QuestMap
 │   │   ├── ViewControllers
 │   │   ├── Views
-│   │   ├── Models
-├───├───├── Cells
+├───├───├── Models
+│   ├── QuestQR
+│   │   ├── ViewControllers
+│   │   ├── Views
+├───├───├── Models
+│   ├── QuestList
+│   │   ├── ViewControllers
+│   │   ├── Views
+├───├───├── Models
+│   ├── PlaceList
+│   │   ├── ViewControllers
+│   │   ├── Views
+├───├───├── Models
+│   ├── Mypage
+│   │   ├── Character
+│   │   ├── Coupon
+│   │   ├── Title
+├───├───├── Settings
 ``` 
