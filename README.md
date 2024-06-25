@@ -120,7 +120,7 @@ PR을 develop에 merge 시 : 기본 머지 메시지
 
 default branch : `develop`
 
-작업 branch : `커밋타입/이슈번호 - 작업뷰` - 예시 `feat/#12-MainView`
+작업 branch : `커밋타입/이슈번호` - 예시 `feat/#12`
 
 ### Issue
 
