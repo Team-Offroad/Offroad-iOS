@@ -15,6 +15,12 @@
 		4E0394442C2A9DCF007F0517 /* Offroad_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394432C2A9DCF007F0517 /* Offroad_iOSTests.swift */; };
 		4E03944E2C2A9DCF007F0517 /* Offroad_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E03944D2C2A9DCF007F0517 /* Offroad_iOSUITests.swift */; };
 		4E0394502C2A9DCF007F0517 /* Offroad_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E03944F2C2A9DCF007F0517 /* Offroad_iOSUITestsLaunchTests.swift */; };
+		4E0394C82C2AB723007F0517 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0394C72C2AB723007F0517 /* SnapKit */; };
+		4E0394CB2C2AB750007F0517 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0394CA2C2AB750007F0517 /* Moya */; };
+		4E0394CE2C2AB762007F0517 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0394CD2C2AB762007F0517 /* Kingfisher */; };
+		4E0394D12C2AB846007F0517 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0394D02C2AB846007F0517 /* KakaoSDKAuth */; };
+		4E0394D32C2AB846007F0517 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0394D22C2AB846007F0517 /* KakaoSDKCommon */; };
+		4E0394D52C2AB846007F0517 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 4E0394D42C2AB846007F0517 /* KakaoSDKUser */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +60,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E0394CE2C2AB762007F0517 /* Kingfisher in Frameworks */,
+				4E0394CB2C2AB750007F0517 /* Moya in Frameworks */,
+				4E0394D52C2AB846007F0517 /* KakaoSDKUser in Frameworks */,
+				4E0394C82C2AB723007F0517 /* SnapKit in Frameworks */,
+				4E0394D32C2AB846007F0517 /* KakaoSDKCommon in Frameworks */,
+				4E0394D12C2AB846007F0517 /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +456,14 @@
 			dependencies = (
 			);
 			name = "Offroad-iOS";
+			packageProductDependencies = (
+				4E0394C72C2AB723007F0517 /* SnapKit */,
+				4E0394CA2C2AB750007F0517 /* Moya */,
+				4E0394CD2C2AB762007F0517 /* Kingfisher */,
+				4E0394D02C2AB846007F0517 /* KakaoSDKAuth */,
+				4E0394D22C2AB846007F0517 /* KakaoSDKCommon */,
+				4E0394D42C2AB846007F0517 /* KakaoSDKUser */,
+			);
 			productName = "Offroad-iOS";
 			productReference = 4E0394292C2A9DCE007F0517 /* Offroad-iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -516,6 +536,12 @@
 				Base,
 			);
 			mainGroup = 4E0394202C2A9DCE007F0517;
+			packageReferences = (
+				4E0394C62C2AB723007F0517 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				4E0394C92C2AB750007F0517 /* XCRemoteSwiftPackageReference "Moya" */,
+				4E0394CC2C2AB762007F0517 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				4E0394CF2C2AB846007F0517 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+			);
 			productRefGroup = 4E03942A2C2A9DCE007F0517 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -897,6 +923,74 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4E0394C62C2AB723007F0517 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		4E0394C92C2AB750007F0517 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
+		4E0394CC2C2AB762007F0517 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.12.0;
+			};
+		};
+		4E0394CF2C2AB846007F0517 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.22.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4E0394C72C2AB723007F0517 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E0394C62C2AB723007F0517 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		4E0394CA2C2AB750007F0517 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E0394C92C2AB750007F0517 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		4E0394CD2C2AB762007F0517 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E0394CC2C2AB762007F0517 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		4E0394D02C2AB846007F0517 /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E0394CF2C2AB846007F0517 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		4E0394D22C2AB846007F0517 /* KakaoSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E0394CF2C2AB846007F0517 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCommon;
+		};
+		4E0394D42C2AB846007F0517 /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E0394CF2C2AB846007F0517 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4E0394212C2A9DCE007F0517 /* Project object */;
 }
