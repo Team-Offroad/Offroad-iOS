@@ -1,8 +1,12 @@
+![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)
+![Swift](https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white)
+![Xcode](https://img.shields.io/badge/Xcode-007ACC?style=for-the-badge&logo=Xcode&logoColor=white)
+
 # 🚧 Offroad-iOS
 
 <div/>
 
-**🌟 34th SOPT APPJAM, 팀 '비포장도로' iOS Repository입니다 🌟**
+**🌟 34th NOW SOPT APPJAM, 팀 '비포장도로' iOS Repository입니다 🌟**
 
 <br/>
 
