@@ -20,21 +20,15 @@
 
 <br/>
 
-## 🗂️ 사용할 라이브러리
-💡 **Snapkit**
-- 편리해서
-- 코드의 가독성 향상
-    
-💡 **Moya**
-- Api 연결은 전부 Moya로 하기
-- 세미나 때 배운 내용이라 팀원 모두가 잘 활용할 수 있음
-    
-💡 **Kingfisher**
-- 이미지를 다운받아서 캐싱하는 데 유용
-- 이미지를 관리해야 하는 뷰가 많으므로 편리하게 하기 위해서 사용
-    
-💡 **kakaoSDK**
-- 소셜 로그인 구현을 위해 사용해야 함
+## 🗂️ Libraries
+| Library | 사용 목적 |
+| :-----: | :-----: |
+| <img src="https://img.shields.io/badge/2.22.3-yellow?label=KakaoOpenSDK"> | 카카오 소셜 로그인을 위해 사용 |
+| <img src="https://img.shields.io/badge/7.12.0-blue?label=Kingfisher"> | 이미지 데이터 처리를 위해 사용 |
+| <img src="https://img.shields.io/badge/15.0.3-pink?label=Moya"> | 네트워크 통신을 위해 사용 |
+| <img src="https://img.shields.io/badge/5.7.1-orange?label=SnapKit"> | UI AutoLayout을 위해 사용 |
+| <img src="https://img.shields.io/badge/3.0.0-green?label=Then"> | 클로저를 통해 깔끔하고 직관적으로 인스턴스 생성 가능 |
+
 
 <br/>
 
