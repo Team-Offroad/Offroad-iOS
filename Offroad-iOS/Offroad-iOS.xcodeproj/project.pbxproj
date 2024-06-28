@@ -27,6 +27,7 @@
 		4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394E02C2AC059007F0517 /* NSObject+.swift */; };
 		4E0394E32C2AC0D7007F0517 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394E22C2AC0D7007F0517 /* UIWindow+.swift */; };
 		4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394E52C2AC16A007F0517 /* UIScreen+.swift */; };
+		4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4E6A5BC22C2E8C290027FDF0 /* Then */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 				4E0394CE2C2AB762007F0517 /* Kingfisher in Frameworks */,
 				4E0394CB2C2AB750007F0517 /* Moya in Frameworks */,
 				4E0394D52C2AB846007F0517 /* KakaoSDKUser in Frameworks */,
+				4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */,
 				4E0394C82C2AB723007F0517 /* SnapKit in Frameworks */,
 				4E0394D32C2AB846007F0517 /* KakaoSDKCommon in Frameworks */,
 				4E0394D12C2AB846007F0517 /* KakaoSDKAuth in Frameworks */,
@@ -481,6 +483,7 @@
 				4E0394D02C2AB846007F0517 /* KakaoSDKAuth */,
 				4E0394D22C2AB846007F0517 /* KakaoSDKCommon */,
 				4E0394D42C2AB846007F0517 /* KakaoSDKUser */,
+				4E6A5BC22C2E8C290027FDF0 /* Then */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E0394292C2A9DCE007F0517 /* Offroad-iOS.app */;
@@ -559,6 +562,7 @@
 				4E0394C92C2AB750007F0517 /* XCRemoteSwiftPackageReference "Moya" */,
 				4E0394CC2C2AB762007F0517 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				4E0394CF2C2AB846007F0517 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				4E6A5BC12C2E8C290027FDF0 /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			productRefGroup = 4E03942A2C2A9DCE007F0517 /* Products */;
 			projectDirPath = "";
@@ -981,6 +985,14 @@
 				minimumVersion = 2.22.3;
 			};
 		};
+		4E6A5BC12C2E8C290027FDF0 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1013,6 +1025,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E0394CF2C2AB846007F0517 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		4E6A5BC22C2E8C290027FDF0 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E6A5BC12C2E8C290027FDF0 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
