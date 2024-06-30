@@ -37,6 +37,7 @@
 		4EDC3D472C31271F006A1493 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D3E2C31271F006A1493 /* Pretendard-Thin.otf */; };
 		4EDC3D482C31271F006A1493 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D3F2C31271F006A1493 /* Pretendard-SemiBold.otf */; };
 		4EDC3D492C31271F006A1493 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D402C31271F006A1493 /* Pretendard-ExtraLight.otf */; };
+		4EDC3D4B2C312850006A1493 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* UIFont+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		4EDC3D3E2C31271F006A1493 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		4EDC3D3F2C31271F006A1493 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		4EDC3D402C31271F006A1493 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
+		4EDC3D4A2C312850006A1493 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +222,7 @@
 		4E0394652C2AA0E7007F0517 /* Literals */ = {
 			isa = PBXGroup;
 			children = (
+				4EDC3D4A2C312850006A1493 /* UIFont+.swift */,
 			);
 			path = Literals;
 			sourceTree = "<group>";
@@ -652,6 +655,7 @@
 			files = (
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
 				4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */,
+				4EDC3D4B2C312850006A1493 /* UIFont+.swift in Sources */,
 				4E0394D92C2ABCCC007F0517 /* UIView+.swift in Sources */,
 				4E0394312C2A9DCE007F0517 /* ViewController.swift in Sources */,
 				4E0394E32C2AC0D7007F0517 /* UIWindow+.swift in Sources */,
