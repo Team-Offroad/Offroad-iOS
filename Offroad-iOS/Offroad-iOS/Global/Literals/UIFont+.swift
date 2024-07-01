@@ -26,11 +26,19 @@ enum offroadFontStyle {
     case subtitleReg
     case tooltipTitle
     case text
+    case textAuto
+    /*
+     textBold 케이스의 경우, 폰트 스타일 가이드에, 'text'로 나와있는데, 'text' 이름의 스타일이 이미 존재하기 때문에,
+     임시로 textBold로 처리하였음. 추후 폰트 이름이 바뀌거나, 디자인 파트와 논의하여 수정될 가능성 있음.
+     */
+    case textBold
     case textField
+    case btnLogin
     case btnSmall
     case hint
     case tooltipDescription
     case tooltipSub
+    case tooltipNumber
 }
 
 extension UIFont {
@@ -65,13 +73,17 @@ extension UIFont {
         case .subtitle3: return UIFont.pretendardFont(ofSize: 24, weight: .medium)
         case .subtitle2Bold: return UIFont.pretendardFont(ofSize: 20, weight: .bold)
         case .subtitleReg: return UIFont.pretendardFont(ofSize: 20, weight: .regular)
-        case .tooltipTitle:return UIFont.pretendardFont(ofSize: 16, weight: .semiBold)
+        case .tooltipTitle:return UIFont.pretendardFont(ofSize: 18, weight: .bold)
         case .text: return UIFont.pretendardFont(ofSize: 16, weight: .regular) //lineHeight 135%
+        case .textAuto: return UIFont.pretendardFont(ofSize: 16, weight: .regular)
+        case .textBold: return UIFont.pretendardFont(ofSize: 16, weight: .bold)
         case .textField: return UIFont.pretendardFont(ofSize: 16, weight: .regular)
+        case .btnLogin: return UIFont.pretendardFont(ofSize: 15, weight: .semiBold)
         case .btnSmall: return UIFont.pretendardFont(ofSize: 15, weight: .medium)
         case .hint: return UIFont.pretendardFont(ofSize: 14, weight: .medium)
-        case .tooltipDescription: return UIFont.pretendardFont(ofSize: 14, weight: .regular)
+        case .tooltipDescription: return UIFont.pretendardFont(ofSize: 12, weight: .regular)
         case .tooltipSub: return UIFont.pretendardFont(ofSize: 12, weight: .regular)
+        case .tooltipNumber: return UIFont.pretendardFont(ofSize: 12, weight: .bold)
         }
     }
     
