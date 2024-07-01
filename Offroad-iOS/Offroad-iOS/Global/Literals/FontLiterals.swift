@@ -23,6 +23,7 @@ enum offroadFontStyle {
     case title
     case subtitle3
     case subtitle2Bold
+    case subtitle2Semibold
     case subtitleReg
     case tooltipTitle
     case text
@@ -72,6 +73,7 @@ extension UIFont {
         case .title: return UIFont.pretendardFont(ofSize: 24, weight: .bold)
         case .subtitle3: return UIFont.pretendardFont(ofSize: 24, weight: .medium)
         case .subtitle2Bold: return UIFont.pretendardFont(ofSize: 20, weight: .bold)
+        case .subtitle2Semibold: return UIFont.pretendardFont(ofSize: 18, weight: .semiBold)
         case .subtitleReg: return UIFont.pretendardFont(ofSize: 20, weight: .regular)
         case .tooltipTitle:return UIFont.pretendardFont(ofSize: 18, weight: .bold)
         case .text: return UIFont.pretendardFont(ofSize: 16, weight: .regular) //lineHeight 135%
