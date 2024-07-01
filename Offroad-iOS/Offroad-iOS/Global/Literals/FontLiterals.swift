@@ -1,5 +1,5 @@
 //
-//  UIFont+.swift
+//  FontLiterals.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 2024/06/30.
