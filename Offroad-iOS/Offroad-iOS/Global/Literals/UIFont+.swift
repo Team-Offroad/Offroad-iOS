@@ -22,15 +22,15 @@ enum PretendardFontWeight {
 enum offroadFontStyle {
     case title
     case subtitle3
-    case subtitle2_bold
-    case subtitle_reg
-    case tooltip_title
+    case subtitle2Bold
+    case subtitleReg
+    case tooltipTitle
     case text
     case textField
-    case btn_small
+    case btnSmall
     case hint
-    case tooltip_description
-    case tooltip_sub
+    case tooltipDescription
+    case tooltipSub
 }
 
 extension UIFont {
@@ -63,15 +63,15 @@ extension UIFont {
         switch style {
         case .title: return UIFont.pretendardFont(ofSize: 24, weight: .bold)
         case .subtitle3: return UIFont.pretendardFont(ofSize: 24, weight: .medium)
-        case .subtitle2_bold: return UIFont.pretendardFont(ofSize: 20, weight: .bold)
-        case .subtitle_reg: return UIFont.pretendardFont(ofSize: 20, weight: .regular)
-        case .tooltip_title:return UIFont.pretendardFont(ofSize: 16, weight: .semiBold)
+        case .subtitle2Bold: return UIFont.pretendardFont(ofSize: 20, weight: .bold)
+        case .subtitleReg: return UIFont.pretendardFont(ofSize: 20, weight: .regular)
+        case .tooltipTitle:return UIFont.pretendardFont(ofSize: 16, weight: .semiBold)
         case .text: return UIFont.pretendardFont(ofSize: 16, weight: .regular) //lineHeight 135%
         case .textField: return UIFont.pretendardFont(ofSize: 16, weight: .regular)
-        case .btn_small: return UIFont.pretendardFont(ofSize: 15, weight: .medium)
+        case .btnSmall: return UIFont.pretendardFont(ofSize: 15, weight: .medium)
         case .hint: return UIFont.pretendardFont(ofSize: 14, weight: .medium)
-        case .tooltip_description: return UIFont.pretendardFont(ofSize: 14, weight: .regular)
-        case .tooltip_sub: return UIFont.pretendardFont(ofSize: 12, weight: .regular)
+        case .tooltipDescription: return UIFont.pretendardFont(ofSize: 14, weight: .regular)
+        case .tooltipSub: return UIFont.pretendardFont(ofSize: 12, weight: .regular)
         }
     }
     
