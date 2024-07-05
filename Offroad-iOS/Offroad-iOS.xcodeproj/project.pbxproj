@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D1E0BE2D4D86885FF80F04F /* Pods_Offroad_iOS_Offroad_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */; };
+		304C93D171B33D99789DA86D /* Pods_Offroad_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 197CEEAC334A0A510C4EBC1E /* Pods_Offroad_iOS.framework */; };
 		4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E03942C2C2A9DCE007F0517 /* AppDelegate.swift */; };
 		4E03942F2C2A9DCE007F0517 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E03942E2C2A9DCE007F0517 /* SceneDelegate.swift */; };
 		4E0394312C2A9DCE007F0517 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394302C2A9DCE007F0517 /* ViewController.swift */; };
@@ -39,6 +41,7 @@
 		4EDC3D482C31271F006A1493 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D3F2C31271F006A1493 /* Pretendard-SemiBold.otf */; };
 		4EDC3D492C31271F006A1493 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D402C31271F006A1493 /* Pretendard-ExtraLight.otf */; };
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
+		AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +62,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05CE10D0D2341109A6ABBFDD /* Pods-Offroad-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		197CEEAC334A0A510C4EBC1E /* Pods_Offroad_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		45DB654998D44C9EAF078157 /* Pods-Offroad-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		497C4997173AB862AD666B6A /* Pods-Offroad-iOS-Offroad-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS-Offroad-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS-Offroad-iOSUITests/Pods-Offroad-iOS-Offroad-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		4E0394292C2A9DCE007F0517 /* Offroad-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Offroad-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E03942C2C2A9DCE007F0517 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E03942E2C2A9DCE007F0517 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +85,7 @@
 		4E0394E02C2AC059007F0517 /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 		4E0394E22C2AC0D7007F0517 /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		4E0394E52C2AC16A007F0517 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
+		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		4EDC3D392C31271E006A1493 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		4EDC3D3A2C31271E006A1493 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
@@ -87,6 +96,9 @@
 		4EDC3D3F2C31271F006A1493 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		4EDC3D402C31271F006A1493 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		4EDC3D4A2C312850006A1493 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
+		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOS_Offroad_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF1C3B3A63494D74D0E4AA40 /* Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS-Offroad-iOSUITests/Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +114,7 @@
 				4E0394D32C2AB846007F0517 /* KakaoSDKCommon in Frameworks */,
 				4E0394D12C2AB846007F0517 /* KakaoSDKAuth in Frameworks */,
 				4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */,
+				304C93D171B33D99789DA86D /* Pods_Offroad_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D1E0BE2D4D86885FF80F04F /* Pods_Offroad_iOS_Offroad_iOSUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,6 +144,8 @@
 				4E0394422C2A9DCF007F0517 /* Offroad-iOSTests */,
 				4E03944C2C2A9DCF007F0517 /* Offroad-iOSUITests */,
 				4E03942A2C2A9DCE007F0517 /* Products */,
+				80700C167D3310A86AF0ADA5 /* Pods */,
+				AA822572E372D5FE101F7990 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -500,6 +517,30 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		80700C167D3310A86AF0ADA5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				05CE10D0D2341109A6ABBFDD /* Pods-Offroad-iOS.debug.xcconfig */,
+				78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */,
+				497C4997173AB862AD666B6A /* Pods-Offroad-iOS-Offroad-iOSUITests.debug.xcconfig */,
+				EF1C3B3A63494D74D0E4AA40 /* Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig */,
+				4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */,
+				45DB654998D44C9EAF078157 /* Pods-Offroad-iOSTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		AA822572E372D5FE101F7990 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				197CEEAC334A0A510C4EBC1E /* Pods_Offroad_iOS.framework */,
+				C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */,
+				1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -507,9 +548,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E0394532C2A9DCF007F0517 /* Build configuration list for PBXNativeTarget "Offroad-iOS" */;
 			buildPhases = (
+				73D66E20BE6B517F8FF158AC /* [CP] Check Pods Manifest.lock */,
 				4E0394252C2A9DCE007F0517 /* Sources */,
 				4E0394262C2A9DCE007F0517 /* Frameworks */,
 				4E0394272C2A9DCE007F0517 /* Resources */,
+				E05BD092C827A7B178A3515F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -534,6 +577,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E0394562C2A9DCF007F0517 /* Build configuration list for PBXNativeTarget "Offroad-iOSTests" */;
 			buildPhases = (
+				A3DCC4D87CD87FCFBAAB768E /* [CP] Check Pods Manifest.lock */,
 				4E03943B2C2A9DCF007F0517 /* Sources */,
 				4E03943C2C2A9DCF007F0517 /* Frameworks */,
 				4E03943D2C2A9DCF007F0517 /* Resources */,
@@ -552,9 +596,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E0394592C2A9DCF007F0517 /* Build configuration list for PBXNativeTarget "Offroad-iOSUITests" */;
 			buildPhases = (
+				20D8F67405DE390F409DCAD3 /* [CP] Check Pods Manifest.lock */,
 				4E0394452C2A9DCF007F0517 /* Sources */,
 				4E0394462C2A9DCF007F0517 /* Frameworks */,
 				4E0394472C2A9DCF007F0517 /* Resources */,
+				9F5BDBAEBE2CB434AEFB1EB7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -651,6 +697,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20D8F67405DE390F409DCAD3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Offroad-iOS-Offroad-iOSUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		73D66E20BE6B517F8FF158AC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Offroad-iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9F5BDBAEBE2CB434AEFB1EB7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Offroad-iOS-Offroad-iOSUITests/Pods-Offroad-iOS-Offroad-iOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Offroad-iOS-Offroad-iOSUITests/Pods-Offroad-iOS-Offroad-iOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Offroad-iOS-Offroad-iOSUITests/Pods-Offroad-iOS-Offroad-iOSUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A3DCC4D87CD87FCFBAAB768E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Offroad-iOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E05BD092C827A7B178A3515F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4E0394252C2A9DCE007F0517 /* Sources */ = {
@@ -835,6 +984,7 @@
 		};
 		4E0394542C2A9DCF007F0517 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05CE10D0D2341109A6ABBFDD /* Pods-Offroad-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -862,6 +1012,7 @@
 		};
 		4E0394552C2A9DCF007F0517 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -889,6 +1040,7 @@
 		};
 		4E0394572C2A9DCF007F0517 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -909,6 +1061,7 @@
 		};
 		4E0394582C2A9DCF007F0517 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45DB654998D44C9EAF078157 /* Pods-Offroad-iOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -929,6 +1082,7 @@
 		};
 		4E03945A2C2A9DCF007F0517 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 497C4997173AB862AD666B6A /* Pods-Offroad-iOS-Offroad-iOSUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -947,6 +1101,7 @@
 		};
 		4E03945B2C2A9DCF007F0517 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF1C3B3A63494D74D0E4AA40 /* Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
