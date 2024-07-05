@@ -31,6 +31,7 @@
 		4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394E52C2AC16A007F0517 /* UIScreen+.swift */; };
 		4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4E6A5BC22C2E8C290027FDF0 /* Then */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
+		4E8B47952C3837A900D9B8EE /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4E8B47942C3837A900D9B8EE /* Secrets.xcconfig */; };
 		4EDC3D412C31271F006A1493 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */; };
 		4EDC3D422C31271F006A1493 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D392C31271E006A1493 /* Pretendard-Light.otf */; };
 		4EDC3D432C31271F006A1493 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D3A2C31271E006A1493 /* Pretendard-Regular.otf */; };
@@ -85,6 +86,7 @@
 		4E0394E02C2AC059007F0517 /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 		4E0394E22C2AC0D7007F0517 /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		4E0394E52C2AC16A007F0517 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
+		4E8B47942C3837A900D9B8EE /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		4EDC3D392C31271E006A1493 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 		4E0394202C2A9DCE007F0517 = {
 			isa = PBXGroup;
 			children = (
+				4E8B47942C3837A900D9B8EE /* Secrets.xcconfig */,
 				4E03942B2C2A9DCE007F0517 /* Offroad-iOS */,
 				4E0394422C2A9DCF007F0517 /* Offroad-iOSTests */,
 				4E03944C2C2A9DCF007F0517 /* Offroad-iOSUITests */,
@@ -527,7 +530,6 @@
 				4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */,
 				45DB654998D44C9EAF078157 /* Pods-Offroad-iOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -676,6 +678,7 @@
 				4EDC3D432C31271F006A1493 /* Pretendard-Regular.otf in Resources */,
 				4EDC3D412C31271F006A1493 /* Pretendard-Bold.otf in Resources */,
 				4EDC3D482C31271F006A1493 /* Pretendard-SemiBold.otf in Resources */,
+				4E8B47952C3837A900D9B8EE /* Secrets.xcconfig in Resources */,
 				4EDC3D452C31271F006A1493 /* Pretendard-Black.otf in Resources */,
 				4E0394362C2A9DCF007F0517 /* Assets.xcassets in Resources */,
 				4EDC3D492C31271F006A1493 /* Pretendard-ExtraLight.otf in Resources */,
@@ -865,6 +868,7 @@
 /* Begin XCBuildConfiguration section */
 		4E0394512C2A9DCF007F0517 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4E8B47942C3837A900D9B8EE /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -928,6 +932,7 @@
 		};
 		4E0394522C2A9DCF007F0517 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4E8B47942C3837A900D9B8EE /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -991,6 +996,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 548W892M42;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Offroad-iOS/Global/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1019,6 +1025,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 548W892M42;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Offroad-iOS/Global/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
