@@ -28,6 +28,7 @@
 		4E0394E32C2AC0D7007F0517 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394E22C2AC0D7007F0517 /* UIWindow+.swift */; };
 		4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394E52C2AC16A007F0517 /* UIScreen+.swift */; };
 		4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4E6A5BC22C2E8C290027FDF0 /* Then */; };
+		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4EDC3D412C31271F006A1493 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */; };
 		4EDC3D422C31271F006A1493 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D392C31271E006A1493 /* Pretendard-Light.otf */; };
 		4EDC3D432C31271F006A1493 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D3A2C31271E006A1493 /* Pretendard-Regular.otf */; };
@@ -100,6 +101,7 @@
 				4E0394C82C2AB723007F0517 /* SnapKit in Frameworks */,
 				4E0394D32C2AB846007F0517 /* KakaoSDKCommon in Frameworks */,
 				4E0394D12C2AB846007F0517 /* KakaoSDKAuth in Frameworks */,
+				4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,6 +524,7 @@
 				4E0394D22C2AB846007F0517 /* KakaoSDKCommon */,
 				4E0394D42C2AB846007F0517 /* KakaoSDKUser */,
 				4E6A5BC22C2E8C290027FDF0 /* Then */,
+				4E8B478E2C382A4800D9B8EE /* Lottie */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E0394292C2A9DCE007F0517 /* Offroad-iOS.app */;
@@ -601,6 +604,7 @@
 				4E0394CC2C2AB762007F0517 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				4E0394CF2C2AB846007F0517 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				4E6A5BC12C2E8C290027FDF0 /* XCRemoteSwiftPackageReference "Then" */,
+				4E8B478D2C382A4800D9B8EE /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			productRefGroup = 4E03942A2C2A9DCE007F0517 /* Products */;
 			projectDirPath = "";
@@ -1041,6 +1045,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		4E8B478D2C382A4800D9B8EE /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1078,6 +1090,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E6A5BC12C2E8C290027FDF0 /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
+		};
+		4E8B478E2C382A4800D9B8EE /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E8B478D2C382A4800D9B8EE /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
