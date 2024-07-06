@@ -1,0 +1,6 @@
+framework module Pods_Offroad_iOSTests {
+  umbrella header "Pods-Offroad-iOSTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
