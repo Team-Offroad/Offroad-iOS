@@ -14,11 +14,13 @@ enum Primary: String, OffroadColor {
     case black = "#000000"
     case kakao = "#FEE500"
     case error = "#F04452"
+    // gradient color라서 고민 필요.
+    // UIView에 gradient layer 구현하는 함수 확장 구현하면 좋을 듯?
     case mapGradi = "#5B5B5B"
 }
 
 enum Main: String, OffroadColor {
-    // main1_75
+    // main1_75, alpha = 0.75
     case main175 = "#FEFBF6"
     case main1 = "#FFF7E7"
     case main2 = "#1D1E18"
@@ -40,6 +42,7 @@ enum Grayscale: String, OffroadColor {
 }
 
 enum Neutral: String, OffroadColor {
+    // alpha = 0.25
     case bottomBarButtonStroke = "#FEFBF6"
     case btnInactive = "#EBEBEB"
     case bottomBarInactive = "#A4A099"
@@ -47,14 +50,20 @@ enum Neutral: String, OffroadColor {
 }
 
 enum BlackOpacity: String, OffroadColor {
+    // alpha = 0.55
     case black15 = "#000000"
+    // alpha = 0.25
     case black25 = "#000000"
+    // alpha = 0.55
     case black55 = "#000000"
+    // alpha = 0.5
     case qrCamera = "#000000"
 }
 
 enum WhiteOpacity: String, OffroadColor {
+    // alpha = 0.75
     case white75 = "#FFFFFF"
+    // alpha = 0.25
     case white25 = "#FFFFFF"
 }
 
@@ -65,6 +74,7 @@ enum Home: String, OffroadColor {
     case homeContents1GraphMain = "#FED761"
     case homeContents1GraphSub = "#BBAC57"
     case homeContents2 = "#E6CEAA"
+    // alpha = 0.25
     case homeCharacterName = "#8B6546"
 }
 
