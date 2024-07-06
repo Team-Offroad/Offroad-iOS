@@ -4,15 +4,15 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Pretendard-Black</string>
-		<string>Pretendard-Bold</string>
-		<string>Pretendard-ExtraBold</string>
-		<string>Pretendard-ExtraLight</string>
-		<string>Pretendard-Light</string>
-		<string>Pretendard-Medium</string>
-		<string>Pretendard-Regular</string>
-		<string>Pretendard-Semibold</string>
-		<string>Pretendard-Thin</string>
+		<string>Pretendard-Black.otf</string>
+		<string>Pretendard-Bold.otf</string>
+		<string>Pretendard-ExtraBold.otf</string>
+		<string>Pretendard-ExtraLight.otf</string>
+		<string>Pretendard-Light.otf</string>
+		<string>Pretendard-Medium.otf</string>
+		<string>Pretendard-Regular.otf</string>
+		<string>Pretendard-Semibold.otf</string>
+		<string>Pretendard-Thin.otf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
