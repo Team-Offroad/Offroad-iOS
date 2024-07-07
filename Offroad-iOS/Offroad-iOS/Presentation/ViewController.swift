@@ -13,7 +13,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.view.backgroundColor = .systemBlue
+        self.view.backgroundColor = UIColor.sub(.sub2)
     }
 
 
