@@ -49,22 +49,24 @@ enum Neutral: String, OffroadColor {
     case nametagInactive = "#FFEDDB"
 }
 
+// 색상 hex code는 모두 #000000으로 동일
 enum BlackOpacity: String, OffroadColor {
     // alpha = 0.55
-    case black15 = "#000000"
+    case black15
     // alpha = 0.25
-    case black25 = "#000000"
+    case black25
     // alpha = 0.55
-    case black55 = "#000000"
+    case black55
     // alpha = 0.5
-    case qrCamera = "#000000"
+    case qrCamera
 }
 
+// 색상 hex code는 모두 #FFFFFF으로 동일
 enum WhiteOpacity: String, OffroadColor {
     // alpha = 0.75
-    case white75 = "#FFFFFF"
+    case white75
     // alpha = 0.25
-    case white25 = "#FFFFFF"
+    case white25
 }
 
 enum Home: String, OffroadColor {
@@ -87,6 +89,11 @@ extension UIColor {
     }
     
     static func main(_ style: Main, alpha: CGFloat = 1) -> UIColor {
+        let alpha: CGFloat
+        switch style {
+        case .main175: alpha = 0.75
+        default: alpha = 1
+        }
         guard let color = UIColor(hexCode: style.rawValue, alpha: alpha) else { fatalError("UIColor init failed") }
         return color
     }
@@ -102,16 +109,31 @@ extension UIColor {
     }
     
     static func neutral(_ style: Neutral, alpha: CGFloat = 1) -> UIColor {
+        let alpha = style == .bottomBarButtonStroke ? 0.25 : 1
         guard let color = UIColor(hexCode: style.rawValue, alpha: alpha) else { fatalError("UIColor init failed") }
         return color
     }
     
-    static func blackOpacity(_ style: BlackOpacity, alpha: CGFloat = 1) -> UIColor {
-        guard let color = UIColor(hexCode: style.rawValue, alpha: alpha) else { fatalError("UIColor init failed") }
+    static func blackOpacity(_ style: BlackOpacity) -> UIColor {
+        let alpha: CGFloat
+        switch style {
+        case .black15: alpha = 0.15
+        case .black25: alpha = 0.25
+        case .black55: alpha = 0.55
+        case .qrCamera: alpha = 0.5
+        }
+        
+        guard let color = UIColor(hexCode: "#000000", alpha: alpha) else { fatalError("UIColor init failed") }
         return color
     }
     
-    static func whiteOpacity(_ style: WhiteOpacity, alpha: CGFloat = 1) -> UIColor {
+    static func whiteOpacity(_ style: WhiteOpacity) -> UIColor {
+        let alpha: CGFloat
+        switch style {
+        case .white75: alpha = 0.75
+        case .white25: alpha = 0.25
+        }
+        
         guard let color = UIColor(hexCode: style.rawValue, alpha: alpha) else { fatalError("UIColor init failed") }
         return color
     }
@@ -121,15 +143,6 @@ extension UIColor {
         return color
     }
     
-    /// 위의 함수들이 너무 반복되는 코드같아 보여서 제네릭 형식으로도 만들어 보았음.
-    ///
-    /// 실제 사용되지는 않음. (논의 필요)
-    /// 아마 사용될 경우, 다음과 같이 사용될 듯.
-    /// `let color = UIColor.offroad(Main.main1)`
-    static func offroad<T: OffroadColor>(_ style: T, alpha: CGFloat = 1) -> UIColor {
-        guard let color = UIColor(hexCode: style.rawValue, alpha: alpha) else { fatalError("UIColor init failed") }
-        return color
-    }
     
     // 코드 출처: https://www.hackingwithswift.com/example-code/uicolor/how-to-convert-a-hex-color-to-a-uicolor
     convenience init?(hexCode: String, alpha: CGFloat = 1.0) {
