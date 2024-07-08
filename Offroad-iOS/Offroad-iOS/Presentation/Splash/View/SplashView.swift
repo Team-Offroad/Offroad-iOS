@@ -12,9 +12,6 @@ import Then
 
 final class SplashView: UIView {
     
-    //MARK: - Properties
-    
-    
     //MARK: - UI Properties
     
     private let offroadLogoImageView = UIImageView(image: UIImage(resource: .offroadLogoSplashImg))
@@ -39,7 +36,7 @@ extension SplashView {
     // MARK: - Layout
     
     private func setupStyle() {
-        backgroundColor = .black
+        backgroundColor = .main(.main2)
     }
     
     private func setupHierarchy() {

@@ -49,19 +49,21 @@ extension LoginView {
     // MARK: - Layout
     
     private func setupStyle() {
-        backgroundColor = .white
+        backgroundColor = .main(.main1)
         
         kakaoLoginButton.do {
             $0.setTitle("Kakao로 계속하기", for: .normal)
             $0.setTitleColor(.black, for: .normal)
-            $0.backgroundColor = .yellow
+            $0.titleLabel?.font = .offroad(style: .bothLogin)
+            $0.backgroundColor = .primary(.kakao)
             $0.roundCorners(cornerRadius: 5)
         }
         
         appleLoginButton.do {
             $0.setTitle("Apple로 계속하기", for: .normal)
             $0.setTitleColor(.white, for: .normal)
-            $0.backgroundColor = .black
+            $0.titleLabel?.font = .offroad(style: .bothLogin)
+            $0.backgroundColor = .primary(.black)
             $0.roundCorners(cornerRadius: 5)
         }
         
@@ -103,7 +105,7 @@ extension LoginView {
         }
         
         loginButtonStackView.snp.makeConstraints{
-            $0.top.equalTo(offroadLogoImageView.snp.bottom).offset(42.37)
+            $0.top.equalTo(offroadLogoImageView.snp.bottom).offset(38)
             $0.horizontalEdges.equalToSuperview().inset(24)
         }
     }

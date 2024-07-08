@@ -32,9 +32,3 @@ final class SplashViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
     }
 }
-
-extension SplashViewController {
-    
-    // MARK: - Private Method
-    
-}
