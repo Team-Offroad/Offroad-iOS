@@ -43,6 +43,7 @@
 		4EDC3D492C31271F006A1493 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D402C31271F006A1493 /* Pretendard-ExtraLight.otf */; };
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
 		AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */; };
+		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		4EDC3D4A2C312850006A1493 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOS_Offroad_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		EF1C3B3A63494D74D0E4AA40 /* Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS-Offroad-iOSUITests/Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -507,6 +509,7 @@
 		4EDC3D372C3126FC006A1493 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */,
 				4EDC3D3C2C31271F006A1493 /* Pretendard-Black.otf */,
 				4EDC3D3B2C31271E006A1493 /* Pretendard-ExtraBold.otf */,
 				4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */,
@@ -671,6 +674,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E0394392C2A9DCF007F0517 /* LaunchScreen.storyboard in Resources */,
+				D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */,
 				4EDC3D422C31271F006A1493 /* Pretendard-Light.otf in Resources */,
 				4EDC3D442C31271F006A1493 /* Pretendard-ExtraBold.otf in Resources */,
 				4EDC3D472C31271F006A1493 /* Pretendard-Thin.otf in Resources */,
