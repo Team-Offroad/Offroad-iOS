@@ -17,7 +17,7 @@ final class SplashView: UIView {
     
     //MARK: - UI Properties
     
-    private let offroadLogoImageView = UIImageView(image: UIImage(resource: .offroadLogoSplash))
+    private let offroadLogoImageView = UIImageView(image: UIImage(resource: .offroadLogoSplashImg))
     
     // MARK: - Life Cycle
     
