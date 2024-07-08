@@ -20,26 +20,27 @@ enum PretendardFontWeight {
 }
 
 enum offroadFontStyle {
-    case title
-    case subtitle3
-    case subtitle2Bold
-    case subtitle2Semibold
-    case subtitleReg
-    case tooltipTitle
-    case text
-    case textAuto
-    /*
-     textBold 케이스의 경우, 폰트 스타일 가이드에, 'text'로 나와있는데, 'text' 이름의 스타일이 이미 존재하기 때문에,
-     임시로 textBold로 처리하였음. 추후 폰트 이름이 바뀌거나, 디자인 파트와 논의하여 수정될 가능성 있음.
-     */
-    case textBold
-    case textField
-    case btnLogin
-    case btnSmall
-    case hint
-    case tooltipDescription
-    case tooltipSub
-    case tooltipNumber
+    case iosSubtitle3
+    case iosTitle
+    case iosSubtitle2Bold
+    case iosSubtitleReg
+    case iosSubtitle2Semibold
+    case iosTooltipTitle
+    case iosTextBold
+    case iosTextRegular
+    case iosTextAuto
+    case iosBtnLogin
+    case iosBtnSmall
+    case iosTextContents
+    case iosHint
+    case iosTooltipNumber
+    case iosTextContentsSmall
+    case iosProfileTitle
+    case bothLogin
+    case bothBottomLabel
+    case bothRecentNum
+    case bothUpcomingSmallNum
+    case bothUpcomingBigNum
 }
 
 extension UIFont {
@@ -65,27 +66,36 @@ extension UIFont {
         
         guard let font = UIFont(name: fontName, size: fontSize) else { fatalError("Font not found") }
         return font
-        
+    }
+    
+    static func opticianSansFont(ofSize fontSize: CGFloat) -> UIFont {
+        guard let font = UIFont(name: "OpticianSans-Regular", size: fontSize) else { fatalError("Font not found") }
+        return font
     }
     
     static func offroad(style: offroadFontStyle) -> UIFont {
         switch style {
-        case .title: return UIFont.pretendardFont(ofSize: 24, weight: .bold)
-        case .subtitle3: return UIFont.pretendardFont(ofSize: 24, weight: .medium)
-        case .subtitle2Bold: return UIFont.pretendardFont(ofSize: 20, weight: .bold)
-        case .subtitle2Semibold: return UIFont.pretendardFont(ofSize: 18, weight: .semiBold)
-        case .subtitleReg: return UIFont.pretendardFont(ofSize: 20, weight: .regular)
-        case .tooltipTitle:return UIFont.pretendardFont(ofSize: 18, weight: .bold)
-        case .text: return UIFont.pretendardFont(ofSize: 16, weight: .regular) //lineHeight 135%
-        case .textAuto: return UIFont.pretendardFont(ofSize: 16, weight: .regular)
-        case .textBold: return UIFont.pretendardFont(ofSize: 16, weight: .bold)
-        case .textField: return UIFont.pretendardFont(ofSize: 16, weight: .regular)
-        case .btnLogin: return UIFont.pretendardFont(ofSize: 15, weight: .semiBold)
-        case .btnSmall: return UIFont.pretendardFont(ofSize: 15, weight: .medium)
-        case .hint: return UIFont.pretendardFont(ofSize: 14, weight: .medium)
-        case .tooltipDescription: return UIFont.pretendardFont(ofSize: 12, weight: .regular)
-        case .tooltipSub: return UIFont.pretendardFont(ofSize: 12, weight: .regular)
-        case .tooltipNumber: return UIFont.pretendardFont(ofSize: 12, weight: .bold)
+        case .iosSubtitle3: return UIFont.pretendardFont(ofSize: 24, weight: .medium)
+        case .iosTitle: return UIFont.pretendardFont(ofSize: 22, weight: .bold)
+        case .iosSubtitle2Bold: return UIFont.pretendardFont(ofSize: 20, weight: .bold)
+        case .iosSubtitleReg: return UIFont.pretendardFont(ofSize: 20, weight: .regular)
+        case .iosSubtitle2Semibold: return UIFont.pretendardFont(ofSize: 18, weight: .semiBold)
+        case .iosTooltipTitle:return UIFont.pretendardFont(ofSize: 18, weight: .bold)
+        case .iosTextBold: return UIFont.pretendardFont(ofSize: 16, weight: .bold) //lineHeight 150%
+        case .iosTextRegular: return UIFont.pretendardFont(ofSize: 16, weight: .regular) //lineHeight 150%
+        case .iosTextAuto: return UIFont.pretendardFont(ofSize: 16, weight: .regular)
+        case .iosBtnLogin: return UIFont.pretendardFont(ofSize: 15, weight: .semiBold)
+        case .iosBtnSmall: return UIFont.pretendardFont(ofSize: 15, weight: .medium)
+        case .iosTextContents: return UIFont.pretendardFont(ofSize: 14, weight: .semiBold)
+        case .iosHint: return UIFont.pretendardFont(ofSize: 14, weight: .medium)
+        case .iosTooltipNumber: return UIFont.pretendardFont(ofSize: 12, weight: .bold)
+        case .iosTextContentsSmall: return UIFont.pretendardFont(ofSize: 12, weight: .medium)
+        case .iosProfileTitle: return UIFont.pretendardFont(ofSize: 26, weight: .bold )
+        case .bothLogin: return UIFont.pretendardFont(ofSize: 15, weight: .semiBold )
+        case .bothBottomLabel: return UIFont.opticianSansFont(ofSize: 14)
+        case .bothRecentNum: return UIFont.opticianSansFont(ofSize: 24)
+        case .bothUpcomingSmallNum: return UIFont.opticianSansFont(ofSize: 30)
+        case .bothUpcomingBigNum: return UIFont.opticianSansFont(ofSize: 62)
         }
     }
     

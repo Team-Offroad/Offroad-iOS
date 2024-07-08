@@ -14,8 +14,6 @@ enum Primary: String, OffroadColor {
     case black = "#000000"
     case kakao = "#FEE500"
     case error = "#F04452"
-    // gradient color라서 고민 필요.
-    // UIView에 gradient layer 구현하는 함수 확장 구현하면 좋을 듯?
     case mapGradi = "#5B5B5B"
 }
 
@@ -143,8 +141,6 @@ extension UIColor {
         return color
     }
     
-    
-    // 코드 출처: https://www.hackingwithswift.com/example-code/uicolor/how-to-convert-a-hex-color-to-a-uicolor
     convenience init?(hexCode: String, alpha: CGFloat = 1.0) {
         var hexFormatted: String = hexCode.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
         
