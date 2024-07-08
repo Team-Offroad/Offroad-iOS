@@ -23,6 +23,8 @@ final class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupTarget()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,4 +38,16 @@ extension LoginViewController {
     
     // MARK: - Private Method
     
+    private func setupTarget() {
+        rootView.setupKakaoLoginButton(action: kakaoLoginButtonTapped)
+        rootView.setupAppleLoginButton(action: appleLoginButtonTapped)
+    }
+    
+    private func kakaoLoginButtonTapped() {
+        print("kakaoLoginButtonTapped")
+    }
+    
+    private func appleLoginButtonTapped() {
+        print("appleLoginButtonTapped")
+    }
 }

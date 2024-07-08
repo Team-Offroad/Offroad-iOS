@@ -11,12 +11,22 @@ import SnapKit
 import Then
 
 final class LoginView: UIView {
+    
+    //MARK: - Properties
+    
+    typealias KakaoLoginButtonAction = () -> Void
+    typealias AppleLoginButtonAction = () -> Void
+
+    private var kakaoLoginButtonAction: KakaoLoginButtonAction?
+    private var appleLoginButtonAction: AppleLoginButtonAction?
 
     //MARK: - UI Properties
     
     private let offroadLogoImageView = UIImageView(image: UIImage(resource: .offroadLogoLoginImg))
     private let kakaoLoginButton = UIButton()
     private let appleLoginButton = UIButton()
+    private let kakaoLogoImageView = UIImageView(image: UIImage(resource: .kakaoLogoImg))
+    private let appleLogoImageView = UIImageView(image: UIImage(resource: .appleLogoImg))
     private let loginButtonStackView = UIStackView()
     
     // MARK: - Life Cycle
@@ -64,6 +74,8 @@ extension LoginView {
     private func setupHierarchy() {
         addSubviews(offroadLogoImageView, loginButtonStackView)
         loginButtonStackView.addArrangedSubviews(kakaoLoginButton, appleLoginButton)
+        kakaoLoginButton.addSubview(kakaoLogoImageView)
+        appleLoginButton.addSubview(appleLogoImageView)
     }
     
     private func setupLayout() {
@@ -76,13 +88,45 @@ extension LoginView {
             $0.height.equalTo(54)
         }
         
+        kakaoLogoImageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().inset(30)
+        }
+        
         appleLoginButton.snp.makeConstraints {
             $0.height.equalTo(54)
+        }
+        
+        appleLogoImageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().inset(30)
         }
         
         loginButtonStackView.snp.makeConstraints{
             $0.top.equalTo(offroadLogoImageView.snp.bottom).offset(42.37)
             $0.horizontalEdges.equalToSuperview().inset(24)
         }
+    }
+    
+    //MARK: - @Objc Method
+    
+    @objc private func kakaoLoginButtonTapped() {
+        kakaoLoginButtonAction?()
+    }
+    
+    @objc private func appleLoginButtonTapped() {
+        appleLoginButtonAction?()
+    }
+    
+    //MARK: - targetView Method
+    
+    func setupKakaoLoginButton(action: @escaping KakaoLoginButtonAction) {
+        kakaoLoginButtonAction = action
+        kakaoLoginButton.addTarget(self, action: #selector(kakaoLoginButtonTapped), for: .touchUpInside)
+    }
+    
+    func setupAppleLoginButton(action: @escaping AppleLoginButtonAction) {
+        appleLoginButtonAction = action
+        appleLoginButton.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)
     }
 }
