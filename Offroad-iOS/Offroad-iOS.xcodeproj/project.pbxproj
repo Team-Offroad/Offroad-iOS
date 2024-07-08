@@ -43,6 +43,8 @@
 		4EDC3D492C31271F006A1493 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D402C31271F006A1493 /* Pretendard-ExtraLight.otf */; };
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
 		AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */; };
+		D0EAF21B2C3B026500566543 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF21A2C3B026500566543 /* SplashViewController.swift */; };
+		D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF21E2C3B02B700566543 /* SplashView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,8 @@
 		4EDC3D4A2C312850006A1493 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOS_Offroad_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0EAF21A2C3B026500566543 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		D0EAF21E2C3B02B700566543 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		EF1C3B3A63494D74D0E4AA40 /* Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS-Offroad-iOSUITests/Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -317,6 +321,8 @@
 		4E03946D2C2AA5E8007F0517 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
+				D0EAF21D2C3B02AA00566543 /* View */,
+				D0EAF21C2C3B029D00566543 /* ViewController */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -541,6 +547,22 @@
 				1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D0EAF21C2C3B029D00566543 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D0EAF21A2C3B026500566543 /* SplashViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D0EAF21D2C3B02AA00566543 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D0EAF21E2C3B02B700566543 /* SplashView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -814,11 +836,13 @@
 				4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */,
 				4E0394D92C2ABCCC007F0517 /* UIView+.swift in Sources */,
 				4E0394312C2A9DCE007F0517 /* ViewController.swift in Sources */,
+				D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */,
 				4E0394E32C2AC0D7007F0517 /* UIWindow+.swift in Sources */,
 				4E0394DD2C2ABEF2007F0517 /* UITextField+.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
 				4E03942F2C2A9DCE007F0517 /* SceneDelegate.swift in Sources */,
+				D0EAF21B2C3B026500566543 /* SplashViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -995,7 +1019,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 548W892M42;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Offroad-iOS/Global/Resources/Info.plist";
@@ -1024,7 +1048,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 548W892M42;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Offroad-iOS/Global/Resources/Info.plist";
