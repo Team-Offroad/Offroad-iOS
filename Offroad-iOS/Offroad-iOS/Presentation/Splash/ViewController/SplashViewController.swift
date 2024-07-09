@@ -15,9 +15,7 @@ final class SplashViewController: UIViewController {
     
     // MARK: - Life Cycle
     
-    override func loadView() {
-        super.loadView()
-        
+    override func loadView() {        
         view = rootView
     }
     
