@@ -44,6 +44,8 @@
 		4EDC3D482C31271F006A1493 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D3F2C31271F006A1493 /* Pretendard-SemiBold.otf */; };
 		4EDC3D492C31271F006A1493 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D402C31271F006A1493 /* Pretendard-ExtraLight.otf */; };
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
+		87E0468F2C3CE6D5002D12C2 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 87E0468C2C3CE6D5002D12C2 /* .gitkeep */; };
+		87E046902C3CE6D5002D12C2 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E0468D2C3CE6D5002D12C2 /* NicknameViewController.swift */; };
 		AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 /* End PBXBuildFile section */
@@ -104,6 +106,8 @@
 		4EDC3D402C31271F006A1493 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		4EDC3D4A2C312850006A1493 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		87E0468C2C3CE6D5002D12C2 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		87E0468D2C3CE6D5002D12C2 /* NicknameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
 		C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOS_Offroad_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		EF1C3B3A63494D74D0E4AA40 /* Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS-Offroad-iOSUITests/Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -294,7 +298,7 @@
 				4E0394C12C2AB3B2007F0517 /* Login */,
 				4E03946B2C2AA15C007F0517 /* Common */,
 				4E03946D2C2AA5E8007F0517 /* Splash */,
-				4E03946F2C2AA61C007F0517 /* NicknameSetting */,
+				87E0468E2C3CE6D5002D12C2 /* Nickname */,
 				4E0394842C2AA9DB007F0517 /* Character */,
 				4E0394722C2AA6C5007F0517 /* Home */,
 				4E0394732C2AA6DB007F0517 /* QuestMap */,
@@ -327,13 +331,6 @@
 			children = (
 			);
 			path = Splash;
-			sourceTree = "<group>";
-		};
-		4E03946F2C2AA61C007F0517 /* NicknameSetting */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = NicknameSetting;
 			sourceTree = "<group>";
 		};
 		4E0394702C2AA655007F0517 /* ChoosingCharacter */ = {
@@ -542,6 +539,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		87E0468E2C3CE6D5002D12C2 /* Nickname */ = {
+			isa = PBXGroup;
+			children = (
+				87E0468C2C3CE6D5002D12C2 /* .gitkeep */,
+				87E0468D2C3CE6D5002D12C2 /* NicknameViewController.swift */,
+			);
+			path = Nickname;
+			sourceTree = "<group>";
+		};
 		AA822572E372D5FE101F7990 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -692,6 +698,7 @@
 				4EDC3D452C31271F006A1493 /* Pretendard-Black.otf in Resources */,
 				4E0394362C2A9DCF007F0517 /* Assets.xcassets in Resources */,
 				4EDC3D492C31271F006A1493 /* Pretendard-ExtraLight.otf in Resources */,
+				87E0468F2C3CE6D5002D12C2 /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -827,6 +834,7 @@
 				4E0394312C2A9DCE007F0517 /* ViewController.swift in Sources */,
 				4E0394E32C2AC0D7007F0517 /* UIWindow+.swift in Sources */,
 				4E0394DD2C2ABEF2007F0517 /* UITextField+.swift in Sources */,
+				87E046902C3CE6D5002D12C2 /* NicknameViewController.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
 				4E1E94132C398C4200A7B08A /* String+.swift in Sources */,
