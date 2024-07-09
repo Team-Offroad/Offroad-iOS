@@ -24,6 +24,7 @@ final class BirthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupDelegate()
         setupAddTarget()
     }
