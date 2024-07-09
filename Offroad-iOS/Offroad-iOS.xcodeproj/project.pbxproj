@@ -46,6 +46,7 @@
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
 		87E0468F2C3CE6D5002D12C2 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 87E0468C2C3CE6D5002D12C2 /* .gitkeep */; };
 		87E046902C3CE6D5002D12C2 /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E0468D2C3CE6D5002D12C2 /* NicknameViewController.swift */; };
+		87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046932C3D2B38002D12C2 /* BirthViewController.swift */; };
 		AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 /* End PBXBuildFile section */
@@ -108,6 +109,7 @@
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		87E0468C2C3CE6D5002D12C2 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		87E0468D2C3CE6D5002D12C2 /* NicknameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
+		87E046932C3D2B38002D12C2 /* BirthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewController.swift; sourceTree = "<group>"; };
 		C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOS_Offroad_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		EF1C3B3A63494D74D0E4AA40 /* Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS-Offroad-iOSUITests/Pods-Offroad-iOS-Offroad-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -544,6 +546,7 @@
 			children = (
 				87E0468C2C3CE6D5002D12C2 /* .gitkeep */,
 				87E0468D2C3CE6D5002D12C2 /* NicknameViewController.swift */,
+				87E046932C3D2B38002D12C2 /* BirthViewController.swift */,
 			);
 			path = Nickname;
 			sourceTree = "<group>";
@@ -836,6 +839,7 @@
 				4E0394DD2C2ABEF2007F0517 /* UITextField+.swift in Sources */,
 				87E046902C3CE6D5002D12C2 /* NicknameViewController.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
+				87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */,
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
 				4E1E94132C398C4200A7B08A /* String+.swift in Sources */,
 				4E03942F2C2A9DCE007F0517 /* SceneDelegate.swift in Sources */,
