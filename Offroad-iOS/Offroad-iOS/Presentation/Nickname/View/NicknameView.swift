@@ -11,6 +11,7 @@ import SnapKit
 import Then
 
 final class NicknameView: UIView {
+    
     //MARK: - Properties
     
     private let mainLabel = UILabel().then {
@@ -31,6 +32,7 @@ final class NicknameView: UIView {
         $0.textColor = UIColor.main(.main2)
         $0.frame.size.height = 48
         $0.backgroundColor = UIColor.main(.main3)
+        $0.addPadding(left: 13,right: 13)
         $0.layer.borderWidth = 1.0
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor

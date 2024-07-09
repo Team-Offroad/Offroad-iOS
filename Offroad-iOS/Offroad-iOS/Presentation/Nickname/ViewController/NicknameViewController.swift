@@ -13,11 +13,11 @@ import Then
 class NicknameViewController: UIViewController {
     private let nicknameView = NicknameView()
     
+    //MARK: - Life Cycle
+    
     override func loadView() {
         view = nicknameView
     }
-    
-    //MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
