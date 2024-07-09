@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class BirthViewController: UIViewController, UITextFieldDelegate {
+final class BirthViewController: UIViewController, UITextFieldDelegate {
     
     private let mainLabel = UILabel().then {
         $0.text = "모험가 프로필 작성"

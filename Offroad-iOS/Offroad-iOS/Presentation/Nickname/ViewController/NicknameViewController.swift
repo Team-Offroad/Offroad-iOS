@@ -10,7 +10,10 @@ import UIKit
 import SnapKit
 import Then
 
-class NicknameViewController: UIViewController {
+final class NicknameViewController: UIViewController {
+    
+    //MARK: - Properties
+    
     private let nicknameView = NicknameView()
     
     //MARK: - Life Cycle
@@ -31,7 +34,7 @@ class NicknameViewController: UIViewController {
 
 extension NicknameViewController {
     
-    //MARK: - @objc
+    //MARK: - @objc Method
     
     @objc private func textFieldDidChange() {
         let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
