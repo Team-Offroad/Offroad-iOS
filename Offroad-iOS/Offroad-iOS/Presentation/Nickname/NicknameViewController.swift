@@ -39,7 +39,7 @@ class NicknameViewController: UIViewController {
         )
     }
     
-    private let checkButton = UIButton(type: .system).then {
+    private let checkButton = UIButton().then {
         $0.setTitle("중복확인", for: .normal)
         $0.titleLabel?.textAlignment = .center
         $0.titleLabel?.font = UIFont.offroad(style: .iosBtnSmall)
@@ -63,6 +63,15 @@ class NicknameViewController: UIViewController {
         $0.font = UIFont.offroad(style: .iosHint)
     }
     
+    private let nextButton = UIButton().then {
+        $0.setTitle("다음", for: .normal)
+        $0.titleLabel?.textAlignment = .center
+        $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
+        $0.setTitleColor(UIColor.main(.main1), for: .normal)
+        $0.backgroundColor = UIColor.main(.main2)
+        $0.layer.cornerRadius = 5
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.main(.main1)
@@ -79,7 +88,7 @@ class NicknameViewController: UIViewController {
         textFieldStackView.addSubview(textField)
         textFieldStackView.addSubview(checkButton)
         view.addSubview(notionLabel)
-        
+        view.addSubview(nextButton)
     }
     
     private func setupConstraints() {
@@ -115,6 +124,12 @@ class NicknameViewController: UIViewController {
         notionLabel.snp.makeConstraints { make in
             make.top.equalTo(textFieldStackView.snp.bottom).offset(12)
             make.leading.equalToSuperview().inset(24)
+        }
+        
+        nextButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(24)
+            make.leading.trailing.equalToSuperview().inset(24)
+            make.height.equalTo(54)
         }
     }
     
