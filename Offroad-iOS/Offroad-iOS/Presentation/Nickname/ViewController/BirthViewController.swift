@@ -25,8 +25,12 @@ final class BirthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDelegate()
-        view.backgroundColor = UIColor.main(.main1)
-        
+        setupAddTarget()
+    }
+    
+    //MARK: - Private Method
+    
+    private func setupAddTarget() {
         birthView.yearTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
         birthView.monthTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
