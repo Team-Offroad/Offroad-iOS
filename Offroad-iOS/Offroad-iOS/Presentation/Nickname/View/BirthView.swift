@@ -107,6 +107,7 @@ final class BirthView: UIView {
         super.init(frame: frame)
         
         setupHierarchy()
+        setupStyle()
         setupLayout()
     }
     
@@ -132,6 +133,10 @@ extension BirthView {
             dayLabel,
             nextButton
         )
+    }
+    
+    private func setupStyle() {
+        backgroundColor = UIColor.main(.main1)
     }
     
     private func setupLayout() {
