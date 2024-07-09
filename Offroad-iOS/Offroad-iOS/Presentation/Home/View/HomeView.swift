@@ -20,6 +20,7 @@ final class HomeView: UIView {
     
     private var nicknameString = "비포장도로"
     private var characterNameString = "오푸"
+    private var titleString = "오프로드 스타터"
 
     //MARK: - UI Properties
     
@@ -27,6 +28,14 @@ final class HomeView: UIView {
     private let characterNameView = UIView()
     private let characterNameLabel = UILabel()
     private let offroadStampImageView = UIImageView(image: UIImage(resource: .imgOffroadStamp))
+    private let downloadButton = UIButton()
+    private let shareButton = UIButton()
+    private let changeCharacterButton = UIButton()
+    private let buttonStackView = UIStackView()
+    private let characterImageView = UIImageView(image: UIImage(resource: .imgCharacter))
+    private let titleView = UIView()
+    private let titleLabel = UILabel()
+    private let changeTitleButton = UIButton()
         
     // MARK: - Life Cycle
     
@@ -70,16 +79,56 @@ extension HomeView {
             $0.textAlignment = .center
             $0.textColor = .primary(.white)
         }
+        
+        downloadButton.do {
+            $0.setImage(.btnDownload, for: .normal)
+        }
+        
+        shareButton.do {
+            $0.setImage(.btnShare, for: .normal)
+        }
+        
+        changeCharacterButton.do {
+            $0.setImage(.btnChangeCharacter, for: .normal)
+        }
+        
+        buttonStackView.do {
+            $0.axis = .vertical
+            $0.spacing = 9
+        }
+        
+        titleView.do {
+            $0.backgroundColor = .sub(.sub)
+            $0.roundCorners(cornerRadius: 10)
+        }
+        
+        titleLabel.do {
+            $0.text = titleString
+            $0.font = .offroad(style: .iosSubtitle2Semibold)
+            $0.textAlignment = .center
+            $0.textColor = .primary(.white)
+        }
+        
+        changeTitleButton.do {
+            $0.backgroundColor = .main(.main3)
+            $0.setImage(.iconChangeTitle, for: .normal)
+            $0.roundCorners(cornerRadius: 9)
+        }
     }
     
     private func setupHierarchy() {
         addSubviews(
             nicknameLabel,
             characterNameView,
-            offroadStampImageView
+            offroadStampImageView,
+            buttonStackView,
+            characterImageView,
+            titleView
         )
         
         characterNameView.addSubview(characterNameLabel)
+        buttonStackView.addArrangedSubviews(downloadButton, shareButton, changeCharacterButton)
+        titleView.addSubviews(titleLabel, changeTitleButton)
     }
     
     private func setupLayout() {
@@ -101,6 +150,32 @@ extension HomeView {
         
         offroadStampImageView.snp.makeConstraints {
             $0.top.trailing.equalTo(safeAreaLayoutGuide)
+        }
+        
+        buttonStackView.snp.makeConstraints {
+            $0.top.equalTo(characterNameView.snp.top)
+            $0.trailing.equalToSuperview().inset(24)
+        }
+        
+        characterImageView.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(105)
+            $0.centerX.equalToSuperview()
+        }
+        
+        titleView.snp.makeConstraints {
+            $0.top.equalTo(characterNameView.snp.bottom).offset(319)
+            $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.height.equalTo(43)
+        }
+        
+        titleLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+        
+        changeTitleButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.width.height.equalTo(30)
+            $0.trailing.equalToSuperview().inset(11)
         }
     }
     
