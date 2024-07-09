@@ -28,7 +28,7 @@ final class NicknameView: UIView {
     }
     
     let textField = UITextField().then {
-        $0.borderStyle = .roundedRect
+        $0.textColor = UIColor.main(.main2)
         $0.frame.size.height = 48
         $0.backgroundColor = UIColor.main(.main3)
         $0.layer.borderWidth = 1.0

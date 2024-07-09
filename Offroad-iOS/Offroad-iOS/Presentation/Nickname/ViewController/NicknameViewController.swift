@@ -21,6 +21,7 @@ class NicknameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = UIColor.main(.main1)
         
         nicknameView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
