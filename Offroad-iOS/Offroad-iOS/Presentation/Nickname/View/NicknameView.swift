@@ -1,5 +1,5 @@
 //
-//  NicknameViewController.swift
+//  NicknameView.swift
 //  Offroad-iOS
 //
 //  Created by  정지원 on 7/9/24.
@@ -10,7 +10,8 @@ import UIKit
 import SnapKit
 import Then
 
-class NicknameViewController: UIViewController {
+final class NicknameView: UIView {
+    //MARK: - Properties
     
     private let mainLabel = UILabel().then {
         $0.text = "모험가 프로필 작성"
@@ -26,7 +27,7 @@ class NicknameViewController: UIViewController {
         $0.font = UIFont.offroad(style: .iosSubtitleReg)
     }
     
-    private let textField = UITextField().then {
+    let textField = UITextField().then {
         $0.borderStyle = .roundedRect
         $0.frame.size.height = 48
         $0.backgroundColor = UIColor.main(.main3)
@@ -39,7 +40,7 @@ class NicknameViewController: UIViewController {
         )
     }
     
-    private let checkButton = UIButton().then {
+    let checkButton = UIButton().then {
         $0.setTitle("중복확인", for: .normal)
         $0.titleLabel?.textAlignment = .center
         $0.titleLabel?.font = UIFont.offroad(style: .iosBtnSmall)
@@ -72,29 +73,39 @@ class NicknameViewController: UIViewController {
         $0.layer.cornerRadius = 5
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = UIColor.main(.main1)
-        setupViews()
-        setupConstraints()
+    // MARK: - Life Cycle
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
-        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        setupHierarchy()
+        setupLayout()
     }
     
-    private func setupViews() {
-        view.addSubview(mainLabel)
-        view.addSubview(subLabel)
-        view.addSubview(textFieldStackView)
-        textFieldStackView.addSubview(textField)
-        textFieldStackView.addSubview(checkButton)
-        view.addSubview(notionLabel)
-        view.addSubview(nextButton)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension NicknameView {
+    
+    // MARK: - Private Func
+    
+    private func setupHierarchy() {
+        addSubviews(
+            mainLabel,
+            subLabel,
+            textFieldStackView,
+            notionLabel,
+            nextButton
+        )
+        textFieldStackView.addSubviews(textField, checkButton)
     }
     
-    private func setupConstraints() {
-    
+    private func setupLayout() {
+        
         mainLabel.snp.makeConstraints{ make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(97)
+            make.top.equalTo(safeAreaLayoutGuide).offset(97)
             make.leading.trailing.equalToSuperview().inset(63)
         }
         
@@ -127,20 +138,9 @@ class NicknameViewController: UIViewController {
         }
         
         nextButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(24)
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(24)
             make.leading.trailing.equalToSuperview().inset(24)
             make.height.equalTo(54)
         }
     }
-    
-    @objc private func textFieldDidChange() {
-        let isTextFieldEmpty = textField.text?.isEmpty ?? true
-        if textField.isEnabled == true {
-            textField.layer.borderColor = UIColor.sub(.sub).cgColor
-        }
-        checkButton.isEnabled = !isTextFieldEmpty
-        checkButton.setTitleColor(isTextFieldEmpty ? UIColor.grayscale(.gray100) : UIColor.primary(.white), for: .normal)
-        checkButton.backgroundColor = isTextFieldEmpty ? UIColor.main(.main3) : UIColor.primary(.black)
-    }
 }
-
