@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class BirthViewController: UIViewController {
+class BirthViewController: UIViewController, UITextFieldDelegate {
     
     private let mainLabel = UILabel().then {
         $0.text = "모험가 프로필 작성"
@@ -105,9 +105,17 @@ class BirthViewController: UIViewController {
         setupViews()
         setupConstraints()
         
-        yearTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidBegin)
-        monthTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidBegin)
-        dayTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidBegin)
+        yearTextField.delegate = self
+        monthTextField.delegate = self
+        dayTextField.delegate = self
+        
+        yearTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
+        monthTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
+        dayTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
+        
+        yearTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        monthTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        dayTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
     }
     
     private func setupViews() {
@@ -124,7 +132,7 @@ class BirthViewController: UIViewController {
     }
     
     private func setupConstraints() {
-    
+        
         mainLabel.snp.makeConstraints{ make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(97)
             make.leading.trailing.equalToSuperview().inset(63)
@@ -170,7 +178,7 @@ class BirthViewController: UIViewController {
             make.height.equalTo(48)
             make.width.equalTo(73)
         }
-
+        
         dayLabel.snp.makeConstraints { make in
             make.top.equalTo(birthLabel.snp.bottom).offset(26)
             make.leading.equalTo(dayTextField.snp.trailing).offset(6)
@@ -183,23 +191,36 @@ class BirthViewController: UIViewController {
         }
     }
     
-    @objc private func textFieldDidChange(sender: UITextField) {
+    @objc private func textFieldDidChange(_ sender: UITextField) {
         if sender == yearTextField {
             yearTextField.layer.borderColor = UIColor.sub(.sub).cgColor
             monthTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
             dayTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-        }
-        else if sender == monthTextField {
+        } else if sender == monthTextField {
             yearTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
             monthTextField.layer.borderColor = UIColor.sub(.sub).cgColor
             dayTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-        }
-        else if sender == dayTextField {
+        } else if sender == dayTextField {
             yearTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
             monthTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
             dayTextField.layer.borderColor = UIColor.sub(.sub).cgColor
         }
     }
+    
+    @objc private func textFieldEditingChanged(_ textField: UITextField) {
+        let maxLength: Int
+        if textField == yearTextField {
+            maxLength = 4
+        } else {
+            maxLength = 2
+        }
+        if let text = textField.text, text.count > maxLength {
+            textField.text = String(text.prefix(maxLength))
+        }
+    }
+    
+    // 텍스트 필드 글자 수 제한
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return true
+    }
 }
-
-
