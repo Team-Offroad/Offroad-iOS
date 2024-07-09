@@ -101,6 +101,7 @@ extension NicknameView {
             notionLabel,
             nextButton
         )
+
         textFieldStackView.addArrangedSubviews(textField, checkButton)
     }
     

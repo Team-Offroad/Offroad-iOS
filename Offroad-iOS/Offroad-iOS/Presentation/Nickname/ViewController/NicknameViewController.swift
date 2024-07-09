@@ -13,7 +13,7 @@ import Then
 final class NicknameViewController: UIViewController {
     
     //MARK: - Properties
-    
+  
     private let nicknameView = NicknameView()
     
     //MARK: - Life Cycle
@@ -34,6 +34,7 @@ final class NicknameViewController: UIViewController {
 
 extension NicknameViewController {
     
+
     //MARK: - @objc Method
     
     @objc private func textFieldDidChange() {
