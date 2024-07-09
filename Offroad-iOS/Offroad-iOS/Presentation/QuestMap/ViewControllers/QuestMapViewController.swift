@@ -7,10 +7,29 @@
 
 import UIKit
 
+import NMapsMap
+import SnapKit
+import Then
+
 class QuestMapViewController: UIViewController {
+    
+    let rootView = QuestMapView()
+    
+    override func loadView() {
+        view = rootView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
+    
+    
+    
+}
+
+
+extension QuestMapViewController {
+    
     
 }
