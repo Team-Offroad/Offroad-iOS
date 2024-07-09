@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class BirthViewController: UIViewController, UITextFieldDelegate {
+final class BirthViewController: UIViewController {
     
     //MARK: - Properties
     
@@ -24,11 +24,8 @@ final class BirthViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupDelegate()
         view.backgroundColor = UIColor.main(.main1)
-        
-        birthView.yearTextField.delegate = self
-        birthView.monthTextField.delegate = self
-        birthView.dayTextField.delegate = self
         
         birthView.yearTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
         birthView.monthTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
@@ -75,5 +72,16 @@ extension BirthViewController {
     // 텍스트 필드 글자 수 제한
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
+    }
+}
+
+//MARK: - UITextFieldDelegate
+
+extension BirthViewController: UITextFieldDelegate {
+    
+    func setupDelegate() {
+        birthView.yearTextField.delegate = self
+        birthView.monthTextField.delegate = self
+        birthView.dayTextField.delegate = self
     }
 }
