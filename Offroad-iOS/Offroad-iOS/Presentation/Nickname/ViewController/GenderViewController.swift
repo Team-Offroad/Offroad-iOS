@@ -43,14 +43,15 @@ extension GenderViewController {
     @objc func buttonTapped(_ sender: UIButton) {
         
         [genderView.maleButton, genderView.femaleButton, genderView.etcButton].forEach { button in
-            button.isSelected = false
-            button.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+            if button == sender {
+                button.isSelected.toggle()
+                button.layer.borderColor = button.isSelected ? UIColor.sub(.sub).cgColor : UIColor.grayscale(.gray100).cgColor
+            } else {
+                button.isSelected = false
+                button.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+            }
         }
-
-        sender.isSelected = true
-        sender.layer.borderColor = UIColor.sub(.sub).cgColor
     }
 }
-
 
 
