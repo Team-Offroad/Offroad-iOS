@@ -18,6 +18,7 @@ class QuestMapView: UIView {
     
     let questListButton = QuestMapListButton(image: .iconListBullet, title: "퀘스트 목록")
     let placeListButton = QuestMapListButton(image: .iconPlaceMarker, title: "장소 목록")
+    let listButtonStackView = UIStackView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,11 +39,10 @@ extension QuestMapView {
     
     private func setupHierarchy() {
         naverMapView.addSubview(reloadLocationButton)
-        
+        listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
         addSubviews(
             naverMapView,
-            questListButton,
-            placeListButton
+            listButtonStackView
         )
     }
     
@@ -50,16 +50,30 @@ extension QuestMapView {
         reloadLocationButton.do { button in
             button.setImage(.btnArrowClockwise, for: .normal)
         }
+        
+        listButtonStackView.do { stackView in
+            stackView.axis = .horizontal
+            stackView.spacing = 14
+            stackView.alignment = .fill
+            stackView.distribution = .fillEqually
+        }
     }
     
     private func setupLayout() {
         naverMapView.snp.makeConstraints { make in
-            make.edges.equalTo(safeAreaLayoutGuide.snp.edges)
+            make.horizontalEdges.equalToSuperview()
+            make.verticalEdges.equalTo(safeAreaLayoutGuide.snp.verticalEdges)
         }
         
         reloadLocationButton.snp.makeConstraints { make in
             make.top.trailing.equalToSuperview().inset(24)
             make.width.height.equalTo(44)
+        }
+        
+        listButtonStackView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide.snp.horizontalEdges).inset(40)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(40)
         }
     }
     
