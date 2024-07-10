@@ -201,12 +201,12 @@ extension HomeView {
         }
         
         characterImageView.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).inset(105)
+            $0.bottom.equalTo(titleView.snp.top).offset(-25)
             $0.centerX.equalToSuperview()
         }
         
         titleView.snp.makeConstraints {
-            $0.top.equalTo(characterNameView.snp.bottom).offset(319)
+            $0.bottom.equalTo(questStackView.snp.top).offset(-13)
             $0.horizontalEdges.equalToSuperview().inset(24)
             $0.height.equalTo(43)
         }
@@ -222,7 +222,7 @@ extension HomeView {
         }
         
         questStackView.snp.makeConstraints {
-            $0.top.equalTo(titleView.snp.bottom).offset(13)
+            $0.bottom.equalTo(safeAreaLayoutGuide).inset(15)
             $0.horizontalEdges.equalToSuperview().inset(24)
             $0.height.equalTo(195)
         }
@@ -240,7 +240,7 @@ extension HomeView {
             $0.leading.equalToSuperview()
             $0.bottom.equalToSuperview().inset(57)
             $0.height.equalTo(9)
-            $0.width.equalTo(155)
+            $0.width.equalTo(150)
         }
         
         almostDoneQuestProgressLabel.snp.makeConstraints {
