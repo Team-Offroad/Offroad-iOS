@@ -13,7 +13,11 @@ import Then
 
 class QuestMapViewController: UIViewController {
     
+    //MARK: - UI Properties
+    
     let rootView = QuestMapView()
+    
+    //MARK: - Life Cycle
     
     override func loadView() {
         view = rootView
@@ -23,8 +27,6 @@ class QuestMapViewController: UIViewController {
         super.viewDidLoad()
         
     }
-    
-    
     
 }
 

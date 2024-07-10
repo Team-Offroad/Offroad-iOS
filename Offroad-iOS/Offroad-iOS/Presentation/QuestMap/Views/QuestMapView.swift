@@ -13,12 +13,17 @@ import Then
 
 class QuestMapView: UIView {
     
+    //MARK: - UI Properties
+    
     let naverMapView = NMFNaverMapView()
     let reloadLocationButton = UIButton()
     
     let questListButton = QuestMapListButton(image: .iconListBullet, title: "퀘스트 목록")
     let placeListButton = QuestMapListButton(image: .iconPlaceMarker, title: "장소 목록")
     let listButtonStackView = UIStackView()
+    
+    
+    //MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,6 +41,8 @@ class QuestMapView: UIView {
 
 
 extension QuestMapView {
+    
+    //MARK: - Layout
     
     private func setupHierarchy() {
         naverMapView.addSubview(reloadLocationButton)
