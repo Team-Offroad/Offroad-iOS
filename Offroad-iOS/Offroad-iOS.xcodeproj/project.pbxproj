@@ -54,6 +54,8 @@
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
 		D06D26C52C3D83AA00E79F25 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C42C3D83AA00E79F25 /* HomeViewController.swift */; };
 		D06D26CB2C3DAA5300E79F25 /* CustomQuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26CA2C3DAA5300E79F25 /* CustomQuestView.swift */; };
+		D06D26CD2C3E6EA200E79F25 /* CustomRecentProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26CC2C3E6EA200E79F25 /* CustomRecentProgressView.swift */; };
+		D06D26CF2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26CE2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift */; };
 		D0EAF21B2C3B026500566543 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF21A2C3B026500566543 /* SplashViewController.swift */; };
 		D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF21E2C3B02B700566543 /* SplashView.swift */; };
 		D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF2232C3B7D7100566543 /* LoginView.swift */; };
@@ -126,6 +128,8 @@
 		D06D26C22C3D835300E79F25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D06D26C42C3D83AA00E79F25 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D06D26CA2C3DAA5300E79F25 /* CustomQuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestView.swift; sourceTree = "<group>"; };
+		D06D26CC2C3E6EA200E79F25 /* CustomRecentProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRecentProgressView.swift; sourceTree = "<group>"; };
+		D06D26CE2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlmostDoneProgressView.swift; sourceTree = "<group>"; };
 		D0EAF21A2C3B026500566543 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D0EAF21E2C3B02B700566543 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		D0EAF2232C3B7D7100566543 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -624,6 +628,8 @@
 			isa = PBXGroup;
 			children = (
 				D06D26CA2C3DAA5300E79F25 /* CustomQuestView.swift */,
+				D06D26CC2C3E6EA200E79F25 /* CustomRecentProgressView.swift */,
+				D06D26CE2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -927,6 +933,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D06D26CF2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift in Sources */,
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
 				D0EAF2262C3B7D7F00566543 /* LoginViewController.swift in Sources */,
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
@@ -945,6 +952,7 @@
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
 				D06D26CB2C3DAA5300E79F25 /* CustomQuestView.swift in Sources */,
 				D06D26C52C3D83AA00E79F25 /* HomeViewController.swift in Sources */,
+				D06D26CD2C3E6EA200E79F25 /* CustomRecentProgressView.swift in Sources */,
 				4E1E94132C398C4200A7B08A /* String+.swift in Sources */,
 				8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */,
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
