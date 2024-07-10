@@ -22,6 +22,7 @@ class QuestMapView: UIView {
     let placeListButton = QuestMapListButton(image: .iconPlaceMarker, title: "장소 목록")
     let listButtonStackView = UIStackView()
     
+    let compass = NMFCompassView()
     
     //MARK: - Life Cycle
     
@@ -31,6 +32,7 @@ class QuestMapView: UIView {
         setupHierarchy()
         setupStyle()
         setupLayout()
+        setupInitialNaverMapView()
     }
     
     required init?(coder: NSCoder) {
@@ -49,7 +51,8 @@ extension QuestMapView {
         listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
         addSubviews(
             naverMapView,
-            listButtonStackView
+            listButtonStackView,
+            compass
         )
     }
     
@@ -73,7 +76,8 @@ extension QuestMapView {
         }
         
         reloadLocationButton.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview().inset(24)
+            make.top.equalToSuperview().inset(24)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).inset(24)
             make.width.height.equalTo(44)
         }
         
@@ -82,6 +86,21 @@ extension QuestMapView {
             make.horizontalEdges.equalTo(safeAreaLayoutGuide.snp.horizontalEdges).inset(40)
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(40)
         }
+        
+        compass.snp.makeConstraints { make in
+            make.top.equalTo(reloadLocationButton.snp.bottom).offset(24)
+            make.trailing.equalTo(reloadLocationButton.snp.trailing)
+            make.width.height.equalTo(44)
+        }
+    }
+    
+    private func setupInitialNaverMapView() {
+        naverMapView.showZoomControls = false
+        naverMapView.mapView.logoAlign = .leftTop
+        naverMapView.showCompass = false
+        
+        compass.contentMode = .scaleAspectFit
+        compass.mapView = naverMapView.mapView
     }
     
 }
