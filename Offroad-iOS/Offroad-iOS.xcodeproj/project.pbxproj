@@ -53,6 +53,7 @@
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
 		D06D26C52C3D83AA00E79F25 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C42C3D83AA00E79F25 /* HomeViewController.swift */; };
+		D06D26CB2C3DAA5300E79F25 /* CustomQuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26CA2C3DAA5300E79F25 /* CustomQuestView.swift */; };
 		D0EAF21B2C3B026500566543 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF21A2C3B026500566543 /* SplashViewController.swift */; };
 		D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF21E2C3B02B700566543 /* SplashView.swift */; };
 		D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF2232C3B7D7100566543 /* LoginView.swift */; };
@@ -124,6 +125,7 @@
 		D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		D06D26C22C3D835300E79F25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D06D26C42C3D83AA00E79F25 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		D06D26CA2C3DAA5300E79F25 /* CustomQuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestView.swift; sourceTree = "<group>"; };
 		D0EAF21A2C3B026500566543 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D0EAF21E2C3B02B700566543 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		D0EAF2232C3B7D7100566543 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 		4E0394722C2AA6C5007F0517 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				D06D26C92C3DAA3200E79F25 /* Component */,
 				D06D26BB2C3D643400E79F25 /* View */,
 				D06D26BA2C3D642D00E79F25 /* ViewController */,
 			);
@@ -615,6 +618,14 @@
 				D06D26C22C3D835300E79F25 /* HomeView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D06D26C92C3DAA3200E79F25 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				D06D26CA2C3DAA5300E79F25 /* CustomQuestView.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		D0EAF21C2C3B029D00566543 /* ViewController */ = {
@@ -928,11 +939,11 @@
 				D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */,
 				4E0394E32C2AC0D7007F0517 /* UIWindow+.swift in Sources */,
 				4E0394DD2C2ABEF2007F0517 /* UITextField+.swift in Sources */,
-				87E046902C3CE6D5002D12C2 /* NicknameViewController.swift in Sources */,
 				D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
 				87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */,
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
+				D06D26CB2C3DAA5300E79F25 /* CustomQuestView.swift in Sources */,
 				D06D26C52C3D83AA00E79F25 /* HomeViewController.swift in Sources */,
 				4E1E94132C398C4200A7B08A /* String+.swift in Sources */,
 				8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */,
