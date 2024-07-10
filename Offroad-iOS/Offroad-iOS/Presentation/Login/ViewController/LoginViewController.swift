@@ -15,9 +15,7 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Life Cycle
     
-    override func loadView() {
-        super.loadView()
-        
+    override func loadView() {        
         view = rootView
     }
     
@@ -25,12 +23,6 @@ final class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         setupTarget()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        navigationController?.isNavigationBarHidden = true
     }
 }
 

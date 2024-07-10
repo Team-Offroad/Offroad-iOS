@@ -36,6 +36,11 @@
 
 <br/>
 
+## 📌 Project Design
+[🚧 비포장도로 아요의 프로젝트 설계 ⚒️](https://www.figma.com/board/aWwBlShO7oJEij835d9Vnx/%EC%98%A4%ED%91%B8-%EC%95%84%EC%9A%94-2%EC%B0%A8-%EA%B3%BC%EC%A0%9C-%EC%8A%A4%EA%BB%84..?node-id=0-1&t=Xgutg0NonZYH9TgK-1)
+
+<br/>
+
 ## 📌 Coding Convention
 [🚧 비포장도로 아요의 코딩컨벤션 🧑🏻‍🏫](https://tan-antlion-a47.notion.site/Coding-Convention-020f744cfa9648f78e25d00e3c5aa90f?pvs=4)
 

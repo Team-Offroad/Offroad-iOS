@@ -15,20 +15,12 @@ final class SplashViewController: UIViewController {
     
     // MARK: - Life Cycle
     
-    override func loadView() {
-        super.loadView()
-        
+    override func loadView() {        
         view = rootView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        navigationController?.isNavigationBarHidden = true
     }
 }

@@ -22,11 +22,11 @@ final class LoginView: UIView {
 
     //MARK: - UI Properties
     
-    private let offroadLogoImageView = UIImageView(image: UIImage(resource: .offroadLogoLoginImg))
+    private let offroadLogoImageView = UIImageView(image: UIImage(resource: .imgOffroadLogoLogin))
     private let kakaoLoginButton = UIButton()
     private let appleLoginButton = UIButton()
-    private let kakaoLogoImageView = UIImageView(image: UIImage(resource: .kakaoLogoImg))
-    private let appleLogoImageView = UIImageView(image: UIImage(resource: .appleLogoImg))
+    private let kakaoLogoImageView = UIImageView(image: UIImage(resource: .imgKakaoLogo))
+    private let appleLogoImageView = UIImageView(image: UIImage(resource: .imgAppleLogo))
     private let loginButtonStackView = UIStackView()
     
     // MARK: - Life Cycle
