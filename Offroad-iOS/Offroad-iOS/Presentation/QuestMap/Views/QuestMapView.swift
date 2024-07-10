@@ -16,6 +16,8 @@ class QuestMapView: UIView {
     let naverMapView = NMFNaverMapView()
     let reloadLocationButton = UIButton()
     
+    let questListButton = QuestMapListButton(image: , title: <#T##String#>)
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
