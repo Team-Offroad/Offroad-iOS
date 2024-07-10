@@ -21,6 +21,8 @@ final class HomeView: UIView {
     private var nicknameString = "비포장도로"
     private var characterNameString = "오푸"
     private var titleString = "오프로드 스타터"
+    private var recentQuestString = "홍대입구 한바퀴"
+    private var almostDoneString = "도심 속 공원 탐방"
 
     //MARK: - UI Properties
     
@@ -36,7 +38,10 @@ final class HomeView: UIView {
     private let titleView = UIView()
     private let titleLabel = UILabel()
     private let changeTitleButton = UIButton()
-        
+    private var recentQuestView = CustomQuestView()
+    private var almostDoneQuestView = CustomQuestView()
+    private let questStackView = UIStackView()
+
     // MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -114,6 +119,15 @@ extension HomeView {
             $0.setImage(.iconChangeTitle, for: .normal)
             $0.roundCorners(cornerRadius: 9)
         }
+        
+        recentQuestView.configureCustomView(mainColor: .home(.homeContents1), questString: "최근 진행한 퀘스트", textColor: .main(.main1), image: .imgCompass, detailString: recentQuestString)
+        almostDoneQuestView.configureCustomView(mainColor: .home(.homeContents2), questString: "완료 임박 퀘스트", textColor: .sub(.sub4), image: .imgFire, detailString: almostDoneString)
+        
+        questStackView.do {
+            $0.axis = .horizontal
+            $0.spacing = 13
+            $0.distribution = .fillEqually
+        }
     }
     
     private func setupHierarchy() {
@@ -123,12 +137,18 @@ extension HomeView {
             offroadStampImageView,
             buttonStackView,
             characterImageView,
-            titleView
+            titleView,
+            questStackView
         )
         
         characterNameView.addSubview(characterNameLabel)
-        buttonStackView.addArrangedSubviews(downloadButton, shareButton, changeCharacterButton)
+        buttonStackView.addArrangedSubviews(
+            downloadButton,
+            shareButton,
+            changeCharacterButton
+        )
         titleView.addSubviews(titleLabel, changeTitleButton)
+        questStackView.addArrangedSubviews(recentQuestView, almostDoneQuestView)
     }
     
     private func setupLayout() {
@@ -176,6 +196,12 @@ extension HomeView {
             $0.centerY.equalToSuperview()
             $0.width.height.equalTo(30)
             $0.trailing.equalToSuperview().inset(11)
+        }
+        
+        questStackView.snp.makeConstraints {
+            $0.top.equalTo(titleView.snp.bottom).offset(13)
+            $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.height.equalTo(195)
         }
     }
     
