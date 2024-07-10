@@ -41,6 +41,10 @@ final class HomeView: UIView {
     private var recentQuestView = CustomQuestView()
     private var almostDoneQuestView = CustomQuestView()
     private let questStackView = UIStackView()
+    private let recentQuestProgressView = CustomRecentProgressView()
+    private let recentQuestProgressLabel = UILabel()
+    private let almostDoneQuestProgressView = CustomAlmostDoneProgressView()
+    private let almostDoneQuestProgressLabel = UILabel()
 
     // MARK: - Life Cycle
     
@@ -130,6 +134,21 @@ extension HomeView {
             $0.spacing = 13
             $0.distribution = .fillEqually
         }
+        
+        recentQuestProgressLabel.do {
+            $0.text = "3/4"
+            $0.textColor = .main(.main1)
+            $0.textAlignment = .center
+            $0.font = .offroad(style: .bothRecentNum)
+        }
+        
+        almostDoneQuestProgressLabel.do {
+            $0.text = "7 / 8"
+            $0.textColor = .blackOpacity(.black25)
+            $0.textAlignment = .center
+            $0.font = .offroad(style: .bothUpcomingSmallNum)
+            $0.highlightText(targetText: "7", font: .offroad(style: .bothUpcomingBigNum), color: .sub(.sub4))
+        }
     }
     
     private func setupHierarchy() {
@@ -151,6 +170,8 @@ extension HomeView {
         )
         titleView.addSubviews(titleLabel, changeTitleButton)
         questStackView.addArrangedSubviews(recentQuestView, almostDoneQuestView)
+        recentQuestView.addSubviews(recentQuestProgressView, recentQuestProgressLabel)
+        almostDoneQuestView.addSubviews(almostDoneQuestProgressView, almostDoneQuestProgressLabel)
     }
     
     private func setupLayout() {
@@ -204,6 +225,27 @@ extension HomeView {
             $0.top.equalTo(titleView.snp.bottom).offset(13)
             $0.horizontalEdges.equalToSuperview().inset(24)
             $0.height.equalTo(195)
+        }
+        
+        recentQuestProgressView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.height.width.equalTo(82)
+        }
+        
+        recentQuestProgressLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
+        
+        almostDoneQuestProgressView.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(57)
+            $0.height.equalTo(9)
+            $0.width.equalTo(155)
+        }
+        
+        almostDoneQuestProgressLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(58)
+            $0.centerX.equalToSuperview()
         }
     }
     
