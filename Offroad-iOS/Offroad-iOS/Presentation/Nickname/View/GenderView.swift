@@ -33,6 +33,7 @@ final class GenderView: UIView {
         $0.titleLabel?.textAlignment = .center
         $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
         $0.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
+        $0.setTitleColor(UIColor.main(.main2), for: .selected)
         $0.backgroundColor = UIColor.main(.main3)
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         $0.layer.cornerRadius = 5
@@ -43,6 +44,7 @@ final class GenderView: UIView {
         $0.titleLabel?.textAlignment = .center
         $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
         $0.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
+        $0.setTitleColor(UIColor.main(.main2), for: .selected)
         $0.backgroundColor = UIColor.main(.main3)
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         $0.layer.cornerRadius = 5
@@ -53,6 +55,7 @@ final class GenderView: UIView {
         $0.titleLabel?.textAlignment = .center
         $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
         $0.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
+        $0.setTitleColor(UIColor.main(.main2), for: .selected)
         $0.backgroundColor = UIColor.main(.main3)
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         $0.layer.cornerRadius = 5
