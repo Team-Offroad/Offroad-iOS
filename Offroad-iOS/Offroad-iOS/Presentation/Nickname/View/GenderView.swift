@@ -28,38 +28,54 @@ final class GenderView: UIView {
         $0.font = UIFont.offroad(style: .iosSubtitleReg)
     }
     
-    private let maleButton = UIButton().then {
+    let maleButton = UIButton().then {
         $0.setTitle("남성", for: .normal)
         $0.titleLabel?.textAlignment = .center
         $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
         $0.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
         $0.setTitleColor(UIColor.main(.main2), for: .selected)
         $0.backgroundColor = UIColor.main(.main3)
+        $0.setBackgroundColor(UIColor.neutral(.nametagInactive), for: .selected)
+        $0.layer.borderWidth = 1.0
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         $0.layer.cornerRadius = 5
     }
     
-    private let femaleButton = UIButton().then {
+    let femaleButton = UIButton().then {
         $0.setTitle("여성", for: .normal)
         $0.titleLabel?.textAlignment = .center
         $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
         $0.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
         $0.setTitleColor(UIColor.main(.main2), for: .selected)
         $0.backgroundColor = UIColor.main(.main3)
+        $0.setBackgroundColor(UIColor.neutral(.nametagInactive), for: .selected)
+        $0.layer.borderWidth = 1.0
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         $0.layer.cornerRadius = 5
     }
     
-    private let etcButton = UIButton().then {
+    let etcButton = UIButton().then {
         $0.setTitle("기타", for: .normal)
         $0.titleLabel?.textAlignment = .center
         $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
         $0.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
         $0.setTitleColor(UIColor.main(.main2), for: .selected)
         $0.backgroundColor = UIColor.main(.main3)
+        $0.setBackgroundColor(UIColor.neutral(.nametagInactive), for: .selected)
+        $0.layer.borderWidth = 1.0
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         $0.layer.cornerRadius = 5
     }
+    
+    private let nextButton = UIButton().then {
+        $0.setTitle("다음", for: .normal)
+        $0.titleLabel?.textAlignment = .center
+        $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
+        $0.setTitleColor(UIColor.main(.main1), for: .normal)
+        $0.backgroundColor = UIColor.main(.main2)
+        $0.layer.cornerRadius = 5
+    }
+    
     // MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -85,7 +101,8 @@ extension GenderView {
             subLabel,
             maleButton,
             femaleButton,
-            etcButton
+            etcButton,
+            nextButton
         )
     }
     
@@ -112,15 +129,21 @@ extension GenderView {
         }
         
         femaleButton.snp.makeConstraints { make in
-            make.top.equalTo(maleButton.snp.bottom).offset(64)
+            make.top.equalTo(maleButton.snp.bottom).offset(12)
             make.leading.trailing.equalToSuperview().inset(24)
             make.height.equalTo(60)
         }
         
         etcButton.snp.makeConstraints { make in
-            make.top.equalTo(femaleButton.snp.bottom).offset(64)
+            make.top.equalTo(femaleButton.snp.bottom).offset(12)
             make.leading.trailing.equalToSuperview().inset(24)
             make.height.equalTo(60)
+        }
+        
+        nextButton.snp.makeConstraints { make in
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(24)
+            make.leading.trailing.equalToSuperview().inset(24)
+            make.height.equalTo(54)
         }
     }
 }
