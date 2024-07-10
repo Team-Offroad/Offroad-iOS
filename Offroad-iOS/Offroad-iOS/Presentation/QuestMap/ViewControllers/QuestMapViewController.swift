@@ -26,6 +26,7 @@ class QuestMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupButtonsAction()
     }
     
 }
@@ -33,5 +34,21 @@ class QuestMapViewController: UIViewController {
 
 extension QuestMapViewController {
     
+    //MARK: - @objc
+    
+    @objc private func pushQuestListViewController() {
+        print(#function)
+    }
+    
+    @objc private func pushPlaceListViewController() {
+        print(#function)
+    }
+    
+    //MARK: - Private Func
+    
+    private func setupButtonsAction() {
+        rootView.questListButton.addTarget(self, action: #selector(pushQuestListViewController), for: .touchUpInside)
+        rootView.placeListButton.addTarget(self, action: #selector(pushPlaceListViewController), for: .touchUpInside)
+    }
     
 }
