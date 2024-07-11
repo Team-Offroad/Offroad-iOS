@@ -25,7 +25,7 @@ class QuestQRViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        setupLayout()
     }
     
     
@@ -34,6 +34,12 @@ class QuestQRViewController: UIViewController {
 
 extension QuestQRViewController {
     
+    //MARK: - Private Func
     
+    private func setupLayout() {
+        view.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
     
 }

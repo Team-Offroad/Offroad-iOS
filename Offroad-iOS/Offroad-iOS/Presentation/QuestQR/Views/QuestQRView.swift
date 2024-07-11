@@ -12,6 +12,14 @@ import Then
 
 class QuestQRView: UIView {
     
+    //MARK: - Properties
+    
+    var qrTargetAreaSideLength: CGFloat!
+    
+    
+    //MARK: - UI Properties
+    
+    let qrTargetAreaBox = UIView()
     let qrShapeBoxImageView = UIImageView(image: .icnSquareDashedCornerLeft)
     let qrInstructionLabel = UILabel()
     
@@ -44,16 +52,41 @@ extension QuestQRView {
     //MARK: - private func
     
     private func setupHierarchy() {
-        addSubviews(qrShapeBoxImageView, qrInstructionLabel)
+        addSubviews(qrTargetAreaBox, qrShapeBoxImageView, qrInstructionLabel)
     }
     
     private func setupLayout() {
         
+        
+        let screenWidth = UIScreen.main.bounds.width
+        let inset: CGFloat = 24
+        qrTargetAreaSideLength = screenWidth - inset * 2
+        qrTargetAreaBox.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide).offset(19)
+            make.width.height.equalTo(qrTargetAreaSideLength)
+        }
+        
+        qrShapeBoxImageView.snp.makeConstraints { make in
+            make.top.equalTo(qrTargetAreaBox.snp.bottom).offset(42)
+            make.centerX.equalToSuperview()
+            make.width.height.equalTo(30)
+        }
+        
+        qrInstructionLabel.snp.makeConstraints { make in
+            make.top.equalTo(qrShapeBoxImageView.snp.bottom).offset(24)
+            make.centerX.equalToSuperview()
+        }
     }
     
     private func setupStyle() {
         qrInstructionLabel.do { label in
-            
+            label.text = """
+            QR 코드가 잘 보이도록
+            카메라를 비춰주세요
+            """
+            label.numberOfLines = 2
+            label.textColor = .primary(.white)
+            label.highlightText(targetText: "QR 코드", font: .offroad(style: .iosTextBold), color: .primary(.white))
         }
     }
     
