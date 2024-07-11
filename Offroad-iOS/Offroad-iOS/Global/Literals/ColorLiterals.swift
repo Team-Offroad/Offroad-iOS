@@ -76,6 +76,7 @@ enum Home: String, OffroadColor {
     case homeContents2 = "#E6CEAA"
     // alpha = 0.25
     case homeCharacterName = "#8B6546"
+    case homeNicknameStroke = "#C0B3A2"
 }
 
 
@@ -137,6 +138,12 @@ extension UIColor {
     }
     
     static func home(_ style: Home, alpha: CGFloat = 1) -> UIColor {
+        let alpha: CGFloat
+        switch style {
+        case .homeCharacterName: alpha = 0.25
+        default: alpha = 1
+        }
+        
         guard let color = UIColor(hexCode: style.rawValue, alpha: alpha) else { fatalError("UIColor init failed") }
         return color
     }

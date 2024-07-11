@@ -79,8 +79,7 @@ extension HomeView {
         characterNameView.do {
             $0.backgroundColor = .home(.homeCharacterName)
             $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.blackOpacity(.black15).cgColor
-            $0.alpha = 0.25
+            $0.layer.borderColor = UIColor.home(.homeNicknameStroke).cgColor
             $0.roundCorners(cornerRadius: 7)
         }
         
@@ -183,7 +182,7 @@ extension HomeView {
         characterNameView.snp.makeConstraints {
             $0.top.equalTo(nicknameLabel.snp.bottom).offset(17)
             $0.leading.equalToSuperview().inset(24)
-            $0.height.equalTo(33)
+            $0.height.equalTo(32)
         }
         
         characterNameLabel.snp.makeConstraints {
