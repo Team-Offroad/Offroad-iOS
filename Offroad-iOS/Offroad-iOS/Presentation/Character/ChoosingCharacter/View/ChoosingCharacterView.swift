@@ -13,7 +13,13 @@ import Then
 final class ChoosingCharacterView: UIView {
     
     //MARK: - Properties
+    
     private let choosingCharacterCell = ChoosingCharacterCell()
+    
+    private let divideLabelView = UIView().then {
+        $0.backgroundColor = UIColor.sub(.sub4)
+        $0.layer.opacity = 0.25
+    }
     
     let choosingCharacterLabelView = UIView().then {
         $0.backgroundColor = UIColor.main(.main1)
@@ -80,6 +86,7 @@ extension ChoosingCharacterView {
             choosingCharacterLabelView
         )
         choosingCharacterLabelView.addSubview(captionLabel)
+        choosingCharacterLabelView.addSubview(divideLabelView)
     }
     
     private func setupStyle() {
@@ -100,14 +107,20 @@ extension ChoosingCharacterView {
             make.centerX.equalToSuperview()
         }
         
+        choosingCharacterLabelView.snp.makeConstraints{ make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(250)
+        }
+        
         captionLabel.snp.makeConstraints { make in
             make.top.equalTo(choosingCharacterLabelView.snp.top).offset(29)
             make.leading.trailing.equalToSuperview().inset(50)
         }
         
-        choosingCharacterLabelView.snp.makeConstraints{ make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(250)
+        divideLabelView.snp.makeConstraints{ make in
+            make.top.equalTo(captionLabel.snp.bottom).offset(24)
+            make.leading.trailing.equalToSuperview().inset(50)
+            make.height.equalTo(1)
         }
     }
 }
