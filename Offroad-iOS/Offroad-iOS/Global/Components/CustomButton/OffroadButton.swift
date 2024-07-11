@@ -51,5 +51,6 @@ extension OffroadButton {
         }
         roundCorners(cornerRadius: 5)
         setTitle(forTitle, for: .normal)
+        titleLabel?.font = .offroad(style: .iosTextRegular)
     }
 }
