@@ -55,7 +55,8 @@ extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectio
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageIndex = Int(scrollView.contentOffset.x / view.frame.width)
         choosingCharacterView.pageControl.currentPage = (pageIndex - 1 + choosingCharacterView.images.count) % choosingCharacterView.images.count
-        choosingCharacterView.captionLabel.text = choosingCharacterView.captions[choosingCharacterView.pageControl.currentPage]
+        choosingCharacterView.nameLabel.text = choosingCharacterView.names[choosingCharacterView.pageControl.currentPage]
+        choosingCharacterView.discriptionLabel.text = choosingCharacterView.discriptions[choosingCharacterView.pageControl.currentPage]
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

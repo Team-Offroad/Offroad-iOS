@@ -26,7 +26,13 @@ final class ChoosingCharacterView: UIView {
     }
     
     let images = ["img_human", "img_red_hair", "img_naked_human"]
-    let captions = ["오프", "로드", "근원"]
+    let names = ["오프", "로드", "근원"]
+    let discriptions = [
+        "오푸는 어쩌고 저쩌고 성격을 가진 귀여운 어쩌고 저쩌고 들어간다면 이렇게 들어갑니다. 세 줄까지 이 정도. 이렇게 저렇게 이렇게 짝짝.",
+        "오푸는 어쩌고 저쩌고 성격을 가진 귀여운 어쩌고 저쩌고 들어간다면 이렇게 들어갑니다. 세 줄까지 이 정도. 이렇게 저렇게 이렇게 짝짝.2",
+        "오푸는 어쩌고 저쩌고 성격을 가진 귀여운 어쩌고 저쩌고 들어간다면 이렇게 들어갑니다. 세 줄까지 이 정도. 이렇게 저렇게 이렇게 짝짝.3"
+    ]
+    
     
     var extendedImages: [String] {
         var extended = images
@@ -54,10 +60,18 @@ final class ChoosingCharacterView: UIView {
         $0.currentPageIndicatorTintColor = .black
     }
     
-    let captionLabel = UILabel().then {
+    let nameLabel = UILabel().then {
         $0.textAlignment = .center
         $0.textColor = UIColor.main(.main2)
         $0.font = UIFont.offroad(style: .iosTitle)
+    }
+    
+    let discriptionLabel = UILabel().then {
+        $0.textAlignment = .center
+        $0.numberOfLines = 3
+
+        $0.textColor = UIColor.sub(.sub4)
+        $0.font = UIFont.offroad(style: .iosTextRegular)
     }
     
     // MARK: - Life Cycle
@@ -85,8 +99,9 @@ extension ChoosingCharacterView {
             pageControl,
             choosingCharacterLabelView
         )
-        choosingCharacterLabelView.addSubview(captionLabel)
+        choosingCharacterLabelView.addSubview(nameLabel)
         choosingCharacterLabelView.addSubview(divideLabelView)
+        choosingCharacterLabelView.addSubview(discriptionLabel)
     }
     
     private func setupStyle() {
@@ -112,15 +127,20 @@ extension ChoosingCharacterView {
             make.height.equalTo(250)
         }
         
-        captionLabel.snp.makeConstraints { make in
+        nameLabel.snp.makeConstraints { make in
             make.top.equalTo(choosingCharacterLabelView.snp.top).offset(29)
             make.leading.trailing.equalToSuperview().inset(50)
         }
         
         divideLabelView.snp.makeConstraints{ make in
-            make.top.equalTo(captionLabel.snp.bottom).offset(24)
+            make.top.equalTo(nameLabel.snp.bottom).offset(24)
             make.leading.trailing.equalToSuperview().inset(50)
             make.height.equalTo(1)
+        }
+        
+        discriptionLabel.snp.makeConstraints{ make in
+            make.top.equalTo(divideLabelView.snp.bottom).offset(18)
+            make.leading.trailing.equalToSuperview().inset(25)
         }
     }
 }
