@@ -12,12 +12,16 @@ import Then
 
 class QuestMapNavigationController: UINavigationController {
     
+    //MARK: - Properties
+    
+    
     //MARK: - UI Properties
     
-    private let customNavigationBar = UIView()
-    private let customNavigationBarShadowLine = UIView()
-    private let navigationTitleLabel = UILabel()
+    let customNavigationBar = QuestNavigationBar()
+    let customStatusBarBackgorund = UIView()
+    let customNavigationBarShadowLine = UIView()
     
+
     
     //MARK: - LifeCycle
     
@@ -37,6 +41,9 @@ class QuestMapNavigationController: UINavigationController {
         setupStyle()
         setupLayout()
         setNavigationBarAppearance()
+        setupAppearanceToTransparent()
+        customNavigationBar.changeState(to: .questMap)
+        self.delegate = self
     }
     
 }
@@ -46,12 +53,23 @@ extension QuestMapNavigationController {
     
     private func setupHierarchy() {
         navigationBar.addSubview(customNavigationBar)
-        customNavigationBar.addSubviews(navigationTitleLabel, customNavigationBarShadowLine)
+        customNavigationBar.addSubviews(
+            //navigationTitleLabel,
+            customNavigationBarShadowLine,
+            customStatusBarBackgorund
+        )
     }
     
     private func setupStyle() {
+//        guard let sceneDelegate = UIApplication.shared.delegate as? SceneDelegate else { fatalError() }
+//        sceneDelegate.window?.backgroundColor = .main(.main1)
+        
         customNavigationBar.do { view in
             //view.clipsToBounds = false
+            view.backgroundColor = .main(.main1)
+        }
+        
+        customStatusBarBackgorund.do { view in
             view.backgroundColor = .main(.main1)
         }
         
@@ -59,11 +77,7 @@ extension QuestMapNavigationController {
             view.backgroundColor = .blackOpacity(.black25)
         }
         
-        navigationTitleLabel.do { label in
-            label.text = "어디를 탐험해 볼까요?"
-            label.font = .offroad(style: .iosSubtitle2Bold)
-            label.textAlignment = .left
-        }
+        
     }
     
     private func setupLayout() {
@@ -72,17 +86,18 @@ extension QuestMapNavigationController {
             make.height.equalTo(76)
         }
         
+        customStatusBarBackgorund.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(view)
+            make.bottom.equalTo(customNavigationBar.snp.top)
+        }
+        
         customNavigationBarShadowLine.snp.makeConstraints { make in
             make.top.equalTo(customNavigationBar.snp.bottom)
             make.horizontalEdges.equalTo(customNavigationBar)
             make.height.equalTo(1)
         }
         
-        navigationTitleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(26.41)
-            make.bottom.equalToSuperview().inset(25.59)
-            make.leading.equalToSuperview().inset(24)
-        }
+        
     }
     
     private func setNavigationBarAppearance() {
@@ -94,6 +109,43 @@ extension QuestMapNavigationController {
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         viewController.additionalSafeAreaInsets.top = 76 - navigationBar.frame.height
         super.pushViewController(viewController, animated: animated)
+    }
+    
+    
+    func setupAppearanceToTransparent() {
+        let appearance = UINavigationBarAppearance().then { appearance in
+            //appearance.backgroundColor = .clear
+            appearance.configureWithTransparentBackground()
+        }
+        
+        //navigationController?.navigationBar.standardAppearance = appearance
+        navigationBar.scrollEdgeAppearance = appearance
+    }
+    
+    func setupAppearanceToOpaque() {
+        print(#function)
+        let appearance = UINavigationBarAppearance().then { appearance in
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .main(.main1)
+        }
+        
+        navigationBar.scrollEdgeAppearance = appearance
+        navigationBar.standardAppearance = appearance
+        navigationBar.compactAppearance = appearance
+        navigationBar.compactScrollEdgeAppearance = appearance
+    }
+    
+    
+    
+}
+
+
+
+
+extension QuestMapNavigationController: UINavigationControllerDelegate {
+    
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        self.interactivePopGestureRecognizer?.isEnabled = viewControllers.count > 1
     }
     
 }
