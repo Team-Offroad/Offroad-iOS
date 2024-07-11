@@ -27,6 +27,12 @@ final class ChoosingCharacterViewController: UIViewController {
         
         setupCollectionView()
         
+        let style = NSMutableParagraphStyle()
+
+        if #available(iOS 14.0, *) {
+                style.lineBreakStrategy = .hangulWordPriority
+            }
+        
         DispatchQueue.main.async {
             self.choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)
         }

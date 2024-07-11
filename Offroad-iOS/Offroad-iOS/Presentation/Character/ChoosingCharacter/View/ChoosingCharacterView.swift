@@ -69,7 +69,7 @@ final class ChoosingCharacterView: UIView {
     let discriptionLabel = UILabel().then {
         $0.textAlignment = .center
         $0.numberOfLines = 3
-
+        $0.lineBreakMode = .byWordWrapping
         $0.textColor = UIColor.sub(.sub4)
         $0.font = UIFont.offroad(style: .iosTextRegular)
     }
@@ -140,8 +140,7 @@ extension ChoosingCharacterView {
         
         discriptionLabel.snp.makeConstraints{ make in
             make.top.equalTo(divideLabelView.snp.bottom).offset(18)
-            make.leading.trailing.equalToSuperview().inset(25)
-        }
+            make.leading.trailing.equalToSuperview().inset(50)        }
     }
 }
 
