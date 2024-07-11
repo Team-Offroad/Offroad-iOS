@@ -31,4 +31,19 @@ extension UILabel {
         
         self.attributedText = attributedString
     }
+    
+    /// UILabel에서의 줄 간 간격을 설정하는 함수
+    /// - Parameter spacing: 적용할 font
+    /// > 사용 예시 : `label.setLineSpacing(spacing: 15.0)`
+    func setLineSpacing(spacing: CGFloat) {
+        guard let text = text else { return }
+        
+        let attributeString = NSMutableAttributedString(string: text)
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = spacing
+        attributeString.addAttribute(.paragraphStyle,
+                                     value: style,
+                                     range: NSRange(location: 0, length: attributeString.length))
+        attributedText = attributeString
+    }
 }
