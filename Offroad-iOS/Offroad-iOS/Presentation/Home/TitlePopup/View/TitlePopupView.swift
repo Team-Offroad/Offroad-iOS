@@ -56,8 +56,7 @@ extension TitlePopupView {
         }
         
         closeButton.do {
-//            $0.setImage(UIImage(resource: .), for: <#T##UIControl.State#>)
-            $0.backgroundColor = .lightGray
+            $0.setImage(UIImage(resource: .iconClose), for: .normal)
         }
         
         titleTableView.do {
