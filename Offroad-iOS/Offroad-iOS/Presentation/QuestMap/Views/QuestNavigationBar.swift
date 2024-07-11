@@ -10,21 +10,17 @@ import UIKit
 import SnapKit
 import Then
 
+enum QuestNavigationView {
+    case questMap
+    case questQR
+}
+
 class QuestNavigationBar: UIView {
-    
-    enum QuestNavigationView {
-        case questMap
-        case questQR
-    }
-    
-    
-    //MARK: - Properties
-    
     
     //MARK: - UI Properties
     
     private let navigationTitleLabel = UILabel()
-    private let customBackButton = UIButton()
+    let customBackButton = UIButton()
       
     
     override init(frame: CGRect) {
@@ -40,16 +36,11 @@ class QuestNavigationBar: UIView {
     }
     
     
-    
-    
-    
 }
 
 
 
 extension QuestNavigationBar {
-    
-    
     
     //MARK: - Private Func
     
@@ -87,7 +78,6 @@ extension QuestNavigationBar {
             
             button.configuration = configuration
         }
-        
     }
     
     //MARK: - Func
@@ -95,11 +85,13 @@ extension QuestNavigationBar {
     func changeState(to view: QuestNavigationView) {
         switch view {
         case .questMap:
-            self.navigationTitleLabel.isHidden = false
-            self.customBackButton.isHidden = true
+            backgroundColor = .main(.main1)
+            navigationTitleLabel.isHidden = false
+            customBackButton.isHidden = true
         case .questQR:
-            self.navigationTitleLabel.isHidden = true
-            self.customBackButton.isHidden = false
+            backgroundColor = .clear
+            navigationTitleLabel.isHidden = true
+            customBackButton.isHidden = false
         }
     }
 }

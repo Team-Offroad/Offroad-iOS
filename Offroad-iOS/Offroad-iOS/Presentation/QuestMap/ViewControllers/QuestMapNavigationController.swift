@@ -12,16 +12,12 @@ import Then
 
 class QuestMapNavigationController: UINavigationController {
     
-    //MARK: - Properties
-    
-    
     //MARK: - UI Properties
     
-    let customNavigationBar = QuestNavigationBar()
-    let customStatusBarBackgorund = UIView()
-    let customNavigationBarShadowLine = UIView()
+    /*private */let customNavigationBar = QuestNavigationBar()
+    /*private */let customStatusBarBackgorund = UIView()
+    /*private */let customNavigationBarShadowLine = UIView()
     
-
     
     //MARK: - LifeCycle
     
@@ -40,10 +36,8 @@ class QuestMapNavigationController: UINavigationController {
         setupHierarchy()
         setupStyle()
         setupLayout()
-        setNavigationBarAppearance()
-        setupAppearanceToTransparent()
-        customNavigationBar.changeState(to: .questMap)
-        self.delegate = self
+        setInitialNavigationBarState()
+        setupButtonsAction()
     }
     
 }
@@ -51,21 +45,24 @@ class QuestMapNavigationController: UINavigationController {
 
 extension QuestMapNavigationController {
     
+    //MARK: - @objc Func
+    @objc private func popByCustomBackButton() {
+        popViewController(animated: true)
+    }
+    
+    //MARK: - Private Func
+    
     private func setupHierarchy() {
-        navigationBar.addSubview(customNavigationBar)
-        customNavigationBar.addSubviews(
-            //navigationTitleLabel,
+        navigationBar.addSubviews(
+            customNavigationBar,
             customNavigationBarShadowLine,
             customStatusBarBackgorund
         )
     }
     
     private func setupStyle() {
-//        guard let sceneDelegate = UIApplication.shared.delegate as? SceneDelegate else { fatalError() }
-//        sceneDelegate.window?.backgroundColor = .main(.main1)
         
         customNavigationBar.do { view in
-            //view.clipsToBounds = false
             view.backgroundColor = .main(.main1)
         }
         
@@ -76,7 +73,6 @@ extension QuestMapNavigationController {
         customNavigationBarShadowLine.do { view in
             view.backgroundColor = .blackOpacity(.black25)
         }
-        
         
     }
     
@@ -96,56 +92,38 @@ extension QuestMapNavigationController {
             make.horizontalEdges.equalTo(customNavigationBar)
             make.height.equalTo(1)
         }
-        
-        
     }
     
-    private func setNavigationBarAppearance() {
-        navigationBar.scrollEdgeAppearance = UINavigationBarAppearance().then {
-            $0.backgroundColor = .main(.main1)
+    private func setInitialNavigationBarState() {
+        let appearance = UINavigationBarAppearance().then { appearance in
+            appearance.configureWithTransparentBackground()
         }
+        navigationBar.scrollEdgeAppearance = appearance
+        customNavigationBar.changeState(to: .questMap)
     }
+    
+    private func setupButtonsAction() {
+        customNavigationBar.customBackButton.addTarget(self, action: #selector(popByCustomBackButton), for: .touchUpInside)
+    }
+    
+    //MARK: - Func
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         viewController.additionalSafeAreaInsets.top = 76 - navigationBar.frame.height
         super.pushViewController(viewController, animated: animated)
     }
     
-    
-    func setupAppearanceToTransparent() {
-        let appearance = UINavigationBarAppearance().then { appearance in
-            //appearance.backgroundColor = .clear
-            appearance.configureWithTransparentBackground()
+    func setCustomAppearance(state: QuestNavigationView) {
+        switch state {
+        case .questMap:
+            customStatusBarBackgorund.backgroundColor = .main(.main1)
+            customNavigationBarShadowLine.backgroundColor = .blackOpacity(.black25)
+            customNavigationBar.changeState(to: .questMap)
+        case .questQR:
+            customStatusBarBackgorund.backgroundColor = .clear
+            customNavigationBarShadowLine.backgroundColor = .clear
+            customNavigationBar.changeState(to: .questQR)
         }
-        
-        //navigationController?.navigationBar.standardAppearance = appearance
-        navigationBar.scrollEdgeAppearance = appearance
-    }
-    
-    func setupAppearanceToOpaque() {
-        print(#function)
-        let appearance = UINavigationBarAppearance().then { appearance in
-            appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = .main(.main1)
-        }
-        
-        navigationBar.scrollEdgeAppearance = appearance
-        navigationBar.standardAppearance = appearance
-        navigationBar.compactAppearance = appearance
-        navigationBar.compactScrollEdgeAppearance = appearance
-    }
-    
-    
-    
-}
-
-
-
-
-extension QuestMapNavigationController: UINavigationControllerDelegate {
-    
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        self.interactivePopGestureRecognizer?.isEnabled = viewControllers.count > 1
     }
     
 }
