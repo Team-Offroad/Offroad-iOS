@@ -11,6 +11,8 @@ final class TitlePopupViewController: UIViewController {
     
     //MARK: - Properties
     
+    private let titleModelList = TitleModel.dummy()
+    
     private let rootView = TitlePopupView(frame: CGRect(x: 0, y: 0, width: 345, height: 430))
     
     // MARK: - Life Cycle
@@ -34,9 +36,34 @@ extension TitlePopupViewController {
     
     private func setupTarget() {
         rootView.setupButton(action: buttonTapped)
+        rootView.setupTitleCollectionView(self)
     }
     
     private func buttonTapped() {
         
+    }
+}
+
+//MARK: - UICollectionViewDataSource
+
+extension TitlePopupViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return titleModelList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.className, for: indexPath) as? TitleCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        cell.configureCell(data: titleModelList[indexPath.item])
+        return cell
+    }
+}
+
+//MARK: - UICollectionViewDelegateFlowLayout
+
+extension TitlePopupViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: rootView.getTitleCollectionViewWidth() - 48, height: 48)
     }
 }

@@ -53,6 +53,7 @@
 		87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046972C3D5E3D002D12C2 /* NicknameView.swift */; };
 		AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */; };
 		D018BB0F2C40200C0048B6DF /* OffroadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB0E2C40200C0048B6DF /* OffroadButton.swift */; };
+		D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB102C4054D20048B6DF /* TitleModel.swift */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
@@ -62,7 +63,7 @@
 		D06D26CF2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26CE2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift */; };
 		D06D26DA2C3FE1C700E79F25 /* TitlePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */; };
 		D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */; };
-		D06D26E22C400C3800E79F25 /* TitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26E12C400C3800E79F25 /* TitleTableViewCell.swift */; };
+		D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */; };
 		D0EAF21B2C3B026500566543 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF21A2C3B026500566543 /* SplashViewController.swift */; };
 		D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF21E2C3B02B700566543 /* SplashView.swift */; };
 		D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF2232C3B7D7100566543 /* LoginView.swift */; };
@@ -134,6 +135,7 @@
 		87E046972C3D5E3D002D12C2 /* NicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameView.swift; sourceTree = "<group>"; };
 		C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOS_Offroad_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D018BB0E2C40200C0048B6DF /* OffroadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadButton.swift; sourceTree = "<group>"; };
+		D018BB102C4054D20048B6DF /* TitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleModel.swift; sourceTree = "<group>"; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		D06D26C22C3D835300E79F25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -143,7 +145,7 @@
 		D06D26CE2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlmostDoneProgressView.swift; sourceTree = "<group>"; };
 		D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupViewController.swift; sourceTree = "<group>"; };
 		D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupView.swift; sourceTree = "<group>"; };
-		D06D26E12C400C3800E79F25 /* TitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTableViewCell.swift; sourceTree = "<group>"; };
+		D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0EAF21A2C3B026500566543 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D0EAF21E2C3B02B700566543 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		D0EAF2232C3B7D7100566543 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -396,7 +398,7 @@
 				D06D26C92C3DAA3200E79F25 /* Component */,
 				D06D26BB2C3D643400E79F25 /* View */,
 				D06D26BA2C3D642D00E79F25 /* ViewController */,
-				D06D26D42C3FE12800E79F25 /* TitlePopup */
+				D06D26D42C3FE12800E79F25 /* TitlePopup */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -699,6 +701,7 @@
 		D06D26D72C3FE17800E79F25 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D018BB102C4054D20048B6DF /* TitleModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -706,7 +709,7 @@
 		D06D26D82C3FE18200E79F25 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				D06D26E12C400C3800E79F25 /* TitleTableViewCell.swift */,
+				D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1018,6 +1021,7 @@
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
 				4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */,
 				4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */,
+				D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */,
 				D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */,
 				8792D0172C3E5828002051AC /* GenderView.swift in Sources */,
 				4E0394D92C2ABCCC007F0517 /* UIView+.swift in Sources */,
@@ -1031,7 +1035,7 @@
 				D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
 				87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */,
-				D06D26E22C400C3800E79F25 /* TitleTableViewCell.swift in Sources */,
+				D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */,
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
 				D06D26CB2C3DAA5300E79F25 /* CustomQuestView.swift in Sources */,
 				D06D26C52C3D83AA00E79F25 /* HomeViewController.swift in Sources */,

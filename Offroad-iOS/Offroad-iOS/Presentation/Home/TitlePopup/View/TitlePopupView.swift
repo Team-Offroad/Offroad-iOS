@@ -22,8 +22,8 @@ final class TitlePopupView: UIView {
     
     private let myTitleLabel = UILabel()
     private let closeButton = UIButton()
-    private let titleTableView = UITableView()
-    private let changeTitleButton = UIButton()
+    private let titleCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    private let changeTitleButton = OffroadButton(state: .isdisabled, title: "바꾸기")
         
     // MARK: - Life Cycle
     
@@ -59,15 +59,14 @@ extension TitlePopupView {
             $0.setImage(UIImage(resource: .iconClose), for: .normal)
         }
         
-        titleTableView.do {
-            $0.backgroundColor = .lightGray
-        }
-        
-        changeTitleButton.do {
-            $0.setTitle("바꾸기", for: .normal)
-            $0.setTitleColor(.primary(.white), for: .normal)
-            $0.backgroundColor = .sub(.sub4)
-            $0.roundCorners(cornerRadius: 5)
+        titleCollectionView.do {
+            let flowLayout = UICollectionViewFlowLayout()
+            flowLayout.scrollDirection = .vertical
+            $0.collectionViewLayout = flowLayout
+            $0.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.className)
+
+            $0.backgroundColor = .clear
+            $0.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 12)
         }
     }
     
@@ -75,7 +74,7 @@ extension TitlePopupView {
         addSubviews(
             myTitleLabel,
             closeButton,
-            titleTableView,
+            titleCollectionView,
             changeTitleButton
         )
     }
@@ -92,10 +91,9 @@ extension TitlePopupView {
             $0.height.width.equalTo(44)
         }
         
-        titleTableView.snp.makeConstraints {
+        titleCollectionView.snp.makeConstraints {
             $0.top.equalTo(myTitleLabel.snp.bottom).offset(32)
-            $0.leading.equalToSuperview().inset(24)
-            $0.trailing.equalToSuperview().inset(12)
+            $0.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(changeTitleButton.snp.top).offset(-12)
         }
         
@@ -117,5 +115,14 @@ extension TitlePopupView {
     func setupButton(action: @escaping ButtonAction) {
         buttonAction = action
 //        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+    }
+    
+    func setupTitleCollectionView(_ viewController: UIViewController) {
+        titleCollectionView.dataSource = viewController as? UICollectionViewDataSource
+        titleCollectionView.delegate = viewController as? UICollectionViewDelegate
+    }
+    
+    func getTitleCollectionViewWidth() -> CGFloat {
+        return titleCollectionView.frame.size.width
     }
 }
