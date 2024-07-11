@@ -49,7 +49,7 @@
 		8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0182C3E5E40002051AC /* UIButton+.swift */; };
 		8792D01E2C3E872D002051AC /* ChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D01D2C3E872D002051AC /* ChoosingCharacterView.swift */; };
 		8792D0202C3E873C002051AC /* ChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D01F2C3E873C002051AC /* ChoosingCharacterViewController.swift */; };
-		8792D0222C3E9695002051AC /* ChoosingCharacterLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0212C3E9695002051AC /* ChoosingCharacterLabelView.swift */; };
+		8792D0242C3F0843002051AC /* ChoosingCharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0232C3F0843002051AC /* ChoosingCharacterCell.swift */; };
 		87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046932C3D2B38002D12C2 /* BirthViewController.swift */; };
 		87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046972C3D5E3D002D12C2 /* NicknameView.swift */; };
 		AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */; };
@@ -121,7 +121,7 @@
 		8792D0182C3E5E40002051AC /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		8792D01D2C3E872D002051AC /* ChoosingCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingCharacterView.swift; sourceTree = "<group>"; };
 		8792D01F2C3E873C002051AC /* ChoosingCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingCharacterViewController.swift; sourceTree = "<group>"; };
-		8792D0212C3E9695002051AC /* ChoosingCharacterLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingCharacterLabelView.swift; sourceTree = "<group>"; };
+		8792D0232C3F0843002051AC /* ChoosingCharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingCharacterCell.swift; sourceTree = "<group>"; };
 		87E046932C3D2B38002D12C2 /* BirthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewController.swift; sourceTree = "<group>"; };
 		87E046972C3D5E3D002D12C2 /* NicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameView.swift; sourceTree = "<group>"; };
 		C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOS_Offroad_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -570,7 +570,7 @@
 			isa = PBXGroup;
 			children = (
 				8792D01D2C3E872D002051AC /* ChoosingCharacterView.swift */,
-				8792D0212C3E9695002051AC /* ChoosingCharacterLabelView.swift */,
+				8792D0232C3F0843002051AC /* ChoosingCharacterCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -929,7 +929,6 @@
 				4E1E94112C39870700A7B08A /* ColorLiterals.swift in Sources */,
 				4E0394312C2A9DCE007F0517 /* ViewController.swift in Sources */,
 				D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */,
-				8792D0222C3E9695002051AC /* ChoosingCharacterLabelView.swift in Sources */,
 				4E0394E32C2AC0D7007F0517 /* UIWindow+.swift in Sources */,
 				4E0394DD2C2ABEF2007F0517 /* UITextField+.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
@@ -941,6 +940,7 @@
 				8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */,
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
 				8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */,
+				8792D0242C3F0843002051AC /* ChoosingCharacterCell.swift in Sources */,
 				4E03942F2C2A9DCE007F0517 /* SceneDelegate.swift in Sources */,
 				D0EAF21B2C3B026500566543 /* SplashViewController.swift in Sources */,
 			);

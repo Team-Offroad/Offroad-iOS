@@ -13,6 +13,11 @@ import Then
 final class ChoosingCharacterView: UIView {
     
     //MARK: - Properties
+    private let choosingCharacterCell = ChoosingCharacterCell()
+    
+    let choosingCharacterLabelView = UIView().then {
+        $0.backgroundColor = UIColor.main(.main1)
+    }
     
     let images = ["img_human", "img_red_hair", "img_naked_human"]
     let captions = ["오프", "로드", "근원"]
@@ -29,7 +34,7 @@ final class ChoosingCharacterView: UIView {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 300)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 284)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
@@ -45,7 +50,8 @@ final class ChoosingCharacterView: UIView {
     
     let captionLabel = UILabel().then {
         $0.textAlignment = .center
-        $0.text = "키티"
+        $0.textColor = UIColor.main(.main2)
+        $0.font = UIFont.offroad(style: .iosTitle)
     }
     
     // MARK: - Life Cycle
@@ -71,31 +77,39 @@ extension ChoosingCharacterView {
         addSubviews(
             collectionView,
             pageControl,
-            captionLabel
+            choosingCharacterLabelView
         )
+        choosingCharacterLabelView.addSubview(captionLabel)
     }
     
     private func setupStyle() {
-        backgroundColor = UIColor.main(.main1)
+        backgroundColor = UIColor.sub(.sub)
     }
     
     private func setupLayout() {
         
         collectionView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(175)
+            make.leading.trailing.equalToSuperview()
             make.height.equalTo(300)
         }
         
         pageControl.numberOfPages = images.count
         pageControl.snp.makeConstraints { make in
-            make.top.equalTo(collectionView.snp.bottom).offset(10)
+            make.top.equalTo(collectionView.snp.bottom).offset(49)
             make.centerX.equalToSuperview()
         }
         
         captionLabel.snp.makeConstraints { make in
-            make.top.equalTo(pageControl.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.top.equalTo(choosingCharacterLabelView.snp.top).offset(29)
+            make.leading.trailing.equalToSuperview().inset(50)
+        }
+        
+        choosingCharacterLabelView.snp.makeConstraints{ make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(250)
         }
     }
 }
+
 
