@@ -12,7 +12,8 @@ import Then
 
 class QuestQRView: UIView {
     
-    let qrShapeBoxImageView = UIImageView(image: nil)
+    let qrShapeBoxImageView = UIImageView(image: .icnSquareDashedCornerLeft)
+    let qrInstructionLabel = UILabel()
     
     //MARK: - Life Cycle
     
@@ -43,7 +44,7 @@ extension QuestQRView {
     //MARK: - private func
     
     private func setupHierarchy() {
-        
+        addSubviews(qrShapeBoxImageView, qrInstructionLabel)
     }
     
     private func setupLayout() {
@@ -51,7 +52,9 @@ extension QuestQRView {
     }
     
     private func setupStyle() {
-        
+        qrInstructionLabel.do { label in
+            
+        }
     }
     
     //MARK: - func
