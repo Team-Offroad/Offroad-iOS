@@ -46,12 +46,13 @@
 		8792CFFC2C3D8240002051AC /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8792CFFB2C3D823F002051AC /* Secrets.xcconfig */; };
 		8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */; };
 		8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0102C3DA1C9002051AC /* BirthView.swift */; };
-		8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0182C3E5E40002051AC /* UIButton+.swift */; };
 		8792D0152C3E581E002051AC /* GenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0142C3E581E002051AC /* GenderViewController.swift */; };
 		8792D0172C3E5828002051AC /* GenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0162C3E5828002051AC /* GenderView.swift */; };
+		8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0182C3E5E40002051AC /* UIButton+.swift */; };
 		87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046932C3D2B38002D12C2 /* BirthViewController.swift */; };
 		87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046972C3D5E3D002D12C2 /* NicknameView.swift */; };
 		AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */; };
+		D018BB0F2C40200C0048B6DF /* OffroadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB0E2C40200C0048B6DF /* OffroadButton.swift */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
@@ -126,12 +127,13 @@
 		8792CFFB2C3D823F002051AC /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
 		8792D0102C3DA1C9002051AC /* BirthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthView.swift; sourceTree = "<group>"; };
-		8792D0182C3E5E40002051AC /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		8792D0142C3E581E002051AC /* GenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderViewController.swift; sourceTree = "<group>"; };
 		8792D0162C3E5828002051AC /* GenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderView.swift; sourceTree = "<group>"; };
+		8792D0182C3E5E40002051AC /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		87E046932C3D2B38002D12C2 /* BirthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewController.swift; sourceTree = "<group>"; };
 		87E046972C3D5E3D002D12C2 /* NicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameView.swift; sourceTree = "<group>"; };
 		C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOS_Offroad_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D018BB0E2C40200C0048B6DF /* OffroadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadButton.swift; sourceTree = "<group>"; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		D06D26C22C3D835300E79F25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 		4E0394602C2AA0C1007F0517 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				D018BB0C2C401F5F0048B6DF /* Components */,
 				4E0394612C2AA0C5007F0517 /* Extensions */,
 				4E0394652C2AA0E7007F0517 /* Literals */,
 				4E0394642C2AA0E4007F0517 /* Protocols */,
@@ -622,6 +625,22 @@
 				1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D018BB0C2C401F5F0048B6DF /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D018BB0D2C401F700048B6DF /* CustomButton */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		D018BB0D2C401F700048B6DF /* CustomButton */ = {
+			isa = PBXGroup;
+			children = (
+				D018BB0E2C40200C0048B6DF /* OffroadButton.swift */,
+			);
+			path = CustomButton;
 			sourceTree = "<group>";
 		};
 		D06D26BA2C3D642D00E79F25 /* ViewController */ = {
@@ -1019,6 +1038,7 @@
 				D06D26CD2C3E6EA200E79F25 /* CustomRecentProgressView.swift in Sources */,
 				4E1E94132C398C4200A7B08A /* String+.swift in Sources */,
 				8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */,
+				D018BB0F2C40200C0048B6DF /* OffroadButton.swift in Sources */,
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
 				8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */,
 				4E03942F2C2A9DCE007F0517 /* SceneDelegate.swift in Sources */,
