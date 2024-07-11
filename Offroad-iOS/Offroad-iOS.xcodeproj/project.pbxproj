@@ -59,6 +59,9 @@
 		D06D26CB2C3DAA5300E79F25 /* CustomQuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26CA2C3DAA5300E79F25 /* CustomQuestView.swift */; };
 		D06D26CD2C3E6EA200E79F25 /* CustomRecentProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26CC2C3E6EA200E79F25 /* CustomRecentProgressView.swift */; };
 		D06D26CF2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26CE2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift */; };
+		D06D26DA2C3FE1C700E79F25 /* TitlePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */; };
+		D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */; };
+		D06D26E22C400C3800E79F25 /* TitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26E12C400C3800E79F25 /* TitleTableViewCell.swift */; };
 		D0EAF21B2C3B026500566543 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF21A2C3B026500566543 /* SplashViewController.swift */; };
 		D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF21E2C3B02B700566543 /* SplashView.swift */; };
 		D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF2232C3B7D7100566543 /* LoginView.swift */; };
@@ -136,6 +139,9 @@
 		D06D26CA2C3DAA5300E79F25 /* CustomQuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomQuestView.swift; sourceTree = "<group>"; };
 		D06D26CC2C3E6EA200E79F25 /* CustomRecentProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRecentProgressView.swift; sourceTree = "<group>"; };
 		D06D26CE2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlmostDoneProgressView.swift; sourceTree = "<group>"; };
+		D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupViewController.swift; sourceTree = "<group>"; };
+		D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupView.swift; sourceTree = "<group>"; };
+		D06D26E12C400C3800E79F25 /* TitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTableViewCell.swift; sourceTree = "<group>"; };
 		D0EAF21A2C3B026500566543 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D0EAF21E2C3B02B700566543 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		D0EAF2232C3B7D7100566543 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -387,6 +393,7 @@
 				D06D26C92C3DAA3200E79F25 /* Component */,
 				D06D26BB2C3D643400E79F25 /* View */,
 				D06D26BA2C3D642D00E79F25 /* ViewController */,
+				D06D26D42C3FE12800E79F25 /* TitlePopup */
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -641,6 +648,48 @@
 				D06D26CE2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		D06D26D42C3FE12800E79F25 /* TitlePopup */ = {
+			isa = PBXGroup;
+			children = (
+				D06D26D72C3FE17800E79F25 /* Model */,
+				D06D26D62C3FE16D00E79F25 /* View */,
+				D06D26D52C3FE16100E79F25 /* ViewController */,
+			);
+			path = TitlePopup;
+			sourceTree = "<group>";
+		};
+		D06D26D52C3FE16100E79F25 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D06D26D62C3FE16D00E79F25 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D06D26D82C3FE18200E79F25 /* Cell */,
+				D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D06D26D72C3FE17800E79F25 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D06D26D82C3FE18200E79F25 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D06D26E12C400C3800E79F25 /* TitleTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		D0EAF21C2C3B029D00566543 /* ViewController */ = {
@@ -943,6 +992,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D06D26CF2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift in Sources */,
+				D06D26DA2C3FE1C700E79F25 /* TitlePopupViewController.swift in Sources */,
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
 				8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */,
 				D0EAF2262C3B7D7F00566543 /* LoginViewController.swift in Sources */,
@@ -954,6 +1004,7 @@
 				4E0394D92C2ABCCC007F0517 /* UIView+.swift in Sources */,
 				8792D0152C3E581E002051AC /* GenderViewController.swift in Sources */,
 				4E1E94112C39870700A7B08A /* ColorLiterals.swift in Sources */,
+				D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */,
 				4E0394312C2A9DCE007F0517 /* ViewController.swift in Sources */,
 				D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */,
 				4E0394E32C2AC0D7007F0517 /* UIWindow+.swift in Sources */,
@@ -961,6 +1012,7 @@
 				D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
 				87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */,
+				D06D26E22C400C3800E79F25 /* TitleTableViewCell.swift in Sources */,
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
 				D06D26CB2C3DAA5300E79F25 /* CustomQuestView.swift in Sources */,
 				D06D26C52C3D83AA00E79F25 /* HomeViewController.swift in Sources */,
