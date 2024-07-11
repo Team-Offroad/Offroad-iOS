@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class ChoosingCharacterViewController: UIViewController {
+final class ChoosingCharacterViewController: UIViewController {
     
     //MARK: - Properties
     
@@ -23,7 +23,7 @@ class ChoosingCharacterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.main(.main1)
+        view.backgroundColor = UIColor.sub(.sub)
         
         setupCollectionView()
         
@@ -37,7 +37,7 @@ class ChoosingCharacterViewController: UIViewController {
     private func setupCollectionView() {
         choosingCharacterView.collectionView.delegate = self
         choosingCharacterView.collectionView.dataSource = self
-        choosingCharacterView.collectionView.register(CarouselCell.self, forCellWithReuseIdentifier: CarouselCell.identifier)
+        choosingCharacterView.collectionView.register(ChoosingCharacterCell.self, forCellWithReuseIdentifier: ChoosingCharacterCell.identifier)
     }
 }
 
@@ -47,7 +47,7 @@ extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectio
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCell.identifier, for: indexPath) as! CarouselCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChoosingCharacterCell.identifier, for: indexPath) as! ChoosingCharacterCell
         cell.configure(imageName: choosingCharacterView.extendedImages[indexPath.item])
         return cell
     }
@@ -70,28 +70,5 @@ extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectio
     }
 }
 
-class CarouselCell: UICollectionViewCell {
-    static let identifier = "CarouselCell"
 
-    private let imageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
-        $0.clipsToBounds = true
-    }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        contentView.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    func configure(imageName: String) {
-        imageView.image = UIImage(named: imageName)
-    }
-}
 
