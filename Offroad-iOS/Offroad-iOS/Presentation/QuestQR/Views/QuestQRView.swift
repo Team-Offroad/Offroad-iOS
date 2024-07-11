@@ -64,6 +64,7 @@ extension QuestQRView {
         qrTargetAreaBox.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide).offset(19)
             make.width.height.equalTo(qrTargetAreaSideLength)
+            make.centerX.equalToSuperview()
         }
         
         qrShapeBoxImageView.snp.makeConstraints { make in
@@ -79,6 +80,13 @@ extension QuestQRView {
     }
     
     private func setupStyle() {
+        backgroundColor = .grayscale(.gray200)
+        qrTargetAreaBox.do { view in
+            view.clipsToBounds = true
+            view.layer.cornerRadius = 24
+            view.layer.borderWidth = 3
+            view.layer.borderColor = UIColor.sub(.sub).cgColor
+        }
         qrInstructionLabel.do { label in
             label.text = """
             QR 코드가 잘 보이도록
