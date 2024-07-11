@@ -183,12 +183,12 @@ extension HomeView {
         characterNameView.snp.makeConstraints {
             $0.top.equalTo(nicknameLabel.snp.bottom).offset(17)
             $0.leading.equalToSuperview().inset(24)
-            $0.width.equalTo(68)
             $0.height.equalTo(33)
         }
         
         characterNameLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(17)
         }
         
         offroadStampImageView.snp.makeConstraints {
@@ -238,9 +238,9 @@ extension HomeView {
         
         almostDoneQuestProgressView.snp.makeConstraints {
             $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(15)
             $0.bottom.equalToSuperview().inset(57)
             $0.height.equalTo(9)
-            $0.width.equalTo(150)
         }
         
         almostDoneQuestProgressLabel.snp.makeConstraints {

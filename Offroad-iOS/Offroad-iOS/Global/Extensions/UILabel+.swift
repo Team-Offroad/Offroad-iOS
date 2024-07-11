@@ -13,7 +13,7 @@ extension UILabel {
     /// - Parameter targetText: 변경할 String 값
     /// - Parameter font: 적용할 font
     /// - Parameter color: 적용할 color
-    /// > 사용 예시 : label.highlightText(targetText: nicknameString, font: .offroad(style: .iosSubtitle2Bold))
+    /// > 사용 예시 : `label.highlightText(targetText: nicknameString, font: .offroad(style: .iosSubtitle2Bold))`
     func highlightText(targetText: String, font: UIFont? = nil, color: UIColor? = nil) {
         guard let labelText = self.text else { return }
         

@@ -15,7 +15,7 @@ final class CustomQuestView: UIView {
     //MARK: - UI Properties
     
     private let questLabel = UILabel()
-    private let imageView = UIImageView()
+    private let questLabelImageView = UIImageView()
     private let detailView = UIView()
     private let detailLabel = UILabel()
         
@@ -61,7 +61,7 @@ extension CustomQuestView {
     private func setupHierarchy() {
         addSubviews(
             questLabel,
-            imageView,
+            questLabelImageView,
             detailView
         )
         
@@ -74,7 +74,7 @@ extension CustomQuestView {
             $0.leading.equalToSuperview().inset(14)
         }
         
-        imageView.snp.makeConstraints {
+        questLabelImageView.snp.makeConstraints {
             $0.centerY.equalTo(questLabel.snp.centerY)
             $0.leading.equalTo(questLabel.snp.trailing).offset(3)
         }
@@ -96,7 +96,7 @@ extension CustomQuestView {
         backgroundColor = mainColor
         questLabel.text = questString
         questLabel.textColor = textColor
-        imageView.image = image
+        questLabelImageView.image = image
         detailLabel.text = detailString
         detailLabel.textColor = textColor
     }

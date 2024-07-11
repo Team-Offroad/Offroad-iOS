@@ -13,8 +13,8 @@ final class CustomRecentProgressView: UIView {
     
     private var circleLayer = CAShapeLayer()
     private var progressLayer = CAShapeLayer()
-    private var startPoint = -CGFloat.pi / 2
-    private var endPoint = 3 * CGFloat.pi / 2
+    private var startAngle = -CGFloat.pi / 2
+    private var endAngle = 3 * CGFloat.pi / 2
     
     //MARK: - Life Cycle
     
@@ -38,11 +38,10 @@ extension CustomRecentProgressView {
     func createCircularPath(rect: CGRect) {
         let centerX = rect.width / 2.0
         let centerY = rect.height / 2.0
-        let circularPath = UIBezierPath(arcCenter: .init(x: centerX,
-                                                         y: centerY),
+        let circularPath = UIBezierPath(arcCenter: .init(x: centerX, y: centerY),
                                         radius: frame.size.height / 2.0,
-                                        startAngle: startPoint,
-                                        endAngle: endPoint,
+                                        startAngle: startAngle,
+                                        endAngle: endAngle,
                                         clockwise: true)
         circleLayer.path = circularPath.cgPath
         circleLayer.fillColor = UIColor.clear.cgColor

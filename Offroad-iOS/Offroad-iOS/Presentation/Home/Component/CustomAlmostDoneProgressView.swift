@@ -13,8 +13,6 @@ final class CustomAlmostDoneProgressView: UIView {
     
     private var lineLayer = CAShapeLayer()
     private var progressLayer = CAShapeLayer()
-    private var startPoint = -CGFloat.pi / 2
-    private var endPoint = 3 * CGFloat.pi / 2
     
     //MARK: - Life Cycle
     
