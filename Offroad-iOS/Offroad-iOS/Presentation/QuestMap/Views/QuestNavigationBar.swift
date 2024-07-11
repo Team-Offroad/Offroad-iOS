@@ -57,7 +57,7 @@ extension QuestNavigationBar {
         
         customBackButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().inset(15)
+            make.leading.equalTo(self.snp.leading).inset(14)
             make.height.equalTo(44)
         }
     }
@@ -70,11 +70,19 @@ extension QuestNavigationBar {
         }
         
         customBackButton.do { button in
+            let transformer = UIConfigurationTextAttributesTransformer { incoming in
+                var outgoing = incoming
+                outgoing.font = UIFont.offroad(style: .iosTextRegular)
+                return outgoing
+            }
+            
             var configuration = UIButton.Configuration.plain()
             configuration.baseForegroundColor = .primary(.white)
-            configuration.image = UIImage(systemName: "chevron.left")
+            configuration.titleTextAttributesTransformer = transformer
+            configuration.image = UIImage.icnChevronLeft
             configuration.imagePlacement = .leading
             configuration.title = "이전 화면"
+            configuration.contentInsets = .zero
             
             button.configuration = configuration
         }
