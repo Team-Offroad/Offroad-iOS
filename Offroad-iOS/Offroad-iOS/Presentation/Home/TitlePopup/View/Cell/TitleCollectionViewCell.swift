@@ -12,6 +12,23 @@ import Then
 
 final class TitleCollectionViewCell: UICollectionViewCell {
     
+    //MARK: - Properties
+    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                backgroundColor = .sub(.sub)
+                layer.borderWidth = 0
+                titleLabel.textColor = .primary(.white)
+            } else {
+                backgroundColor = .neutral(.nametagInactive)
+                layer.borderColor = UIColor.home(.homeNametagStroke).cgColor
+                layer.borderWidth = 1
+                titleLabel.textColor = .main(.main2)
+            }
+        }
+    }
+    
     //MARK: - UI Properties
     
     private let titleLabel = UILabel()

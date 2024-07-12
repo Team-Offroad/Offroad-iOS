@@ -14,16 +14,16 @@ final class TitlePopupView: UIView {
     
     //MARK: - Properties
     
-    typealias ButtonAction = () -> Void
+    typealias ChangeTitleButtonAction = () -> Void
 
-    private var buttonAction: ButtonAction?
+    private var changeTitleButtonAction: ChangeTitleButtonAction?
 
     //MARK: - UI Properties
     
     private let myTitleLabel = UILabel()
     private let closeButton = UIButton()
     private let titleCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-    private let changeTitleButton = OffroadButton(state: .isdisabled, title: "바꾸기")
+    private var changeTitleButton = OffroadButton(state: .isdisabled, title: "바꾸기")
         
     // MARK: - Life Cycle
     
@@ -107,14 +107,16 @@ extension TitlePopupView {
     //MARK: - @Objc
     
     @objc private func buttonTapped() {
-        buttonAction?()
+        changeTitleButtonAction?()
     }
     
     //MARK: - targetView Method
     
-    func setupButton(action: @escaping ButtonAction) {
-        buttonAction = action
-//        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+    func setupButton(action: @escaping ChangeTitleButtonAction) {
+        changeTitleButton.changeState(forState: .isEnabled)
+        
+        changeTitleButtonAction = action
+        changeTitleButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
     func setupTitleCollectionView(_ viewController: UIViewController) {

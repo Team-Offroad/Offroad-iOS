@@ -10,10 +10,11 @@ import UIKit
 final class TitlePopupViewController: UIViewController {
     
     //MARK: - Properties
-    
-    private let titleModelList = TitleModel.dummy()
-    
+
     private let rootView = TitlePopupView(frame: CGRect(x: 0, y: 0, width: 345, height: 430))
+
+    private let titleModelList = TitleModel.dummy()
+    private var selectedTitleIndexPath = IndexPath()
     
     // MARK: - Life Cycle
     
@@ -35,12 +36,11 @@ extension TitlePopupViewController {
     // MARK: - Private Func
     
     private func setupTarget() {
-        rootView.setupButton(action: buttonTapped)
         rootView.setupTitleCollectionView(self)
     }
     
     private func buttonTapped() {
-        
+        print("buttonTapped")
     }
 }
 
@@ -56,6 +56,7 @@ extension TitlePopupViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         cell.configureCell(data: titleModelList[indexPath.item])
+        
         return cell
     }
 }
@@ -65,5 +66,10 @@ extension TitlePopupViewController: UICollectionViewDataSource {
 extension TitlePopupViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: rootView.getTitleCollectionViewWidth() - 48, height: 48)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath)?.isSelected = true
+        rootView.setupButton(action: buttonTapped)
     }
 }
