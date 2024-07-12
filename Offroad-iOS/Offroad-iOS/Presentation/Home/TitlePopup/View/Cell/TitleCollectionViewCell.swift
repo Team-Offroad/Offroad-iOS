@@ -49,6 +49,11 @@ final class TitleCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
+        backgroundColor = .neutral(.nametagInactive)
+        layer.borderColor = UIColor.home(.homeNametagStroke).cgColor
+        layer.borderWidth = 1
+        titleLabel.textColor = .main(.main2)
     }
 }
 
