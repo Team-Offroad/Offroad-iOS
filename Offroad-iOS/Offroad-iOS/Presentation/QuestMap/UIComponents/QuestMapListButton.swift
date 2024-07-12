@@ -42,5 +42,4 @@ class QuestMapListButton: UIButton {
         self.configuration = filledConfiguration
     }
     
-    
 }

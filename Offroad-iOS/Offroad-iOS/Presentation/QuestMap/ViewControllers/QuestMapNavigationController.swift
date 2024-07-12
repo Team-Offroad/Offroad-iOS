@@ -18,11 +18,11 @@ class QuestMapNavigationController: UINavigationController {
     /*private */let customStatusBarBackgorund = UIView()
     /*private */let customNavigationBarShadowLine = UIView()
     
-    
     //MARK: - LifeCycle
     
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
+
         rootViewController.additionalSafeAreaInsets.top = 76 - navigationBar.frame.height
     }
     
@@ -109,8 +109,9 @@ extension QuestMapNavigationController {
     //MARK: - Func
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        viewController.additionalSafeAreaInsets.top = 76 - navigationBar.frame.height
         super.pushViewController(viewController, animated: animated)
+        
+        viewController.additionalSafeAreaInsets.top = 76 - navigationBar.frame.height
     }
     
     func setCustomAppearance(state: QuestNavigationView) {
