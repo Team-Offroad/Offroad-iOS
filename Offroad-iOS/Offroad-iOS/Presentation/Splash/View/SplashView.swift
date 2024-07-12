@@ -48,4 +48,12 @@ extension SplashView {
             $0.center.equalToSuperview()
         }
     }
+    
+    //MARK: - Private Func
+    
+    func dismissOffroadLogiView() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.offroadLogoImageView.alpha = 0
+        })
+    }
 }
