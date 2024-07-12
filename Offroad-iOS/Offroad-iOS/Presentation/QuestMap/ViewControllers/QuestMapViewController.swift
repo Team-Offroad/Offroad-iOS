@@ -15,7 +15,7 @@ class QuestMapViewController: UIViewController {
     
     //MARK: - Properties
     
-    let rootView = QuestMapView()
+    private let rootView = QuestMapView()
     
     //MARK: - Life Cycle
     
