@@ -42,7 +42,7 @@ extension OffroadButton {
             backgroundColor = .main(.main2)
             setTitleColor(.main(.main1), for: .normal)
             isEnabled = true
-        case .isdisabled:
+        case .isDisabled:
             backgroundColor = .blackOpacity(.black15)
             layer.borderColor = UIColor.blackOpacity(.black25).cgColor
             layer.borderWidth = 1
@@ -60,7 +60,7 @@ extension OffroadButton {
             backgroundColor = .main(.main2)
             setTitleColor(.main(.main1), for: .normal)
             isEnabled = true
-        case .isdisabled:
+        case .isDisabled:
             backgroundColor = .blackOpacity(.black15)
             layer.borderColor = UIColor.blackOpacity(.black25).cgColor
             layer.borderWidth = 1
