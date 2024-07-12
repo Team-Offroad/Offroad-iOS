@@ -18,11 +18,11 @@ class QuestMapNavigationController: UINavigationController {
     private let customNavigationBarShadowLine = UIView()
     private let navigationTitleLabel = UILabel()
     
-    
     //MARK: - LifeCycle
     
     override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
+
         rootViewController.additionalSafeAreaInsets.top = 76 - navigationBar.frame.height
     }
     
@@ -79,8 +79,7 @@ extension QuestMapNavigationController {
         }
         
         navigationTitleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(26.41)
-            make.bottom.equalToSuperview().inset(25.59)
+            make.centerY.equalToSuperview()
             make.leading.equalToSuperview().inset(24)
         }
     }
@@ -92,8 +91,9 @@ extension QuestMapNavigationController {
     }
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        viewController.additionalSafeAreaInsets.top = 76 - navigationBar.frame.height
         super.pushViewController(viewController, animated: animated)
+        
+        viewController.additionalSafeAreaInsets.top = 76 - navigationBar.frame.height
     }
     
 }

@@ -15,14 +15,14 @@ class QuestMapView: UIView {
     
     //MARK: - UI Properties
     
-    let naverMapView = NMFNaverMapView()
-    let reloadLocationButton = UIButton()
+    private let naverMapView = NMFNaverMapView()
+    private let reloadLocationButton = UIButton()
     
+    private let listButtonStackView = UIStackView()
     let questListButton = QuestMapListButton(image: .iconListBullet, title: "퀘스트 목록")
     let placeListButton = QuestMapListButton(image: .iconPlaceMarker, title: "장소 목록")
-    let listButtonStackView = UIStackView()
     
-    let compass = NMFCompassView()
+    private let compass = NMFCompassView()
     
     //MARK: - Life Cycle
     
@@ -72,19 +72,19 @@ extension QuestMapView {
     private func setupLayout() {
         naverMapView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.verticalEdges.equalTo(safeAreaLayoutGuide.snp.verticalEdges)
+            make.verticalEdges.equalTo(safeAreaLayoutGuide)
         }
         
         reloadLocationButton.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(24)
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).inset(24)
+            make.trailing.equalTo(safeAreaLayoutGuide).inset(24)
             make.width.height.equalTo(44)
         }
         
         listButtonStackView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide.snp.horizontalEdges).inset(40)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(40)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(40)
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(40)
         }
         
         compass.snp.makeConstraints { make in
