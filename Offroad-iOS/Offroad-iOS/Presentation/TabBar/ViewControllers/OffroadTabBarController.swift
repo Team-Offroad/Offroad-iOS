@@ -74,6 +74,12 @@ extension OffroadTabBarController {
     }
     
     private func setTabBarButtons() {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font = .offroad(style: .bothBottomLabel)
+        ]
+        
+        tabBarItem
+        
         tabBar.items?[0].image = UIImage.icnHome
         tabBar.items?[0].title = "Home"
         tabBar.items?[1].image = UIImage.icnTabBarOffroadLogo
