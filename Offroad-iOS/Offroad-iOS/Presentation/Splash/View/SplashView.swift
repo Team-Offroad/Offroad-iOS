@@ -51,9 +51,11 @@ extension SplashView {
     
     //MARK: - Private Func
     
-    func dismissOffroadLogiView() {
-        UIView.animate(withDuration: 0.5, animations: {
+    func dismissOffroadLogiView(completion: @escaping () -> Void) {
+        UIView.animate(withDuration: 0.4, animations: {
             self.offroadLogoImageView.alpha = 0
+        }, completion: { _ in
+            completion()
         })
     }
 }
