@@ -5,6 +5,7 @@
 //  Created by 김민성 on 2024/07/07.
 //
 
+import CoreLocation
 import UIKit
 
 import NMapsMap
@@ -16,6 +17,7 @@ class QuestMapViewController: OffroadTabBarViewController {
     //MARK: - Properties
     
     private let rootView = QuestMapView()
+    private let locationManager = CLLocationManager()
     
     //MARK: - Life Cycle
     
@@ -27,6 +29,7 @@ class QuestMapViewController: OffroadTabBarViewController {
         super.viewDidLoad()
         
         setupButtonsAction()
+        requestAuthorization()
     }
     
 }
@@ -51,6 +54,25 @@ extension QuestMapViewController {
     private func setupButtonsAction() {
         rootView.questListButton.addTarget(self, action: #selector(pushQuestListViewController), for: .touchUpInside)
         rootView.placeListButton.addTarget(self, action: #selector(pushPlaceListViewController), for: .touchUpInside)
+    }
+    
+    private func requestAuthorization() {
+        let status = locationManager.authorizationStatus
+        switch status {
+        case .notDetermined:
+            locationManager.requestAlwaysAuthorization()
+        case .restricted:
+            //추후 에러 메시지 팝업 구현 가능성
+            return
+        case .denied:
+            locationManager.requestAlwaysAuthorization()
+        case .authorizedAlways:
+            return
+        case .authorizedWhenInUse:
+            locationManager.requestAlwaysAuthorization()
+        @unknown default:
+            return
+        }
     }
     
 }
