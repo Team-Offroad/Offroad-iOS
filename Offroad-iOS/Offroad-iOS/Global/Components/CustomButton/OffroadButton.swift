@@ -53,4 +53,19 @@ extension OffroadButton {
         setTitle(forTitle, for: .normal)
         titleLabel?.font = .offroad(style: .iosTextRegular)
     }
+    
+    func changeState(forState: offroadButtonState) {
+        switch forState {
+        case .isEnabled:
+            backgroundColor = .main(.main2)
+            setTitleColor(.main(.main1), for: .normal)
+            isEnabled = true
+        case .isdisabled:
+            backgroundColor = .blackOpacity(.black15)
+            layer.borderColor = UIColor.blackOpacity(.black25).cgColor
+            layer.borderWidth = 1
+            setTitleColor(.grayscale(.gray400), for: .normal)
+            isEnabled = false
+        }
+    }
 }
