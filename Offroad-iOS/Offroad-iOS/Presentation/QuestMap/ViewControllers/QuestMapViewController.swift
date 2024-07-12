@@ -11,7 +11,7 @@ import NMapsMap
 import SnapKit
 import Then
 
-class QuestMapViewController: UIViewController {
+class QuestMapViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
     
