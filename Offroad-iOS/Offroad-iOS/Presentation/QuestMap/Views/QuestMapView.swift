@@ -58,7 +58,7 @@ extension QuestMapView {
     
     private func setupStyle() {
         reloadLocationButton.do { button in
-            button.setImage(.btnArrowClockwise, for: .normal)
+            button.setImage(.btnDotScope, for: .normal)
         }
         
         listButtonStackView.do { stackView in
