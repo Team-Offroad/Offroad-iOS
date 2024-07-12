@@ -9,7 +9,7 @@ import UIKit
 
 enum offroadButtonState {
     case isEnabled
-    case isdisabled
+    case isDisabled
 }
 
 /// Offroad Custom Button
