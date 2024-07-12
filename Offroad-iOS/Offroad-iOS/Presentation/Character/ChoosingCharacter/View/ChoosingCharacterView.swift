@@ -56,8 +56,8 @@ final class ChoosingCharacterView: UIView {
     
     let pageControl = UIPageControl().then {
         $0.currentPage = 0
-        $0.pageIndicatorTintColor = .gray
-        $0.currentPageIndicatorTintColor = .black
+        $0.pageIndicatorTintColor = UIColor.primary(.white).withAlphaComponent(0.4)
+        $0.currentPageIndicatorTintColor = UIColor.primary(.white)
     }
     
     let nameLabel = UILabel().then {
@@ -117,6 +117,11 @@ extension ChoosingCharacterView {
         }
         
         pageControl.numberOfPages = images.count
+        
+        pageControl.setIndicatorImage(UIImage(named: "img_current_indicator"), forPage: 0)
+        pageControl.setIndicatorImage(UIImage(named: "img_current_indicator"), forPage: 1)
+        pageControl.setIndicatorImage(UIImage(named: "img_current_indicator"), forPage: 2)
+        
         pageControl.snp.makeConstraints { make in
             make.top.equalTo(collectionView.snp.bottom).offset(49)
             make.centerX.equalToSuperview()
