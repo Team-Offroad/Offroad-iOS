@@ -128,6 +128,12 @@ extension TitlePopupView {
         closeButtonAction?()
     }
     
+    //MARK: - Func
+    
+    func getTitleCollectionViewWidth() -> CGFloat {
+        return titleCollectionView.frame.size.width
+    }
+    
     //MARK: - targetView Method
     
     func setupChangeTitleButton(action: @escaping ChangeTitleButtonAction) {
@@ -145,9 +151,5 @@ extension TitlePopupView {
     func setupTitleCollectionView(_ viewController: UIViewController) {
         titleCollectionView.dataSource = viewController as? UICollectionViewDataSource
         titleCollectionView.delegate = viewController as? UICollectionViewDelegate
-    }
-    
-    func getTitleCollectionViewWidth() -> CGFloat {
-        return titleCollectionView.frame.size.width
     }
 }

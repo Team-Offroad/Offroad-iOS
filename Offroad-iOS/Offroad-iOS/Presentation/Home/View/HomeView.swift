@@ -261,6 +261,12 @@ extension HomeView {
         changeTitleButtonAction?()
     }
     
+    //MARK: - Func
+    
+    func changeMyTitleLabelText(text: String) {
+        titleLabel.text = text
+    }
+    
     //MARK: - targetView Method
     
     func setupChangeTitleButton(action: @escaping ChangeTitleButtonAction) {

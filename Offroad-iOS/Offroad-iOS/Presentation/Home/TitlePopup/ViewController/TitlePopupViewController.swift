@@ -7,14 +7,20 @@
 
 import UIKit
 
+protocol selectedTitleProtocol: AnyObject {
+    func fetchTitleString(titleString: String)
+}
+
 final class TitlePopupViewController: UIViewController {
     
     //MARK: - Properties
 
     private let rootView = TitlePopupView()
+    
+    weak var delegate: selectedTitleProtocol?
 
     private let titleModelList = TitleModel.dummy()
-    private var selectedTitleIndexPath = IndexPath()
+    private var selectedTitleString = ""
     
     // MARK: - Life Cycle
     
@@ -40,6 +46,9 @@ extension TitlePopupViewController {
     
     private func changeTitleButtonTapped() {
         print("changeTitleButtonTapped")
+        
+        delegate?.fetchTitleString(titleString: selectedTitleString)
+        self.dismiss(animated: false)
     }
     
     private func closeButtonTapped() {
@@ -76,5 +85,7 @@ extension TitlePopupViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.cellForItem(at: indexPath)?.isSelected = true
         rootView.setupChangeTitleButton(action: changeTitleButtonTapped)
+        
+        selectedTitleString = titleModelList[indexPath.item].titleString
     }
 }

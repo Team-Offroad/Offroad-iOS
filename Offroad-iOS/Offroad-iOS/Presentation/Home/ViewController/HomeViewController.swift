@@ -39,7 +39,14 @@ extension HomeViewController {
         
         let titlePopupViewController = TitlePopupViewController()
         titlePopupViewController.modalPresentationStyle = .overCurrentContext
+        titlePopupViewController.delegate = self
         
         present(titlePopupViewController, animated: false)
+    }
+}
+
+extension HomeViewController: selectedTitleProtocol {
+    func fetchTitleString(titleString: String) {
+        rootView.changeMyTitleLabelText(text: titleString)
     }
 }
