@@ -42,7 +42,6 @@ class QuestQRViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupStyles()
         setNavigationController()
         setupNavigationControllerGesture()
         setupCaptureSession()
@@ -57,6 +56,21 @@ class QuestQRViewController: UIViewController {
         
         let questMapNavigationController = navigationController as! QuestMapNavigationController
         questMapNavigationController.setCustomAppearance(state: .questQR)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        let screenSize = UIScreen.current.bounds
+        let qrTargetRect = questQRView.qrTargetRectBox.frame
+        let rectOfInterest = CGRect(
+            x: qrTargetRect.minX / screenSize.width,
+            y: qrTargetRect.minY / screenSize.height,
+            width: qrTargetRect.width / screenSize.width,
+            height: qrTargetRect.height / screenSize.height
+        )
+        metadataOutput.rectOfInterest = questQRView.qrTargetRectBox.frame
+        metadataOutput.rectOfInterest = CGRect(x: 0.25, y: 0.25, width: 0.5, height: 0.5)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,10 +96,6 @@ extension QuestQRViewController {
     
     //MARK: - Private Func
     
-    private func setupStyles() {
-        hidesBottomBarWhenPushed = true
-    }
-    
     private func setNavigationController() {
         self.navigationItem.setHidesBackButton(true, animated: false)        
     }
@@ -110,8 +120,6 @@ extension QuestQRViewController {
     }
     
     //MARK: - Func
-    
-    
 }
 
 //MARK: - UIGestureRecognizerDelegate
@@ -132,8 +140,18 @@ extension QuestQRViewController: UIGestureRecognizerDelegate {
 extension QuestQRViewController: AVCaptureMetadataOutputObjectsDelegate {
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        print(#function)
-        print("QR코드 인식됨!!: \(output.description)")
+        if let metadataObject = metadataObjects.first {
+            guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
+            guard let stringValue = readableObject.stringValue else { return }
+            print("QR:", stringValue)
+            
+            let alertCon = UIAlertController(title: "QR코드 인식됨", message: "URL: \(stringValue)", preferredStyle: .actionSheet)
+            let okAction = UIAlertAction(title: "넵!", style: .default)
+            alertCon.addAction(okAction)
+            DispatchQueue.main.async { [weak self] in
+                self?.present(alertCon, animated: true)
+            }
+        }
     }
     
 }

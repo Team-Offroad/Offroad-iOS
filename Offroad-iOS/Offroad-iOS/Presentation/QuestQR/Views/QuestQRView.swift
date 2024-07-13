@@ -17,14 +17,14 @@ class QuestQRView: UIView {
     
     var qrTargetAreaSideLength: CGFloat!
     
-    
     //MARK: - UI Properties
     
-    let qrTargetAreaBox = UIView()
+    let qrTargetRectBox = UIView()
     let qrShapeBoxImageView = UIImageView(image: .icnSquareDashedCornerLeft)
     let qrInstructionLabel = UILabel()
     
     var previewLayer = AVCaptureVideoPreviewLayer()
+    var notDetectingQRRectView = UIView()
     var cameraView = AVCameraPreview()
     var blueView = UIView().then({ $0.backgroundColor = .systemBlue })
     
@@ -42,6 +42,21 @@ class QuestQRView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        let path = CGMutablePath()
+        path.addRect(bounds)
+        path.addRoundedRect(in: qrTargetRectBox.frame, cornerWidth: 24, cornerHeight: 24)
+        
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path
+        maskLayer.fillColor = UIColor.blackOpacity(.qrCamera).cgColor
+        maskLayer.fillRule = .evenOdd
+        
+        notDetectingQRRectView.layer.addSublayer(maskLayer)
+    }
+    
 }
 
 extension QuestQRView {
@@ -51,7 +66,7 @@ extension QuestQRView {
     //MARK: - private func
     
     private func setupHierarchy() {
-        addSubviews(cameraView, qrTargetAreaBox, qrShapeBoxImageView, qrInstructionLabel)
+        addSubviews(cameraView, notDetectingQRRectView, qrTargetRectBox, qrShapeBoxImageView, qrInstructionLabel)
     }
     
     private func setupLayout() {
@@ -59,17 +74,21 @@ extension QuestQRView {
             make.edges.equalToSuperview()
         }
         
+        notDetectingQRRectView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         let screenWidth = UIScreen.main.bounds.width
         let inset: CGFloat = 24
         qrTargetAreaSideLength = screenWidth - inset * 2
-        qrTargetAreaBox.snp.makeConstraints { make in
+        qrTargetRectBox.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide).offset(19)
             make.width.height.equalTo(qrTargetAreaSideLength)
             make.centerX.equalToSuperview()
         }
         
         qrShapeBoxImageView.snp.makeConstraints { make in
-            make.top.equalTo(qrTargetAreaBox.snp.bottom).offset(42)
+            make.top.equalTo(qrTargetRectBox.snp.bottom).offset(42)
             make.centerX.equalToSuperview()
             make.width.height.equalTo(30)
         }
@@ -82,7 +101,7 @@ extension QuestQRView {
     
     private func setupStyle() {
         backgroundColor = .primary(.black)
-        qrTargetAreaBox.do { view in
+        qrTargetRectBox.do { view in
             view.clipsToBounds = true
             view.layer.cornerRadius = 24
             view.layer.borderWidth = 3

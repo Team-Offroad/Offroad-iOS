@@ -11,8 +11,8 @@ class OffroadTabBarController: UITabBarController {
     
     // MARK: - Properties
     var originalTabBarHeight: CGFloat = 0
-    let hideTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
-    let showTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
+    private var hideTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
+    private var showTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     
     // MARK: - UI Properties
     
@@ -87,19 +87,19 @@ extension OffroadTabBarController {
         
     // MARK: - Func
     
-    func hideTabBarAnimation() {
-        hideTabBarAnimator.addAnimations { [weak self] in
+    func hideTabBarAnimation(delayFactor: CGFloat = 0) {
+        hideTabBarAnimator.addAnimations({ [weak self] in
             self?.showTabBarAnimator.stopAnimation(true)
             self?.tabBar.frame.origin.y = UIScreen.current.bounds.height + 20
-        }
+        }, delayFactor: delayFactor)
         hideTabBarAnimator.startAnimation()
     }
     
-    func showTabBarAnimation() {
-        showTabBarAnimator.addAnimations { [weak self] in
+    func showTabBarAnimation(delayFactor: CGFloat = 0) {
+        showTabBarAnimator.addAnimations({ [weak self] in
             self?.hideTabBarAnimator.stopAnimation(true)
             self?.tabBar.frame.origin.y = UIScreen.current.bounds.height - 96
-        }
+        }, delayFactor: delayFactor)
         showTabBarAnimator.startAnimation()
     }
 }
