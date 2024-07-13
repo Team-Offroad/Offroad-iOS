@@ -19,6 +19,7 @@ class QuestQRViewController: UIViewController {
     
     var captureSession = AVCaptureSession()
     var videoInput: AVCaptureDeviceInput? = {
+        // 시뮬레이터에서 실행할 경우, captureDevice에 nil 이 할당되어 오류 발생
         let captureDevice = AVCaptureDevice.default(for: .video)
         do {
             return try AVCaptureDeviceInput(device: captureDevice!)
