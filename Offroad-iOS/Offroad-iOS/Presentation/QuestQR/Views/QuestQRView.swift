@@ -5,6 +5,7 @@
 //  Created by 김민성 on 2024/07/11.
 //
 
+import AVFoundation
 import UIKit
 
 import SnapKit
@@ -23,6 +24,10 @@ class QuestQRView: UIView {
     let qrShapeBoxImageView = UIImageView(image: .icnSquareDashedCornerLeft)
     let qrInstructionLabel = UILabel()
     
+    var previewLayer = AVCaptureVideoPreviewLayer()
+    var cameraView = AVCameraPreview()
+    var blueView = UIView().then({ $0.backgroundColor = .systemBlue })
+    
     //MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -37,26 +42,22 @@ class QuestQRView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
 }
-
-
-
 
 extension QuestQRView {
     
     //MARK: - @objc func
     
-    
     //MARK: - private func
     
     private func setupHierarchy() {
-        addSubviews(qrTargetAreaBox, qrShapeBoxImageView, qrInstructionLabel)
+        addSubviews(cameraView, qrTargetAreaBox, qrShapeBoxImageView, qrInstructionLabel)
     }
     
     private func setupLayout() {
-        
+        cameraView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         
         let screenWidth = UIScreen.main.bounds.width
         let inset: CGFloat = 24
@@ -80,13 +81,14 @@ extension QuestQRView {
     }
     
     private func setupStyle() {
-        backgroundColor = .grayscale(.gray200)
+        backgroundColor = .primary(.black)
         qrTargetAreaBox.do { view in
             view.clipsToBounds = true
             view.layer.cornerRadius = 24
             view.layer.borderWidth = 3
             view.layer.borderColor = UIColor.sub(.sub).cgColor
         }
+        
         qrInstructionLabel.do { label in
             label.text = """
             QR 코드가 잘 보이도록
@@ -99,8 +101,5 @@ extension QuestQRView {
     }
     
     //MARK: - func
-    
-    
-    
     
 }

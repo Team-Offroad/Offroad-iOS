@@ -10,13 +10,19 @@ import UIKit
 
 class AVCameraPreview: UIView {
     
+    //MARK: - UI Properties
+    
     override class var layerClass: AnyClass {
         AVCaptureVideoPreviewLayer.self
     }
     
     var previewLayer: AVCaptureVideoPreviewLayer {
-        layer as! AVCaptureVideoPreviewLayer
+        let previewLayer = layer as! AVCaptureVideoPreviewLayer
+        previewLayer.videoGravity = .resizeAspectFill
+        return previewLayer
     }
+    
+    //MARK: - Properties
     
     var session: AVCaptureSession? {
         get { previewLayer.session }
