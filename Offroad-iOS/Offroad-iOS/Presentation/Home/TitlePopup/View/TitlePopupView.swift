@@ -15,11 +15,14 @@ final class TitlePopupView: UIView {
     //MARK: - Properties
     
     typealias ChangeTitleButtonAction = () -> Void
+    typealias CloseButtonAction = () -> Void
 
     private var changeTitleButtonAction: ChangeTitleButtonAction?
+    private var closeButtonAction: CloseButtonAction?
 
     //MARK: - UI Properties
     
+    private let popupView = UIView()
     private let myTitleLabel = UILabel()
     private let closeButton = UIButton()
     private let titleCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
@@ -45,8 +48,12 @@ extension TitlePopupView {
     // MARK: - Layout
     
     private func setupStyle() {
-        backgroundColor = .main(.main3)
-        roundCorners(cornerRadius: 15)
+        backgroundColor = .blackOpacity(.black55)
+        
+        popupView.do {
+            $0.backgroundColor = .main(.main3)
+            $0.roundCorners(cornerRadius: 15)
+        }
         
         myTitleLabel.do {
             $0.text = "내가 모은 칭호"
@@ -71,7 +78,8 @@ extension TitlePopupView {
     }
     
     private func setupHierarchy() {
-        addSubviews(
+        addSubview(popupView)
+        popupView.addSubviews(
             myTitleLabel,
             closeButton,
             titleCollectionView,
@@ -80,6 +88,12 @@ extension TitlePopupView {
     }
     
     private func setupLayout() {
+        popupView.snp.makeConstraints {
+            $0.height.equalTo(430)
+            $0.width.equalTo(345)
+            $0.center.equalToSuperview()
+        }
+        
         myTitleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().inset(32)
@@ -110,13 +124,22 @@ extension TitlePopupView {
         changeTitleButtonAction?()
     }
     
+    @objc private func closeButtonTapped() {
+        closeButtonAction?()
+    }
+    
     //MARK: - targetView Method
     
-    func setupButton(action: @escaping ChangeTitleButtonAction) {
+    func setupChangeTitleButton(action: @escaping ChangeTitleButtonAction) {
         changeTitleButton.changeState(forState: .isEnabled)
         
         changeTitleButtonAction = action
         changeTitleButton.addTarget(self, action: #selector(changeTitleButtonTapped), for: .touchUpInside)
+    }
+    
+    func setupCloseButton(action: @escaping ChangeTitleButtonAction) {
+        closeButtonAction = action
+        closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
     }
     
     func setupTitleCollectionView(_ viewController: UIViewController) {

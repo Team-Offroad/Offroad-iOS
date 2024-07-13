@@ -11,7 +11,7 @@ final class TitlePopupViewController: UIViewController {
     
     //MARK: - Properties
 
-    private let rootView = TitlePopupView(frame: CGRect(x: 0, y: 0, width: 345, height: 430))
+    private let rootView = TitlePopupView()
 
     private let titleModelList = TitleModel.dummy()
     private var selectedTitleIndexPath = IndexPath()
@@ -19,9 +19,7 @@ final class TitlePopupViewController: UIViewController {
     // MARK: - Life Cycle
     
     override func loadView() {
-        view = UIView(frame: UIScreen.main.bounds)
-        view.addSubview(rootView)
-        rootView.center = view.center
+        view = rootView
     }
     
     override func viewDidLoad() {
@@ -37,10 +35,17 @@ extension TitlePopupViewController {
     
     private func setupTarget() {
         rootView.setupTitleCollectionView(self)
+        rootView.setupCloseButton(action: closeButtonTapped)
     }
     
-    private func buttonTapped() {
-        print("buttonTapped")
+    private func changeTitleButtonTapped() {
+        print("changeTitleButtonTapped")
+    }
+    
+    private func closeButtonTapped() {
+        print("closeButtonTapped")
+        
+        self.dismiss(animated: false)
     }
 }
 
@@ -70,6 +75,6 @@ extension TitlePopupViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.cellForItem(at: indexPath)?.isSelected = true
-        rootView.setupButton(action: buttonTapped)
+        rootView.setupChangeTitleButton(action: changeTitleButtonTapped)
     }
 }

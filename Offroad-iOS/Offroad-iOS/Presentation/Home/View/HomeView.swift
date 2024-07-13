@@ -45,8 +45,7 @@ final class HomeView: UIView {
     private let recentQuestProgressLabel = UILabel()
     private let almostDoneQuestProgressView = CustomAlmostDoneProgressView()
     private let almostDoneQuestProgressLabel = UILabel()
-    private let opacityView = UIView()
-
+    
     // MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -156,11 +155,6 @@ extension HomeView {
             $0.font = .offroad(style: .bothUpcomingSmallNum)
             $0.highlightText(targetText: "7", font: .offroad(style: .bothUpcomingBigNum), color: .sub(.sub4))
         }
-        
-        opacityView.do {
-            $0.backgroundColor = .blackOpacity(.black55)
-            $0.alpha = 0
-        }
     }
     
     private func setupHierarchy() {
@@ -171,8 +165,7 @@ extension HomeView {
             buttonStackView,
             characterImageView,
             titleView,
-            questStackView,
-            opacityView
+            questStackView
         )
         
         characterNameView.addSubview(characterNameLabel)
@@ -260,17 +253,12 @@ extension HomeView {
             $0.top.equalToSuperview().inset(58)
             $0.centerX.equalToSuperview()
         }
-        
-        opacityView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
     }
     
     //MARK: - @Objc Method
     
     @objc private func changeTitleButtonTapped() {
         changeTitleButtonAction?()
-        opacityView.alpha = 1
     }
     
     //MARK: - targetView Method
