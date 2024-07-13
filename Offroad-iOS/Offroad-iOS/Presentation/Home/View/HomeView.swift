@@ -14,9 +14,9 @@ final class HomeView: UIView {
     
     //MARK: - Properties
     
-    typealias ButtonAction = () -> Void
+    typealias ChangeTitleButtonAction = () -> Void
 
-    private var buttonAction: ButtonAction?
+    private var changeTitleButtonAction: ChangeTitleButtonAction?
     
     private var nicknameString = "비포장도로"
     private var characterNameString = "오푸"
@@ -45,6 +45,7 @@ final class HomeView: UIView {
     private let recentQuestProgressLabel = UILabel()
     private let almostDoneQuestProgressView = CustomAlmostDoneProgressView()
     private let almostDoneQuestProgressLabel = UILabel()
+    private let opacityView = UIView()
 
     // MARK: - Life Cycle
     
@@ -102,6 +103,13 @@ extension HomeView {
             $0.setImage(.btnChangeCharacter, for: .normal)
         }
         
+        [downloadButton, shareButton, changeCharacterButton].forEach { button in
+            button.layer.shadowColor = UIColor.black.cgColor
+            button.layer.shadowOffset = CGSize(width: 0, height: 1)
+            button.layer.shadowOpacity = 0.1
+            button.layer.shadowRadius = 4
+        }
+        
         buttonStackView.do {
             $0.axis = .vertical
             $0.spacing = 9
@@ -148,6 +156,11 @@ extension HomeView {
             $0.font = .offroad(style: .bothUpcomingSmallNum)
             $0.highlightText(targetText: "7", font: .offroad(style: .bothUpcomingBigNum), color: .sub(.sub4))
         }
+        
+        opacityView.do {
+            $0.backgroundColor = .blackOpacity(.black55)
+            $0.alpha = 0
+        }
     }
     
     private func setupHierarchy() {
@@ -158,7 +171,8 @@ extension HomeView {
             buttonStackView,
             characterImageView,
             titleView,
-            questStackView
+            questStackView,
+            opacityView
         )
         
         characterNameView.addSubview(characterNameLabel)
@@ -246,18 +260,23 @@ extension HomeView {
             $0.top.equalToSuperview().inset(58)
             $0.centerX.equalToSuperview()
         }
+        
+        opacityView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     //MARK: - @Objc Method
     
-    @objc private func buttonTapped() {
-        buttonAction?()
+    @objc private func changeTitleButtonTapped() {
+        changeTitleButtonAction?()
+        opacityView.alpha = 1
     }
     
     //MARK: - targetView Method
     
-    func setupButton(action: @escaping ButtonAction) {
-        buttonAction = action
-//        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+    func setupChangeTitleButton(action: @escaping ChangeTitleButtonAction) {
+        changeTitleButtonAction = action
+        changeTitleButton.addTarget(self, action: #selector(changeTitleButtonTapped), for: .touchUpInside)
     }
 }

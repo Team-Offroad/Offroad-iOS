@@ -31,10 +31,15 @@ extension HomeViewController {
     // MARK: - Private Method
     
     private func setupTarget() {
-        rootView.setupButton(action: buttonTapped)
+        rootView.setupChangeTitleButton(action: changeTitleButtonTapped)
     }
     
-    private func buttonTapped() {
+    private func changeTitleButtonTapped() {
+        print("changeTitleButtonTapped")
         
+        let titlePopupViewController = TitlePopupViewController()
+        titlePopupViewController.modalPresentationStyle = .overCurrentContext
+        
+        present(titlePopupViewController, animated: false)
     }
 }

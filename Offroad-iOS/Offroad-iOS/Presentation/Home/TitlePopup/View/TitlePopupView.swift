@@ -106,7 +106,7 @@ extension TitlePopupView {
     
     //MARK: - @Objc
     
-    @objc private func buttonTapped() {
+    @objc private func changeTitleButtonTapped() {
         changeTitleButtonAction?()
     }
     
@@ -116,7 +116,7 @@ extension TitlePopupView {
         changeTitleButton.changeState(forState: .isEnabled)
         
         changeTitleButtonAction = action
-        changeTitleButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        changeTitleButton.addTarget(self, action: #selector(changeTitleButtonTapped), for: .touchUpInside)
     }
     
     func setupTitleCollectionView(_ viewController: UIViewController) {
