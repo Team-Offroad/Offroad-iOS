@@ -14,9 +14,9 @@ class QuestMapNavigationController: UINavigationController {
     
     //MARK: - UI Properties
     
-    /*private */let customNavigationBar = QuestNavigationBar()
-    /*private */let customStatusBarBackgorund = UIView()
-    /*private */let customNavigationBarShadowLine = UIView()
+    private let customNavigationBar = QuestNavigationBar()
+    private let customStatusBarBackgorund = UIView()
+    private let customNavigationBarShadowLine = UIView()
     
     //MARK: - LifeCycle
     
@@ -61,7 +61,6 @@ extension QuestMapNavigationController {
     }
     
     private func setupStyle() {
-        
         customNavigationBar.do { view in
             view.backgroundColor = .main(.main1)
         }
@@ -73,7 +72,6 @@ extension QuestMapNavigationController {
         customNavigationBarShadowLine.do { view in
             view.backgroundColor = .blackOpacity(.black25)
         }
-        
     }
     
     private func setupLayout() {
@@ -126,5 +124,7 @@ extension QuestMapNavigationController {
             customNavigationBar.changeState(to: .questQR)
         }
     }
+    
+    
     
 }

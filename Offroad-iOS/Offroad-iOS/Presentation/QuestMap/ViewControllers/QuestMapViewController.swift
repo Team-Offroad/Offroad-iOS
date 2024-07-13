@@ -30,6 +30,7 @@ class QuestMapViewController: OffroadTabBarViewController {
         
         setupButtonsAction()
         requestAuthorization()
+        setupDelegates()
     }
     
 }
@@ -73,6 +74,21 @@ extension QuestMapViewController {
         @unknown default:
             return
         }
+    }
+    
+    private func setupDelegates() {
+        rootView.naverMapView.mapView.addCameraDelegate(delegate: self)
+    }
+    
+}
+
+//MARK: - NMFMapViewCameraDelegate
+
+extension QuestMapViewController: NMFMapViewCameraDelegate {
+    
+    func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
+        let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
+        self.rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
     }
     
 }
