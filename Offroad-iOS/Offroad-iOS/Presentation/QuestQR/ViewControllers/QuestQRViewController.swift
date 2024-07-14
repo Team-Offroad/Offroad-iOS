@@ -70,8 +70,9 @@ class QuestQRViewController: UIViewController {
             width: qrTargetRect.width / screenSize.width,
             height: qrTargetRect.height / screenSize.height
         )
-        metadataOutput.rectOfInterest = questQRView.qrTargetRectBox.frame
-        metadataOutput.rectOfInterest = CGRect(x: 0.25, y: 0.25, width: 0.5, height: 0.5)
+        
+        // rectOfInterest의 범위는 (0, 0) ~ (1, 1)
+        metadataOutput.rectOfInterest = rectOfInterest
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -142,15 +143,22 @@ extension QuestQRViewController: AVCaptureMetadataOutputObjectsDelegate {
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if let metadataObject = metadataObjects.first {
+            captureSession.stopRunning()
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
             print("QR:", stringValue)
             
-            let alertCon = UIAlertController(title: "QR코드 인식됨", message: "URL: \(stringValue)", preferredStyle: .actionSheet)
-            let okAction = UIAlertAction(title: "넵!", style: .default)
-            alertCon.addAction(okAction)
             DispatchQueue.main.async { [weak self] in
-                self?.present(alertCon, animated: true)
+                
+                let alertCon = UIAlertController(title: "QR코드 인식됨", message: "URL: \(stringValue)", preferredStyle: .actionSheet)
+                let okAction = UIAlertAction(title: "넵!", style: .default) { [weak self] _ in
+                    DispatchQueue.global().async {
+                        self?.captureSession.startRunning()
+                    }
+                }
+                alertCon.addAction(okAction)
+                
+                self?.tabBarController?.present(alertCon, animated: true)
             }
         }
     }
