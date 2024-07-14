@@ -18,9 +18,10 @@ class QuestQRViewController: UIViewController {
     let metadataOutput = AVCaptureMetadataOutput()
     
     var captureSession = AVCaptureSession()
-    var videoInput: AVCaptureDeviceInput? = {
+    var captureDevice: AVCaptureDevice? = nil
+    lazy var videoInput: AVCaptureDeviceInput? = {
         // 시뮬레이터에서 실행할 경우, captureDevice에 nil 이 할당되어 오류 발생
-        let captureDevice = AVCaptureDevice.default(for: .video)
+        captureDevice = AVCaptureDevice.default(for: .video)
         do {
             return try AVCaptureDeviceInput(device: captureDevice!)
         } catch {
@@ -80,6 +81,14 @@ class QuestQRViewController: UIViewController {
         
         let offroadTabBarController = tabBarController as! OffroadTabBarController
         offroadTabBarController.hideTabBarAnimation()
+        
+        AVCaptureDevice.requestAccess(for: .video) { isGranted in
+            guard isGranted else {
+                self.navigationController?.popViewController(animated: true)
+                return
+            }
+            return
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
