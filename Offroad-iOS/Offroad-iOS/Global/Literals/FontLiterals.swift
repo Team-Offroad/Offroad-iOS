@@ -21,7 +21,7 @@ enum PretendardFontWeight {
 
 enum offroadFontStyle {
     case iosSubtitle3
-    case iosTitle
+    case iosTextTitle
     case iosSubtitle2Bold
     case iosSubtitleReg
     case iosSubtitle2Semibold
@@ -76,7 +76,7 @@ extension UIFont {
     static func offroad(style: offroadFontStyle) -> UIFont {
         switch style {
         case .iosSubtitle3: return UIFont.pretendardFont(ofSize: 24, weight: .medium)
-        case .iosTitle: return UIFont.pretendardFont(ofSize: 22, weight: .bold)
+        case .iosTextTitle: return UIFont.pretendardFont(ofSize: 22, weight: .bold)
         case .iosSubtitle2Bold: return UIFont.pretendardFont(ofSize: 20, weight: .bold)
         case .iosSubtitleReg: return UIFont.pretendardFont(ofSize: 20, weight: .regular)
         case .iosSubtitle2Semibold: return UIFont.pretendardFont(ofSize: 18, weight: .semiBold)

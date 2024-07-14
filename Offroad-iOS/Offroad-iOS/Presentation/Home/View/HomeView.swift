@@ -14,9 +14,9 @@ final class HomeView: UIView {
     
     //MARK: - Properties
     
-    typealias ButtonAction = () -> Void
+    typealias ChangeTitleButtonAction = () -> Void
 
-    private var buttonAction: ButtonAction?
+    private var changeTitleButtonAction: ChangeTitleButtonAction?
     
     private var nicknameString = "비포장도로"
     private var characterNameString = "오푸"
@@ -45,7 +45,7 @@ final class HomeView: UIView {
     private let recentQuestProgressLabel = UILabel()
     private let almostDoneQuestProgressView = CustomAlmostDoneProgressView()
     private let almostDoneQuestProgressLabel = UILabel()
-
+    
     // MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -100,6 +100,13 @@ extension HomeView {
         
         changeCharacterButton.do {
             $0.setImage(.btnChangeCharacter, for: .normal)
+        }
+        
+        [downloadButton, shareButton, changeCharacterButton].forEach { button in
+            button.layer.shadowColor = UIColor.black.cgColor
+            button.layer.shadowOffset = CGSize(width: 0, height: 1)
+            button.layer.shadowOpacity = 0.1
+            button.layer.shadowRadius = 4
         }
         
         buttonStackView.do {
@@ -250,14 +257,20 @@ extension HomeView {
     
     //MARK: - @Objc Method
     
-    @objc private func buttonTapped() {
-        buttonAction?()
+    @objc private func changeTitleButtonTapped() {
+        changeTitleButtonAction?()
+    }
+    
+    //MARK: - Func
+    
+    func changeMyTitleLabelText(text: String) {
+        titleLabel.text = text
     }
     
     //MARK: - targetView Method
     
-    func setupButton(action: @escaping ButtonAction) {
-        buttonAction = action
-//        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+    func setupChangeTitleButton(action: @escaping ChangeTitleButtonAction) {
+        changeTitleButtonAction = action
+        changeTitleButton.addTarget(self, action: #selector(changeTitleButtonTapped), for: .touchUpInside)
     }
 }
