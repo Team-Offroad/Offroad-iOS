@@ -84,7 +84,9 @@ class QuestQRViewController: UIViewController {
         
         AVCaptureDevice.requestAccess(for: .video) { isGranted in
             guard isGranted else {
-                self.navigationController?.popViewController(animated: true)
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+                }
                 return
             }
             return
