@@ -13,7 +13,7 @@ import Then
 
 class QuestMapViewController: UIViewController {
     
-    //MARK: - UI Properties
+    //MARK: - Properties
     
     private let rootView = QuestMapView()
     
@@ -31,17 +31,18 @@ class QuestMapViewController: UIViewController {
     
 }
 
-
 extension QuestMapViewController {
     
     //MARK: - @objc
     
     @objc private func pushQuestListViewController() {
         print(#function)
+        navigationController?.pushViewController(QuestQRViewController(), animated: true)
     }
     
     @objc private func pushPlaceListViewController() {
         print(#function)
+        navigationController?.pushViewController(QuestQRViewController(), animated: true)
     }
     
     //MARK: - Private Func

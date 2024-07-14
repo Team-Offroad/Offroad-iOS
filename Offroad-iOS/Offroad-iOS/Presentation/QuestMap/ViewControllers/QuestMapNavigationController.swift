@@ -14,9 +14,9 @@ class QuestMapNavigationController: UINavigationController {
     
     //MARK: - UI Properties
     
-    private let customNavigationBar = UIView()
+    private let customNavigationBar = QuestNavigationBar()
+    private let customStatusBarBackgorund = UIView()
     private let customNavigationBarShadowLine = UIView()
-    private let navigationTitleLabel = UILabel()
     
     //MARK: - LifeCycle
     
@@ -36,22 +36,37 @@ class QuestMapNavigationController: UINavigationController {
         setupHierarchy()
         setupStyle()
         setupLayout()
-        setNavigationBarAppearance()
+        setInitialNavigationBarState()
+        setupButtonsAction()
     }
     
 }
 
-
 extension QuestMapNavigationController {
     
+    //MARK: - @objc Func
+    
+    @objc private func popByCustomBackButton() {
+        popViewController(animated: true)
+    }
+    
+    //MARK: - Private Func
+    
     private func setupHierarchy() {
-        navigationBar.addSubview(customNavigationBar)
-        customNavigationBar.addSubviews(navigationTitleLabel, customNavigationBarShadowLine)
+        navigationBar.addSubviews(
+            customNavigationBar,
+            customNavigationBarShadowLine,
+            customStatusBarBackgorund
+        )
     }
     
     private func setupStyle() {
+        
         customNavigationBar.do { view in
-            //view.clipsToBounds = false
+            view.backgroundColor = .main(.main1)
+        }
+        
+        customStatusBarBackgorund.do { view in
             view.backgroundColor = .main(.main1)
         }
         
@@ -59,11 +74,6 @@ extension QuestMapNavigationController {
             view.backgroundColor = .blackOpacity(.black25)
         }
         
-        navigationTitleLabel.do { label in
-            label.text = "어디를 탐험해 볼까요?"
-            label.font = .offroad(style: .iosSubtitle2Bold)
-            label.textAlignment = .left
-        }
     }
     
     private func setupLayout() {
@@ -72,28 +82,49 @@ extension QuestMapNavigationController {
             make.height.equalTo(76)
         }
         
+        customStatusBarBackgorund.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(view)
+            make.bottom.equalTo(customNavigationBar.snp.top)
+        }
+        
         customNavigationBarShadowLine.snp.makeConstraints { make in
             make.top.equalTo(customNavigationBar.snp.bottom)
             make.horizontalEdges.equalTo(customNavigationBar)
             make.height.equalTo(1)
         }
-        
-        navigationTitleLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().inset(24)
-        }
     }
     
-    private func setNavigationBarAppearance() {
-        navigationBar.scrollEdgeAppearance = UINavigationBarAppearance().then {
-            $0.backgroundColor = .main(.main1)
+    private func setInitialNavigationBarState() {
+        let appearance = UINavigationBarAppearance().then { appearance in
+            appearance.configureWithTransparentBackground()
         }
+        navigationBar.scrollEdgeAppearance = appearance
+        customNavigationBar.changeState(to: .questMap)
     }
+    
+    private func setupButtonsAction() {
+        customNavigationBar.customBackButton.addTarget(self, action: #selector(popByCustomBackButton), for: .touchUpInside)
+    }
+    
+    //MARK: - Func
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         super.pushViewController(viewController, animated: animated)
         
         viewController.additionalSafeAreaInsets.top = 76 - navigationBar.frame.height
+    }
+    
+    func setCustomAppearance(state: QuestNavigationView) {
+        switch state {
+        case .questMap:
+            customStatusBarBackgorund.backgroundColor = .main(.main1)
+            customNavigationBarShadowLine.backgroundColor = .blackOpacity(.black25)
+            customNavigationBar.changeState(to: .questMap)
+        case .questQR:
+            customStatusBarBackgorund.backgroundColor = .clear
+            customNavigationBarShadowLine.backgroundColor = .clear
+            customNavigationBar.changeState(to: .questQR)
+        }
     }
     
 }
