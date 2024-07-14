@@ -1,5 +1,5 @@
 //
-//  OffroadButton.swift
+//  StateToggleButton.swift
 //  Offroad-iOS
 //
 //  Created by 조혜린 on 7/11/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum offroadButtonState {
+enum buttonState {
     case isEnabled
     case isDisabled
 }
@@ -16,12 +16,12 @@ enum offroadButtonState {
 /// 활성화 상태에 따라 정해진 레이아웃을 가진 button으로 설정할 수 있음
 /// - Parameter state: button의 활성화 여부
 /// - Parameter title: button의 title에 들어갈 문구
-/// > 사용 예시 :  `private let button: OffroadButton = OffroadButton(state: .isEnabled, title: "다음")`
-final class OffroadButton: UIButton {
+/// > 사용 예시 :  `private let button: StateToggleButton = StateToggleButton(state: .isEnabled, title: "다음")`
+final class StateToggleButton: UIButton {
     
     // MARK: - Life Cycle
 
-    init(state: offroadButtonState, title: String) {
+    init(state: buttonState, title: String) {
         super.init(frame: .zero)
         
         setupStyle(forState: state, forTitle: title)
@@ -32,11 +32,11 @@ final class OffroadButton: UIButton {
     }
 }
 
-extension OffroadButton {
+extension StateToggleButton {
     
     // MARK: - Private Func
 
-    private func setupStyle(forState: offroadButtonState, forTitle: String) {
+    private func setupStyle(forState: buttonState, forTitle: String) {
         switch forState {
         case .isEnabled:
             backgroundColor = .main(.main2)
@@ -54,7 +54,7 @@ extension OffroadButton {
         titleLabel?.font = .offroad(style: .iosTextRegular)
     }
     
-    func changeState(forState: offroadButtonState) {
+    func changeState(forState: buttonState) {
         switch forState {
         case .isEnabled:
             backgroundColor = .main(.main2)

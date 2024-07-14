@@ -52,7 +52,7 @@
 		87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046932C3D2B38002D12C2 /* BirthViewController.swift */; };
 		87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046972C3D5E3D002D12C2 /* NicknameView.swift */; };
 		AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */; };
-		D018BB0F2C40200C0048B6DF /* OffroadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB0E2C40200C0048B6DF /* OffroadButton.swift */; };
+		D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */; };
 		D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB102C4054D20048B6DF /* TitleModel.swift */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
@@ -134,7 +134,7 @@
 		87E046932C3D2B38002D12C2 /* BirthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewController.swift; sourceTree = "<group>"; };
 		87E046972C3D5E3D002D12C2 /* NicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameView.swift; sourceTree = "<group>"; };
 		C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOS_Offroad_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D018BB0E2C40200C0048B6DF /* OffroadButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadButton.swift; sourceTree = "<group>"; };
+		D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateToggleButton.swift; sourceTree = "<group>"; };
 		D018BB102C4054D20048B6DF /* TitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleModel.swift; sourceTree = "<group>"; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
@@ -640,7 +640,7 @@
 		D018BB0D2C401F700048B6DF /* CustomButton */ = {
 			isa = PBXGroup;
 			children = (
-				D018BB0E2C40200C0048B6DF /* OffroadButton.swift */,
+				D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */,
 			);
 			path = CustomButton;
 			sourceTree = "<group>";
@@ -1042,7 +1042,7 @@
 				D06D26CD2C3E6EA200E79F25 /* CustomRecentProgressView.swift in Sources */,
 				4E1E94132C398C4200A7B08A /* String+.swift in Sources */,
 				8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */,
-				D018BB0F2C40200C0048B6DF /* OffroadButton.swift in Sources */,
+				D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */,
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
 				8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */,
 				4E03942F2C2A9DCE007F0517 /* SceneDelegate.swift in Sources */,
