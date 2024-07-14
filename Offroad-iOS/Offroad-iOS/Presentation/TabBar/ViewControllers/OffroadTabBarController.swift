@@ -10,26 +10,20 @@ import UIKit
 class OffroadTabBarController: UITabBarController {
     
     // MARK: - Properties
+    
     var originalTabBarHeight: CGFloat = 0
     
-    // MARK: - UI Properties
-    
-    
     // MARK: - Life Cycle
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupHierarchy()
-        setupLayout()
         setupStyle()
         setOffroadViewControllers()
         setTabBarButtons()
     }
     
     override func viewDidLayoutSubviews() {
-        print("탭바컨트롤러:", #function)
         super.viewDidLayoutSubviews()
         
         originalTabBarHeight = tabBar.frame.height
@@ -46,13 +40,6 @@ extension OffroadTabBarController {
     
     
     // MARK: - Layout
-    private func setupHierarchy() {
-        
-    }
-    
-    private func setupLayout() {
-        
-    }
     
     private func setupStyle() {
         tabBar.clipsToBounds = false
@@ -82,10 +69,4 @@ extension OffroadTabBarController {
         tabBar.items?[2].title = "My"
     }
     
-    // MARK: - @objc
-    
-    // MARK: - Private Func
-        
-    // MARK: - Func
-        
 }
