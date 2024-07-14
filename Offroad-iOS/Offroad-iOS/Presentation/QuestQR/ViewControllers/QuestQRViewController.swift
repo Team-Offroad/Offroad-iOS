@@ -43,13 +43,9 @@ class QuestQRViewController: UIViewController {
         setupNavigationControllerGesture()
     }
     
-    
 }
 
-
 extension QuestQRViewController {
-    
-    
     
     //MARK: - Private Func
     
@@ -62,13 +58,10 @@ extension QuestQRViewController {
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
-    
-    //MARK: - Func
-    
-    
 }
 
 //MARK: - UIGestureRecognizerDelegate
+
 extension QuestQRViewController: UIGestureRecognizerDelegate {
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
