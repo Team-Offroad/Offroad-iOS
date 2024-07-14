@@ -28,6 +28,9 @@ extension UIView {
         }
     }
     
+    /// view의 pop up 효과가 나타나는 animation 설정
+    /// - 해당 함수를 불러오기 전에 popupView(or 적용할 View).alpha = 0 으로 설정해줘야 동작함
+    /// > 사용 예시 : `popupView.excutePresentPopupAnimation()`
     func excutePresentPopupAnimation() {
         transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         
@@ -37,6 +40,8 @@ extension UIView {
         }, completion: nil)
     }
     
+    /// view의 pop up 효과가 사라지는 animation 설정
+    /// > 사용 예시 : `popupView.excuteDismissPopupAnimation()`
     func excuteDismissPopupAnimation() {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             self.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
