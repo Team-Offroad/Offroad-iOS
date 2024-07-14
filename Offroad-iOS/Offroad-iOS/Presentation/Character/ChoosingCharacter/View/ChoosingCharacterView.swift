@@ -54,6 +54,15 @@ final class ChoosingCharacterView: UIView {
         return collectionView
     }()
     
+    let leftButton = UIButton().then {
+        $0.setImage(UIImage(resource: .imgLeftButton), for: .normal)
+    }
+    
+    let rightButton = UIButton().then {
+        $0.setImage(UIImage(resource: .imgRightButton), for: .normal)
+    }
+    
+    
     let pageControl = UIPageControl().then {
         $0.currentPage = 0
         $0.pageIndicatorTintColor = UIColor.primary(.white).withAlphaComponent(0.4)
@@ -97,8 +106,11 @@ extension ChoosingCharacterView {
         addSubviews(
             collectionView,
             pageControl,
-            choosingCharacterLabelView
+            choosingCharacterLabelView,
+            leftButton,
+            rightButton
         )
+
         choosingCharacterLabelView.addSubview(nameLabel)
         choosingCharacterLabelView.addSubview(divideLabelView)
         choosingCharacterLabelView.addSubview(discriptionLabel)
@@ -114,6 +126,16 @@ extension ChoosingCharacterView {
             make.top.equalToSuperview().offset(175)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(300)
+        }
+        
+        leftButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(24)
+            make.centerY.equalTo(collectionView)
+        }
+        
+        rightButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(24)
+            make.centerY.equalTo(collectionView)
         }
         
         pageControl.numberOfPages = images.count

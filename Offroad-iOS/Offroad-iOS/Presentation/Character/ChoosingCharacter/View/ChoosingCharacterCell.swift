@@ -22,7 +22,6 @@ final class ChoosingCharacterCell: UICollectionViewCell {
         contentView.addSubview(imageView)
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
-//            make.top.equalToSuperview().inset(175)
         }
     }
 
