@@ -15,7 +15,6 @@ extension UIView {
         views.forEach { self.addSubview($0) }
     }
     
-    
     /// view의 코너를 둥글게 설정
     /// - Parameters:
     ///   - cornerRadius: 코너의 곡률 반경
@@ -29,6 +28,19 @@ extension UIView {
         }
     }
     
+    func excutePresentPopupAnimation() {
+        transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            self.transform = CGAffineTransform.identity
+            self.alpha = 1
+        }, completion: nil)
+    }
     
-    
+    func excuteDismissPopupAnimation() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+            self.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+            self.alpha = 0
+        }, completion: nil)
+    }
 }
