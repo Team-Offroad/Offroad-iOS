@@ -42,10 +42,10 @@ class QuestMapNavigationController: UINavigationController {
     
 }
 
-
 extension QuestMapNavigationController {
     
     //MARK: - @objc Func
+    
     @objc private func popByCustomBackButton() {
         popViewController(animated: true)
     }

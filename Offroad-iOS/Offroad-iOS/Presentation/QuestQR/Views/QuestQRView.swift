@@ -119,6 +119,4 @@ extension QuestQRView {
         }
     }
     
-    //MARK: - func
-    
 }

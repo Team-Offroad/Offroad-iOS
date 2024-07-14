@@ -35,7 +35,6 @@ class QuestMapViewController: OffroadTabBarViewController {
     
 }
 
-
 extension QuestMapViewController {
     
     //MARK: - @objc

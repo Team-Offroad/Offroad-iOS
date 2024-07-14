@@ -39,7 +39,7 @@ class QuestNavigationBar: UIView {
 
 extension QuestNavigationBar {
     
-    //MARK: - Private Func
+    //MARK: - Layout
     
     private func setupHierarchy() {
         addSubviews(navigationTitleLabel, customBackButton)
@@ -58,6 +58,8 @@ extension QuestNavigationBar {
             make.height.equalTo(44)
         }
     }
+    
+    //MARK: - Private Func
     
     private func setupStyle() {
         navigationTitleLabel.do { label in

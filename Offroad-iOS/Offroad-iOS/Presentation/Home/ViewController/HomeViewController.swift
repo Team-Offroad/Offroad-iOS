@@ -31,10 +31,22 @@ extension HomeViewController {
     // MARK: - Private Method
     
     private func setupTarget() {
-        rootView.setupButton(action: buttonTapped)
+        rootView.setupChangeTitleButton(action: changeTitleButtonTapped)
     }
     
-    private func buttonTapped() {
+    private func changeTitleButtonTapped() {
+        print("changeTitleButtonTapped")
         
+        let titlePopupViewController = TitlePopupViewController()
+        titlePopupViewController.modalPresentationStyle = .overCurrentContext
+        titlePopupViewController.delegate = self
+        
+        present(titlePopupViewController, animated: false)
+    }
+}
+
+extension HomeViewController: selectedTitleProtocol {
+    func fetchTitleString(titleString: String) {
+        rootView.changeMyTitleLabelText(text: titleString)
     }
 }
