@@ -16,7 +16,6 @@ class QuestQRView: UIView {
     
     var qrTargetAreaSideLength: CGFloat!
     
-    
     //MARK: - UI Properties
     
     let qrTargetAreaBox = UIView()
@@ -37,17 +36,9 @@ class QuestQRView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
 }
 
-
-
-
 extension QuestQRView {
-    
-    //MARK: - @objc func
-    
     
     //MARK: - private func
     
@@ -56,8 +47,6 @@ extension QuestQRView {
     }
     
     private func setupLayout() {
-        
-        
         let screenWidth = UIScreen.main.bounds.width
         let inset: CGFloat = 24
         qrTargetAreaSideLength = screenWidth - inset * 2
@@ -97,10 +86,5 @@ extension QuestQRView {
             label.highlightText(targetText: "QR 코드", font: .offroad(style: .iosTextBold), color: .primary(.white))
         }
     }
-    
-    //MARK: - func
-    
-    
-    
     
 }

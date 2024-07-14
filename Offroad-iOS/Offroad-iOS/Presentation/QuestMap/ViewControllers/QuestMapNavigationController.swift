@@ -14,9 +14,9 @@ class QuestMapNavigationController: UINavigationController {
     
     //MARK: - UI Properties
     
-    /*private */let customNavigationBar = QuestNavigationBar()
-    /*private */let customStatusBarBackgorund = UIView()
-    /*private */let customNavigationBarShadowLine = UIView()
+    private let customNavigationBar = QuestNavigationBar()
+    private let customStatusBarBackgorund = UIView()
+    private let customNavigationBarShadowLine = UIView()
     
     //MARK: - LifeCycle
     
@@ -42,10 +42,10 @@ class QuestMapNavigationController: UINavigationController {
     
 }
 
-
 extension QuestMapNavigationController {
     
     //MARK: - @objc Func
+    
     @objc private func popByCustomBackButton() {
         popViewController(animated: true)
     }

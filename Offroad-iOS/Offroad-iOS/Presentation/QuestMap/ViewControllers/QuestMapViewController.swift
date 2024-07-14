@@ -31,7 +31,6 @@ class QuestMapViewController: UIViewController {
     
 }
 
-
 extension QuestMapViewController {
     
     //MARK: - @objc
