@@ -53,6 +53,7 @@ extension TitlePopupView {
         popupView.do {
             $0.backgroundColor = .main(.main3)
             $0.roundCorners(cornerRadius: 15)
+            $0.alpha = 0
         }
         
         myTitleLabel.do {
@@ -132,6 +133,15 @@ extension TitlePopupView {
     
     func getTitleCollectionViewWidth() -> CGFloat {
         return titleCollectionView.frame.size.width
+    }
+    
+    func presentPopupView() {
+        popupView.excutePresentPopupAnimation()
+    }
+    
+    func dismissPopupView() {
+        backgroundColor = .clear
+        popupView.excuteDismissPopupAnimation()
     }
     
     //MARK: - targetView Method
