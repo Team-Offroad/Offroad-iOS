@@ -43,8 +43,6 @@
 		4EDC3D482C31271F006A1493 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D3F2C31271F006A1493 /* Pretendard-SemiBold.otf */; };
 		4EDC3D492C31271F006A1493 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D402C31271F006A1493 /* Pretendard-ExtraLight.otf */; };
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
-		871CF5852C44408E001026AA /* CompleteChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871CF5842C44408E001026AA /* CompleteChoosingCharacterViewController.swift */; };
-		871CF5872C4440A6001026AA /* CompleteChoosindCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871CF5862C4440A6001026AA /* CompleteChoosindCharacterView.swift */; };
 		8792CFFC2C3D8240002051AC /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8792CFFB2C3D823F002051AC /* Secrets.xcconfig */; };
 		8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */; };
 		8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0102C3DA1C9002051AC /* BirthView.swift */; };
@@ -117,8 +115,6 @@
 		4EDC3D402C31271F006A1493 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		4EDC3D4A2C312850006A1493 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		871CF5842C44408E001026AA /* CompleteChoosingCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteChoosingCharacterViewController.swift; sourceTree = "<group>"; };
-		871CF5862C4440A6001026AA /* CompleteChoosindCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteChoosindCharacterView.swift; sourceTree = "<group>"; };
 		8792CFFB2C3D823F002051AC /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
 		8792D0102C3DA1C9002051AC /* BirthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthView.swift; sourceTree = "<group>"; };
@@ -373,8 +369,6 @@
 		4E0394712C2AA691007F0517 /* CompleteChoosingCharacter */ = {
 			isa = PBXGroup;
 			children = (
-				871CF5822C444050001026AA /* ViewController */,
-				871CF5812C444044001026AA /* View */,
 			);
 			path = CompleteChoosingCharacter;
 			sourceTree = "<group>";
@@ -571,22 +565,6 @@
 				45DB654998D44C9EAF078157 /* Pods-Offroad-iOSTests.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		871CF5812C444044001026AA /* View */ = {
-			isa = PBXGroup;
-			children = (
-				871CF5862C4440A6001026AA /* CompleteChoosindCharacterView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		871CF5822C444050001026AA /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				871CF5842C44408E001026AA /* CompleteChoosingCharacterViewController.swift */,
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 		871CF5882C44598B001026AA /* New Group */ = {
@@ -961,7 +939,6 @@
 				D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */,
 				4E0394E32C2AC0D7007F0517 /* UIWindow+.swift in Sources */,
 				4E0394DD2C2ABEF2007F0517 /* UITextField+.swift in Sources */,
-				871CF5852C44408E001026AA /* CompleteChoosingCharacterViewController.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
 				87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */,
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
@@ -969,7 +946,6 @@
 				8792D0202C3E873C002051AC /* ChoosingCharacterViewController.swift in Sources */,
 				8792D01E2C3E872D002051AC /* ChoosingCharacterView.swift in Sources */,
 				8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */,
-				871CF5872C4440A6001026AA /* CompleteChoosindCharacterView.swift in Sources */,
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
 				8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */,
 				8792D0242C3F0843002051AC /* ChoosingCharacterCell.swift in Sources */,

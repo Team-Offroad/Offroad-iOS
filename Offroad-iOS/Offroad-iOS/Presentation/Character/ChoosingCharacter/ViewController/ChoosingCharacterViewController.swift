@@ -103,7 +103,17 @@ extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectio
             choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)
         }
     }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        let pageWidth = scrollView.frame.width
+        let currentPage = Int(scrollView.contentOffset.x / pageWidth)
+        
+        if scrollView == choosingCharacterView.collectionView {
+            if currentPage == 0 {
+                self.choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 3, section: 0), at: .centeredHorizontally, animated: false)
+            } else if currentPage == choosingCharacterView.extendedImages.count - 1 {
+                choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)
+            }
+        }
+    }
 }
-
-
-
