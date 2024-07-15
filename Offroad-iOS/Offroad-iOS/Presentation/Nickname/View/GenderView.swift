@@ -1,8 +1,8 @@
 //
-//  NicknameView.swift
+//  GenderView.swift
 //  Offroad-iOS
 //
-//  Created by  정지원 on 7/9/24.
+//  Created by  정지원 on 7/10/24.
 //
 
 import UIKit
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class NicknameView: UIView {
+final class GenderView: UIView {
     
     //MARK: - Properties
     
@@ -22,48 +22,49 @@ final class NicknameView: UIView {
     }
     
     private let subLabel = UILabel().then {
-        $0.text = "어떤 이름으로 불러드릴까요?"
+        $0.text = "성별을 선택해 주세요."
         $0.textAlignment = .center
         $0.textColor = UIColor.main(.main2)
         $0.font = UIFont.offroad(style: .iosSubtitleReg)
     }
     
-    let textField = UITextField().then {
-        $0.textColor = UIColor.main(.main2)
-        $0.frame.size.height = 48
-        $0.backgroundColor = UIColor.main(.main3)
-        $0.addPadding(left: 13,right: 13)
-        $0.layer.borderWidth = 1.0
-        $0.layer.cornerRadius = 5
-        $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-        $0.attributedPlaceholder = NSAttributedString(
-            string: "닉네임을 입력",
-            attributes: [NSAttributedString.Key.font: UIFont.offroad(style: .iosTextAuto), NSAttributedString.Key.foregroundColor: UIColor.grayscale(.gray300)]
-        )
-    }
-    
-    let checkButton = UIButton().then {
-        $0.setTitle("중복확인", for: .normal)
+    let maleButton = UIButton().then {
+        $0.setTitle("남성", for: .normal)
         $0.titleLabel?.textAlignment = .center
-        $0.titleLabel?.font = UIFont.offroad(style: .iosBtnSmall)
+        $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
         $0.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
+        $0.setTitleColor(UIColor.main(.main2), for: .selected)
         $0.backgroundColor = UIColor.main(.main3)
+        $0.setBackgroundColor(UIColor.neutral(.nametagInactive), for: .selected)
         $0.layer.borderWidth = 1.0
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         $0.layer.cornerRadius = 5
-        $0.isEnabled = false
     }
     
-    private let textFieldStackView = UIStackView().then {
-        $0.axis = .horizontal
-        $0.alignment = .fill
-        $0.distribution = .fillProportionally
+    let femaleButton = UIButton().then {
+        $0.setTitle("여성", for: .normal)
+        $0.titleLabel?.textAlignment = .center
+        $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
+        $0.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
+        $0.setTitleColor(UIColor.main(.main2), for: .selected)
+        $0.backgroundColor = UIColor.main(.main3)
+        $0.setBackgroundColor(UIColor.neutral(.nametagInactive), for: .selected)
+        $0.layer.borderWidth = 1.0
+        $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        $0.layer.cornerRadius = 5
     }
     
-    private let notionLabel = UILabel().then {
-        $0.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
-        $0.textColor = UIColor.grayscale(.gray400)
-        $0.font = UIFont.offroad(style: .iosHint)
+    let etcButton = UIButton().then {
+        $0.setTitle("기타", for: .normal)
+        $0.titleLabel?.textAlignment = .center
+        $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
+        $0.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
+        $0.setTitleColor(UIColor.main(.main2), for: .selected)
+        $0.backgroundColor = UIColor.main(.main3)
+        $0.setBackgroundColor(UIColor.neutral(.nametagInactive), for: .selected)
+        $0.layer.borderWidth = 1.0
+        $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        $0.layer.cornerRadius = 5
     }
     
     private let nextButton = UIButton().then {
@@ -81,6 +82,7 @@ final class NicknameView: UIView {
         super.init(frame: frame)
         
         setupHierarchy()
+        setupStyle()
         setupLayout()
     }
     
@@ -89,7 +91,7 @@ final class NicknameView: UIView {
     }
 }
 
-extension NicknameView {
+extension GenderView {
     
     // MARK: - Private Func
     
@@ -97,18 +99,21 @@ extension NicknameView {
         addSubviews(
             mainLabel,
             subLabel,
-            textFieldStackView,
-            notionLabel,
+            maleButton,
+            femaleButton,
+            etcButton,
             nextButton
         )
-
-        textFieldStackView.addArrangedSubviews(textField, checkButton)
+    }
+    
+    private func setupStyle() {
+        backgroundColor = UIColor.main(.main1)
     }
     
     private func setupLayout() {
         
         mainLabel.snp.makeConstraints{ make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(97)
+            make.top.equalTo(safeAreaLayoutGuide).inset(97)
             make.leading.trailing.equalToSuperview().inset(63)
         }
         
@@ -117,27 +122,22 @@ extension NicknameView {
             make.leading.trailing.equalToSuperview().inset(63)
         }
         
-        textFieldStackView.snp.makeConstraints { make in
+        maleButton.snp.makeConstraints { make in
             make.top.equalTo(subLabel.snp.bottom).offset(64)
             make.leading.trailing.equalToSuperview().inset(24)
-            make.height.equalTo(48)
+            make.height.equalTo(60)
         }
         
-        textField.snp.makeConstraints { make in
-            make.leading.equalTo(textFieldStackView)
-            make.height.equalTo(48)
+        femaleButton.snp.makeConstraints { make in
+            make.top.equalTo(maleButton.snp.bottom).offset(12)
+            make.leading.trailing.equalToSuperview().inset(24)
+            make.height.equalTo(60)
         }
         
-        checkButton.snp.makeConstraints { make in
-            make.leading.equalTo(textField.snp.trailing).offset(14)
-            make.trailing.equalTo(textFieldStackView)
-            make.height.equalTo(48)
-            make.width.equalTo(90)
-        }
-        
-        notionLabel.snp.makeConstraints { make in
-            make.top.equalTo(textFieldStackView.snp.bottom).offset(12)
-            make.leading.equalToSuperview().inset(24)
+        etcButton.snp.makeConstraints { make in
+            make.top.equalTo(femaleButton.snp.bottom).offset(12)
+            make.leading.trailing.equalToSuperview().inset(24)
+            make.height.equalTo(60)
         }
         
         nextButton.snp.makeConstraints { make in
@@ -147,3 +147,6 @@ extension NicknameView {
         }
     }
 }
+
+
+
