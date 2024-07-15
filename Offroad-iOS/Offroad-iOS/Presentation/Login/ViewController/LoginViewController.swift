@@ -46,16 +46,35 @@ extension LoginViewController {
         
         AppleAuthManager.shared.appleLogin()
         
-        AppleAuthManager.shared.loginSuccess = { user, userIdentifyToken in
+        AppleAuthManager.shared.loginSuccess = { user, identifyToken in
             print("login success!")
+            
+            let userName = user.name ?? ""
+            let userEmail = user.email ?? ""
+            let userIdentifyToken = identifyToken ?? ""
 
-            print("userName: \(user.name ?? "")")
-            print("userEmail: \(user.email ?? "")")
-            print("userIdentifyToken: \(userIdentifyToken ?? "")")
+            print("userName: \(userName)")
+            print("userEmail: \(userEmail)")
+            print("userIdentifyToken: \(userIdentifyToken)")
+            
+            self.postTokenForAppleLogin(request: SocialLoginRequestDTO(socialPlatform: "APPLE", name: "조혜린", code: userIdentifyToken))
         }
         
         AppleAuthManager.shared.loginFailure = { error in
             print("login failed - \(error.localizedDescription)")
+        }
+    }
+    
+    private func postTokenForAppleLogin(request: SocialLoginRequestDTO) {
+        NetworkService.shared.authService.postSocialLogin(body: request) { response in
+            switch response {
+            case .success(let data):
+                let accessToken = data?.data.accessToken ?? ""
+                
+                UserDefaults.standard.set(accessToken, forKey: "AccessToken")
+            default:
+                break
+            }
         }
     }
 }

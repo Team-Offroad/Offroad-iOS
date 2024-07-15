@@ -20,9 +20,7 @@ extension AuthAPI: BaseTargetType {
     
     var parameter: [String : Any]? {
         switch self {
-        case .postSocialLogin:
-            return .none
-        case .postRefreshToken:
+        case .postSocialLogin, .postRefreshToken:
             return .none
         }
     }
@@ -38,26 +36,17 @@ extension AuthAPI: BaseTargetType {
     
     var method: Moya.Method {
         switch self {
-        case .postSocialLogin:
-            return .post
-        case .postRefreshToken:
+        case .postSocialLogin, .postRefreshToken:
             return .post
         }
     }
     
-    var headers: [String : String]? {
-        var header =  [
-            "Content-Type": "application/json"
-        ]
-        
+    var task: Moya.Task {
         switch self {
-        case .postSocialLogin(let body):
-            guard let accessToken = UserDefaults.standard.string(forKey: "AccessToken") else { return [:] }
-            
-            header["Authorization"] = "Bearer \(accessToken)"
-            return header
+        case .postSocialLogin(let socialLoginRequestDTO):
+            return .requestJSONEncodable(socialLoginRequestDTO)
         case .postRefreshToken:
-            return .none
+            return .requestPlain
         }
     }
 }
