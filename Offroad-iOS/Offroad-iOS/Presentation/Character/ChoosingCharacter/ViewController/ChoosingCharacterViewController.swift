@@ -15,7 +15,11 @@ final class ChoosingCharacterViewController: UIViewController {
     
     private let choosingCharacterView = ChoosingCharacterView()
     
-    let images = ["img_human", "img_red_hair", "img_naked_human"]
+    var images = ["img_human", "img_red_hair", "img_naked_human"] {
+        didSet {
+            choosingCharacterView.setPageControlPageNumbers(pageNumber: images.count)
+        }
+    }
     let names = ["오프", "로드", "근원"]
     let discriptions = [
         "오푸는 어쩌고 저쩌고 성격을 가진 귀여운 어쩌고 저쩌고 들어간다면 이렇게 들어갑니다. 세 줄까지 이 정도. 이렇게 저렇게 이렇게 짝짝.",

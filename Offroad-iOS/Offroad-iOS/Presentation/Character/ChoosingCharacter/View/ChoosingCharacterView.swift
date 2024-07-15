@@ -94,7 +94,7 @@ extension ChoosingCharacterView {
             leftButton,
             rightButton
         )
-
+        
         choosingCharacterLabelView.addSubview(nameLabel)
         choosingCharacterLabelView.addSubview(divideLabelView)
         choosingCharacterLabelView.addSubview(discriptionLabel)
@@ -122,6 +122,7 @@ extension ChoosingCharacterView {
             make.centerY.equalTo(collectionView)
         }
         
+        pageControl.numberOfPages = 3
         
         pageControl.setIndicatorImage(UIImage(named: "img_current_indicator"), forPage: 0)
         pageControl.setIndicatorImage(UIImage(named: "img_current_indicator"), forPage: 1)
@@ -150,7 +151,12 @@ extension ChoosingCharacterView {
         
         discriptionLabel.snp.makeConstraints{ make in
             make.top.equalTo(divideLabelView.snp.bottom).offset(18)
-            make.leading.trailing.equalToSuperview().inset(50)        }
+            make.leading.trailing.equalToSuperview().inset(50)
+        }
+    }
+    
+    func setPageControlPageNumbers(pageNumber: Int) {
+        pageControl.numberOfPages = pageNumber
     }
 }
 
