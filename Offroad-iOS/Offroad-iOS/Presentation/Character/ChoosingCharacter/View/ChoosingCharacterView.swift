@@ -41,6 +41,7 @@ final class ChoosingCharacterView: UIView {
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = UIColor.sub(.sub)
+        collectionView.isScrollEnabled = false
         return collectionView
     }()
     
@@ -57,6 +58,7 @@ final class ChoosingCharacterView: UIView {
         $0.currentPage = 0
         $0.pageIndicatorTintColor = UIColor.primary(.white).withAlphaComponent(0.4)
         $0.currentPageIndicatorTintColor = UIColor.primary(.white)
+        $0.isUserInteractionEnabled = false
     }
     
     let nameLabel = UILabel().then {

@@ -72,30 +72,32 @@ final class ChoosingCharacterViewController: UIViewController {
     //MARK: - @objc Method
     
     @objc private func leftArrowTapped() {
-           let currentIndexPath = choosingCharacterView.collectionView.indexPathsForVisibleItems.first
-           guard let indexPath = currentIndexPath else { return }
-           
-           let previousIndex = indexPath.item - 1
-           if previousIndex == 0 {
-               choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
-           } else {
-               choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: previousIndex, section: 0), at: .centeredHorizontally, animated: true)
-           }
-       }
-       
-       @objc private func rightArrowTapped() {
-           let currentIndexPath = choosingCharacterView.collectionView.indexPathsForVisibleItems.first
-           guard let indexPath = currentIndexPath else { return }
-           
-           let nextIndex = indexPath.item + 1
-           //마지막 항목일 때
-           if nextIndex == extendedImages.count - 1 {
-               choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: extendedImages.count - 1, section: 0), at: .centeredHorizontally, animated: true)
-           } else {
-               choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: nextIndex, section: 0), at: .centeredHorizontally, animated: true)
-           }
-       }
-   }
+        choosingCharacterView.leftButton.isUserInteractionEnabled = false
+        let currentIndexPath = choosingCharacterView.collectionView.indexPathsForVisibleItems.first
+        guard let indexPath = currentIndexPath else { return }
+        
+        let previousIndex = indexPath.item - 1
+        if previousIndex == 0 {
+            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
+        } else {
+            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: previousIndex, section: 0), at: .centeredHorizontally, animated: true)
+        }
+    }
+    
+    @objc private func rightArrowTapped() {
+        choosingCharacterView.rightButton.isUserInteractionEnabled = false
+        let currentIndexPath = choosingCharacterView.collectionView.indexPathsForVisibleItems.first
+        guard let indexPath = currentIndexPath else { return }
+        
+        let nextIndex = indexPath.item + 1
+        //마지막 항목일 때
+        if nextIndex == extendedImages.count - 1 {
+            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: extendedImages.count - 1, section: 0), at: .centeredHorizontally, animated: true)
+        } else {
+            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: nextIndex, section: 0), at: .centeredHorizontally, animated: true)
+        }
+    }
+}
 
 extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -120,6 +122,8 @@ extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectio
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        choosingCharacterView.leftButton.isUserInteractionEnabled = true
+        choosingCharacterView.rightButton.isUserInteractionEnabled = true
         let pageWidth = scrollView.frame.width
         let currentPage = Int(scrollView.contentOffset.x / pageWidth)
         
@@ -131,4 +135,5 @@ extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectio
             }
         }
     }
+    
 }
