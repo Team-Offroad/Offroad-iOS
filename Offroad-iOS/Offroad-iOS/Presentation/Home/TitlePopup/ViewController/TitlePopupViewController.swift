@@ -33,6 +33,11 @@ final class TitlePopupViewController: UIViewController {
         
         setupTarget()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        rootView.presentPopupView()
+    }
+  
 }
 
 extension TitlePopupViewController {
@@ -49,12 +54,20 @@ extension TitlePopupViewController {
         
         delegate?.fetchTitleString(titleString: selectedTitleString)
         self.dismiss(animated: false)
+        rootView.dismissPopupView()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
+            self.dismiss(animated: false)
+        }
     }
     
     private func closeButtonTapped() {
         print("closeButtonTapped")
         
         self.dismiss(animated: false)
+        rootView.dismissPopupView()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
+            self.dismiss(animated: false)
+        }
     }
 }
 

@@ -77,6 +77,7 @@ extension SplashViewController {
         transition.type = .fade
         transition.subtype = .fromRight
         view.window?.layer.add(transition, forKey: kCATransition)
+
         
         present(loginViewController, animated: false, completion: nil)
     }
