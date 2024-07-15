@@ -37,7 +37,7 @@ class QuestMapListButton: UIButton {
         filledConfiguration.image = image
         filledConfiguration.title = title
         filledConfiguration.baseBackgroundColor = .main(.main2)
-        filledConfiguration.contentInsets = .init(top: 9, leading: 21, bottom: 9, trailing: 21)
+        filledConfiguration.contentInsets = .init(top: 9, leading: 11, bottom: 9, trailing: 11)
         filledConfiguration.imagePadding = 10
         self.configuration = filledConfiguration
     }
