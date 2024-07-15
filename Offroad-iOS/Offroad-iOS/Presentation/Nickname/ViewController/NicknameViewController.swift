@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class NicknameViewController: UIViewController {
+class NicknameViewController: UIViewController, UITextFieldDelegate {
     private let nicknameView = NicknameView()
     
     //MARK: - Life Cycle
@@ -25,8 +25,9 @@ class NicknameViewController: UIViewController {
         view.backgroundColor = UIColor.main(.main1)
         
         nicknameView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        nicknameView.textField.delegate = self
     }
-
+    
 }
 
 extension NicknameViewController {
@@ -41,6 +42,15 @@ extension NicknameViewController {
         nicknameView.checkButton.isEnabled = !isTextFieldEmpty
         nicknameView.checkButton.setTitleColor(isTextFieldEmpty ? UIColor.grayscale(.gray100) : UIColor.primary(.white), for: .normal)
         nicknameView.checkButton.backgroundColor = isTextFieldEmpty ? UIColor.main(.main3) : UIColor.primary(.black)
+    }
+    // 화면 터치 시 키보드 내려가게 하는 코드
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    // return키 눌렀을 때 키보드 내려가게 하는 코드
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
