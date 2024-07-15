@@ -11,6 +11,7 @@ class OffroadTabBarController: UITabBarController {
     
     // MARK: - Properties
     
+    let centerTabBarItemSideLength: CGFloat = 85
     var originalTabBarHeight: CGFloat = 0
     
     // MARK: - Life Cycle
@@ -21,6 +22,18 @@ class OffroadTabBarController: UITabBarController {
         setupStyle()
         setOffroadViewControllers()
         setTabBarButtons()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        let screenWidth = UIScreen.current.bounds.width
+        guard let itemsCount = tabBar.items?.count as? CGFloat else { return }
+        
+        self.tabBar.itemPositioning = .centered
+        self.tabBar.itemWidth = 77
+        self.tabBar.itemSpacing = (screenWidth - centerTabBarItemSideLength - (77 * (itemsCount - 1))) / 4
+        
     }
     
     override func viewDidLayoutSubviews() {
