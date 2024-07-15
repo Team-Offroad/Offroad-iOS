@@ -15,6 +15,22 @@ final class ChoosingCharacterViewController: UIViewController {
     
     private let choosingCharacterView = ChoosingCharacterView()
     
+    let images = ["img_human", "img_red_hair", "img_naked_human"]
+    let names = ["오프", "로드", "근원"]
+    let discriptions = [
+        "오푸는 어쩌고 저쩌고 성격을 가진 귀여운 어쩌고 저쩌고 들어간다면 이렇게 들어갑니다. 세 줄까지 이 정도. 이렇게 저렇게 이렇게 짝짝.",
+        "오푸는 어쩌고 저쩌고 성격을 가진 귀여운 어쩌고 저쩌고 들어간다면 이렇게 들어갑니다. 세 줄까지 이 정도. 이렇게 저렇게 이렇게 짝짝.2",
+        "오푸는 어쩌고 저쩌고 성격을 가진 귀여운 어쩌고 저쩌고 들어간다면 이렇게 들어갑니다. 세 줄까지 이 정도. 이렇게 저렇게 이렇게 짝짝.3"
+    ]
+    
+    var extendedImages: [String] {
+        var extended = images
+        extended.insert(images.last!, at: 0)
+        extended.append(images.first!)
+        return extended
+    }
+    
+    
     //MARK: - Life Cycle
     
     override func loadView() {
@@ -67,8 +83,8 @@ final class ChoosingCharacterViewController: UIViewController {
            
            let nextIndex = indexPath.item + 1
            //마지막 항목일 때
-           if nextIndex == choosingCharacterView.extendedImages.count - 1 {
-               choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: choosingCharacterView.extendedImages.count - 1, section: 0), at: .centeredHorizontally, animated: true)
+           if nextIndex == extendedImages.count - 1 {
+               choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: extendedImages.count - 1, section: 0), at: .centeredHorizontally, animated: true)
            } else {
                choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: nextIndex, section: 0), at: .centeredHorizontally, animated: true)
            }
@@ -77,20 +93,21 @@ final class ChoosingCharacterViewController: UIViewController {
 
 extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return choosingCharacterView.extendedImages.count
+        return extendedImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChoosingCharacterCell.identifier, for: indexPath) as! ChoosingCharacterCell
-        cell.configure(imageName: choosingCharacterView.extendedImages[indexPath.item])
+        cell.configure(imageName: extendedImages[indexPath.item])
         return cell
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageIndex = Int(scrollView.contentOffset.x / view.frame.width)
-        choosingCharacterView.pageControl.currentPage = (pageIndex - 1 + choosingCharacterView.images.count) % choosingCharacterView.images.count
-        choosingCharacterView.nameLabel.text = choosingCharacterView.names[choosingCharacterView.pageControl.currentPage]
-        choosingCharacterView.discriptionLabel.text = choosingCharacterView.discriptions[choosingCharacterView.pageControl.currentPage]
+        choosingCharacterView.pageControl.currentPage = (pageIndex - 1 + images.count) % images.count
+        choosingCharacterView.nameLabel.text = names[choosingCharacterView.pageControl.currentPage]
+        choosingCharacterView.discriptionLabel.text = discriptions[choosingCharacterView.pageControl.currentPage]
+        choosingCharacterView.discriptionLabel.setLineSpacing(spacing: 4.0)
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
@@ -100,7 +117,7 @@ extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectio
         if scrollView == choosingCharacterView.collectionView {
             if currentPage == 0 {
                 self.choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 3, section: 0), at: .centeredHorizontally, animated: false)
-            } else if currentPage == choosingCharacterView.extendedImages.count - 1 {
+            } else if currentPage == extendedImages.count - 1 {
                 choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)
             }
         }

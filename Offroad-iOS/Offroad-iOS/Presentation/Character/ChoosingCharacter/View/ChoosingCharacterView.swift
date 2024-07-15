@@ -25,22 +25,6 @@ final class ChoosingCharacterView: UIView {
         $0.backgroundColor = UIColor.main(.main1)
     }
     
-    let images = ["img_human", "img_red_hair", "img_naked_human"]
-    let names = ["오프", "로드", "근원"]
-    let discriptions = [
-        "오푸는 어쩌고 저쩌고 성격을 가진 귀여운 어쩌고 저쩌고 들어간다면 이렇게 들어갑니다. 세 줄까지 이 정도. 이렇게 저렇게 이렇게 짝짝.",
-        "오푸는 어쩌고 저쩌고 성격을 가진 귀여운 어쩌고 저쩌고 들어간다면 이렇게 들어갑니다. 세 줄까지 이 정도. 이렇게 저렇게 이렇게 짝짝.2",
-        "오푸는 어쩌고 저쩌고 성격을 가진 귀여운 어쩌고 저쩌고 들어간다면 이렇게 들어갑니다. 세 줄까지 이 정도. 이렇게 저렇게 이렇게 짝짝.3"
-    ]
-    
-    
-    var extendedImages: [String] {
-        var extended = images
-        extended.insert(images.last!, at: 0)
-        extended.append(images.first!)
-        return extended
-    }
-    
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -138,7 +122,6 @@ extension ChoosingCharacterView {
             make.centerY.equalTo(collectionView)
         }
         
-        pageControl.numberOfPages = images.count
         
         pageControl.setIndicatorImage(UIImage(named: "img_current_indicator"), forPage: 0)
         pageControl.setIndicatorImage(UIImage(named: "img_current_indicator"), forPage: 1)
