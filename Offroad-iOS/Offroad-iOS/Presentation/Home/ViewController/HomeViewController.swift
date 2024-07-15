@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
     
