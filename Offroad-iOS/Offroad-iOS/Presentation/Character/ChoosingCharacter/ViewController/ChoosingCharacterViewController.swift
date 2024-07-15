@@ -69,6 +69,8 @@ final class ChoosingCharacterViewController: UIViewController {
         choosingCharacterView.rightButton.addTarget(self, action: #selector(rightArrowTapped), for: .touchUpInside)
     }
     
+    //MARK: - @objc Method
+    
     @objc private func leftArrowTapped() {
            let currentIndexPath = choosingCharacterView.collectionView.indexPathsForVisibleItems.first
            guard let indexPath = currentIndexPath else { return }
@@ -96,6 +98,9 @@ final class ChoosingCharacterViewController: UIViewController {
    }
 
 extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    //MARK: - Infinite carousel Method
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return extendedImages.count
     }
