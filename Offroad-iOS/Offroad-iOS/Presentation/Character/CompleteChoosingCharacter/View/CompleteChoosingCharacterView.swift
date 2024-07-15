@@ -16,14 +16,15 @@ final class CompleteChoosingCharacterView: UIView {
     
     private let mainLabel = UILabel().then {
         $0.text = "프로필 생성을 축하드려요!\n지금 바로 모험을 떠나볼까요?"
+        $0.setLineSpacing(spacing: 4.0)
         $0.textAlignment = .center
         $0.numberOfLines = 2
-        $0.textColor = UIColor(named: "#FFF7E7")
+        $0.textColor = UIColor(hexCode:"FFF7E7")
         $0.font = UIFont.offroad(style: .iosTitle)
     }
     
     let standingGroundView = UIView().then {
-        $0.backgroundColor = UIColor(named: "#FFDDA9")
+        $0.backgroundColor = UIColor(hexCode: "FFDDA9")
     }
     
     let offloadLogoView = UIImageView().then {
@@ -74,14 +75,16 @@ extension CompleteChoosingCharacterView {
             mainLabel,
             standingGroundView,
             offloadLogoView,
-            characterView,
             doorView
         )
+        standingGroundView.addSubview(characterView)
         standingGroundView.addSubview(shadowView)
+        
+        insertSubview(characterView, aboveSubview: doorView)
     }
     
     private func setupStyle() {
-        backgroundColor = UIColor(named: "452B0F")
+        backgroundColor = UIColor(hexCode:"452B0F")
     }
     
     private func setupLayout() {
@@ -94,25 +97,28 @@ extension CompleteChoosingCharacterView {
         standingGroundView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(252)
         }
         
         offloadLogoView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide).inset(12)
-            make.trailing.equalToSuperview().offset(195)
+            make.trailing.equalToSuperview().inset(195)
         }
         
         shadowView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(45)
-            make.horizontalEdges.equalToSuperview().inset(133)
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(122)
+            make.horizontalEdges.equalToSuperview().inset(67)
+            make.height.equalTo(64)
         }
         
         characterView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(289)
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(148)
             make.horizontalEdges.equalToSuperview().inset(133)
         }
         
         doorView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(45)
+            make.bottom.equalTo(standingGroundView.snp.top)
+            make.horizontalEdges.equalToSuperview().inset(48)
         }
         
     }
