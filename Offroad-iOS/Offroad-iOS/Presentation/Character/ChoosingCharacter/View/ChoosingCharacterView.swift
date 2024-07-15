@@ -72,7 +72,7 @@ final class ChoosingCharacterView: UIView {
     let nameLabel = UILabel().then {
         $0.textAlignment = .center
         $0.textColor = UIColor.main(.main2)
-        $0.font = UIFont.offroad(style: .iosTitle)
+        $0.font = UIFont.offroad(style: .iosTextTitle)
     }
     
     let discriptionLabel = UILabel().then {

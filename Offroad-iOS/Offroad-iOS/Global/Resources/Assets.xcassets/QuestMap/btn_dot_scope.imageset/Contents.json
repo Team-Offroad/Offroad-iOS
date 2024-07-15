@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ios_dot_scope.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

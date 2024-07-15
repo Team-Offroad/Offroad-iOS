@@ -1,5 +1,5 @@
 //
-//  UIColor+.swift
+//  ColorLiterals.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 2024/07/06.
@@ -47,7 +47,7 @@ enum Neutral: String, OffroadColor {
     case nametagInactive = "#FFEDDB"
 }
 
-// 색상 hex code는 모두 #000000으로 동일
+// 색상 hex code는 qrCamera(#181818)를 제외하고 모두 #000000으로 동일
 enum BlackOpacity: String, OffroadColor {
     // alpha = 0.55
     case black15
@@ -69,13 +69,14 @@ enum WhiteOpacity: String, OffroadColor {
 
 enum Home: String, OffroadColor {
     case homeBg = "#463E32"
-    case homeNametagStroke = "#FFE2C4"
+    case homeNametagStroke = "#FFD6AB"
     case homeContents1 = "#8B8446"
     case homeContents1GraphMain = "#FED761"
     case homeContents1GraphSub = "#BBAC57"
     case homeContents2 = "#E6CEAA"
     // alpha = 0.25
     case homeCharacterName = "#8B6546"
+    case homeNicknameStroke = "#C0B3A2"
 }
 
 
@@ -121,8 +122,14 @@ extension UIColor {
         case .qrCamera: alpha = 0.5
         }
         
-        guard let color = UIColor(hexCode: "#000000", alpha: alpha) else { fatalError("UIColor init failed") }
-        return color
+        switch style {
+        case .black15, .black25, .black55:
+            guard let color = UIColor(hexCode: "#000000", alpha: alpha) else { fatalError("UIColor init failed") }
+            return color
+        case .qrCamera:
+            guard let color = UIColor(hexCode: "#181818", alpha: alpha) else { fatalError("UIColor init failed") }
+            return color
+        }
     }
     
     static func whiteOpacity(_ style: WhiteOpacity) -> UIColor {
@@ -137,6 +144,12 @@ extension UIColor {
     }
     
     static func home(_ style: Home, alpha: CGFloat = 1) -> UIColor {
+        let alpha: CGFloat
+        switch style {
+        case .homeCharacterName: alpha = 0.25
+        default: alpha = 1
+        }
+        
         guard let color = UIColor(hexCode: style.rawValue, alpha: alpha) else { fatalError("UIColor init failed") }
         return color
     }
