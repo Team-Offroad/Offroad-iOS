@@ -46,29 +46,6 @@ extension QuestMapView {
     
     //MARK: - Layout
     
-    private func setupHierarchy() {
-        naverMapView.addSubview(reloadLocationButton)
-        listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
-        addSubviews(
-            naverMapView,
-            listButtonStackView,
-            compass
-        )
-    }
-    
-    private func setupStyle() {
-        reloadLocationButton.do { button in
-            button.setImage(.btnDotScope, for: .normal)
-        }
-        
-        listButtonStackView.do { stackView in
-            stackView.axis = .horizontal
-            stackView.spacing = 14
-            stackView.alignment = .fill
-            stackView.distribution = .fillEqually
-        }
-    }
-    
     private func setupLayout() {
         naverMapView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
@@ -94,10 +71,36 @@ extension QuestMapView {
         }
     }
     
+    //MARK: - Private Func
+    
+    private func setupHierarchy() {
+        naverMapView.addSubview(reloadLocationButton)
+        listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
+        addSubviews(
+            naverMapView,
+            listButtonStackView,
+            compass
+        )
+    }
+    
+    private func setupStyle() {
+        reloadLocationButton.do { button in
+            button.setImage(.btnDotScope, for: .normal)
+        }
+        
+        listButtonStackView.do { stackView in
+            stackView.axis = .horizontal
+            stackView.spacing = 14
+            stackView.alignment = .fill
+            stackView.distribution = .fillEqually
+        }
+    }
+    
     private func setupInitialNaverMapView() {
         naverMapView.showZoomControls = false
         naverMapView.mapView.logoAlign = .leftTop
         naverMapView.showCompass = false
+        naverMapView.showLocationButton = true
         
         compass.contentMode = .scaleAspectFit
         compass.mapView = naverMapView.mapView
