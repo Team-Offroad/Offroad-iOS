@@ -34,7 +34,6 @@ final class ChoosingCharacterViewController: UIViewController {
         return extended
     }
     
-    
     //MARK: - Life Cycle
     
     override func loadView() {

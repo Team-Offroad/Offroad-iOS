@@ -16,6 +16,8 @@ final class ChoosingCharacterView: UIView {
     
     private let choosingCharacterCell = ChoosingCharacterCell()
     
+    //MARK: - UI Properties
+    
     let titleLabel = UILabel().then {
         $0.text = "동료 캐릭터 선택"
         $0.font = UIFont.offroad(style: .iosTextTitle)
@@ -182,7 +184,6 @@ extension ChoosingCharacterView {
             make.bottom.equalTo(safeAreaLayoutGuide).offset(-24)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.equalTo(54)
-            
         }
     }
     
