@@ -709,8 +709,9 @@
 		871CF5892C44F7A6001026AA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				871CF58D2C44F833001026AA /* CompleteChoosingCharacterView.swift */,
-
+				871CF58D2C44F833001026AA /* CompleteChoosingCharacterView.swift */
+            );
+        };
 		871CF5882C44598B001026AA /* New Group */ = {
 			isa = PBXGroup;
 			children = (
@@ -731,8 +732,9 @@
 		871CF58A2C44F7B0001026AA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				871CF58B2C44F814001026AA /* CompleteChoosingCharacterViewController.swift */,
-
+				871CF58B2C44F814001026AA /* CompleteChoosingCharacterViewController.swift */
+            );
+        };
 		8792D01C2C3E870E002051AC /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
