@@ -20,7 +20,7 @@ final class CompleteChoosingCharacterView: UIView {
         $0.textAlignment = .center
         $0.numberOfLines = 2
         $0.textColor = UIColor(hexCode:"FFF7E7")
-        $0.font = UIFont.offroad(style: .iosTitle)
+        $0.font = UIFont.offroad(style: .iosTextTitle)
     }
     
     let standingGroundView = UIView().then {
