@@ -34,6 +34,8 @@
 		4E1E94172C3AC27000A7B08A /* QuestMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94162C3AC27000A7B08A /* QuestMapViewController.swift */; };
 		4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* QuestMapView.swift */; };
 		4E1E941B2C3AC37600A7B08A /* QuestMapNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E941A2C3AC37600A7B08A /* QuestMapNavigationController.swift */; };
+		4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */; };
+		4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */; };
 		4E3F009E2C40D20800B9A31A /* OffroadTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */; };
 		4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4E6A5BC22C2E8C290027FDF0 /* Then */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
@@ -52,10 +54,6 @@
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
 		4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */; };
-
-		871CF58C2C44F814001026AA /* CompleteChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871CF58B2C44F814001026AA /* CompleteChoosingCharacterViewController.swift */; };
-		871CF58E2C44F833001026AA /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871CF58D2C44F833001026AA /* CompleteChoosingCharacterView.swift */; };
-		8792CFFC2C3D8240002051AC /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8792CFFB2C3D823F002051AC /* Secrets.xcconfig */; };
 		8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */; };
 		8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0102C3DA1C9002051AC /* BirthView.swift */; };
 		8792D0152C3E581E002051AC /* GenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0142C3E581E002051AC /* GenderViewController.swift */; };
@@ -133,6 +131,8 @@
 		4E1E94162C3AC27000A7B08A /* QuestMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapViewController.swift; sourceTree = "<group>"; };
 		4E1E94182C3AC27C00A7B08A /* QuestMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapView.swift; sourceTree = "<group>"; };
 		4E1E941A2C3AC37600A7B08A /* QuestMapNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapNavigationController.swift; sourceTree = "<group>"; };
+		4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterView.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/View/CompleteChoosingCharacterView.swift"; sourceTree = SOURCE_ROOT; };
+		4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterViewController.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/ViewController/CompleteChoosingCharacterViewController.swift"; sourceTree = SOURCE_ROOT; };
 		4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarController.swift; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4E9DACDF2C3FF7290088A376 /* QuestNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestNavigationBar.swift; sourceTree = "<group>"; };
@@ -151,8 +151,6 @@
 		4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarViewController.swift; sourceTree = "<group>"; };
 		4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapListButton.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		871CF58B2C44F814001026AA /* CompleteChoosingCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteChoosingCharacterViewController.swift; sourceTree = "<group>"; };
-		871CF58D2C44F833001026AA /* CompleteChoosingCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteChoosingCharacterView.swift; sourceTree = "<group>"; };
 		8792CFFB2C3D823F002051AC /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
 		8792D0102C3DA1C9002051AC /* BirthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthView.swift; sourceTree = "<group>"; };
@@ -427,8 +425,8 @@
 		4E0394712C2AA691007F0517 /* CompleteChoosingCharacter */ = {
 			isa = PBXGroup;
 			children = (
-				871CF58A2C44F7B0001026AA /* ViewController */,
-				871CF5892C44F7A6001026AA /* View */,
+				871CF58A2C44F7B0001026AA /* View */,
+				871CF5892C44F7A6001026AA /* ViewController */,
 			);
 			path = CompleteChoosingCharacter;
 			sourceTree = "<group>";
@@ -705,18 +703,27 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-
-		871CF5892C44F7A6001026AA /* View */ = {
-			isa = PBXGroup;
-			children = (
-				871CF58D2C44F833001026AA /* CompleteChoosingCharacterView.swift */
-            );
-        };
 		871CF5882C44598B001026AA /* New Group */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		871CF5892C44F7A6001026AA /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		871CF58A2C44F7B0001026AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		8792D01B2C3E8706002051AC /* View */ = {
@@ -728,13 +735,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-
-		871CF58A2C44F7B0001026AA /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				871CF58B2C44F814001026AA /* CompleteChoosingCharacterViewController.swift */
-            );
-        };
 		8792D01C2C3E870E002051AC /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1184,8 +1184,6 @@
 				4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */,
 				4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */,
-				871CF58C2C44F814001026AA /* CompleteChoosingCharacterViewController.swift in Sources */,
-				871CF58E2C44F833001026AA /* CompleteChoosingCharacterView.swift in Sources */,
 				D06D26CF2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift in Sources */,
 				D06D26DA2C3FE1C700E79F25 /* TitlePopupViewController.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */,
@@ -1193,6 +1191,7 @@
 				8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */,
 				D0EAF2262C3B7D7F00566543 /* LoginViewController.swift in Sources */,
 				4EBE34942C3FC749006DB244 /* QuestQRView.swift in Sources */,
+				4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */,
 				4E3F009E2C40D20800B9A31A /* OffroadTabBarController.swift in Sources */,
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
 				D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */,
@@ -1222,6 +1221,7 @@
 				D06D26CD2C3E6EA200E79F25 /* CustomRecentProgressView.swift in Sources */,
 				4E1E94132C398C4200A7B08A /* String+.swift in Sources */,
 				8792D0202C3E873C002051AC /* ChoosingCharacterViewController.swift in Sources */,
+				4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */,
 				8792D01E2C3E872D002051AC /* ChoosingCharacterView.swift in Sources */,
 				8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */,
 				D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */,
@@ -1281,6 +1281,7 @@
 /* Begin XCBuildConfiguration section */
 		4E0394512C2A9DCF007F0517 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8792CFFB2C3D823F002051AC /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1344,6 +1345,7 @@
 		};
 		4E0394522C2A9DCF007F0517 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8792CFFB2C3D823F002051AC /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
