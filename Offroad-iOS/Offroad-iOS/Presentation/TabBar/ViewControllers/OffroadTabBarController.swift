@@ -10,6 +10,7 @@ import UIKit
 class OffroadTabBarController: UITabBarController {
     
     // MARK: - Properties
+    
     var originalTabBarHeight: CGFloat = 0
     private var hideTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     private var showTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
@@ -21,8 +22,6 @@ class OffroadTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupHierarchy()
-        setupLayout()
         setupStyle()
         setOffroadViewControllers()
         setTabBarButtons()
@@ -45,13 +44,6 @@ extension OffroadTabBarController {
     
     
     // MARK: - Layout
-    private func setupHierarchy() {
-        
-    }
-    
-    private func setupLayout() {
-        
-    }
     
     private func setupStyle() {
         tabBar.clipsToBounds = false
