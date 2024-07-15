@@ -30,7 +30,6 @@ class OffroadTabBarController: UITabBarController {
         setOffroadViewControllers()
         setTabBarButtons()
         setupButtonsAction()
-        setupCenterTabBarItemTouchArea()
     }
     
     override func viewWillLayoutSubviews() {
@@ -56,6 +55,7 @@ class OffroadTabBarController: UITabBarController {
         newFrame.origin.y = view.frame.size.height - tabBarHeightFromBottomEdge
         tabBar.frame = newFrame
     }
+    
 }
 
 extension OffroadTabBarController {
@@ -116,10 +116,6 @@ extension OffroadTabBarController {
     
     private func setupButtonsAction() {
         customOffroadLogoButton.addTarget(self, action: #selector(centerTabBarButtonItemTapped), for: .touchUpInside)
-    }
-    
-    private func setupCenterTabBarItemTouchArea() {
-        customOffroadLogoButton
     }
     
 }
