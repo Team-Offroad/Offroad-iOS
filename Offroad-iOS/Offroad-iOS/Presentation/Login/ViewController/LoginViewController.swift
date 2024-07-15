@@ -7,6 +7,8 @@
 
 import UIKit
 
+import AuthenticationServices
+
 final class LoginViewController: UIViewController {
     
     //MARK: - Properties
@@ -15,7 +17,7 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Life Cycle
     
-    override func loadView() {        
+    override func loadView() {
         view = rootView
     }
     
@@ -41,5 +43,19 @@ extension LoginViewController {
     
     private func appleLoginButtonTapped() {
         print("appleLoginButtonTapped")
+        
+        AppleAuthManager.shared.appleLogin()
+        
+        AppleAuthManager.shared.loginSuccess = { user, userIdentifyToken in
+            print("login success!")
+
+            print("userName: \(user.name ?? "")")
+            print("userEmail: \(user.email ?? "")")
+            print("userIdentifyToken: \(userIdentifyToken ?? "")")
+        }
+        
+        AppleAuthManager.shared.loginFailure = { error in
+            print("login failed - \(error.localizedDescription)")
+        }
     }
 }
