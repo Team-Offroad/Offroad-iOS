@@ -43,6 +43,8 @@
 		4EDC3D482C31271F006A1493 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D3F2C31271F006A1493 /* Pretendard-SemiBold.otf */; };
 		4EDC3D492C31271F006A1493 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D402C31271F006A1493 /* Pretendard-ExtraLight.otf */; };
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
+		871CF58C2C44F814001026AA /* CompleteChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871CF58B2C44F814001026AA /* CompleteChoosingCharacterViewController.swift */; };
+		871CF58E2C44F833001026AA /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871CF58D2C44F833001026AA /* CompleteChoosingCharacterView.swift */; };
 		8792CFFC2C3D8240002051AC /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8792CFFB2C3D823F002051AC /* Secrets.xcconfig */; };
 		8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */; };
 		8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0102C3DA1C9002051AC /* BirthView.swift */; };
@@ -121,6 +123,8 @@
 		4EDC3D402C31271F006A1493 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		4EDC3D4A2C312850006A1493 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		871CF58B2C44F814001026AA /* CompleteChoosingCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteChoosingCharacterViewController.swift; sourceTree = "<group>"; };
+		871CF58D2C44F833001026AA /* CompleteChoosingCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteChoosingCharacterView.swift; sourceTree = "<group>"; };
 		8792CFFB2C3D823F002051AC /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
 		8792D0102C3DA1C9002051AC /* BirthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthView.swift; sourceTree = "<group>"; };
@@ -380,6 +384,8 @@
 		4E0394712C2AA691007F0517 /* CompleteChoosingCharacter */ = {
 			isa = PBXGroup;
 			children = (
+				871CF58A2C44F7B0001026AA /* ViewController */,
+				871CF5892C44F7A6001026AA /* View */,
 			);
 			path = CompleteChoosingCharacter;
 			sourceTree = "<group>";
@@ -579,6 +585,22 @@
 				45DB654998D44C9EAF078157 /* Pods-Offroad-iOSTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		871CF5892C44F7A6001026AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				871CF58D2C44F833001026AA /* CompleteChoosingCharacterView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		871CF58A2C44F7B0001026AA /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				871CF58B2C44F814001026AA /* CompleteChoosingCharacterViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		87E0468E2C3CE6D5002D12C2 /* Nickname */ = {
@@ -961,6 +983,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				871CF58C2C44F814001026AA /* CompleteChoosingCharacterViewController.swift in Sources */,
+				871CF58E2C44F833001026AA /* CompleteChoosingCharacterView.swift in Sources */,
 				D06D26CF2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift in Sources */,
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
 				8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */,
