@@ -35,7 +35,6 @@ final class NicknameViewController: UIViewController {
 
 extension NicknameViewController {
     
-
     //MARK: - @objc Method
     
     @objc private func textFieldDidChange() {
@@ -51,10 +50,18 @@ extension NicknameViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+}
+
+//MARK: - UITextFieldDelegate
+
+extension NicknameViewController: UITextFieldDelegate {
+    
     // return키 눌렀을 때 키보드 내려가게 하는 코드
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
+    
 }
 
