@@ -70,6 +70,8 @@
 		D06D26DA2C3FE1C700E79F25 /* TitlePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */; };
 		D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */; };
 		D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */; };
+		D0E795FC2C447511005B47A5 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */; };
+		D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FE2C44FC2C005B47A5 /* UserModel.swift */; };
 		D0EAF21B2C3B026500566543 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF21A2C3B026500566543 /* SplashViewController.swift */; };
 		D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF21E2C3B02B700566543 /* SplashView.swift */; };
 		D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF2232C3B7D7100566543 /* LoginView.swift */; };
@@ -160,6 +162,8 @@
 		D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupViewController.swift; sourceTree = "<group>"; };
 		D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupView.swift; sourceTree = "<group>"; };
 		D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionViewCell.swift; sourceTree = "<group>"; };
+		D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
+		D0E795FE2C44FC2C005B47A5 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		D0EAF21A2C3B026500566543 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D0EAF21E2C3B02B700566543 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		D0EAF2232C3B7D7100566543 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -566,6 +570,8 @@
 		4E0394C12C2AB3B2007F0517 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				D0E795FA2C4474F6005B47A5 /* AuthManager */,
+				D0E795FD2C44FB3F005B47A5 /* Model */,
 				D0EAF2222C3B7D4E00566543 /* View */,
 				D0EAF2212C3B7D4600566543 /* ViewController */,
 			);
@@ -774,6 +780,22 @@
 				D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		D0E795FA2C4474F6005B47A5 /* AuthManager */ = {
+			isa = PBXGroup;
+			children = (
+				D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */,
+			);
+			path = AuthManager;
+			sourceTree = "<group>";
+		};
+		D0E795FD2C44FB3F005B47A5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D0E795FE2C44FC2C005B47A5 /* UserModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D0EAF21C2C3B029D00566543 /* ViewController */ = {
@@ -1084,9 +1106,11 @@
 				D0EAF2262C3B7D7F00566543 /* LoginViewController.swift in Sources */,
 				4EBE34942C3FC749006DB244 /* QuestQRView.swift in Sources */,
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
+				D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */,
 				4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */,
 				4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */,
 				D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */,
+				D0E795FC2C447511005B47A5 /* AppleAuthManager.swift in Sources */,
 				D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */,
 				8792D0172C3E5828002051AC /* GenderView.swift in Sources */,
 				4E0394D92C2ABCCC007F0517 /* UIView+.swift in Sources */,
