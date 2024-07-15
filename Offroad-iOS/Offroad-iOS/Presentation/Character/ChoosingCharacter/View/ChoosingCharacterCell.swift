@@ -12,14 +12,15 @@ import Then
 final class ChoosingCharacterCell: UICollectionViewCell {
     
     static let identifier = "ChoosingCharacterCell"
-
+    
     let imageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubview(imageView)
+        contentView.addSubviews(imageView)
+        
         imageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }

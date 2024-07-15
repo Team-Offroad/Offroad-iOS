@@ -16,11 +16,17 @@ final class ChoosingCharacterView: UIView {
     
     private let choosingCharacterCell = ChoosingCharacterCell()
     
+    let titleLabel = UILabel().then {
+        $0.text = "동료 캐릭터 선택"
+        $0.font = UIFont.offroad(style: .iosTextTitle)
+        $0.textColor = UIColor.main(.main2)
+    }
+    
     private let divideLabelView = UIView().then {
         $0.backgroundColor = UIColor.sub(.sub4)
         $0.layer.opacity = 0.25
     }
-    
+
     let choosingCharacterLabelView = UIView().then {
         $0.backgroundColor = UIColor.main(.main1)
     }
@@ -67,6 +73,15 @@ final class ChoosingCharacterView: UIView {
         $0.font = UIFont.offroad(style: .iosTextRegular)
     }
     
+    private let selectButton = UIButton().then {
+        $0.setTitle("선택", for: .normal)
+        $0.setBackgroundColor(.main(.main2), for: .normal)
+        $0.titleLabel?.textAlignment = .center
+        $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
+        $0.setTitleColor(UIColor.main(.main1), for: .normal)
+        $0.roundCorners(cornerRadius: 5)
+    }
+    
     // MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -88,6 +103,7 @@ extension ChoosingCharacterView {
     
     private func setupHierarchy() {
         addSubviews(
+            titleLabel,
             collectionView,
             pageControl,
             choosingCharacterLabelView,
@@ -98,6 +114,7 @@ extension ChoosingCharacterView {
         choosingCharacterLabelView.addSubview(nameLabel)
         choosingCharacterLabelView.addSubview(divideLabelView)
         choosingCharacterLabelView.addSubview(discriptionLabel)
+        choosingCharacterLabelView.addSubview(selectButton)
     }
     
     private func setupStyle() {
@@ -105,6 +122,11 @@ extension ChoosingCharacterView {
     }
     
     private func setupLayout() {
+        
+        titleLabel.snp.makeConstraints{ make in
+            make.top.equalTo(safeAreaLayoutGuide).offset(70)
+            make.centerX.equalToSuperview()
+        }
         
         collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(175)
@@ -129,29 +151,36 @@ extension ChoosingCharacterView {
         pageControl.setIndicatorImage(UIImage(named: "img_current_indicator"), forPage: 2)
         
         pageControl.snp.makeConstraints { make in
-            make.top.equalTo(collectionView.snp.bottom).offset(49)
+            make.bottom.equalTo(choosingCharacterLabelView.snp.top).offset(-33)
             make.centerX.equalToSuperview()
         }
         
         choosingCharacterLabelView.snp.makeConstraints{ make in
             make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(250)
+            make.height.equalTo(307)
         }
         
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(choosingCharacterLabelView.snp.top).offset(29)
-            make.leading.trailing.equalToSuperview().inset(50)
+            make.horizontalEdges.equalToSuperview().inset(50)
         }
         
         divideLabelView.snp.makeConstraints{ make in
             make.top.equalTo(nameLabel.snp.bottom).offset(24)
-            make.leading.trailing.equalToSuperview().inset(50)
+            make.horizontalEdges.equalToSuperview().inset(50)
             make.height.equalTo(1)
         }
         
         discriptionLabel.snp.makeConstraints{ make in
             make.top.equalTo(divideLabelView.snp.bottom).offset(18)
-            make.leading.trailing.equalToSuperview().inset(50)
+            make.horizontalEdges.equalToSuperview().inset(50)
+        }
+        
+        selectButton.snp.makeConstraints{ make in
+            make.bottom.equalTo(safeAreaLayoutGuide).offset(-24)
+            make.horizontalEdges.equalToSuperview().inset(24)
+            make.height.equalTo(54)
+            
         }
     }
     
