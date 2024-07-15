@@ -11,12 +11,12 @@ import Moya
 
 enum HeaderType {
     case noneHeader
-    case accessTokenHeader
+    case accessTokenHeaderForGet
+    case accessTokenHeaderForGeneral
 }
 
 protocol BaseTargetType: TargetType {
     var headerType: HeaderType { get }
-    var parameter: [String : Any]? { get }
 }
 
 extension BaseTargetType {
@@ -30,30 +30,22 @@ extension BaseTargetType {
     }
         
     var headers: [String: String]? {
-        var header = [
-            "Content-Type": "application/json"
-        ]
         
         switch headerType {
         case .noneHeader:
             return .none
-        case .accessTokenHeader:
-            if let token = Bundle.main.infoDictionary?["TempAccessToken"] as? String {
-                header["Authorization"] = "Bearer \(token)"
-            }
+        case .accessTokenHeaderForGet:
+            guard let accessToken = UserDefaults.standard.string(forKey: "AccessToken") else { return [:] }
+            
+            var header = ["Authorization": "Bearer \(accessToken)"]
+            
+            return header
+        case .accessTokenHeaderForGeneral:
+            guard let accessToken = UserDefaults.standard.string(forKey: "AccessToken") else { return [:] }
+            
+            var header = ["Content-Type": "application/json",
+                          "Authorization": "Bearer \(accessToken)"]
             return header
         }
-    }
-    
-    var task: Task {
-        if let parameter = parameter {
-            return .requestParameters(parameters: parameter, encoding: URLEncoding.default)
-        } else {
-            return .requestPlain
-        }
-    }
-    
-    var sampleData: Data {
-        return Data()
     }
 }

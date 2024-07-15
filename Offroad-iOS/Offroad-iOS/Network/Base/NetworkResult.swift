@@ -8,7 +8,7 @@
 import Foundation
 
 enum NetworkResult<T> {
-    case success(T?)                // 서버 통신 성공했을 때 (200)
+    case success(T?)                // 서버 통신 성공했을 때 (200, 201)
     case requestErr                 // 올바르지 않은 요청 에러 발생했을 때 (400)
     case unAuthentication           // 인증 실패 응답 받았을 때 (401)
     case unAuthorization            // 인가 실패 응답 받았을 때 (403)

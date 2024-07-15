@@ -13,5 +13,6 @@ final class NetworkService {
 
     private init() {}
     
-    let authService: AuthAPIServiceProtocol = AuthAPIService()
+    let authService: AuthServiceProtocol = AuthService()
+    let adventureService: AdventureServiceProtocol = AdventureService()
 }
