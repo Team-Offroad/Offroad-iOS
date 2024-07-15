@@ -51,6 +51,15 @@ final class CompleteChoosingCharacterView: UIView {
         $0.image = UIImage(resource: .imgCharacterDoorBrown)
     }
     
+    private let startButton = UIButton().then {
+        $0.setTitle("모험 시작하기", for: .normal)
+        $0.setBackgroundColor(.main(.main2), for: .normal)
+        $0.titleLabel?.textAlignment = .center
+        $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
+        $0.setTitleColor(UIColor.main(.main1), for: .normal)
+        $0.roundCorners(cornerRadius: 5)
+    }
+    
     // MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -77,8 +86,11 @@ extension CompleteChoosingCharacterView {
             offloadLogoView,
             doorView
         )
-        standingGroundView.addSubview(characterView)
-        standingGroundView.addSubview(shadowView)
+        standingGroundView.addSubviews(
+            characterView,
+            shadowView,
+            startButton
+        )
         
         insertSubview(characterView, aboveSubview: doorView)
     }
@@ -119,6 +131,13 @@ extension CompleteChoosingCharacterView {
         doorView.snp.makeConstraints { make in
             make.bottom.equalTo(standingGroundView.snp.top)
             make.horizontalEdges.equalToSuperview().inset(48)
+        }
+        
+        startButton.snp.makeConstraints{ make in
+            make.bottom.equalTo(safeAreaLayoutGuide).offset(-24)
+            make.horizontalEdges.equalToSuperview().inset(24)
+            make.height.equalTo(54)
+            
         }
         
     }
