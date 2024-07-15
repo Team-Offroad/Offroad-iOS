@@ -19,6 +19,8 @@ class QuestMapViewController: OffroadTabBarViewController {
     private let rootView = QuestMapView()
     private let locationManager = CLLocationManager()
     
+    let placeArray: [OffroadPlace] = []
+    
     //MARK: - Life Cycle
     
     override func loadView() {
