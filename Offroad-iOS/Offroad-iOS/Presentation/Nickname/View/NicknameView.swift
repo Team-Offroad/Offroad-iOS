@@ -40,6 +40,7 @@ final class NicknameView: UIView {
             string: "닉네임을 입력",
             attributes: [NSAttributedString.Key.font: UIFont.offroad(style: .iosTextAuto), NSAttributedString.Key.foregroundColor: UIColor.grayscale(.gray300)]
         )
+        $0.resignFirstResponder()
     }
     
     let checkButton = UIButton().then {
@@ -125,14 +126,13 @@ extension NicknameView {
         
         textField.snp.makeConstraints { make in
             make.leading.equalTo(textFieldStackView)
+            make.trailing.equalTo(checkButton.snp.leading).offset(-14)
             make.height.equalTo(48)
         }
         
         checkButton.snp.makeConstraints { make in
-            make.leading.equalTo(textField.snp.trailing).offset(14)
             make.trailing.equalTo(textFieldStackView)
             make.height.equalTo(48)
-            make.width.equalTo(90)
         }
         
         notionLabel.snp.makeConstraints { make in
