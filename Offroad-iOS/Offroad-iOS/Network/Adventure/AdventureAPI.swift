@@ -6,3 +6,43 @@
 //
 
 import Foundation
+
+import Moya
+
+enum AdventureAPI {
+    case getAdventureInfo
+}
+
+extension AdventureAPI: BaseTargetType {
+
+    var headerType: HeaderType { return .accessTokenHeaderForGet }
+    
+    var parameter: [String : Any]? {
+        switch self {
+        case .getAdventureInfo:
+            return ["category": "NONE",
+                    "characterId": 1]
+        }
+    }
+    
+    var path: String {
+        switch self {
+        case .getAdventureInfo:
+            return "/users/adventures/informations"
+        }
+    }
+    
+    var method: Moya.Method {
+        switch self {
+        case .getAdventureInfo:
+            return .get
+        }
+    }
+    
+    var task: Moya.Task {
+        switch self {
+        case .getAdventureInfo:
+            return .requestParameters(parameters: parameter ?? [:], encoding: URLEncoding.queryString)
+        }
+    }
+}

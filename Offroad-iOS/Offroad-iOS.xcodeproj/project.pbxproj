@@ -52,7 +52,6 @@
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
 		4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */; };
-		8792CFFC2C3D8240002051AC /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8792CFFB2C3D823F002051AC /* Secrets.xcconfig */; };
 		8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */; };
 		8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0102C3DA1C9002051AC /* BirthView.swift */; };
 		8792D0152C3E581E002051AC /* GenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0142C3E581E002051AC /* GenderViewController.swift */; };
@@ -92,8 +91,8 @@
 		D0E7962D2C4535A5005B47A5 /* NicknameAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7962C2C4535A5005B47A5 /* NicknameAPI.swift */; };
 		D0E7962F2C4535B1005B47A5 /* NicknameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7962E2C4535B1005B47A5 /* NicknameService.swift */; };
 		D0E796332C453615005B47A5 /* NicknameCheckResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796322C453615005B47A5 /* NicknameCheckResponseDTO.swift */; };
-		D0E796352C4536E8005B47A5 /* NicknameAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796342C4536E8005B47A5 /* NicknameAPI.swift */; };
-		D0E796372C4536F4005B47A5 /* NicknameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796362C4536F4005B47A5 /* NicknameService.swift */; };
+		D0E796352C4536E8005B47A5 /* CharacterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796342C4536E8005B47A5 /* CharacterAPI.swift */; };
+		D0E796372C4536F4005B47A5 /* CharacterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796362C4536F4005B47A5 /* CharacterService.swift */; };
 		D0E7963B2C45377C005B47A5 /* QuestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7963A2C45377C005B47A5 /* QuestAPI.swift */; };
 		D0E7963D2C453787005B47A5 /* QuestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7963C2C453787005B47A5 /* QuestService.swift */; };
 		D0E796412C4537DE005B47A5 /* QuestInfoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796402C4537DE005B47A5 /* QuestInfoResponseDTO.swift */; };
@@ -111,6 +110,7 @@
 		D0E796612C455391005B47A5 /* ChangeEmblemResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796602C455391005B47A5 /* ChangeEmblemResponseDTO.swift */; };
 		D0E796632C4553F0005B47A5 /* RefreshTokenResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796622C4553F0005B47A5 /* RefreshTokenResponseDTO.swift */; };
 		D0E796672C455467005B47A5 /* CharacterInfoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796662C455467005B47A5 /* CharacterInfoResponseDTO.swift */; };
+		D0E7966C2C457D64005B47A5 /* AdventureInfoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7966B2C457D64005B47A5 /* AdventureInfoResponseDTO.swift */; };
 		D0EAF21B2C3B026500566543 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF21A2C3B026500566543 /* SplashViewController.swift */; };
 		D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF21E2C3B02B700566543 /* SplashView.swift */; };
 		D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF2232C3B7D7100566543 /* LoginView.swift */; };
@@ -222,8 +222,8 @@
 		D0E7962C2C4535A5005B47A5 /* NicknameAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameAPI.swift; sourceTree = "<group>"; };
 		D0E7962E2C4535B1005B47A5 /* NicknameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameService.swift; sourceTree = "<group>"; };
 		D0E796322C453615005B47A5 /* NicknameCheckResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameCheckResponseDTO.swift; sourceTree = "<group>"; };
-		D0E796342C4536E8005B47A5 /* NicknameAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameAPI.swift; sourceTree = "<group>"; };
-		D0E796362C4536F4005B47A5 /* NicknameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameService.swift; sourceTree = "<group>"; };
+		D0E796342C4536E8005B47A5 /* CharacterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterAPI.swift; sourceTree = "<group>"; };
+		D0E796362C4536F4005B47A5 /* CharacterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterService.swift; sourceTree = "<group>"; };
 		D0E7963A2C45377C005B47A5 /* QuestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestAPI.swift; sourceTree = "<group>"; };
 		D0E7963C2C453787005B47A5 /* QuestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestService.swift; sourceTree = "<group>"; };
 		D0E796402C4537DE005B47A5 /* QuestInfoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestInfoResponseDTO.swift; sourceTree = "<group>"; };
@@ -241,6 +241,7 @@
 		D0E796602C455391005B47A5 /* ChangeEmblemResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmblemResponseDTO.swift; sourceTree = "<group>"; };
 		D0E796622C4553F0005B47A5 /* RefreshTokenResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenResponseDTO.swift; sourceTree = "<group>"; };
 		D0E796662C455467005B47A5 /* CharacterInfoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterInfoResponseDTO.swift; sourceTree = "<group>"; };
+		D0E7966B2C457D64005B47A5 /* AdventureInfoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureInfoResponseDTO.swift; sourceTree = "<group>"; };
 		D0EAF21A2C3B026500566543 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		D0EAF21E2C3B02B700566543 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		D0EAF2232C3B7D7100566543 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -933,8 +934,8 @@
 			isa = PBXGroup;
 			children = (
 				D0E796642C455448005B47A5 /* DTO */,
-				D0E796342C4536E8005B47A5 /* NicknameAPI.swift */,
-				D0E796362C4536F4005B47A5 /* NicknameService.swift */,
+				D0E796342C4536E8005B47A5 /* CharacterAPI.swift */,
+				D0E796362C4536F4005B47A5 /* CharacterService.swift */,
 			);
 			path = Character;
 			sourceTree = "<group>";
@@ -1100,6 +1101,7 @@
 			isa = PBXGroup;
 			children = (
 				D0E796562C453BCB005B47A5 /* AdventuresAuthenticationResponseDTO.swift */,
+				D0E7966B2C457D64005B47A5 /* AdventureInfoResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1444,6 +1446,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */,
+				D0E7966C2C457D64005B47A5 /* AdventureInfoResponseDTO.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */,
 				4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */,
 				D06D26CF2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift in Sources */,
@@ -1491,7 +1494,7 @@
 				D0E796202C4532A6005B47A5 /* ErrorResponseDTO.swift in Sources */,
 				D0E796332C453615005B47A5 /* NicknameCheckResponseDTO.swift in Sources */,
 				D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */,
-				D0E796352C4536E8005B47A5 /* NicknameAPI.swift in Sources */,
+				D0E796352C4536E8005B47A5 /* CharacterAPI.swift in Sources */,
 				D0E796292C4533CE005B47A5 /* ProfileUpdateRequestDTO.swift in Sources */,
 				D0E7962D2C4535A5005B47A5 /* NicknameAPI.swift in Sources */,
 				4E0394E32C2AC0D7007F0517 /* UIWindow+.swift in Sources */,
@@ -1503,7 +1506,7 @@
 				D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */,
 				D0E796672C455467005B47A5 /* CharacterInfoResponseDTO.swift in Sources */,
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
-				D0E796372C4536F4005B47A5 /* NicknameService.swift in Sources */,
+				D0E796372C4536F4005B47A5 /* CharacterService.swift in Sources */,
 				D0E796242C453360005B47A5 /* ProfileService.swift in Sources */,
 				D06D26CB2C3DAA5300E79F25 /* CustomQuestView.swift in Sources */,
 				D06D26C52C3D83AA00E79F25 /* HomeViewController.swift in Sources */,
