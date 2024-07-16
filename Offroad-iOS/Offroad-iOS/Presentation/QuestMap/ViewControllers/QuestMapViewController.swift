@@ -21,6 +21,7 @@ class QuestMapViewController: OffroadTabBarViewController {
     private let dummpyPlace = dummyPlaces
     
     private var markersArray: [NMFMarker] = []
+    private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
     
     let placeArray: [OffroadPlace] = []
     
@@ -83,12 +84,25 @@ extension QuestMapViewController {
         case .denied:
             locationManager.requestAlwaysAuthorization()
         case .authorizedAlways:
-            return
+            updateCurrentLocation()
         case .authorizedWhenInUse:
             locationManager.requestAlwaysAuthorization()
+            updateCurrentLocation()
         @unknown default:
             return
         }
+    }
+    
+    private func updateCurrentLocation() {
+        guard let location = locationManager.location else {
+            // 위치 정보 가져올 수 없음.
+            return
+        }
+        currentLocation = NMGLatLng(
+            lat: location.coordinate.latitude,
+            lng: location.coordinate.longitude
+        )
+        
     }
     
     private func setupDelegates() {
