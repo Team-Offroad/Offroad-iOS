@@ -19,11 +19,12 @@ class QuestMapViewController: OffroadTabBarViewController {
     private let rootView = QuestMapView()
     private let locationManager = CLLocationManager()
     private let dummpyPlace = dummyPlaces
+    private let locationService = RegisteredPlaceService()
     
     private var markersArray: [NMFMarker] = []
     private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
     
-    let placeArray: [OffroadPlace] = []
+    var placeArray: [RegisteredPlaceInfo] = []
     
     //MARK: - Life Cycle
     
@@ -103,6 +104,26 @@ extension QuestMapViewController {
             lng: location.coordinate.longitude
         )
         
+    }
+    
+    private func updateRegisteredLocation() {
+        let requestPlaceDTO = RegisteredPlaceRequestDTO(
+            currentLatitude: currentLocation.lat,
+            currentLongitude: currentLocation.lng
+        )
+        
+        locationService.getRegisteredLocation(requestDTO: requestPlaceDTO) { [weak self] response in
+            switch response {
+            case .success(let data):
+                DispatchQueue.global().async {
+                    self?.placeArray = data!.data.places
+                }
+                return
+            // 에러별 분기처리 필요
+            default:
+                return
+            }
+        }
     }
     
     private func setupDelegates() {
