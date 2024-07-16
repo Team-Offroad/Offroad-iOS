@@ -16,7 +16,7 @@ enum PlaceAPI {
 
 extension PlaceAPI: BaseTargetType {
 
-    var headerType: HeaderType { return .noneHeader }
+    var headerType: HeaderType { return .accessTokenHeaderForGet }
     
     var parameter: [String : Any]? {
         switch self {
@@ -42,8 +42,13 @@ extension PlaceAPI: BaseTargetType {
     var task: Moya.Task {
         switch self {
         case .getRegisteredPlaces(let requestDTO):
-            let jsonData = try? JSONEncoder().encode(requestDTO)
-            return .requestCompositeData(bodyData: jsonData!, urlParameters: [:])
+            return .requestParameters(
+                parameters: [
+                    "currentLatitude": requestDTO.currentLatitude,
+                    "currentLongitude": requestDTO.currentLongitude
+                ],
+                encoding: URLEncoding.queryString
+            )
         }
     }
 }
