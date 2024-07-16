@@ -21,5 +21,5 @@ struct CharacterList: Codable {
     let description: String
     let characterBaseImageUrl: String
     let name: String
-    let CharacterCode: String
+    let characterCode: String
 }

@@ -15,24 +15,24 @@ final class ChoosingCharacterViewController: UIViewController {
     
     private let choosingCharacterView = ChoosingCharacterView()
     
-    var images = ["img_human", "img_red_hair", "img_naked_human"] {
+    private var characterInfoModelList: [CharacterList]? {
         didSet {
-            choosingCharacterView.setPageControlPageNumbers(pageNumber: images.count)
+            choosingCharacterView.setPageControlPageNumbers(pageNumber: characterInfoModelList?.count ?? 0)
         }
     }
-    let names = ["오프", "로드", "근원"]
-    let discriptions = [
-        "오푸는 어쩌고 저쩌고 성격을 가진 귀여운 어쩌고 저쩌고 들어간다면 이렇게 들어갑니다. 세 줄까지 이 정도. 이렇게 저렇게 이렇게 짝짝.",
-        "오푸는 어쩌고 저쩌고 성격을 가진 귀여운 어쩌고 저쩌고 들어간다면 이렇게 들어갑니다. 세 줄까지 이 정도. 이렇게 저렇게 이렇게 짝짝.2",
-        "오푸는 어쩌고 저쩌고 성격을 가진 귀여운 어쩌고 저쩌고 들어간다면 이렇게 들어갑니다. 세 줄까지 이 정도. 이렇게 저렇게 이렇게 짝짝.3"
-    ]
     
-    var extendedImages: [String] {
-        var extended = images
-        extended.insert(images.last!, at: 0)
-        extended.append(images.first!)
-        return extended
+    private var extendedCharacterImageList = [String]() {
+        didSet {
+            choosingCharacterView.collectionView.reloadData()
+            if extendedCharacterImageList.count > 2 {
+                choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)
+            }
+        }
     }
+    
+    private var characterNames = [String]()
+    private var characterDiscriptions = [String]()
+    private var selectedIndex = Int()
     
     //MARK: - Life Cycle
     
@@ -50,10 +50,6 @@ final class ChoosingCharacterViewController: UIViewController {
         
         if #available(iOS 14.0, *) {
             style.lineBreakStrategy = .hangulWordPriority
-        }
-        
-        DispatchQueue.main.async {
-            self.choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)
         }
         
         getCharacterInfo()
@@ -74,9 +70,19 @@ final class ChoosingCharacterViewController: UIViewController {
         NetworkService.shared.characterService.getCharacterInfo { response in
             switch response {
             case .success(let data):
+                let count = data?.data.characters.count ?? 0
+                
                 self.characterInfoModelList = data?.data.characters
                 
-                print(self.characterInfoModelList)
+                self.extendedCharacterImageList.insert(data?.data.characters[count - 1].characterBaseImageUrl ?? "", at: 0)
+                for character in data?.data.characters ?? [CharacterList]() {
+                    self.extendedCharacterImageList.append(character.characterBaseImageUrl)
+                    self.characterNames.append(character.name)
+                    self.characterDiscriptions.append(character.description)
+                }
+                self.extendedCharacterImageList.append(data?.data.characters[0].characterBaseImageUrl ?? "")
+                
+                print(self.extendedCharacterImageList)
             default:
                 break
             }
@@ -105,8 +111,8 @@ final class ChoosingCharacterViewController: UIViewController {
         
         let nextIndex = indexPath.item + 1
         //마지막 항목일 때
-        if nextIndex == extendedImages.count - 1 {
-            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: extendedImages.count - 1, section: 0), at: .centeredHorizontally, animated: true)
+        if nextIndex == extendedCharacterImageList.count - 1 {
+            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: extendedCharacterImageList.count - 1, section: 0), at: .centeredHorizontally, animated: true)
         } else {
             choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: nextIndex, section: 0), at: .centeredHorizontally, animated: true)
         }
@@ -118,20 +124,24 @@ extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectio
     //MARK: - Infinite carousel Method
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return extendedImages.count
+        return extendedCharacterImageList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChoosingCharacterCell.identifier, for: indexPath) as! ChoosingCharacterCell
-        cell.configure(imageName: extendedImages[indexPath.item])
+        cell.configureCell(imageURL: extendedCharacterImageList[indexPath.item])
         return cell
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageIndex = Int(scrollView.contentOffset.x / view.frame.width)
-        choosingCharacterView.pageControl.currentPage = (pageIndex - 1 + images.count) % images.count
-        choosingCharacterView.nameLabel.text = names[choosingCharacterView.pageControl.currentPage]
-        choosingCharacterView.discriptionLabel.text = discriptions[choosingCharacterView.pageControl.currentPage]
+        
+        if let characterInfoModelList {
+            choosingCharacterView.pageControl.currentPage = (pageIndex - 1 + characterInfoModelList.count) % characterInfoModelList.count
+        }
+        selectedIndex = choosingCharacterView.pageControl.currentPage
+        choosingCharacterView.nameLabel.text = characterNames[choosingCharacterView.pageControl.currentPage]
+        choosingCharacterView.discriptionLabel.text = characterDiscriptions[choosingCharacterView.pageControl.currentPage]
         choosingCharacterView.discriptionLabel.setLineSpacing(spacing: 4.0)
     }
     
@@ -144,7 +154,7 @@ extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectio
         if scrollView == choosingCharacterView.collectionView {
             if currentPage == 0 {
                 self.choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 3, section: 0), at: .centeredHorizontally, animated: false)
-            } else if currentPage == extendedImages.count - 1 {
+            } else if currentPage == extendedCharacterImageList.count - 1 {
                 choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)
             }
         }
