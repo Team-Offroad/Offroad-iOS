@@ -23,26 +23,32 @@ final class CustomRecentProgressView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
-    override func draw(_ rect: CGRect) {
-        createCircularPath(rect: rect)
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        createCircularPath()
     }
 }
 
 extension CustomRecentProgressView {
     
-    //MARK: - Method
+    //MARK: - Private Method
     
-    func createCircularPath(rect: CGRect) {
-        let centerX = rect.width / 2.0
-        let centerY = rect.height / 2.0
+    func createCircularPath() {
+        let centerX = bounds.width / 2.0
+        let centerY = bounds.height / 2.0
         let circularPath = UIBezierPath(arcCenter: .init(x: centerX, y: centerY),
                                         radius: frame.size.height / 2.0,
                                         startAngle: startAngle,
                                         endAngle: endAngle,
                                         clockwise: true)
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
         circleLayer.path = circularPath.cgPath
         circleLayer.fillColor = UIColor.clear.cgColor
         circleLayer.lineCap = .round
@@ -55,8 +61,18 @@ extension CustomRecentProgressView {
         progressLayer.fillColor = UIColor.clear.cgColor
         progressLayer.lineCap = .round
         progressLayer.lineWidth = 9
-        progressLayer.strokeEnd = 0.75
         progressLayer.strokeColor = UIColor.home(.homeContents1GraphMain).cgColor
         layer.addSublayer(progressLayer)
+        
+        CATransaction.commit()
+    }
+    
+    func setProgressView(progressValue: CGFloat) {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
+        progressLayer.strokeEnd = progressValue
+        
+        CATransaction.commit()
     }
 }

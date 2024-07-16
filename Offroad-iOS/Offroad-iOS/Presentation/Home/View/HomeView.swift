@@ -123,8 +123,8 @@ extension HomeView {
             $0.roundCorners(cornerRadius: 9)
         }
         
-        recentQuestView.configureCustomView(mainColor: .home(.homeContents1), questString: "최근 진행한 퀘스트", textColor: .main(.main1), image: .imgCompass, detailString: recentQuestString)
-        almostDoneQuestView.configureCustomView(mainColor: .home(.homeContents2), questString: "완료 임박 퀘스트", textColor: .sub(.sub4), image: .imgFire, detailString: almostDoneString)
+        recentQuestView.configureCustomView(mainColor: .home(.homeContents1), questString: "최근 진행한 퀘스트", textColor: .main(.main1), image: .imgCompass)
+        almostDoneQuestView.configureCustomView(mainColor: .home(.homeContents2), questString: "완료 임박 퀘스트", textColor: .sub(.sub4), image: .imgFire)
         
         questStackView.do {
             $0.axis = .horizontal
@@ -133,18 +133,15 @@ extension HomeView {
         }
         
         recentQuestProgressLabel.do {
-            $0.text = "3/4"
             $0.textColor = .main(.main1)
             $0.textAlignment = .center
             $0.font = .offroad(style: .bothRecentNum)
         }
         
         almostDoneQuestProgressLabel.do {
-            $0.text = "7 / 8"
             $0.textColor = .blackOpacity(.black25)
             $0.textAlignment = .center
             $0.font = .offroad(style: .bothUpcomingSmallNum)
-            $0.highlightText(targetText: "7", font: .offroad(style: .bothUpcomingBigNum), color: .sub(.sub4))
         }
     }
     
@@ -270,6 +267,21 @@ extension HomeView {
         titleLabel.text = emblemName
     }
     
+    func updateQuestInfo(recentQuestName: String, recentProgress: Int, recentCompleteCondition: Int, almostQuestName: String, almostprogress: Int, almostCompleteCondition: Int) {
+        recentQuestView.setupDetailString(detailString: recentQuestName)
+        almostDoneQuestView.setupDetailString(detailString: almostQuestName)
+        
+        recentQuestProgressLabel.text = "\(recentProgress)/\(recentCompleteCondition)"
+        almostDoneQuestProgressLabel.text = "\(almostprogress) / \(almostCompleteCondition)"
+        almostDoneQuestProgressLabel.highlightText(targetText: "\(almostprogress)", font: .offroad(style: .bothUpcomingBigNum), color: .sub(.sub4))
+
+        
+        let recentProgressValue = CGFloat(recentProgress)/CGFloat(recentCompleteCondition)
+        let almostProgressValue = CGFloat(almostprogress)/CGFloat(almostCompleteCondition)
+        
+        recentQuestProgressView.setProgressView(progressValue: recentProgressValue)
+        almostDoneQuestProgressView.setProgressView(progressValue: almostProgressValue)
+    }
     
     //MARK: - targetView Method
     
