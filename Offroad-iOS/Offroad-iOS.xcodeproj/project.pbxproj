@@ -34,12 +34,16 @@
 		4E1E94172C3AC27000A7B08A /* QuestMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94162C3AC27000A7B08A /* QuestMapViewController.swift */; };
 		4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* QuestMapView.swift */; };
 		4E1E941B2C3AC37600A7B08A /* QuestMapNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E941A2C3AC37600A7B08A /* QuestMapNavigationController.swift */; };
+		4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6CE2C456FBF007358DA /* UITabBar+.swift */; };
 		4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */; };
 		4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */; };
 		4E3F009E2C40D20800B9A31A /* OffroadTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */; };
+		4E416CE82C45DBE200CF6AB4 /* OffroadPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */; };
+		4E59A11C2C4228C500B548C6 /* AVCameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */; };
 		4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4E6A5BC22C2E8C290027FDF0 /* Then */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4E9DACE02C3FF7290088A376 /* QuestNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9DACDF2C3FF7290088A376 /* QuestNavigationBar.swift */; };
+		4EA90AC62C4521C50046A6E1 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */; };
 		4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE34912C3FC73C006DB244 /* QuestQRViewController.swift */; };
 		4EBE34942C3FC749006DB244 /* QuestQRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE34932C3FC749006DB244 /* QuestQRView.swift */; };
 		4EDC3D412C31271F006A1493 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */; };
@@ -168,11 +172,15 @@
 		4E1E94162C3AC27000A7B08A /* QuestMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapViewController.swift; sourceTree = "<group>"; };
 		4E1E94182C3AC27C00A7B08A /* QuestMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapView.swift; sourceTree = "<group>"; };
 		4E1E941A2C3AC37600A7B08A /* QuestMapNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapNavigationController.swift; sourceTree = "<group>"; };
+		4E37B6CE2C456FBF007358DA /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterView.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/View/CompleteChoosingCharacterView.swift"; sourceTree = SOURCE_ROOT; };
 		4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterViewController.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/ViewController/CompleteChoosingCharacterViewController.swift"; sourceTree = SOURCE_ROOT; };
 		4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarController.swift; sourceTree = "<group>"; };
+		4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadPlace.swift; sourceTree = "<group>"; };
+		4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCameraPreview.swift; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4E9DACDF2C3FF7290088A376 /* QuestNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestNavigationBar.swift; sourceTree = "<group>"; };
+		4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		4EBE34912C3FC73C006DB244 /* QuestQRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestQRViewController.swift; sourceTree = "<group>"; };
 		4EBE34932C3FC749006DB244 /* QuestQRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestQRView.swift; sourceTree = "<group>"; };
 		4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -381,6 +389,7 @@
 				4E1E94122C398C4200A7B08A /* String+.swift */,
 				D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */,
 				8792D0182C3E5E40002051AC /* UIButton+.swift */,
+				4E37B6CE2C456FBF007358DA /* UITabBar+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -537,6 +546,7 @@
 		4E0394732C2AA6DB007F0517 /* QuestMap */ = {
 			isa = PBXGroup;
 			children = (
+				4E416CE62C45DBD400CF6AB4 /* Models */,
 				4EFA80892C3E79B800876D05 /* UIComponents */,
 				4E1E94152C3AC25500A7B08A /* Views */,
 				4E1E94142C3AC25000A7B08A /* ViewControllers */,
@@ -570,6 +580,7 @@
 		4E0394772C2AA72C007F0517 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				4EA90AC42C4521AF0046A6E1 /* ViewControllers */,
 				4E0394782C2AA767007F0517 /* Character */,
 				4E0394792C2AA783007F0517 /* Coupon */,
 				4E03947A2C2AA78B007F0517 /* Title */,
@@ -719,7 +730,6 @@
 		4E3F00992C40D1C000B9A31A /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				4E3F009C2C40D1E100B9A31A /* Views */,
 				4E3F009B2C40D1DC00B9A31A /* ViewControllers */,
 			);
 			path = TabBar;
@@ -734,11 +744,15 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		4E3F009C2C40D1E100B9A31A /* Views */ = {
+		4EA90AC42C4521AF0046A6E1 /* ViewControllers */ = {
+		4E416CE62C45DBD400CF6AB4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */,
+				4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */,
 			);
-			path = Views;
+			path = ViewControllers;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		4EBE348F2C3FC71E006DB244 /* ViewControllers */ = {
@@ -753,6 +767,7 @@
 			isa = PBXGroup;
 			children = (
 				4EBE34932C3FC749006DB244 /* QuestQRView.swift */,
+				4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1519,6 +1534,7 @@
 				D0EAF2262C3B7D7F00566543 /* LoginViewController.swift in Sources */,
 				4EBE34942C3FC749006DB244 /* QuestQRView.swift in Sources */,
 				4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */,
+				4EA90AC62C4521C50046A6E1 /* MyPageViewController.swift in Sources */,
 				4E3F009E2C40D20800B9A31A /* OffroadTabBarController.swift in Sources */,
 				D0E7964E2C453B38005B47A5 /* AdventureAPI.swift in Sources */,
 				D0E7961C2C4527FE005B47A5 /* SocialLoginRequestDTO.swift in Sources */,
@@ -1556,6 +1572,7 @@
 				4E0394E32C2AC0D7007F0517 /* UIWindow+.swift in Sources */,
 				4E0394DD2C2ABEF2007F0517 /* UITextField+.swift in Sources */,
 				D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */,
+				4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
 				D0E796502C453B47005B47A5 /* AdventureService.swift in Sources */,
 				87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */,
@@ -1579,12 +1596,14 @@
 				D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */,
 				D0E7962B2C45346A005B47A5 /* ProfileUpdateResponseDTO.swift in Sources */,
 				4E9DACE02C3FF7290088A376 /* QuestNavigationBar.swift in Sources */,
+				4E59A11C2C4228C500B548C6 /* AVCameraPreview.swift in Sources */,
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
 				8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */,
 				8792D0242C3F0843002051AC /* ChoosingCharacterCell.swift in Sources */,
 				4E03942F2C2A9DCE007F0517 /* SceneDelegate.swift in Sources */,
 				D0E7961E2C45280F005B47A5 /* SocialLoginResponseDTO.swift in Sources */,
 				D0E796172C4527AA005B47A5 /* AuthService.swift in Sources */,
+				4E416CE82C45DBE200CF6AB4 /* OffroadPlace.swift in Sources */,
 				D0EAF21B2C3B026500566543 /* SplashViewController.swift in Sources */,
 				4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */,
 				D0E796452C4538E6005B47A5 /* PlaceService.swift in Sources */,
