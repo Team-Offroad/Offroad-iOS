@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "img_red_hair.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

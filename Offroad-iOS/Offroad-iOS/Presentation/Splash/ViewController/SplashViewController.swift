@@ -21,10 +21,11 @@ final class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
             self.rootView.dismissOffroadLogiView {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
@@ -51,4 +52,5 @@ extension SplashViewController {
         
         present(loginViewController, animated: false, completion: nil)
     }
+    
 }
