@@ -17,7 +17,7 @@ protocol RegisteredPlaceServiceProtocol {
 }
 
 final class RegisteredPlaceService: BaseService, RegisteredPlaceServiceProtocol {
-    let provider = MoyaProvider<PlaceAPI>(plugins: [MoyaPlugin()])
+    private let provider = MoyaProvider<PlaceAPI>(plugins: [MoyaPlugin()])
 
     func getAdventureInfo(
         requestDTO: RegisteredPlaceRequestDTO,
