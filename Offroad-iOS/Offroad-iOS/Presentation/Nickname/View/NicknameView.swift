@@ -28,7 +28,7 @@ final class NicknameView: UIView {
         $0.font = UIFont.offroad(style: .iosSubtitleReg)
     }
     
-    let textField = UITextField().then {
+    var textField = UITextField().then {
         $0.textColor = UIColor.main(.main2)
         $0.frame.size.height = 48
         $0.backgroundColor = UIColor.main(.main3)
@@ -61,7 +61,7 @@ final class NicknameView: UIView {
         $0.distribution = .fillProportionally
     }
     
-    private let notionLabel = UILabel().then {
+    let notionLabel = UILabel().then {
         $0.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
         $0.textColor = UIColor.grayscale(.gray400)
         $0.font = UIFont.offroad(style: .iosHint)
