@@ -92,12 +92,15 @@ extension CustomQuestView {
     
     //MARK: - Method
     
-    func configureCustomView(mainColor: UIColor, questString: String, textColor: UIColor, image: UIImage, detailString: String) {
+    func configureCustomView(mainColor: UIColor, questString: String, textColor: UIColor, image: UIImage) {
         backgroundColor = mainColor
         questLabel.text = questString
         questLabel.textColor = textColor
         questLabelImageView.image = image
-        detailLabel.text = detailString
         detailLabel.textColor = textColor
+    }
+    
+    func setupDetailString(detailString: String) {
+        detailLabel.text = detailString
     }
 }

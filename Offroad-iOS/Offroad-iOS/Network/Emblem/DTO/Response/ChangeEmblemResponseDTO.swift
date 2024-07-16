@@ -9,4 +9,5 @@ import Foundation
 
 struct ChangeEmblemResponseDTO: Codable {
     let message: String
+    var data: Data? = nil
 }

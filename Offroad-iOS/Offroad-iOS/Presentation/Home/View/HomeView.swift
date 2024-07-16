@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Kingfisher
 import SnapKit
 import Then
 
@@ -17,12 +18,6 @@ final class HomeView: UIView {
     typealias ChangeTitleButtonAction = () -> Void
 
     private var changeTitleButtonAction: ChangeTitleButtonAction?
-    
-    private var nicknameString = "비포장도로"
-    private var characterNameString = "오푸"
-    private var titleString = "오프로드 스타터"
-    private var recentQuestString = "홍대입구 한바퀴"
-    private var almostDoneString = "도심 속 공원 탐방"
 
     //MARK: - UI Properties
     
@@ -69,10 +64,8 @@ extension HomeView {
         backgroundColor = .main(.main1)
         
         nicknameLabel.do {
-            $0.text = "모험가 \(nicknameString)님"
             $0.font = .offroad(style: .iosSubtitleReg)
             $0.textAlignment = .center
-            $0.highlightText(targetText: nicknameString, font: .offroad(style: .iosSubtitle2Bold))
             $0.textColor = .main(.main2)
         }
         
@@ -84,7 +77,6 @@ extension HomeView {
         }
         
         characterNameLabel.do {
-            $0.text = characterNameString
             $0.font = .offroad(style: .iosSubtitle2Semibold)
             $0.textAlignment = .center
             $0.textColor = .primary(.white)
@@ -120,7 +112,6 @@ extension HomeView {
         }
         
         titleLabel.do {
-            $0.text = titleString
             $0.font = .offroad(style: .iosSubtitle2Semibold)
             $0.textAlignment = .center
             $0.textColor = .primary(.white)
@@ -132,8 +123,8 @@ extension HomeView {
             $0.roundCorners(cornerRadius: 9)
         }
         
-        recentQuestView.configureCustomView(mainColor: .home(.homeContents1), questString: "최근 진행한 퀘스트", textColor: .main(.main1), image: .imgCompass, detailString: recentQuestString)
-        almostDoneQuestView.configureCustomView(mainColor: .home(.homeContents2), questString: "완료 임박 퀘스트", textColor: .sub(.sub4), image: .imgFire, detailString: almostDoneString)
+        recentQuestView.configureCustomView(mainColor: .home(.homeContents1), questString: "최근 진행한 퀘스트", textColor: .main(.main1), image: .imgCompass)
+        almostDoneQuestView.configureCustomView(mainColor: .home(.homeContents2), questString: "완료 임박 퀘스트", textColor: .sub(.sub4), image: .imgFire)
         
         questStackView.do {
             $0.axis = .horizontal
@@ -142,18 +133,15 @@ extension HomeView {
         }
         
         recentQuestProgressLabel.do {
-            $0.text = "3/4"
             $0.textColor = .main(.main1)
             $0.textAlignment = .center
             $0.font = .offroad(style: .bothRecentNum)
         }
         
         almostDoneQuestProgressLabel.do {
-            $0.text = "7 / 8"
             $0.textColor = .blackOpacity(.black25)
             $0.textAlignment = .center
             $0.font = .offroad(style: .bothUpcomingSmallNum)
-            $0.highlightText(targetText: "7", font: .offroad(style: .bothUpcomingBigNum), color: .sub(.sub4))
         }
     }
     
@@ -265,6 +253,34 @@ extension HomeView {
     
     func changeMyTitleLabelText(text: String) {
         titleLabel.text = text
+    }
+    
+    func updateAdventureInfo(nickname: String, characterImgUrl: String, characterName: String, emblemName: String) {
+        nicknameLabel.text = "모험가 \(nickname)님"
+        nicknameLabel.highlightText(targetText: nickname, font: .offroad(style: .iosSubtitle2Bold))
+        
+        let url = URL(string: characterImgUrl)
+        characterImageView.kf.setImage(with: url)
+        
+        characterNameLabel.text = characterName
+        
+        titleLabel.text = emblemName
+    }
+    
+    func updateQuestInfo(recentQuestName: String, recentProgress: Int, recentCompleteCondition: Int, almostQuestName: String, almostprogress: Int, almostCompleteCondition: Int) {
+        recentQuestView.setupDetailString(detailString: recentQuestName)
+        almostDoneQuestView.setupDetailString(detailString: almostQuestName)
+        
+        recentQuestProgressLabel.text = "\(recentProgress)/\(recentCompleteCondition)"
+        almostDoneQuestProgressLabel.text = "\(almostprogress) / \(almostCompleteCondition)"
+        almostDoneQuestProgressLabel.highlightText(targetText: "\(almostprogress)", font: .offroad(style: .bothUpcomingBigNum), color: .sub(.sub4))
+
+        
+        let recentProgressValue = CGFloat(recentProgress)/CGFloat(recentCompleteCondition)
+        let almostProgressValue = CGFloat(almostprogress)/CGFloat(almostCompleteCondition)
+        
+        recentQuestProgressView.setProgressView(progressValue: recentProgressValue)
+        almostDoneQuestProgressView.setProgressView(progressValue: almostProgressValue)
     }
     
     //MARK: - targetView Method

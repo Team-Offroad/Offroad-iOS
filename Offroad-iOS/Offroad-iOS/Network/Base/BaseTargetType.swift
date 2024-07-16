@@ -37,13 +37,13 @@ extension BaseTargetType {
         case .accessTokenHeaderForGet:
             guard let accessToken = UserDefaults.standard.string(forKey: "AccessToken") else { return [:] }
             
-            var header = ["Authorization": "Bearer \(accessToken)"]
+            let header = ["Authorization": "Bearer \(accessToken)"]
             
             return header
         case .accessTokenHeaderForGeneral:
             guard let accessToken = UserDefaults.standard.string(forKey: "AccessToken") else { return [:] }
             
-            var header = ["Content-Type": "application/json",
+            let header = ["Content-Type": "application/json",
                           "Authorization": "Bearer \(accessToken)"]
             return header
         }

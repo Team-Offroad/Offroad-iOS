@@ -19,8 +19,14 @@ final class TitlePopupViewController: UIViewController {
     
     weak var delegate: selectedTitleProtocol?
 
-    private let titleModelList = TitleModel.dummy()
+    private var titleModelList: [EmblemList]? {
+        didSet {
+            rootView.reloadCollectionView()
+        }
+    }
+    
     private var selectedTitleString = ""
+    private var selectedTitleCode = ""
     
     // MARK: - Life Cycle
     
@@ -32,12 +38,13 @@ final class TitlePopupViewController: UIViewController {
         super.viewDidLoad()
         
         setupTarget()
+        
+        getEmblemList()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         rootView.presentPopupView()
     }
-  
 }
 
 extension TitlePopupViewController {
@@ -53,6 +60,7 @@ extension TitlePopupViewController {
         print("changeTitleButtonTapped")
         
         delegate?.fetchTitleString(titleString: selectedTitleString)
+        changeUserEmblem(emblemCode: selectedTitleCode)
         self.dismiss(animated: false)
         rootView.dismissPopupView()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
@@ -69,20 +77,47 @@ extension TitlePopupViewController {
             self.dismiss(animated: false)
         }
     }
+    
+    private func getEmblemList() {
+        NetworkService.shared.emblemService.getEmblemInfo { response in
+            switch response {
+            case .success(let data):
+                self.titleModelList = data?.data.emblems
+            default:
+                break
+            }
+        }
+    }
+    
+    private func changeUserEmblem(emblemCode: String) {
+        NetworkService.shared.emblemService.patchUserEmblem(parameter: emblemCode) { response in
+            switch response {
+            case .success:
+                print("칭호 변경 성공!!!!!!!")
+            default:
+                break
+            }
+        }
+    }
 }
 
 //MARK: - UICollectionViewDataSource
 
 extension TitlePopupViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return titleModelList.count
+        if let titleModelList {
+            return titleModelList.count
+        }
+        return Int()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.className, for: indexPath) as? TitleCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.configureCell(data: titleModelList[indexPath.item])
+        if let titleModelList {
+            cell.configureCell(data: titleModelList[indexPath.item])
+        }
         
         return cell
     }
@@ -99,6 +134,9 @@ extension TitlePopupViewController: UICollectionViewDelegateFlowLayout {
         collectionView.cellForItem(at: indexPath)?.isSelected = true
         rootView.setupChangeTitleButton(action: changeTitleButtonTapped)
         
-        selectedTitleString = titleModelList[indexPath.item].titleString
+        if let titleModelList {
+            selectedTitleString = titleModelList[indexPath.item].emblemName
+            selectedTitleCode = titleModelList[indexPath.item].emblemCode
+        }
     }
 }
