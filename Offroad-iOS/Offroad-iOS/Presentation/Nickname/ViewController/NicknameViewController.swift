@@ -103,7 +103,6 @@ extension NicknameViewController: UITextFieldDelegate {
     // return키 눌렀을 때 키보드 내려가게 하는 코드
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-//        provider.request(.checkNicknameDuplicate(inputNickname: nicknameView.textField.text ?? ""), completion: )
         return true
     }
     
