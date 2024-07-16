@@ -21,8 +21,16 @@ class QuestMapViewController: OffroadTabBarViewController {
     private let dummpyPlace = dummyPlaces
     private let locationService = RegisteredPlaceService()
     
-    private var shownMarkersArray: [NMFMarker] = []
     private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
+    private var shownMarkersArray: [NMFMarker] = [] {
+        didSet {
+            oldValue.forEach { marker in
+                marker.mapView = nil
+            }
+            print("-----------------", #function, "----------------")
+            showMarkersOnMap()
+        }
+    }
     
     var searchedPlaceArray: [RegisteredPlaceInfo] = []
     
@@ -123,12 +131,12 @@ extension QuestMapViewController {
         )
         
         locationService.getRegisteredLocation(requestDTO: requestPlaceDTO) { [weak self] response in
+            guard let self else { return }
             switch response {
             case .success(let data):
-                DispatchQueue.global().async {
-                    self?.searchedPlaceArray = data!.data.places
-                }
-                return
+                self.searchedPlaceArray = data!.data.places
+                convertSearchedPlaceToMarker(searchedPlaces: self.searchedPlaceArray)
+                
             // 에러별 분기처리 필요
             default:
                 return
@@ -145,6 +153,19 @@ extension QuestMapViewController {
         shownMarkersArray.forEach { marker in
             marker.mapView = rootView.naverMapView.mapView
         }
+    }
+    
+    private func convertSearchedPlaceToMarker(searchedPlaces: [RegisteredPlaceInfo]) {
+        let markersToBeShown = searchedPlaces.map {
+            let marker = NMFMarker(
+                position: NMGLatLng(lat: $0.latitude, lng: $0.longitude),
+                iconImage: NMFOverlayImage(image: .icnPlaceMarkerOrange)
+            )
+            marker.width = 25
+            marker.height = 40
+            return marker
+        }
+        shownMarkersArray = markersToBeShown
     }
     
 }

@@ -22,7 +22,7 @@ struct RegisteredPlaceInfo: Codable {
     let address: String
     let shortIntroduction: String
     let placeCategory: String
-    let latitude: Float
-    let longitude: Float
+    let latitude: Double
+    let longitude: Double
     let visitCount: Int
 }
