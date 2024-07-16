@@ -14,6 +14,8 @@ class OffroadTabBarController: UITabBarController {
     let centerTabBarItemSideLength: CGFloat = 85
     let tabBarItemWidth: CGFloat = 77
     var originalTabBarHeight: CGFloat = 0
+    private var hideTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
+    private var showTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     
     //MARK: - UI Properties
     
@@ -113,9 +115,26 @@ extension OffroadTabBarController {
         tabBar.items?[2].image = UIImage.icnPerson
         tabBar.items?[2].title = "My"
     }
+        
+    // MARK: - Func
     
     private func setupButtonsAction() {
         customOffroadLogoButton.addTarget(self, action: #selector(centerTabBarButtonItemTapped), for: .touchUpInside)
     }
     
+    func hideTabBarAnimation(delayFactor: CGFloat = 0) {
+        hideTabBarAnimator.addAnimations({ [weak self] in
+            self?.showTabBarAnimator.stopAnimation(true)
+            self?.tabBar.frame.origin.y = UIScreen.current.bounds.height + 20
+        }, delayFactor: delayFactor)
+        hideTabBarAnimator.startAnimation()
+    }
+    
+    func showTabBarAnimation(delayFactor: CGFloat = 0) {
+        showTabBarAnimator.addAnimations({ [weak self] in
+            self?.hideTabBarAnimator.stopAnimation(true)
+            self?.tabBar.frame.origin.y = UIScreen.current.bounds.height - 96
+        }, delayFactor: delayFactor)
+        showTabBarAnimator.startAnimation()
+    }
 }

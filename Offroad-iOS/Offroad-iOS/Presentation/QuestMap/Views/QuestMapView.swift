@@ -15,14 +15,15 @@ class QuestMapView: UIView {
     
     //MARK: - UI Properties
     
-    private let naverMapView = NMFNaverMapView()
-    private let reloadLocationButton = UIButton()
-    
     private let listButtonStackView = UIStackView()
     let questListButton = QuestMapListButton(image: .iconListBullet, title: "퀘스트 목록")
     let placeListButton = QuestMapListButton(image: .iconPlaceMarker, title: "장소 목록")
     
+    let naverMapView = NMFNaverMapView()
+    private let showLocationButton = NMFLocationButton(frame: .zero)
     private let compass = NMFCompassView()
+    private let orangeTriangleArrowOverlayImage = NMFOverlayImage(image: .icnOrangeTriangleArrow)
+    let orangeLocationOverlayImage = NMFOverlayImage(image: .icnOrangeCircleInWhiteBorder)
     
     //MARK: - Life Cycle
     
@@ -52,7 +53,7 @@ extension QuestMapView {
             make.verticalEdges.equalTo(safeAreaLayoutGuide)
         }
         
-        reloadLocationButton.snp.makeConstraints { make in
+        showLocationButton.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(24)
             make.trailing.equalTo(safeAreaLayoutGuide).inset(24)
             make.width.height.equalTo(44)
@@ -65,8 +66,8 @@ extension QuestMapView {
         }
         
         compass.snp.makeConstraints { make in
-            make.top.equalTo(reloadLocationButton.snp.bottom).offset(24)
-            make.trailing.equalTo(reloadLocationButton.snp.trailing)
+            make.top.equalTo(showLocationButton.snp.bottom).offset(24)
+            make.trailing.equalTo(showLocationButton.snp.trailing)
             make.width.height.equalTo(44)
         }
     }
@@ -74,7 +75,7 @@ extension QuestMapView {
     //MARK: - Private Func
     
     private func setupHierarchy() {
-        naverMapView.addSubview(reloadLocationButton)
+        naverMapView.addSubview(showLocationButton)
         listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
         addSubviews(
             naverMapView,
@@ -84,8 +85,9 @@ extension QuestMapView {
     }
     
     private func setupStyle() {
-        reloadLocationButton.do { button in
+        showLocationButton.do { button in
             button.setImage(.btnDotScope, for: .normal)
+            button.mapView = naverMapView.mapView
         }
         
         listButtonStackView.do { stackView in
@@ -100,10 +102,16 @@ extension QuestMapView {
         naverMapView.showZoomControls = false
         naverMapView.mapView.logoAlign = .leftTop
         naverMapView.showCompass = false
-        naverMapView.showLocationButton = true
+        naverMapView.mapView.positionMode = .compass
         
         compass.contentMode = .scaleAspectFit
         compass.mapView = naverMapView.mapView
+        
+        // 현재 위치 표시하는 마커 커스텀
+        naverMapView.mapView.locationOverlay.subIcon = orangeTriangleArrowOverlayImage
+        naverMapView.mapView.locationOverlay.subAnchor = CGPoint(x: 0.5, y: 1) // 기본값임
+        naverMapView.mapView.locationOverlay.subIconWidth = 16
+        naverMapView.mapView.locationOverlay.subIconHeight = 16
     }
     
 }
