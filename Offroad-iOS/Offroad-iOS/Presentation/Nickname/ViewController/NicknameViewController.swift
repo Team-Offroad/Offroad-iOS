@@ -7,14 +7,17 @@
 
 import UIKit
 
+import Moya
 import SnapKit
 import Then
 
 final class NicknameViewController: UIViewController {
     
     //MARK: - Properties
-  
+    
     private let nicknameView = NicknameView()
+    
+    private var whetherDuplicate: Bool = false
     
     //MARK: - Life Cycle
     
@@ -26,9 +29,6 @@ final class NicknameViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.main(.main1)
-        
-        nicknameView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        nicknameView.textField.delegate = self
     }
     
 }
@@ -51,6 +51,23 @@ extension NicknameViewController {
         self.view.endEditing(true)
     }
     
+    @objc private func checkButtonTapped() {
+        if whetherDuplicate == true {
+            nicknameView.notionLabel.text = "중복된 닉네임이에요. 다른 멋진 이름이 있으신가요?"
+        }
+    }
+    
+    //MARK: - Private Func
+    
+    private func setupTarget() {
+        nicknameView.checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
+        nicknameView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+    }
+    
+    private func setupDelegate() {
+        nicknameView.textField.delegate = self
+    }
+    
 }
 
 //MARK: - UITextFieldDelegate
@@ -60,6 +77,15 @@ extension NicknameViewController: UITextFieldDelegate {
     // return키 눌렀을 때 키보드 내려가게 하는 코드
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+//        provider.request(.checkNicknameDuplicate(inputNickname: nicknameView.textField.text ?? ""), completion: )
+        NetworkService.shared.nicknameService.checkNicknameDuplicate(inputNickname: nicknameView.textField.text ?? "") { response in
+            switch response {
+            case .success(let data):
+                self.whetherDuplicate = data?.data.isDuplicate ?? Bool()
+            default:
+                break
+            }
+        }
         return true
     }
     

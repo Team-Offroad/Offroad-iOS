@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 enum NicknameAPI {
-    case checkNicknameDuplicate
+    case checkNicknameDuplicate(inputNickname: String)
 }
 
 extension NicknameAPI: BaseTargetType {
@@ -33,8 +33,8 @@ extension NicknameAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .checkNicknameDuplicate:
-            return .requestParameters(parameters: ["nickname": "정지원"], encoding: URLEncoding.queryString)
+        case .checkNicknameDuplicate(let inputNickname):
+            return .requestParameters(parameters: ["nickname": inputNickname], encoding: URLEncoding.queryString)
         }
     }
 }
