@@ -54,6 +54,7 @@
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
 		4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */; };
+		872F4BA22C459A2B00284DE0 /* NicknameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BA12C459A2B00284DE0 /* NicknameModel.swift */; };
 		8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */; };
 		8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0102C3DA1C9002051AC /* BirthView.swift */; };
 		8792D0152C3E581E002051AC /* GenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0142C3E581E002051AC /* GenderViewController.swift */; };
@@ -188,6 +189,7 @@
 		4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarViewController.swift; sourceTree = "<group>"; };
 		4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapListButton.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		872F4BA12C459A2B00284DE0 /* NicknameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameModel.swift; sourceTree = "<group>"; };
 		8792CFFB2C3D823F002051AC /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
 		8792D0102C3DA1C9002051AC /* BirthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthView.swift; sourceTree = "<group>"; };
@@ -818,6 +820,14 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		872F4BA02C459A0C00284DE0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				872F4BA12C459A2B00284DE0 /* NicknameModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		8792D01B2C3E8706002051AC /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -838,6 +848,7 @@
 		87E0468E2C3CE6D5002D12C2 /* Nickname */ = {
 			isa = PBXGroup;
 			children = (
+				872F4BA02C459A0C00284DE0 /* Model */,
 				87E046952C3D5E19002D12C2 /* View */,
 				87E046962C3D5E23002D12C2 /* ViewController */,
 			);
@@ -1536,6 +1547,7 @@
 				8792D0172C3E5828002051AC /* GenderView.swift in Sources */,
 				D0E7960C2C4522F2005B47A5 /* NetworkResult.swift in Sources */,
 				4E0394D92C2ABCCC007F0517 /* UIView+.swift in Sources */,
+				872F4BA22C459A2B00284DE0 /* NicknameModel.swift in Sources */,
 				8792D0152C3E581E002051AC /* GenderViewController.swift in Sources */,
 				4E1E94112C39870700A7B08A /* ColorLiterals.swift in Sources */,
 				D0E796012C45222D005B47A5 /* BaseTargetType.swift in Sources */,
