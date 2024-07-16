@@ -81,6 +81,9 @@
 		D06D26DA2C3FE1C700E79F25 /* TitlePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */; };
 		D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */; };
 		D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */; };
+		D0B81AA02C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B81A9F2C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift */; };
+		D0B81AA22C47180800C44ED9 /* ChoosingCharacterPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B81AA12C47180800C44ED9 /* ChoosingCharacterPopupView.swift */; };
+		D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */; };
 		D0E795FC2C447511005B47A5 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */; };
 		D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FE2C44FC2C005B47A5 /* UserModel.swift */; };
 		D0E796012C45222D005B47A5 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796002C45222D005B47A5 /* BaseTargetType.swift */; };
@@ -221,6 +224,9 @@
 		D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupViewController.swift; sourceTree = "<group>"; };
 		D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupView.swift; sourceTree = "<group>"; };
 		D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionViewCell.swift; sourceTree = "<group>"; };
+		D0B81A9F2C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingCharacterPopupViewController.swift; sourceTree = "<group>"; };
+		D0B81AA12C47180800C44ED9 /* ChoosingCharacterPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingCharacterPopupView.swift; sourceTree = "<group>"; };
+		D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChoosingResponseDTO.swift; sourceTree = "<group>"; };
 		D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		D0E795FE2C44FC2C005B47A5 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		D0E796002C45222D005B47A5 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
@@ -834,6 +840,7 @@
 			isa = PBXGroup;
 			children = (
 				8792D01D2C3E872D002051AC /* ChoosingCharacterView.swift */,
+				D0B81AA12C47180800C44ED9 /* ChoosingCharacterPopupView.swift */,
 				8792D0232C3F0843002051AC /* ChoosingCharacterCell.swift */,
 			);
 			path = View;
@@ -842,6 +849,7 @@
 		8792D01C2C3E870E002051AC /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				D0B81A9F2C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift */,
 				8792D01F2C3E873C002051AC /* ChoosingCharacterViewController.swift */,
 			);
 			path = ViewController;
@@ -1210,6 +1218,7 @@
 			isa = PBXGroup;
 			children = (
 				D0E796662C455467005B47A5 /* CharacterInfoResponseDTO.swift */,
+				D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1526,6 +1535,7 @@
 				8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */,
 				D0E7963D2C453787005B47A5 /* QuestService.swift in Sources */,
 				D0E796082C45229B005B47A5 /* MoyaPlugin.swift in Sources */,
+				D0B81AA22C47180800C44ED9 /* ChoosingCharacterPopupView.swift in Sources */,
 				D0E796632C4553F0005B47A5 /* RefreshTokenResponseDTO.swift in Sources */,
 				D0E7960A2C4522CF005B47A5 /* NetworkService.swift in Sources */,
 				D0EAF2262C3B7D7F00566543 /* LoginViewController.swift in Sources */,
@@ -1539,6 +1549,7 @@
 				D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */,
 				4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */,
 				D0E796152C452797005B47A5 /* AuthAPI.swift in Sources */,
+				D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */,
 				4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */,
 				D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */,
 				D0E795FC2C447511005B47A5 /* AppleAuthManager.swift in Sources */,
@@ -1582,6 +1593,7 @@
 				D06D26C52C3D83AA00E79F25 /* HomeViewController.swift in Sources */,
 				D0E796612C455391005B47A5 /* ChangeEmblemResponseDTO.swift in Sources */,
 				D06D26CD2C3E6EA200E79F25 /* CustomRecentProgressView.swift in Sources */,
+				D0B81AA02C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift in Sources */,
 				4E1E94132C398C4200A7B08A /* String+.swift in Sources */,
 				D0E7965B2C455118005B47A5 /* EmblemService.swift in Sources */,
 				D0E7964C2C4539FC005B47A5 /* RegisteredPlaceResponseDTO.swift in Sources */,

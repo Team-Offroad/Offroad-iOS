@@ -32,7 +32,8 @@ final class ChoosingCharacterViewController: UIViewController {
     
     private var characterNames = [String]()
     private var characterDiscriptions = [String]()
-    private var selectedIndex = Int()
+    private var selectedCharacterName = String()
+    private var selectedCharacterID = Int()
     
     //MARK: - Life Cycle
     
@@ -42,8 +43,8 @@ final class ChoosingCharacterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.sub(.sub)
         
+        setupTarget()
         setupCollectionView()
         
         let style = NSMutableParagraphStyle()
@@ -56,6 +57,10 @@ final class ChoosingCharacterViewController: UIViewController {
     }
     
     //MARK: - Private Method
+    
+    private func setupTarget() {
+        choosingCharacterView.selectButton.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
+    }
     
     private func setupCollectionView() {
         choosingCharacterView.collectionView.delegate = self
@@ -81,8 +86,6 @@ final class ChoosingCharacterViewController: UIViewController {
                     self.characterDiscriptions.append(character.description)
                 }
                 self.extendedCharacterImageList.append(data?.data.characters[0].characterBaseImageUrl ?? "")
-                
-                print(self.extendedCharacterImageList)
             default:
                 break
             }
@@ -117,6 +120,14 @@ final class ChoosingCharacterViewController: UIViewController {
             choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: nextIndex, section: 0), at: .centeredHorizontally, animated: true)
         }
     }
+    
+    @objc private func selectButtonTapped() {
+        let choosingCharacterPopupViewController = ChoosingCharacterPopupViewController(characterName: selectedCharacterName, characterID: selectedCharacterID)
+        choosingCharacterPopupViewController.modalPresentationStyle = .overCurrentContext
+        choosingCharacterPopupViewController.delegate = self
+        
+        present(choosingCharacterPopupViewController, animated: false)
+    }
 }
 
 extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -139,8 +150,9 @@ extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectio
         if let characterInfoModelList {
             choosingCharacterView.pageControl.currentPage = (pageIndex - 1 + characterInfoModelList.count) % characterInfoModelList.count
         }
-        selectedIndex = choosingCharacterView.pageControl.currentPage
+        selectedCharacterID = choosingCharacterView.pageControl.currentPage + 1
         choosingCharacterView.nameLabel.text = characterNames[choosingCharacterView.pageControl.currentPage]
+        selectedCharacterName = characterNames[choosingCharacterView.pageControl.currentPage]
         choosingCharacterView.discriptionLabel.text = characterDiscriptions[choosingCharacterView.pageControl.currentPage]
         choosingCharacterView.discriptionLabel.setLineSpacing(spacing: 4.0)
     }
@@ -160,4 +172,13 @@ extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectio
         }
     }
     
+}
+
+extension ChoosingCharacterViewController: dismissAndPushDelegate {
+    func dismissAndPushViewController() {
+        let completeChoosingCharacterViewController = CompleteChoosingCharacterViewController()
+        completeChoosingCharacterViewController.modalPresentationStyle = .fullScreen
+        
+        self.present(completeChoosingCharacterViewController, animated: false)
+    }
 }
