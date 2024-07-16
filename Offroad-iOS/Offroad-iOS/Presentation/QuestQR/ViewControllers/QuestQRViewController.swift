@@ -132,7 +132,6 @@ extension QuestQRViewController {
         questQRView.cameraView.session = captureSession
     }
     
-    //MARK: - Func
 }
 
 //MARK: - UIGestureRecognizerDelegate

@@ -61,8 +61,6 @@ class QuestQRView: UIView {
 
 extension QuestQRView {
     
-    //MARK: - @objc func
-    
     //MARK: - private func
     
     private func setupHierarchy() {

@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window = UIWindow(windowScene: windowScene)
         self.window?.backgroundColor = .main(.main1)
-        self.window?.rootViewController = OffroadTabBarController()
+        self.window?.rootViewController = ViewController()
         self.window?.makeKeyAndVisible()
     }
 

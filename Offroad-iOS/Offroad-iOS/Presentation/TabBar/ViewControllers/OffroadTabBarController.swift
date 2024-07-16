@@ -42,7 +42,6 @@ class OffroadTabBarController: UITabBarController {
 
 extension OffroadTabBarController {
     
-    
     // MARK: - Layout
     
     private func setupStyle() {
@@ -72,10 +71,6 @@ extension OffroadTabBarController {
         tabBar.items?[2].image = UIImage.icnPerson
         tabBar.items?[2].title = "My"
     }
-    
-    // MARK: - @objc
-    
-    // MARK: - Private Func
         
     // MARK: - Func
     

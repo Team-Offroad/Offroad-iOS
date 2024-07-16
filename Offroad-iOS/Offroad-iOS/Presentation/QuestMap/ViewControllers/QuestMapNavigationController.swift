@@ -125,6 +125,4 @@ extension QuestMapNavigationController {
         }
     }
     
-    
-    
 }

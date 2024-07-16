@@ -610,7 +610,6 @@
 		4E3F00992C40D1C000B9A31A /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				4E3F009C2C40D1E100B9A31A /* Views */,
 				4E3F009B2C40D1DC00B9A31A /* ViewControllers */,
 			);
 			path = TabBar;
@@ -623,13 +622,6 @@
 				4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		4E3F009C2C40D1E100B9A31A /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		4E416CE62C45DBD400CF6AB4 /* Models */ = {
