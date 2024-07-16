@@ -24,6 +24,13 @@ final class HomeViewController: OffroadTabBarViewController {
         
         setupTarget()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        getUserAdventureInfo()
+        getUserQuestInfo()
+    }
 }
 
 extension HomeViewController {
@@ -42,6 +49,41 @@ extension HomeViewController {
         titlePopupViewController.delegate = self
         
         present(titlePopupViewController, animated: false)
+    }
+    
+    private func getUserAdventureInfo() {
+        NetworkService.shared.adventureService.getAdventureInfo { response in
+            switch response {
+            case .success(let data):
+                let nickname = data?.data.nickname ?? ""
+                let characterImgUrl = data?.data.characterImgUrl ?? ""
+                let characterName = data?.data.characterName ?? ""
+                let emblemName = data?.data.emblemName ?? ""
+
+                self.rootView.updateAdventureInfo(nickname: nickname, characterImgUrl: characterImgUrl, characterName: characterName, emblemName: emblemName)
+            default:
+                break
+            }
+        }
+    }
+    
+    private func getUserQuestInfo() {
+        NetworkService.shared.questService.getQuestInfo { response in
+            switch response {
+            case .success(let data):
+                let recentQuestName = data?.data.recent.questName ?? ""
+                let recentProgress = data?.data.recent.progress ?? Int()
+                let recentCompleteCondition = data?.data.recent.completeCondition ?? Int()
+                
+                let almostQuestName = data?.data.almost.questName ?? ""
+                let almostprogress = data?.data.almost.progress ?? Int()
+                let almostCompleteCondition = data?.data.almost.completeCondition ?? Int()
+                
+                self.rootView.updateQuestInfo(recentQuestName: recentQuestName, recentProgress: recentProgress, recentCompleteCondition: recentCompleteCondition, almostQuestName: almostQuestName, almostprogress: almostprogress, almostCompleteCondition: almostCompleteCondition)
+            default:
+                break
+            }
+        }
     }
 }
 

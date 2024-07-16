@@ -5,6 +5,7 @@
 //  Created by 김민성 on 2024/07/07.
 //
 
+import CoreLocation
 import UIKit
 
 import NMapsMap
@@ -16,6 +17,12 @@ class QuestMapViewController: OffroadTabBarViewController {
     //MARK: - Properties
     
     private let rootView = QuestMapView()
+    private let locationManager = CLLocationManager()
+    private let dummpyPlace = dummyPlaces
+    
+    private var markersArray: [NMFMarker] = []
+    
+    let placeArray: [OffroadPlace] = []
     
     //MARK: - Life Cycle
     
@@ -26,7 +33,10 @@ class QuestMapViewController: OffroadTabBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupMarkers()
         setupButtonsAction()
+        requestAuthorization()
+        setupDelegates()
     }
     
 }
@@ -47,9 +57,53 @@ extension QuestMapViewController {
     
     //MARK: - Private Func
     
+    private func setupMarkers() {
+        markersArray = dummyPlaces.map({ place in
+            let marker = NMFMarker(position: place.latLng)
+            marker.mapView = rootView.naverMapView.mapView
+            marker.width = 25
+            marker.height = 35
+            return marker
+        })
+    }
+    
     private func setupButtonsAction() {
         rootView.questListButton.addTarget(self, action: #selector(pushQuestListViewController), for: .touchUpInside)
         rootView.placeListButton.addTarget(self, action: #selector(pushPlaceListViewController), for: .touchUpInside)
+    }
+    
+    private func requestAuthorization() {
+        let status = locationManager.authorizationStatus
+        switch status {
+        case .notDetermined:
+            locationManager.requestAlwaysAuthorization()
+        case .restricted:
+            //추후 에러 메시지 팝업 구현 가능성
+            return
+        case .denied:
+            locationManager.requestAlwaysAuthorization()
+        case .authorizedAlways:
+            return
+        case .authorizedWhenInUse:
+            locationManager.requestAlwaysAuthorization()
+        @unknown default:
+            return
+        }
+    }
+    
+    private func setupDelegates() {
+        rootView.naverMapView.mapView.addCameraDelegate(delegate: self)
+    }
+    
+}
+
+//MARK: - NMFMapViewCameraDelegate
+
+extension QuestMapViewController: NMFMapViewCameraDelegate {
+    
+    func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
+        let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
+        self.rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
     }
     
 }
