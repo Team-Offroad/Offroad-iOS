@@ -21,10 +21,10 @@ class QuestMapViewController: OffroadTabBarViewController {
     private let dummpyPlace = dummyPlaces
     private let locationService = RegisteredPlaceService()
     
-    private var markersArray: [NMFMarker] = []
+    private var shownMarkersArray: [NMFMarker] = []
     private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
     
-    var placeArray: [RegisteredPlaceInfo] = []
+    var searchedPlaceArray: [RegisteredPlaceInfo] = []
     
     //MARK: - Life Cycle
     
@@ -47,6 +47,12 @@ extension QuestMapViewController {
     
     //MARK: - @objc
     
+    @objc private func reloadPlaceButtonTapped() {
+        updateCurrentLocation()
+        updateRegisteredLocation()
+        showMarkersOnMap()
+    }
+    
     @objc private func pushQuestListViewController() {
         print(#function)
         navigationController?.pushViewController(QuestQRViewController(), animated: true)
@@ -60,7 +66,7 @@ extension QuestMapViewController {
     //MARK: - Private Func
     
     private func setupMarkers() {
-        markersArray = dummyPlaces.map({ place in
+        shownMarkersArray = dummyPlaces.map({ place in
             let marker = NMFMarker(position: place.latLng)
             marker.mapView = rootView.naverMapView.mapView
             marker.width = 25
@@ -70,8 +76,12 @@ extension QuestMapViewController {
     }
     
     private func setupButtonsAction() {
-        rootView.questListButton.addTarget(self, action: #selector(pushQuestListViewController), for: .touchUpInside)
-        rootView.placeListButton.addTarget(self, action: #selector(pushPlaceListViewController), for: .touchUpInside)
+        rootView.reloadPlaceButton
+            .addTarget(self, action: #selector(reloadPlaceButtonTapped), for: .touchUpInside)
+        rootView.questListButton
+            .addTarget(self, action: #selector(pushQuestListViewController), for: .touchUpInside)
+        rootView.placeListButton
+            .addTarget(self, action: #selector(pushPlaceListViewController), for: .touchUpInside)
     }
     
     private func requestAuthorization() {
@@ -116,7 +126,7 @@ extension QuestMapViewController {
             switch response {
             case .success(let data):
                 DispatchQueue.global().async {
-                    self?.placeArray = data!.data.places
+                    self?.searchedPlaceArray = data!.data.places
                 }
                 return
             // 에러별 분기처리 필요
@@ -128,6 +138,13 @@ extension QuestMapViewController {
     
     private func setupDelegates() {
         rootView.naverMapView.mapView.addCameraDelegate(delegate: self)
+        rootView.naverMapView.mapView.touchDelegate = self
+    }
+    
+    private func showMarkersOnMap() {
+        shownMarkersArray.forEach { marker in
+            marker.mapView = rootView.naverMapView.mapView
+        }
     }
     
 }
@@ -139,6 +156,18 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
         self.rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+    }
+    
+}
+
+//MARK: - NMFMapViewTouchDelegate
+
+extension QuestMapViewController: NMFMapViewTouchDelegate {
+    
+    func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
+        print(#function)
+        
+        print("latlng: \(latlng),  point: \(point))")
     }
     
 }

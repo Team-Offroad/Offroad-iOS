@@ -42,7 +42,8 @@ extension PlaceAPI: BaseTargetType {
     var task: Moya.Task {
         switch self {
         case .getRegisteredPlaces(let requestDTO):
-            return .requestJSONEncodable(requestDTO)
+            let jsonData = try? JSONEncoder().encode(requestDTO)
+            return .requestCompositeData(bodyData: jsonData!, urlParameters: [:])
         }
     }
 }
