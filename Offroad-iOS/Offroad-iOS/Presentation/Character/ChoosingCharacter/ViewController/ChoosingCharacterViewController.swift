@@ -55,6 +55,8 @@ final class ChoosingCharacterViewController: UIViewController {
         DispatchQueue.main.async {
             self.choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)
         }
+        
+        getCharacterInfo()
     }
     
     //MARK: - Private Method
@@ -66,6 +68,19 @@ final class ChoosingCharacterViewController: UIViewController {
         
         choosingCharacterView.leftButton.addTarget(self, action: #selector(leftArrowTapped), for: .touchUpInside)
         choosingCharacterView.rightButton.addTarget(self, action: #selector(rightArrowTapped), for: .touchUpInside)
+    }
+    
+    private func getCharacterInfo() {
+        NetworkService.shared.characterService.getCharacterInfo { response in
+            switch response {
+            case .success(let data):
+                self.characterInfoModelList = data?.data.characters
+                
+                print(self.characterInfoModelList)
+            default:
+                break
+            }
+        }
     }
     
     //MARK: - @objc Method

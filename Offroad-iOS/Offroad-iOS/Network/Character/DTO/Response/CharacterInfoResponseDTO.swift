@@ -9,7 +9,7 @@ import Foundation
 
 struct CharacterInfoResponseDTO: Codable {
     let message: String
-    let data: RefreshTokenData
+    let data: CharacterInfo
 }
 
 struct CharacterInfo: Codable {
@@ -20,5 +20,6 @@ struct CharacterList: Codable {
     let id: Int
     let description: String
     let characterBaseImageUrl: String
+    let name: String
     let CharacterCode: String
 }
