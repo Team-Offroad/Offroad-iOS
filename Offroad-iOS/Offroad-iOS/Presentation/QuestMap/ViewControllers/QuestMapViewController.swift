@@ -24,13 +24,14 @@ class QuestMapViewController: OffroadTabBarViewController {
     private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
     private var shownMarkersArray: [NMFMarker] = [] {
         didSet {
-            oldValue.forEach { marker in
-                marker.mapView = nil
-            }
-            print("-----------------", #function, "----------------")
+            oldValue.forEach { $0.mapView = nil }
             showMarkersOnMap()
         }
     }
+    
+    //MARK: - UI Properties
+    
+    let customOverlayImage = NMFOverlayImage(image: .icnPlaceMarkerOrange)
     
     var searchedPlaceArray: [RegisteredPlaceInfo] = []
     
@@ -43,7 +44,8 @@ class QuestMapViewController: OffroadTabBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupMarkers()
+        // 더미 데이터로 마커 초기 설정
+        //setupMarkers()
         setupButtonsAction()
         requestAuthorization()
         setupDelegates()
@@ -146,7 +148,6 @@ extension QuestMapViewController {
     
     private func setupDelegates() {
         rootView.naverMapView.mapView.addCameraDelegate(delegate: self)
-        rootView.naverMapView.mapView.touchDelegate = self
     }
     
     private func showMarkersOnMap() {
@@ -157,15 +158,31 @@ extension QuestMapViewController {
     
     private func convertSearchedPlaceToMarker(searchedPlaces: [RegisteredPlaceInfo]) {
         let markersToBeShown = searchedPlaces.map {
-            let marker = NMFMarker(
-                position: NMGLatLng(lat: $0.latitude, lng: $0.longitude),
-                iconImage: NMFOverlayImage(image: .icnPlaceMarkerOrange)
+            let marker = OffroadNMFMarker(
+                placeInfo: $0,
+                iconImage: customOverlayImage
             )
-            marker.width = 25
-            marker.height = 40
+            marker.width = 48
+            marker.height = 48
+            setupMarkerTouchHandler(marker: marker)
             return marker
         }
         shownMarkersArray = markersToBeShown
+    }
+    
+    private func setupMarkerTouchHandler(marker: OffroadNMFMarker) {
+        marker.touchHandler = { markerOverlay in
+            print("marker tapped")
+            print("lat: \(marker.position.lat), lng: \(marker.position.lng)")
+            print(marker.placeInfo.name)
+            print(marker.placeInfo.placeCategory)
+            print(marker.placeInfo.address)
+            print(marker.placeInfo.shortIntroduction)
+            print(marker.placeInfo.address)
+            print(marker.placeInfo.visitCount)
+            
+            return true
+        }
     }
     
 }
@@ -177,18 +194,6 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
         self.rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
-    }
-    
-}
-
-//MARK: - NMFMapViewTouchDelegate
-
-extension QuestMapViewController: NMFMapViewTouchDelegate {
-    
-    func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
-        print(#function)
-        
-        print("latlng: \(latlng),  point: \(point))")
     }
     
 }
