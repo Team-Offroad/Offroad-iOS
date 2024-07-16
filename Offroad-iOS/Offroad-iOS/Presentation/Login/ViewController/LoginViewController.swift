@@ -87,4 +87,12 @@ extension LoginViewController {
             }
         }
     }
+    
+    private func presentToNextVC() {
+        // nickNameVC 가 보여지게 하고 싶다.
+        // 그런데 push도 하게 하고 싶다.
+        let nicknameViewController = NicknameViewController()
+        
+        present(UINavigationController(rootViewController: NicknameViewController()), animated: true)
+    }
 }

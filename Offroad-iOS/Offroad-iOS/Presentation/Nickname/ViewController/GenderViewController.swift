@@ -18,6 +18,18 @@ final class GenderViewController: UIViewController {
     
     //MARK: - Life Cycle
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    convenience init(birthYear: String, birthMonth: String, birthDay: String) {
+        self.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func loadView() {
         view = genderView
     }
@@ -26,6 +38,12 @@ final class GenderViewController: UIViewController {
         super.viewDidLoad()
         
         setupAddTarget()
+    }
+    
+    private func presentToNextVC() {
+        let choosingCharacterViewController = ChoosingCharacterViewController()
+        
+        present(UINavigationController(rootViewController: choosingCharacterViewController), animated: true)
     }
     
     //MARK: - Private Method

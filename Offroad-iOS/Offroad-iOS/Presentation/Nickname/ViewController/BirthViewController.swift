@@ -16,7 +16,23 @@ final class BirthViewController: UIViewController {
     
     private let birthView = BirthView()
     
+    let profileUpdate = ProfileUpdateRequestDTO(nickName: "xxx", year: 1999, month: 2, day: 22, gender: .MALE)
+    func postUserInfo(userInfo: userInfo)
+
+    
     //MARK: - Life Cycle
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    convenience init(nickname: String) {
+        self.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = birthView
@@ -74,9 +90,21 @@ extension BirthViewController {
         }
     }
     
+    @objc func buttonToGenderVC(sender: UIButton) {
+        let nextVC = GenderViewController(birthYear: birthView.yearTextField.text!, birthMonth: birthView.monthTextField.text!, birthDay: birthView.dayTextField.text!)
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
     // 텍스트 필드 글자 수 제한
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
+    }
+    
+    private func setupTarget() {
+        birthView.yearTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        birthView.monthTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        birthView.dayTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
     }
 }
 
