@@ -162,4 +162,8 @@ extension TitlePopupView {
         titleCollectionView.dataSource = viewController as? UICollectionViewDataSource
         titleCollectionView.delegate = viewController as? UICollectionViewDelegate
     }
+    
+    func reloadCollectionView() {
+        titleCollectionView.reloadData()
+    }
 }

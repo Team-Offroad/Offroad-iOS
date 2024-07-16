@@ -20,8 +20,7 @@ extension AdventureAPI: BaseTargetType {
     var parameter: [String : Any]? {
         switch self {
         case .getAdventureInfo:
-            return ["category": "NONE",
-                    "characterId": 1]
+            return ["category": "NONE"]
         }
     }
     

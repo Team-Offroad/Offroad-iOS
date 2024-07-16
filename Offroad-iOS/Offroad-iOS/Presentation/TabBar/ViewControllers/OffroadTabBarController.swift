@@ -101,7 +101,7 @@ extension OffroadTabBarController {
         ]
         
         setViewControllers(viewControllersArray, animated: false)
-        selectedIndex = 1
+        selectedIndex = 0
     }
     
     private func setTabBarButtons() {

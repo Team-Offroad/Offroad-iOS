@@ -86,7 +86,7 @@ extension TitleCollectionViewCell {
     
     //MARK: - Func
     
-    func configureCell(data: TitleModel) {
-        titleLabel.text = data.titleString
+    func configureCell(data: EmblemList) {
+        titleLabel.text = data.emblemName
     }
 }

@@ -28,7 +28,7 @@ extension AuthAPI: BaseTargetType {
     var path: String {
         switch self {
         case .postSocialLogin:
-            return "/oauth/login/apple"
+            return "/oauth/login"
         case .postRefreshToken:
             return "/auth/refresh"
         }
