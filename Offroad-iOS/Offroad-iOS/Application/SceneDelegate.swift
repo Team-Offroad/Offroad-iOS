@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window = UIWindow(windowScene: windowScene)
         self.window?.backgroundColor = .main(.main1)
-        self.window?.rootViewController = ChoosingCharacterViewController()
+        self.window?.rootViewController = LoginViewController()
         self.window?.makeKeyAndVisible()
     }
 

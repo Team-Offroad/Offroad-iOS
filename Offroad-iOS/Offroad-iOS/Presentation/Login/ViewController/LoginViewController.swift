@@ -57,7 +57,7 @@ extension LoginViewController {
             print("userEmail: \(userEmail)")
             print("userIdentifyToken: \(userIdentifyToken)")
             
-            self.postTokenForAppleLogin(request: SocialLoginRequestDTO(socialPlatform: "APPLE", name: "조혜린", code: userIdentifyToken))
+            self.postTokenForAppleLogin(request: SocialLoginRequestDTO(socialPlatform: "APPLE", name: "정지원", code: userIdentifyToken))
         }
         
         AppleAuthManager.shared.loginFailure = { error in
@@ -72,6 +72,11 @@ extension LoginViewController {
                 let accessToken = data?.data.accessToken ?? ""
                 
                 UserDefaults.standard.set(accessToken, forKey: "AccessToken")
+                
+                let nicknameViewController = NicknameViewController()
+                nicknameViewController.modalPresentationStyle = .fullScreen
+                
+                self.present(nicknameViewController, animated: false)
             default:
                 break
             }

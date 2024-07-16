@@ -23,10 +23,10 @@ final class NicknameService: BaseService, NicknameServiceProtocol {
             switch result {
             case .success(let response):
                 let networkResult: NetworkResult<NicknameCheckResponseDTO> = self.fetchNetworkResult(
-                                    statusCode: response.statusCode,
-                                    data: response.data
-                                )
-                                completion(networkResult)
+                    statusCode: response.statusCode,
+                    data: response.data
+                )
+                completion(networkResult)
             case .failure(let err):
                 print(err)
             }
