@@ -745,16 +745,21 @@
 			sourceTree = "<group>";
 		};
 		4EA90AC42C4521AF0046A6E1 /* ViewControllers */ = {
-		4E416CE62C45DBD400CF6AB4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */,
-				4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */,
 			);
 			path = ViewControllers;
-			path = Models;
 			sourceTree = "<group>";
 		};
+        4E416CE62C45DBD400CF6AB4 /* Models */ = {
+            isa = PBXGroup;
+            children = (
+                4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */,
+            );
+            path = Models;
+            sourceTree = "<group>";
+        };
 		4EBE348F2C3FC71E006DB244 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
