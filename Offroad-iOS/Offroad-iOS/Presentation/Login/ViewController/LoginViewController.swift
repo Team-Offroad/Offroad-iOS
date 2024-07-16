@@ -49,15 +49,23 @@ extension LoginViewController {
         AppleAuthManager.shared.loginSuccess = { user, identifyToken in
             print("login success!")
             
-            let userName = user.name ?? ""
-            let userEmail = user.email ?? ""
+            var userName = user.name ?? ""
+            var userEmail = user.email ?? ""
             let userIdentifyToken = identifyToken ?? ""
-
-            print("userName: \(userName)")
-            print("userEmail: \(userEmail)")
-            print("userIdentifyToken: \(userIdentifyToken)")
             
-            self.postTokenForAppleLogin(request: SocialLoginRequestDTO(socialPlatform: "APPLE", name: "조혜린", code: userIdentifyToken))
+            if let userDefaultName = UserDefaults.standard.string(forKey: "UserName") {
+                userName = userDefaultName
+            } else {
+                UserDefaults.standard.set(userName, forKey: "UserName")
+            }
+            
+            if let userDefaultEmail = UserDefaults.standard.string(forKey: "UserEmail") {
+                userEmail = userDefaultEmail
+            } else {
+                UserDefaults.standard.set(userEmail, forKey: "UserEmail")
+            }
+            
+            self.postTokenForAppleLogin(request: SocialLoginRequestDTO(socialPlatform: "APPLE", name: userName, code: userIdentifyToken))
         }
         
         AppleAuthManager.shared.loginFailure = { error in
@@ -70,8 +78,10 @@ extension LoginViewController {
             switch response {
             case .success(let data):
                 let accessToken = data?.data.accessToken ?? ""
+                let refreshToken = data?.data.refreshToken ?? ""
                 
                 UserDefaults.standard.set(accessToken, forKey: "AccessToken")
+                UserDefaults.standard.set(refreshToken, forKey: "RefreshToken")
             default:
                 break
             }
