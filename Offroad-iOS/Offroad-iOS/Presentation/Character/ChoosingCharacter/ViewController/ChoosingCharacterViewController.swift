@@ -124,7 +124,6 @@ final class ChoosingCharacterViewController: UIViewController {
     @objc private func selectButtonTapped() {
         let choosingCharacterPopupViewController = ChoosingCharacterPopupViewController(characterName: selectedCharacterName, characterID: selectedCharacterID)
         choosingCharacterPopupViewController.modalPresentationStyle = .overCurrentContext
-        choosingCharacterPopupViewController.delegate = self
         
         present(choosingCharacterPopupViewController, animated: false)
     }
@@ -172,13 +171,4 @@ extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectio
         }
     }
     
-}
-
-extension ChoosingCharacterViewController: dismissAndPushDelegate {
-    func dismissAndPushViewController() {
-        let completeChoosingCharacterViewController = CompleteChoosingCharacterViewController()
-        completeChoosingCharacterViewController.modalPresentationStyle = .fullScreen
-        
-        self.present(completeChoosingCharacterViewController, animated: false)
-    }
 }

@@ -7,16 +7,10 @@
 
 import UIKit
 
-protocol dismissAndPushDelegate: AnyObject {
-    func dismissAndPushViewController()
-}
-
 final class ChoosingCharacterPopupViewController: UIViewController {
     
     //MARK: - Properties
     
-    weak var delegate: dismissAndPushDelegate?
-
     private let rootView = ChoosingCharacterPopupView()
     private var myCharacterName = String()
     private var myCharacterID = Int()
