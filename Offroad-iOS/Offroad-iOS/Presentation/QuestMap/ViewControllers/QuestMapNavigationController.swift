@@ -61,7 +61,6 @@ extension QuestMapNavigationController {
     }
     
     private func setupStyle() {
-        
         customNavigationBar.do { view in
             view.backgroundColor = .main(.main1)
         }
@@ -73,7 +72,6 @@ extension QuestMapNavigationController {
         customNavigationBarShadowLine.do { view in
             view.backgroundColor = .blackOpacity(.black25)
         }
-        
     }
     
     private func setupLayout() {

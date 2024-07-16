@@ -35,10 +35,7 @@ class QuestNavigationBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
 }
-
-
 
 extension QuestNavigationBar {
     
@@ -67,6 +64,7 @@ extension QuestNavigationBar {
     private func setupStyle() {
         navigationTitleLabel.do { label in
             label.text = "어디를 탐험해 볼까요?"
+            label.textColor = .main(.main2)
             label.font = .offroad(style: .iosSubtitle2Bold)
             label.textAlignment = .left
         }

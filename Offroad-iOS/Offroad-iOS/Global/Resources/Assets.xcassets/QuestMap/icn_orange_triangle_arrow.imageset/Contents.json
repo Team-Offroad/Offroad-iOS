@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "icn_orange_triangle_arrow.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
