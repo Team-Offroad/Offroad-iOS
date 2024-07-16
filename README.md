@@ -84,7 +84,7 @@
 │   │   ├── ViewControllers
 │   │   ├── Views
 ├───├───├── Models
-│   ├── NicknameSetting
+│   ├── Nickname
 │   │   ├── ViewControllers
 │   │   ├── Views
 ├───├───├── Models
