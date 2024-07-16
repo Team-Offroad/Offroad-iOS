@@ -39,6 +39,7 @@
 		4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6CE2C456FBF007358DA /* UITabBar+.swift */; };
 		4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */; };
 		4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */; };
+		4E3BB6842C4737030076105C /* PlaceInfoPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3BB6832C4737030076105C /* PlaceInfoPopupViewController.swift */; };
 		4E3F009E2C40D20800B9A31A /* OffroadTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */; };
 		4E416CE82C45DBE200CF6AB4 /* OffroadPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */; };
 		4E59A11C2C4228C500B548C6 /* AVCameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */; };
@@ -179,6 +180,7 @@
 		4E37B6CE2C456FBF007358DA /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterView.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/View/CompleteChoosingCharacterView.swift"; sourceTree = SOURCE_ROOT; };
 		4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterViewController.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/ViewController/CompleteChoosingCharacterViewController.swift"; sourceTree = SOURCE_ROOT; };
+		4E3BB6832C4737030076105C /* PlaceInfoPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoPopupViewController.swift; sourceTree = "<group>"; };
 		4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarController.swift; sourceTree = "<group>"; };
 		4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadPlace.swift; sourceTree = "<group>"; };
 		4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCameraPreview.swift; sourceTree = "<group>"; };
@@ -717,6 +719,7 @@
 			children = (
 				4E1E94162C3AC27000A7B08A /* QuestMapViewController.swift */,
 				4E1E941A2C3AC37600A7B08A /* QuestMapNavigationController.swift */,
+				4E3BB6832C4737030076105C /* PlaceInfoPopupViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1592,6 +1595,7 @@
 				4E1E94132C398C4200A7B08A /* String+.swift in Sources */,
 				D0E7965B2C455118005B47A5 /* EmblemService.swift in Sources */,
 				D0E7964C2C4539FC005B47A5 /* RegisteredPlaceResponseDTO.swift in Sources */,
+				4E3BB6842C4737030076105C /* PlaceInfoPopupViewController.swift in Sources */,
 				8792D0202C3E873C002051AC /* ChoosingCharacterViewController.swift in Sources */,
 				4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */,
 				8792D01E2C3E872D002051AC /* ChoosingCharacterView.swift in Sources */,

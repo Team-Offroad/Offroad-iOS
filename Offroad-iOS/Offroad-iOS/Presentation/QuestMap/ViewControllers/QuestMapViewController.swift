@@ -180,7 +180,6 @@ extension QuestMapViewController {
             print(marker.placeInfo.shortIntroduction)
             print(marker.placeInfo.address)
             print(marker.placeInfo.visitCount)
-            
             return true
         }
     }

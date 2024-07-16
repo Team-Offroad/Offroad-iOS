@@ -102,6 +102,7 @@ extension QuestMapView {
             button.clipsToBounds = true
             button.layer.cornerRadius = 5.5
             button.layer.borderWidth = 1
+            button.layer.borderColor = UIColor.grayscale(.gray200).cgColor
             button.titleLabel?.font = UIFont.pretendardFont(ofSize: 13.2, weight: .medium)
         }
         
