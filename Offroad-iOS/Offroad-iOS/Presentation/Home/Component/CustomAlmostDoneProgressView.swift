@@ -58,6 +58,9 @@ extension CustomAlmostDoneProgressView {
         progressPath.move(to: CGPoint(x: bounds.minX, y: bounds.midY))
         progressPath.addLine(to: CGPoint(x: endPointX, y: bounds.midY))
         
+        if progressValue == 0 {
+            progressLayer.lineCap = .butt
+        }
         progressLayer.path = progressPath.cgPath
     }
 }
