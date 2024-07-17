@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Kingfisher
 import SnapKit
 import Then
 
@@ -29,10 +30,10 @@ final class CompleteChoosingCharacterView: UIView {
     
     private let characterView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(resource: .imgCompleteCharacterBrown)
+        $0.image = UIImage(resource: .imgCompleteCharacter)
     }
     
-    private let startButton = StateToggleButton(state: .isEnabled, title: "모험 시작하기")
+    let startButton = StateToggleButton(state: .isEnabled, title: "모험 시작하기")
     
     // MARK: - Life Cycle
     
@@ -56,8 +57,8 @@ extension CompleteChoosingCharacterView {
     private func setupHierarchy() {
         addSubviews(
             backgroundView,
-            mainLabel,
             characterView,
+            mainLabel,
             startButton
         )
     }
@@ -78,14 +79,21 @@ extension CompleteChoosingCharacterView {
         }
         
         characterView.snp.makeConstraints { make in
-            make.bottom.equalTo(safeAreaLayoutGuide).inset(148)
-            make.horizontalEdges.equalToSuperview().inset(133)
+            make.top.equalToSuperview()
+            make.centerX.equalToSuperview()
         }
         
         startButton.snp.makeConstraints{ make in
             make.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide).inset(24)
             make.height.equalTo(54)
         }
+    }
+    
+    //MARK: - Func
+    
+    func setCharacterImage(imageURL: String) {
+        let url = URL(string: imageURL)
+        characterView.kf.setImage(with: url)
     }
 }
 

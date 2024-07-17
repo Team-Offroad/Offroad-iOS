@@ -12,11 +12,21 @@ final class ChoosingCharacterPopupViewController: UIViewController {
     //MARK: - Properties
     
     private let rootView = ChoosingCharacterPopupView()
+    
     private var myCharacterName = String()
     private var myCharacterID = Int()
-    
-//    weak var delegate: selectedTitleProtocol?
-    
+    private var myCharacterImage = String() {
+        didSet {
+            let completeChoosingCharacterViewController = CompleteChoosingCharacterViewController(characterImage: myCharacterImage)
+            completeChoosingCharacterViewController.modalTransitionStyle = .crossDissolve
+            completeChoosingCharacterViewController.modalPresentationStyle = .fullScreen
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
+                self.present(completeChoosingCharacterViewController, animated: true)
+            }
+        }
+    }
+        
     // MARK: - Life Cycle
     
     init(characterName: String, characterID: Int) {
@@ -67,23 +77,16 @@ extension ChoosingCharacterPopupViewController {
     private func yesButtonTapped() {
         print("yesButtonTapped")
         
-//        postCharacterID()
+        postCharacterID()
         rootView.dismissPopupView()
-        
-        let completeChoosingCharacterViewController = CompleteChoosingCharacterViewController()
-        completeChoosingCharacterViewController.modalTransitionStyle = .crossDissolve
-        completeChoosingCharacterViewController.modalPresentationStyle = .fullScreen
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
-            self.present(completeChoosingCharacterViewController, animated: true)
-        }
     }
     
     private func postCharacterID() {
         NetworkService.shared.characterService.postChoosingCharacter(parameter: myCharacterID) { response in
             switch response {
-            case .success:
-                print("캐릭터 선택 성공!!!!!!!!!")
+            case .success(let data):
+                
+                self.myCharacterImage = data?.data.characterImageUrl ?? ""
             default:
                 break
             }

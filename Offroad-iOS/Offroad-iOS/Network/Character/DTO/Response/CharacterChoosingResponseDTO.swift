@@ -9,5 +9,9 @@ import Foundation
 
 struct CharacterChoosingResponseDTO: Codable {
     let message: String
-    var data: Data? = nil
+    let data: CharacterImage
+}
+
+struct CharacterImage: Codable {
+    let characterImageUrl: String
 }
