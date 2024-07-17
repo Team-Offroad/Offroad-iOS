@@ -41,6 +41,7 @@ final class BirthView: UIView {
         $0.layer.borderWidth = 1.0
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        $0.textColor = UIColor.main(.main2)
         $0.textAlignment = .center
         $0.attributedPlaceholder = NSAttributedString(
             string: "YYYY",
@@ -54,6 +55,7 @@ final class BirthView: UIView {
         $0.layer.borderWidth = 1.0
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        $0.textColor = UIColor.main(.main2)
         $0.textAlignment = .center
         $0.attributedPlaceholder = NSAttributedString(
             string: "MM",
@@ -67,6 +69,7 @@ final class BirthView: UIView {
         $0.layer.borderWidth = 1.0
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        $0.textColor = UIColor.main(.main2)
         $0.textAlignment = .center
         $0.attributedPlaceholder = NSAttributedString(
             string: "DD",
