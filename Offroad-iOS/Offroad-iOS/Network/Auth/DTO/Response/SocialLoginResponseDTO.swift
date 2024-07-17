@@ -9,7 +9,12 @@ import Foundation
 
 struct SocialLoginResponseDTO: Codable {
     let message: String
-    let data: TokenData
+    let data: LoginData
+}
+
+struct LoginData: Codable {
+    let tokens: TokenData
+    let isAlreadyExist: Bool
 }
 
 struct TokenData: Codable {
