@@ -171,7 +171,7 @@ extension QuestMapViewController {
     }
     
     private func setupMarkerTouchHandler(marker: OffroadNMFMarker) {
-        marker.touchHandler = { markerOverlay in
+        marker.touchHandler = { [weak self] markerOverlay in
             print("marker tapped")
             print("lat: \(marker.position.lat), lng: \(marker.position.lng)")
             print(marker.placeInfo.name)
@@ -180,6 +180,13 @@ extension QuestMapViewController {
             print(marker.placeInfo.shortIntroduction)
             print(marker.placeInfo.address)
             print(marker.placeInfo.visitCount)
+            
+            let popupViewController = PlaceInfoPopupViewController()
+            popupViewController.modalPresentationStyle = .overCurrentContext
+            popupViewController.configurePopupView(with: marker.placeInfo)
+            popupViewController.superViewControlller = self?.navigationController
+            self?.present(popupViewController, animated: false)
+            
             return true
         }
     }

@@ -13,6 +13,9 @@ import Then
 class PlaceInfoPopupViewController: UIViewController {
     
     let rootView = PlaceInfoPopupView()
+    var superViewControlller: UIViewController? = nil
+    
+//    let superView
     
     override func loadView() {
         view = rootView
@@ -25,17 +28,40 @@ class PlaceInfoPopupViewController: UIViewController {
         setupButtonsAction()
     }
     
-    
-    
 }
 
 
 extension PlaceInfoPopupViewController {
     
+    //MARK: - @objc Func
+    
+    @objc private func closePopupView() {
+        print(#function)
+        dismiss(animated: false)
+    }
+    
+    @objc private func explore() {
+        print(#function)
+        
+        guard let navigationController = superViewControlller as? UINavigationController else {
+            print("not navicon")
+            return
+        }
+        navigationController.pushViewController(QuestQRViewController(), animated: true)
+        self.dismiss(animated: false)
+    }
+    
     //MARK: - Private Func
     
     private func setupButtonsAction() {
-        
+        rootView.closeButton.addTarget(self, action: #selector(closePopupView), for: .touchUpInside)
+        rootView.exploreButton.addTarget(self, action: #selector(explore), for: .touchUpInside)
+    }
+    
+    //MARK: - Func
+    
+    func configurePopupView(with placeInfo: RegisteredPlaceInfo) {
+        rootView.configurePopupView(with: placeInfo)
     }
     
 }

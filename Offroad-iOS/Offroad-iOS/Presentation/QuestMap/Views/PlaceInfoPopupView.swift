@@ -13,14 +13,14 @@ class PlaceInfoPopupView: UIView {
     
     let popupView = UIView()
     
-    let offroadLogoImageView = UIImageView(image: .icnOffroadlogoPopupView)
-    let nameLabel = UILabel()
-    let nameAndImageStackView = UIStackView()
+    private let offroadLogoImageView = UIImageView(image: .icnOffroadlogoPopupView)
+    private let nameLabel = UILabel()
+    private let nameAndImageStackView = UIStackView()
     
-    let placeCategoryImageView = UIImageView()
-    let shortDescriptionLabel = UILabel()
-    let addresssLabel = UILabel()
-    let visitCountLabel = UILabel()
+    private let placeCategoryImageView = UIImageView()
+    private let shortDescriptionLabel = UILabel()
+    private let addresssLabel = UILabel()
+    private let visitCountLabel = UILabel()
     
     let exploreButton = UIButton()
     let closeButton = UIButton()
@@ -57,10 +57,11 @@ extension PlaceInfoPopupView {
             exploreButton,
             closeButton
         )
+        
+        addSubview(popupView)
     }
     
     private func setupLayout() {
-        
         nameAndImageStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(17)
             make.leading.equalToSuperview().inset(15)
@@ -68,12 +69,12 @@ extension PlaceInfoPopupView {
         
         shortDescriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(nameAndImageStackView.snp.bottom).offset(10)
-            make.leading.equalToSuperview().inset(15)
+            make.horizontalEdges.equalToSuperview().inset(15)
         }
         
         addresssLabel.snp.makeConstraints { make in
             make.top.equalTo(shortDescriptionLabel.snp.bottom).offset(4)
-            make.leading.equalToSuperview().inset(15)
+            make.horizontalEdges.equalToSuperview().inset(15)
             
         }
         
@@ -96,13 +97,24 @@ extension PlaceInfoPopupView {
         
         popupView.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
+            make.width.equalTo(245)
         }
     }
     
     //MARK: - Private Func
     
     private func setupStyle() {
-        popupView.backgroundColor = .main(.main3)
+        backgroundColor = .blackOpacity(.black15)
+        
+        popupView.do { view in
+            view.backgroundColor = .main(.main3)
+            view.roundCorners(cornerRadius: 10)
+        }
+        
+        offroadLogoImageView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
         
         nameLabel.do { label in
             label.font = .offroad(style: .iosTooltipTitle)
@@ -119,6 +131,7 @@ extension PlaceInfoPopupView {
         
         shortDescriptionLabel.do { label in
             label.font = .offroad(style: .iosTextContents)
+            label.numberOfLines = 0
             label.textColor = .main(.main2)
             label.textAlignment = .left
         }
@@ -137,12 +150,24 @@ extension PlaceInfoPopupView {
         
         exploreButton.do { button in
             button.setTitle("탐험하기", for: .normal)
-            button.setImage(.btnPopupClose, for: .normal)
             button.titleLabel?.font = .offroad(style: .iosBtnSmall)
             button.setTitleColor(.primary(.white), for: .normal)
             button.backgroundColor = .sub(.sub)
             button.roundCorners(cornerRadius: 5)
         }
+        
+        closeButton.do { button in
+            button.setImage(.btnPopupClose, for: .normal)
+        }
+    }
+    
+    //MARK: - Func
+    
+    func configurePopupView(with placeInfo: RegisteredPlaceInfo) {
+        self.nameLabel.text = placeInfo.name
+        self.shortDescriptionLabel.text = placeInfo.shortIntroduction
+        self.addresssLabel.text = placeInfo.address
+        self.visitCountLabel.text = "탐험횟수:\(placeInfo.visitCount)"
     }
     
 }
