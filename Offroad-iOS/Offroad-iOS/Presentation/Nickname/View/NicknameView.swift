@@ -30,7 +30,6 @@ final class NicknameView: UIView {
     
     var textField = UITextField().then {
         $0.textColor = UIColor.main(.main2)
-        $0.frame.size.height = 48
         $0.backgroundColor = UIColor.main(.main3)
         $0.addPadding(left: 13,right: 13)
         $0.layer.borderWidth = 1.0
@@ -120,7 +119,7 @@ extension NicknameView {
         
         textFieldStackView.snp.makeConstraints { make in
             make.top.equalTo(subLabel.snp.bottom).offset(64)
-            make.leading.trailing.equalToSuperview().inset(24)
+            make.horizontalEdges.equalToSuperview().inset(24)
             make.height.equalTo(48)
         }
         
@@ -133,6 +132,7 @@ extension NicknameView {
         checkButton.snp.makeConstraints { make in
             make.trailing.equalTo(textFieldStackView)
             make.height.equalTo(48)
+            make.width.equalTo(90)
         }
         
         notionLabel.snp.makeConstraints { make in

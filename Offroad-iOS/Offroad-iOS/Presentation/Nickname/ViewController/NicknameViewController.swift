@@ -113,5 +113,18 @@ extension NicknameViewController: UITextFieldDelegate {
         return true
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+           // 백스페이스 처리
+           if let char = string.cString(using: String.Encoding.utf8) {
+                  let isBackSpace = strcmp(char, "\\b")
+                  if isBackSpace == -92 {
+                      return true
+                  }
+            }
+            //텍스트필드 8글자로 제한
+            guard textField.text!.count < 8 else { return false }
+            return true
+        }
+    
 }
 
