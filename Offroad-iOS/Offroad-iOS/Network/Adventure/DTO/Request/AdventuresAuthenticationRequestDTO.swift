@@ -10,4 +10,6 @@ import Foundation
 struct AdventuresAuthenticationRequestDTO: Codable {
     let placeId: Int
     let qrCode: String
+    let latitude: Double
+    let longitude: Double
 }

@@ -15,6 +15,8 @@ class QuestQRViewController: UIViewController {
     
     //MARK: - Properties
     
+    let networkService = NetworkService.shared
+    let placeInformation: RegisteredPlaceInfo
     let metadataOutput = AVCaptureMetadataOutput()
     
     var captureSession = AVCaptureSession()
@@ -36,6 +38,14 @@ class QuestQRViewController: UIViewController {
     let questQRView = QuestQRView()
     
     //MARK: - Life Cycle
+    
+    init(placeInformation: RegisteredPlaceInfo) {
+        self.placeInformation = placeInformation
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = questQRView
@@ -158,8 +168,15 @@ extension QuestQRViewController: AVCaptureMetadataOutputObjectsDelegate {
             guard let stringValue = readableObject.stringValue else { return }
             print("QR:", stringValue)
             
+            let adventureAuthDTO = AdventuresAuthenticationRequestDTO(
+                placeId: <#T##Int#>,
+                qrCode: stringValue,
+                latitude: <#T##Double#>,
+                longitude: <#T##Double#>
+            )
+            networkService.adventureService.authenticateAdventure(adventureAuthDTO: <#T##AdventuresAuthenticationRequestDTO#>, completion: <#T##(NetworkResult<AdventuresAuthenticationRequestDTO>) -> ()#>)
+            
             DispatchQueue.main.async { [weak self] in
-                
                 let alertCon = UIAlertController(title: "QR코드 인식됨", message: "URL: \(stringValue)", preferredStyle: .actionSheet)
                 let okAction = UIAlertAction(title: "넵!", style: .default) { [weak self] _ in
                     DispatchQueue.global().async {
@@ -167,6 +184,9 @@ extension QuestQRViewController: AVCaptureMetadataOutputObjectsDelegate {
                     }
                 }
                 alertCon.addAction(okAction)
+                
+                
+                
                 
                 self?.tabBarController?.present(alertCon, animated: true)
             }

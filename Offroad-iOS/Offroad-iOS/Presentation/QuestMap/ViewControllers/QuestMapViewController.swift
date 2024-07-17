@@ -47,12 +47,12 @@ extension QuestMapViewController {
     
     @objc private func pushQuestListViewController() {
         print(#function)
-        navigationController?.pushViewController(QuestQRViewController(), animated: true)
+        //navigationController?.pushViewController(QuestQRViewController(), animated: true)
     }
     
     @objc private func pushPlaceListViewController() {
         print(#function)
-        navigationController?.pushViewController(QuestQRViewController(), animated: true)
+        //navigationController?.pushViewController(QuestQRViewController(), animated: true)
     }
     
     //MARK: - Private Func
