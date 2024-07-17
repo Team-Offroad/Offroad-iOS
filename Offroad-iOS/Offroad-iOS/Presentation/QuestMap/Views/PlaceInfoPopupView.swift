@@ -43,6 +43,8 @@ class PlaceInfoPopupView: UIView {
 
 extension PlaceInfoPopupView {
     
+    //MARK: - Layout
+    
     private func setupHierarchy() {
         nameAndImageStackView.addArrangedSubviews(nameLabel, placeCategoryImageView)
         
@@ -56,6 +58,48 @@ extension PlaceInfoPopupView {
             closeButton
         )
     }
+    
+    private func setupLayout() {
+        
+        nameAndImageStackView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(17)
+            make.leading.equalToSuperview().inset(15)
+        }
+        
+        shortDescriptionLabel.snp.makeConstraints { make in
+            make.top.equalTo(nameAndImageStackView.snp.bottom).offset(10)
+            make.leading.equalToSuperview().inset(15)
+        }
+        
+        addresssLabel.snp.makeConstraints { make in
+            make.top.equalTo(shortDescriptionLabel.snp.bottom).offset(4)
+            make.leading.equalToSuperview().inset(15)
+            
+        }
+        
+        visitCountLabel.snp.makeConstraints { make in
+            make.top.equalTo(addresssLabel.snp.bottom).offset(10)
+            make.leading.equalToSuperview().inset(15)
+        }
+        
+        exploreButton.snp.makeConstraints { make in
+            make.top.equalTo(visitCountLabel.snp.bottom).offset(15)
+            make.horizontalEdges.equalToSuperview().inset(14)
+            make.bottom.equalToSuperview().inset(14)
+        }
+        
+        closeButton.snp.makeConstraints { make in
+            make.top.trailing.equalToSuperview()
+            make.width.height.equalTo(48)
+        }
+        
+        
+        popupView.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+    }
+    
+    //MARK: - Private Func
     
     private func setupStyle() {
         popupView.backgroundColor = .main(.main3)
@@ -98,46 +142,6 @@ extension PlaceInfoPopupView {
             button.setTitleColor(.primary(.white), for: .normal)
             button.backgroundColor = .sub(.sub)
             button.roundCorners(cornerRadius: 5)
-        }
-    }
-    
-    private func setupLayout() {
-        
-        nameAndImageStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(17)
-            make.leading.equalToSuperview().inset(15)
-        }
-        
-        shortDescriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameAndImageStackView.snp.bottom).offset(10)
-            make.leading.equalToSuperview().inset(15)
-        }
-        
-        addresssLabel.snp.makeConstraints { make in
-            make.top.equalTo(shortDescriptionLabel.snp.bottom).offset(4)
-            make.leading.equalToSuperview().inset(15)
-            
-        }
-        
-        visitCountLabel.snp.makeConstraints { make in
-            make.top.equalTo(addresssLabel.snp.bottom).offset(10)
-            make.leading.equalToSuperview().inset(15)
-        }
-        
-        exploreButton.snp.makeConstraints { make in
-            make.top.equalTo(visitCountLabel.snp.bottom).offset(15)
-            make.horizontalEdges.equalToSuperview().inset(14)
-            make.bottom.equalToSuperview().inset(14)
-        }
-        
-        closeButton.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview()
-            make.width.height.equalTo(48)
-        }
-        
-        
-        popupView.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
         }
     }
     

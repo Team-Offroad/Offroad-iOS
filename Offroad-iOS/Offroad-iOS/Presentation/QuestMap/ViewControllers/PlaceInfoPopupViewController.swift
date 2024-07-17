@@ -14,4 +14,28 @@ class PlaceInfoPopupViewController: UIViewController {
     
     let rootView = PlaceInfoPopupView()
     
+    override func loadView() {
+        view = rootView
+        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupButtonsAction()
+    }
+    
+    
+    
+}
+
+
+extension PlaceInfoPopupViewController {
+    
+    //MARK: - Private Func
+    
+    private func setupButtonsAction() {
+        
+    }
+    
 }
