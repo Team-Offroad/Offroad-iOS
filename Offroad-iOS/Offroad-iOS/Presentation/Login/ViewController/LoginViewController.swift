@@ -83,6 +83,7 @@ extension LoginViewController {
                 UserDefaults.standard.set(accessToken, forKey: "AccessToken")
                 UserDefaults.standard.set(refreshToken, forKey: "RefreshToken")
                 
+
                 let nicknameViewController = NicknameViewController()
                 let navigationController = UINavigationController(rootViewController: nicknameViewController)
                 navigationController.modalTransitionStyle = .crossDissolve
