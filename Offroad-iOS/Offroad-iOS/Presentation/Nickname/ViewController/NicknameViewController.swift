@@ -31,6 +31,8 @@ final class NicknameViewController: UIViewController {
         setupTarget()
         setupDelegate()
         view.backgroundColor = UIColor.main(.main1)
+        
+        self.modalPresentationStyle = .fullScreen
     }
     
 }

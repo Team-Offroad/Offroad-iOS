@@ -48,6 +48,8 @@ final class GenderViewController: UIViewController {
         super.viewDidLoad()
         
         setupAddTarget()
+        
+        self.modalPresentationStyle = .fullScreen
     }
     
     private func presentToNextVC() {
@@ -63,6 +65,9 @@ final class GenderViewController: UIViewController {
         genderView.femaleButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         genderView.etcButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         genderView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: genderView.skipButton)
+        genderView.skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
     }
 }
 
@@ -104,6 +109,11 @@ extension GenderViewController {
                 return
             }
         }
+    }
+    
+    @objc func skipButtonTapped() {
+        let choosingCharacterViewController = ChoosingCharacterViewController()
+        self.navigationController?.pushViewController(choosingCharacterViewController, animated: true)
     }
 }
 

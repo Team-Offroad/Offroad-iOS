@@ -44,6 +44,7 @@ final class BirthViewController: UIViewController {
         setupAddTarget()
         
         self.hideKeyboardWhenTappedAround() 
+        self.modalPresentationStyle = .fullScreen
     }
     
     //MARK: - Private Method
@@ -57,6 +58,9 @@ final class BirthViewController: UIViewController {
         birthView.monthTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: birthView.skipButton)
+        birthView.skipButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
     }
 }
 
