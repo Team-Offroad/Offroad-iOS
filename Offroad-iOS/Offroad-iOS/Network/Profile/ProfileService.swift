@@ -10,23 +10,14 @@ import Foundation
 import Moya
 
 protocol ProfileServiceProtocol {
-    func updateProfile(nickname: String, year: Int, month: Int, day: Int, gender: String, completion: @escaping (NetworkResult<ProfileUpdateRequestDTO>) -> ())
+    func updateProfile(body: ProfileUpdateRequestDTO, completion: @escaping (NetworkResult<ProfileUpdateRequestDTO>) -> ())
 }
 
-final class ProfileService: BaseService, ProfileServiceProtocol {    
-
+final class ProfileService: BaseService, ProfileServiceProtocol {
     let provider = MoyaProvider<ProfileAPI>(plugins: [MoyaPlugin()])
     
-    func updateProfile(
-        nickname: String,
-        year: Int,
-        month: Int,
-        day: Int,
-        gender: String,
-        completion: @escaping (NetworkResult<ProfileUpdateRequestDTO>) -> ()
-    ) {
-        
-        provider.request(.updateProfile(nickname: nickname, year: year, month: month, day: day, gender: gender)) { result in
+    func updateProfile(body: ProfileUpdateRequestDTO, completion: @escaping (NetworkResult<ProfileUpdateRequestDTO>) -> ()) {
+        provider.request(.updateProfile(body: body)) { result in
             switch result {
             case .success(let response):
                 let networkResult: NetworkResult<ProfileUpdateRequestDTO> = self.fetchNetworkResult(
@@ -39,5 +30,4 @@ final class ProfileService: BaseService, ProfileServiceProtocol {
             }
         }
     }
-    
 }

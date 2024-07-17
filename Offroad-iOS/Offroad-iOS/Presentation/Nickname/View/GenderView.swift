@@ -67,7 +67,7 @@ final class GenderView: UIView {
         $0.layer.cornerRadius = 5
     }
     
-    private let nextButton = UIButton().then {
+    let nextButton = UIButton().then {
         $0.setTitle("다음", for: .normal)
         $0.titleLabel?.textAlignment = .center
         $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)

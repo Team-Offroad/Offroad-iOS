@@ -15,10 +15,7 @@ final class BirthViewController: UIViewController {
     //MARK: - Properties
     
     private let birthView = BirthView()
-    
-    let profileUpdate = ProfileUpdateRequestDTO(nickName: "xxx", year: 1999, month: 2, day: 22, gender: .MALE)
-    func postUserInfo(userInfo: userInfo)
-
+    private var nickname: String = ""
     
     //MARK: - Life Cycle
     
@@ -28,6 +25,8 @@ final class BirthViewController: UIViewController {
     
     convenience init(nickname: String) {
         self.init(nibName: nil, bundle: nil)
+        
+        self.nickname = nickname
     }
     
     required init?(coder: NSCoder) {
@@ -43,6 +42,8 @@ final class BirthViewController: UIViewController {
         
         setupDelegate()
         setupAddTarget()
+        
+        self.hideKeyboardWhenTappedAround() 
     }
     
     //MARK: - Private Method
@@ -55,6 +56,7 @@ final class BirthViewController: UIViewController {
         birthView.yearTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.monthTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
     }
 }
 
@@ -91,7 +93,7 @@ extension BirthViewController {
     }
     
     @objc func buttonToGenderVC(sender: UIButton) {
-        let nextVC = GenderViewController(birthYear: birthView.yearTextField.text!, birthMonth: birthView.monthTextField.text!, birthDay: birthView.dayTextField.text!)
+        let nextVC = GenderViewController(nickname: nickname, birthYear: birthView.yearTextField.text ?? "", birthMonth: birthView.monthTextField.text ?? "", birthDay: birthView.dayTextField.text ?? "")
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
@@ -116,5 +118,22 @@ extension BirthViewController: UITextFieldDelegate {
         birthView.yearTextField.delegate = self
         birthView.monthTextField.delegate = self
         birthView.dayTextField.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

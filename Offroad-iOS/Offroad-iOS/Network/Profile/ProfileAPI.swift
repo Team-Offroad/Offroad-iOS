@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 enum ProfileAPI {
-    case updateProfile(nickname: String, year: Int, month: Int, day: Int, gender: String)
+    case updateProfile(body: ProfileUpdateRequestDTO)
 }
 
 extension ProfileAPI: BaseTargetType {
@@ -33,23 +33,8 @@ extension ProfileAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .updateProfile(
-            let nickname,
-            let year,
-            let month,
-            let day,
-            let gender
-        ):
-            return .requestParameters(
-                parameters: [
-                    "nickname": nickname,
-                    "year": year,
-                    "month": month,
-                    "day": day,
-                    "gender": gender
-                ],
-                encoding: URLEncoding.queryString
-            )
+        case .updateProfile(let profileUpdateRequestDTO):
+            return .requestJSONEncodable(profileUpdateRequestDTO)
         }
     }
 }

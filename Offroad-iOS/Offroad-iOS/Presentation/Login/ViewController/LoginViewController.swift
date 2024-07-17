@@ -74,7 +74,7 @@ extension LoginViewController {
     }
     
     private func postTokenForAppleLogin(request: SocialLoginRequestDTO) {
-        NetworkService.shared.authService.postSocialLogin(body: request) { response in
+        NetworkService.shared.authService.postSocialLogin(body: request) { [weak self] response in
             switch response {
             case .success(let data):
                 let accessToken = data?.data.accessToken ?? ""
@@ -82,6 +82,8 @@ extension LoginViewController {
                 
                 UserDefaults.standard.set(accessToken, forKey: "AccessToken")
                 UserDefaults.standard.set(refreshToken, forKey: "RefreshToken")
+                
+                self?.presentToNextVC()
             default:
                 break
             }

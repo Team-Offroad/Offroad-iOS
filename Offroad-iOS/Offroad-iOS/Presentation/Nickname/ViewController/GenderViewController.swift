@@ -15,15 +15,25 @@ final class GenderViewController: UIViewController {
     //MARK: - Properties
     
     private let genderView = GenderView()
+    private var nickname: String = ""
+    private var birthYear: Int = 0
+    private var birthMonth: Int = 0
+    private var birthDay: Int = 0
     
     //MARK: - Life Cycle
+    
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
     }
     
-    convenience init(birthYear: String, birthMonth: String, birthDay: String) {
+    convenience init(nickname: String, birthYear: String, birthMonth: String, birthDay: String) {
         self.init(nibName: nil, bundle: nil)
+        
+        self.nickname = nickname
+        self.birthYear = Int(birthYear) ?? 0
+        self.birthMonth = Int(birthMonth) ?? 0
+        self.birthDay = Int(birthDay) ?? 0
     }
     
     required init?(coder: NSCoder) {
@@ -52,6 +62,7 @@ final class GenderViewController: UIViewController {
         genderView.maleButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         genderView.femaleButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         genderView.etcButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+        genderView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
 }
 
@@ -67,6 +78,27 @@ extension GenderViewController {
             } else {
                 button.isSelected = false
                 button.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+            }
+        }
+    }
+    
+    @objc func nextButtonTapped() {
+        let gender: String
+        if genderView.maleButton.isSelected {
+            gender = "MALE"
+        } else if genderView.femaleButton.isSelected {
+            gender = "FEMALE"
+        } else {
+            gender = "OTHER"
+        }
+        
+        ProfileService().updateProfile(body: ProfileUpdateRequestDTO(nickName: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender)) { result in
+            switch result {
+            case .success(let response):
+                print("Profile updated: \(response)")
+                // 성공 처리
+            default:
+                return
             }
         }
     }
