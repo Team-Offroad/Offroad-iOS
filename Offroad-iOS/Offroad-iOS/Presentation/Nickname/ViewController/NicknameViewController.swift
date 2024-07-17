@@ -41,16 +41,21 @@ extension NicknameViewController {
     
     @objc private func textFieldDidChange() {
         let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
-        if nicknameView.textField.isEnabled == true {
-            nicknameView.textField.layer.borderColor = UIColor.sub(.sub).cgColor
-        }
+        
         nicknameView.checkButton.isEnabled = !isTextFieldEmpty
         nicknameView.checkButton.setTitleColor(isTextFieldEmpty ? UIColor.grayscale(.gray100) : UIColor.primary(.white), for: .normal)
         nicknameView.checkButton.backgroundColor = isTextFieldEmpty ? UIColor.main(.main3) : UIColor.primary(.black)
+        
+        if isTextFieldEmpty {
+            nicknameView.textField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        } else {
+            nicknameView.textField.layer.borderColor = UIColor.sub(.sub).cgColor
+        }
     }
     // 화면 터치 시 키보드 내려가게 하는 코드
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+        
     }
     
     @objc private func checkButtonTapped() {
@@ -83,7 +88,7 @@ extension NicknameViewController {
         nicknameView.checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
         nicknameView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         nicknameView.nextButton.addTarget(self, action: #selector(buttonToBirthVC), for: .touchUpInside)
-
+        
     }
     
     private func setupDelegate() {
@@ -114,17 +119,17 @@ extension NicknameViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-           // 백스페이스 처리
-           if let char = string.cString(using: String.Encoding.utf8) {
-                  let isBackSpace = strcmp(char, "\\b")
-                  if isBackSpace == -92 {
-                      return true
-                  }
+        // 백스페이스 처리
+        if let char = string.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if isBackSpace == -92 {
+                return true
             }
-            //텍스트필드 8글자로 제한
-            guard textField.text!.count < 8 else { return false }
-            return true
         }
+        //텍스트필드 8글자로 제한
+        guard textField.text!.count < 8 else { return false }
+        return true
+    }
     
 }
 
