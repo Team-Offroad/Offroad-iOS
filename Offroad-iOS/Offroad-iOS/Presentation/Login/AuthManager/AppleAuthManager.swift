@@ -33,7 +33,7 @@ extension AppleAuthManager {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
         
         let user = UserModel(userIdentifier: appleIDCredential.user,
-                             name: (appleIDCredential.fullName?.givenName ?? "") + (appleIDCredential.fullName?.familyName ?? ""),
+                             name: (appleIDCredential.fullName?.familyName ?? "") + (appleIDCredential.fullName?.givenName ?? ""),
                              email: appleIDCredential.email)
         
         let userIdentityToken = appleIDCredential.identityToken ?? Data()
