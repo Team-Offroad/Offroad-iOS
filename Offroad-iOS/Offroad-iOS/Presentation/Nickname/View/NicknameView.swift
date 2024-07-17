@@ -70,8 +70,10 @@ final class NicknameView: UIView {
         $0.setTitle("다음", for: .normal)
         $0.titleLabel?.textAlignment = .center
         $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
-        $0.setTitleColor(UIColor.main(.main1), for: .normal)
-        $0.backgroundColor = UIColor.main(.main2)
+        $0.setTitleColor(UIColor.grayscale(.gray400), for: .normal)
+        $0.setBackgroundColor(UIColor.blackOpacity(.black25), for: .disabled)
+        $0.layer.borderWidth = 1.0
+        $0.layer.borderColor = UIColor.grayscale(.gray400).cgColor
         $0.layer.cornerRadius = 5
     }
     

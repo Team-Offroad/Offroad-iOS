@@ -69,19 +69,7 @@ extension BirthViewController {
     //MARK: - @objc Method
     
     @objc private func textFieldDidChange(_ sender: UITextField) {
-        if sender == birthView.yearTextField {
-            birthView.yearTextField.layer.borderColor = UIColor.sub(.sub).cgColor
-            birthView.monthTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-            birthView.dayTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-        } else if sender == birthView.monthTextField {
-            birthView.yearTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-            birthView.monthTextField.layer.borderColor = UIColor.sub(.sub).cgColor
-            birthView.dayTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-        } else if sender == birthView.dayTextField {
-            birthView.yearTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-            birthView.monthTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-            birthView.dayTextField.layer.borderColor = UIColor.sub(.sub).cgColor
-        }
+        updateTextFieldBorderColors()
     }
     
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
@@ -99,6 +87,26 @@ extension BirthViewController {
     @objc func buttonToGenderVC(sender: UIButton) {
         let nextVC = GenderViewController(nickname: nickname, birthYear: birthView.yearTextField.text ?? "", birthMonth: birthView.monthTextField.text ?? "", birthDay: birthView.dayTextField.text ?? "")
         self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    //MARK: - Private Func
+    
+    private func updateTextFieldBorderColors() {
+        let yearIsEmpty = birthView.yearTextField.text?.isEmpty ?? true
+        let monthIsEmpty = birthView.monthTextField.text?.isEmpty ?? true
+        let dayIsEmpty = birthView.dayTextField.text?.isEmpty ?? true
+        
+        updateBorderColor(for: birthView.yearTextField, isEmpty: yearIsEmpty)
+        updateBorderColor(for: birthView.monthTextField, isEmpty: monthIsEmpty)
+        updateBorderColor(for: birthView.dayTextField, isEmpty: dayIsEmpty)
+    }
+
+    private func updateBorderColor(for textField: UITextField, isEmpty: Bool) {
+        if isEmpty {
+            textField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        } else {
+            textField.layer.borderColor = UIColor.sub(.sub).cgColor
+        }
     }
     
     // 텍스트 필드 글자 수 제한

@@ -69,9 +69,16 @@ extension NicknameViewController {
                     self.nicknameView.notionLabel.text = "중복된 닉네임이에요. 다른 멋진 이름이 있으신가요?"
                     self.nicknameView.notionLabel.textColor = UIColor.primary(.error)
                 }
-                else if self.formError(self.nicknameView.textField.text ?? "") == false {
+                else if self.whetherDuplicate == false && self.formError(self.nicknameView.textField.text ?? "") == false {
                     self.nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 말씀해주세요."
                     self.nicknameView.notionLabel.textColor = UIColor.primary(.error)
+                }
+                else {
+                    self.nicknameView.notionLabel.text = "좋은 닉네임이에요!"
+                    self.nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
+                    self.nicknameView.nextButton.setBackgroundColor(UIColor.main(.main2), for: .normal)
+                    self.nicknameView.nextButton.layer.borderColor = UIColor.main(.main2).cgColor
+                    self.nicknameView.nextButton.setTitleColor(UIColor.main(.main1), for: .normal)
                 }
             default:
                 break
