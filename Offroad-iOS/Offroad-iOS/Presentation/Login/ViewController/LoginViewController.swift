@@ -83,23 +83,15 @@ extension LoginViewController {
                 UserDefaults.standard.set(accessToken, forKey: "AccessToken")
                 UserDefaults.standard.set(refreshToken, forKey: "RefreshToken")
                 
-                let choosingCharacterViewController = ChoosingCharacterViewController()
-                choosingCharacterViewController.modalTransitionStyle = .crossDissolve
-                choosingCharacterViewController.modalPresentationStyle = .fullScreen
-                
-                
-                self?.presentToNextVC()
+                let nicknameViewController = NicknameViewController()
+                let navigationController = UINavigationController(rootViewController: nicknameViewController)
+                navigationController.modalTransitionStyle = .crossDissolve
+                navigationController.modalPresentationStyle = .fullScreen
+                                
+                self?.present(navigationController, animated: true)
             default:
                 break
             }
         }
-    }
-    
-    private func presentToNextVC() {
-        // nickNameVC 가 보여지게 하고 싶다.
-        // 그런데 push도 하게 하고 싶다.
-        let nicknameViewController = NicknameViewController()
-        
-        present(UINavigationController(rootViewController: NicknameViewController()), animated: true)
     }
 }

@@ -10,17 +10,17 @@ import Foundation
 import Moya
 
 protocol ProfileServiceProtocol {
-    func updateProfile(body: ProfileUpdateRequestDTO, completion: @escaping (NetworkResult<ProfileUpdateRequestDTO>) -> ())
+    func updateProfile(body: ProfileUpdateRequestDTO, completion: @escaping (NetworkResult<ProfileUpdateResponseDTO>) -> ())
 }
 
 final class ProfileService: BaseService, ProfileServiceProtocol {
     let provider = MoyaProvider<ProfileAPI>(plugins: [MoyaPlugin()])
     
-    func updateProfile(body: ProfileUpdateRequestDTO, completion: @escaping (NetworkResult<ProfileUpdateRequestDTO>) -> ()) {
+    func updateProfile(body: ProfileUpdateRequestDTO, completion: @escaping (NetworkResult<ProfileUpdateResponseDTO>) -> ()) {
         provider.request(.updateProfile(body: body)) { result in
             switch result {
             case .success(let response):
-                let networkResult: NetworkResult<ProfileUpdateRequestDTO> = self.fetchNetworkResult(
+                let networkResult: NetworkResult<ProfileUpdateResponseDTO> = self.fetchNetworkResult(
                     statusCode: response.statusCode,
                     data: response.data
                 )

@@ -97,6 +97,9 @@ extension GenderViewController {
             case .success(let response):
                 print("Profile updated: \(response)")
                 // 성공 처리
+                
+                let choosingCharacterViewController = ChoosingCharacterViewController()
+                self.navigationController?.pushViewController(choosingCharacterViewController, animated: true)
             default:
                 return
             }
