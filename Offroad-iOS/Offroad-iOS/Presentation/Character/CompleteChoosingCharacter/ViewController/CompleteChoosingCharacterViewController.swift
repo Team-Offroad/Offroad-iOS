@@ -53,11 +53,11 @@ extension CompleteChoosingCharacterViewController {
     //MARK: - @objc Func
     
     @objc private func startButtonTapped() {
-        let homeViewController = HomeViewController()
-        homeViewController.modalTransitionStyle = .crossDissolve
-        homeViewController.modalPresentationStyle = .fullScreen
+        let offroadTabBarController = OffroadTabBarController()
+        offroadTabBarController.modalTransitionStyle = .crossDissolve
+        offroadTabBarController.modalPresentationStyle = .fullScreen
         
-        self.present(homeViewController, animated: true)
+        self.present(offroadTabBarController, animated: true)
     }
 }
 
