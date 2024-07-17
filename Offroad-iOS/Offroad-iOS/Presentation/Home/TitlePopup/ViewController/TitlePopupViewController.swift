@@ -61,7 +61,6 @@ extension TitlePopupViewController {
         
         delegate?.fetchTitleString(titleString: selectedTitleString)
         changeUserEmblem(emblemCode: selectedTitleCode)
-        self.dismiss(animated: false)
         rootView.dismissPopupView()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
             self.dismiss(animated: false)
@@ -71,7 +70,6 @@ extension TitlePopupViewController {
     private func closeButtonTapped() {
         print("closeButtonTapped")
         
-        self.dismiss(animated: false)
         rootView.dismissPopupView()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
             self.dismiss(animated: false)

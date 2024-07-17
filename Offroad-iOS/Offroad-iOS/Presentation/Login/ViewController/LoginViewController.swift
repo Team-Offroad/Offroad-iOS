@@ -82,6 +82,12 @@ extension LoginViewController {
                 
                 UserDefaults.standard.set(accessToken, forKey: "AccessToken")
                 UserDefaults.standard.set(refreshToken, forKey: "RefreshToken")
+                
+                let choosingCharacterViewController = ChoosingCharacterViewController()
+                choosingCharacterViewController.modalTransitionStyle = .crossDissolve
+                choosingCharacterViewController.modalPresentationStyle = .fullScreen
+                
+                self.present(choosingCharacterViewController, animated: true)
             default:
                 break
             }

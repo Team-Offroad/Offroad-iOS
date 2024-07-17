@@ -7,14 +7,17 @@
 
 import UIKit
 
+import Moya
 import SnapKit
 import Then
 
 final class NicknameViewController: UIViewController {
     
     //MARK: - Properties
-  
+    
     private let nicknameView = NicknameView()
+    
+    private var whetherDuplicate: Bool = false
     
     //MARK: - Life Cycle
     
@@ -25,10 +28,9 @@ final class NicknameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupTarget()
+        setupDelegate()
         view.backgroundColor = UIColor.main(.main1)
-        
-        nicknameView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        nicknameView.textField.delegate = self
     }
     
 }
@@ -49,6 +51,47 @@ extension NicknameViewController {
     // 화면 터치 시 키보드 내려가게 하는 코드
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    @objc private func checkButtonTapped() {
+        NetworkService.shared.nicknameService.checkNicknameDuplicate(inputNickname: nicknameView.textField.text ?? "") { response in
+            switch response {
+            case .success(let data):
+                self.whetherDuplicate = data?.data.isDuplicate ?? Bool()
+                if self.whetherDuplicate == true {
+                    self.nicknameView.notionLabel.text = "중복된 닉네임이에요. 다른 멋진 이름이 있으신가요?"
+                    self.nicknameView.notionLabel.textColor = UIColor.primary(.error)
+                }
+                else if self.formError(self.nicknameView.textField.text ?? "") == false {
+                    self.nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 말씀해주세요."
+                    self.nicknameView.notionLabel.textColor = UIColor.primary(.error)
+                }
+            default:
+                break
+            }
+        }
+    }
+    
+    //MARK: - Private Func
+    
+    private func setupTarget() {
+        nicknameView.checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
+        nicknameView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+    }
+    
+    private func setupDelegate() {
+        nicknameView.textField.delegate = self
+    }
+    
+    func formError(_ input: String) -> Bool{
+        let pattern = "^[A-Za-z가-힣ㄱ-ㅎ]{2,8}$"
+        let regex = try? NSRegularExpression(pattern: pattern)
+        if let _ = regex?.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count)) {
+            print("정규식 통과")
+            return true
+        }
+        print("유효하지 않은 id 형식입니다.")
+        return false
     }
     
 }

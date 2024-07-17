@@ -6,6 +6,7 @@
 //
 import UIKit
 
+import Kingfisher
 import SnapKit
 import Then
 
@@ -30,7 +31,8 @@ final class ChoosingCharacterCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(imageName: String) {
-        imageView.image = UIImage(named: imageName)
+    func configureCell(imageURL: String) {
+        let url = URL(string: imageURL)
+        imageView.kf.setImage(with: url)
     }
 }
