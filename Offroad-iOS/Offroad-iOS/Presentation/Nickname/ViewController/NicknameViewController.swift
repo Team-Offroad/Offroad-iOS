@@ -72,11 +72,18 @@ extension NicknameViewController {
         }
     }
     
+    @objc func buttonToBirthVC(sender: UIButton) {
+        let nextVC = BirthViewController(nickname: self.nicknameView.textField.text ?? "")
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
     //MARK: - Private Func
     
     private func setupTarget() {
         nicknameView.checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
         nicknameView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        nicknameView.nextButton.addTarget(self, action: #selector(buttonToBirthVC), for: .touchUpInside)
+
     }
     
     private func setupDelegate() {

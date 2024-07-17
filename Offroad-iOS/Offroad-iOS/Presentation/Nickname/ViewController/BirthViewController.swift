@@ -15,8 +15,23 @@ final class BirthViewController: UIViewController {
     //MARK: - Properties
     
     private let birthView = BirthView()
+    private var nickname: String = ""
     
     //MARK: - Life Cycle
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    convenience init(nickname: String) {
+        self.init(nibName: nil, bundle: nil)
+        
+        self.nickname = nickname
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = birthView
@@ -27,6 +42,8 @@ final class BirthViewController: UIViewController {
         
         setupDelegate()
         setupAddTarget()
+        
+        self.hideKeyboardWhenTappedAround() 
     }
     
     //MARK: - Private Method
@@ -39,6 +56,7 @@ final class BirthViewController: UIViewController {
         birthView.yearTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.monthTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
     }
 }
 
@@ -74,9 +92,21 @@ extension BirthViewController {
         }
     }
     
+    @objc func buttonToGenderVC(sender: UIButton) {
+        let nextVC = GenderViewController(nickname: nickname, birthYear: birthView.yearTextField.text ?? "", birthMonth: birthView.monthTextField.text ?? "", birthDay: birthView.dayTextField.text ?? "")
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
     // 텍스트 필드 글자 수 제한
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
+    }
+    
+    private func setupTarget() {
+        birthView.yearTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        birthView.monthTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        birthView.dayTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
     }
 }
 
@@ -88,5 +118,22 @@ extension BirthViewController: UITextFieldDelegate {
         birthView.yearTextField.delegate = self
         birthView.monthTextField.delegate = self
         birthView.dayTextField.delegate = self
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

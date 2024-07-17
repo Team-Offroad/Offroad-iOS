@@ -74,25 +74,25 @@ final class BirthView: UIView {
         )
     }
     
-    private let yearLabel = UILabel().then {
+    let yearLabel = UILabel().then {
         $0.text = "년"
         $0.textColor = UIColor.main(.main2)
         $0.font = UIFont.offroad(style: .iosSubtitleReg)
     }
     
-    private let monthLabel = UILabel().then {
+    let monthLabel = UILabel().then {
         $0.text = "월"
         $0.textColor = UIColor.main(.main2)
         $0.font = UIFont.offroad(style: .iosSubtitleReg)
     }
     
-    private let dayLabel = UILabel().then {
+    let dayLabel = UILabel().then {
         $0.text = "일"
         $0.textColor = UIColor.main(.main2)
         $0.font = UIFont.offroad(style: .iosSubtitleReg)
     }
     
-    private let nextButton = UIButton().then {
+    let nextButton = UIButton().then {
         $0.setTitle("다음", for: .normal)
         $0.titleLabel?.textAlignment = .center
         $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)

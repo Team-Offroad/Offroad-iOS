@@ -19,4 +19,5 @@ final class NetworkService {
     let emblemService: EmblemServiceProtocol = EmblemService()
     let characterService: CharacterServiceProtocol = CharacterService()
     let nicknameService: NicknameServiceProtocol = NicknameService()
+    let profileService: ProfileServiceProtocol = ProfileService()
 }
