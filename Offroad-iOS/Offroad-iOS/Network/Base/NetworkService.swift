@@ -18,4 +18,5 @@ final class NetworkService {
     let questService: QuestServiceProtocol = QuestService()
     let emblemService: EmblemServiceProtocol = EmblemService()
     let characterService: CharacterServiceProtocol = CharacterService()
+    let nicknameService: NicknameServiceProtocol = NicknameService()
 }
