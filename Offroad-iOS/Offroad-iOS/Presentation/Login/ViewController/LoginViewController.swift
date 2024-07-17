@@ -77,19 +77,30 @@ extension LoginViewController {
         NetworkService.shared.authService.postSocialLogin(body: request) { [weak self] response in
             switch response {
             case .success(let data):
-                let accessToken = data?.data.accessToken ?? ""
-                let refreshToken = data?.data.refreshToken ?? ""
+                let accessToken = data?.data.tokens.accessToken ?? ""
+                let refreshToken = data?.data.tokens.refreshToken ?? ""
+                let isAlreadyExist = data?.data.isAlreadyExist ?? Bool()
                 
                 UserDefaults.standard.set(accessToken, forKey: "AccessToken")
                 UserDefaults.standard.set(refreshToken, forKey: "RefreshToken")
                 
 
-                let nicknameViewController = NicknameViewController()
-                let navigationController = UINavigationController(rootViewController: nicknameViewController)
-                navigationController.modalTransitionStyle = .crossDissolve
-                navigationController.modalPresentationStyle = .fullScreen
-                                
-                self?.present(navigationController, animated: true)
+                if isAlreadyExist {
+                    let homeViewController = HomeViewController()
+                    
+                    homeViewController.modalTransitionStyle = .crossDissolve
+                    homeViewController.modalPresentationStyle = .fullScreen
+                    
+                    self?.present(homeViewController, animated: true)
+                } else {
+                    let nicknameViewController = NicknameViewController()
+                    let navigationController = UINavigationController(rootViewController: nicknameViewController)
+                    
+                    navigationController.modalTransitionStyle = .crossDissolve
+                    navigationController.modalPresentationStyle = .fullScreen
+                    
+                    self?.present(navigationController, animated: true)
+                }
             default:
                 break
             }
