@@ -9,6 +9,7 @@ import UIKit
 
 import Kingfisher
 import SnapKit
+import SVGKit
 import Then
 
 final class HomeView: UIView {
@@ -16,9 +17,9 @@ final class HomeView: UIView {
     //MARK: - Properties
     
     typealias ChangeTitleButtonAction = () -> Void
-
+    
     private var changeTitleButtonAction: ChangeTitleButtonAction?
-
+    
     //MARK: - UI Properties
     
     private let nicknameLabel = UILabel()
@@ -29,7 +30,7 @@ final class HomeView: UIView {
     private let shareButton = UIButton()
     private let changeCharacterButton = UIButton()
     private let buttonStackView = UIStackView()
-    private let characterImageView = UIImageView(image: UIImage(resource: .imgCharacter))
+    private let characterImageView = UIImageView()
     private let titleView = UIView()
     private let titleLabel = UILabel()
     private let changeTitleButton = UIButton()
@@ -259,11 +260,8 @@ extension HomeView {
         nicknameLabel.text = "모험가 \(nickname)님"
         nicknameLabel.highlightText(targetText: nickname, font: .offroad(style: .iosSubtitle2Bold))
         
-        let url = URL(string: characterImgUrl)
-        characterImageView.kf.setImage(with: url)
-        
+        characterImageView.fetchSvgURLToImageView(svgUrlString: characterImgUrl)
         characterNameLabel.text = characterName
-        
         titleLabel.text = emblemName
     }
     
@@ -274,7 +272,7 @@ extension HomeView {
         recentQuestProgressLabel.text = "\(recentProgress)/\(recentCompleteCondition)"
         almostDoneQuestProgressLabel.text = "\(almostprogress) / \(almostCompleteCondition)"
         almostDoneQuestProgressLabel.highlightText(targetText: "\(almostprogress)", font: .offroad(style: .bothUpcomingBigNum), color: .sub(.sub4))
-
+        
         
         let recentProgressValue = CGFloat(recentProgress)/CGFloat(recentCompleteCondition)
         let almostProgressValue = CGFloat(almostprogress)/CGFloat(almostCompleteCondition)
