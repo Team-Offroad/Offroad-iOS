@@ -53,16 +53,24 @@ extension LoginViewController {
             var userEmail = user.email ?? ""
             let userIdentifyToken = identifyToken ?? ""
             
-            if let userDefaultName = UserDefaults.standard.string(forKey: "UserName") {
-                userName = userDefaultName
+            if userName != "" {
+                if let userDefaultName = UserDefaults.standard.string(forKey: "UserName") {
+                    userName = userDefaultName
+                } else {
+                    UserDefaults.standard.set(userName, forKey: "UserName")
+                }
             } else {
-                UserDefaults.standard.set(userName, forKey: "UserName")
+                userName = UserDefaults.standard.string(forKey: "UserName") ?? ""
             }
             
-            if let userDefaultEmail = UserDefaults.standard.string(forKey: "UserEmail") {
-                userEmail = userDefaultEmail
+            if userEmail != "" {
+                if let userDefaultEmail = UserDefaults.standard.string(forKey: "UserEmail") {
+                    userEmail = userDefaultEmail
+                } else {
+                    UserDefaults.standard.set(userEmail, forKey: "UserEmail")
+                }
             } else {
-                UserDefaults.standard.set(userEmail, forKey: "UserEmail")
+                userEmail = UserDefaults.standard.string(forKey: "UserEmail") ?? ""
             }
             
             self.postTokenForAppleLogin(request: SocialLoginRequestDTO(socialPlatform: "APPLE", name: userName, code: userIdentifyToken))
