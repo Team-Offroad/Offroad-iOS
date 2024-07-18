@@ -32,8 +32,8 @@ final class GenderViewController: UIViewController {
         
         self.nickname = nickname
         self.birthYear = birthYear.flatMap { Int($0) }
-                self.birthMonth = birthMonth.flatMap { Int($0) }
-                self.birthDay = birthDay.flatMap { Int($0) }
+        self.birthMonth = birthMonth.flatMap { Int($0) }
+        self.birthDay = birthDay.flatMap { Int($0) }
     }
     
     required init?(coder: NSCoder) {
