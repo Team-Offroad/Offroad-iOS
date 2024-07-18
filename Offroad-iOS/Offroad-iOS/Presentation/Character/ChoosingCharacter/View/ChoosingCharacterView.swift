@@ -18,7 +18,7 @@ final class ChoosingCharacterView: UIView {
     
     //MARK: - UI Properties
     
-    let titleLabel = UILabel().then {
+    private let titleLabel = UILabel().then {
         $0.text = "동료 캐릭터 선택"
         $0.font = UIFont.offroad(style: .iosTextTitle)
         $0.textColor = UIColor.main(.main2)
@@ -29,7 +29,7 @@ final class ChoosingCharacterView: UIView {
         $0.layer.opacity = 0.25
     }
 
-    let choosingCharacterLabelView = UIView().then {
+    private let choosingCharacterLabelView = UIView().then {
         $0.backgroundColor = UIColor.main(.main1)
     }
     
@@ -38,7 +38,6 @@ final class ChoosingCharacterView: UIView {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 284)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
@@ -134,9 +133,9 @@ extension ChoosingCharacterView {
         }
         
         collectionView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(175)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(300)
+            make.top.equalTo(titleLabel.snp.bottom)
+            make.bottom.equalTo(choosingCharacterLabelView.snp.top)
+            make.horizontalEdges.equalToSuperview()
         }
         
         leftButton.snp.makeConstraints { make in
@@ -149,14 +148,8 @@ extension ChoosingCharacterView {
             make.centerY.equalTo(collectionView)
         }
         
-        pageControl.numberOfPages = 3
-        
-        pageControl.setIndicatorImage(UIImage(named: "img_current_indicator"), forPage: 0)
-        pageControl.setIndicatorImage(UIImage(named: "img_current_indicator"), forPage: 1)
-        pageControl.setIndicatorImage(UIImage(named: "img_current_indicator"), forPage: 2)
-        
         pageControl.snp.makeConstraints { make in
-            make.bottom.equalTo(choosingCharacterLabelView.snp.top).offset(-33)
+            make.centerY.equalTo(choosingCharacterLabelView.snp.top).offset(-35)
             make.centerX.equalToSuperview()
         }
         
@@ -192,6 +185,10 @@ extension ChoosingCharacterView {
     
     func setPageControlPageNumbers(pageNumber: Int) {
         pageControl.numberOfPages = pageNumber
+        
+        for i in 0..<pageNumber {
+            pageControl.setIndicatorImage(UIImage(named: "img_current_indicator"), forPage: i)
+        }
     }
     
     func setBackgroundColorForID(id: Int) {

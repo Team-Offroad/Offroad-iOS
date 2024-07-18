@@ -12,27 +12,44 @@ import Then
 
 final class ChoosingCharacterCell: UICollectionViewCell {
     
-    static let identifier = "ChoosingCharacterCell"
+    //MARK: - Properties
     
-    let imageView = UIImageView().then {
+    private let imageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
     }
-
+    
+    //MARK: - Life Cycle
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubviews(imageView)
         
-        imageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        setupHierarchy()
+        setupLayout()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
 
+extension ChoosingCharacterCell {
+    
+    //MARK: - Layout
+    
+    private func setupHierarchy() {
+        contentView.addSubview(imageView)
+    }
+    
+    private func setupLayout() {
+        imageView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(70)
+            make.centerX.equalToSuperview()
+        }
+    }
+    
+    //MARK: - Func
+    
     func configureCell(imageURL: String) {
-        let url = URL(string: imageURL)
-        imageView.kf.setImage(with: url)
+        imageView.fetchSvgURLToImageView(svgUrlString: imageURL)
     }
 }

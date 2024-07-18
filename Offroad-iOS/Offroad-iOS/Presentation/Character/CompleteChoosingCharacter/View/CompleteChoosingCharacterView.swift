@@ -92,8 +92,7 @@ extension CompleteChoosingCharacterView {
     //MARK: - Func
     
     func setCharacterImage(imageURL: String) {
-        let url = URL(string: imageURL)
-        characterView.kf.setImage(with: url)
+        characterView.fetchSvgURLToImageView(svgUrlString: imageURL)
     }
 }
 

@@ -73,14 +73,7 @@ final class GenderView: UIView {
         $0.layer.cornerRadius = 5
     }
     
-    let nextButton = UIButton().then {
-        $0.setTitle("다음", for: .normal)
-        $0.titleLabel?.textAlignment = .center
-        $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
-        $0.setTitleColor(UIColor.main(.main1), for: .normal)
-        $0.backgroundColor = UIColor.main(.main2)
-        $0.layer.cornerRadius = 5
-    }
+    let nextButton = StateToggleButton(state: .isDisabled, title: "다음")
     
     // MARK: - Life Cycle
     

@@ -65,7 +65,7 @@ final class ChoosingCharacterViewController: UIViewController {
     private func setupCollectionView() {
         choosingCharacterView.collectionView.delegate = self
         choosingCharacterView.collectionView.dataSource = self
-        choosingCharacterView.collectionView.register(ChoosingCharacterCell.self, forCellWithReuseIdentifier: ChoosingCharacterCell.identifier)
+        choosingCharacterView.collectionView.register(ChoosingCharacterCell.self, forCellWithReuseIdentifier: ChoosingCharacterCell.className)
         
         choosingCharacterView.leftButton.addTarget(self, action: #selector(leftArrowTapped), for: .touchUpInside)
         choosingCharacterView.rightButton.addTarget(self, action: #selector(rightArrowTapped), for: .touchUpInside)
@@ -100,11 +100,12 @@ final class ChoosingCharacterViewController: UIViewController {
         guard let indexPath = currentIndexPath else { return }
         
         let previousIndex = indexPath.item - 1
-        if previousIndex == 0 {
-            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
-        } else {
-            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: previousIndex, section: 0), at: .centeredHorizontally, animated: true)
-        }
+        choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: previousIndex, section: 0), at: .centeredHorizontally, animated: true)
+//        if previousIndex == 0 {
+//            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
+//        } else {
+//            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: previousIndex, section: 0), at: .centeredHorizontally, animated: true)
+//        }
     }
     
     @objc private func rightArrowTapped() {
@@ -113,12 +114,13 @@ final class ChoosingCharacterViewController: UIViewController {
         guard let indexPath = currentIndexPath else { return }
         
         let nextIndex = indexPath.item + 1
+        choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: nextIndex, section: 0), at: .centeredHorizontally, animated: true)
         //마지막 항목일 때
-        if nextIndex == extendedCharacterImageList.count - 1 {
-            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: extendedCharacterImageList.count - 1, section: 0), at: .centeredHorizontally, animated: true)
-        } else {
-            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: nextIndex, section: 0), at: .centeredHorizontally, animated: true)
-        }
+//        if nextIndex == extendedCharacterImageList.count - 1 {
+//            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: extendedCharacterImageList.count - 1, section: 0), at: .centeredHorizontally, animated: true)
+//        } else {
+//            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: nextIndex, section: 0), at: .centeredHorizontally, animated: true)
+//        }
     }
     
     @objc private func selectButtonTapped() {
@@ -129,7 +131,7 @@ final class ChoosingCharacterViewController: UIViewController {
     }
 }
 
-extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ChoosingCharacterViewController: UICollectionViewDataSource {
     
     //MARK: - Infinite carousel Method
     
@@ -138,7 +140,7 @@ extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChoosingCharacterCell.identifier, for: indexPath) as! ChoosingCharacterCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChoosingCharacterCell.className, for: indexPath) as! ChoosingCharacterCell
         cell.configureCell(imageURL: extendedCharacterImageList[indexPath.item])
         return cell
     }
@@ -162,14 +164,18 @@ extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectio
         choosingCharacterView.rightButton.isUserInteractionEnabled = true
         let pageWidth = scrollView.frame.width
         let currentPage = Int(scrollView.contentOffset.x / pageWidth)
-        
         if scrollView == choosingCharacterView.collectionView {
             if currentPage == 0 {
-                self.choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 3, section: 0), at: .centeredHorizontally, animated: false)
+                self.choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: extendedCharacterImageList.count - 2, section: 0), at: .centeredHorizontally, animated: false)
             } else if currentPage == extendedCharacterImageList.count - 1 {
                 choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)
             }
         }
     }
-    
+}
+
+extension ChoosingCharacterViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: choosingCharacterView.collectionView.bounds.width, height: choosingCharacterView.collectionView.bounds.height)
+    }
 }

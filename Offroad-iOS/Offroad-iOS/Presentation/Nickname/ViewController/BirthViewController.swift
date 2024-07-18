@@ -42,7 +42,7 @@ final class BirthViewController: UIViewController {
         
         setupDelegate()
         setupAddTarget()
-        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "custom", style: .plain, target: nil, action: nil)
         self.hideKeyboardWhenTappedAround()
     }
     
@@ -68,6 +68,7 @@ extension BirthViewController {
     //MARK: - @objc Method
     
     @objc private func textFieldDidChange(_ sender: UITextField) {
+        birthView.nextButton.changeState(forState: .isEnabled)
         if sender == birthView.yearTextField {
             birthView.yearTextField.layer.borderColor = UIColor.sub(.sub).cgColor
             birthView.monthTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
@@ -96,13 +97,19 @@ extension BirthViewController {
     }
     
     @objc func buttonToGenderVC(sender: UIButton) {
-        if !validateDate() {
+        if validateDate() == false || (Int(birthView.yearTextField.text ?? "") ?? 0) < 1920 {
             birthView.notionLabel.text = "다시 한 번 확인해주세요."
         } else {
-            let nextVC = GenderViewController(nickname: nickname, birthYear: birthView.yearTextField.text ?? "", birthMonth: birthView.monthTextField.text ?? "", birthDay: birthView.dayTextField.text ?? "")
+            let nextVC = GenderViewController(
+                nickname: nickname,
+                birthYear: birthView.yearTextField.text ?? "",
+                birthMonth: birthView.monthTextField.text ?? "",
+                birthDay: birthView.dayTextField.text ?? ""
+            )
             self.navigationController?.pushViewController(nextVC, animated: true)
         }
     }
+
     
     @objc func skipButtonTapped() {
         let genderViewController = GenderViewController(nickname: nickname, birthYear: nil, birthMonth: nil, birthDay: nil)
@@ -123,21 +130,48 @@ extension BirthViewController {
         birthView.dayTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
         birthView.skipButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: birthView.skipButton)
     }
     
     private func validateDate() -> Bool {
-           guard
-               let yearText = birthView.yearTextField.text, let year = Int(yearText),
-               let monthText = birthView.monthTextField.text, let month = Int(monthText),
-               let dayText = birthView.dayTextField.text, let day = Int(dayText)
-           else {
-               return false
-           }
-           
-           let dateComponents = DateComponents(year: year, month: month, day: day)
-           let calendar = Calendar.current
-           return calendar.date(from: dateComponents) != nil
-       }
+        guard
+            let yearText = birthView.yearTextField.text, let year = Int(yearText),
+            let monthText = birthView.monthTextField.text, let month = Int(monthText),
+            let dayText = birthView.dayTextField.text, let day = Int(dayText)
+        else {
+            return false
+        }
+        
+        if year < 1920 || month < 1 || month > 12 || day < 1 || day > 31 {
+            return false
+        }
+        
+        switch month {
+        case 4, 6, 9, 11:
+            if day > 30 {
+                return false
+            }
+        case 2:
+            if isLeapYear(year) {
+                if day > 29 {
+                    return false
+                }
+            } else {
+                if day > 28 {
+                    return false
+                }
+            }
+        default:
+            break
+        }
+        
+        return true
+    }
+
+    private func isLeapYear(_ year: Int) -> Bool {
+        return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
+    }
 }
 
 //MARK: - UITextFieldDelegate
