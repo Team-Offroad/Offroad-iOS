@@ -6,3 +6,49 @@
 //
 
 import Foundation
+
+import Moya
+import NMapsMap
+
+enum PlaceAPI {
+    case getRegisteredPlaces(requestDTO: RegisteredPlaceRequestDTO)
+}
+
+extension PlaceAPI: BaseTargetType {
+
+    var headerType: HeaderType { return .accessTokenHeaderForGet }
+    
+    var parameter: [String : Any]? {
+        switch self {
+        case .getRegisteredPlaces:
+            return .none
+        }
+    }
+    
+    var path: String {
+        switch self {
+        case .getRegisteredPlaces:
+            return "/places"
+        }
+    }
+    
+    var method: Moya.Method {
+        switch self {
+        case .getRegisteredPlaces:
+            return .get
+        }
+    }
+    
+    var task: Moya.Task {
+        switch self {
+        case .getRegisteredPlaces(let requestDTO):
+            return .requestParameters(
+                parameters: [
+                    "currentLatitude": requestDTO.currentLatitude,
+                    "currentLongitude": requestDTO.currentLongitude
+                ],
+                encoding: URLEncoding.queryString
+            )
+        }
+    }
+}

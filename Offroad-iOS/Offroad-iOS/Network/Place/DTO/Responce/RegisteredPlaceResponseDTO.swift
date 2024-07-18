@@ -9,20 +9,20 @@ import Foundation
 
 struct RegisteredPlaceResponseDTO: Codable {
     let message: String
-    let data: RegisteredPlaceInfo
+    let data: RegisteredPlacesArray
+}
+
+struct RegisteredPlacesArray: Codable {
+    let places: [RegisteredPlaceInfo]
 }
 
 struct RegisteredPlaceInfo: Codable {
-    let places: [RegisteredPlaceList]
-}
-
-struct RegisteredPlaceList: Codable {
     let id: Int
     let name: String
     let address: String
     let shortIntroduction: String
     let placeCategory: String
-    let latitude: Float
-    let longitude: Float
+    let latitude: Double
+    let longitude: Double
     let visitCount: Int
 }
