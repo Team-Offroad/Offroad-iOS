@@ -11,6 +11,7 @@ import Kingfisher
 import SnapKit
 import SVGKit
 import Then
+import Lottie
 
 final class HomeView: UIView {
     
@@ -30,7 +31,8 @@ final class HomeView: UIView {
     private let shareButton = UIButton()
     private let changeCharacterButton = UIButton()
     private let buttonStackView = UIStackView()
-    private let characterImageView = UIImageView()
+    private let characterBaseImageView = UIImageView()
+    private let characterMotionView = LottieAnimationView()
     private let titleView = UIView()
     private let titleLabel = UILabel()
     private let changeTitleButton = UIButton()
@@ -107,6 +109,10 @@ extension HomeView {
             $0.spacing = 9
         }
         
+        characterMotionView.do {
+            $0.loopMode = .loop
+        }
+        
         titleView.do {
             $0.backgroundColor = .sub(.sub)
             $0.roundCorners(cornerRadius: 10)
@@ -152,7 +158,8 @@ extension HomeView {
             characterNameView,
             offroadStampImageView,
             buttonStackView,
-            characterImageView,
+            characterBaseImageView,
+            characterMotionView,
             titleView,
             questStackView
         )
@@ -195,7 +202,14 @@ extension HomeView {
             $0.trailing.equalToSuperview().inset(24)
         }
         
-        characterImageView.snp.makeConstraints {
+        characterBaseImageView.snp.makeConstraints {
+            $0.bottom.equalTo(titleView.snp.top).offset(-25)
+            $0.centerX.equalToSuperview()
+        }
+        
+        characterMotionView.snp.makeConstraints {
+            $0.height.equalTo(200)
+            $0.width.equalTo(180)
             $0.bottom.equalTo(titleView.snp.top).offset(-25)
             $0.centerX.equalToSuperview()
         }
@@ -256,13 +270,22 @@ extension HomeView {
         titleLabel.text = text
     }
     
-    func updateAdventureInfo(nickname: String, characterImgUrl: String, characterName: String, emblemName: String) {
+    func updateAdventureInfo(nickname: String, baseImageUrl: String, characterName: String, emblemName: String) {
+        characterMotionView.isHidden = true
+        characterBaseImageView.isHidden = false
+
         nicknameLabel.text = "모험가 \(nickname)님"
         nicknameLabel.highlightText(targetText: nickname, font: .offroad(style: .iosSubtitle2Bold))
-        
-        characterImageView.fetchSvgURLToImageView(svgUrlString: characterImgUrl)
+        characterBaseImageView.fetchSvgURLToImageView(svgUrlString: baseImageUrl)
         characterNameLabel.text = characterName
         titleLabel.text = emblemName
+    }
+    
+    func showMotionImage(motionImageUrl: String) {
+        characterMotionView.isHidden = false
+        characterBaseImageView.isHidden = true
+
+        characterMotionView.fetchMotionURLToAnimationView(motionUrlString: motionImageUrl)
     }
     
     func updateQuestInfo(recentQuestName: String, recentProgress: Int, recentCompleteCondition: Int, almostQuestName: String, almostprogress: Int, almostCompleteCondition: Int) {

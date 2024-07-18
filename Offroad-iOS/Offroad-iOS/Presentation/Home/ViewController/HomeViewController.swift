@@ -13,6 +13,8 @@ final class HomeViewController: OffroadTabBarViewController {
     
     private let rootView = HomeView()
     
+    private var categoryString = "CAFFE"
+    
     // MARK: - Life Cycle
     
     override func loadView() {
@@ -52,15 +54,20 @@ extension HomeViewController {
     }
     
     private func getUserAdventureInfo() {
-        NetworkService.shared.adventureService.getAdventureInfo { response in
+        NetworkService.shared.adventureService.getAdventureInfo(category: categoryString) { response in
             switch response {
             case .success(let data):
                 let nickname = data?.data.nickname ?? ""
-                let characterImgUrl = data?.data.baseImageUrl ?? ""
+                let baseImageUrl = data?.data.baseImageUrl ?? ""
+                let motionImageUrl = data?.data.motionImageUrl ?? ""
                 let characterName = data?.data.characterName ?? ""
                 let emblemName = data?.data.emblemName ?? ""
-
-                self.rootView.updateAdventureInfo(nickname: nickname, characterImgUrl: characterImgUrl, characterName: characterName, emblemName: emblemName)
+                
+                self.rootView.updateAdventureInfo(nickname: nickname, baseImageUrl: baseImageUrl, characterName: characterName, emblemName: emblemName)
+                
+                if self.categoryString != "NONE" && motionImageUrl != "" {
+                    self.rootView.showMotionImage(motionImageUrl: motionImageUrl)
+                }
             default:
                 break
             }
