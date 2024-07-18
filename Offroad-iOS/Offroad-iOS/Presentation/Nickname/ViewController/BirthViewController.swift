@@ -43,7 +43,7 @@ final class BirthViewController: UIViewController {
         setupDelegate()
         setupAddTarget()
         
-        self.hideKeyboardWhenTappedAround() 
+        self.hideKeyboardWhenTappedAround()
     }
     
     //MARK: - Private Method
@@ -57,6 +57,9 @@ final class BirthViewController: UIViewController {
         birthView.monthTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
+        birthView.skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: birthView.skipButton)
     }
 }
 
@@ -93,20 +96,80 @@ extension BirthViewController {
     }
     
     @objc func buttonToGenderVC(sender: UIButton) {
-        let nextVC = GenderViewController(nickname: nickname, birthYear: birthView.yearTextField.text ?? "", birthMonth: birthView.monthTextField.text ?? "", birthDay: birthView.dayTextField.text ?? "")
-        self.navigationController?.pushViewController(nextVC, animated: true)
+        if validateDate() == false || (Int(birthView.yearTextField.text ?? "") ?? 0) < 1920 {
+            birthView.notionLabel.text = "다시 한 번 확인해주세요."
+        } else {
+            let nextVC = GenderViewController(
+                nickname: nickname,
+                birthYear: birthView.yearTextField.text ?? "",
+                birthMonth: birthView.monthTextField.text ?? "",
+                birthDay: birthView.dayTextField.text ?? ""
+            )
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        }
     }
+
+    
+    @objc func skipButtonTapped() {
+        let genderViewController = GenderViewController(nickname: nickname, birthYear: nil, birthMonth: nil, birthDay: nil)
+        self.navigationController?.pushViewController(genderViewController, animated: true)
+    }
+
     
     // 텍스트 필드 글자 수 제한
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
     }
     
+    //MARK: - Private Func
+    
     private func setupTarget() {
         birthView.yearTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         birthView.monthTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
+        birthView.skipButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: birthView.skipButton)
+    }
+    
+    private func validateDate() -> Bool {
+        guard
+            let yearText = birthView.yearTextField.text, let year = Int(yearText),
+            let monthText = birthView.monthTextField.text, let month = Int(monthText),
+            let dayText = birthView.dayTextField.text, let day = Int(dayText)
+        else {
+            return false
+        }
+        
+        if year < 1920 || month < 1 || month > 12 || day < 1 || day > 31 {
+            return false
+        }
+        
+        switch month {
+        case 4, 6, 9, 11:
+            if day > 30 {
+                return false
+            }
+        case 2:
+            if isLeapYear(year) {
+                if day > 29 {
+                    return false
+                }
+            } else {
+                if day > 28 {
+                    return false
+                }
+            }
+        default:
+            break
+        }
+        
+        return true
+    }
+
+    private func isLeapYear(_ year: Int) -> Bool {
+        return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
     }
 }
 

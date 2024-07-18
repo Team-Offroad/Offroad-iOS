@@ -150,6 +150,7 @@ extension ChoosingCharacterViewController: UICollectionViewDelegate, UICollectio
             choosingCharacterView.pageControl.currentPage = (pageIndex - 1 + characterInfoModelList.count) % characterInfoModelList.count
         }
         selectedCharacterID = choosingCharacterView.pageControl.currentPage + 1
+        choosingCharacterView.setBackgroundColorForID(id: selectedCharacterID)
         choosingCharacterView.nameLabel.text = characterNames[choosingCharacterView.pageControl.currentPage]
         selectedCharacterName = characterNames[choosingCharacterView.pageControl.currentPage]
         choosingCharacterView.discriptionLabel.text = characterDiscriptions[choosingCharacterView.pageControl.currentPage]
