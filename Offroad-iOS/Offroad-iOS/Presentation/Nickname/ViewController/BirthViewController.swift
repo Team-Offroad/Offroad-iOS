@@ -68,6 +68,7 @@ extension BirthViewController {
     //MARK: - @objc Method
     
     @objc private func textFieldDidChange(_ sender: UITextField) {
+        birthView.nextButton.changeState(forState: .isEnabled)
         if sender == birthView.yearTextField {
             birthView.yearTextField.layer.borderColor = UIColor.sub(.sub).cgColor
             birthView.monthTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
