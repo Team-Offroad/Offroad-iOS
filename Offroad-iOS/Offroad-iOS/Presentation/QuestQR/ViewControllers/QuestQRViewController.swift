@@ -199,11 +199,12 @@ extension QuestQRViewController: AVCaptureMetadataOutputObjectsDelegate {
                         return
                     }
                     let notiTitle = data.isQRMatched ? "탐험 성공" : "탐험 실패"
+                    let imageURL = data.characterImageUrl
                     let questResultViewController: QuestResultViewController
                     if data.isQRMatched {
-                        questResultViewController = QuestResultViewController(result: .success, placeInfo: placeInformation)
+                        questResultViewController = QuestResultViewController(result: .success, placeInfo: placeInformation, imageURL: imageURL)
                     } else {
-                        questResultViewController = QuestResultViewController(result: .wrongQR, placeInfo: placeInformation)
+                        questResultViewController = QuestResultViewController(result: .wrongQR, placeInfo: placeInformation, imageURL: imageURL)
                     }
                     
                     questResultViewController.modalPresentationStyle = .overCurrentContext

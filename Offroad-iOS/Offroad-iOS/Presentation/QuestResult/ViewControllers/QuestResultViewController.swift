@@ -22,16 +22,18 @@ class QuestResultViewController: UIViewController {
     
     let rootView = QuestResultView()
     var result: QuestResult? = nil
+    var imageURL: String?
     var placeInformation: RegisteredPlaceInfo?
     var superViewControlller: UIViewController? = nil
     
-    init(result: QuestResult, superViewController: UIViewController? = nil, placeInfo: RegisteredPlaceInfo) {
+    init(result: QuestResult, superViewController: UIViewController? = nil, placeInfo: RegisteredPlaceInfo, imageURL: String? = nil) {
         super.init(nibName: nil, bundle: nil)
         
         self.result = result
         self.superViewControlller = superViewController
         self.placeInformation = placeInfo
-        rootView.configureView(result: result)
+        self.imageURL = imageURL
+        rootView.configureView(result: result, imageURL: imageURL)
     }
     
     required init?(coder: NSCoder) {
