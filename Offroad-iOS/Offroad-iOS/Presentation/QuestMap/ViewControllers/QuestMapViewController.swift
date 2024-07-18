@@ -47,8 +47,13 @@ class QuestMapViewController: OffroadTabBarViewController {
         // 더미 데이터로 마커 초기 설정
         //setupMarkers()
         setupButtonsAction()
-        requestAuthorization()
         setupDelegates()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        requestAuthorization()
     }
     
 }
@@ -101,6 +106,7 @@ extension QuestMapViewController {
             locationManager.requestAlwaysAuthorization()
         case .restricted:
             //추후 에러 메시지 팝업 구현 가능성
+            locationManager.requestAlwaysAuthorization()
             return
         case .denied:
             locationManager.requestAlwaysAuthorization()

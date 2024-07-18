@@ -60,13 +60,25 @@ extension PlaceInfoPopupViewController {
             print("not navicon")
             return
         }
-        navigationController.pushViewController(
-            QuestQRViewController(
-                placeInformation: placeInformation
-            ),
-            animated: true
-        )
-        self.dismiss(animated: false)
+        
+        //분기처리
+        let placeCategory = placeInformation.placeCategory
+        if 
+            placeCategory == OffroadPlaceCategory.park.rawValue ||
+            placeCategory == OffroadPlaceCategory.park.rawValue ||
+            placeCategory == OffroadPlaceCategory.park.rawValue 
+        {
+            // 위치 대조 API
+            
+            // 결과 반환 후 present
+            
+        } else {
+            navigationController.pushViewController(
+                QuestQRViewController(placeInformation: placeInformation),
+                animated: true
+            )
+            self.dismiss(animated: false)
+        }
     }
     
     //MARK: - Private Func

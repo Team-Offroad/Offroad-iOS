@@ -86,12 +86,12 @@ extension LoginViewController {
                 
 
                 if isAlreadyExist {
-                    let homeViewController = HomeViewController()
+                    let offroadTabbarController = OffroadTabBarController()
                     
-                    homeViewController.modalTransitionStyle = .crossDissolve
-                    homeViewController.modalPresentationStyle = .fullScreen
+                    offroadTabbarController.modalTransitionStyle = .crossDissolve
+                    offroadTabbarController.modalPresentationStyle = .fullScreen
                     
-                    self?.present(homeViewController, animated: true)
+                    self?.present(offroadTabbarController, animated: true)
                 } else {
                     let nicknameViewController = NicknameViewController()
                     let navigationController = UINavigationController(rootViewController: nicknameViewController)
