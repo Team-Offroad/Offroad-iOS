@@ -42,7 +42,7 @@ final class BirthViewController: UIViewController {
         
         setupDelegate()
         setupAddTarget()
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "custom", style: .plain, target: nil, action: nil)
+
         self.hideKeyboardWhenTappedAround()
     }
     
@@ -106,8 +106,25 @@ extension BirthViewController {
                 birthMonth: birthView.monthTextField.text ?? "",
                 birthDay: birthView.dayTextField.text ?? ""
             )
+            let button = UIButton().then { button in
+                button.setImage(.backBarButton, for: .normal)
+                button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
+                button.imageView?.contentMode = .scaleAspectFill
+                button.snp.makeConstraints { make in
+                    make.width.equalTo(30)
+                    make.height.equalTo(44)
+                }
+            }
+            
+            let customBackBarButton = UIBarButtonItem(customView: button)
+            nextVC.navigationItem.leftBarButtonItem = customBackBarButton
+            
             self.navigationController?.pushViewController(nextVC, animated: true)
         }
+    }
+    
+    @objc private func executePop() {
+        navigationController?.popViewController(animated: true)
     }
 
     
