@@ -8,6 +8,6 @@
 import Foundation
 
 struct RegisteredPlaceRequestDTO: Codable {
-    let currentLatitude: Float
-    let currentLongitude: Float
+    let currentLatitude: Double
+    let currentLongitude: Double
 }

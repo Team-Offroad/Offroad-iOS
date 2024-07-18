@@ -42,7 +42,7 @@ final class ChoosingCharacterView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = UIColor.sub(.sub)
+        collectionView.backgroundColor = .clear
         collectionView.isScrollEnabled = false
         return collectionView
     }()
@@ -115,20 +115,21 @@ extension ChoosingCharacterView {
             rightButton
         )
         
-        choosingCharacterLabelView.addSubview(nameLabel)
-        choosingCharacterLabelView.addSubview(divideLabelView)
-        choosingCharacterLabelView.addSubview(discriptionLabel)
-        choosingCharacterLabelView.addSubview(selectButton)
+        choosingCharacterLabelView.addSubviews(
+            nameLabel,
+            divideLabelView,
+            discriptionLabel,
+            selectButton)
     }
     
     private func setupStyle() {
-        backgroundColor = UIColor.sub(.sub)
+        backgroundColor = UIColor(hexCode: "FFF4CC")
     }
     
     private func setupLayout() {
         
         titleLabel.snp.makeConstraints{ make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(70)
+            make.top.equalToSuperview().inset(117)
             make.centerX.equalToSuperview()
         }
         
@@ -187,8 +188,23 @@ extension ChoosingCharacterView {
         }
     }
     
+    //MARK: -  Func
+    
     func setPageControlPageNumbers(pageNumber: Int) {
         pageControl.numberOfPages = pageNumber
+    }
+    
+    func setBackgroundColorForID(id: Int) {
+        switch id {
+        case 1:
+           backgroundColor = UIColor(hexCode: "FFF4CC")
+        case 2:
+            backgroundColor = UIColor(hexCode: "FFE1C5")
+        case 3:
+            backgroundColor = UIColor(hexCode: "F9E5D2")
+        default:
+            break
+        }
     }
 }
 

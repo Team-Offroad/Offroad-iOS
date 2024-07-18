@@ -11,16 +11,26 @@ import Moya
 
 enum AdventureAPI {
     case getAdventureInfo
+    case adventureAuthentication(adventureAuth: AdventuresAuthenticationRequestDTO)
 }
 
 extension AdventureAPI: BaseTargetType {
 
-    var headerType: HeaderType { return .accessTokenHeaderForGet }
+    var headerType: HeaderType {
+        switch self {
+        case .getAdventureInfo:
+            return .accessTokenHeaderForGet
+        case .adventureAuthentication:
+            return .accessTokenHeaderForGeneral
+        }
+    }
     
     var parameter: [String : Any]? {
         switch self {
         case .getAdventureInfo:
             return ["category": "NONE"]
+        case .adventureAuthentication:
+            return nil
         }
     }
     
@@ -28,6 +38,8 @@ extension AdventureAPI: BaseTargetType {
         switch self {
         case .getAdventureInfo:
             return "/users/adventures/informations"
+        case .adventureAuthentication:
+            return "/users/adventures/authentication"
         }
     }
     
@@ -35,6 +47,8 @@ extension AdventureAPI: BaseTargetType {
         switch self {
         case .getAdventureInfo:
             return .get
+        case .adventureAuthentication:
+            return .post
         }
     }
     
@@ -42,6 +56,8 @@ extension AdventureAPI: BaseTargetType {
         switch self {
         case .getAdventureInfo:
             return .requestParameters(parameters: parameter ?? [:], encoding: URLEncoding.queryString)
+        case .adventureAuthentication(let dto):
+            return .requestJSONEncodable(dto)
         }
     }
 }
