@@ -208,8 +208,8 @@ extension HomeView {
         }
         
         characterMotionView.snp.makeConstraints {
-            $0.height.equalTo(200)
-            $0.width.equalTo(180)
+//            $0.height.equalTo(200)
+//            $0.width.equalTo(180)
             $0.bottom.equalTo(titleView.snp.top).offset(-25)
             $0.centerX.equalToSuperview()
         }

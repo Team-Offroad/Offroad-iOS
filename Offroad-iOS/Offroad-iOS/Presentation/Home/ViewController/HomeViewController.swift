@@ -13,7 +13,7 @@ final class HomeViewController: OffroadTabBarViewController {
     
     private let rootView = HomeView()
     
-    private var categoryString = "CAFFE"
+    private var categoryString = "NONE"
     
     // MARK: - Life Cycle
     
@@ -91,6 +91,12 @@ extension HomeViewController {
                 break
             }
         }
+    }
+    
+    //MARK: - Func
+    
+    func fetchCategoryString(category: String) {
+        categoryString = category
     }
 }
 
