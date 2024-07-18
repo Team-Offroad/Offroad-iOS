@@ -409,8 +409,8 @@
 		4E0394632C2AA0DE007F0517 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4EDC3D372C3126FC006A1493 /* Fonts */,
 				4E0394352C2A9DCF007F0517 /* Assets.xcassets */,
+				4EDC3D372C3126FC006A1493 /* Fonts */,
 				4E03943A2C2A9DCF007F0517 /* Info.plist */,
 			);
 			path = Resources;
