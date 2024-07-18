@@ -42,7 +42,7 @@ final class BirthViewController: UIViewController {
         
         setupDelegate()
         setupAddTarget()
-        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "custom", style: .plain, target: nil, action: nil)
         self.hideKeyboardWhenTappedAround()
     }
     
