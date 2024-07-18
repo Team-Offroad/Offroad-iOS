@@ -50,6 +50,7 @@ final class GenderViewController: UIViewController {
         setupAddTarget()
         
         self.modalPresentationStyle = .fullScreen
+
     }
     
     private func presentToNextVC() {
@@ -101,17 +102,34 @@ extension GenderViewController {
             gender = nil
         }
         
+        let button = UIButton().then { button in
+            button.setImage(.backBarButton, for: .normal)
+            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
+            button.imageView?.contentMode = .scaleAspectFill
+            button.snp.makeConstraints { make in
+                make.width.equalTo(30)
+                make.height.equalTo(44)
+            }
+        }
+        
+        
         ProfileService().updateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender)) { result in
             switch result {
             case .success(let response):
                 print("프로필 업데이트 성공~~~~~~~~~")
                 
                 let choosingCharacterViewController = ChoosingCharacterViewController()
+                let customBackBarButton = UIBarButtonItem(customView: button)
+                choosingCharacterViewController.navigationItem.leftBarButtonItem = customBackBarButton
                 self.navigationController?.pushViewController(choosingCharacterViewController, animated: true)
             default:
                 return
             }
         }
+    }
+    
+    @objc private func executePop() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
