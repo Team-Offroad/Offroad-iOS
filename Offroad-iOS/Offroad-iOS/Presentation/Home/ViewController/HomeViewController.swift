@@ -56,7 +56,7 @@ extension HomeViewController {
             switch response {
             case .success(let data):
                 let nickname = data?.data.nickname ?? ""
-                let characterImgUrl = data?.data.characterImgUrl ?? ""
+                let characterImgUrl = data?.data.baseImageUrl ?? ""
                 let characterName = data?.data.characterName ?? ""
                 let emblemName = data?.data.emblemName ?? ""
 
