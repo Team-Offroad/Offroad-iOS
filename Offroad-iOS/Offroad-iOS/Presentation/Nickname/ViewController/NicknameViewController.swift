@@ -35,6 +35,11 @@ final class NicknameViewController: UIViewController {
         self.modalPresentationStyle = .fullScreen
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        nicknameView.nextButton.changeState(forState: .isDisabled)
+    }
 }
 
 extension NicknameViewController {
