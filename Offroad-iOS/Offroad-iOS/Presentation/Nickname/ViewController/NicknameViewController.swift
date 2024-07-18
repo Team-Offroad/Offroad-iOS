@@ -77,9 +77,7 @@ extension NicknameViewController {
                     self.nicknameView.textField.resignFirstResponder()
                     self.nicknameView.notionLabel.text = "좋은 닉네임이에요!"
                     self.nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
-                    self.nicknameView.nextButton.setBackgroundColor(UIColor.main(.main2), for: .normal)
-                    self.nicknameView.nextButton.layer.borderColor = .none
-                    self.nicknameView.nextButton.setTitleColor(UIColor.main(.main1), for: .normal)
+                    self.nicknameView.nextButton.changeState(forState: .isEnabled)
                 }
             default:
                 break

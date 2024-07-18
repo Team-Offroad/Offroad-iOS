@@ -80,6 +80,7 @@ extension GenderViewController {
             if button == sender {
                 button.isSelected.toggle()
                 button.layer.borderColor = button.isSelected ? UIColor.sub(.sub).cgColor : UIColor.grayscale(.gray100).cgColor
+                genderView.nextButton.changeState(forState: .isEnabled)
             } else {
                 button.isSelected = false
                 button.layer.borderColor = UIColor.grayscale(.gray100).cgColor
