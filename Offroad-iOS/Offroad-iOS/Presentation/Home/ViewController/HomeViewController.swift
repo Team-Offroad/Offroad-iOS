@@ -13,6 +13,8 @@ final class HomeViewController: OffroadTabBarViewController {
     
     private let rootView = HomeView()
     
+    var categoryString = "CAFFE"
+    
     // MARK: - Life Cycle
     
     override func loadView() {

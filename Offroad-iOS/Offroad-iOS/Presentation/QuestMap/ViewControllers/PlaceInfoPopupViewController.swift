@@ -84,6 +84,7 @@ extension PlaceInfoPopupViewController {
             NetworkService.shared.adventureService.authenticatePlaceAdventure(
                 adventureAuthDTO: placeRequestDTO
             ) { [weak self] response in
+                guard let self else { return }
                 switch response {
                 case .success(let result):
                     guard let data = result?.data else { return }
@@ -97,12 +98,14 @@ extension PlaceInfoPopupViewController {
                     if isValidPosition {
                         questResultViewController = QuestResultViewController(
                             result: .success,
-                            superViewController: tabBarController
+                            superViewController: tabBarController,
+                            placeInfo: placeInformation
                         )
                     } else {
                         questResultViewController = QuestResultViewController(
                             result: .wrongLocation,
-                            superViewController: tabBarController
+                            superViewController: tabBarController,
+                            placeInfo: placeInformation
                         )
                     }
                     

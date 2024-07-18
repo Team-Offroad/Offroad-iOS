@@ -22,13 +22,15 @@ class QuestResultViewController: UIViewController {
     
     let rootView = QuestResultView()
     var result: QuestResult? = nil
+    var placeInformation: RegisteredPlaceInfo?
     var superViewControlller: UIViewController? = nil
     
-    init(result: QuestResult, superViewController: UIViewController? = nil) {
+    init(result: QuestResult, superViewController: UIViewController? = nil, placeInfo: RegisteredPlaceInfo) {
         super.init(nibName: nil, bundle: nil)
         
         self.result = result
         self.superViewControlller = superViewController
+        self.placeInformation = placeInfo
         rootView.configureView(result: result)
     }
     
@@ -59,9 +61,14 @@ extension QuestResultViewController {
         switch result {
         case .success:
             dismiss(animated: false)
-            guard let homeViewController = tabBarController.viewControllers?[0] else { return }
-            tabBarController.selectedIndex = 0
+            guard let homeViewController = tabBarController.viewControllers?[0] as? HomeViewController else { return }
             // homeViewController에서 로티 움직이게 설정
+            guard let categoryString = placeInformation?.placeCategory.uppercased() else {
+                print("placeInformation.placeCategory is nil")
+                return
+            }
+            homeViewController.categoryString = categoryString
+            tabBarController.selectedIndex = 0
         case .wrongLocation:
             dismiss(animated: false)
         case .wrongQR:
