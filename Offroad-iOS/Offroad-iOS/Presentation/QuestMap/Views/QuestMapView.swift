@@ -15,6 +15,8 @@ class QuestMapView: UIView {
     
     //MARK: - UI Properties
     
+    let reloadPlaceButton = UIButton()
+    
     private let listButtonStackView = UIStackView()
     let questListButton = QuestMapListButton(image: .iconListBullet, title: "퀘스트 목록")
     let placeListButton = QuestMapListButton(image: .iconPlaceMarker, title: "장소 목록")
@@ -48,6 +50,13 @@ extension QuestMapView {
     //MARK: - Layout
     
     private func setupLayout() {
+        reloadPlaceButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(23)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(136)
+            make.height.equalTo(33)
+        }
+        
         naverMapView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.verticalEdges.equalTo(safeAreaLayoutGuide)
@@ -75,7 +84,7 @@ extension QuestMapView {
     //MARK: - Private Func
     
     private func setupHierarchy() {
-        naverMapView.addSubview(showLocationButton)
+        naverMapView.addSubviews(reloadPlaceButton, showLocationButton)
         listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
         addSubviews(
             naverMapView,
@@ -85,6 +94,18 @@ extension QuestMapView {
     }
     
     private func setupStyle() {
+        reloadPlaceButton.do { button in
+            button.setTitle("현 지도에서 검색", for: .normal)
+            button.setImage(.icnHome, for: .normal)
+            button.backgroundColor = .primary(.white)
+            button.setTitleColor(.grayscale(.gray200), for: .normal)
+            button.clipsToBounds = true
+            button.layer.cornerRadius = 5.5
+            button.layer.borderWidth = 1
+            button.layer.borderColor = UIColor.grayscale(.gray200).cgColor
+            button.titleLabel?.font = UIFont.pretendardFont(ofSize: 13.2, weight: .medium)
+        }
+        
         showLocationButton.do { button in
             button.setImage(.btnDotScope, for: .normal)
             button.mapView = naverMapView.mapView
