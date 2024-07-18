@@ -78,6 +78,11 @@
 		AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */; };
 		D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */; };
 		D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB102C4054D20048B6DF /* TitleModel.swift */; };
+		D063E9852C492D6700434A09 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = D063E9842C492D6700434A09 /* SVGKit */; };
+		D063E9872C492D6700434A09 /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D063E9862C492D6700434A09 /* SVGKitSwift */; };
+		D063E98C2C49328300434A09 /* SVGKImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E98B2C49328200434A09 /* SVGKImage+.swift */; };
+		D063E98E2C49483000434A09 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E98D2C49483000434A09 /* UIImageView+.swift */; };
+		D063E9902C496EA500434A09 /* LottieAnimationView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E98F2C496EA500434A09 /* LottieAnimationView+.swift */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
@@ -228,6 +233,9 @@
 		D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateToggleButton.swift; sourceTree = "<group>"; };
 		D018BB102C4054D20048B6DF /* TitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleModel.swift; sourceTree = "<group>"; };
 		D018BB1B2C43E4740048B6DF /* Offroad-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Offroad-iOS.entitlements"; sourceTree = "<group>"; };
+		D063E98B2C49328200434A09 /* SVGKImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SVGKImage+.swift"; sourceTree = "<group>"; };
+		D063E98D2C49483000434A09 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
+		D063E98F2C496EA500434A09 /* LottieAnimationView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LottieAnimationView+.swift"; sourceTree = "<group>"; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		D06D26C22C3D835300E79F25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -292,10 +300,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D063E9852C492D6700434A09 /* SVGKit in Frameworks */,
 				4E0394CE2C2AB762007F0517 /* Kingfisher in Frameworks */,
 				4E0394CB2C2AB750007F0517 /* Moya in Frameworks */,
 				4E0394D52C2AB846007F0517 /* KakaoSDKUser in Frameworks */,
 				4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */,
+				D063E9872C492D6700434A09 /* SVGKitSwift in Frameworks */,
 				4E0394C82C2AB723007F0517 /* SnapKit in Frameworks */,
 				4E0394D32C2AB846007F0517 /* KakaoSDKCommon in Frameworks */,
 				4E0394D12C2AB846007F0517 /* KakaoSDKAuth in Frameworks */,
@@ -410,6 +420,9 @@
 				D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */,
 				8792D0182C3E5E40002051AC /* UIButton+.swift */,
 				4E37B6CE2C456FBF007358DA /* UITabBar+.swift */,
+				D063E98D2C49483000434A09 /* UIImageView+.swift */,
+				D063E98B2C49328200434A09 /* SVGKImage+.swift */,
+				D063E98F2C496EA500434A09 /* LottieAnimationView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1327,6 +1340,8 @@
 				4E0394D42C2AB846007F0517 /* KakaoSDKUser */,
 				4E6A5BC22C2E8C290027FDF0 /* Then */,
 				4E8B478E2C382A4800D9B8EE /* Lottie */,
+				D063E9842C492D6700434A09 /* SVGKit */,
+				D063E9862C492D6700434A09 /* SVGKitSwift */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E0394292C2A9DCE007F0517 /* Offroad-iOS.app */;
@@ -1410,6 +1425,7 @@
 				4E0394CF2C2AB846007F0517 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				4E6A5BC12C2E8C290027FDF0 /* XCRemoteSwiftPackageReference "Then" */,
 				4E8B478D2C382A4800D9B8EE /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				D063E9832C492D6700434A09 /* XCRemoteSwiftPackageReference "SVGKit" */,
 			);
 			productRefGroup = 4E03942A2C2A9DCE007F0517 /* Products */;
 			projectDirPath = "";
@@ -1572,10 +1588,12 @@
 				D0E7966C2C457D64005B47A5 /* AdventureInfoResponseDTO.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */,
 				4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */,
+				D063E98C2C49328300434A09 /* SVGKImage+.swift in Sources */,
 				D06D26CF2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift in Sources */,
 				D0E796552C453BBA005B47A5 /* AdventuresQRAuthenticationRequestDTO.swift in Sources */,
 				D0E796032C452271005B47A5 /* BaseService.swift in Sources */,
 				D06D26DA2C3FE1C700E79F25 /* TitlePopupViewController.swift in Sources */,
+				D063E9902C496EA500434A09 /* LottieAnimationView+.swift in Sources */,
 				D0E796572C453BCB005B47A5 /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */,
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
@@ -1583,6 +1601,7 @@
 				D0E7963D2C453787005B47A5 /* QuestService.swift in Sources */,
 				D0E796082C45229B005B47A5 /* MoyaPlugin.swift in Sources */,
 				D0B81AA22C47180800C44ED9 /* ChoosingCharacterPopupView.swift in Sources */,
+				D063E98E2C49483000434A09 /* UIImageView+.swift in Sources */,
 				D0E796632C4553F0005B47A5 /* RefreshTokenResponseDTO.swift in Sources */,
 				D0E7960A2C4522CF005B47A5 /* NetworkService.swift in Sources */,
 				D0EAF2262C3B7D7F00566543 /* LoginViewController.swift in Sources */,
@@ -2078,6 +2097,14 @@
 				minimumVersion = 4.4.3;
 			};
 		};
+		D063E9832C492D6700434A09 /* XCRemoteSwiftPackageReference "SVGKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SVGKit/SVGKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2120,6 +2147,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E8B478D2C382A4800D9B8EE /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
+		};
+		D063E9842C492D6700434A09 /* SVGKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D063E9832C492D6700434A09 /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKit;
+		};
+		D063E9862C492D6700434A09 /* SVGKitSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D063E9832C492D6700434A09 /* XCRemoteSwiftPackageReference "SVGKit" */;
+			productName = SVGKitSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

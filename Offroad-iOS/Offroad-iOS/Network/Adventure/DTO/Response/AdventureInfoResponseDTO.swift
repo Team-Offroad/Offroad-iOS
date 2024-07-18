@@ -14,7 +14,8 @@ struct AdventureInfoResponseDTO: Codable {
 
 struct AdventureInfoData: Codable {
     let nickname: String
-    let characterImgUrl: String
+    let baseImageUrl: String
+    let motionImageUrl: String?
     let characterName: String
     let emblemName: String
 }
