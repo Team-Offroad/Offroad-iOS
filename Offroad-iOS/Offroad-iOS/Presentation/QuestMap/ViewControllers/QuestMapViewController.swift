@@ -65,12 +65,12 @@ extension QuestMapViewController {
     
     @objc private func pushQuestListViewController() {
         print(#function)
-        navigationController?.pushViewController(QuestQRViewController(), animated: true)
+        //navigationController?.pushViewController(QuestQRViewController(), animated: true)
     }
     
     @objc private func pushPlaceListViewController() {
         print(#function)
-        navigationController?.pushViewController(QuestQRViewController(), animated: true)
+        //navigationController?.pushViewController(QuestQRViewController(), animated: true)
     }
     
     //MARK: - Private Func
@@ -181,9 +181,9 @@ extension QuestMapViewController {
             print(marker.placeInfo.address)
             print(marker.placeInfo.visitCount)
             
-            let popupViewController = PlaceInfoPopupViewController()
+            let popupViewController = PlaceInfoPopupViewController(placeInfo: marker.placeInfo)
             popupViewController.modalPresentationStyle = .overCurrentContext
-            popupViewController.configurePopupView(with: marker.placeInfo)
+            popupViewController.configurePopupView()
             popupViewController.superViewControlller = self?.navigationController
             self?.present(popupViewController, animated: false)
             

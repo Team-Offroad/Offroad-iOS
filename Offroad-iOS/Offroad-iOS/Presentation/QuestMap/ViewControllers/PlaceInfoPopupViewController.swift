@@ -12,6 +12,19 @@ import Then
 
 class PlaceInfoPopupViewController: UIViewController {
     
+    //MARK: - Properties
+    
+    let placeInformation: RegisteredPlaceInfo
+    
+    init(placeInfo: RegisteredPlaceInfo) {
+        placeInformation = placeInfo
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     let rootView = PlaceInfoPopupView()
     var superViewControlller: UIViewController? = nil
     
@@ -47,7 +60,12 @@ extension PlaceInfoPopupViewController {
             print("not navicon")
             return
         }
-        navigationController.pushViewController(QuestQRViewController(), animated: true)
+        navigationController.pushViewController(
+            QuestQRViewController(
+                placeInformation: placeInformation
+            ),
+            animated: true
+        )
         self.dismiss(animated: false)
     }
     
@@ -60,8 +78,8 @@ extension PlaceInfoPopupViewController {
     
     //MARK: - Func
     
-    func configurePopupView(with placeInfo: RegisteredPlaceInfo) {
-        rootView.configurePopupView(with: placeInfo)
+    func configurePopupView() {
+        rootView.configurePopupView(with: placeInformation)
     }
     
 }

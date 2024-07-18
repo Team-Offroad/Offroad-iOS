@@ -132,6 +132,7 @@ extension PlaceInfoPopupView {
         shortDescriptionLabel.do { label in
             label.font = .offroad(style: .iosTextContents)
             label.numberOfLines = 0
+            label.lineBreakStrategy = .hangulWordPriority
             label.textColor = .main(.main2)
             label.textAlignment = .left
         }
@@ -139,6 +140,7 @@ extension PlaceInfoPopupView {
         addresssLabel.do { label in
             label.font = .offroad(style: .iosTextContentsSmall)
             label.textColor = .grayscale(.gray400)
+            label.numberOfLines = 2
             label.textAlignment = .left
         }
         

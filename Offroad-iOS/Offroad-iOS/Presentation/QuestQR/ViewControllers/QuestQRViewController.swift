@@ -15,6 +15,8 @@ class QuestQRViewController: UIViewController {
     
     //MARK: - Properties
     
+    let networkService = NetworkService.shared
+    let placeInformation: RegisteredPlaceInfo
     let metadataOutput = AVCaptureMetadataOutput()
     
     var captureSession = AVCaptureSession()
@@ -36,6 +38,15 @@ class QuestQRViewController: UIViewController {
     let questQRView = QuestQRView()
     
     //MARK: - Life Cycle
+    
+    init(placeInformation: RegisteredPlaceInfo) {
+        self.placeInformation = placeInformation
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = questQRView
@@ -73,7 +84,7 @@ class QuestQRViewController: UIViewController {
         )
         
         // rectOfInterest의 범위는 (0, 0) ~ (1, 1)
-        metadataOutput.rectOfInterest = rectOfInterest
+        //metadataOutput.rectOfInterest = rectOfInterest
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -110,7 +121,7 @@ extension QuestQRViewController {
     //MARK: - Private Func
     
     private func setNavigationController() {
-        self.navigationItem.setHidesBackButton(true, animated: false)        
+        self.navigationItem.setHidesBackButton(true, animated: false)
     }
     
     private func setupNavigationControllerGesture() {
@@ -130,6 +141,20 @@ extension QuestQRViewController {
     
     private func setupPrevieLayer() {
         questQRView.cameraView.session = captureSession
+    }
+    
+    private func showAlert(title: String, stringValue: String) {
+        DispatchQueue.main.async { [weak self] in
+            let alertCon = UIAlertController(title: title, message: "UUID: \(stringValue)", preferredStyle: .actionSheet)
+            let okAction = UIAlertAction(title: "넵!", style: .default) { [weak self] _ in
+                DispatchQueue.global().async {
+                    self?.captureSession.startRunning()
+                }
+            }
+            alertCon.addAction(okAction)
+            
+            self?.tabBarController?.present(alertCon, animated: true)
+        }
     }
     
 }
@@ -158,18 +183,30 @@ extension QuestQRViewController: AVCaptureMetadataOutputObjectsDelegate {
             guard let stringValue = readableObject.stringValue else { return }
             print("QR:", stringValue)
             
-            DispatchQueue.main.async { [weak self] in
-                
-                let alertCon = UIAlertController(title: "QR코드 인식됨", message: "URL: \(stringValue)", preferredStyle: .actionSheet)
-                let okAction = UIAlertAction(title: "넵!", style: .default) { [weak self] _ in
-                    DispatchQueue.global().async {
-                        self?.captureSession.startRunning()
+            let adventureAuthRequestDTO = AdventuresAuthenticationRequestDTO(
+                placeId: placeInformation.id,
+                qrCode: stringValue,
+                latitude: placeInformation.latitude,
+                longitude: placeInformation.longitude
+            )
+            networkService.adventureService.authenticateAdventure(adventureAuthDTO: adventureAuthRequestDTO) { [weak self] result in
+                switch result {
+                case .success(let response):
+                    print("성공")
+                    guard let data = response?.data else {
+                        self?.showAlert(title: "디코딩 실패한 듯", stringValue: "...")
+                        return
                     }
+                    let notiTitle = data.isQRMatched ? "탐험 성공" : "탐험 실패"
+                    self?.showAlert(title: notiTitle, stringValue: stringValue)
+                    
+                default:
+                    self?.showAlert(title: "서버에서 응답이 안왔어여", stringValue: stringValue)
+                    return
                 }
-                alertCon.addAction(okAction)
-                
-                self?.tabBarController?.present(alertCon, animated: true)
             }
+            
+            
         }
     }
     
