@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct AdventuresAuthenticationResponseDTO: Codable {
+struct AdventuresQRAuthenticationResponseDTO: Codable {
     let message: String
-    let data: AdventuresAuthenticationResultData
+    let data: AdventuresQRAuthenticationResultData
 }
 
-struct AdventuresAuthenticationResultData: Codable {
+struct AdventuresQRAuthenticationResultData: Codable {
     let isQRMatched: Bool
 }
