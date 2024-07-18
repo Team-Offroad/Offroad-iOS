@@ -96,13 +96,19 @@ extension BirthViewController {
     }
     
     @objc func buttonToGenderVC(sender: UIButton) {
-        if !validateDate() {
+        if validateDate() == false || (Int(birthView.yearTextField.text ?? "") ?? 0) < 1920 {
             birthView.notionLabel.text = "다시 한 번 확인해주세요."
         } else {
-            let nextVC = GenderViewController(nickname: nickname, birthYear: birthView.yearTextField.text ?? "", birthMonth: birthView.monthTextField.text ?? "", birthDay: birthView.dayTextField.text ?? "")
+            let nextVC = GenderViewController(
+                nickname: nickname,
+                birthYear: birthView.yearTextField.text ?? "",
+                birthMonth: birthView.monthTextField.text ?? "",
+                birthDay: birthView.dayTextField.text ?? ""
+            )
             self.navigationController?.pushViewController(nextVC, animated: true)
         }
     }
+
     
     @objc func skipButtonTapped() {
         let genderViewController = GenderViewController(nickname: nickname, birthYear: nil, birthMonth: nil, birthDay: nil)
@@ -123,6 +129,8 @@ extension BirthViewController {
         birthView.dayTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
         birthView.skipButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: birthView.skipButton)
     }
     
     private func validateDate() -> Bool {
