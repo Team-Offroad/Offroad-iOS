@@ -101,6 +101,12 @@ final class BirthView: UIView {
         $0.font = UIFont.offroad(style: .iosSubtitleReg)
     }
     
+    let notionLabel = UILabel().then {
+        $0.text = ""
+        $0.textColor = UIColor.grayscale(.gray400)
+        $0.font = UIFont.offroad(style: .iosHint)
+    }
+    
     let nextButton = UIButton().then {
         $0.setTitle("다음", for: .normal)
         $0.titleLabel?.textAlignment = .center
@@ -140,7 +146,9 @@ extension BirthView {
             yearLabel,
             monthLabel,
             dayLabel,
-            nextButton
+            notionLabel,
+            nextButton,
+            skipButton
         )
     }
     
@@ -199,6 +207,11 @@ extension BirthView {
         dayLabel.snp.makeConstraints { make in
             make.top.equalTo(birthLabel.snp.bottom).offset(26)
             make.leading.equalTo(dayTextField.snp.trailing).offset(6)
+        }
+        
+        notionLabel.snp.makeConstraints { make in
+            make.top.equalTo(yearTextField.snp.bottom).offset(12)
+            make.leading.equalToSuperview().inset(24)
         }
         
         nextButton.snp.makeConstraints { make in

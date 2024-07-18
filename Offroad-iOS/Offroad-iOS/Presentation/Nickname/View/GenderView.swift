@@ -108,7 +108,8 @@ extension GenderView {
             maleButton,
             femaleButton,
             etcButton,
-            nextButton
+            nextButton,
+            skipButton
         )
     }
     
