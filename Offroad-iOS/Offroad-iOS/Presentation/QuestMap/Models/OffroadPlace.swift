@@ -9,8 +9,8 @@ import Foundation
 
 import NMapsMap
 
-enum OffroadPlaceCategory {
-    case cafe
+enum OffroadPlaceCategory: String {
+    case caffe
     case park
     case restaurant
     case culture
@@ -40,7 +40,7 @@ let dummyPlaces: [OffroadPlace] = [
         name: "Place1",
         address: "서울시 강남구 테헤란로 123",
         shortIntroduction: "테헤란로의 멋진 카페",
-        placeCategory: OffroadPlaceCategory.cafe,
+        placeCategory: OffroadPlaceCategory.caffe,
         latLng: NMGLatLng(lat: 37.566900, lng: 126.923500),
         visitCount: 5
     ),
@@ -49,7 +49,7 @@ let dummyPlaces: [OffroadPlace] = [
         name: "Place2",
         address: "서울시 서초구 서초대로 456",
         shortIntroduction: "서초대로의 유명 레스토랑",
-        placeCategory: OffroadPlaceCategory.cafe,
+        placeCategory: OffroadPlaceCategory.caffe,
         latLng: NMGLatLng(lat: 37.567000, lng: 126.923600),
         visitCount: 5
     ),
@@ -58,7 +58,7 @@ let dummyPlaces: [OffroadPlace] = [
         name: "Place3",
         address: "서울시 마포구 홍익로 789",
         shortIntroduction: "홍익로의 아름다운 공원",
-        placeCategory: OffroadPlaceCategory.cafe,
+        placeCategory: OffroadPlaceCategory.caffe,
         latLng: NMGLatLng(lat: 37.566800, lng: 126.923400),
         visitCount: 5
     ),
@@ -67,7 +67,7 @@ let dummyPlaces: [OffroadPlace] = [
         name: "Place4",
         address: "서울시 종로구 세종대로 101",
         shortIntroduction: "세종대로의 문화 명소",
-        placeCategory: OffroadPlaceCategory.cafe,
+        placeCategory: OffroadPlaceCategory.caffe,
         latLng: NMGLatLng(lat: 37.566700, lng: 126.923200),
         visitCount: 5
     ),
@@ -76,7 +76,7 @@ let dummyPlaces: [OffroadPlace] = [
         name: "Place5",
         address: "서울시 송파구 올림픽로 222",
         shortIntroduction: "올림픽로의 스포츠 센터",
-        placeCategory: OffroadPlaceCategory.cafe,
+        placeCategory: OffroadPlaceCategory.caffe,
         latLng: NMGLatLng(lat: 37.566600, lng: 126.923100),
         visitCount: 5
     ),
@@ -85,7 +85,7 @@ let dummyPlaces: [OffroadPlace] = [
         name: "Place6",
         address: "서울시 중구 을지로 333",
         shortIntroduction: "을지로의 무명 장소",
-        placeCategory: OffroadPlaceCategory.cafe,
+        placeCategory: OffroadPlaceCategory.caffe,
         latLng: NMGLatLng(lat: 37.566500, lng: 126.923000),
         visitCount: 5
     )

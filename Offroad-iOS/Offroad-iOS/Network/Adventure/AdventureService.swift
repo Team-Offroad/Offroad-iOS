@@ -11,10 +11,12 @@ import Moya
 
 protocol AdventureServiceProtocol {
     func getAdventureInfo(category: String, completion: @escaping (NetworkResult<AdventureInfoResponseDTO>) -> ())
-    func authenticateAdventure(adventureAuthDTO: AdventuresAuthenticationRequestDTO, completion: @escaping (NetworkResult<AdventuresAuthenticationResponseDTO>) -> ())
+    func authenticateQRAdventure(adventureAuthDTO: AdventuresQRAuthenticationRequestDTO, completion: @escaping (NetworkResult<AdventuresQRAuthenticationResponseDTO>) -> ())
+    func authenticatePlaceAdventure(adventureAuthDTO: AdventuresPlaceAuthenticationRequestDTO, completion: @escaping (NetworkResult<AdventuresPlaceAuthenticationResponseDTO>) -> ())
 }
 
 final class AdventureService: BaseService, AdventureServiceProtocol {
+    
     let provider = MoyaProvider<AdventureAPI>(plugins: [MoyaPlugin()])
 
     func getAdventureInfo(category: String, completion: @escaping (NetworkResult<AdventureInfoResponseDTO>) -> ()) {
@@ -32,11 +34,26 @@ final class AdventureService: BaseService, AdventureServiceProtocol {
         }
     }
     
-    func authenticateAdventure(adventureAuthDTO: AdventuresAuthenticationRequestDTO, completion: @escaping (NetworkResult<AdventuresAuthenticationResponseDTO>) -> ()) {
-        provider.request(.adventureAuthentication(adventureAuth: adventureAuthDTO)) { result in
+    func authenticateQRAdventure(adventureAuthDTO: AdventuresQRAuthenticationRequestDTO, completion: @escaping (NetworkResult<AdventuresQRAuthenticationResponseDTO>) -> ()) {
+        provider.request(.adventureQRAuthentication(adventureQRAuth: adventureAuthDTO)) { result in
             switch result {
             case .success(let response):
-                let networkingResult: NetworkResult<AdventuresAuthenticationResponseDTO> = self.fetchNetworkResult(
+                let networkingResult: NetworkResult<AdventuresQRAuthenticationResponseDTO> = self.fetchNetworkResult(
+                    statusCode: response.statusCode,
+                    data: response.data
+                )
+                completion(networkingResult)
+            default:
+                return
+            }
+        }
+    }
+    
+    func authenticatePlaceAdventure(adventureAuthDTO: AdventuresPlaceAuthenticationRequestDTO, completion: @escaping (NetworkResult<AdventuresPlaceAuthenticationResponseDTO>) -> ()) {
+        provider.request(.adventurePlaceAuthentication(adventurePlaceAuth: adventureAuthDTO)) { result in
+            switch result {
+            case .success(let response):
+                let networkingResult: NetworkResult<AdventuresPlaceAuthenticationResponseDTO> = self.fetchNetworkResult(
                     statusCode: response.statusCode,
                     data: response.data
                 )

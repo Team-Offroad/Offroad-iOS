@@ -47,8 +47,19 @@ class QuestMapViewController: OffroadTabBarViewController {
         // 더미 데이터로 마커 초기 설정
         //setupMarkers()
         setupButtonsAction()
-        requestAuthorization()
         setupDelegates()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        requestAuthorization()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        updateRegisteredLocation()
     }
     
 }
@@ -101,11 +112,12 @@ extension QuestMapViewController {
             locationManager.requestAlwaysAuthorization()
         case .restricted:
             //추후 에러 메시지 팝업 구현 가능성
+            locationManager.requestAlwaysAuthorization()
             return
         case .denied:
             locationManager.requestAlwaysAuthorization()
         case .authorizedAlways:
-            updateCurrentLocation()
+            return
         case .authorizedWhenInUse:
             locationManager.requestAlwaysAuthorization()
             updateCurrentLocation()
@@ -181,7 +193,9 @@ extension QuestMapViewController {
             print(marker.placeInfo.address)
             print(marker.placeInfo.visitCount)
             
-            let popupViewController = PlaceInfoPopupViewController(placeInfo: marker.placeInfo)
+            guard let locationManager = self?.locationManager else { return true }
+            
+            let popupViewController = PlaceInfoPopupViewController(placeInfo: marker.placeInfo, locationManager: locationManager)
             popupViewController.modalPresentationStyle = .overCurrentContext
             popupViewController.configurePopupView()
             popupViewController.superViewControlller = self?.navigationController

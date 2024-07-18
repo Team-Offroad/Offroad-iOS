@@ -11,7 +11,8 @@ import Moya
 
 enum AdventureAPI {
     case getAdventureInfo(category: String)
-    case adventureAuthentication(adventureAuth: AdventuresAuthenticationRequestDTO)
+    case adventureQRAuthentication(adventureQRAuth: AdventuresQRAuthenticationRequestDTO)
+    case adventurePlaceAuthentication(adventurePlaceAuth: AdventuresPlaceAuthenticationRequestDTO)
 }
 
 extension AdventureAPI: BaseTargetType {
@@ -20,7 +21,9 @@ extension AdventureAPI: BaseTargetType {
         switch self {
         case .getAdventureInfo:
             return .accessTokenHeaderForGet
-        case .adventureAuthentication:
+        case .adventureQRAuthentication:
+            return .accessTokenHeaderForGeneral
+        case .adventurePlaceAuthentication:
             return .accessTokenHeaderForGeneral
         }
     }
@@ -29,7 +32,9 @@ extension AdventureAPI: BaseTargetType {
         switch self {
         case .getAdventureInfo(let category):
             return ["category": category]
-        case .adventureAuthentication:
+        case .adventureQRAuthentication:
+            return nil
+        case .adventurePlaceAuthentication:
             return nil
         }
     }
@@ -38,8 +43,10 @@ extension AdventureAPI: BaseTargetType {
         switch self {
         case .getAdventureInfo:
             return "/users/adventures/informations"
-        case .adventureAuthentication:
+        case .adventureQRAuthentication:
             return "/users/adventures/authentication"
+        case .adventurePlaceAuthentication:
+            return "/users/places/distance"
         }
     }
     
@@ -47,7 +54,9 @@ extension AdventureAPI: BaseTargetType {
         switch self {
         case .getAdventureInfo:
             return .get
-        case .adventureAuthentication:
+        case .adventureQRAuthentication:
+            return .post
+        case .adventurePlaceAuthentication:
             return .post
         }
     }
@@ -56,7 +65,9 @@ extension AdventureAPI: BaseTargetType {
         switch self {
         case .getAdventureInfo:
             return .requestParameters(parameters: parameter ?? [:], encoding: URLEncoding.queryString)
-        case .adventureAuthentication(let dto):
+        case .adventureQRAuthentication(let dto):
+            return .requestJSONEncodable(dto)
+        case .adventurePlaceAuthentication(let dto):
             return .requestJSONEncodable(dto)
         }
     }
