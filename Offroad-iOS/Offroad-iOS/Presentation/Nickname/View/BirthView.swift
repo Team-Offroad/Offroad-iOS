@@ -14,6 +14,12 @@ final class BirthView: UIView {
     
     //MARK: - Properties
     
+    let skipButton = UIButton().then {
+        $0.setTitle("건너뛰기", for: .normal)
+        $0.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
+        $0.titleLabel?.font =  UIFont.offroad(style: .iosHint)
+    }
+    
     private let mainLabel = UILabel().then {
         $0.text = "모험가 프로필 작성"
         $0.textAlignment = .center
@@ -41,6 +47,7 @@ final class BirthView: UIView {
         $0.layer.borderWidth = 1.0
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        $0.textColor = UIColor.main(.main2)
         $0.textAlignment = .center
         $0.attributedPlaceholder = NSAttributedString(
             string: "YYYY",
@@ -54,6 +61,7 @@ final class BirthView: UIView {
         $0.layer.borderWidth = 1.0
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        $0.textColor = UIColor.main(.main2)
         $0.textAlignment = .center
         $0.attributedPlaceholder = NSAttributedString(
             string: "MM",
@@ -67,6 +75,7 @@ final class BirthView: UIView {
         $0.layer.borderWidth = 1.0
         $0.layer.cornerRadius = 5
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        $0.textColor = UIColor.main(.main2)
         $0.textAlignment = .center
         $0.attributedPlaceholder = NSAttributedString(
             string: "DD",
@@ -90,6 +99,12 @@ final class BirthView: UIView {
         $0.text = "일"
         $0.textColor = UIColor.main(.main2)
         $0.font = UIFont.offroad(style: .iosSubtitleReg)
+    }
+    
+    let notionLabel = UILabel().then {
+        $0.text = ""
+        $0.textColor = UIColor.grayscale(.gray400)
+        $0.font = UIFont.offroad(style: .iosHint)
     }
     
     let nextButton = UIButton().then {
@@ -131,7 +146,9 @@ extension BirthView {
             yearLabel,
             monthLabel,
             dayLabel,
-            nextButton
+            notionLabel,
+            nextButton,
+            skipButton
         )
     }
     
@@ -190,6 +207,11 @@ extension BirthView {
         dayLabel.snp.makeConstraints { make in
             make.top.equalTo(birthLabel.snp.bottom).offset(26)
             make.leading.equalTo(dayTextField.snp.trailing).offset(6)
+        }
+        
+        notionLabel.snp.makeConstraints { make in
+            make.top.equalTo(yearTextField.snp.bottom).offset(12)
+            make.leading.equalToSuperview().inset(24)
         }
         
         nextButton.snp.makeConstraints { make in

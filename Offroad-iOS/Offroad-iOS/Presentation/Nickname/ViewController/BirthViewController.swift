@@ -43,7 +43,7 @@ final class BirthViewController: UIViewController {
         setupDelegate()
         setupAddTarget()
         
-        self.hideKeyboardWhenTappedAround() 
+        self.hideKeyboardWhenTappedAround()
     }
     
     //MARK: - Private Method
@@ -57,6 +57,9 @@ final class BirthViewController: UIViewController {
         birthView.monthTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
+        birthView.skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: birthView.skipButton)
     }
 }
 
@@ -93,21 +96,48 @@ extension BirthViewController {
     }
     
     @objc func buttonToGenderVC(sender: UIButton) {
-        let nextVC = GenderViewController(nickname: nickname, birthYear: birthView.yearTextField.text ?? "", birthMonth: birthView.monthTextField.text ?? "", birthDay: birthView.dayTextField.text ?? "")
-        self.navigationController?.pushViewController(nextVC, animated: true)
+        if !validateDate() {
+            birthView.notionLabel.text = "다시 한 번 확인해주세요."
+        } else {
+            let nextVC = GenderViewController(nickname: nickname, birthYear: birthView.yearTextField.text ?? "", birthMonth: birthView.monthTextField.text ?? "", birthDay: birthView.dayTextField.text ?? "")
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        }
     }
+    
+    @objc func skipButtonTapped() {
+        let genderViewController = GenderViewController(nickname: nickname, birthYear: nil, birthMonth: nil, birthDay: nil)
+        self.navigationController?.pushViewController(genderViewController, animated: true)
+    }
+
     
     // 텍스트 필드 글자 수 제한
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
     }
     
+    //MARK: - Private Func
+    
     private func setupTarget() {
         birthView.yearTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         birthView.monthTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
+        birthView.skipButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
     }
+    
+    private func validateDate() -> Bool {
+           guard
+               let yearText = birthView.yearTextField.text, let year = Int(yearText),
+               let monthText = birthView.monthTextField.text, let month = Int(monthText),
+               let dayText = birthView.dayTextField.text, let day = Int(dayText)
+           else {
+               return false
+           }
+           
+           let dateComponents = DateComponents(year: year, month: month, day: day)
+           let calendar = Calendar.current
+           return calendar.date(from: dateComponents) != nil
+       }
 }
 
 //MARK: - UITextFieldDelegate

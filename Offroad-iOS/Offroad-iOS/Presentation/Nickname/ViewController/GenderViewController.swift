@@ -16,9 +16,9 @@ final class GenderViewController: UIViewController {
     
     private let genderView = GenderView()
     private var nickname: String = ""
-    private var birthYear: Int = 0
-    private var birthMonth: Int = 0
-    private var birthDay: Int = 0
+    private var birthYear: Int?
+    private var birthMonth: Int?
+    private var birthDay: Int?
     
     //MARK: - Life Cycle
     
@@ -27,13 +27,13 @@ final class GenderViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    convenience init(nickname: String, birthYear: String, birthMonth: String, birthDay: String) {
+    convenience init(nickname: String, birthYear: String?, birthMonth: String?, birthDay: String?) {
         self.init(nibName: nil, bundle: nil)
         
         self.nickname = nickname
-        self.birthYear = Int(birthYear) ?? 0
-        self.birthMonth = Int(birthMonth) ?? 0
-        self.birthDay = Int(birthDay) ?? 0
+        self.birthYear = birthYear.flatMap { Int($0) }
+                self.birthMonth = birthMonth.flatMap { Int($0) }
+                self.birthDay = birthDay.flatMap { Int($0) }
     }
     
     required init?(coder: NSCoder) {
@@ -48,6 +48,8 @@ final class GenderViewController: UIViewController {
         super.viewDidLoad()
         
         setupAddTarget()
+        
+        self.modalPresentationStyle = .fullScreen
     }
     
     private func presentToNextVC() {
@@ -63,6 +65,9 @@ final class GenderViewController: UIViewController {
         genderView.femaleButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         genderView.etcButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         genderView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: genderView.skipButton)
+        genderView.skipButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
 }
 
@@ -83,13 +88,16 @@ extension GenderViewController {
     }
     
     @objc func nextButtonTapped() {
-        let gender: String
+        let gender: String?
         if genderView.maleButton.isSelected {
             gender = "MALE"
         } else if genderView.femaleButton.isSelected {
             gender = "FEMALE"
-        } else {
+        } else if genderView.etcButton.isSelected {
             gender = "OTHER"
+        }
+        else {
+            gender = nil
         }
         
         ProfileService().updateProfile(body: ProfileUpdateRequestDTO(nickName: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender)) { result in

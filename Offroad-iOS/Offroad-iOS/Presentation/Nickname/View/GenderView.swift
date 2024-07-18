@@ -14,6 +14,12 @@ final class GenderView: UIView {
     
     //MARK: - Properties
     
+    let skipButton = UIButton().then {
+        $0.setTitle("건너뛰기", for: .normal)
+        $0.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
+        $0.titleLabel?.font =  UIFont.offroad(style: .iosHint)
+    }
+    
     private let mainLabel = UILabel().then {
         $0.text = "모험가 프로필 작성"
         $0.textAlignment = .center
@@ -102,7 +108,8 @@ extension GenderView {
             maleButton,
             femaleButton,
             etcButton,
-            nextButton
+            nextButton,
+            skipButton
         )
     }
     
