@@ -52,6 +52,7 @@ extension NicknameViewController {
         nicknameView.checkButton.isEnabled = !isTextFieldEmpty
         nicknameView.checkButton.setTitleColor(isTextFieldEmpty ? UIColor.grayscale(.gray100) : UIColor.primary(.white), for: .normal)
         nicknameView.checkButton.backgroundColor = isTextFieldEmpty ? UIColor.main(.main3) : UIColor.primary(.black)
+        nicknameView.checkButton.layer.borderWidth = 0
         
         if isTextFieldEmpty {
             nicknameView.textField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
