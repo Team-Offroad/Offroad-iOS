@@ -92,7 +92,7 @@ extension GenderViewController {
             gender = "OTHER"
         }
         
-        ProfileService().updateProfile(body: ProfileUpdateRequestDTO(nickName: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender)) { result in
+        ProfileService().updateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender)) { result in
             switch result {
             case .success(let response):
                 print("Profile updated: \(response)")

@@ -8,7 +8,7 @@
 import Foundation
 
 struct ProfileUpdateRequestDTO: Codable {
-    let nickName: String
+    let nickname: String
     let year: Int
     let month: Int
     let day: Int
