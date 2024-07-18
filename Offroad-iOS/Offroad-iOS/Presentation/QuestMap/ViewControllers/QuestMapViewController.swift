@@ -139,9 +139,11 @@ extension QuestMapViewController {
     }
     
     private func updateRegisteredLocation() {
+        let cameraPositionTarget = rootView.naverMapView.mapView.cameraPosition.target
+        
         let requestPlaceDTO = RegisteredPlaceRequestDTO(
-            currentLatitude: currentLocation.lat,
-            currentLongitude: currentLocation.lng
+            currentLatitude: cameraPositionTarget.lat,
+            currentLongitude: cameraPositionTarget.lng
         )
         
         locationService.getRegisteredLocation(requestDTO: requestPlaceDTO) { [weak self] response in
