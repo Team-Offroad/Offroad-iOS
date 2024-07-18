@@ -134,18 +134,43 @@ extension BirthViewController {
     }
     
     private func validateDate() -> Bool {
-           guard
-               let yearText = birthView.yearTextField.text, let year = Int(yearText),
-               let monthText = birthView.monthTextField.text, let month = Int(monthText),
-               let dayText = birthView.dayTextField.text, let day = Int(dayText)
-           else {
-               return false
-           }
-           
-           let dateComponents = DateComponents(year: year, month: month, day: day)
-           let calendar = Calendar.current
-           return calendar.date(from: dateComponents) != nil
-       }
+        guard
+            let yearText = birthView.yearTextField.text, let year = Int(yearText),
+            let monthText = birthView.monthTextField.text, let month = Int(monthText),
+            let dayText = birthView.dayTextField.text, let day = Int(dayText)
+        else {
+            return false
+        }
+        
+        if year < 1920 || month < 1 || month > 12 || day < 1 || day > 31 {
+            return false
+        }
+        
+        switch month {
+        case 4, 6, 9, 11:
+            if day > 30 {
+                return false
+            }
+        case 2:
+            if isLeapYear(year) {
+                if day > 29 {
+                    return false
+                }
+            } else {
+                if day > 28 {
+                    return false
+                }
+            }
+        default:
+            break
+        }
+        
+        return true
+    }
+
+    private func isLeapYear(_ year: Int) -> Bool {
+        return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
+    }
 }
 
 //MARK: - UITextFieldDelegate
