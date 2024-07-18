@@ -27,7 +27,7 @@ final class SplashViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if UserDefaults.standard.bool(forKey: "isLoggedIn") {
-            presentViewController(viewController: HomeViewController())
+            presentViewController(viewController: OffroadTabBarController())
         }
         else {
             presentViewController(viewController: LoginViewController())
