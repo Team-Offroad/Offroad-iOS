@@ -78,6 +78,7 @@
 		D063E9872C492D6700434A09 /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D063E9862C492D6700434A09 /* SVGKitSwift */; };
 		D063E98C2C49328300434A09 /* SVGKImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E98B2C49328200434A09 /* SVGKImage+.swift */; };
 		D063E98E2C49483000434A09 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E98D2C49483000434A09 /* UIImageView+.swift */; };
+		D063E9902C496EA500434A09 /* LottieAnimationView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E98F2C496EA500434A09 /* LottieAnimationView+.swift */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
@@ -226,6 +227,7 @@
 		D018BB1B2C43E4740048B6DF /* Offroad-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Offroad-iOS.entitlements"; sourceTree = "<group>"; };
 		D063E98B2C49328200434A09 /* SVGKImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SVGKImage+.swift"; sourceTree = "<group>"; };
 		D063E98D2C49483000434A09 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
+		D063E98F2C496EA500434A09 /* LottieAnimationView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LottieAnimationView+.swift"; sourceTree = "<group>"; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		D06D26C22C3D835300E79F25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				4E37B6CE2C456FBF007358DA /* UITabBar+.swift */,
 				D063E98D2C49483000434A09 /* UIImageView+.swift */,
 				D063E98B2C49328200434A09 /* SVGKImage+.swift */,
+				D063E98F2C496EA500434A09 /* LottieAnimationView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1552,6 +1555,7 @@
 				D0E796552C453BBA005B47A5 /* AdventuresAuthenticationRequestDTO.swift in Sources */,
 				D0E796032C452271005B47A5 /* BaseService.swift in Sources */,
 				D06D26DA2C3FE1C700E79F25 /* TitlePopupViewController.swift in Sources */,
+				D063E9902C496EA500434A09 /* LottieAnimationView+.swift in Sources */,
 				D0E796572C453BCB005B47A5 /* AdventuresAuthenticationResponseDTO.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */,
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
