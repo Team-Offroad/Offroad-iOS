@@ -9,6 +9,10 @@ import UIKit
 
 class PlaceInfoPopupView: UIView {
     
+    //MARK: - Properties
+    
+    let tapGestureRecognizer = UITapGestureRecognizer()
+    
     //MARK: - UI Properties
     
     let popupView = UIView()
@@ -17,7 +21,7 @@ class PlaceInfoPopupView: UIView {
     private let nameLabel = UILabel()
     private let nameAndImageStackView = UIStackView()
     
-    private let placeCategoryImageView = UIImageView()
+    private var placeCategoryImageView = UIImageView()
     private let shortDescriptionLabel = UILabel()
     private let addresssLabel = UILabel()
     private let visitCountLabel = UILabel()
@@ -59,12 +63,18 @@ extension PlaceInfoPopupView {
         )
         
         addSubview(popupView)
+        
+        addGestureRecognizer(tapGestureRecognizer)
     }
     
     private func setupLayout() {
         nameAndImageStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(17)
             make.leading.equalToSuperview().inset(15)
+        }
+        
+        placeCategoryImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(21)
         }
         
         shortDescriptionLabel.snp.makeConstraints { make in
@@ -75,7 +85,6 @@ extension PlaceInfoPopupView {
         addresssLabel.snp.makeConstraints { make in
             make.top.equalTo(shortDescriptionLabel.snp.bottom).offset(4)
             make.horizontalEdges.equalToSuperview().inset(15)
-            
         }
         
         visitCountLabel.snp.makeConstraints { make in
@@ -170,6 +179,21 @@ extension PlaceInfoPopupView {
         self.shortDescriptionLabel.text = placeInfo.shortIntroduction
         self.addresssLabel.text = placeInfo.address
         self.visitCountLabel.text = "탐험횟수:\(placeInfo.visitCount)"
+        guard let category = OffroadPlaceCategory(rawValue: placeInfo.placeCategory.lowercased()) else { return }
+        switch category {
+        case .caffe:
+            placeCategoryImageView = UIImageView(image: .imgCategoryCafe)
+        case .park:
+            placeCategoryImageView = UIImageView(image: .imgCategoryPark)
+        case .restaurant:
+            placeCategoryImageView = UIImageView(image: .imgCategoryRestaurant)
+        case .culture:
+            placeCategoryImageView = UIImageView(image: .imgCategoryCulture)
+        case .sport:
+            placeCategoryImageView = UIImageView(image: .imgCategorySports)
+        case .none:
+            placeCategoryImageView = UIImageView(image: .imgCategoryCafe)
+        }
     }
-    
 }
+

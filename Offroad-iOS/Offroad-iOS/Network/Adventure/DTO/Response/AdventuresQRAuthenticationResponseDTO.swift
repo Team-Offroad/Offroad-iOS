@@ -14,4 +14,5 @@ struct AdventuresQRAuthenticationResponseDTO: Codable {
 
 struct AdventuresQRAuthenticationResultData: Codable {
     let isQRMatched: Bool
+    let characterImageUrl: String
 }

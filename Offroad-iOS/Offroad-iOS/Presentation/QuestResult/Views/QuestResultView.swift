@@ -16,7 +16,7 @@ class QuestResultView: UIView {
     private let titleLabel = UILabel()
     private let subTitleLabel = UILabel()
     
-    private let characterImageView = UIImageView(image: UIImage(systemName: "house")!)
+    private let characterImageView = UIImageView(image: nil)
     
     let goToHomeButton = UIButton()
     
@@ -66,7 +66,7 @@ extension QuestResultView {
         subTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(43)
+            make.horizontalEdges.equalToSuperview().inset(20)
         }
         
         characterImageView.snp.makeConstraints { make in
@@ -104,6 +104,10 @@ extension QuestResultView {
             label.textAlignment = .center
         }
         
+        characterImageView.do { view in
+            view.contentMode = .scaleAspectFit
+        }
+        
         subTitleLabel.do { label in
             label.text = "탐험에 성공했어요!\n이곳에 무엇이 있는지 천천히 살펴볼까요?"
             label.font = .offroad(style: .iosTextRegular)
@@ -124,7 +128,7 @@ extension QuestResultView {
     
     //MARK: - Func
     
-    func configureView(result: QuestResult) {
+    func configureView(result: QuestResult, imageURL: String?) {
         switch result {
         case .success:
             titleLabel.text = "탐험 성공"
@@ -141,6 +145,8 @@ extension QuestResultView {
             subTitleLabel.highlightText(targetText: "QR코드", font: .offroad(style: .iosTextBold))
             goToHomeButton.setTitle("확인", for: .normal)
         }
+        guard let imageURL else { return }
+        characterImageView.fetchSvgURLToImageView(svgUrlString: imageURL)
     }
     
     func configurePopupView(with placeInfo: RegisteredPlaceInfo) {
