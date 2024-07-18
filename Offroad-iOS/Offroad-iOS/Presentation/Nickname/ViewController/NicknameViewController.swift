@@ -77,9 +77,7 @@ extension NicknameViewController {
                     self.nicknameView.textField.resignFirstResponder()
                     self.nicknameView.notionLabel.text = "좋은 닉네임이에요!"
                     self.nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
-                    self.nicknameView.nextButton.setBackgroundColor(UIColor.main(.main2), for: .normal)
-                    self.nicknameView.nextButton.layer.borderColor = .none
-                    self.nicknameView.nextButton.setTitleColor(UIColor.main(.main1), for: .normal)
+                    self.nicknameView.nextButton.changeState(forState: .isEnabled)
                 }
             default:
                 break
@@ -88,8 +86,27 @@ extension NicknameViewController {
     }
     
     @objc func buttonToBirthVC(sender: UIButton) {
-        let nextVC = BirthViewController(nickname: self.nicknameView.textField.text ?? "")
+        var nextVC = BirthViewController(nickname: self.nicknameView.textField.text ?? "")
+        
+        let button = UIButton().then { button in
+            button.setImage(.backBarButton, for: .normal)
+            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
+            button.imageView?.contentMode = .scaleAspectFill
+            button.snp.makeConstraints { make in
+                make.width.equalTo(30)
+                make.height.equalTo(44)
+            }
+        }
+        
+        let customBackBarButton = UIBarButtonItem(customView: button)
+        customBackBarButton.tintColor = .black
+        nextVC.navigationItem.leftBarButtonItem = customBackBarButton
+        
         self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @objc private func executePop() {
+        navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Private Func

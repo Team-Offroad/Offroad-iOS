@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 enum AdventureAPI {
-    case getAdventureInfo
+    case getAdventureInfo(category: String)
     case adventureQRAuthentication(adventureQRAuth: AdventuresQRAuthenticationRequestDTO)
     case adventurePlaceAuthentication(adventurePlaceAuth: AdventuresPlaceAuthenticationRequestDTO)
 }
@@ -30,8 +30,8 @@ extension AdventureAPI: BaseTargetType {
     
     var parameter: [String : Any]? {
         switch self {
-        case .getAdventureInfo:
-            return ["category": "NONE"]
+        case .getAdventureInfo(let category):
+            return ["category": category]
         case .adventureQRAuthentication:
             return nil
         case .adventurePlaceAuthentication:

@@ -80,6 +80,7 @@ extension GenderViewController {
             if button == sender {
                 button.isSelected.toggle()
                 button.layer.borderColor = button.isSelected ? UIColor.sub(.sub).cgColor : UIColor.grayscale(.gray100).cgColor
+                genderView.nextButton.changeState(forState: .isEnabled)
             } else {
                 button.isSelected = false
                 button.layer.borderColor = UIColor.grayscale(.gray100).cgColor
@@ -103,8 +104,7 @@ extension GenderViewController {
         ProfileService().updateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender)) { result in
             switch result {
             case .success(let response):
-                print("Profile updated: \(response)")
-                // 성공 처리
+                print("프로필 업데이트 성공~~~~~~~~~")
                 
                 let choosingCharacterViewController = ChoosingCharacterViewController()
                 self.navigationController?.pushViewController(choosingCharacterViewController, animated: true)
