@@ -183,13 +183,13 @@ extension QuestQRViewController: AVCaptureMetadataOutputObjectsDelegate {
             guard let stringValue = readableObject.stringValue else { return }
             print("QR:", stringValue)
             
-            let adventureAuthRequestDTO = AdventuresAuthenticationRequestDTO(
+            let adventureAuthRequestDTO = AdventuresQRAuthenticationRequestDTO(
                 placeId: placeInformation.id,
                 qrCode: stringValue,
                 latitude: placeInformation.latitude,
                 longitude: placeInformation.longitude
             )
-            networkService.adventureService.authenticateAdventure(adventureAuthDTO: adventureAuthRequestDTO) { [weak self] result in
+            networkService.adventureService.authenticateQRAdventure(adventureAuthDTO: adventureAuthRequestDTO) { [weak self] result in
                 switch result {
                 case .success(let response):
                     print("성공")
@@ -198,8 +198,16 @@ extension QuestQRViewController: AVCaptureMetadataOutputObjectsDelegate {
                         return
                     }
                     let notiTitle = data.isQRMatched ? "탐험 성공" : "탐험 실패"
-                    self?.showAlert(title: notiTitle, stringValue: stringValue)
+                    let questResultViewController: QuestResultViewController
+                    if data.isQRMatched {
+                        questResultViewController = QuestResultViewController(result: .success)
+                    } else {
+                        questResultViewController = QuestResultViewController(result: .wrongQR)
+                    }
                     
+                    questResultViewController.modalPresentationStyle = .overCurrentContext
+                    self?.navigationController?.popViewController(animated: true)
+                    self?.tabBarController?.present(questResultViewController, animated: false)
                 default:
                     self?.showAlert(title: "서버에서 응답이 안왔어여", stringValue: stringValue)
                     return
