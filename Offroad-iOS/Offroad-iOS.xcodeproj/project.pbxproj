@@ -29,6 +29,8 @@
 		4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394E02C2AC059007F0517 /* NSObject+.swift */; };
 		4E0394E32C2AC0D7007F0517 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394E22C2AC0D7007F0517 /* UIWindow+.swift */; };
 		4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394E52C2AC16A007F0517 /* UIScreen+.swift */; };
+		4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */; };
+		4E09BF572C48A5B7009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */; };
 		4E0C69672C471A4B00B6453E /* PlaceInfoPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69662C471A4B00B6453E /* PlaceInfoPopupView.swift */; };
 		4E0C69692C4724A100B6453E /* OffroadNMFMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69682C4724A100B6453E /* OffroadNMFMarker.swift */; };
 		4E1E94112C39870700A7B08A /* ColorLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94102C39870700A7B08A /* ColorLiterals.swift */; };
@@ -117,8 +119,8 @@
 		D0E7964C2C4539FC005B47A5 /* RegisteredPlaceResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7964B2C4539FC005B47A5 /* RegisteredPlaceResponseDTO.swift */; };
 		D0E7964E2C453B38005B47A5 /* AdventureAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7964D2C453B38005B47A5 /* AdventureAPI.swift */; };
 		D0E796502C453B47005B47A5 /* AdventureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7964F2C453B47005B47A5 /* AdventureService.swift */; };
-		D0E796552C453BBA005B47A5 /* AdventuresAuthenticationRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796542C453BBA005B47A5 /* AdventuresAuthenticationRequestDTO.swift */; };
-		D0E796572C453BCB005B47A5 /* AdventuresAuthenticationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796562C453BCB005B47A5 /* AdventuresAuthenticationResponseDTO.swift */; };
+		D0E796552C453BBA005B47A5 /* AdventuresQRAuthenticationRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796542C453BBA005B47A5 /* AdventuresQRAuthenticationRequestDTO.swift */; };
+		D0E796572C453BCB005B47A5 /* AdventuresQRAuthenticationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796562C453BCB005B47A5 /* AdventuresQRAuthenticationResponseDTO.swift */; };
 		D0E796592C455100005B47A5 /* EmblemAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796582C455100005B47A5 /* EmblemAPI.swift */; };
 		D0E7965B2C455118005B47A5 /* EmblemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7965A2C455118005B47A5 /* EmblemService.swift */; };
 		D0E7965F2C45518B005B47A5 /* EmblemInfoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7965E2C45518B005B47A5 /* EmblemInfoResponseDTO.swift */; };
@@ -173,6 +175,8 @@
 		4E0394E02C2AC059007F0517 /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 		4E0394E22C2AC0D7007F0517 /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		4E0394E52C2AC16A007F0517 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
+		4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationRequestDTO.swift; sourceTree = "<group>"; };
+		4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationResponsetDTO.swift; sourceTree = "<group>"; };
 		4E0C69662C471A4B00B6453E /* PlaceInfoPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoPopupView.swift; sourceTree = "<group>"; };
 		4E0C69682C4724A100B6453E /* OffroadNMFMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadNMFMarker.swift; sourceTree = "<group>"; };
 		4E1E94102C39870700A7B08A /* ColorLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiterals.swift; sourceTree = "<group>"; };
@@ -263,8 +267,8 @@
 		D0E7964B2C4539FC005B47A5 /* RegisteredPlaceResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredPlaceResponseDTO.swift; sourceTree = "<group>"; };
 		D0E7964D2C453B38005B47A5 /* AdventureAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureAPI.swift; sourceTree = "<group>"; };
 		D0E7964F2C453B47005B47A5 /* AdventureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureService.swift; sourceTree = "<group>"; };
-		D0E796542C453BBA005B47A5 /* AdventuresAuthenticationRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresAuthenticationRequestDTO.swift; sourceTree = "<group>"; };
-		D0E796562C453BCB005B47A5 /* AdventuresAuthenticationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresAuthenticationResponseDTO.swift; sourceTree = "<group>"; };
+		D0E796542C453BBA005B47A5 /* AdventuresQRAuthenticationRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresQRAuthenticationRequestDTO.swift; sourceTree = "<group>"; };
+		D0E796562C453BCB005B47A5 /* AdventuresQRAuthenticationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresQRAuthenticationResponseDTO.swift; sourceTree = "<group>"; };
 		D0E796582C455100005B47A5 /* EmblemAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmblemAPI.swift; sourceTree = "<group>"; };
 		D0E7965A2C455118005B47A5 /* EmblemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmblemService.swift; sourceTree = "<group>"; };
 		D0E7965E2C45518B005B47A5 /* EmblemInfoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmblemInfoResponseDTO.swift; sourceTree = "<group>"; };
@@ -1184,7 +1188,8 @@
 		D0E796522C453B65005B47A5 /* Response */ = {
 			isa = PBXGroup;
 			children = (
-				D0E796562C453BCB005B47A5 /* AdventuresAuthenticationResponseDTO.swift */,
+				D0E796562C453BCB005B47A5 /* AdventuresQRAuthenticationResponseDTO.swift */,
+				4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */,
 				D0E7966B2C457D64005B47A5 /* AdventureInfoResponseDTO.swift */,
 			);
 			path = Response;
@@ -1193,7 +1198,8 @@
 		D0E796532C453B6B005B47A5 /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				D0E796542C453BBA005B47A5 /* AdventuresAuthenticationRequestDTO.swift */,
+				D0E796542C453BBA005B47A5 /* AdventuresQRAuthenticationRequestDTO.swift */,
+				4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -1530,15 +1536,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E09BF572C48A5B7009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */,
+				4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */,
 				4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */,
 				D0E7966C2C457D64005B47A5 /* AdventureInfoResponseDTO.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */,
 				4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */,
 				D06D26CF2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift in Sources */,
-				D0E796552C453BBA005B47A5 /* AdventuresAuthenticationRequestDTO.swift in Sources */,
+				D0E796552C453BBA005B47A5 /* AdventuresQRAuthenticationRequestDTO.swift in Sources */,
 				D0E796032C452271005B47A5 /* BaseService.swift in Sources */,
 				D06D26DA2C3FE1C700E79F25 /* TitlePopupViewController.swift in Sources */,
-				D0E796572C453BCB005B47A5 /* AdventuresAuthenticationResponseDTO.swift in Sources */,
+				D0E796572C453BCB005B47A5 /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */,
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
 				8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */,

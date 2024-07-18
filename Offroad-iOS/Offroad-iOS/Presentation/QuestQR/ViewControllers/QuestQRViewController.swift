@@ -183,13 +183,13 @@ extension QuestQRViewController: AVCaptureMetadataOutputObjectsDelegate {
             guard let stringValue = readableObject.stringValue else { return }
             print("QR:", stringValue)
             
-            let adventureAuthRequestDTO = AdventuresAuthenticationRequestDTO(
+            let adventureAuthRequestDTO = AdventuresQRAuthenticationRequestDTO(
                 placeId: placeInformation.id,
                 qrCode: stringValue,
                 latitude: placeInformation.latitude,
                 longitude: placeInformation.longitude
             )
-            networkService.adventureService.authenticateAdventure(adventureAuthDTO: adventureAuthRequestDTO) { [weak self] result in
+            networkService.adventureService.authenticateQRAdventure(adventureAuthDTO: adventureAuthRequestDTO) { [weak self] result in
                 switch result {
                 case .success(let response):
                     print("성공")
