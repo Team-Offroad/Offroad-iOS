@@ -197,6 +197,12 @@ extension QuestMapViewController {
             
             guard let locationManager = self?.locationManager else { return true }
             
+            let markerLatLng = NMGLatLng(lat: marker.placeInfo.latitude, lng: marker.placeInfo.longitude)
+            let cameraUpdate = NMFCameraUpdate(scrollTo: markerLatLng)
+            cameraUpdate.animation = .easeOut
+            self?.rootView.naverMapView.mapView.moveCamera(cameraUpdate)
+            
+            
             let popupViewController = PlaceInfoPopupViewController(placeInfo: marker.placeInfo, locationManager: locationManager)
             popupViewController.modalPresentationStyle = .overCurrentContext
             popupViewController.configurePopupView()

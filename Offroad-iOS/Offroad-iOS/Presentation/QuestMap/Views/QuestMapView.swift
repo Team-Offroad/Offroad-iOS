@@ -96,7 +96,7 @@ extension QuestMapView {
     private func setupStyle() {
         reloadPlaceButton.do { button in
             button.setTitle("현 지도에서 검색", for: .normal)
-            button.setImage(.icnHome, for: .normal)
+            button.setImage(.icnReloadArrow, for: .normal)
             button.backgroundColor = .primary(.white)
             button.setTitleColor(.grayscale(.gray200), for: .normal)
             button.clipsToBounds = true
