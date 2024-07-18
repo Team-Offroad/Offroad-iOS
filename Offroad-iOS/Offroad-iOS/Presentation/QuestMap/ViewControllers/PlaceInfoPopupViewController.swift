@@ -15,6 +15,7 @@ class PlaceInfoPopupViewController: UIViewController {
     
     //MARK: - Properties
     
+    let tapGestureRecognizer = UITapGestureRecognizer()
     let placeInformation: RegisteredPlaceInfo
     let locationManager: CLLocationManager
     
@@ -42,6 +43,7 @@ class PlaceInfoPopupViewController: UIViewController {
         super.viewDidLoad()
         
         setupButtonsAction()
+        setupGestures()
     }
     
 }
@@ -84,6 +86,7 @@ extension PlaceInfoPopupViewController {
             NetworkService.shared.adventureService.authenticatePlaceAdventure(
                 adventureAuthDTO: placeRequestDTO
             ) { [weak self] response in
+                guard let self else { return }
                 switch response {
                 case .success(let result):
                     guard let data = result?.data else { return }
@@ -97,12 +100,16 @@ extension PlaceInfoPopupViewController {
                     if isValidPosition {
                         questResultViewController = QuestResultViewController(
                             result: .success,
-                            superViewController: tabBarController
+                            superViewController: tabBarController,
+                            placeInfo: placeInformation,
+                            imageURL: characterImageURL
                         )
                     } else {
                         questResultViewController = QuestResultViewController(
                             result: .wrongLocation,
-                            superViewController: tabBarController
+                            superViewController: tabBarController,
+                            placeInfo: placeInformation,
+                            imageURL: characterImageURL
                         )
                     }
                     
@@ -129,6 +136,12 @@ extension PlaceInfoPopupViewController {
         }
     }
     
+    @objc private func tapped() {
+        print(#function)
+        
+        self.dismiss(animated: false)
+    }
+    
     //MARK: - Private Func
     
     private func setupButtonsAction() {
@@ -147,10 +160,32 @@ extension PlaceInfoPopupViewController {
         }
     }
     
+    private func setupGestures() {
+        rootView.addGestureRecognizer(tapGestureRecognizer)
+        tapGestureRecognizer.addTarget(self, action: #selector(tapped))
+        tapGestureRecognizer.delegate = self
+    }
+    
     //MARK: - Func
     
     func configurePopupView() {
         rootView.configurePopupView(with: placeInformation)
+    }
+    
+}
+
+
+extension PlaceInfoPopupViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        print(#function)
+        if gestureRecognizer == tapGestureRecognizer {
+            if touch.view!.isDescendant(of: rootView.popupView)  {
+                return true
+            }
+            return false
+        }
+        return false
     }
     
 }
