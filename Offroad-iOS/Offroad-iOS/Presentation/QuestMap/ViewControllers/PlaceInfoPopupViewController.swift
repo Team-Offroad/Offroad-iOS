@@ -90,10 +90,28 @@ extension PlaceInfoPopupViewController {
                     print(data)
                     let isValidPosition = data.isValidPosition
                     let characterImageURL = data.successCharacterImageUrl
-                    self?.showAlert(
-                        title: isValidPosition ? "탐험 성공" : "탐험 실패",
-                        message: "캐릭터 이미지 URL: \(characterImageURL)"
-                    )
+                    
+                    let tabBarController = navigationController.tabBarController
+                    
+                    let questResultViewController: QuestResultViewController
+                    if isValidPosition {
+                        questResultViewController = QuestResultViewController(
+                            result: .success,
+                            superViewController: tabBarController
+                        )
+                    } else {
+                        questResultViewController = QuestResultViewController(
+                            result: .wrongLocation,
+                            superViewController: tabBarController
+                        )
+                    }
+                    
+                    
+                    tabBarController?.present(questResultViewController, animated: false)
+                    //self?.showAlert(
+                    //    title: isValidPosition ? "탐험 성공" : "탐험 실패",
+                    //    message: "캐릭터 이미지 URL: \(characterImageURL)"
+                    //)
                     
                     if isValidPosition {  }
                 default:

@@ -14,9 +14,9 @@ class QuestResultView: UIView {
     let popupView = UIView()
     
     private let titleLabel = UILabel()
-    private let subTitle = UILabel()
+    private let subTitleLabel = UILabel()
     
-    private let characterImageView = UIImageView(image: nil)
+    private let characterImageView = UIImageView(image: UIImage(systemName: "house")!)
     
     let goToHomeButton = UIButton()
     
@@ -44,7 +44,7 @@ extension QuestResultView {
         
         popupView.addSubviews(
             titleLabel,
-            subTitle,
+            subTitleLabel,
             characterImageView,
             goToHomeButton
         )
@@ -52,6 +52,50 @@ extension QuestResultView {
     }
     
     private func setupLayout() {
+        popupView.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(24)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().inset(38)
+            make.horizontalEdges.equalToSuperview().inset(43)
+        }
+        
+        subTitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(12)
+            make.centerX.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(43)
+        }
+        
+        characterImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(subTitleLabel.snp.bottom).offset(12.74)
+            make.width.equalTo(260)
+            make.height.equalTo(162)
+            make.horizontalEdges.equalToSuperview().inset(46)
+        }
+        
+        goToHomeButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(characterImageView.snp.bottom)
+            make.horizontalEdges.equalToSuperview().inset(45.5)
+            make.bottom.equalToSuperview().inset(31)
+            make.height.equalTo(48)
+        }
+    }
+    
+    
+    //MARK: - Private Func
+    
+    private func setupStyle() {
+        backgroundColor = .clear
+        
+        popupView.do { view in
+            view.roundCorners(cornerRadius: 15)
+            view.backgroundColor = .main(.main3)
+        }
         
         titleLabel.do { label in
             label.text = "탐험 성공"
@@ -60,26 +104,44 @@ extension QuestResultView {
             label.textAlignment = .center
         }
         
-        titleLabel.do { label in
+        subTitleLabel.do { label in
             label.text = "탐험에 성공했어요!\n이곳에 무엇이 있는지 천천히 살펴볼까요?"
-            label.font = .offroad(style: .iosTextTitle)
+            label.font = .offroad(style: .iosTextRegular)
+            label.numberOfLines = 2
             label.textColor = .main(.main2)
             label.textAlignment = .center
         }
         
-        
-        
+        goToHomeButton.do { button in
+            button.setTitle("홈으로", for: .normal)
+            button.setBackgroundColor(.main(.main2), for: .normal)
+            button.titleLabel?.textColor = .primary(.white)
+            button.roundCorners(cornerRadius: 5)
+        }
     }
     
-    //MARK: - Private Func
     
-    private func setupStyle() {
-        backgroundColor = .blackOpacity(.black15)
-        
-        
-    }
     
     //MARK: - Func
+    
+    func configureView(result: QuestResult) {
+        switch result {
+        case .success:
+            titleLabel.text = "탐험 성공"
+            subTitleLabel.text = "탐험에 성공했어요!\n이곳에 무엇이 있는지 천천히 살펴볼까요?"
+            goToHomeButton.setTitle("홈으로", for: .normal)
+        case .wrongLocation:
+            titleLabel.text = "탐험 실패"
+            subTitleLabel.text = "탐험에 실패했어요.\n위치를 다시 한 번 확인해 주세요."
+            subTitleLabel.highlightText(targetText: "위치", font: .offroad(style: .iosTextBold))
+            goToHomeButton.setTitle("확인", for: .normal)
+        case .wrongQR:
+            titleLabel.text = "탐험 실패"
+            subTitleLabel.text = "탐험에 실패했어요.\nQR코드를 다시 한 번 확인해 주세요."
+            subTitleLabel.highlightText(targetText: "QR코드", font: .offroad(style: .iosTextBold))
+            goToHomeButton.setTitle("확인", for: .normal)
+        }
+    }
     
     func configurePopupView(with placeInfo: RegisteredPlaceInfo) {
 //        self.nameLabel.text = placeInfo.name

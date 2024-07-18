@@ -198,8 +198,16 @@ extension QuestQRViewController: AVCaptureMetadataOutputObjectsDelegate {
                         return
                     }
                     let notiTitle = data.isQRMatched ? "탐험 성공" : "탐험 실패"
-                    self?.showAlert(title: notiTitle, stringValue: stringValue)
+                    let questResultViewController: QuestResultViewController
+                    if data.isQRMatched {
+                        questResultViewController = QuestResultViewController(result: .success)
+                    } else {
+                        questResultViewController = QuestResultViewController(result: .wrongQR)
+                    }
                     
+                    questResultViewController.modalPresentationStyle = .overCurrentContext
+                    self?.navigationController?.popViewController(animated: true)
+                    self?.tabBarController?.present(questResultViewController, animated: false)
                 default:
                     self?.showAlert(title: "서버에서 응답이 안왔어여", stringValue: stringValue)
                     return
