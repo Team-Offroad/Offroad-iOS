@@ -26,12 +26,11 @@ final class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-            self.rootView.dismissOffroadLogiView {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                    self.presentLoginViewController()
-                }
-            }
+        if UserDefaults.standard.bool(forKey: "isLoggedIn") {
+            presentViewController(viewController: HomeViewController())
+        }
+        else {
+            presentViewController(viewController: LoginViewController())
         }
     }
 }
@@ -40,9 +39,9 @@ extension SplashViewController {
     
     //MARK: - Private Func
     
-    private func presentLoginViewController() {
-        let loginViewController = LoginViewController()
-        loginViewController.modalPresentationStyle = .fullScreen
+    private func presentViewController(viewController: UIViewController) {
+        viewController.modalPresentationStyle = .fullScreen
+        viewController.modalTransitionStyle = .crossDissolve
         
         let transition = CATransition()
         transition.duration = 0.6
@@ -50,7 +49,13 @@ extension SplashViewController {
         transition.subtype = .fromRight
         view.window?.layer.add(transition, forKey: kCATransition)
         
-        present(loginViewController, animated: false, completion: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            self.rootView.dismissOffroadLogiView {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    self.present(viewController, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
 }
