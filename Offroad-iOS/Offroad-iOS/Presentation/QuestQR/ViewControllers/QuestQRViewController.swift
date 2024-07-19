@@ -77,14 +77,14 @@ class QuestQRViewController: UIViewController {
         let screenSize = UIScreen.current.bounds
         let qrTargetRect = questQRView.qrTargetRectBox.frame
         let rectOfInterest = CGRect(
-            x: qrTargetRect.minX / screenSize.width,
-            y: qrTargetRect.minY / screenSize.height,
-            width: qrTargetRect.width / screenSize.width,
-            height: qrTargetRect.height / screenSize.height
+            x: qrTargetRect.minY / screenSize.height,
+            y: qrTargetRect.minX / screenSize.width,
+            width: qrTargetRect.height / screenSize.height,
+            height: qrTargetRect.width / screenSize.width
         )
         
         // rectOfInterest의 범위는 (0, 0) ~ (1, 1)
-        //metadataOutput.rectOfInterest = rectOfInterest
+        metadataOutput.rectOfInterest = rectOfInterest
     }
     
     override func viewDidAppear(_ animated: Bool) {
