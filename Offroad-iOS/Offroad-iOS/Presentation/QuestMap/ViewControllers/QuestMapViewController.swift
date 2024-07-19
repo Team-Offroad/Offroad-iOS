@@ -192,7 +192,7 @@ extension QuestMapViewController {
             guard let locationManager = self?.locationManager else { return true }
             self?.focusToMarker(marker)
             let popupViewController = PlaceInfoPopupViewController(placeInfo: marker.placeInfo, locationManager: locationManager, marker: marker)
-            popupViewController.modalPresentationStyle = .overCurrentContext
+            popupViewController.modalPresentationStyle = .overFullScreen
             popupViewController.configurePopupView()
             popupViewController.superViewControlller = self?.navigationController
             popupViewController.marker.hidden = true

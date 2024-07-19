@@ -107,6 +107,7 @@ extension PlaceInfoPopupView {
             make.top.equalTo(visitCountLabel.snp.bottom).offset(15)
             make.horizontalEdges.equalToSuperview().inset(14)
             make.bottom.equalToSuperview().inset(14)
+            make.height.equalTo(36)
         }
         
         closeButton.snp.makeConstraints { make in

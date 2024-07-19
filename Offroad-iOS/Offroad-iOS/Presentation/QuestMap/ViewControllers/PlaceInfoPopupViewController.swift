@@ -123,33 +123,28 @@ extension PlaceInfoPopupViewController {
                 
                 let tabBarController = navigationController.tabBarController
                 
-                let questResultViewController: QuestResultViewController
-                if isValidPosition {
-                    
+                guard !isValidPosition else {
                     let placeCategory = placeInformation.placeCategory.lowercased()
                     if
-                        placeCategory == OffroadPlaceCategory.caffe.rawValue.lowercased() ||
-                            placeCategory == OffroadPlaceCategory.restaurant.rawValue.lowercased() {
-                        
+                        placeCategory == OffroadPlaceCategory.caffe.rawValue.lowercased() || 
+                        placeCategory == OffroadPlaceCategory.restaurant.rawValue.lowercased()
+                    {
                         navigationController.pushViewController(
                             QuestQRViewController(placeInformation: placeInformation),
                             animated: true
                         )
                         marker.hidden = false
                         self.dismiss(animated: false)
-                        
                     }
-                    
                     return
-                    
-                } else {
-                    questResultViewController = QuestResultViewController(
-                        result: .wrongLocation,
-                        superViewController: tabBarController,
-                        placeInfo: placeInformation,
-                        imageURL: characterImageURL
-                    )
                 }
+                
+                let questResultViewController = QuestResultViewController(
+                    result: .wrongLocation,
+                    superViewController: tabBarController,
+                    placeInfo: placeInformation,
+                    imageURL: characterImageURL
+                )
                 
                 guard let tabBarController = self.presentingViewController as? UITabBarController else {
                     return
