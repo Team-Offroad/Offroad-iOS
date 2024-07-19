@@ -48,6 +48,7 @@ class QuestResultViewController: UIViewController {
         super.viewDidLoad()
         
         setupButtonsAction()
+        isModalInPresentation = true
     }
     
 }

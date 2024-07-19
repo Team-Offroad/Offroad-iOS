@@ -16,7 +16,6 @@ class PlaceInfoPopupViewController: UIViewController {
     //MARK: - Properties
     
     let tapGestureRecognizer = UITapGestureRecognizer()
-    let panGestureRecognizer = UIPanGestureRecognizer()
     let placeInformation: RegisteredPlaceInfo
     let locationManager: CLLocationManager
     let marker: OffroadNMFMarker
@@ -86,7 +85,9 @@ extension PlaceInfoPopupViewController {
         tapGestureRecognizer.isEnabled = false
         marker.hidden = false
         rootView.popupView.executeDismissPopupAnimation(
-            duration: 0.4,
+            destinationAlpha: 0.3,
+            destinationScale: 0.01,
+            duration: 0.3,
             delay: 0,
             dampingRatio: 1,
             anchorPoint: CGPoint(x: 0.5, y: 1)) { [weak self] _ in self?.dismiss(animated: false) }
@@ -144,7 +145,7 @@ extension PlaceInfoPopupViewController {
                     placeInfo: placeInformation,
                     imageURL: characterImageURL
                 )
-                questResultViewController.modalPresentationStyle = .overFullScreen
+                questResultViewController.modalPresentationStyle = .formSheet
                 guard let tabBarController = self.presentingViewController as? UITabBarController else {
                     return
                 }
@@ -180,10 +181,8 @@ extension PlaceInfoPopupViewController {
     
     private func setupGestures() {
         rootView.addGestureRecognizer(tapGestureRecognizer)
-        rootView.addGestureRecognizer(panGestureRecognizer)
         tapGestureRecognizer.addTarget(self, action: #selector(closePopupView))
         tapGestureRecognizer.delegate = self
-        panGestureRecognizer.delegate = self
     }
     
     //MARK: - Func
@@ -199,13 +198,7 @@ extension PlaceInfoPopupViewController {
 extension PlaceInfoPopupViewController: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        print(#function)
-        if let panGesture = gestureRecognizer as? UIPanGestureRecognizer {
-            
-            return true
-        }
-        
-        if gestureRecognizer == tapGestureRecognizer || touch.view!.isDescendant(of: rootView.popupView) {
+        if gestureRecognizer == tapGestureRecognizer && !touch.view!.isDescendant(of: rootView.popupView) {
             return true
         }
         //closePopupView()

@@ -52,6 +52,8 @@ extension UIView {
     /// view의 pop up 효과가 사라지는 animation 설정
     /// > 사용 예시 : `popupView.excuteDismissPopupAnimation()`
     func executeDismissPopupAnimation(
+        destinationAlpha: CGFloat = 0,
+        destinationScale: CGFloat = 0.1,
         duration: CGFloat = 0.4,
         delay: CGFloat = 0,
         dampingRatio: CGFloat = 1,
@@ -61,8 +63,8 @@ extension UIView {
         self.alpha = 1
         self.layer.anchorPoint = anchorPoint
         UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: dampingRatio, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
-            self.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-            self.alpha = 0
+            self.transform = CGAffineTransform(scaleX: destinationScale, y: destinationScale)
+            self.alpha = destinationAlpha
         }, completion: completion)
     }
 }
