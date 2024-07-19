@@ -29,17 +29,19 @@ extension UIView {
     }
     
     /// view의 pop up 효과가 나타나는 animation 설정
-    /// - 해당 함수를 불러오기 전에 popupView(or 적용할 View).alpha = 0 으로 설정해줘야 동작함
+    /// - 해당 함수를 불러오기 전에 popupView(or 적용할 View).alpha = 0 으로 설정할 경우 비교적 부드러운 팝업이 가능함.
     /// > 사용 예시 : `popupView.excutePresentPopupAnimation()`
     func executePresentPopupAnimation(
+        initialAlpha: CGFloat = 0,
+        initialScale: CGFloat = 0.5,
         duration: CGFloat = 0.4,
         delay: CGFloat = 0,
         dampingRatio: CGFloat = 1,
         anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5),
         completion: ((Bool) -> Void)? = nil
     ) {
-        self.alpha = 0
-        transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        self.alpha = initialAlpha
+        transform = CGAffineTransform(scaleX: initialScale, y: initialScale)
         self.layer.anchorPoint = anchorPoint
         UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: dampingRatio, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             self.transform = CGAffineTransform.identity

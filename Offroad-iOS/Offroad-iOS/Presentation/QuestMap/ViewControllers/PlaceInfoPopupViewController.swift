@@ -51,6 +51,8 @@ class PlaceInfoPopupViewController: UIViewController {
         super.viewWillAppear(animated)
         
         rootView.popupView.executePresentPopupAnimation(
+            initialAlpha: 1,
+            initialScale: 0,
             duration: 0.3,
             delay: 0.1,
             dampingRatio: 0.8,
@@ -77,21 +79,17 @@ extension PlaceInfoPopupViewController {
     
     //MARK: - @objc Func
     
-    @objc private func closePopupView(duration: CGFloat = 0.4, completion: (() -> Void)? = nil) {
+    @objc private func closePopupView() {
         // tooptip에 popup animation이 들어가서 tooltip과 함께 배경색의 변화도 애니메이션을 줌>
         UIView.animate(withDuration: 0.2) { [weak self] in self?.rootView.backgroundColor = .clear }
         
         tapGestureRecognizer.isEnabled = false
         marker.hidden = false
         rootView.popupView.executeDismissPopupAnimation(
-            duration: duration,
+            duration: 0.4,
             delay: 0,
             dampingRatio: 1,
-            anchorPoint: CGPoint(x: 0.5, y: 1)) {
-                [weak self] _ in self?.dismiss(animated: false) {
-                    completion!()
-                }
-            }
+            anchorPoint: CGPoint(x: 0.5, y: 1)) { [weak self] _ in self?.dismiss(animated: false) }
     }
     
     @objc private func explore() {
@@ -151,12 +149,9 @@ extension PlaceInfoPopupViewController {
                     return
                 }
                 marker.hidden = false
-                closePopupView(duration: 0.2) {
+                self.dismiss(animated: false) {
                     tabBarController.present(questResultViewController, animated: true)
                 }
-                //self.dismiss(animated: false) {
-                //    tabBarController.present(questResultViewController, animated: true)
-                //}
                 
             default:
                 return
