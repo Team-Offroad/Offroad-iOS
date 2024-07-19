@@ -16,6 +16,7 @@ class PlaceInfoPopupViewController: UIViewController {
     //MARK: - Properties
     
     let tapGestureRecognizer = UITapGestureRecognizer()
+    let panGestureRecognizer = UIPanGestureRecognizer()
     let placeInformation: RegisteredPlaceInfo
     let locationManager: CLLocationManager
     let marker: OffroadNMFMarker
@@ -55,6 +56,12 @@ class PlaceInfoPopupViewController: UIViewController {
             dampingRatio: 0.8,
             anchorPoint: .init(x: 0.5, y: 1)
         )
+        
+        // tooptip에 popup animation이 들어가서 tooltip과 함께 배경색의 변화도 애니메이션을 줌>
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.rootView.backgroundColor = .blackOpacity(.black15)
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,10 +84,13 @@ extension PlaceInfoPopupViewController {
             duration: 0.4,
             delay: 0,
             dampingRatio: 1,
-            anchorPoint: CGPoint(x: 0.5, y: 1)) { [weak self] _ in
-                self?.dismiss(animated: false)
-            }
-        //dismiss(animated: false)
+            anchorPoint: CGPoint(x: 0.5, y: 1)) { [weak self] _ in self?.dismiss(animated: false) }
+        
+        // tooptip에 popup animation이 들어가서 tooltip과 함께 배경색의 변화도 애니메이션을 줌>
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.rootView.backgroundColor = .clear
+        }
+        
     }
     
     @objc private func explore() {
@@ -125,6 +135,7 @@ extension PlaceInfoPopupViewController {
                             QuestQRViewController(placeInformation: placeInformation),
                             animated: true
                         )
+                        marker.hidden = false
                         self.dismiss(animated: false)
                         
                     }
@@ -143,7 +154,7 @@ extension PlaceInfoPopupViewController {
                 guard let tabBarController = self.presentingViewController as? UITabBarController else {
                     return
                 }
-                
+                marker.hidden = false
                 self.dismiss(animated: false) {
                     tabBarController.present(questResultViewController, animated: true)
                 }
@@ -175,8 +186,10 @@ extension PlaceInfoPopupViewController {
     
     private func setupGestures() {
         rootView.addGestureRecognizer(tapGestureRecognizer)
+        rootView.addGestureRecognizer(panGestureRecognizer)
         tapGestureRecognizer.addTarget(self, action: #selector(closePopupView))
         tapGestureRecognizer.delegate = self
+        panGestureRecognizer.delegate = self
     }
     
     //MARK: - Func
@@ -187,11 +200,17 @@ extension PlaceInfoPopupViewController {
     
 }
 
+//MARK: - UIGestureRecognizerDelegate
 
 extension PlaceInfoPopupViewController: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         print(#function)
+        if let panGesture = gestureRecognizer as? UIPanGestureRecognizer {
+            
+            return true
+        }
+        
         if gestureRecognizer == tapGestureRecognizer || touch.view!.isDescendant(of: rootView.popupView) {
             return true
         }

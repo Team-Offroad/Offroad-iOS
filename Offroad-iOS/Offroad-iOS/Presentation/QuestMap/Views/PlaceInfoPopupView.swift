@@ -11,8 +11,6 @@ class PlaceInfoPopupView: UIView {
     
     //MARK: - Properties
     
-    let tapGestureRecognizer = UITapGestureRecognizer()
-    
     //MARK: - UI Properties
     
     let popupView = UIView()
@@ -68,8 +66,6 @@ extension PlaceInfoPopupView {
         )
         
         addSubview(popupView)
-        
-        addGestureRecognizer(tapGestureRecognizer)
     }
     
     private func setupLayout() {
@@ -127,7 +123,7 @@ extension PlaceInfoPopupView {
     //MARK: - Private Func
     
     private func setupStyle() {
-        backgroundColor = .blackOpacity(.black15)
+        backgroundColor = .clear
         
         popupView.do { view in
             view.backgroundColor = .clear
