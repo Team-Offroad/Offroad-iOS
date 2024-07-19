@@ -19,6 +19,8 @@ class PlaceInfoPopupViewController: UIViewController {
     let placeInformation: RegisteredPlaceInfo
     let locationManager: CLLocationManager
     
+    //MARK: - Life Cycle
+    
     init(placeInfo: RegisteredPlaceInfo, locationManager: CLLocationManager) {
         self.placeInformation = placeInfo
         self.locationManager = locationManager
@@ -46,10 +48,14 @@ class PlaceInfoPopupViewController: UIViewController {
         setupGestures()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        rootView.popupView.executePresentPopupAnimation(anchorPoint: .init(x: 0.5, y: 1))
+        rootView.popupView.executePresentPopupAnimation(
+            duration: 0.3,
+            dampingRatio: 0.8,
+            anchorPoint: .init(x: 0.5, y: 1)
+        )
     }
     
 }

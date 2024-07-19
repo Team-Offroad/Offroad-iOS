@@ -17,6 +17,8 @@ class PlaceInfoPopupView: UIView {
     
     let popupView = UIView()
     
+    private let tooptipImageView = UIImageView(image: .icnPlaceInfoPopupTooltip)
+    private let rectView = UIView()
     private let offroadLogoImageView = UIImageView(image: .icnOffroadlogoPopupView)
     private let nameLabel = UILabel()
     private let nameAndImageStackView = UIStackView()
@@ -51,8 +53,7 @@ extension PlaceInfoPopupView {
     
     private func setupHierarchy() {
         nameAndImageStackView.addArrangedSubviews(nameLabel, placeCategoryImageView)
-        
-        popupView.addSubviews(
+        rectView.addSubviews(
             offroadLogoImageView,
             nameAndImageStackView,
             shortDescriptionLabel,
@@ -61,6 +62,10 @@ extension PlaceInfoPopupView {
             exploreButton,
             closeButton
         )
+        popupView.addSubviews(
+            tooptipImageView,
+            rectView
+        )
         
         addSubview(popupView)
         
@@ -68,6 +73,16 @@ extension PlaceInfoPopupView {
     }
     
     private func setupLayout() {
+        tooptipImageView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.centerX.equalToSuperview()
+        }
+        
+        rectView.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview().inset(15)
+        }
+        
         nameAndImageStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(17)
             make.leading.equalToSuperview().inset(15)
@@ -100,9 +115,8 @@ extension PlaceInfoPopupView {
         
         closeButton.snp.makeConstraints { make in
             make.top.trailing.equalToSuperview()
-            make.width.height.equalTo(48)
+            make.width.height.equalTo(44)
         }
-        
         
         popupView.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
@@ -116,6 +130,11 @@ extension PlaceInfoPopupView {
         backgroundColor = .blackOpacity(.black15)
         
         popupView.do { view in
+            view.backgroundColor = .clear
+            //view.roundCorners(cornerRadius: 10)
+        }
+        
+        rectView.do { view in
             view.backgroundColor = .main(.main3)
             view.roundCorners(cornerRadius: 10)
         }
@@ -168,7 +187,7 @@ extension PlaceInfoPopupView {
         }
         
         closeButton.do { button in
-            button.setImage(.btnPopupClose, for: .normal)
+            button.setImage(.btnPlaceInfoPopupClose, for: .normal)
         }
     }
     
