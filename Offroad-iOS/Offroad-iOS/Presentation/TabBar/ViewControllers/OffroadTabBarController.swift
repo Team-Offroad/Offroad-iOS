@@ -125,7 +125,7 @@ extension OffroadTabBarController {
     func hideTabBarAnimation(delayFactor: CGFloat = 0) {
         hideTabBarAnimator.addAnimations({ [weak self] in
             self?.showTabBarAnimator.stopAnimation(true)
-            self?.tabBar.frame.origin.y = UIScreen.current.bounds.height + 20
+            self?.tabBar.frame.origin.y = UIScreen.current.bounds.height + 30
         }, delayFactor: delayFactor)
         hideTabBarAnimator.startAnimation()
     }

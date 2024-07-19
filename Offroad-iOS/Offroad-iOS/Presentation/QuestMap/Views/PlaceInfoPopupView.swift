@@ -141,6 +141,7 @@ extension PlaceInfoPopupView {
             make.trailing.equalToSuperview()
         }
         
+        nameLabel.setContentCompressionResistancePriority(UILayoutPriority(1000), for: .horizontal)
         nameLabel.do { label in
             label.font = .offroad(style: .iosTooltipTitle)
             label.textColor = .main(.main2)
@@ -198,17 +199,17 @@ extension PlaceInfoPopupView {
         guard let category = OffroadPlaceCategory(rawValue: placeInfo.placeCategory.lowercased()) else { return }
         switch category {
         case .caffe:
-            placeCategoryImageView = UIImageView(image: .imgCategoryCafe)
+            placeCategoryImageView.image = .imgCategoryCafe //= UIImageView(image: .imgCategoryCafe)
         case .park:
-            placeCategoryImageView = UIImageView(image: .imgCategoryPark)
+            placeCategoryImageView.image = .imgCategoryPark //= UIImageView(image: .imgCategoryPark)
         case .restaurant:
-            placeCategoryImageView = UIImageView(image: .imgCategoryRestaurant)
+            placeCategoryImageView.image = .imgCategoryRestaurant //= UIImageView(image: .imgCategoryRestaurant)
         case .culture:
-            placeCategoryImageView = UIImageView(image: .imgCategoryCulture)
+            placeCategoryImageView.image = .imgCategoryCulture //= UIImageView(image: .imgCategoryCulture)
         case .sport:
-            placeCategoryImageView = UIImageView(image: .imgCategorySports)
+            placeCategoryImageView.image = .imgCategorySports //= UIImageView(image: .imgCategorySports)
         case .none:
-            placeCategoryImageView = UIImageView(image: .imgCategoryCafe)
+            placeCategoryImageView.image = nil //= UIImageView(image: .imgCategoryCafe)
         }
     }
 }

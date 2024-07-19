@@ -98,7 +98,7 @@ extension QuestMapView {
             button.setTitle("현 지도에서 검색", for: .normal)
             button.setImage(.icnReloadArrow, for: .normal)
             button.backgroundColor = .primary(.white)
-            button.setTitleColor(.grayscale(.gray200), for: .normal)
+            button.setTitleColor(.grayscale(.gray400), for: .normal)
             button.clipsToBounds = true
             button.layer.cornerRadius = 5.5
             button.layer.borderWidth = 1
