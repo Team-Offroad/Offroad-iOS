@@ -49,7 +49,7 @@ class PlaceInfoPopupViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        rootView.popupView.excutePresentPopupAnimation(anchorPoint: .init(x: 0.5, y: 1))
+        rootView.popupView.executePresentPopupAnimation(anchorPoint: .init(x: 0.5, y: 1))
     }
     
 }
