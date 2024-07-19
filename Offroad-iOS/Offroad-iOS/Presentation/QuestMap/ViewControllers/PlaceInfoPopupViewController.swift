@@ -77,20 +77,21 @@ extension PlaceInfoPopupViewController {
     
     //MARK: - @objc Func
     
-    @objc private func closePopupView() {
+    @objc private func closePopupView(duration: CGFloat = 0.4, completion: (() -> Void)? = nil) {
+        // tooptip에 popup animation이 들어가서 tooltip과 함께 배경색의 변화도 애니메이션을 줌>
+        UIView.animate(withDuration: 0.2) { [weak self] in self?.rootView.backgroundColor = .clear }
+        
         tapGestureRecognizer.isEnabled = false
         marker.hidden = false
         rootView.popupView.executeDismissPopupAnimation(
-            duration: 0.4,
+            duration: duration,
             delay: 0,
             dampingRatio: 1,
-            anchorPoint: CGPoint(x: 0.5, y: 1)) { [weak self] _ in self?.dismiss(animated: false) }
-        
-        // tooptip에 popup animation이 들어가서 tooltip과 함께 배경색의 변화도 애니메이션을 줌>
-        UIView.animate(withDuration: 0.2) { [weak self] in
-            self?.rootView.backgroundColor = .clear
-        }
-        
+            anchorPoint: CGPoint(x: 0.5, y: 1)) {
+                [weak self] _ in self?.dismiss(animated: false) {
+                    completion!()
+                }
+            }
     }
     
     @objc private func explore() {
@@ -145,14 +146,17 @@ extension PlaceInfoPopupViewController {
                     placeInfo: placeInformation,
                     imageURL: characterImageURL
                 )
-                
+                questResultViewController.modalPresentationStyle = .overFullScreen
                 guard let tabBarController = self.presentingViewController as? UITabBarController else {
                     return
                 }
                 marker.hidden = false
-                self.dismiss(animated: false) {
+                closePopupView(duration: 0.2) {
                     tabBarController.present(questResultViewController, animated: true)
                 }
+                //self.dismiss(animated: false) {
+                //    tabBarController.present(questResultViewController, animated: true)
+                //}
                 
             default:
                 return
