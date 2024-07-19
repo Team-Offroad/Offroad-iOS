@@ -20,6 +20,7 @@ class QuestMapViewController: OffroadTabBarViewController {
     private let locationManager = CLLocationManager()
     private let dummpyPlace = dummyPlaces
     private let locationService = RegisteredPlaceService()
+    private var currentZoomLevel: Double = 14
     
     private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
     private var shownMarkersArray: [NMFMarker] = [] {
@@ -187,30 +188,26 @@ extension QuestMapViewController {
     private func setupMarkerTouchHandler(marker: OffroadNMFMarker) {
         marker.touchHandler = { [weak self] markerOverlay in
             print("marker tapped")
-            print("lat: \(marker.position.lat), lng: \(marker.position.lng)")
-            print(marker.placeInfo.name)
-            print(marker.placeInfo.placeCategory)
-            print(marker.placeInfo.address)
-            print(marker.placeInfo.shortIntroduction)
-            print(marker.placeInfo.address)
-            print(marker.placeInfo.visitCount)
             
             guard let locationManager = self?.locationManager else { return true }
-            
-            let markerLatLng = NMGLatLng(lat: marker.placeInfo.latitude, lng: marker.placeInfo.longitude)
-            let cameraUpdate = NMFCameraUpdate(scrollTo: markerLatLng)
-            cameraUpdate.animation = .easeOut
-            self?.rootView.naverMapView.mapView.moveCamera(cameraUpdate)
-            
-            
-            let popupViewController = PlaceInfoPopupViewController(placeInfo: marker.placeInfo, locationManager: locationManager)
+            self?.focusToMarker(marker)
+            let popupViewController = PlaceInfoPopupViewController(placeInfo: marker.placeInfo, locationManager: locationManager, marker: marker)
             popupViewController.modalPresentationStyle = .overCurrentContext
             popupViewController.configurePopupView()
             popupViewController.superViewControlller = self?.navigationController
+            popupViewController.marker.hidden = true
             self?.tabBarController?.present(popupViewController, animated: false)
             
             return true
         }
+    }
+    
+    private func focusToMarker(_ marker: OffroadNMFMarker) {
+        currentZoomLevel = rootView.naverMapView.mapView.zoomLevel
+        let markerLatLng = NMGLatLng(lat: marker.placeInfo.latitude, lng: marker.placeInfo.longitude)
+        let cameraUpdate = NMFCameraUpdate(scrollTo: markerLatLng, zoomTo: 16)
+        cameraUpdate.animation = .easeOut
+        rootView.naverMapView.mapView.moveCamera(cameraUpdate)
     }
     
 }

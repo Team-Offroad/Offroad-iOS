@@ -18,12 +18,16 @@ class PlaceInfoPopupViewController: UIViewController {
     let tapGestureRecognizer = UITapGestureRecognizer()
     let placeInformation: RegisteredPlaceInfo
     let locationManager: CLLocationManager
+    let marker: OffroadNMFMarker
+    let rootView = PlaceInfoPopupView()
+    var superViewControlller: UIViewController? = nil
     
     //MARK: - Life Cycle
     
-    init(placeInfo: RegisteredPlaceInfo, locationManager: CLLocationManager) {
+    init(placeInfo: RegisteredPlaceInfo, locationManager: CLLocationManager, marker: OffroadNMFMarker) {
         self.placeInformation = placeInfo
         self.locationManager = locationManager
+        self.marker = marker
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -31,14 +35,8 @@ class PlaceInfoPopupViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    let rootView = PlaceInfoPopupView()
-    var superViewControlller: UIViewController? = nil
-    
-//    let superView
-    
     override func loadView() {
         view = rootView
-        
     }
     
     override func viewDidLoad() {
@@ -53,9 +51,15 @@ class PlaceInfoPopupViewController: UIViewController {
         
         rootView.popupView.executePresentPopupAnimation(
             duration: 0.3,
+            delay: 0.1,
             dampingRatio: 0.8,
             anchorPoint: .init(x: 0.5, y: 1)
         )
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
     }
     
 }
@@ -67,7 +71,15 @@ extension PlaceInfoPopupViewController {
     
     @objc private func closePopupView() {
         print(#function)
-        dismiss(animated: false)
+        marker.hidden = false
+        rootView.popupView.executeDismissPopupAnimation(
+            duration: 0.4,
+            delay: 0,
+            dampingRatio: 1,
+            anchorPoint: CGPoint(x: 0.5, y: 1)) { [weak self] _ in
+                self?.dismiss(animated: false)
+            }
+        //dismiss(animated: false)
     }
     
     @objc private func explore() {
@@ -78,89 +90,68 @@ extension PlaceInfoPopupViewController {
             return
         }
         
-        //분기처리
-//        let placeCategory = placeInformation.placeCategory.lowercased()
-//        if
-//            placeCategory == OffroadPlaceCategory.park.rawValue.lowercased() ||
-//                placeCategory == OffroadPlaceCategory.culture.rawValue.lowercased() ||
-//                placeCategory == OffroadPlaceCategory.sport.rawValue.lowercased()
-//        {
-//            
-            let placeRequestDTO = AdventuresPlaceAuthenticationRequestDTO(
-                placeId: placeInformation.id,
-                latitude: locationManager.location!.coordinate.latitude,
-                longitude: locationManager.location!.coordinate.longitude
-            )
-            
-            print(locationManager.location!.coordinate)
-            print(placeInformation)
-            // 위치 대조 API
-            NetworkService.shared.adventureService.authenticatePlaceAdventure(
-                adventureAuthDTO: placeRequestDTO
-            ) { [weak self] response in
-                guard let self else { return }
-                switch response {
-                case .success(let result):
-                    guard let data = result?.data else { return }
-                    print(data)
-                    let isValidPosition = data.isValidPosition
-                    let characterImageURL = data.successCharacterImageUrl
+        let placeRequestDTO = AdventuresPlaceAuthenticationRequestDTO(
+            placeId: placeInformation.id,
+            latitude: locationManager.location!.coordinate.latitude,
+            longitude: locationManager.location!.coordinate.longitude
+        )
+        
+        print(locationManager.location!.coordinate)
+        print(placeInformation)
+        // 위치 대조 API
+        NetworkService.shared.adventureService.authenticatePlaceAdventure(
+            adventureAuthDTO: placeRequestDTO
+        ) { [weak self] response in
+            guard let self else { return }
+            switch response {
+            case .success(let result):
+                guard let data = result?.data else { return }
+                print(data)
+                let isValidPosition = data.isValidPosition
+                let characterImageURL = data.successCharacterImageUrl
+                
+                let tabBarController = navigationController.tabBarController
+                
+                let questResultViewController: QuestResultViewController
+                if isValidPosition {
                     
-                    let tabBarController = navigationController.tabBarController
-                    
-                    let questResultViewController: QuestResultViewController
-                    if isValidPosition {
-                        
-                        let placeCategory = placeInformation.placeCategory.lowercased()
-                        if 
-                            placeCategory == OffroadPlaceCategory.caffe.rawValue.lowercased() ||
+                    let placeCategory = placeInformation.placeCategory.lowercased()
+                    if
+                        placeCategory == OffroadPlaceCategory.caffe.rawValue.lowercased() ||
                             placeCategory == OffroadPlaceCategory.restaurant.rawValue.lowercased() {
-                            
-                            navigationController.pushViewController(
-                                QuestQRViewController(placeInformation: placeInformation),
-                                animated: true
-                            )
-                            self.dismiss(animated: false)
-                            
-                        }
                         
-                        return
-//                        questResultViewController = QuestResultViewController(
-//                            result: .success,
-//                            superViewController: tabBarController,
-//                            placeInfo: placeInformation,
-//                            imageURL: characterImageURL
-//                        )
-                    } else {
-                        questResultViewController = QuestResultViewController(
-                            result: .wrongLocation,
-                            superViewController: tabBarController,
-                            placeInfo: placeInformation,
-                            imageURL: characterImageURL
+                        navigationController.pushViewController(
+                            QuestQRViewController(placeInformation: placeInformation),
+                            animated: true
                         )
+                        self.dismiss(animated: false)
+                        
                     }
                     
-                    guard let tabBarController = self.presentingViewController as? UITabBarController else {
-                        return
-                    }
+                    return
                     
-                    self.dismiss(animated: false) {
-                        tabBarController.present(questResultViewController, animated: true)
-                    }
-                    
-                default:
+                } else {
+                    questResultViewController = QuestResultViewController(
+                        result: .wrongLocation,
+                        superViewController: tabBarController,
+                        placeInfo: placeInformation,
+                        imageURL: characterImageURL
+                    )
+                }
+                
+                guard let tabBarController = self.presentingViewController as? UITabBarController else {
                     return
                 }
+                
+                self.dismiss(animated: false) {
+                    tabBarController.present(questResultViewController, animated: true)
+                }
+                
+            default:
+                return
             }
-            // 결과 반환 후 present
-            
-//        } else {
-//            navigationController.pushViewController(
-//                QuestQRViewController(placeInformation: placeInformation),
-//                animated: true
-//            )
-//            self.dismiss(animated: false)
-//        }
+        }
+        
     }
     
     @objc private func tapped() {
@@ -206,12 +197,10 @@ extension PlaceInfoPopupViewController: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         print(#function)
-        if gestureRecognizer == tapGestureRecognizer {
-            if touch.view!.isDescendant(of: rootView.popupView)  {
-                return true
-            }
-            return false
+        if gestureRecognizer == tapGestureRecognizer || touch.view!.isDescendant(of: rootView.popupView) {
+            return true
         }
+        closePopupView()
         return false
     }
     

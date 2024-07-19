@@ -33,28 +33,34 @@ extension UIView {
     /// > 사용 예시 : `popupView.excutePresentPopupAnimation()`
     func executePresentPopupAnimation(
         duration: CGFloat = 0.4,
+        delay: CGFloat = 0,
         dampingRatio: CGFloat = 1,
-        anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5)
+        anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5),
+        completion: ((Bool) -> Void)? = nil
     ) {
+        self.alpha = 0
         transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         self.layer.anchorPoint = anchorPoint
-        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: dampingRatio, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: dampingRatio, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             self.transform = CGAffineTransform.identity
             self.alpha = 1
-        }, completion: nil)
+        }, completion: completion)
     }
     
     /// view의 pop up 효과가 사라지는 animation 설정
     /// > 사용 예시 : `popupView.excuteDismissPopupAnimation()`
     func executeDismissPopupAnimation(
         duration: CGFloat = 0.4,
+        delay: CGFloat = 0,
         dampingRatio: CGFloat = 1,
-        anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5)
+        anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5),
+        completion: ((Bool) -> Void)? = nil
     ) {
+        self.alpha = 1
         self.layer.anchorPoint = anchorPoint
-        UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: dampingRatio, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: dampingRatio, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
             self.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             self.alpha = 0
-        }, completion: nil)
+        }, completion: completion)
     }
 }
