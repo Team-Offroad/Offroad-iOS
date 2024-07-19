@@ -1,3 +1,5 @@
+![Group 6266343](https://github.com/user-attachments/assets/f4483142-a7ae-4d9d-906a-16c081b85600)
+
 ![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)
 ![Swift](https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white)
 ![Xcode](https://img.shields.io/badge/Xcode-007ACC?style=for-the-badge&logo=Xcode&logoColor=white)
@@ -19,19 +21,20 @@
 ## 🍎 역할 분담 및 주요 기능
 | [김민성](https://github.com/nolanMinsung) | [정지원](https://github.com/codeJiwon) | [조혜린](https://github.com/Johyerin) |
 | :--------: | :--------: | :--------: | 
-| <img src="https://github.com/NOW-SOPT-APP1-YeogiEottae/YeogiEottae-iOS/assets/95562494/c48109e9-60f9-47ba-8e55-77fd277ea141" width="200px"/> | <img src="https://github.com/NOW-SOPT-APP1-YeogiEottae/YeogiEottae-iOS/assets/95562494/9340af4a-7c5f-4140-8836-2290b185c3a0" width="200px" /> | <img src="https://github.com/Team-Offroad/Offroad-iOS/assets/111677378/92124189-fc1b-45ef-af9d-a0578dd08177" width="200px"/> | 
-| <p align = "center">`지도`<br/>`QR`<br/>`퀘스트 목록`<br/>`장소 목록` | <p align = "center">`프로필 생성 뷰`<br/>`마이 페이지`<br/>`획득 캐릭터`<br/>`획득 쿠폰` | <p align = "center">`스플래시/로그인 뷰`<br/>`홈뷰`<br/>`탭바`<br/>`획득 칭호`<br/>`설정` | 
+| <img src="https://github.com/user-attachments/assets/23df8b97-9a85-48c4-936f-d9d21f5523ff" width="250px"/> | <img src="https://github.com/user-attachments/assets/a7b3963c-2b27-4592-bcdc-e2c0b01a388b" width="250px" /> | <img src="https://github.com/user-attachments/assets/59567720-4f80-4cd3-b8ec-cadaf3569eff" width="250px"/> | 
+| <p align = "center">`지도`<br/>`QR`<br/>`탭바` | <p align = "center">`프로필 생성 뷰`<br/>`마이 페이지`<br/>`캐릭터 조회` | <p align = "center">`스플래시/로그인 뷰`<br/>`홈뷰`<br/>`캐릭터 선택`<br/>`획득 칭호` | 
 
 <br/>
 
 ## 🗂️ Libraries
 | Library | 사용 목적 |
 | :-----: | :-----: |
-| <img src="https://img.shields.io/badge/2.22.3-yellow?label=KakaoOpenSDK"> | 카카오 소셜 로그인을 위해 사용 |
-| <img src="https://img.shields.io/badge/7.12.0-blue?label=Kingfisher"> | 이미지 데이터 처리를 위해 사용 |
+| <img src="https://img.shields.io/badge/3.0.0-green?label=Then"> | 클로저를 통해 깔끔하고 직관적으로 인스턴스 생성 가능 |
 | <img src="https://img.shields.io/badge/15.0.3-pink?label=Moya"> | 네트워크 통신을 위해 사용 |
 | <img src="https://img.shields.io/badge/5.7.1-orange?label=SnapKit"> | UI AutoLayout을 위해 사용 |
-| <img src="https://img.shields.io/badge/3.0.0-green?label=Then"> | 클로저를 통해 깔끔하고 직관적으로 인스턴스 생성 가능 |
+| <img src="https://img.shields.io/badge/3.0.0-blue?label=SVGKit"> | svg 파일의 이미지 데이터 처리를 위해 사용 |
+| <img src="https://img.shields.io/badge/7.12.0-blue?label=Kingfisher"> | 이미지 데이터 처리를 위해 사용 |
+| <img src="https://img.shields.io/badge/2.22.3-yellow?label=KakaoOpenSDK"> | 카카오 소셜 로그인을 위해 사용 |
 
 
 <br/>
@@ -117,3 +120,4 @@
 │   │   ├── Title
 ├───├───├── Settings
 ``` 
+![Frame 1261160766](https://github.com/user-attachments/assets/1a26293b-9893-435a-bf39-6d41c7daf4a8)
