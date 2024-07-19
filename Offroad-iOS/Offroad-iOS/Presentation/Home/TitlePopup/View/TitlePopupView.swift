@@ -136,12 +136,12 @@ extension TitlePopupView {
     }
     
     func presentPopupView() {
-        popupView.excutePresentPopupAnimation()
+        popupView.executePresentPopupAnimation()
     }
     
     func dismissPopupView() {
         backgroundColor = .clear
-        popupView.excuteDismissPopupAnimation()
+        popupView.executeDismissPopupAnimation()
     }
     
     //MARK: - targetView Method

@@ -27,7 +27,4 @@ class OffroadNMFMarker: NMFMarker {
         self.iconImage = iconImage
     }
     
-    
-    
-    
 }

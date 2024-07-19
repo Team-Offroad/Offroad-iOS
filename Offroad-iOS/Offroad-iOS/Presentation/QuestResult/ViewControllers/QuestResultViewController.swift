@@ -48,6 +48,7 @@ class QuestResultViewController: UIViewController {
         super.viewDidLoad()
         
         setupButtonsAction()
+        isModalInPresentation = true
     }
     
 }
@@ -72,9 +73,9 @@ extension QuestResultViewController {
             homeViewController.categoryString = categoryString
             tabBarController.selectedIndex = 0
         case .wrongLocation:
-            dismiss(animated: false)
+            dismiss(animated: true)
         case .wrongQR:
-            dismiss(animated: false)
+            dismiss(animated: true)
         }
         
     }

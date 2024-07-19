@@ -11,12 +11,12 @@ class PlaceInfoPopupView: UIView {
     
     //MARK: - Properties
     
-    let tapGestureRecognizer = UITapGestureRecognizer()
-    
     //MARK: - UI Properties
     
     let popupView = UIView()
     
+    private let tooptipImageView = UIImageView(image: .icnPlaceInfoPopupTooltip)
+    private let rectView = UIView()
     private let offroadLogoImageView = UIImageView(image: .icnOffroadlogoPopupView)
     private let nameLabel = UILabel()
     private let nameAndImageStackView = UIStackView()
@@ -51,8 +51,7 @@ extension PlaceInfoPopupView {
     
     private func setupHierarchy() {
         nameAndImageStackView.addArrangedSubviews(nameLabel, placeCategoryImageView)
-        
-        popupView.addSubviews(
+        rectView.addSubviews(
             offroadLogoImageView,
             nameAndImageStackView,
             shortDescriptionLabel,
@@ -61,13 +60,25 @@ extension PlaceInfoPopupView {
             exploreButton,
             closeButton
         )
+        popupView.addSubviews(
+            tooptipImageView,
+            rectView
+        )
         
         addSubview(popupView)
-        
-        addGestureRecognizer(tapGestureRecognizer)
     }
     
     private func setupLayout() {
+        tooptipImageView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.centerX.equalToSuperview()
+        }
+        
+        rectView.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview().inset(15)
+        }
+        
         nameAndImageStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(17)
             make.leading.equalToSuperview().inset(15)
@@ -96,13 +107,13 @@ extension PlaceInfoPopupView {
             make.top.equalTo(visitCountLabel.snp.bottom).offset(15)
             make.horizontalEdges.equalToSuperview().inset(14)
             make.bottom.equalToSuperview().inset(14)
+            make.height.equalTo(36)
         }
         
         closeButton.snp.makeConstraints { make in
             make.top.trailing.equalToSuperview()
-            make.width.height.equalTo(48)
+            make.width.height.equalTo(44)
         }
-        
         
         popupView.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
@@ -113,9 +124,14 @@ extension PlaceInfoPopupView {
     //MARK: - Private Func
     
     private func setupStyle() {
-        backgroundColor = .blackOpacity(.black15)
+        backgroundColor = .clear
         
         popupView.do { view in
+            view.backgroundColor = .clear
+            //view.roundCorners(cornerRadius: 10)
+        }
+        
+        rectView.do { view in
             view.backgroundColor = .main(.main3)
             view.roundCorners(cornerRadius: 10)
         }
@@ -168,7 +184,7 @@ extension PlaceInfoPopupView {
         }
         
         closeButton.do { button in
-            button.setImage(.btnPopupClose, for: .normal)
+            button.setImage(.btnPlaceInfoPopupClose, for: .normal)
         }
     }
     

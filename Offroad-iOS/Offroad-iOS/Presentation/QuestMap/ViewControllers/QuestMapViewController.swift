@@ -20,6 +20,7 @@ class QuestMapViewController: OffroadTabBarViewController {
     private let locationManager = CLLocationManager()
     private let dummpyPlace = dummyPlaces
     private let locationService = RegisteredPlaceService()
+    private var currentZoomLevel: Double = 14
     
     private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
     private var shownMarkersArray: [NMFMarker] = [] {
@@ -53,12 +54,12 @@ class QuestMapViewController: OffroadTabBarViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        requestAuthorization()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        requestAuthorization()
         updateRegisteredLocation()
     }
     
@@ -112,15 +113,16 @@ extension QuestMapViewController {
             locationManager.requestAlwaysAuthorization()
         case .restricted:
             //추후 에러 메시지 팝업 구현 가능성
-            locationManager.requestAlwaysAuthorization()
+            showAlert(title: "위치 접근 권한이 막혀있습니다.", message: "위치 정보 권한을 허용해 주세요")
+            tabBarController?.selectedIndex = 0
             return
         case .denied:
-            locationManager.requestAlwaysAuthorization()
+            showAlert(title: "위치 접근 권한이 막혀있습니다.", message: "위치 정보 권한을 허용해 주세요")
+            tabBarController?.selectedIndex = 0
         case .authorizedAlways:
             return
         case .authorizedWhenInUse:
-            locationManager.requestAlwaysAuthorization()
-            updateCurrentLocation()
+            return
         @unknown default:
             return
         }
@@ -187,23 +189,36 @@ extension QuestMapViewController {
     private func setupMarkerTouchHandler(marker: OffroadNMFMarker) {
         marker.touchHandler = { [weak self] markerOverlay in
             print("marker tapped")
-            print("lat: \(marker.position.lat), lng: \(marker.position.lng)")
-            print(marker.placeInfo.name)
-            print(marker.placeInfo.placeCategory)
-            print(marker.placeInfo.address)
-            print(marker.placeInfo.shortIntroduction)
-            print(marker.placeInfo.address)
-            print(marker.placeInfo.visitCount)
             
             guard let locationManager = self?.locationManager else { return true }
-            
-            let popupViewController = PlaceInfoPopupViewController(placeInfo: marker.placeInfo, locationManager: locationManager)
-            popupViewController.modalPresentationStyle = .overCurrentContext
+            self?.focusToMarker(marker)
+            let popupViewController = PlaceInfoPopupViewController(placeInfo: marker.placeInfo, locationManager: locationManager, marker: marker)
+            popupViewController.modalPresentationStyle = .overFullScreen
             popupViewController.configurePopupView()
             popupViewController.superViewControlller = self?.navigationController
-            self?.navigationController?.present(popupViewController, animated: false)
+            popupViewController.marker.hidden = true
+            self?.tabBarController?.present(popupViewController, animated: false)
             
             return true
+        }
+    }
+    
+    private func focusToMarker(_ marker: OffroadNMFMarker) {
+        currentZoomLevel = rootView.naverMapView.mapView.zoomLevel
+        let markerLatLng = NMGLatLng(lat: marker.placeInfo.latitude, lng: marker.placeInfo.longitude)
+        let cameraUpdate = NMFCameraUpdate(scrollTo: markerLatLng, zoomTo: 16)
+        cameraUpdate.animation = .easeOut
+        rootView.naverMapView.mapView.moveCamera(cameraUpdate)
+    }
+    
+    private func showAlert(title: String, message: String) {
+        print(#function)
+        DispatchQueue.main.async { [weak self] in
+            let alertCon = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+            let okAction = UIAlertAction(title: "넵!", style: .default)
+            alertCon.addAction(okAction)
+            
+            self?.present(alertCon, animated: true)
         }
     }
     

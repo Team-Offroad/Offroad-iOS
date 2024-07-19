@@ -134,12 +134,12 @@ extension ChoosingCharacterPopupView {
     //MARK: - Func
     
     func presentPopupView() {
-        popupView.excutePresentPopupAnimation()
+        popupView.executePresentPopupAnimation()
     }
     
     func dismissPopupView() {
         backgroundColor = .clear
-        popupView.excuteDismissPopupAnimation()
+        popupView.executeDismissPopupAnimation()
     }
     
     func setCharacterName(name: String) {

@@ -49,7 +49,17 @@ extension ChoosingCharacterCell {
     
     //MARK: - Func
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        imageView.image = nil
+    }
+    
     func configureCell(imageURL: String) {
         imageView.fetchSvgURLToImageView(svgUrlString: imageURL)
+    }
+    
+    func configureCell(using image: UIImage?) {
+        imageView.image = image
     }
 }

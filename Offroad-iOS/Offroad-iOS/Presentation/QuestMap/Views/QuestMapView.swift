@@ -96,7 +96,7 @@ extension QuestMapView {
     private func setupStyle() {
         reloadPlaceButton.do { button in
             button.setTitle("현 지도에서 검색", for: .normal)
-            button.setImage(.icnHome, for: .normal)
+            button.setImage(.icnReloadArrow, for: .normal)
             button.backgroundColor = .primary(.white)
             button.setTitleColor(.grayscale(.gray200), for: .normal)
             button.clipsToBounds = true
@@ -124,15 +124,19 @@ extension QuestMapView {
         naverMapView.mapView.logoAlign = .leftTop
         naverMapView.showCompass = false
         naverMapView.mapView.positionMode = .compass
+        naverMapView.mapView.logoInteractionEnabled = false
         
         compass.contentMode = .scaleAspectFit
         compass.mapView = naverMapView.mapView
         
         // 현재 위치 표시하는 마커 커스텀
-        naverMapView.mapView.locationOverlay.subIcon = orangeTriangleArrowOverlayImage
-        naverMapView.mapView.locationOverlay.subAnchor = CGPoint(x: 0.5, y: 1) // 기본값임
-        naverMapView.mapView.locationOverlay.subIconWidth = 16
-        naverMapView.mapView.locationOverlay.subIconHeight = 16
+        naverMapView.mapView.locationOverlay.do { overlay in
+            overlay.subIcon = orangeTriangleArrowOverlayImage
+            overlay.subAnchor = CGPoint(x: 0.5, y: 1) // 기본값임
+            overlay.subIconWidth = 16
+            overlay.subIconHeight = 16
+            overlay.circleColor = .sub(.sub).withAlphaComponent(0.07)
+        }
     }
     
 }

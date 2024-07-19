@@ -18,10 +18,16 @@ class PlaceInfoPopupViewController: UIViewController {
     let tapGestureRecognizer = UITapGestureRecognizer()
     let placeInformation: RegisteredPlaceInfo
     let locationManager: CLLocationManager
+    let marker: OffroadNMFMarker
+    let rootView = PlaceInfoPopupView()
+    var superViewControlller: UIViewController? = nil
     
-    init(placeInfo: RegisteredPlaceInfo, locationManager: CLLocationManager) {
+    //MARK: - Life Cycle
+    
+    init(placeInfo: RegisteredPlaceInfo, locationManager: CLLocationManager, marker: OffroadNMFMarker) {
         self.placeInformation = placeInfo
         self.locationManager = locationManager
+        self.marker = marker
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -29,14 +35,8 @@ class PlaceInfoPopupViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    let rootView = PlaceInfoPopupView()
-    var superViewControlller: UIViewController? = nil
-    
-//    let superView
-    
     override func loadView() {
         view = rootView
-        
     }
     
     override func viewDidLoad() {
@@ -44,6 +44,31 @@ class PlaceInfoPopupViewController: UIViewController {
         
         setupButtonsAction()
         setupGestures()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        rootView.popupView.executePresentPopupAnimation(
+            initialAlpha: 1,
+            initialScale: 0,
+            duration: 0.3,
+            delay: 0.1,
+            dampingRatio: 0.8,
+            anchorPoint: .init(x: 0.5, y: 1)
+        )
+        
+        // tooptip에 popup animation이 들어가서 tooltip과 함께 배경색의 변화도 애니메이션을 줌>
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            self?.rootView.backgroundColor = .blackOpacity(.black15)
+        }
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        tapGestureRecognizer.isEnabled = true
     }
     
 }
@@ -54,8 +79,18 @@ extension PlaceInfoPopupViewController {
     //MARK: - @objc Func
     
     @objc private func closePopupView() {
-        print(#function)
-        dismiss(animated: false)
+        // tooptip에 popup animation이 들어가서 tooltip과 함께 배경색의 변화도 애니메이션을 줌>
+        UIView.animate(withDuration: 0.2) { [weak self] in self?.rootView.backgroundColor = .clear }
+        
+        tapGestureRecognizer.isEnabled = false
+        marker.hidden = false
+        rootView.popupView.executeDismissPopupAnimation(
+            destinationAlpha: 0.3,
+            destinationScale: 0.01,
+            duration: 0.3,
+            delay: 0,
+            dampingRatio: 1,
+            anchorPoint: CGPoint(x: 0.5, y: 1)) { [weak self] _ in self?.dismiss(animated: false) }
     }
     
     @objc private func explore() {
@@ -66,80 +101,64 @@ extension PlaceInfoPopupViewController {
             return
         }
         
-        //분기처리
-        let placeCategory = placeInformation.placeCategory.lowercased()
-        if
-            placeCategory == OffroadPlaceCategory.park.rawValue.lowercased() ||
-                placeCategory == OffroadPlaceCategory.culture.rawValue.lowercased() ||
-                placeCategory == OffroadPlaceCategory.sport.rawValue.lowercased()
-        {
-            
-            let placeRequestDTO = AdventuresPlaceAuthenticationRequestDTO(
-                placeId: placeInformation.id,
-                latitude: locationManager.location!.coordinate.latitude,
-                longitude: locationManager.location!.coordinate.longitude
-            )
-            
-            print(locationManager.location!.coordinate)
-            print(placeInformation)
-            // 위치 대조 API
-            NetworkService.shared.adventureService.authenticatePlaceAdventure(
-                adventureAuthDTO: placeRequestDTO
-            ) { [weak self] response in
-                guard let self else { return }
-                switch response {
-                case .success(let result):
-                    guard let data = result?.data else { return }
-                    print(data)
-                    let isValidPosition = data.isValidPosition
-                    let characterImageURL = data.successCharacterImageUrl
-                    
-                    let tabBarController = navigationController.tabBarController
-                    
-                    let questResultViewController: QuestResultViewController
-                    if isValidPosition {
-                        questResultViewController = QuestResultViewController(
-                            result: .success,
-                            superViewController: tabBarController,
-                            placeInfo: placeInformation,
-                            imageURL: characterImageURL
+        let placeRequestDTO = AdventuresPlaceAuthenticationRequestDTO(
+            placeId: placeInformation.id,
+            latitude: locationManager.location!.coordinate.latitude,
+            longitude: locationManager.location!.coordinate.longitude
+        )
+        
+        print(locationManager.location!.coordinate)
+        print(placeInformation)
+        // 위치 대조 API
+        NetworkService.shared.adventureService.authenticatePlaceAdventure(
+            adventureAuthDTO: placeRequestDTO
+        ) { [weak self] response in
+            guard let self else { return }
+            switch response {
+            case .success(let result):
+                guard let data = result?.data else { return }
+                print(data)
+                let isValidPosition = data.isValidPosition
+                let characterImageURL = data.successCharacterImageUrl
+                
+                let tabBarController = navigationController.tabBarController
+                
+                guard !isValidPosition else {
+                    let placeCategory = placeInformation.placeCategory.lowercased()
+                    if
+                        placeCategory == OffroadPlaceCategory.caffe.rawValue.lowercased() || 
+                        placeCategory == OffroadPlaceCategory.restaurant.rawValue.lowercased()
+                    {
+                        navigationController.pushViewController(
+                            QuestQRViewController(placeInformation: placeInformation),
+                            animated: true
                         )
-                    } else {
-                        questResultViewController = QuestResultViewController(
-                            result: .wrongLocation,
-                            superViewController: tabBarController,
-                            placeInfo: placeInformation,
-                            imageURL: characterImageURL
-                        )
+                        marker.hidden = false
+                        self.dismiss(animated: false)
                     }
-                    
-                    
-                    tabBarController?.present(questResultViewController, animated: false)
-                    //self?.showAlert(
-                    //    title: isValidPosition ? "탐험 성공" : "탐험 실패",
-                    //    message: "캐릭터 이미지 URL: \(characterImageURL)"
-                    //)
-                    
-                    if isValidPosition {  }
-                default:
                     return
                 }
+                
+                let questResultViewController = QuestResultViewController(
+                    result: .wrongLocation,
+                    superViewController: tabBarController,
+                    placeInfo: placeInformation,
+                    imageURL: characterImageURL
+                )
+                questResultViewController.modalPresentationStyle = .formSheet
+                guard let tabBarController = self.presentingViewController as? UITabBarController else {
+                    return
+                }
+                marker.hidden = false
+                self.dismiss(animated: false) {
+                    tabBarController.present(questResultViewController, animated: true)
+                }
+                
+            default:
+                return
             }
-            // 결과 반환 후 present
-            
-        } else {
-            navigationController.pushViewController(
-                QuestQRViewController(placeInformation: placeInformation),
-                animated: true
-            )
-            self.dismiss(animated: false)
         }
-    }
-    
-    @objc private func tapped() {
-        print(#function)
         
-        self.dismiss(animated: false)
     }
     
     //MARK: - Private Func
@@ -162,7 +181,7 @@ extension PlaceInfoPopupViewController {
     
     private func setupGestures() {
         rootView.addGestureRecognizer(tapGestureRecognizer)
-        tapGestureRecognizer.addTarget(self, action: #selector(tapped))
+        tapGestureRecognizer.addTarget(self, action: #selector(closePopupView))
         tapGestureRecognizer.delegate = self
     }
     
@@ -174,17 +193,15 @@ extension PlaceInfoPopupViewController {
     
 }
 
+//MARK: - UIGestureRecognizerDelegate
 
 extension PlaceInfoPopupViewController: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        print(#function)
-        if gestureRecognizer == tapGestureRecognizer {
-            if touch.view!.isDescendant(of: rootView.popupView)  {
-                return true
-            }
-            return false
+        if gestureRecognizer == tapGestureRecognizer && !touch.view!.isDescendant(of: rootView.popupView) {
+            return true
         }
+        //closePopupView()
         return false
     }
     
