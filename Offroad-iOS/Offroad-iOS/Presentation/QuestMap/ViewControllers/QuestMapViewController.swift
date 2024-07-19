@@ -207,7 +207,7 @@ extension QuestMapViewController {
             popupViewController.modalPresentationStyle = .overCurrentContext
             popupViewController.configurePopupView()
             popupViewController.superViewControlller = self?.navigationController
-            self?.navigationController?.present(popupViewController, animated: false)
+            self?.tabBarController?.present(popupViewController, animated: false)
             
             return true
         }

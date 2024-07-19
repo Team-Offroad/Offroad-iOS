@@ -46,6 +46,12 @@ class PlaceInfoPopupViewController: UIViewController {
         setupGestures()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        rootView.popupView.excutePresentPopupAnimation(anchorPoint: .init(x: 0.5, y: 1))
+    }
+    
 }
 
 
@@ -67,13 +73,13 @@ extension PlaceInfoPopupViewController {
         }
         
         //분기처리
-        let placeCategory = placeInformation.placeCategory.lowercased()
-        if
-            placeCategory == OffroadPlaceCategory.park.rawValue.lowercased() ||
-                placeCategory == OffroadPlaceCategory.culture.rawValue.lowercased() ||
-                placeCategory == OffroadPlaceCategory.sport.rawValue.lowercased()
-        {
-            
+//        let placeCategory = placeInformation.placeCategory.lowercased()
+//        if
+//            placeCategory == OffroadPlaceCategory.park.rawValue.lowercased() ||
+//                placeCategory == OffroadPlaceCategory.culture.rawValue.lowercased() ||
+//                placeCategory == OffroadPlaceCategory.sport.rawValue.lowercased()
+//        {
+//            
             let placeRequestDTO = AdventuresPlaceAuthenticationRequestDTO(
                 placeId: placeInformation.id,
                 latitude: locationManager.location!.coordinate.latitude,
@@ -98,12 +104,27 @@ extension PlaceInfoPopupViewController {
                     
                     let questResultViewController: QuestResultViewController
                     if isValidPosition {
-                        questResultViewController = QuestResultViewController(
-                            result: .success,
-                            superViewController: tabBarController,
-                            placeInfo: placeInformation,
-                            imageURL: characterImageURL
-                        )
+                        
+                        let placeCategory = placeInformation.placeCategory.lowercased()
+                        if 
+                            placeCategory == OffroadPlaceCategory.caffe.rawValue.lowercased() ||
+                            placeCategory == OffroadPlaceCategory.restaurant.rawValue.lowercased() {
+                            
+                            navigationController.pushViewController(
+                                QuestQRViewController(placeInformation: placeInformation),
+                                animated: true
+                            )
+                            self.dismiss(animated: false)
+                            
+                        }
+                        
+                        return
+//                        questResultViewController = QuestResultViewController(
+//                            result: .success,
+//                            superViewController: tabBarController,
+//                            placeInfo: placeInformation,
+//                            imageURL: characterImageURL
+//                        )
                     } else {
                         questResultViewController = QuestResultViewController(
                             result: .wrongLocation,
@@ -113,27 +134,27 @@ extension PlaceInfoPopupViewController {
                         )
                     }
                     
+                    guard let tabBarController = self.presentingViewController as? UITabBarController else {
+                        return
+                    }
                     
-                    tabBarController?.present(questResultViewController, animated: false)
-                    //self?.showAlert(
-                    //    title: isValidPosition ? "탐험 성공" : "탐험 실패",
-                    //    message: "캐릭터 이미지 URL: \(characterImageURL)"
-                    //)
+                    self.dismiss(animated: false) {
+                        tabBarController.present(questResultViewController, animated: true)
+                    }
                     
-                    if isValidPosition {  }
                 default:
                     return
                 }
             }
             // 결과 반환 후 present
             
-        } else {
-            navigationController.pushViewController(
-                QuestQRViewController(placeInformation: placeInformation),
-                animated: true
-            )
-            self.dismiss(animated: false)
-        }
+//        } else {
+//            navigationController.pushViewController(
+//                QuestQRViewController(placeInformation: placeInformation),
+//                animated: true
+//            )
+//            self.dismiss(animated: false)
+//        }
     }
     
     @objc private func tapped() {
