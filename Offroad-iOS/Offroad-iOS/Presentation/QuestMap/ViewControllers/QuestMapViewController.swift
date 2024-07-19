@@ -54,12 +54,12 @@ class QuestMapViewController: OffroadTabBarViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        requestAuthorization()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        requestAuthorization()
         updateRegisteredLocation()
     }
     
@@ -113,15 +113,16 @@ extension QuestMapViewController {
             locationManager.requestAlwaysAuthorization()
         case .restricted:
             //추후 에러 메시지 팝업 구현 가능성
-            locationManager.requestAlwaysAuthorization()
+            showAlert(title: "위치 접근 권한이 막혀있습니다.", message: "위치 정보 권한을 허용해 주세요")
+            tabBarController?.selectedIndex = 0
             return
         case .denied:
-            locationManager.requestAlwaysAuthorization()
+            showAlert(title: "위치 접근 권한이 막혀있습니다.", message: "위치 정보 권한을 허용해 주세요")
+            tabBarController?.selectedIndex = 0
         case .authorizedAlways:
             return
         case .authorizedWhenInUse:
-            locationManager.requestAlwaysAuthorization()
-            updateCurrentLocation()
+            return
         @unknown default:
             return
         }
@@ -208,6 +209,17 @@ extension QuestMapViewController {
         let cameraUpdate = NMFCameraUpdate(scrollTo: markerLatLng, zoomTo: 16)
         cameraUpdate.animation = .easeOut
         rootView.naverMapView.mapView.moveCamera(cameraUpdate)
+    }
+    
+    private func showAlert(title: String, message: String) {
+        print(#function)
+        DispatchQueue.main.async { [weak self] in
+            let alertCon = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+            let okAction = UIAlertAction(title: "넵!", style: .default)
+            alertCon.addAction(okAction)
+            
+            self?.present(alertCon, animated: true)
+        }
     }
     
 }

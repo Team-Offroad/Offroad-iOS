@@ -86,6 +86,7 @@ final class ChoosingCharacterViewController: UIViewController {
                     self.characterDiscriptions.append(character.description)
                 }
                 self.extendedCharacterImageList.append(data?.data.characters[0].characterBaseImageUrl ?? "")
+                
             default:
                 break
             }

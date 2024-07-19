@@ -93,11 +93,13 @@ class QuestQRViewController: UIViewController {
         let offroadTabBarController = tabBarController as! OffroadTabBarController
         offroadTabBarController.hideTabBarAnimation()
         
-        AVCaptureDevice.requestAccess(for: .video) { isGranted in
+        AVCaptureDevice.requestAccess(for: .video) { [weak self] isGranted in
             guard isGranted else {
-                DispatchQueue.main.async {
-                    self.navigationController?.popViewController(animated: true)
-                }
+                self?.showAlert(title: "카메라 사용 권한 막힘", message: "카메라 접근 권한을 허용해주세요.", okCompletionHandler: { _ in
+                    DispatchQueue.main.async {
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                })
                 return
             }
             return
@@ -154,6 +156,17 @@ extension QuestQRViewController {
             alertCon.addAction(okAction)
             
             self?.tabBarController?.present(alertCon, animated: true)
+        }
+    }
+    
+    private func showAlert(title: String, message: String, okCompletionHandler: ((UIAlertAction) -> Void)? = nil) {
+        print(#function)
+        DispatchQueue.main.async { [weak self] in
+            let alertCon = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+            let okAction = UIAlertAction(title: "넵!", style: .default, handler: okCompletionHandler)
+            alertCon.addAction(okAction)
+            
+            self?.present(alertCon, animated: true)
         }
     }
     
