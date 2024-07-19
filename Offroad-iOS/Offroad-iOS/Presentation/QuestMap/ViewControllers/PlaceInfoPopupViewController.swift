@@ -57,9 +57,10 @@ class PlaceInfoPopupViewController: UIViewController {
         )
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
+        tapGestureRecognizer.isEnabled = true
     }
     
 }
@@ -70,7 +71,7 @@ extension PlaceInfoPopupViewController {
     //MARK: - @objc Func
     
     @objc private func closePopupView() {
-        print(#function)
+        tapGestureRecognizer.isEnabled = false
         marker.hidden = false
         rootView.popupView.executeDismissPopupAnimation(
             duration: 0.4,
@@ -154,12 +155,6 @@ extension PlaceInfoPopupViewController {
         
     }
     
-    @objc private func tapped() {
-        print(#function)
-        
-        self.dismiss(animated: false)
-    }
-    
     //MARK: - Private Func
     
     private func setupButtonsAction() {
@@ -180,7 +175,7 @@ extension PlaceInfoPopupViewController {
     
     private func setupGestures() {
         rootView.addGestureRecognizer(tapGestureRecognizer)
-        tapGestureRecognizer.addTarget(self, action: #selector(tapped))
+        tapGestureRecognizer.addTarget(self, action: #selector(closePopupView))
         tapGestureRecognizer.delegate = self
     }
     
@@ -200,7 +195,7 @@ extension PlaceInfoPopupViewController: UIGestureRecognizerDelegate {
         if gestureRecognizer == tapGestureRecognizer || touch.view!.isDescendant(of: rootView.popupView) {
             return true
         }
-        closePopupView()
+        //closePopupView()
         return false
     }
     
