@@ -16,6 +16,7 @@ class QuestMapView: UIView {
     //MARK: - UI Properties
     
     let reloadPlaceButton = UIButton()
+    let switchTrackingModeButton = UIButton()
     
     private let listButtonStackView = UIStackView()
     let questListButton = QuestMapListButton(image: .iconListBullet, title: "퀘스트 목록")
@@ -68,6 +69,12 @@ extension QuestMapView {
             make.width.height.equalTo(44)
         }
         
+        switchTrackingModeButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(24)
+            make.trailing.equalTo(safeAreaLayoutGuide).inset(24)
+            make.width.height.equalTo(44)
+        }
+        
         listButtonStackView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(40)
@@ -84,7 +91,7 @@ extension QuestMapView {
     //MARK: - Private Func
     
     private func setupHierarchy() {
-        naverMapView.addSubviews(reloadPlaceButton, showLocationButton)
+        naverMapView.addSubviews(reloadPlaceButton, showLocationButton, switchTrackingModeButton)
         listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
         addSubviews(
             naverMapView,
@@ -109,6 +116,11 @@ extension QuestMapView {
         showLocationButton.do { button in
             button.setImage(.btnDotScope, for: .normal)
             button.mapView = naverMapView.mapView
+            button.isUserInteractionEnabled = false
+        }
+        
+        switchTrackingModeButton.do { button in
+            button.setImage(.btnDotScope, for: .normal)
         }
         
         listButtonStackView.do { stackView in

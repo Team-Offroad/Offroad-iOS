@@ -30,6 +30,10 @@ class QuestMapViewController: OffroadTabBarViewController {
         }
     }
     
+    private var naverMapView: NMFNaverMapView {
+        rootView.naverMapView
+    }
+    
     //MARK: - UI Properties
     
     let customOverlayImage = NMFOverlayImage(image: .icnPlaceMarkerOrange)
@@ -49,6 +53,8 @@ class QuestMapViewController: OffroadTabBarViewController {
         //setupMarkers()
         setupButtonsAction()
         setupDelegates()
+        
+        locationManager.startUpdatingHeading()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,6 +81,23 @@ extension QuestMapViewController {
         showMarkersOnMap()
     }
     
+    @objc private func switchTrackingMode() {
+        print(#function)
+        switch  naverMapView.mapView.positionMode {
+        case .disabled:
+            print("disabled")
+        case .normal:
+            print("normal")
+        case .direction:
+            print("direction")
+        case .compass:
+            print("copass")
+        @unknown default:
+            print("unknown default")
+        }
+        naverMapView.mapView.positionMode = .direction
+    }
+    
     @objc private func pushQuestListViewController() {
         print(#function)
         //navigationController?.pushViewController(QuestQRViewController(), animated: true)
@@ -90,7 +113,7 @@ extension QuestMapViewController {
     private func setupMarkers() {
         shownMarkersArray = dummyPlaces.map({ place in
             let marker = NMFMarker(position: place.latLng)
-            marker.mapView = rootView.naverMapView.mapView
+            marker.mapView = naverMapView.mapView
             marker.width = 25
             marker.height = 35
             return marker
@@ -100,6 +123,8 @@ extension QuestMapViewController {
     private func setupButtonsAction() {
         rootView.reloadPlaceButton
             .addTarget(self, action: #selector(reloadPlaceButtonTapped), for: .touchUpInside)
+        rootView.switchTrackingModeButton
+            .addTarget(self, action: #selector(switchTrackingMode), for: .touchUpInside)
         rootView.questListButton
             .addTarget(self, action: #selector(pushQuestListViewController), for: .touchUpInside)
         rootView.placeListButton
@@ -141,7 +166,7 @@ extension QuestMapViewController {
     }
     
     private func updateRegisteredLocation() {
-        let cameraPositionTarget = rootView.naverMapView.mapView.cameraPosition.target
+        let cameraPositionTarget = naverMapView.mapView.cameraPosition.target
         
         let requestPlaceDTO = RegisteredPlaceRequestDTO(
             currentLatitude: cameraPositionTarget.lat,
@@ -163,12 +188,13 @@ extension QuestMapViewController {
     }
     
     private func setupDelegates() {
-        rootView.naverMapView.mapView.addCameraDelegate(delegate: self)
+        naverMapView.mapView.addCameraDelegate(delegate: self)
+        locationManager.delegate = self
     }
     
     private func showMarkersOnMap() {
         shownMarkersArray.forEach { marker in
-            marker.mapView = rootView.naverMapView.mapView
+            marker.mapView = naverMapView.mapView
         }
     }
     
@@ -192,7 +218,11 @@ extension QuestMapViewController {
             
             guard let locationManager = self?.locationManager else { return true }
             self?.focusToMarker(marker)
-            let popupViewController = PlaceInfoPopupViewController(placeInfo: marker.placeInfo, locationManager: locationManager, marker: marker)
+            let popupViewController = PlaceInfoPopupViewController(
+                placeInfo: marker.placeInfo,
+                locationManager: locationManager,
+                marker: marker
+            )
             popupViewController.modalPresentationStyle = .overFullScreen
             popupViewController.configurePopupView()
             popupViewController.superViewControlller = self?.navigationController
@@ -204,11 +234,11 @@ extension QuestMapViewController {
     }
     
     private func focusToMarker(_ marker: OffroadNMFMarker) {
-        currentZoomLevel = rootView.naverMapView.mapView.zoomLevel
+        currentZoomLevel = naverMapView.mapView.zoomLevel
         let markerLatLng = NMGLatLng(lat: marker.placeInfo.latitude, lng: marker.placeInfo.longitude)
         let cameraUpdate = NMFCameraUpdate(scrollTo: markerLatLng, zoomTo: 18)
         cameraUpdate.animation = .easeOut
-        rootView.naverMapView.mapView.moveCamera(cameraUpdate)
+        naverMapView.mapView.moveCamera(cameraUpdate)
     }
     
     private func showAlert(title: String, message: String) {
@@ -230,7 +260,25 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
     
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
-        self.rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+        naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+    }
+    
+}
+
+
+extension QuestMapViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        print(
+            """
+            자북: \(newHeading.magneticHeading),
+            진북: \(newHeading.trueHeading),
+            "편각?: \(newHeading.headingAccuracy),
+            timeStamp: \(newHeading.timestamp),
+            x: \(newHeading.x), y: \(newHeading.y), z: \(newHeading.z)
+            """
+        )
+        
     }
     
 }
