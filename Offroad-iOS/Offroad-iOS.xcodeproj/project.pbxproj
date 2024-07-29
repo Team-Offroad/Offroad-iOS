@@ -84,6 +84,7 @@
 		D063E98C2C49328300434A09 /* SVGKImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E98B2C49328200434A09 /* SVGKImage+.swift */; };
 		D063E98E2C49483000434A09 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E98D2C49483000434A09 /* UIImageView+.swift */; };
 		D063E9902C496EA500434A09 /* LottieAnimationView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E98F2C496EA500434A09 /* LottieAnimationView+.swift */; };
+		D063E9922C57FE7400434A09 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9912C57FE7400434A09 /* KeychainManager.swift */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
@@ -238,6 +239,7 @@
 		D063E98B2C49328200434A09 /* SVGKImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SVGKImage+.swift"; sourceTree = "<group>"; };
 		D063E98D2C49483000434A09 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		D063E98F2C496EA500434A09 /* LottieAnimationView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LottieAnimationView+.swift"; sourceTree = "<group>"; };
+		D063E9912C57FE7400434A09 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		D06D26C22C3D835300E79F25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -1042,6 +1044,7 @@
 			isa = PBXGroup;
 			children = (
 				D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */,
+				D063E9912C57FE7400434A09 /* KeychainManager.swift */,
 			);
 			path = AuthManager;
 			sourceTree = "<group>";
@@ -1654,6 +1657,7 @@
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
 				D0E796502C453B47005B47A5 /* AdventureService.swift in Sources */,
 				87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */,
+				D063E9922C57FE7400434A09 /* KeychainManager.swift in Sources */,
 				D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */,
 				D0E796672C455467005B47A5 /* CharacterInfoResponseDTO.swift in Sources */,
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
