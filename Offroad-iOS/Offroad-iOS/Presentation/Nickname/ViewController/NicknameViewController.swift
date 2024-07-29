@@ -60,6 +60,7 @@ extension NicknameViewController {
             nicknameView.textField.layer.borderColor = UIColor.sub(.sub).cgColor
         }
     }
+    
     // 화면 터치 시 키보드 내려가게 하는 코드
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -148,6 +149,10 @@ extension NicknameViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = UIColor.sub(.sub).cgColor
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
