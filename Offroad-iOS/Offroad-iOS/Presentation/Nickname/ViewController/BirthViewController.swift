@@ -42,8 +42,14 @@ final class BirthViewController: UIViewController {
         
         setupDelegate()
         setupAddTarget()
-
+        
         self.hideKeyboardWhenTappedAround()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        birthView.nextButton.changeState(forState: .isDisabled)
     }
     
     //MARK: - Private Method
@@ -56,6 +62,7 @@ final class BirthViewController: UIViewController {
         birthView.yearTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.monthTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
+        
         birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
         birthView.skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
         
@@ -81,6 +88,15 @@ extension BirthViewController {
             birthView.yearTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
             birthView.monthTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
             birthView.dayTextField.layer.borderColor = UIColor.sub(.sub).cgColor
+        }
+        
+        if validateDate() &&
+            !(birthView.yearTextField.text?.isEmpty ?? true) &&
+            !(birthView.monthTextField.text?.isEmpty ?? true) &&
+            !(birthView.dayTextField.text?.isEmpty ?? true) {
+            birthView.nextButton.changeState(forState: .isEnabled)
+        } else {
+            birthView.nextButton.changeState(forState: .isDisabled)
         }
     }
     
@@ -126,13 +142,13 @@ extension BirthViewController {
     @objc private func executePop() {
         navigationController?.popViewController(animated: true)
     }
-
+    
     
     @objc func skipButtonTapped() {
         let genderViewController = GenderViewController(nickname: nickname, birthYear: nil, birthMonth: nil, birthDay: nil)
         self.navigationController?.pushViewController(genderViewController, animated: true)
     }
-
+    
     
     // 텍스트 필드 글자 수 제한
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -185,7 +201,7 @@ extension BirthViewController {
         
         return true
     }
-
+    
     private func isLeapYear(_ year: Int) -> Bool {
         return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
     }
