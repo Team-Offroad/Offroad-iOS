@@ -56,6 +56,7 @@ extension NicknameViewController {
         
         if isTextFieldEmpty {
             nicknameView.textField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+            nicknameView.nextButton.changeState(forState: .isDisabled)
         } else {
             nicknameView.textField.layer.borderColor = UIColor.sub(.sub).cgColor
         }
