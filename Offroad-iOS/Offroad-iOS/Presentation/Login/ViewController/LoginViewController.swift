@@ -51,26 +51,29 @@ extension LoginViewController {
             
             var userName = user.name ?? ""
             var userEmail = user.email ?? ""
+            let userId = user.userIdentifier
             let userIdentifyToken = identifyToken ?? ""
             
+            KeychainManager.shared.saveUserId(id: userId)
+            
             if userName != "" {
-                if let userDefaultName = UserDefaults.standard.string(forKey: "UserName") {
+                if let userDefaultName = KeychainManager.shared.loadUserName() {
                     userName = userDefaultName
                 } else {
-                    UserDefaults.standard.set(userName, forKey: "UserName")
+                    KeychainManager.shared.saveUserName(name: userName)
                 }
             } else {
-                userName = UserDefaults.standard.string(forKey: "UserName") ?? ""
+                userName = KeychainManager.shared.loadUserName() ?? ""
             }
             
             if userEmail != "" {
-                if let userDefaultEmail = UserDefaults.standard.string(forKey: "UserEmail") {
+                if let userDefaultEmail = KeychainManager.shared.loadUserEmail() {
                     userEmail = userDefaultEmail
                 } else {
-                    UserDefaults.standard.set(userEmail, forKey: "UserEmail")
+                    KeychainManager.shared.saveUserEmail(email: userEmail)
                 }
             } else {
-                userEmail = UserDefaults.standard.string(forKey: "UserEmail") ?? ""
+                userEmail = KeychainManager.shared.loadUserEmail() ?? ""
             }
             
             self.postTokenForAppleLogin(request: SocialLoginRequestDTO(socialPlatform: "APPLE", name: userName, code: userIdentifyToken))
@@ -89,9 +92,8 @@ extension LoginViewController {
                 let refreshToken = data?.data.tokens.refreshToken ?? ""
                 let isAlreadyExist = data?.data.isAlreadyExist ?? Bool()
                 
-                UserDefaults.standard.set(accessToken, forKey: "AccessToken")
-                UserDefaults.standard.set(refreshToken, forKey: "RefreshToken")
-                
+                KeychainManager.shared.saveAccessToken(token: accessToken)
+                KeychainManager.shared.saveRefreshToken(token: refreshToken)
 
                 if isAlreadyExist {
                     let offroadTabBarController = OffroadTabBarController()
