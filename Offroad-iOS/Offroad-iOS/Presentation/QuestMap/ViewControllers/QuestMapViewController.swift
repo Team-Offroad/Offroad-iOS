@@ -206,7 +206,7 @@ extension QuestMapViewController {
     private func focusToMarker(_ marker: OffroadNMFMarker) {
         currentZoomLevel = rootView.naverMapView.mapView.zoomLevel
         let markerLatLng = NMGLatLng(lat: marker.placeInfo.latitude, lng: marker.placeInfo.longitude)
-        let cameraUpdate = NMFCameraUpdate(scrollTo: markerLatLng, zoomTo: 16)
+        let cameraUpdate = NMFCameraUpdate(scrollTo: markerLatLng)
         cameraUpdate.animation = .easeOut
         rootView.naverMapView.mapView.moveCamera(cameraUpdate)
     }
