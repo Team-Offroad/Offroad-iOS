@@ -48,29 +48,30 @@ extension LoginViewController {
         
         AppleAuthManager.shared.loginSuccess = { user, identifyToken in
             print("login success!")
+            UserDefaults.standard.set(true, forKey: "isLoggedIn")
             
             var userName = user.name ?? ""
             var userEmail = user.email ?? ""
             let userIdentifyToken = identifyToken ?? ""
-            
+                        
             if userName != "" {
-                if let userDefaultName = UserDefaults.standard.string(forKey: "UserName") {
+                if let userDefaultName = KeychainManager.shared.loadUserName() {
                     userName = userDefaultName
                 } else {
-                    UserDefaults.standard.set(userName, forKey: "UserName")
+                    KeychainManager.shared.saveUserName(name: userName)
                 }
             } else {
-                userName = UserDefaults.standard.string(forKey: "UserName") ?? ""
+                userName = KeychainManager.shared.loadUserName() ?? ""
             }
             
             if userEmail != "" {
-                if let userDefaultEmail = UserDefaults.standard.string(forKey: "UserEmail") {
+                if let userDefaultEmail = KeychainManager.shared.loadUserEmail() {
                     userEmail = userDefaultEmail
                 } else {
-                    UserDefaults.standard.set(userEmail, forKey: "UserEmail")
+                    KeychainManager.shared.saveUserEmail(email: userEmail)
                 }
             } else {
-                userEmail = UserDefaults.standard.string(forKey: "UserEmail") ?? ""
+                userEmail = KeychainManager.shared.loadUserEmail() ?? ""
             }
             
             self.postTokenForAppleLogin(request: SocialLoginRequestDTO(socialPlatform: "APPLE", name: userName, code: userIdentifyToken))
@@ -82,32 +83,51 @@ extension LoginViewController {
     }
     
     private func postTokenForAppleLogin(request: SocialLoginRequestDTO) {
-        NetworkService.shared.authService.postSocialLogin(body: request) { [weak self] response in
+        NetworkService.shared.authService.postSocialLogin(body: request) { response in
             switch response {
             case .success(let data):
                 let accessToken = data?.data.tokens.accessToken ?? ""
                 let refreshToken = data?.data.tokens.refreshToken ?? ""
-                let isAlreadyExist = data?.data.isAlreadyExist ?? Bool()
                 
-                UserDefaults.standard.set(accessToken, forKey: "AccessToken")
-                UserDefaults.standard.set(refreshToken, forKey: "RefreshToken")
-                
+                KeychainManager.shared.saveAccessToken(token: accessToken)
+                KeychainManager.shared.saveRefreshToken(token: refreshToken)
 
-                if isAlreadyExist {
-                    let offroadTabBarController = OffroadTabBarController()
-                    
-                    offroadTabBarController.modalTransitionStyle = .crossDissolve
-                    offroadTabBarController.modalPresentationStyle = .fullScreen
-                    
-                    self?.present(offroadTabBarController, animated: true)
-                } else {
+                self.checkUserChoosingInfo()
+            default:
+                break
+            }
+        }
+    }
+    
+    private func checkUserChoosingInfo() {
+        NetworkService.shared.adventureService.getAdventureInfo(category: "NONE") { response in
+            switch response {
+            case .success(let data):
+                let userNickname = data?.data.nickname ?? ""
+                let characterName = data?.data.characterName ?? ""
+                                                
+                if userNickname == "" {
                     let nicknameViewController = NicknameViewController()
                     let navigationController = UINavigationController(rootViewController: nicknameViewController)
                     
-                    navigationController.modalTransitionStyle = .crossDissolve
                     navigationController.modalPresentationStyle = .fullScreen
+                    navigationController.modalTransitionStyle = .crossDissolve
                     
-                    self?.present(navigationController, animated: true)
+                    self.present(navigationController, animated: true)
+                } else if characterName == "" {
+                    let choosingCharacterViewController = ChoosingCharacterViewController()
+                    
+                    choosingCharacterViewController.modalPresentationStyle = .fullScreen
+                    choosingCharacterViewController.modalTransitionStyle = .crossDissolve
+                    
+                    self.present(choosingCharacterViewController, animated: true)
+                } else {
+                    let offroadTabBarViewController = OffroadTabBarController()
+                    
+                    offroadTabBarViewController.modalPresentationStyle = .fullScreen
+                    offroadTabBarViewController.modalTransitionStyle = .crossDissolve
+                    
+                    self.present(offroadTabBarViewController, animated: true)
                 }
             default:
                 break

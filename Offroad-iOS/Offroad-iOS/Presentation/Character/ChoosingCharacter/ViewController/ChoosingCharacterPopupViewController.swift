@@ -17,7 +17,6 @@ final class ChoosingCharacterPopupViewController: UIViewController {
     private var myCharacterID = Int()
     private var myCharacterImage = String() {
         didSet {
-            UserDefaults.standard.set(true, forKey: "isLoggedIn")
             let completeChoosingCharacterViewController = CompleteChoosingCharacterViewController(characterImage: myCharacterImage)
             completeChoosingCharacterViewController.modalTransitionStyle = .crossDissolve
             completeChoosingCharacterViewController.modalPresentationStyle = .fullScreen
