@@ -42,8 +42,7 @@ final class BirthViewController: UIViewController {
         
         setupDelegate()
         setupAddTarget()
-        
-        self.hideKeyboardWhenTappedAround()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,10 +62,65 @@ final class BirthViewController: UIViewController {
         birthView.monthTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         
+        birthView.yearTextField.addTarget(self, action: #selector(textFieldDidEndEditing(_:)), for: .editingDidEnd)
+        birthView.monthTextField.addTarget(self, action: #selector(textFieldDidEndEditing(_:)), for: .editingDidEnd)
+        birthView.dayTextField.addTarget(self, action: #selector(textFieldDidEndEditing(_:)), for: .editingDidEnd)
+        
         birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
         birthView.skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: birthView.skipButton)
+    }
+    
+    private func validateYear() -> Bool {
+        guard let yearText = birthView.yearTextField.text, let year = Int(yearText), year >= 1920 else {
+            birthView.notionLabel.text = "다시 한 번 확인해주세요."
+            return false
+        }
+        birthView.notionLabel.text = ""
+        return true
+    }
+    
+    private func validateMonth() -> Bool {
+        guard let monthText = birthView.monthTextField.text, monthText.count == 2, let month = Int(monthText), month >= 1 && month <= 12 else {
+            birthView.notionLabel.text = "다시 한 번 확인해주세요."
+            return false
+        }
+        birthView.notionLabel.text = ""
+        return true
+    }
+    
+    private func validateDay() -> Bool {
+        guard let yearText = birthView.yearTextField.text, let year = Int(yearText),
+              let monthText = birthView.monthTextField.text, let month = Int(monthText),
+              let dayText = birthView.dayTextField.text, let day = Int(dayText) else {
+            return false
+        }
+        
+        if month < 1 || month > 12 || day < 1 || day > 31 {
+            return false
+        }
+        
+        switch month {
+        case 4, 6, 9, 11:
+            return day <= 30
+        case 2:
+            if isLeapYear(year) {
+                return day <= 29
+            } else {
+                return day <= 28
+            }
+        default:
+            return day <= 31
+        }
+    }
+    
+    private func isLeapYear(_ year: Int) -> Bool {
+        return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
+    }
+    
+    private func validateInputs() -> Bool {
+        return validateYear() && validateMonth() && validateDay()
     }
 }
 
@@ -75,30 +129,12 @@ extension BirthViewController {
     //MARK: - @objc Method
     
     @objc private func textFieldDidChange(_ sender: UITextField) {
-        birthView.nextButton.changeState(forState: .isEnabled)
-        if sender == birthView.yearTextField {
-            birthView.yearTextField.layer.borderColor = UIColor.sub(.sub).cgColor
-            birthView.monthTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-            birthView.dayTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-        } else if sender == birthView.monthTextField {
-            birthView.yearTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-            birthView.monthTextField.layer.borderColor = UIColor.sub(.sub).cgColor
-            birthView.dayTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-        } else if sender == birthView.dayTextField {
-            birthView.yearTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-            birthView.monthTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-            birthView.dayTextField.layer.borderColor = UIColor.sub(.sub).cgColor
+        [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].forEach {
+            $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         }
-        
-        if validateDate() &&
-            !(birthView.yearTextField.text?.isEmpty ?? true) &&
-            !(birthView.monthTextField.text?.isEmpty ?? true) &&
-            !(birthView.dayTextField.text?.isEmpty ?? true) {
-            birthView.nextButton.changeState(forState: .isEnabled)
-        } else {
-            birthView.nextButton.changeState(forState: .isDisabled)
-        }
+        sender.layer.borderColor = UIColor.sub(.sub).cgColor
     }
+
     
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
         let maxLength: Int
@@ -110,19 +146,24 @@ extension BirthViewController {
         if let text = textField.text, text.count > maxLength {
             textField.text = String(text.prefix(maxLength))
         }
-        //텍스트필드 자동 이동 구현
+        // 텍스트필드 자동 이동 구현
         if textField == birthView.yearTextField {
-            if let yearText = birthView.yearTextField.text, yearText.count == 4, let year = Int(yearText), year >= 1920 {
+            if validateYear() && textField.text?.count == 4 {
                 birthView.monthTextField.becomeFirstResponder()
             }
         } else if textField == birthView.monthTextField {
-            if let monthText = birthView.monthTextField.text, monthText.count == 2, let month = Int(monthText), month >= 1 && month <= 12 {
+            if validateMonth() && textField.text?.count == 2 {
                 birthView.dayTextField.becomeFirstResponder()
             }
         }
+        if validateInputs() {
+            birthView.nextButton.changeState(forState: .isEnabled)
+        } else {
+            birthView.nextButton.changeState(forState: .isDisabled)
+        }
     }
     
-    //1자리수를 2자리수로 자동 변환
+    // 1자리수를 2자리수로 자동 변환
     @objc internal func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == birthView.monthTextField {
             if let monthText = birthView.monthTextField.text, monthText.count == 1 {
@@ -133,12 +174,18 @@ extension BirthViewController {
                 birthView.dayTextField.text = "0\(dayText)"
             }
         }
+        if validateInputs() {
+            birthView.nextButton.changeState(forState: .isEnabled)
+        } else {
+            birthView.nextButton.changeState(forState: .isDisabled)
+        }
+        [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].forEach {
+            $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        }
     }
     
     @objc func buttonToGenderVC(sender: UIButton) {
-        if validateDate() == false || (Int(birthView.yearTextField.text ?? "") ?? 0) < 1920 {
-            birthView.notionLabel.text = "다시 한 번 확인해주세요."
-        } else {
+        if validateDay() {
             let nextVC = GenderViewController(
                 nickname: nickname,
                 birthYear: birthView.yearTextField.text ?? "",
@@ -159,6 +206,8 @@ extension BirthViewController {
             nextVC.navigationItem.leftBarButtonItem = customBackBarButton
             
             self.navigationController?.pushViewController(nextVC, animated: true)
+        } else {
+            birthView.notionLabel.text = "다시 한 번 확인해주세요."
         }
     }
     
@@ -204,45 +253,6 @@ extension BirthViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: birthView.skipButton)
     }
-    
-    private func validateDate() -> Bool {
-        guard
-            let yearText = birthView.yearTextField.text, let year = Int(yearText),
-            let monthText = birthView.monthTextField.text, let month = Int(monthText),
-            let dayText = birthView.dayTextField.text, let day = Int(dayText)
-        else {
-            return false
-        }
-        
-        if year < 1920 || month < 1 || month > 12 || day < 1 || day > 31 {
-            return false
-        }
-        
-        switch month {
-        case 4, 6, 9, 11:
-            if day > 30 {
-                return false
-            }
-        case 2:
-            if isLeapYear(year) {
-                if day > 29 {
-                    return false
-                }
-            } else {
-                if day > 28 {
-                    return false
-                }
-            }
-        default:
-            break
-        }
-        
-        return true
-    }
-    
-    private func isLeapYear(_ year: Int) -> Bool {
-        return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
-    }
 }
 
 //MARK: - UITextFieldDelegate
@@ -263,13 +273,7 @@ extension BirthViewController: UITextFieldDelegate {
 
 extension BirthViewController {
     
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
-    func hideKeyboardWhenTappedAround() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }
