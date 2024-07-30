@@ -259,13 +259,18 @@ extension QuestMapViewController {
 
 extension QuestMapViewController: NMFMapViewCameraDelegate {
     
+    func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
+        if reason == -2 {
+            let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
+            rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+        }
+    }
+    
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
         if reason == -1 {
             rootView.naverMapView.mapView.locationOverlay.subIcon = nil
-        } else {
-            
         }
     }
     

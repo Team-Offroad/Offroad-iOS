@@ -27,7 +27,7 @@ class QuestMapView: UIView {
     let placeListButton = QuestMapListButton(image: .iconPlaceMarker, title: "장소 목록")
     
     let naverMapView = NMFNaverMapView()
-    private let compass = NMFCompassView()
+    let compass = NMFCompassView()
     private let orangeTriangleArrowOverlayImage = NMFOverlayImage(image: .icnOrangeTriangleArrow)
     let orangeLocationOverlayImage = NMFOverlayImage(image: .icnOrangeCircleInWhiteBorder)
     
