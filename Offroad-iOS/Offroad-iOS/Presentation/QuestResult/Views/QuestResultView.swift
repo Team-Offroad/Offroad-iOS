@@ -90,7 +90,7 @@ extension QuestResultView {
     //MARK: - Private Func
     
     private func setupStyle() {
-        backgroundColor = .clear
+        backgroundColor = .blackOpacity(.black55)
         
         popupView.do { view in
             view.roundCorners(cornerRadius: 15)
@@ -123,8 +123,6 @@ extension QuestResultView {
             button.roundCorners(cornerRadius: 5)
         }
     }
-    
-    
     
     //MARK: - Func
     
