@@ -52,11 +52,8 @@ extension LoginViewController {
             
             var userName = user.name ?? ""
             var userEmail = user.email ?? ""
-            let userId = user.userIdentifier
             let userIdentifyToken = identifyToken ?? ""
-            
-            KeychainManager.shared.saveUserId(id: userId)
-            
+                        
             if userName != "" {
                 if let userDefaultName = KeychainManager.shared.loadUserName() {
                     userName = userDefaultName
@@ -86,12 +83,11 @@ extension LoginViewController {
     }
     
     private func postTokenForAppleLogin(request: SocialLoginRequestDTO) {
-        NetworkService.shared.authService.postSocialLogin(body: request) { [weak self] response in
+        NetworkService.shared.authService.postSocialLogin(body: request) { response in
             switch response {
             case .success(let data):
                 let accessToken = data?.data.tokens.accessToken ?? ""
                 let refreshToken = data?.data.tokens.refreshToken ?? ""
-                let isAlreadyExist = data?.data.isAlreadyExist ?? Bool()
                 
                 KeychainManager.shared.saveAccessToken(token: accessToken)
                 KeychainManager.shared.saveRefreshToken(token: refreshToken)

@@ -63,16 +63,6 @@ final class KeychainManager {
         return String(data: emailData, encoding: .utf8)
     }
     
-    func saveUserId(id: String) {
-        guard let idData = id.data(using: .utf8) else { return }
-        save(key: "userId", data: idData)
-    }
-    
-    func checkLoginHistory() -> Bool {
-        guard read(key: "userId") != nil else { return false }
-        return true
-    }
-    
     private func save(key: String, data: Data) {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
