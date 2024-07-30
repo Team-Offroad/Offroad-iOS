@@ -27,7 +27,6 @@ class QuestMapView: UIView {
     let placeListButton = QuestMapListButton(image: .iconPlaceMarker, title: "장소 목록")
     
     let naverMapView = NMFNaverMapView()
-    private let showLocationButton = NMFLocationButton(frame: .zero)
     private let compass = NMFCompassView()
     private let orangeTriangleArrowOverlayImage = NMFOverlayImage(image: .icnOrangeTriangleArrow)
     let orangeLocationOverlayImage = NMFOverlayImage(image: .icnOrangeCircleInWhiteBorder)
@@ -67,12 +66,6 @@ extension QuestMapView {
             make.verticalEdges.equalTo(safeAreaLayoutGuide)
         }
         
-        showLocationButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(24)
-            make.trailing.equalTo(safeAreaLayoutGuide).inset(24)
-            make.width.height.equalTo(44)
-        }
-        
         switchTrackingModeButton.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(24)
             make.trailing.equalTo(safeAreaLayoutGuide).inset(24)
@@ -86,8 +79,8 @@ extension QuestMapView {
         }
         
         compass.snp.makeConstraints { make in
-            make.top.equalTo(showLocationButton.snp.bottom).offset(24)
-            make.trailing.equalTo(showLocationButton.snp.trailing)
+            make.top.equalTo(switchTrackingModeButton.snp.bottom).offset(24)
+            make.trailing.equalTo(switchTrackingModeButton.snp.trailing)
             make.width.height.equalTo(44)
         }
     }
@@ -95,7 +88,7 @@ extension QuestMapView {
     //MARK: - Private Func
     
     private func setupHierarchy() {
-        naverMapView.addSubviews(reloadPlaceButton, showLocationButton, switchTrackingModeButton)
+        naverMapView.addSubviews(reloadPlaceButton, switchTrackingModeButton)
         listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
         addSubviews(
             naverMapView,
@@ -115,11 +108,6 @@ extension QuestMapView {
             button.layer.borderWidth = 1
             button.layer.borderColor = UIColor.grayscale(.gray200).cgColor
             button.titleLabel?.font = UIFont.pretendardFont(ofSize: 13.2, weight: .medium)
-        }
-        
-        showLocationButton.do { button in
-            button.setImage(.btnDotScope, for: .normal)
-            button.mapView = naverMapView.mapView
         }
         
         switchTrackingModeButton.do { button in
@@ -145,14 +133,6 @@ extension QuestMapView {
         compass.mapView = naverMapView.mapView
         
         // 현재 위치 표시하는 마커 커스텀
-//        naverMapView.mapView.locationOverlay.do { overlay in
-//            overlay.subIcon = orangeTriangleArrowOverlayImage
-//            overlay.subAnchor = CGPoint(x: 0.5, y: 1) // 기본값임
-//            overlay.subIconWidth = 16
-//            overlay.subIconHeight = 16
-//            overlay.circleColor = .sub(.sub).withAlphaComponent(0.07)
-//        }
-        
         naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
         customizeLocationOverlaySubIcon(state: .compass)
     }
