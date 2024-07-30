@@ -169,6 +169,21 @@ extension BirthViewController {
     
     @objc func skipButtonTapped() {
         let genderViewController = GenderViewController(nickname: nickname, birthYear: nil, birthMonth: nil, birthDay: nil)
+        
+        let button = UIButton().then { button in
+            button.setImage(.backBarButton, for: .normal)
+            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
+            button.imageView?.contentMode = .scaleAspectFill
+            button.snp.makeConstraints { make in
+                make.width.equalTo(30)
+                make.height.equalTo(44)
+            }
+        }
+        
+        let customBackBarButton = UIBarButtonItem(customView: button)
+        customBackBarButton.tintColor = .black
+        genderViewController.navigationItem.leftBarButtonItem = customBackBarButton
+        
         self.navigationController?.pushViewController(genderViewController, animated: true)
     }
     
