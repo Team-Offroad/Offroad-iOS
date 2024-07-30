@@ -71,7 +71,7 @@ extension SplashViewController {
                 } else if characterName == "" {
                     self.presentViewController(viewController: ChoosingCharacterViewController())
                 } else {
-                    self.presentViewController(viewController: OffroadTabBarViewController())
+                    self.presentViewController(viewController: OffroadTabBarController())
                 }
             default:
                 break

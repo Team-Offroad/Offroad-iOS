@@ -92,21 +92,42 @@ extension LoginViewController {
                 KeychainManager.shared.saveAccessToken(token: accessToken)
                 KeychainManager.shared.saveRefreshToken(token: refreshToken)
 
-                if isAlreadyExist {
-                    let offroadTabBarController = OffroadTabBarController()
-                    
-                    offroadTabBarController.modalTransitionStyle = .crossDissolve
-                    offroadTabBarController.modalPresentationStyle = .fullScreen
-                    
-                    self?.present(offroadTabBarController, animated: true)
-                } else {
+                self.checkUserChoosingInfo()
+            default:
+                break
+            }
+        }
+    }
+    
+    private func checkUserChoosingInfo() {
+        NetworkService.shared.adventureService.getAdventureInfo(category: "NONE") { response in
+            switch response {
+            case .success(let data):
+                let userNickname = data?.data.nickname ?? ""
+                let characterName = data?.data.characterName ?? ""
+                                                
+                if userNickname == "" {
                     let nicknameViewController = NicknameViewController()
                     let navigationController = UINavigationController(rootViewController: nicknameViewController)
                     
-                    navigationController.modalTransitionStyle = .crossDissolve
                     navigationController.modalPresentationStyle = .fullScreen
+                    navigationController.modalTransitionStyle = .crossDissolve
                     
-                    self?.present(navigationController, animated: true)
+                    self.present(navigationController, animated: true)
+                } else if characterName == "" {
+                    let choosingCharacterViewController = ChoosingCharacterViewController()
+                    
+                    choosingCharacterViewController.modalPresentationStyle = .fullScreen
+                    choosingCharacterViewController.modalTransitionStyle = .crossDissolve
+                    
+                    self.present(choosingCharacterViewController, animated: true)
+                } else {
+                    let offroadTabBarViewController = OffroadTabBarController()
+                    
+                    offroadTabBarViewController.modalPresentationStyle = .fullScreen
+                    offroadTabBarViewController.modalTransitionStyle = .crossDissolve
+                    
+                    self.present(offroadTabBarViewController, animated: true)
                 }
             default:
                 break
