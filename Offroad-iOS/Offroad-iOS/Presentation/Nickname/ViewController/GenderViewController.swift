@@ -50,7 +50,7 @@ final class GenderViewController: UIViewController {
         setupAddTarget()
         
         self.modalPresentationStyle = .fullScreen
-
+        
     }
     
     private func presentToNextVC() {
@@ -70,6 +70,11 @@ final class GenderViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: genderView.skipButton)
         genderView.skipButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
+    
+    private func updateNextButtonState() {
+        let isGenderSelected = genderView.maleButton.isSelected || genderView.femaleButton.isSelected || genderView.etcButton.isSelected
+        genderView.nextButton.changeState(forState: isGenderSelected ? .isEnabled : .isDisabled)
+    }
 }
 
 extension GenderViewController {
@@ -87,6 +92,7 @@ extension GenderViewController {
                 button.layer.borderColor = UIColor.grayscale(.gray100).cgColor
             }
         }
+        updateNextButtonState()
     }
     
     @objc func nextButtonTapped() {
