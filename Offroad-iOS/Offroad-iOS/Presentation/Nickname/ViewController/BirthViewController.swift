@@ -110,6 +110,29 @@ extension BirthViewController {
         if let text = textField.text, text.count > maxLength {
             textField.text = String(text.prefix(maxLength))
         }
+        //텍스트필드 자동 이동 구현
+        if textField == birthView.yearTextField {
+            if let yearText = birthView.yearTextField.text, yearText.count == 4, let year = Int(yearText), year >= 1920 {
+                birthView.monthTextField.becomeFirstResponder()
+            }
+        } else if textField == birthView.monthTextField {
+            if let monthText = birthView.monthTextField.text, monthText.count == 2, let month = Int(monthText), month >= 1 && month <= 12 {
+                birthView.dayTextField.becomeFirstResponder()
+            }
+        }
+    }
+    
+    //1자리수를 2자리수로 자동 변환
+    @objc internal func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == birthView.monthTextField {
+            if let monthText = birthView.monthTextField.text, monthText.count == 1 {
+                birthView.monthTextField.text = "0\(monthText)"
+            }
+        } else if textField == birthView.dayTextField {
+            if let dayText = birthView.dayTextField.text, dayText.count == 1 {
+                birthView.dayTextField.text = "0\(dayText)"
+            }
+        }
     }
     
     @objc func buttonToGenderVC(sender: UIButton) {
@@ -223,14 +246,15 @@ extension BirthViewController: UITextFieldDelegate {
     }
 }
 
-extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
+extension BirthViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
 }
