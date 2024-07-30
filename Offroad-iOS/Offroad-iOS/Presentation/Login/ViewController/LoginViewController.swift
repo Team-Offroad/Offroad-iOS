@@ -48,6 +48,7 @@ extension LoginViewController {
         
         AppleAuthManager.shared.loginSuccess = { user, identifyToken in
             print("login success!")
+            UserDefaults.standard.set(true, forKey: "isLoggedIn")
             
             var userName = user.name ?? ""
             var userEmail = user.email ?? ""

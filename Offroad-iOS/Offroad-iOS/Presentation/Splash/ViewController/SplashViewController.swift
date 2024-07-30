@@ -27,9 +27,8 @@ final class SplashViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if UserDefaults.standard.bool(forKey: "isLoggedIn") {
-            presentViewController(viewController: OffroadTabBarController())
-        }
-        else {
+            checkUserChoosingInfo()
+        } else {
             presentViewController(viewController: LoginViewController())
         }
     }
@@ -58,4 +57,25 @@ extension SplashViewController {
         }
     }
     
+    private func checkUserChoosingInfo() {
+        NetworkService.shared.adventureService.getAdventureInfo(category: "NONE") { response in
+            switch response {
+            case .success(let data):
+                let userNickname = data?.data.nickname ?? ""
+                let characterName = data?.data.characterName ?? ""
+                                                
+                if userNickname == "" {
+                    let nicknameViewController = NicknameViewController()
+                    let navigationController = UINavigationController(rootViewController: nicknameViewController)
+                    self.presentViewController(viewController: navigationController)
+                } else if characterName == "" {
+                    self.presentViewController(viewController: ChoosingCharacterViewController())
+                } else {
+                    self.presentViewController(viewController: OffroadTabBarViewController())
+                }
+            default:
+                break
+            }
+        }
+    }
 }
