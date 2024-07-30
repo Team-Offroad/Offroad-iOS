@@ -263,6 +263,7 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
         if reason == -2 {
             let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
             rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+            rootView.naverMapView.mapView.locationOverlay.subIcon = nil
         }
     }
     
