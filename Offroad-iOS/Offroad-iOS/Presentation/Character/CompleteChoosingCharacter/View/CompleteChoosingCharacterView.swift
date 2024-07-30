@@ -30,7 +30,6 @@ final class CompleteChoosingCharacterView: UIView {
     
     private let characterView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(resource: .imgCompleteCharacter)
     }
     
     let startButton = StateToggleButton(state: .isEnabled, title: "모험 시작하기")
