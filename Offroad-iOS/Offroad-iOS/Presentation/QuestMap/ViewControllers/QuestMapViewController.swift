@@ -61,6 +61,9 @@ class QuestMapViewController: OffroadTabBarViewController {
         
         requestAuthorization()
         updateRegisteredLocation()
+        rootView.naverMapView.mapView.positionMode = .compass
+        let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
+        rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
     }
     
 }
@@ -73,6 +76,21 @@ extension QuestMapViewController {
         updateCurrentLocation()
         updateRegisteredLocation()
         showMarkersOnMap()
+    }
+    
+    @objc private func switchTrackingMode() {
+        if rootView.naverMapView.mapView.positionMode == .normal {
+            flyToMyPosition { [weak self] in
+                self?.rootView.naverMapView.mapView.positionMode = .compass
+            }
+            rootView.customizeLocationOverlaySubIcon(state: .compass)
+        } else {
+            rootView.naverMapView.mapView.positionMode = .normal
+            let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
+            rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+            rootView.naverMapView.mapView.locationOverlay.subIcon = nil
+        }
+        
     }
     
     @objc private func pushQuestListViewController() {
@@ -100,6 +118,8 @@ extension QuestMapViewController {
     private func setupButtonsAction() {
         rootView.reloadPlaceButton
             .addTarget(self, action: #selector(reloadPlaceButtonTapped), for: .touchUpInside)
+        rootView.switchTrackingModeButton
+            .addTarget(self, action: #selector(switchTrackingMode), for: .touchUpInside)
         rootView.questListButton
             .addTarget(self, action: #selector(pushQuestListViewController), for: .touchUpInside)
         rootView.placeListButton
@@ -129,13 +149,13 @@ extension QuestMapViewController {
     }
     
     private func updateCurrentLocation() {
-        guard let location = locationManager.location else {
+        guard let currentCoordinate = locationManager.location?.coordinate else {
             // 위치 정보 가져올 수 없음.
             return
         }
         currentLocation = NMGLatLng(
-            lat: location.coordinate.latitude,
-            lng: location.coordinate.longitude
+            lat: currentCoordinate.latitude,
+            lng: currentCoordinate.longitude
         )
         
     }
@@ -206,7 +226,7 @@ extension QuestMapViewController {
     private func focusToMarker(_ marker: OffroadNMFMarker) {
         currentZoomLevel = rootView.naverMapView.mapView.zoomLevel
         let markerLatLng = NMGLatLng(lat: marker.placeInfo.latitude, lng: marker.placeInfo.longitude)
-        let cameraUpdate = NMFCameraUpdate(scrollTo: markerLatLng, zoomTo: 16)
+        let cameraUpdate = NMFCameraUpdate(scrollTo: markerLatLng)
         cameraUpdate.animation = .easeOut
         rootView.naverMapView.mapView.moveCamera(cameraUpdate)
     }
@@ -222,15 +242,36 @@ extension QuestMapViewController {
         }
     }
     
+    private func flyToMyPosition(completion: @escaping () -> Void) {
+        guard let currentCoord = locationManager.location?.coordinate else { return }
+        let currentLatLng = NMGLatLng(lat: currentCoord.latitude, lng: currentCoord.longitude)
+        let cameraUpdate = NMFCameraUpdate(scrollTo: currentLatLng)
+        cameraUpdate.animation = .easeOut
+        rootView.naverMapView.mapView.moveCamera(cameraUpdate) { isCancelled in
+            completion()
+        }
+    }
+    
 }
 
 //MARK: - NMFMapViewCameraDelegate
 
 extension QuestMapViewController: NMFMapViewCameraDelegate {
     
+    func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
+        if reason == -2 {
+            let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
+            rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+            rootView.naverMapView.mapView.locationOverlay.subIcon = nil
+        }
+    }
+    
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
-        self.rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+        rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+        if reason == -1 {
+            rootView.naverMapView.mapView.locationOverlay.subIcon = nil
+        }
     }
     
 }

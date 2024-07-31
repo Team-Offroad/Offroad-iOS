@@ -11,19 +11,23 @@ import NMapsMap
 import SnapKit
 import Then
 
+enum TrackingMode {
+    case normal
+    case compass
+}
+
 class QuestMapView: UIView {
     
     //MARK: - UI Properties
     
     let reloadPlaceButton = UIButton()
-    
+    let switchTrackingModeButton = UIButton()
     private let listButtonStackView = UIStackView()
     let questListButton = QuestMapListButton(image: .iconListBullet, title: "퀘스트 목록")
     let placeListButton = QuestMapListButton(image: .iconPlaceMarker, title: "장소 목록")
     
     let naverMapView = NMFNaverMapView()
-    private let showLocationButton = NMFLocationButton(frame: .zero)
-    private let compass = NMFCompassView()
+    let compass = NMFCompassView()
     private let orangeTriangleArrowOverlayImage = NMFOverlayImage(image: .icnOrangeTriangleArrow)
     let orangeLocationOverlayImage = NMFOverlayImage(image: .icnOrangeCircleInWhiteBorder)
     
@@ -62,7 +66,7 @@ extension QuestMapView {
             make.verticalEdges.equalTo(safeAreaLayoutGuide)
         }
         
-        showLocationButton.snp.makeConstraints { make in
+        switchTrackingModeButton.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(24)
             make.trailing.equalTo(safeAreaLayoutGuide).inset(24)
             make.width.height.equalTo(44)
@@ -75,8 +79,8 @@ extension QuestMapView {
         }
         
         compass.snp.makeConstraints { make in
-            make.top.equalTo(showLocationButton.snp.bottom).offset(24)
-            make.trailing.equalTo(showLocationButton.snp.trailing)
+            make.top.equalTo(switchTrackingModeButton.snp.bottom).offset(24)
+            make.trailing.equalTo(switchTrackingModeButton.snp.trailing)
             make.width.height.equalTo(44)
         }
     }
@@ -84,7 +88,7 @@ extension QuestMapView {
     //MARK: - Private Func
     
     private func setupHierarchy() {
-        naverMapView.addSubviews(reloadPlaceButton, showLocationButton)
+        naverMapView.addSubviews(reloadPlaceButton, switchTrackingModeButton)
         listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
         addSubviews(
             naverMapView,
@@ -106,9 +110,8 @@ extension QuestMapView {
             button.titleLabel?.font = UIFont.pretendardFont(ofSize: 13.2, weight: .medium)
         }
         
-        showLocationButton.do { button in
+        switchTrackingModeButton.do { button in
             button.setImage(.btnDotScope, for: .normal)
-            button.mapView = naverMapView.mapView
         }
         
         listButtonStackView.do { stackView in
@@ -130,12 +133,24 @@ extension QuestMapView {
         compass.mapView = naverMapView.mapView
         
         // 현재 위치 표시하는 마커 커스텀
-        naverMapView.mapView.locationOverlay.do { overlay in
-            overlay.subIcon = orangeTriangleArrowOverlayImage
-            overlay.subAnchor = CGPoint(x: 0.5, y: 1) // 기본값임
-            overlay.subIconWidth = 16
-            overlay.subIconHeight = 16
-            overlay.circleColor = .sub(.sub).withAlphaComponent(0.07)
+        naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+        customizeLocationOverlaySubIcon(state: .compass)
+    }
+    
+    func customizeLocationOverlaySubIcon(state: TrackingMode) {
+        switch state {
+        case .normal:
+            naverMapView.mapView.locationOverlay.subIcon = nil
+        case .compass:
+            // 현재 위치 표시하는 마커 커스텀
+            naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+            naverMapView.mapView.locationOverlay.do { overlay in
+                overlay.subIcon = orangeTriangleArrowOverlayImage
+                overlay.subAnchor = CGPoint(x: 0.5, y: 1) // 기본값임
+                overlay.subIconWidth = 16
+                overlay.subIconHeight = 16
+                overlay.circleColor = .sub(.sub).withAlphaComponent(0.07)
+            }
         }
     }
     
