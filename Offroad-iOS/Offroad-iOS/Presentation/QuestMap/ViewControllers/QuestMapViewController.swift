@@ -64,7 +64,6 @@ class QuestMapViewController: OffroadTabBarViewController {
         rootView.naverMapView.mapView.positionMode = .compass
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
-        //rootView.naverMapView.mapView.locationOverlay.subIcon = nil
     }
     
 }
