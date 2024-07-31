@@ -13,6 +13,8 @@ final class HomeViewController: OffroadTabBarViewController {
     
     private let rootView = HomeView()
     
+    private var userEmblemString = ""
+    
     var categoryString = "NONE"
     
     // MARK: - Life Cycle
@@ -46,7 +48,7 @@ extension HomeViewController {
     private func changeTitleButtonTapped() {
         print("changeTitleButtonTapped")
         
-        let titlePopupViewController = TitlePopupViewController()
+        let titlePopupViewController = TitlePopupViewController(emblemString: userEmblemString)
         titlePopupViewController.modalPresentationStyle = .overCurrentContext
         titlePopupViewController.delegate = self
         
@@ -62,6 +64,8 @@ extension HomeViewController {
                 let motionImageUrl = data?.data.motionImageUrl ?? ""
                 let characterName = data?.data.characterName ?? ""
                 let emblemName = data?.data.emblemName ?? ""
+                
+                self.userEmblemString = emblemName
                 
                 self.rootView.updateAdventureInfo(nickname: nickname, baseImageUrl: baseImageUrl, characterName: characterName, emblemName: emblemName)
                 
@@ -103,5 +107,6 @@ extension HomeViewController {
 extension HomeViewController: selectedTitleProtocol {
     func fetchTitleString(titleString: String) {
         rootView.changeMyTitleLabelText(text: titleString)
+        userEmblemString = titleString
     }
 }
