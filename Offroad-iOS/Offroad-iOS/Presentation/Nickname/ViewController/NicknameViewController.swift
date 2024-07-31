@@ -94,7 +94,7 @@ extension NicknameViewController {
     }
     
     @objc func buttonToBirthVC(sender: UIButton) {
-        var nextVC = BirthViewController(nickname: self.nicknameView.textField.text ?? "")
+        let nextVC = BirthViewController(nickname: self.nicknameView.textField.text ?? "")
         
         let button = UIButton().then { button in
             button.setImage(.backBarButton, for: .normal)
