@@ -26,7 +26,7 @@ final class TitlePopupView: UIView {
     private let myTitleLabel = UILabel()
     private let closeButton = UIButton()
     private let titleCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-    private var changeTitleButton = StateToggleButton(state: .isDisabled, title: "바꾸기")
+    private let changeTitleButton = StateToggleButton(state: .isDisabled, title: "바꾸기")
         
     // MARK: - Life Cycle
     
@@ -147,8 +147,6 @@ extension TitlePopupView {
     //MARK: - targetView Method
     
     func setupChangeTitleButton(action: @escaping ChangeTitleButtonAction) {
-        changeTitleButton.changeState(forState: .isEnabled)
-        
         changeTitleButtonAction = action
         changeTitleButton.addTarget(self, action: #selector(changeTitleButtonTapped), for: .touchUpInside)
     }
@@ -165,5 +163,9 @@ extension TitlePopupView {
     
     func reloadCollectionView() {
         titleCollectionView.reloadData()
+    }
+    
+    func toggleChangeTitleButtonState(_ isEnabled: Bool) {
+        isEnabled ? changeTitleButton.changeState(forState: .isEnabled) : changeTitleButton.changeState(forState: .isDisabled)
     }
 }
