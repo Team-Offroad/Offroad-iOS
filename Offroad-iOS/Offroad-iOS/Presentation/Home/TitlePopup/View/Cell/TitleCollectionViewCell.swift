@@ -16,16 +16,7 @@ final class TitleCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            if isSelected {
-                backgroundColor = .sub(.sub)
-                layer.borderWidth = 0
-                titleLabel.textColor = .primary(.white)
-            } else {
-                backgroundColor = .neutral(.nametagInactive)
-                layer.borderColor = UIColor.home(.homeNametagStroke).cgColor
-                layer.borderWidth = 1
-                titleLabel.textColor = .main(.main2)
-            }
+            changeCellState(isSelected)
         }
     }
     
@@ -88,5 +79,18 @@ extension TitleCollectionViewCell {
     
     func configureCell(data: EmblemList) {
         titleLabel.text = data.emblemName
+    }
+    
+    func changeCellState(_ isSelected: Bool) {
+        if isSelected {
+            backgroundColor = .sub(.sub)
+            layer.borderWidth = 0
+            titleLabel.textColor = .primary(.white)
+        } else {
+            backgroundColor = .neutral(.nametagInactive)
+            layer.borderColor = UIColor.home(.homeNametagStroke).cgColor
+            layer.borderWidth = 1
+            titleLabel.textColor = .main(.main2)
+        }
     }
 }

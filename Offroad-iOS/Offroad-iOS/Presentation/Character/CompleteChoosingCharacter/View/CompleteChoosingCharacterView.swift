@@ -25,12 +25,11 @@ final class CompleteChoosingCharacterView: UIView {
     }
     
     private let backgroundView = UIView().then {
-        $0.backgroundColor = UIColor(hexCode: "452B0F")
+        $0.backgroundColor = .primary(.wall)
     }
     
     private let characterView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(resource: .imgCompleteCharacter)
     }
     
     let startButton = StateToggleButton(state: .isEnabled, title: "모험 시작하기")
@@ -64,7 +63,7 @@ extension CompleteChoosingCharacterView {
     }
     
     private func setupStyle() {
-        backgroundColor = UIColor(hexCode:"685440")
+        backgroundColor = .primary(.ground)
     }
     
     private func setupLayout() {

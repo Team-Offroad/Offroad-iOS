@@ -122,7 +122,7 @@ extension ChoosingCharacterView {
     }
     
     private func setupStyle() {
-        backgroundColor = UIColor(hexCode: "FFF4CC")
+        backgroundColor = .primary(.characterSelectBg1)
     }
     
     private func setupLayout() {
@@ -194,11 +194,11 @@ extension ChoosingCharacterView {
     func setBackgroundColorForID(id: Int) {
         switch id {
         case 1:
-           backgroundColor = UIColor(hexCode: "FFF4CC")
+            backgroundColor = .primary(.characterSelectBg1)
         case 2:
-            backgroundColor = UIColor(hexCode: "FFE1C5")
+            backgroundColor = .primary(.characterSelectBg2)
         case 3:
-            backgroundColor = UIColor(hexCode: "F9E5D2")
+            backgroundColor = .primary(.characterSelectBg3)
         default:
             break
         }
