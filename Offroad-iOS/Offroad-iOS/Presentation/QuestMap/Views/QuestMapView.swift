@@ -55,7 +55,7 @@ extension QuestMapView {
     
     private func setupLayout() {
         reloadPlaceButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(23)
+            make.top.equalTo(safeAreaLayoutGuide).inset(23)
             make.centerX.equalToSuperview()
             make.width.equalTo(136)
             make.height.equalTo(33)
@@ -63,11 +63,12 @@ extension QuestMapView {
         
         naverMapView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.verticalEdges.equalTo(safeAreaLayoutGuide)
+            //make.verticalEdges.equalTo(safeAreaLayoutGuide)
+            make.verticalEdges.equalToSuperview()
         }
         
         switchTrackingModeButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(24)
+            make.top.equalTo(safeAreaLayoutGuide).inset(24)
             make.trailing.equalTo(safeAreaLayoutGuide).inset(24)
             make.width.height.equalTo(44)
         }
