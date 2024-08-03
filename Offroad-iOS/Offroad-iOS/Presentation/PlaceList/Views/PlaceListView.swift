@@ -12,11 +12,13 @@ import SnapKit
 
 class PlaceListView: UIView {
     
+    var customNavigationBar = UIView()
     var customBackButton = UIButton()
     var titleLabel = UILabel()
     var titleIcon = UIImageView()
     var segmentStackView = UIStackView()
-    var saparator = UIView()
+    var customSegmentedControl = PlaceListSegmentedControl()
+    var separator = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,6 +39,10 @@ extension PlaceListView {
     
     private func setupStyle() {
         backgroundColor = UIColor(hexCode: "F6EEDF")
+        
+        customNavigationBar.do { view in
+            view.backgroundColor = .main(.main1)
+        }
         
         let transformer = UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming
@@ -62,16 +68,32 @@ extension PlaceListView {
             label.font = .offroad(style: .iosTextTitle)
             label.textColor = .main(.main2)
         }
+        
+        customSegmentedControl.do { segmentedControl in
+            segmentedControl.addSegments(titles: ["안 가본 곳", "전체"])
+        }
+        
+        separator.do { view in
+            view.backgroundColor = .grayscale(.gray100)
+        }
     }
     
     private func setupHierarchy() {
         addSubviews(
+            customNavigationBar,
             customBackButton,
-            titleLabel
+            titleLabel,
+            customSegmentedControl,
+            separator
         )
     }
     
     private func setupLayout() {
+        customNavigationBar.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(customSegmentedControl.snp.bottom)
+        }
+        
         customBackButton.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(60)
             make.leading.equalToSuperview().inset(14)
@@ -82,6 +104,17 @@ extension PlaceListView {
             make.leading.equalToSuperview().inset(23)
         }
         
+        customSegmentedControl.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(15)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24.5)
+            make.height.equalTo(46)
+        }
+        
+        separator.snp.makeConstraints { make in
+            make.top.equalTo(customSegmentedControl.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(1)
+        }
     }
     
 }

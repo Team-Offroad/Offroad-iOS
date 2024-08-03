@@ -23,10 +23,13 @@ class PlaceListViewController: UIViewController {
         setNavigationController()
         setupNavigationControllerGesture()
         setupButtonsActions()
+        setupDelegates()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        rootView.customSegmentedControl.selectSegment(index: 0)
         
         let questMapNavigationController = navigationController as! QuestMapNavigationController
         questMapNavigationController.setCustomAppearance(state: .questQR)
@@ -53,7 +56,6 @@ extension PlaceListViewController {
     
     private func setupStyle() {
 //        hidesBottomBarWhenPushed = true
-        
     }
     
     private func setupNavigationBar() {
@@ -77,6 +79,10 @@ extension PlaceListViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    private func setupDelegates() {
+        rootView.customSegmentedControl.delegate = self
+    }
+    
 }
 
 
@@ -89,6 +95,16 @@ extension PlaceListViewController: UIGestureRecognizerDelegate {
         
         // Navigation stack에서 root view controller가 아닌 경우에만 pop 제스처를 허용
         return navigationController!.viewControllers.count > 1
+    }
+    
+}
+
+//MARK: - PlaceListSegmentedControlDelegate
+
+extension PlaceListViewController: PlaceListSegmentedControlDelegate {
+    
+    func segmentedControlDidSelected(segmentedControl: PlaceListSegmentedControl, selectedIndex: Int) {
+        print("\(selectedIndex) 선택됨")
     }
     
 }
