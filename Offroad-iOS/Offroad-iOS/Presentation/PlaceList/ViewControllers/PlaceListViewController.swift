@@ -9,7 +9,16 @@ import UIKit
 
 class PlaceListViewController: UIViewController {
     
+    let dummyData: [RegisteredPlaceInfo] = PlaceListDummyDataManager.makeDummyData()
+    
     let rootView = PlaceListView()
+    let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    var isAnimationEnd: Bool = true {
+        didSet {
+            print("isAnimationEndOldValue: \(oldValue)")
+            print("isAnimationEnd: \(isAnimationEnd)")
+        }
+    }
     
     override func loadView() {
         view = rootView
@@ -22,6 +31,7 @@ class PlaceListViewController: UIViewController {
         setNavigationController()
         setupNavigationControllerGesture()
         setupButtonsActions()
+        setupCollectionView()
         setupDelegates()
     }
     
@@ -60,8 +70,18 @@ extension PlaceListViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    private func setupCollectionView() {
+        rootView.placeListCollectionView.register(
+            PlaceListCollectionViewCell.self,
+            forCellWithReuseIdentifier: PlaceListCollectionViewCell.className
+        )
+        rootView.placeListCollectionView.reloadData()
+    }
+    
     private func setupDelegates() {
         rootView.customSegmentedControl.delegate = self
+        rootView.placeListCollectionView.dataSource = self
+        rootView.placeListCollectionView.delegate = self
     }
     
 }
@@ -86,6 +106,70 @@ extension PlaceListViewController: PlaceListSegmentedControlDelegate {
     
     func segmentedControlDidSelected(segmentedControl: PlaceListSegmentedControl, selectedIndex: Int) {
         print("\(selectedIndex) 선택됨")
+    }
+    
+}
+
+
+//MARK: - UICollectionViewDataSource
+
+extension PlaceListViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dummyData.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: PlaceListCollectionViewCell.className,
+            for: indexPath
+        ) as? PlaceListCollectionViewCell else { fatalError("cel dequeing Failed!") }
+        cell.configureCell(with: dummyData[indexPath.item])
+        return cell
+    }
+    
+    
+}
+
+//MARK: - UICollectionViewDelegate
+
+extension PlaceListViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        print(#function)
+        animator.stopAnimation(true)
+        animator.addAnimations {
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionView.ScrollPosition())
+            collectionView.performBatchUpdates(nil)
+        }
+        
+        animator.addCompletion { _ in
+            self.isAnimationEnd = true
+        }
+        
+        if isAnimationEnd {
+            animator.startAnimation()
+        }
+        
+        return false
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
+        print(#function)
+        animator.stopAnimation(true)
+        animator.addAnimations {
+            collectionView.deselectItem(at: indexPath, animated: false)
+            collectionView.performBatchUpdates(nil)
+        }
+        
+        animator.addCompletion { _ in
+            self.isAnimationEnd = true
+        }
+        
+        if isAnimationEnd {
+            animator.startAnimation()
+        }
+        
+        return false
     }
     
 }

@@ -20,7 +20,7 @@ class PlaceListView: UIView {
     let customSegmentedControl = PlaceListSegmentedControl()
     let separator = UIView()
     
-    let placeListCollectionView = UICollectionView()
+    var placeListCollectionView: UICollectionView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,6 +40,7 @@ class PlaceListView: UIView {
 extension PlaceListView {
     
     private func setupStyle() {
+        // 추후 ColorLiteral로 변경 요망
         backgroundColor = UIColor(hexCode: "F6EEDF")
         
         customNavigationBar.do { view in
@@ -79,12 +80,19 @@ extension PlaceListView {
             view.backgroundColor = .grayscale(.gray100)
         }
         
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.sectionInset = .init(top: 0, left: 24, bottom: 0, right: 24)
+        layout.minimumLineSpacing = 16
+        layout.minimumInteritemSpacing = 100
+        layout.estimatedItemSize.width = UIScreen.current.bounds.width - 32
+        
+        placeListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         placeListCollectionView.do { collectionView in
-            let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .vertical
-            layout.sectionInset = .init(top: 0, left: 24, bottom: 0, right: 24)
-            
-            collectionView.collectionViewLayout = layout
+            //collectionView.collectionViewLayout = layout
+            collectionView.contentInset = .zero
+            collectionView.backgroundColor = .init(hexCode: "F6EEDF")
+            collectionView.allowsMultipleSelection = true
         }
     }
     
@@ -125,6 +133,12 @@ extension PlaceListView {
             make.top.equalTo(customSegmentedControl.snp.bottom)
             make.horizontalEdges.equalToSuperview()
             make.height.equalTo(1)
+        }
+        
+        placeListCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(separator.snp.bottom)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
         }
     }
     
