@@ -12,13 +12,15 @@ import SnapKit
 
 class PlaceListView: UIView {
     
-    var customNavigationBar = UIView()
-    var customBackButton = UIButton()
-    var titleLabel = UILabel()
-    var titleIcon = UIImageView()
-    var segmentStackView = UIStackView()
-    var customSegmentedControl = PlaceListSegmentedControl()
-    var separator = UIView()
+    let customNavigationBar = UIView()
+    let customBackButton = UIButton()
+    let titleLabel = UILabel()
+    let titleIcon = UIImageView()
+    let segmentStackView = UIStackView()
+    let customSegmentedControl = PlaceListSegmentedControl()
+    let separator = UIView()
+    
+    let placeListCollectionView = UICollectionView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -76,6 +78,14 @@ extension PlaceListView {
         separator.do { view in
             view.backgroundColor = .grayscale(.gray100)
         }
+        
+        placeListCollectionView.do { collectionView in
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .vertical
+            layout.sectionInset = .init(top: 0, left: 24, bottom: 0, right: 24)
+            
+            collectionView.collectionViewLayout = layout
+        }
     }
     
     private func setupHierarchy() {
@@ -84,7 +94,8 @@ extension PlaceListView {
             customBackButton,
             titleLabel,
             customSegmentedControl,
-            separator
+            separator,
+            placeListCollectionView
         )
     }
     

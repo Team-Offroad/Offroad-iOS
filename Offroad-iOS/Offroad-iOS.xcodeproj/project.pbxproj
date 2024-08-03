@@ -34,6 +34,7 @@
 		4E08B95B2C5E4F860082EFB8 /* PageListSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B95A2C5E4F860082EFB8 /* PageListSegmentedControl.swift */; };
 		4E08B95D2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B95C2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift */; };
 		4E08B95F2C5E53C10082EFB8 /* PlaceListSegmentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B95E2C5E53C10082EFB8 /* PlaceListSegmentButton.swift */; };
+		4E08B9622C5E78EB0082EFB8 /* PlaceListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9612C5E78EB0082EFB8 /* PlaceListCollectionViewCell.swift */; };
 		4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */; };
 		4E09BF572C48A5B7009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */; };
 		4E0C69672C471A4B00B6453E /* PlaceInfoPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69662C471A4B00B6453E /* PlaceInfoPopupView.swift */; };
@@ -192,6 +193,7 @@
 		4E08B95A2C5E4F860082EFB8 /* PageListSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageListSegmentedControl.swift; sourceTree = "<group>"; };
 		4E08B95C2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControlType.swift; sourceTree = "<group>"; };
 		4E08B95E2C5E53C10082EFB8 /* PlaceListSegmentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListSegmentButton.swift; sourceTree = "<group>"; };
+		4E08B9612C5E78EB0082EFB8 /* PlaceListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationRequestDTO.swift; sourceTree = "<group>"; };
 		4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationResponsetDTO.swift; sourceTree = "<group>"; };
 		4E0C69662C471A4B00B6453E /* PlaceInfoPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoPopupView.swift; sourceTree = "<group>"; };
@@ -769,6 +771,7 @@
 			isa = PBXGroup;
 			children = (
 				4E08B9582C5DF0B20082EFB8 /* PlaceListView.swift */,
+				4E08B9612C5E78EB0082EFB8 /* PlaceListCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1707,6 +1710,7 @@
 				D0B81AA02C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift in Sources */,
 				4E1E94132C398C4200A7B08A /* String+.swift in Sources */,
 				D0E7965B2C455118005B47A5 /* EmblemService.swift in Sources */,
+				4E08B9622C5E78EB0082EFB8 /* PlaceListCollectionViewCell.swift in Sources */,
 				4E08B9572C5DF0920082EFB8 /* PlaceListViewController.swift in Sources */,
 				D0E7964C2C4539FC005B47A5 /* RegisteredPlaceResponseDTO.swift in Sources */,
 				4E3BB6842C4737030076105C /* PlaceInfoPopupViewController.swift in Sources */,
