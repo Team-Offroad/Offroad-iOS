@@ -90,9 +90,6 @@ class QuestQRViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let offroadTabBarController = tabBarController as! OffroadTabBarController
-        offroadTabBarController.hideTabBarAnimation()
-        
         AVCaptureDevice.requestAccess(for: .video) { [weak self] isGranted in
             guard isGranted else {
                 self?.showAlert(title: "카메라 사용 권한 막힘", message: "카메라 접근 권한을 허용해주세요.", okCompletionHandler: { _ in
@@ -112,8 +109,12 @@ class QuestQRViewController: UIViewController {
         let questMapNavigationController = navigationController as! QuestMapNavigationController
         questMapNavigationController.setCustomAppearance(state: .questMap)
         
-        let offroadTabBarController = tabBarController as! OffroadTabBarController
-        offroadTabBarController.showTabBarAnimation()
+//        let offroadTabBarController = tabBarController as! OffroadTabBarController
+//        offroadTabBarController.showTabBarAnimation()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
     
 }
