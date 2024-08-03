@@ -9,8 +9,17 @@ import UIKit
 
 class PlaceListViewController: UIViewController {
     
+    let rootView = PlaceListView()
+    
+    override func loadView() {
+        self.view = rootView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    
+    
     
 }
