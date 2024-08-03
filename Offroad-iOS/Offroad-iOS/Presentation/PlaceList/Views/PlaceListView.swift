@@ -55,7 +55,7 @@ extension PlaceListView {
             var configuration = UIButton.Configuration.plain()
             configuration.titleTextAttributesTransformer = transformer
             // 지금은 SFSymbol 사용, 추후 변경 예정
-            configuration.image = .init(systemName: "chevron.left")?.withTintColor(.black)
+            configuration.image = .init(systemName: "chevron.left")?.withTintColor(.main(.main2))
             configuration.baseForegroundColor = .main(.main2)
             configuration.imagePadding = 10
             configuration.title = "탐험"

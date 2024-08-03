@@ -45,8 +45,7 @@ class QuestMapViewController: OffroadTabBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 더미 데이터로 마커 초기 설정
-        //setupMarkers()
+        setupStyle()
         setupButtonsAction()
         setupDelegates()
     }
@@ -112,14 +111,8 @@ extension QuestMapViewController {
     
     //MARK: - Private Func
     
-    private func setupMarkers() {
-        shownMarkersArray = dummyPlaces.map({ place in
-            let marker = NMFMarker(position: place.latLng)
-            marker.mapView = rootView.naverMapView.mapView
-            marker.width = 25
-            marker.height = 35
-            return marker
-        })
+    private func setupStyle() {
+        navigationController?.navigationBar.isHidden = true
     }
     
     private func setupButtonsAction() {

@@ -19,6 +19,8 @@ class QuestQRView: UIView {
     
     //MARK: - UI Properties
     
+    var customBackButton = UIButton()
+    
     let qrTargetRectBox = UIView()
     let qrShapeBoxImageView = UIImageView(image: .icnSquareDashedCornerLeft)
     let qrInstructionLabel = UILabel()
@@ -64,10 +66,22 @@ extension QuestQRView {
     //MARK: - private func
     
     private func setupHierarchy() {
-        addSubviews(cameraView, notDetectingQRRectView, qrTargetRectBox, qrShapeBoxImageView, qrInstructionLabel)
+        addSubviews(
+            cameraView,
+            notDetectingQRRectView,
+            qrTargetRectBox,
+            qrShapeBoxImageView,
+            qrInstructionLabel,
+            customBackButton
+        )
     }
     
     private func setupLayout() {
+        customBackButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(75)
+            make.leading.equalTo(safeAreaLayoutGuide).inset(14)
+        }
+        
         cameraView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -80,7 +94,7 @@ extension QuestQRView {
         let inset: CGFloat = 24
         qrTargetAreaSideLength = screenWidth - inset * 2
         qrTargetRectBox.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(19)
+            make.top.equalTo(customBackButton.snp.bottom).offset(19)
             make.width.height.equalTo(qrTargetAreaSideLength)
             make.centerX.equalToSuperview()
         }
@@ -99,6 +113,26 @@ extension QuestQRView {
     
     private func setupStyle() {
         backgroundColor = .primary(.black)
+        
+        let transformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = UIFont.offroad(style: .iosTextAuto)
+            outgoing.foregroundColor = UIColor.primary(.white)
+            return outgoing
+        }
+        
+        customBackButton.do { button in
+            var configuration = UIButton.Configuration.plain()
+            configuration.titleTextAttributesTransformer = transformer
+            // 지금은 SFSymbol 사용, 추후 변경 예정
+            configuration.image = .init(systemName: "chevron.left")?.withTintColor(.primary(.white))
+            configuration.baseForegroundColor = .primary(.white)
+            configuration.imagePadding = 10
+            configuration.title = "이전 화면"
+            
+            button.configuration = configuration
+        }
+        
         qrTargetRectBox.do { view in
             view.clipsToBounds = true
             view.layer.cornerRadius = 24

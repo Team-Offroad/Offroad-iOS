@@ -18,7 +18,6 @@ class PlaceListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupStyle()
         setupNavigationBar()
         setNavigationController()
         setupNavigationControllerGesture()
@@ -31,35 +30,17 @@ class PlaceListViewController: UIViewController {
         
         rootView.customSegmentedControl.selectSegment(index: 0)
         
-        let questMapNavigationController = navigationController as! QuestMapNavigationController
-        questMapNavigationController.setCustomAppearance(state: .questQR)
-        questMapNavigationController.navigationBar.isHidden = true
-        
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
     }
-    
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        
-//        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
-//        offroadTabBarController.showTabBarAnimation()
-//    }
-    
-    
-    
+        
 }
 
 
 extension PlaceListViewController {
     
-    private func setupStyle() {
-//        hidesBottomBarWhenPushed = true
-    }
-    
     private func setupNavigationBar() {
-//        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     private func setNavigationController() {
