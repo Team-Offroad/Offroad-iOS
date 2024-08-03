@@ -35,6 +35,7 @@
 		4E08B95D2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B95C2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift */; };
 		4E08B95F2C5E53C10082EFB8 /* PlaceListSegmentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B95E2C5E53C10082EFB8 /* PlaceListSegmentButton.swift */; };
 		4E08B9622C5E78EB0082EFB8 /* PlaceListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9612C5E78EB0082EFB8 /* PlaceListCollectionViewCell.swift */; };
+		4E08B9652C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9642C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift */; };
 		4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */; };
 		4E09BF572C48A5B7009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */; };
 		4E0C69672C471A4B00B6453E /* PlaceInfoPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69662C471A4B00B6453E /* PlaceInfoPopupView.swift */; };
@@ -194,6 +195,7 @@
 		4E08B95C2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControlType.swift; sourceTree = "<group>"; };
 		4E08B95E2C5E53C10082EFB8 /* PlaceListSegmentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListSegmentButton.swift; sourceTree = "<group>"; };
 		4E08B9612C5E78EB0082EFB8 /* PlaceListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCollectionViewCell.swift; sourceTree = "<group>"; };
+		4E08B9642C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListDummyDataManager.swift; sourceTree = "<group>"; };
 		4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationRequestDTO.swift; sourceTree = "<group>"; };
 		4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationResponsetDTO.swift; sourceTree = "<group>"; };
 		4E0C69662C471A4B00B6453E /* PlaceInfoPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoPopupView.swift; sourceTree = "<group>"; };
@@ -620,6 +622,7 @@
 		4E0394762C2AA721007F0517 /* PlaceList */ = {
 			isa = PBXGroup;
 			children = (
+				4E08B9632C5E8EB70082EFB8 /* Models */,
 				4E08B9602C5E5C530082EFB8 /* CustomSegmentedControl */,
 				4E08B9552C5DF07F0082EFB8 /* Views */,
 				4E08B9542C5DF0780082EFB8 /* ViewControllers */,
@@ -783,6 +786,14 @@
 				4E08B95E2C5E53C10082EFB8 /* PlaceListSegmentButton.swift */,
 			);
 			path = CustomSegmentedControl;
+			sourceTree = "<group>";
+		};
+		4E08B9632C5E8EB70082EFB8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4E08B9642C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		4E1E94142C3AC25000A7B08A /* ViewControllers */ = {
@@ -1700,6 +1711,7 @@
 				D0E796672C455467005B47A5 /* CharacterInfoResponseDTO.swift in Sources */,
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
 				D0E796372C4536F4005B47A5 /* CharacterService.swift in Sources */,
+				4E08B9652C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift in Sources */,
 				4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */,
 				D0E796242C453360005B47A5 /* ProfileService.swift in Sources */,
 				D06D26CB2C3DAA5300E79F25 /* CustomQuestView.swift in Sources */,
