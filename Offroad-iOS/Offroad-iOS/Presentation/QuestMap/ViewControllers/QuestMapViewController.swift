@@ -107,7 +107,7 @@ extension QuestMapViewController {
     
     @objc private func pushPlaceListViewController() {
         print(#function)
-        //navigationController?.pushViewController(QuestQRViewController(), animated: true)
+        navigationController?.pushViewController(PlaceListViewController(), animated: true)
     }
     
     //MARK: - Private Func
