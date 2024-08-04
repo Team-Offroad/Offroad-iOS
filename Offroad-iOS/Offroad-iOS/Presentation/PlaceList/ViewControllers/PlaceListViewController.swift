@@ -13,7 +13,7 @@ class PlaceListViewController: UIViewController {
     
     let rootView = PlaceListView()
 //    let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    let updateAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+//    let updateAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     
     
     let operationQueue = OperationQueue()
@@ -144,131 +144,21 @@ extension PlaceListViewController: UICollectionViewDelegate {
         
         let animator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
         
-        if collectionView.indexPathsForSelectedItems?.count == 0 {
-            
-            // 닫고 나서 그걸 바로 다시 선택하는 경우 || 모두 닫힌 상황에서 하나 여는 경우
-            if recentDeselectedIndexPath == indexPath {
-                animator.stopAnimation(true)
-                animator.addAnimations {
-                    collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-                    collectionView.performBatchUpdates(nil)
-                }
-                
-            // 닫고 나서 바로 다시 더 위에 걸 선택하는 경우
-            } else if recentDeselectedIndexPath.item > indexPath.item {
-                animator.stopAnimation(true)
-                animator.addAnimations {
-                    collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-                    collectionView.performBatchUpdates(nil)
-                }
-                
-            // 닫고 나서 바로 다시 더 아래 걸 선택하는 경우 -> 문제
-            } else if recentDeselectedIndexPath.item < indexPath.item {
-                //guard !animator.isRunning else { return false }
-                //animator.stopAnimation(true)
-                animator.addAnimations {
-                    collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-                    collectionView.performBatchUpdates(nil)
-                }
-                
+        animator.addAnimations {
+            if collectionView.indexPathsForSelectedItems?.contains(indexPath) ?? false {
+                collectionView.deselectItem(at: indexPath, animated: false)
+            } else {
+                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionView.ScrollPosition())
             }
-            
-        } else {
-            
-            // 열고 나서 그걸 바로 다시 닫는 경우
-            if collectionView.indexPathsForSelectedItems?[0] == indexPath {
-                animator.stopAnimation(true)
-                animator.addAnimations { [weak self] in
-                    guard let self else { return }
-                    collectionView.deselectItem(at: indexPath, animated: false)
-                    recentDeselectedIndexPath = indexPath
-                    collectionView.performBatchUpdates(nil)
-                }
-                
-            // 열고 나서 바로 더 위에 걸 여는 경우 -> 문제
-            } else if collectionView.indexPathsForSelectedItems![0].item > indexPath.item {
-                //guard !animator.isRunning else { return false }
-                //animator.stopAnimation(true)
-                animator.addAnimations {
-                    collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-                    collectionView.performBatchUpdates(nil)
-                }
-                
-            // 열고 나서 바로 더 아래 걸 여는 경우 -> 문제
-            } else if collectionView.indexPathsForSelectedItems![0].item < indexPath.item {
-                //guard !animator.isRunning else { return false }
-                //animator.stopAnimation(true)
-                animator.addAnimations {
-                    collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-                    collectionView.performBatchUpdates(nil)
-                }
-                
-            }
-            
+            collectionView.performBatchUpdates(nil)
         }
         
         let animationOperation = BlockOperation {
-            DispatchQueue.main.async {
-                animator.startAnimation()
-            }
+            DispatchQueue.main.async { animator.startAnimation() }
         }
-        operationQueue.addOperation(animationOperation)
         
+        operationQueue.addOperation(animationOperation)
         return false
     }
-    
-    
-    
-        
-//        animator.stopAnimation(true)
-//        animator.addAnimations { [weak self] in
-//            guard let self else { return }
-//            //animator.stopAnimation(true)
-//            if collectionView.indexPathsForSelectedItems?.contains(indexPath) ?? false {
-//                collectionView.deselectItem(at: indexPath, animated: false)
-//            } else {
-//                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionView.ScrollPosition())
-//            }
-//            collectionView.performBatchUpdates(nil)
-//        }
-//        
-//        updateAnimator.addAnimations {
-//            collectionView.performBatchUpdates(nil)
-//        }
-//        
-//        animator.startAnimation()
-//        updateAnimator.startAnimation()
-//        
-//        return false
-        
-        
-        
-        
-        
-//        print(#function)
-//        animator.addAnimations { [weak self] in
-//            guard let self else { return }
-//            self.animator.stopAnimation(true)
-//            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionView.ScrollPosition())
-//            collectionView.performBatchUpdates(nil)
-//        }
-//        animator.startAnimation()
-//        
-//        return false
-        
-//    }
-    
-//    func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
-//        print(#function)
-//        
-//        animator.addAnimations { [weak self] in
-//            guard let self else { return }
-//            self.animator.stopAnimation(true)
-//            collectionView.deselectItem(at: indexPath, animated: false)
-//            collectionView.performBatchUpdates(nil)
-//        }
-//        
-//        return false
-//    }
     
 }
