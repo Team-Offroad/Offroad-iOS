@@ -14,21 +14,8 @@ class PlaceListCollectionViewCell: UICollectionViewCell {
         case allPlace
     }
     
-    let placeCategoryView = UIView()
-    let placeCategoryLabel = UILabel()
-    let placeSectionView = UIView()
-    let placeSectionLabel = UILabel()
+    //MARK: - Properties
     
-    let placeNameLabel = UILabel()
-    let addressLabel = UILabel()
-    
-    let placeDescriptionView = UIView()
-    let placeDescriptionImageView = UIImageView()
-    let placeDescriptionLabel = UILabel()
-    let placeDesctiprionSeparator = UIView()
-    let visitCountLabel = UILabel()
-    
-    let chevronImageView = UIImageView(image: .icnPlaceListExpendableCellChevron)
     let collectionViewHorizontalSectionInset: CGFloat = 24
     lazy var widthConstraint = contentView.widthAnchor.constraint(
         equalToConstant: UIScreen.current.bounds.width - collectionViewHorizontalSectionInset * 2
@@ -46,10 +33,28 @@ class PlaceListCollectionViewCell: UICollectionViewCell {
     )
     
     override var isSelected: Bool {
-        didSet {
-            setAppearance()
-        }
+        didSet { setAppearance() }
     }
+    
+    //MARK: - UI Properties
+    
+    let placeCategoryView = UIView()
+    let placeCategoryLabel = UILabel()
+    let placeSectionView = UIView()
+    let placeSectionLabel = UILabel()
+    
+    let placeNameLabel = UILabel()
+    let addressLabel = UILabel()
+    
+    let placeDescriptionView = UIView()
+    let placeDescriptionImageView = UIImageView()
+    let placeDescriptionLabel = UILabel()
+    let placeDesctiprionSeparator = UIView()
+    let visitCountLabel = UILabel()
+    
+    let chevronImageView = UIImageView(image: .icnPlaceListExpendableCellChevron)
+    
+    //MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -76,6 +81,8 @@ class PlaceListCollectionViewCell: UICollectionViewCell {
 }
 
 extension PlaceListCollectionViewCell {
+    
+    //MARK: - Private Func
     
     private func setupHierarchy() {
         contentView.addSubviews(
@@ -268,6 +275,8 @@ extension PlaceListCollectionViewCell {
         chevronImageView.transform = rotationTransform
         contentView.layoutIfNeeded()
     }
+    
+    //MARK: - Func
     
     func configureCell(with place: RegisteredPlaceInfo, searchingMode: PlaceListSearchingMode) {
         

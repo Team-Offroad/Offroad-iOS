@@ -17,9 +17,15 @@ final class PlaceListSegmentedControl: UIStackView, CustomSegmentedControlType {
     
     typealias ConcreteType = PlaceListSegmentedControl
     
-    private(set) var currentIndex: Int = 0
+    //MARK: - Properties
     
+    private(set) var currentIndex: Int = 0
     weak var delegate: PlaceListSegmentedControlDelegate? = nil
+    
+    lazy var underbarLeadingConstraint = underbar.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
+    lazy var underbarTrailingConstraint = underbar.trailingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
+    
+    //MARK: - UI Properties
     
     let underbar: UIView = {
         let view = UIView()
@@ -28,8 +34,7 @@ final class PlaceListSegmentedControl: UIStackView, CustomSegmentedControlType {
         return view
     }()
     
-    lazy var underbarLeadingConstraint = underbar.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
-    lazy var underbarTrailingConstraint = underbar.trailingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
+    //MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,7 +46,6 @@ final class PlaceListSegmentedControl: UIStackView, CustomSegmentedControlType {
     }
     
     convenience init(titles: [String]) {
-        
         var buttonsArray: [PlaceListSegmentButton] = []
         for i in 0..<titles.count {
             let button = PlaceListSegmentButton(title: titles[i], tag: i)
@@ -54,15 +58,33 @@ final class PlaceListSegmentedControl: UIStackView, CustomSegmentedControlType {
         setupHierarchy()
         setupLayout()
         setButtonsTarget()
-        
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addSegments(titles: [String]) {
+}
+
+extension PlaceListSegmentedControl {
+    
+    //MARK: - Private Func
+    
+    private func setupHierarchy() {
+        addSubviews(underbar)
+    }
+    
+    private func setupLayout() {
+        underbarLeadingConstraint.isActive = true
+        underbarTrailingConstraint.isActive = true
         
+        underbar.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.height.equalTo(3)
+        }
+    }
+    
+    func addSegments(titles: [String]) {
         var buttonsArray: [PlaceListSegmentButton] = []
         for i in 0..<titles.count {
             let button = PlaceListSegmentButton(title: titles[i], tag: i)
@@ -81,32 +103,18 @@ final class PlaceListSegmentedControl: UIStackView, CustomSegmentedControlType {
         spacing = 0
     }
     
-    private func setupHierarchy() {
-        addSubviews(underbar)
-    }
-    
-    private func setupLayout() {
-        underbarLeadingConstraint.isActive = true
-        underbarTrailingConstraint.isActive = true
-        
-        underbar.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
-            make.height.equalTo(3)
-        }
-    }
-    
     private func setButtonsTarget() {
         self.arrangedSubviews.forEach { view in
             guard let button = view as? PlaceListSegmentButton else { return }
-            button.addTarget(self, action: #selector(selectSegment(sender:)), for: .touchUpInside)
+            button.addTarget(self, action: #selector(segmentDidTapped(sender:)), for: .touchUpInside)
         }
     }
     
-    @objc private func selectSegment(sender: UIButton) {
-        //updateSegmentState(selectedIndex: sender.tag)
-        //setUnderbarPosition(to: sender.tag)
+    @objc private func segmentDidTapped(sender: UIButton) {
         selectSegment(index: sender.tag)
     }
+    
+    //MARK: - Func
     
     func selectSegment(index: Int) {
         updateSegmentState(selectedIndex: index)

@@ -12,6 +12,8 @@ import SnapKit
 
 class PlaceListView: UIView {
     
+    //MARK: - UI Properties
+    
     let customNavigationBar = UIView()
     let customBackButton = UIButton()
     let titleLabel = UILabel()
@@ -21,6 +23,8 @@ class PlaceListView: UIView {
     let separator = UIView()
     
     var placeListCollectionView: UICollectionView!
+    
+    //MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,8 +40,9 @@ class PlaceListView: UIView {
     
 }
 
-
 extension PlaceListView {
+    
+    //MARK: - Private Func
     
     private func setupStyle() {
         // 추후 ColorLiteral로 변경 요망

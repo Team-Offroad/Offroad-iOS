@@ -9,23 +9,17 @@ import UIKit
 
 class PlaceListViewController: UIViewController {
     
+    //MARK: - Properties
+    
     let dummyData: [RegisteredPlaceInfo] = PlaceListDummyDataManager.makeDummyData()
-    
-    let rootView = PlaceListView()
-//    let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-//    let updateAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    
+    let operationQueue = OperationQueue()
     private(set) var isSearchingAllList: Bool = false
     
-    let operationQueue = OperationQueue()
+    //MARK: - UI Properties
     
-    var recentDeselectedIndexPath = IndexPath(item: 0, section: 0)
-    var isAnimationEnd: Bool = true {
-        didSet {
-            print("isAnimationEndOldValue: \(oldValue)")
-            print("isAnimationEnd: \(isAnimationEnd)")
-        }
-    }
+    let rootView = PlaceListView()
+    
+    //MARK: - Life Cycle
     
     override func loadView() {
         view = rootView
@@ -46,15 +40,15 @@ class PlaceListViewController: UIViewController {
         super.viewWillAppear(animated)
         
         rootView.customSegmentedControl.selectSegment(index: 0)
-        
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
     }
         
 }
 
-
 extension PlaceListViewController {
+    
+    //MARK: - Private Func
     
     private func setupNavigationBar() {
         self.navigationController?.navigationBar.isHidden = true
@@ -93,7 +87,6 @@ extension PlaceListViewController {
     
 }
 
-
 //MARK: - UIGestureRecognizerDelegate
 
 extension PlaceListViewController: UIGestureRecognizerDelegate {
@@ -112,7 +105,6 @@ extension PlaceListViewController: UIGestureRecognizerDelegate {
 extension PlaceListViewController: PlaceListSegmentedControlDelegate {
     
     func segmentedControlDidSelected(segmentedControl: PlaceListSegmentedControl, selectedIndex: Int) {
-        print("\(selectedIndex) 선택됨")
         isSearchingAllList  = selectedIndex == 0 ? false : true
         
         rootView.placeListCollectionView.reloadData()   
@@ -120,10 +112,10 @@ extension PlaceListViewController: PlaceListSegmentedControlDelegate {
     
 }
 
-
 //MARK: - UICollectionViewDataSource
 
 extension PlaceListViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dummyData.count
     }

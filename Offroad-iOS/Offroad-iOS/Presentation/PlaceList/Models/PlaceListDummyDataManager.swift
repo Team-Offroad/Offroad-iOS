@@ -79,7 +79,7 @@ class PlaceListDummyDataManager {
         
         let array = [brickRouge, cameloYeonNam, cafeDelcamino, YanghwajinPark, hanyangDoseongMuseum, jamsilSportsComplex]
         var returnValue: [RegisteredPlaceInfo] = []
-        for i in 0..<60 {
+        for _ in 0..<60 {
             returnValue.append(array.randomElement()!)
         }
         return returnValue
