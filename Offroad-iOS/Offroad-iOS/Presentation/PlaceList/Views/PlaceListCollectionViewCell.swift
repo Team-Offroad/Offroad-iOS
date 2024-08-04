@@ -9,22 +9,41 @@ import UIKit
 
 class PlaceListCollectionViewCell: UICollectionViewCell {
     
+    enum PlaceListSearchingMode {
+        case neverVisited
+        case allPlace
+    }
+    
+    let placeCategoryView = UIView()
+    let placeCategoryLabel = UILabel()
+    let placeSectionView = UIView()
+    let placeSectionLabel = UILabel()
+    
     let placeNameLabel = UILabel()
     let addressLabel = UILabel()
+    
     let placeDescriptionView = UIView()
     let placeDescriptionImageView = UIImageView()
     let placeDescriptionLabel = UILabel()
     let placeDesctiprionSeparator = UIView()
     let visitCountLabel = UILabel()
     
-    // 현재는 SFSymbol로 해 놓은 상태. 추후 피그마에 있는 아이콘으로 변경할 예정
     let chevronImageView = UIImageView(image: .icnPlaceListExpendableCellChevron)
-    
-    let chevronAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    
-    lazy var widthConstraint = contentView.widthAnchor.constraint(equalToConstant: UIScreen.current.bounds.width - 48)
+    let collectionViewHorizontalSectionInset: CGFloat = 24
+    lazy var widthConstraint = contentView.widthAnchor.constraint(
+        equalToConstant: UIScreen.current.bounds.width - collectionViewHorizontalSectionInset * 2
+    )
     lazy var expandedBottomConstraint = placeDescriptionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
     lazy var shrinkedBottomConstraint = addressLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
+    
+    lazy var descriptionLabelTrailingConstraintToSeparator = placeDescriptionLabel.trailingAnchor.constraint(
+        equalTo: placeDesctiprionSeparator.leadingAnchor,
+        constant: -10
+    )
+    lazy var descriptionLabelTrailingConstraintToSuperView = placeDescriptionLabel.trailingAnchor.constraint(
+        equalTo: placeDescriptionView.trailingAnchor,
+        constant: -12
+    )
     
     override var isSelected: Bool {
         didSet {
@@ -38,10 +57,20 @@ class PlaceListCollectionViewCell: UICollectionViewCell {
         setupHierarchy()
         setupStyle()
         setupLayout(isExpanded: false)
+        setAppearance()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        setAppearance()
+        descriptionLabelTrailingConstraintToSeparator.isActive = false
+        descriptionLabelTrailingConstraintToSuperView.isActive = false
+        contentView.layoutIfNeeded()
     }
     
 }
@@ -50,11 +79,17 @@ extension PlaceListCollectionViewCell {
     
     private func setupHierarchy() {
         contentView.addSubviews(
+            placeCategoryView,
+            placeSectionView,
+            placeSectionLabel,
             placeNameLabel,
             addressLabel,
             chevronImageView,
             placeDescriptionView
         )
+        
+        placeCategoryView.addSubview(placeCategoryLabel)
+        placeSectionView.addSubview(placeSectionLabel)
         
         placeDescriptionView.addSubviews(
             placeDescriptionImageView,
@@ -68,6 +103,28 @@ extension PlaceListCollectionViewCell {
         contentView.backgroundColor = .main(.main3)
         contentView.roundCorners(cornerRadius: 5)
         contentView.layer.borderColor = UIColor.clear.cgColor
+        
+        placeCategoryView.do { view in
+            view.backgroundColor = .neutral(.nametagInactive)
+            view.roundCorners(cornerRadius: 13)
+        }
+        
+        placeCategoryLabel.do { label in
+            label.textAlignment = .center
+            label.font = .offroad(style: .iosTextContentsSmall)
+            label.textColor = .sub(.sub2)
+        }
+        
+        placeSectionView.do { view in
+            view.backgroundColor = .primary(.characterSelectBg1)
+            view.roundCorners(cornerRadius: 13)
+        }
+        
+        placeSectionLabel.do { label in
+            label.textAlignment = .center
+            label.font = .offroad(style: .iosTextContentsSmall)
+            label.textColor = .sub(.sub)
+        }
         
         placeNameLabel.do { label in
             label.font = .offroad(style: .iosTooltipTitle)
@@ -103,6 +160,7 @@ extension PlaceListCollectionViewCell {
             label.font = .offroad(style: .iosTextContents)
             label.textColor = .main(.main2)
             label.textAlignment = .left
+            label.numberOfLines = 0
         }
         
         placeDesctiprionSeparator.do { view in
@@ -117,11 +175,33 @@ extension PlaceListCollectionViewCell {
     }
     
     private func setupLayout(isExpanded: Bool) {
-        widthConstraint.priority = .defaultLow
+        widthConstraint.priority = .defaultHigh
         widthConstraint.isActive = true
         
+        placeCategoryLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(10)
+        }
+        
+        placeCategoryView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(18)
+            make.leading.equalToSuperview().inset(20)
+            make.height.equalTo(27)
+        }
+        
+        placeSectionLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(10)
+        }
+        
+        placeSectionView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(18)
+            make.leading.equalTo(placeCategoryView.snp.trailing).offset(6)
+            make.height.equalTo(27)
+        }
+        
         placeNameLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(14)
+            make.top.equalTo(placeCategoryView.snp.bottom).offset(14)
             make.leading.equalToSuperview().inset(20)
             make.trailing.equalTo(chevronImageView.snp.leading).offset(-17)
         }
@@ -145,13 +225,14 @@ extension PlaceListCollectionViewCell {
         }
         
         placeDescriptionLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
+            make.verticalEdges.equalToSuperview().inset(9)
             make.leading.equalTo(placeDescriptionImageView.snp.trailing).offset(6)
         }
-        placeDescriptionLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        //descriptionLabelTrailingConstraintToSeparator.isActive = true
+        //descriptionLabelTrailingConstraintToSuperView.isActive = false
         
         placeDesctiprionSeparator.snp.makeConstraints { make in
-            make.leading.equalTo(placeDescriptionLabel.snp.trailing).offset(10)
+            //make.leading.equalTo(placeDescriptionLabel.snp.trailing).offset(10)
             make.width.equalTo(1)
             make.verticalEdges.equalToSuperview().inset(7)
         }
@@ -161,11 +242,12 @@ extension PlaceListCollectionViewCell {
             make.leading.equalTo(placeDesctiprionSeparator.snp.trailing).offset(10)
             make.trailing.equalToSuperview().inset(13)
         }
+        visitCountLabel.setContentCompressionResistancePriority(.init(1000), for: .horizontal)
         
         placeDescriptionView.snp.makeConstraints { make in
             make.top.equalTo(addressLabel.snp.bottom).offset(14)
             make.horizontalEdges.equalToSuperview().inset(20)
-            make.height.equalTo(36)
+            //make.height.equalTo(36)
         }
         
         expandedBottomConstraint.priority = .defaultLow
@@ -178,26 +260,64 @@ extension PlaceListCollectionViewCell {
     
     private func setAppearance() {
         contentView.layer.borderWidth = isSelected ? 1 : 0
+        placeDescriptionView.isHidden = !isSelected
         expandedBottomConstraint.isActive = isSelected
         shrinkedBottomConstraint.isActive = !isSelected
-        placeDescriptionView.isHidden = !isSelected
         
-        chevronAnimator.stopAnimation(true)
-        chevronAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            let rotationTransform = isSelected ? CGAffineTransform(rotationAngle: .pi * 0.999) : CGAffineTransform.identity
-            chevronImageView.transform = rotationTransform
-        }
-        chevronAnimator.startAnimation()
-        
+        let rotationTransform = isSelected ? CGAffineTransform(rotationAngle: .pi * 0.999) : CGAffineTransform.identity
+        chevronImageView.transform = rotationTransform
         contentView.layoutIfNeeded()
     }
     
-    func configureCell(with place: RegisteredPlaceInfo) {
+    func configureCell(with place: RegisteredPlaceInfo, searchingMode: PlaceListSearchingMode) {
+        
+        placeSectionLabel.text = "시간이 머무는 마을"
         placeNameLabel.text = place.name
         addressLabel.text = place.address
         placeDescriptionLabel.text = place.shortIntroduction
+        
         visitCountLabel.text = "탐험횟수: \(place.visitCount)"
+        
+        switch searchingMode {
+        case .neverVisited:
+            placeDesctiprionSeparator.isHidden = true
+            visitCountLabel.isHidden = true
+            
+            descriptionLabelTrailingConstraintToSeparator.isActive = false
+            descriptionLabelTrailingConstraintToSuperView.isActive = true
+            
+        case .allPlace:
+            placeDesctiprionSeparator.isHidden = false
+            visitCountLabel.isHidden = false
+            
+            descriptionLabelTrailingConstraintToSeparator.isActive = true
+            descriptionLabelTrailingConstraintToSuperView.isActive = false
+        }
+        
+        switch place.placeCategory {
+        case "CAFFE":
+            placeCategoryLabel.text = "카페"
+            placeDescriptionImageView.image = .imgCategoryCafe
+            placeSectionLabel.text = "시간이 머무는 마을"
+        case "RESTAURANT":
+            placeCategoryLabel.text = "식당"
+            placeDescriptionImageView.image = .imgCategoryRestaurant
+            placeSectionLabel.text = "트렌트의 시작점"
+        case "PARK":
+            placeCategoryLabel.text = "공원"
+            placeDescriptionImageView.image = .imgCategoryPark
+            placeSectionLabel.text = "예술가의 거리"
+        case "SPORTS":
+            placeCategoryLabel.text = "스포츠"
+            placeDescriptionImageView.image = .imgCategorySports
+            placeSectionLabel.text = "피, 땀, 눈물"
+        case "CULTURE":
+            placeCategoryLabel.text = "문화"
+            placeDescriptionImageView.image = .imgCategoryCulture
+            placeSectionLabel.text = "해방의 숲"
+        default:
+            return
+        }
     }
     
 }

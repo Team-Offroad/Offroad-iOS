@@ -15,6 +15,7 @@ class PlaceListViewController: UIViewController {
 //    let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
 //    let updateAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     
+    private(set) var isSearchingAllList: Bool = false
     
     let operationQueue = OperationQueue()
     
@@ -112,6 +113,9 @@ extension PlaceListViewController: PlaceListSegmentedControlDelegate {
     
     func segmentedControlDidSelected(segmentedControl: PlaceListSegmentedControl, selectedIndex: Int) {
         print("\(selectedIndex) 선택됨")
+        isSearchingAllList  = selectedIndex == 0 ? false : true
+        
+        rootView.placeListCollectionView.reloadData()   
     }
     
 }
@@ -129,10 +133,10 @@ extension PlaceListViewController: UICollectionViewDataSource {
             withReuseIdentifier: PlaceListCollectionViewCell.className,
             for: indexPath
         ) as? PlaceListCollectionViewCell else { fatalError("cel dequeing Failed!") }
-        cell.configureCell(with: dummyData[indexPath.item])
+        
+        cell.configureCell(with: dummyData[indexPath.item], searchingMode: isSearchingAllList ? .allPlace : .neverVisited)
         return cell
     }
-    
     
 }
 
@@ -142,8 +146,7 @@ extension PlaceListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         
-        let animator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
-        
+        let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
         animator.addAnimations {
             if collectionView.indexPathsForSelectedItems?.contains(indexPath) ?? false {
                 collectionView.deselectItem(at: indexPath, animated: false)
