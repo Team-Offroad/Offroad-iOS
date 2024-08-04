@@ -89,10 +89,9 @@ extension PlaceListView {
         
         placeListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         placeListCollectionView.do { collectionView in
-            //collectionView.collectionViewLayout = layout
             collectionView.contentInset = .zero
             collectionView.backgroundColor = .init(hexCode: "F6EEDF")
-            collectionView.allowsMultipleSelection = true
+            collectionView.allowsMultipleSelection = false
         }
     }
     

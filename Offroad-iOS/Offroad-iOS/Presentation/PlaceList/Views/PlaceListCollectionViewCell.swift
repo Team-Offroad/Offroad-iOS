@@ -22,7 +22,7 @@ class PlaceListCollectionViewCell: UICollectionViewCell {
     
     let chevronAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     
-    lazy var widthConstraint = contentView.widthAnchor.constraint(equalToConstant: UIScreen.current.bounds.width - 32)
+    lazy var widthConstraint = contentView.widthAnchor.constraint(equalToConstant: UIScreen.current.bounds.width - 48)
     lazy var expandedBottomConstraint = placeDescriptionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
     lazy var shrinkedBottomConstraint = addressLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
     
@@ -117,7 +117,7 @@ extension PlaceListCollectionViewCell {
     }
     
     private func setupLayout(isExpanded: Bool) {
-        widthConstraint.priority = UILayoutPriority(1000)
+        widthConstraint.priority = .defaultLow
         widthConstraint.isActive = true
         
         placeNameLabel.snp.makeConstraints { make in
