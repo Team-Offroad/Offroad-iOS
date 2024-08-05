@@ -141,7 +141,7 @@ extension NicknameViewController {
     }
     
     private func formError(_ input: String) -> Bool{
-        let pattern = "^[A-Za-z가-힣ㄱ-ㅎ]{2,8}$"
+        let pattern = "^[A-Za-z가-힣]{2,8}$"
         let regex = try? NSRegularExpression(pattern: pattern)
         if let _ = regex?.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count)) {
             print("정규식 통과")
