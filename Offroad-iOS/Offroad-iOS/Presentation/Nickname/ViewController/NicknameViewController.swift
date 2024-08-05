@@ -48,18 +48,9 @@ extension NicknameViewController {
     
     @objc private func textFieldDidChange() {
         let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
-        
-        nicknameView.checkButton.isEnabled = !isTextFieldEmpty
-        nicknameView.checkButton.setTitleColor(isTextFieldEmpty ? UIColor.grayscale(.gray300) : UIColor.primary(.white), for: .normal)
-        nicknameView.checkButton.backgroundColor = isTextFieldEmpty ? UIColor.main(.main3) : UIColor.primary(.black)
-        nicknameView.checkButton.layer.borderWidth = isTextFieldEmpty ? 1 : 0
-        
-        if isTextFieldEmpty {
-            nicknameView.textField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-            nicknameView.nextButton.changeState(forState: .isDisabled)
-        } else {
-            nicknameView.textField.layer.borderColor = UIColor.sub(.sub).cgColor
-        }
+        configureButtonStyle(nicknameView.checkButton, isEnabled: !isTextFieldEmpty)
+        configureTextFieldStyle(nicknameView.textField, isEmpty: isTextFieldEmpty)
+        nicknameView.nextButton.changeState(forState: isTextFieldEmpty ? .isDisabled : .isEnabled)
     }
     
     // 화면 터치 시 키보드 내려가게 하는 코드
@@ -75,12 +66,7 @@ extension NicknameViewController {
                 self.whetherDuplicate = data?.data.isDuplicate ?? Bool()
                 if self.whetherDuplicate == true {
                     self.nicknameView.notionLabel.text = "중복된 닉네임이에요. 다른 멋진 이름이 있으신가요?"
-                    self.nicknameView.checkButton.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
-                    self.nicknameView.checkButton.backgroundColor = UIColor.main(.main3)
-                    self.nicknameView.checkButton.layer.borderWidth = 1.0
-                    self.nicknameView.checkButton.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-                    self.nicknameView.checkButton.layer.cornerRadius = 5
-                    self.nicknameView.checkButton.isEnabled = false
+                    self.configureButtonStyle(self.nicknameView.checkButton, isEnabled: false)
                     self.nicknameView.notionLabel.textColor = UIColor.primary(.error)
                 }
                 else if self.whetherDuplicate == false && self.formError(self.nicknameView.textField.text ?? "") == false {
@@ -91,12 +77,7 @@ extension NicknameViewController {
                     self.nicknameView.textField.resignFirstResponder()
                     self.nicknameView.notionLabel.text = "좋은 닉네임이에요!"
                     self.nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
-                    self.nicknameView.checkButton.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
-                    self.nicknameView.checkButton.backgroundColor = UIColor.main(.main3)
-                    self.nicknameView.checkButton.layer.borderWidth = 1.0
-                    self.nicknameView.checkButton.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-                    self.nicknameView.checkButton.layer.cornerRadius = 5
-                    self.nicknameView.checkButton.isEnabled = false
+                    self.configureButtonStyle(self.nicknameView.checkButton, isEnabled: false)
                     self.nicknameView.nextButton.changeState(forState: .isEnabled)
                 }
             default:
@@ -141,7 +122,25 @@ extension NicknameViewController {
         nicknameView.textField.delegate = self
     }
     
-    func formError(_ input: String) -> Bool{
+    private func configureButtonStyle(_ button: UIButton, isEnabled: Bool) {
+        button.isEnabled = isEnabled
+        let color: UIColor = isEnabled ? .primary(.white) : .grayscale(.gray300)
+        let backgroundColor: UIColor = isEnabled ? .primary(.black) : .main(.main3)
+        let borderWidth: CGFloat = isEnabled ? 0 : 1
+        
+        button.setTitleColor(color, for: .normal)
+        button.backgroundColor = backgroundColor
+        button.layer.borderWidth = borderWidth
+        button.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        button.layer.cornerRadius = 5
+    }
+    
+    private func configureTextFieldStyle(_ textField: UITextField, isEmpty: Bool) {
+        let borderColor: UIColor = isEmpty ? .grayscale(.gray100) : .sub(.sub)
+        textField.layer.borderColor = borderColor.cgColor
+    }
+    
+    private func formError(_ input: String) -> Bool{
         let pattern = "^[A-Za-z가-힣ㄱ-ㅎ]{2,8}$"
         let regex = try? NSRegularExpression(pattern: pattern)
         if let _ = regex?.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count)) {
