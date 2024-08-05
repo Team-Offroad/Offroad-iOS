@@ -50,7 +50,7 @@ extension NicknameViewController {
         let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
         
         nicknameView.checkButton.isEnabled = !isTextFieldEmpty
-        nicknameView.checkButton.setTitleColor(isTextFieldEmpty ? UIColor.grayscale(.gray100) : UIColor.primary(.white), for: .normal)
+        nicknameView.checkButton.setTitleColor(isTextFieldEmpty ? UIColor.grayscale(.gray300) : UIColor.primary(.white), for: .normal)
         nicknameView.checkButton.backgroundColor = isTextFieldEmpty ? UIColor.main(.main3) : UIColor.primary(.black)
         nicknameView.checkButton.layer.borderWidth = isTextFieldEmpty ? 1 : 0
         
@@ -75,6 +75,12 @@ extension NicknameViewController {
                 self.whetherDuplicate = data?.data.isDuplicate ?? Bool()
                 if self.whetherDuplicate == true {
                     self.nicknameView.notionLabel.text = "중복된 닉네임이에요. 다른 멋진 이름이 있으신가요?"
+                    self.nicknameView.checkButton.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
+                    self.nicknameView.checkButton.backgroundColor = UIColor.main(.main3)
+                    self.nicknameView.checkButton.layer.borderWidth = 1.0
+                    self.nicknameView.checkButton.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+                    self.nicknameView.checkButton.layer.cornerRadius = 5
+                    self.nicknameView.checkButton.isEnabled = false
                     self.nicknameView.notionLabel.textColor = UIColor.primary(.error)
                 }
                 else if self.whetherDuplicate == false && self.formError(self.nicknameView.textField.text ?? "") == false {
@@ -85,6 +91,12 @@ extension NicknameViewController {
                     self.nicknameView.textField.resignFirstResponder()
                     self.nicknameView.notionLabel.text = "좋은 닉네임이에요!"
                     self.nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
+                    self.nicknameView.checkButton.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
+                    self.nicknameView.checkButton.backgroundColor = UIColor.main(.main3)
+                    self.nicknameView.checkButton.layer.borderWidth = 1.0
+                    self.nicknameView.checkButton.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+                    self.nicknameView.checkButton.layer.cornerRadius = 5
+                    self.nicknameView.checkButton.isEnabled = false
                     self.nicknameView.nextButton.changeState(forState: .isEnabled)
                 }
             default:
