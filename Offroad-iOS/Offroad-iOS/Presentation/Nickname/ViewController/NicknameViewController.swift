@@ -136,6 +136,8 @@ extension NicknameViewController {
         nicknameView.textField.delegate = self
     }
     
+    // MARK: - UI Configuration Methods
+    
     private func configureButtonStyle(_ button: UIButton, isEnabled: Bool) {
         button.isEnabled = isEnabled
         let color: UIColor = isEnabled ? .primary(.white) : .grayscale(.gray300)
@@ -155,7 +157,7 @@ extension NicknameViewController {
     }
     
     private func formError(_ input: String) -> Bool{
-        let pattern = "^[A-Za-z가-힣]{2,8}$"
+        let pattern = "^[A-Za-z가-힣]{2,}$"
         let regex = try? NSRegularExpression(pattern: pattern)
         if let _ = regex?.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count)) {
             print("정규식 통과")
@@ -177,10 +179,6 @@ extension NicknameViewController: UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.layer.borderColor = UIColor.sub(.sub).cgColor
-    }
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // 백스페이스 처리
         if let char = string.cString(using: String.Encoding.utf8) {
@@ -189,10 +187,31 @@ extension NicknameViewController: UITextFieldDelegate {
                 return true
             }
         }
-        //텍스트필드 8글자로 제한
-        guard textField.text!.count < 8 else { return false }
-        return true
+        guard let range = Range(range, in: textField.text!) else { return false }
+        let currentText = textField.text!
+        let newText = currentText.replacingCharacters(in: range, with: string)
+        
+        return newText.eucKrByteLength <= 16
     }
-    
 }
+
+// MARK: - String Extension
+
+extension String {
+    //한글 2byte, 영어 1byte인 EUC-KR 계산
+    var eucKrByteLength: Int {
+        var count = 0
+        for scalar in self.unicodeScalars {
+            if scalar.isASCII {
+                count += 1
+            } else if scalar.value >= 0xAC00 && scalar.value <= 0xD7A3 {
+                count += 2
+            } else {
+                count += 2
+            }
+        }
+        return count
+    }
+}
+
 
