@@ -88,6 +88,7 @@
 		D063E99F2C61071100434A09 /* CollectedTitlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E99E2C61071100434A09 /* CollectedTitlesView.swift */; };
 		D063E9A12C6107D300434A09 /* CollectedTitlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9A02C6107D300434A09 /* CollectedTitlesViewController.swift */; };
 		D063E9A42C6108DB00434A09 /* CollectedTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9A32C6108DB00434A09 /* CollectedTitleModel.swift */; };
+		D063E9A72C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9A62C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
@@ -246,6 +247,7 @@
 		D063E99E2C61071100434A09 /* CollectedTitlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitlesView.swift; sourceTree = "<group>"; };
 		D063E9A02C6107D300434A09 /* CollectedTitlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitlesViewController.swift; sourceTree = "<group>"; };
 		D063E9A32C6108DB00434A09 /* CollectedTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitleModel.swift; sourceTree = "<group>"; };
+		D063E9A62C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitleCollectionViewCell.swift; sourceTree = "<group>"; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		D06D26C22C3D835300E79F25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -991,6 +993,7 @@
 		D063E99D2C6106FD00434A09 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D063E9A52C61098F00434A09 /* Cell */,
 				D063E99E2C61071100434A09 /* CollectedTitlesView.swift */,
 			);
 			path = View;
@@ -1002,6 +1005,14 @@
 				D063E9A32C6108DB00434A09 /* CollectedTitleModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D063E9A52C61098F00434A09 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D063E9A62C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		D06D26BA2C3D642D00E79F25 /* ViewController */ = {
@@ -1707,6 +1718,7 @@
 				D0B81AA02C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift in Sources */,
 				4E1E94132C398C4200A7B08A /* String+.swift in Sources */,
 				D063E99F2C61071100434A09 /* CollectedTitlesView.swift in Sources */,
+				D063E9A72C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift in Sources */,
 				D0E7965B2C455118005B47A5 /* EmblemService.swift in Sources */,
 				D0E7964C2C4539FC005B47A5 /* RegisteredPlaceResponseDTO.swift in Sources */,
 				4E3BB6842C4737030076105C /* PlaceInfoPopupViewController.swift in Sources */,
