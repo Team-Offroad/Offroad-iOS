@@ -86,6 +86,7 @@
 		D063E9902C496EA500434A09 /* LottieAnimationView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E98F2C496EA500434A09 /* LottieAnimationView+.swift */; };
 		D063E9922C57FE7400434A09 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9912C57FE7400434A09 /* KeychainManager.swift */; };
 		D063E99F2C61071100434A09 /* CollectedTitlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E99E2C61071100434A09 /* CollectedTitlesView.swift */; };
+		D063E9A12C6107D300434A09 /* CollectedTitlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9A02C6107D300434A09 /* CollectedTitlesViewController.swift */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
@@ -242,6 +243,7 @@
 		D063E98F2C496EA500434A09 /* LottieAnimationView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LottieAnimationView+.swift"; sourceTree = "<group>"; };
 		D063E9912C57FE7400434A09 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		D063E99E2C61071100434A09 /* CollectedTitlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitlesView.swift; sourceTree = "<group>"; };
+		D063E9A02C6107D300434A09 /* CollectedTitlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitlesViewController.swift; sourceTree = "<group>"; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		D06D26C22C3D835300E79F25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -978,6 +980,7 @@
 		D063E99B2C6106EB00434A09 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				D063E9A02C6107D300434A09 /* CollectedTitlesViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1630,6 +1633,7 @@
 				D0E796632C4553F0005B47A5 /* RefreshTokenResponseDTO.swift in Sources */,
 				D0E7960A2C4522CF005B47A5 /* NetworkService.swift in Sources */,
 				D0EAF2262C3B7D7F00566543 /* LoginViewController.swift in Sources */,
+				D063E9A12C6107D300434A09 /* CollectedTitlesViewController.swift in Sources */,
 				4EBE34942C3FC749006DB244 /* QuestQRView.swift in Sources */,
 				4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */,
 				4EA90AC62C4521C50046A6E1 /* MyPageViewController.swift in Sources */,
