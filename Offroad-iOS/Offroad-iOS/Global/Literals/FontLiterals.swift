@@ -36,6 +36,9 @@ enum offroadFontStyle {
     case iosTooltipNumber
     case iosTextContentsSmall
     case iosProfileTitle
+    case iosTabbarMedi
+    case iosBoxMedi
+    case iosMarketing
     case bothLogin
     case bothBottomLabel
     case bothRecentNum
@@ -91,6 +94,9 @@ extension UIFont {
         case .iosTooltipNumber: return UIFont.pretendardFont(ofSize: 12, weight: .bold)
         case .iosTextContentsSmall: return UIFont.pretendardFont(ofSize: 12, weight: .medium)
         case .iosProfileTitle: return UIFont.pretendardFont(ofSize: 26, weight: .bold )
+        case .iosTabbarMedi: return UIFont.pretendardFont(ofSize: 18, weight: .medium)
+        case .iosBoxMedi: return UIFont.pretendardFont(ofSize: 14, weight: .medium)
+        case .iosMarketing: return UIFont.pretendardFont(ofSize: 13, weight: .regular)
         case .bothLogin: return UIFont.pretendardFont(ofSize: 15, weight: .semiBold )
         case .bothBottomLabel: return UIFont.opticianSansFont(ofSize: 14)
         case .bothRecentNum: return UIFont.opticianSansFont(ofSize: 24)
