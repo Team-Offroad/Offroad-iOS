@@ -55,6 +55,7 @@ extension NicknameViewController {
         if !formError(self.nicknameView.textField.text ?? "") && !isTextFieldEmpty {
             nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 말씀해주세요."
             nicknameView.notionLabel.textColor = UIColor.primary(.error)
+            nicknameView.textField.layer.borderColor = UIColor.primary(.error).cgColor
             nicknameView.nextButton.changeState(forState: .isDisabled)
         } else if isTextFieldEmpty {
             nicknameView.notionLabel.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
@@ -86,6 +87,7 @@ extension NicknameViewController {
                 else if self.whetherDuplicate == false && self.formError(self.nicknameView.textField.text ?? "") == false {
                     self.nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 말씀해주세요."
                     self.nicknameView.notionLabel.textColor = UIColor.primary(.error)
+                    self.nicknameView.textField.layer.borderColor = UIColor.primary(.error).cgColor
                 }
                 else {
                     self.nicknameView.textField.resignFirstResponder()
@@ -140,19 +142,16 @@ extension NicknameViewController {
     
     private func configureButtonStyle(_ button: UIButton, isEnabled: Bool) {
         button.isEnabled = isEnabled
-        let color: UIColor = isEnabled ? .primary(.white) : .grayscale(.gray300)
-        let backgroundColor: UIColor = isEnabled ? .primary(.black) : .main(.main3)
-        let borderWidth: CGFloat = isEnabled ? 0 : 1
+        let color: UIColor = .primary(.white)
+        let backgroundColor: UIColor = isEnabled ? .primary(.black) : .blackOpacity(.black15)
         
         button.setTitleColor(color, for: .normal)
         button.backgroundColor = backgroundColor
-        button.layer.borderWidth = borderWidth
-        button.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         button.layer.cornerRadius = 5
     }
     
     private func configureTextFieldStyle(_ textField: UITextField, isEmpty: Bool) {
-        let borderColor: UIColor = isEmpty ? .grayscale(.gray100) : .sub(.sub)
+        let borderColor: UIColor = isEmpty ? .grayscale(.gray100) : .main(.main2)
         textField.layer.borderColor = borderColor.cgColor
     }
     
