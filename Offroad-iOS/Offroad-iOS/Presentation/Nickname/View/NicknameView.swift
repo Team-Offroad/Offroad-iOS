@@ -46,10 +46,8 @@ final class NicknameView: UIView {
         $0.setTitle("중복확인", for: .normal)
         $0.titleLabel?.textAlignment = .center
         $0.titleLabel?.font = UIFont.offroad(style: .iosBtnSmall)
-        $0.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
-        $0.backgroundColor = UIColor.main(.main3)
-        $0.layer.borderWidth = 1.0
-        $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        $0.setTitleColor(UIColor.primary(.white), for: .normal)
+        $0.backgroundColor = UIColor.blackOpacity(.black15)
         $0.layer.cornerRadius = 5
         $0.isEnabled = false
     }

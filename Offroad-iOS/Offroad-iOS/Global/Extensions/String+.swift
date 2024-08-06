@@ -16,4 +16,18 @@ extension String {
         return resultLength == 6 ? true : false
     }
     
+    //한글 2byte, 영어 1byte인 EUC-KR 계산
+    var eucKrByteLength: Int {
+        var count = 0
+        for scalar in self.unicodeScalars {
+            if scalar.isASCII {
+                count += 1
+            } else if scalar.value >= 0xAC00 && scalar.value <= 0xD7A3 {
+                count += 2
+            } else {
+                count += 2
+            }
+        }
+        return count
+    }
 }
