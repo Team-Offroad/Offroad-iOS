@@ -73,10 +73,18 @@ final class BirthViewController: UIViewController {
     }
     
     private func validateYear() -> Bool {
-        guard let yearText = birthView.yearTextField.text, let year = Int(yearText), year >= 1920 else {
+        guard let yearText = birthView.yearTextField.text, let year = Int(yearText) else {
             birthView.notionLabel.text = "다시 한 번 확인해주세요."
             return false
         }
+        
+        let currentYear = Calendar.current.component(.year, from: Date())
+        
+        if year < 1900 || year > currentYear {
+            birthView.notionLabel.text = "다시 한 번 확인해주세요."
+            return false
+        }
+        
         birthView.notionLabel.text = ""
         return true
     }
@@ -86,6 +94,17 @@ final class BirthViewController: UIViewController {
             birthView.notionLabel.text = "다시 한 번 확인해주세요."
             return false
         }
+        
+        let currentYear = Calendar.current.component(.year, from: Date())
+        let currentMonth = Calendar.current.component(.month, from: Date())
+        
+        if let yearText = birthView.yearTextField.text, let year = Int(yearText) {
+            if year == currentYear && month > currentMonth {
+                birthView.notionLabel.text = "다시 한 번 확인해주세요."
+                return false
+            }
+        }
+        
         birthView.notionLabel.text = ""
         return true
     }
@@ -103,12 +122,24 @@ final class BirthViewController: UIViewController {
         
         switch month {
         case 4, 6, 9, 11:
-            return day <= 30
+            if day > 30 { return false }
         case 2:
-            return isLeapYear(year) ? day <= 29 : day <= 28
+            if day > (isLeapYear(year) ? 29 : 28) { return false }
         default:
-            return day <= 31
+            if day > 31 { return false }
         }
+        
+        let currentYear = Calendar.current.component(.year, from: Date())
+        let currentMonth = Calendar.current.component(.month, from: Date())
+        let currentDay = Calendar.current.component(.day, from: Date())
+        
+        if year == currentYear && month == currentMonth && day > currentDay {
+            birthView.notionLabel.text = "다시 한 번 확인해주세요."
+            return false
+        }
+        
+        birthView.notionLabel.text = ""
+        return true
     }
     
     private func isLeapYear(_ year: Int) -> Bool {
