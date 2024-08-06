@@ -80,6 +80,7 @@ class PlaceCollectionViewCell: UICollectionViewCell {
         addressLabel.text = ""
         placeDescriptionImageView.image = nil
         placeDescriptionLabel.text = ""
+        visitCountLabel.text = ""
     }
     
 }
@@ -283,23 +284,13 @@ extension PlaceCollectionViewCell {
         addressLabel.text = place.address
         placeDescriptionLabel.text = place.shortIntroduction
         
-        visitCountLabel.text = "탐험횟수: \(place.visitCount)"
+        visitCountLabel.text = "탐험횟수: \(place.visitCount) "
         
-        switch showingVisitingCount {
-        case false:
-            placeDesctiprionSeparator.isHidden = true
-            visitCountLabel.isHidden = true
-            
-            descriptionLabelTrailingConstraintToSeparator.isActive = false
-            descriptionLabelTrailingConstraintToSuperView.isActive = true
-            
-        case true:
-            placeDesctiprionSeparator.isHidden = false
-            visitCountLabel.isHidden = false
-            
-            descriptionLabelTrailingConstraintToSeparator.isActive = true
-            descriptionLabelTrailingConstraintToSuperView.isActive = false
-        }
+        placeDesctiprionSeparator.isHidden = !showingVisitingCount
+        visitCountLabel.isHidden = !showingVisitingCount
+        
+        descriptionLabelTrailingConstraintToSeparator.isActive = showingVisitingCount
+        descriptionLabelTrailingConstraintToSuperView.isActive = !showingVisitingCount
         
         switch place.placeCategory {
         case "CAFFE":
