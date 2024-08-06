@@ -69,8 +69,7 @@ extension NicknameViewController {
     
     // 화면 터치 시 키보드 내려가게 하는 코드
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-        
+        self.view.endEditing(true)        
     }
     
     @objc private func checkButtonTapped() {
@@ -142,11 +141,8 @@ extension NicknameViewController {
     
     private func configureButtonStyle(_ button: UIButton, isEnabled: Bool) {
         button.isEnabled = isEnabled
-        let color: UIColor = .primary(.white)
-        let backgroundColor: UIColor = isEnabled ? .primary(.black) : .blackOpacity(.black15)
-        
-        button.setTitleColor(color, for: .normal)
-        button.backgroundColor = backgroundColor
+        button.setTitleColor(.primary(.white), for: .normal)
+        button.backgroundColor = isEnabled ? .primary(.black) : .blackOpacity(.black15)
         button.layer.cornerRadius = 5
     }
     
@@ -165,7 +161,6 @@ extension NicknameViewController {
         print("유효하지 않은 id 형식입니다.")
         return false
     }
-    
 }
 
 //MARK: - UITextFieldDelegate
@@ -194,23 +189,7 @@ extension NicknameViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - String Extension
 
-extension String {
-    //한글 2byte, 영어 1byte인 EUC-KR 계산
-    var eucKrByteLength: Int {
-        var count = 0
-        for scalar in self.unicodeScalars {
-            if scalar.isASCII {
-                count += 1
-            } else if scalar.value >= 0xAC00 && scalar.value <= 0xD7A3 {
-                count += 2
-            } else {
-                count += 2
-            }
-        }
-        return count
-    }
-}
+
 
 
