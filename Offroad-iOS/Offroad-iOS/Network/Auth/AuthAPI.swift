@@ -16,7 +16,14 @@ enum AuthAPI {
 
 extension AuthAPI: BaseTargetType {
 
-    var headerType: HeaderType { return .noneHeader }
+    var headerType: HeaderType { 
+        switch self {
+        case .postSocialLogin:
+            return .noneHeader
+        case .postRefreshToken:
+            return .refreshTokenHeader
+        }
+    }
     
     var parameter: [String : Any]? {
         switch self {
