@@ -174,9 +174,9 @@ extension BirthViewController {
             if let dayText = birthView.dayTextField.text, dayText.count == 1 {
                 birthView.dayTextField.text = "0\(dayText)"
             }
-        }else if textField == birthView.dayTextField && !validateDay() {
-            birthView.notionLabel.text = "다시 한 번 확인해주세요."
-        } else if validateInputs() {
+        }
+        
+        if validateInputs() {
             birthView.notionLabel.text = ""
             birthView.nextButton.changeState(forState: .isEnabled)
         } else {
