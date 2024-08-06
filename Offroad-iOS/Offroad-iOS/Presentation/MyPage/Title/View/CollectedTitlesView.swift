@@ -43,7 +43,7 @@ extension CollectedTitlesView {
     // MARK: - Layout
     
     private func setupStyle() {
-        backgroundColor = UIColor(hexCode: "F6EEDF")
+        backgroundColor = .primary(.listBg)
         
         titleView.do {
             $0.backgroundColor = .main(.main1)

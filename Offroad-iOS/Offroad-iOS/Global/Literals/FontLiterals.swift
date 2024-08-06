@@ -44,6 +44,8 @@ enum offroadFontStyle {
     case bothRecentNum
     case bothUpcomingSmallNum
     case bothUpcomingBigNum
+    case bothSubtitle3
+    case bothProfileTitle
 }
 
 extension UIFont {
@@ -102,6 +104,8 @@ extension UIFont {
         case .bothRecentNum: return UIFont.opticianSansFont(ofSize: 24)
         case .bothUpcomingSmallNum: return UIFont.opticianSansFont(ofSize: 30)
         case .bothUpcomingBigNum: return UIFont.opticianSansFont(ofSize: 62)
+        case .bothSubtitle3: return UIFont.pretendardFont(ofSize: 24, weight: .medium)
+        case .bothProfileTitle: return UIFont.pretendardFont(ofSize: 24, weight: .bold)
         }
     }
     
