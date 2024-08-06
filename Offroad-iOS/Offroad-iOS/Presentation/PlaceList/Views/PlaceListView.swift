@@ -22,7 +22,8 @@ class PlaceListView: UIView {
     let customSegmentedControl = PlaceListSegmentedControl()
     let separator = UIView()
     
-    var placeListCollectionView: UICollectionView!
+    var placeNeverVisitedListCollectionView: UICollectionView!
+    var allPlaceListCollectionView: UICollectionView!
     
     //MARK: - Life Cycle
     
@@ -85,19 +86,27 @@ extension PlaceListView {
             view.backgroundColor = .grayscale(.gray100)
         }
         
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.sectionInset = .init(top: 20, left: 24, bottom: 0, right: 24)
-        layout.minimumLineSpacing = 16
-        layout.minimumInteritemSpacing = 100
-        layout.estimatedItemSize.width = UIScreen.current.bounds.width - 32
+        let layoutForPlaceNeverVisited = UICollectionViewFlowLayout()
+        layoutForPlaceNeverVisited.scrollDirection = .vertical
+        layoutForPlaceNeverVisited.sectionInset = .init(top: 20, left: 24, bottom: 0, right: 24)
+        layoutForPlaceNeverVisited.minimumLineSpacing = 16
+        layoutForPlaceNeverVisited.minimumInteritemSpacing = 100
+        layoutForPlaceNeverVisited.estimatedItemSize.width = UIScreen.current.bounds.width - 32
         
-        placeListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        placeListCollectionView.do { collectionView in
-            collectionView.contentInset = .zero
-            collectionView.backgroundColor = .init(hexCode: "F6EEDF")
-            collectionView.allowsMultipleSelection = false
-        }
+        let layoutForAllPlace = UICollectionViewFlowLayout()
+        layoutForAllPlace.scrollDirection = .vertical
+        layoutForAllPlace.sectionInset = .init(top: 20, left: 24, bottom: 0, right: 24)
+        layoutForAllPlace.minimumLineSpacing = 16
+        layoutForAllPlace.minimumInteritemSpacing = 100
+        layoutForAllPlace.estimatedItemSize.width = UIScreen.current.bounds.width - 32
+        
+        placeNeverVisitedListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForPlaceNeverVisited)
+        placeNeverVisitedListCollectionView.backgroundColor = UIColor(hexCode: "F6EEDF")
+        
+        allPlaceListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForAllPlace)
+        allPlaceListCollectionView.backgroundColor = UIColor(hexCode: "F6EEDF")
+        
+        allPlaceListCollectionView.isHidden = true
     }
     
     private func setupHierarchy() {
@@ -107,7 +116,8 @@ extension PlaceListView {
             titleLabel,
             customSegmentedControl,
             separator,
-            placeListCollectionView
+            placeNeverVisitedListCollectionView,
+            allPlaceListCollectionView
         )
     }
     
@@ -139,7 +149,13 @@ extension PlaceListView {
             make.height.equalTo(1)
         }
         
-        placeListCollectionView.snp.makeConstraints { make in
+        placeNeverVisitedListCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(separator.snp.bottom)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
+        }
+        
+        allPlaceListCollectionView.snp.makeConstraints { make in
             make.top.equalTo(separator.snp.bottom)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.bottom.equalToSuperview()

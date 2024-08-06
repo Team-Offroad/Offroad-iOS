@@ -9,7 +9,7 @@ import Foundation
 
 class PlaceListDummyDataManager {
     
-    static func makeDummyData() -> [RegisteredPlaceInfo] {
+    static func makeDummyData(count: Int) -> [RegisteredPlaceInfo] {
         
         let brickRouge = RegisteredPlaceInfo(
             id: 0,
@@ -70,7 +70,7 @@ class PlaceListDummyDataManager {
             id: 0,
             name: "잠실 종합운동장",
             address: "서울 송파구 올림픽로 25 서울종합운동장",
-            shortIntroduction: "서울 올림픽대회의 개·폐회식과 육상, 축구 등을 치룬 바 있는 역사적 의미를 갖는 경기장으로서 외국의 많은 관광객이 방문하고 있는 관광명소",
+            shortIntroduction: "서울 올림픽대회의 개·폐회식과 육상, 축구 등을 치룬 바 있는 역사적 의미를 갖는 경기장",
             placeCategory: "SPORTS",
             latitude: 0,
             longitude: 0,
@@ -79,7 +79,7 @@ class PlaceListDummyDataManager {
         
         let array = [brickRouge, cameloYeonNam, cafeDelcamino, YanghwajinPark, hanyangDoseongMuseum, jamsilSportsComplex]
         var returnValue: [RegisteredPlaceInfo] = []
-        for _ in 0..<60 {
+        for _ in 0..<count {
             returnValue.append(array.randomElement()!)
         }
         return returnValue

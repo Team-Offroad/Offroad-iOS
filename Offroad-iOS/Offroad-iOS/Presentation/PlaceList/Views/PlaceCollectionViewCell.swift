@@ -7,12 +7,7 @@
 
 import UIKit
 
-class PlaceListCollectionViewCell: UICollectionViewCell {
-    
-    enum PlaceListSearchingMode {
-        case neverVisited
-        case allPlace
-    }
+class PlaceCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Properties
     
@@ -58,29 +53,38 @@ class PlaceListCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        print("cell이 생성됨")
         
         setupHierarchy()
         setupStyle()
-        setupLayout(isExpanded: false)
-        setAppearance()
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("cell이 사라짐")
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        setAppearance()
-        descriptionLabelTrailingConstraintToSeparator.isActive = false
-        descriptionLabelTrailingConstraintToSuperView.isActive = false
-        contentView.layoutIfNeeded()
+        //descriptionLabelTrailingConstraintToSeparator.isActive = false
+        //descriptionLabelTrailingConstraintToSuperView.isActive = false
+        
+        placeCategoryLabel.text = ""
+        placeSectionLabel.text = ""
+        placeNameLabel.text = ""
+        addressLabel.text = ""
+        placeDescriptionImageView.image = nil
+        placeDescriptionLabel.text = ""
     }
     
 }
 
-extension PlaceListCollectionViewCell {
+extension PlaceCollectionViewCell {
     
     //MARK: - Private Func
     
@@ -88,7 +92,6 @@ extension PlaceListCollectionViewCell {
         contentView.addSubviews(
             placeCategoryView,
             placeSectionView,
-            placeSectionLabel,
             placeNameLabel,
             addressLabel,
             chevronImageView,
@@ -138,7 +141,7 @@ extension PlaceListCollectionViewCell {
             label.textColor = .main(.main2)
             label.textAlignment = .left
             label.numberOfLines = 1
-            label.adjustsFontSizeToFitWidth = true
+            //label.adjustsFontSizeToFitWidth = true
         }
         
         addressLabel.do { label in
@@ -181,7 +184,7 @@ extension PlaceListCollectionViewCell {
         }
     }
     
-    private func setupLayout(isExpanded: Bool) {
+    private func setupLayout() {
         widthConstraint.priority = .defaultHigh
         widthConstraint.isActive = true
         
@@ -235,18 +238,16 @@ extension PlaceListCollectionViewCell {
             make.verticalEdges.equalToSuperview().inset(9)
             make.leading.equalTo(placeDescriptionImageView.snp.trailing).offset(6)
         }
-        //descriptionLabelTrailingConstraintToSeparator.isActive = true
-        //descriptionLabelTrailingConstraintToSuperView.isActive = false
         
         placeDesctiprionSeparator.snp.makeConstraints { make in
             //make.leading.equalTo(placeDescriptionLabel.snp.trailing).offset(10)
+            make.trailing.equalTo(visitCountLabel.snp.leading).offset(-10)
             make.width.equalTo(1)
             make.verticalEdges.equalToSuperview().inset(7)
         }
         
         visitCountLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalTo(placeDesctiprionSeparator.snp.trailing).offset(10)
             make.trailing.equalToSuperview().inset(13)
         }
         visitCountLabel.setContentCompressionResistancePriority(.init(1000), for: .horizontal)
@@ -254,15 +255,14 @@ extension PlaceListCollectionViewCell {
         placeDescriptionView.snp.makeConstraints { make in
             make.top.equalTo(addressLabel.snp.bottom).offset(14)
             make.horizontalEdges.equalToSuperview().inset(20)
-            //make.height.equalTo(36)
         }
         
         expandedBottomConstraint.priority = .defaultLow
         shrinkedBottomConstraint.priority = .defaultLow
         
-        expandedBottomConstraint.isActive = isExpanded
-        shrinkedBottomConstraint.isActive = !isExpanded
-        placeDescriptionView.isHidden = !isExpanded
+        expandedBottomConstraint.isActive = isSelected
+        shrinkedBottomConstraint.isActive = !isSelected
+        placeDescriptionView.isHidden = !isSelected
     }
     
     private func setAppearance() {
@@ -278,24 +278,22 @@ extension PlaceListCollectionViewCell {
     
     //MARK: - Func
     
-    func configureCell(with place: RegisteredPlaceInfo, searchingMode: PlaceListSearchingMode) {
-        
-        placeSectionLabel.text = "시간이 머무는 마을"
+    func configureCell(with place: RegisteredPlaceInfo, showingVisitingCount: Bool) {
         placeNameLabel.text = place.name
         addressLabel.text = place.address
         placeDescriptionLabel.text = place.shortIntroduction
         
         visitCountLabel.text = "탐험횟수: \(place.visitCount)"
         
-        switch searchingMode {
-        case .neverVisited:
+        switch showingVisitingCount {
+        case false:
             placeDesctiprionSeparator.isHidden = true
             visitCountLabel.isHidden = true
             
             descriptionLabelTrailingConstraintToSeparator.isActive = false
             descriptionLabelTrailingConstraintToSuperView.isActive = true
             
-        case .allPlace:
+        case true:
             placeDesctiprionSeparator.isHidden = false
             visitCountLabel.isHidden = false
             
@@ -327,6 +325,8 @@ extension PlaceListCollectionViewCell {
         default:
             return
         }
+        
+        contentView.layoutIfNeeded()
     }
     
 }

@@ -69,7 +69,6 @@ extension OffroadTabBarController {
     // MARK: - Layout
     
     private func setupHierarchy() {
-        print(#function)
         tabBar.addSubview(customOffroadLogoButton)
     }
     
