@@ -1,5 +1,5 @@
 //
-//  SettingListCollectionViewCell.swift
+//  SettingBaseCollectionViewCell.swift
 //  Offroad-iOS
 //
 //  Created by 조혜린 on 8/7/24.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class SettingListCollectionViewCell: UICollectionViewCell {
+final class SettingBaseCollectionViewCell: UICollectionViewCell {
     
     //MARK: - UI Properties
     
@@ -36,7 +36,7 @@ final class SettingListCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension SettingListCollectionViewCell {
+extension SettingBaseCollectionViewCell {
     
     // MARK: - Layout
     
@@ -67,7 +67,12 @@ extension SettingListCollectionViewCell {
     
     //MARK: - Func
     
-    func configureCell(data: SettingListModel) {
+    func configureCell(data: SettingBaseModel) {
         listLabel.text = data.listString
+        
+        let targetText = "[중요]"
+        if data.listString.contains(targetText) {
+            listLabel.highlightText(targetText: targetText, color: .sub(.sub2) )
+        }
     }
 }

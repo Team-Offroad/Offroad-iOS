@@ -13,7 +13,7 @@ final class SettingViewController: UIViewController {
     
     private let rootView = SettingView()
     
-    private var settingModelList = SettingListModel.dummy()
+    private var settingModelList = SettingBaseModel.settingListModel
     
     // MARK: - Life Cycle
     
@@ -33,8 +33,8 @@ extension SettingViewController {
     // MARK: - Private Method
     
     private func setupDelegate() {
-        rootView.settingListCollectionView.dataSource = self
-        rootView.settingListCollectionView.delegate = self
+        rootView.settingBaseCollectionView.dataSource = self
+        rootView.settingBaseCollectionView.delegate = self
     }
 }
 
@@ -46,7 +46,7 @@ extension SettingViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SettingListCollectionViewCell.className, for: indexPath) as? SettingListCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SettingBaseCollectionViewCell.className, for: indexPath) as? SettingBaseCollectionViewCell else { return UICollectionViewCell() }
         cell.configureCell(data: settingModelList[indexPath.item])
         
         return cell
@@ -56,10 +56,6 @@ extension SettingViewController: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegateFlowLayout
 
 extension SettingViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width - 48, height: 44)
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.cellForItem(at: indexPath)?.isSelected = true
     }
