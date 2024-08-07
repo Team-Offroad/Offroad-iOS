@@ -80,7 +80,8 @@
 		D00A48622C633947008B286A /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48612C633947008B286A /* SettingView.swift */; };
 		D00A48642C633959008B286A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48632C633959008B286A /* SettingViewController.swift */; };
 		D00A486A2C633EF2008B286A /* SettingBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48692C633EF2008B286A /* SettingBaseModel.swift */; };
-		D00A486A2C633EF2008B286A /* SettingListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48692C633EF2008B286A /* SettingListModel.swift */; };
+		D00A486F2C634437008B286A /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A486E2C634437008B286A /* NoticeViewController.swift */; };
+		D00A48712C63443F008B286A /* NoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48702C63443F008B286A /* NoticeView.swift */; };
 		D00A48772C634530008B286A /* SettingBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48762C634530008B286A /* SettingBaseView.swift */; };
 		D00A487A2C634710008B286A /* SettingBaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48792C634710008B286A /* SettingBaseCollectionViewCell.swift */; };
 		D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */; };
@@ -242,7 +243,8 @@
 		D00A48612C633947008B286A /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		D00A48632C633959008B286A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		D00A48692C633EF2008B286A /* SettingBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingBaseModel.swift; sourceTree = "<group>"; };
-		D00A48692C633EF2008B286A /* SettingListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListModel.swift; sourceTree = "<group>"; };
+		D00A486E2C634437008B286A /* NoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
+		D00A48702C63443F008B286A /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
 		D00A48762C634530008B286A /* SettingBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingBaseView.swift; sourceTree = "<group>"; };
 		D00A48792C634710008B286A /* SettingBaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingBaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateToggleButton.swift; sourceTree = "<group>"; };
@@ -667,7 +669,7 @@
 				D00A48682C633EDD008B286A /* Model */,
 				D00A48602C633927008B286A /* View */,
 				D00A485F2C63391F008B286A /* ViewController */,
-				4E03947C2C2AA842007F0517 /* NotificationsList */,
+				4E03947C2C2AA842007F0517 /* Notice */,
 				4E03947D2C2AA850007F0517 /* PlayGuide */,
 				4E03947E2C2AA855007F0517 /* TermsOfService */,
 				4E03947F2C2AA913007F0517 /* PrivacyPolicy */,
@@ -678,12 +680,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		4E03947C2C2AA842007F0517 /* NotificationsList */ = {
+		4E03947C2C2AA842007F0517 /* Notice */ = {
 			isa = PBXGroup;
 			children = (
-				4E0394832C2AA99C007F0517 /* Notification */,
+				D00A486C2C6343D5008B286A /* View */,
+				D00A486B2C6343CE008B286A /* ViewController */,
+				4E0394832C2AA99C007F0517 /* NoticePost */,
 			);
-			path = NotificationsList;
+			path = Notice;
 			sourceTree = "<group>";
 		};
 		4E03947D2C2AA850007F0517 /* PlayGuide */ = {
@@ -728,11 +732,11 @@
 			path = DeleteAccount;
 			sourceTree = "<group>";
 		};
-		4E0394832C2AA99C007F0517 /* Notification */ = {
+		4E0394832C2AA99C007F0517 /* NoticePost */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Notification;
+			path = NoticePost;
 			sourceTree = "<group>";
 		};
 		4E0394842C2AA9DB007F0517 /* Character */ = {
@@ -1688,6 +1692,7 @@
 				8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */,
 				D0E7963D2C453787005B47A5 /* QuestService.swift in Sources */,
 				D0E796082C45229B005B47A5 /* MoyaPlugin.swift in Sources */,
+				D00A48712C63443F008B286A /* NoticeView.swift in Sources */,
 				D0B81AA22C47180800C44ED9 /* ChoosingCharacterPopupView.swift in Sources */,
 				D063E98E2C49483000434A09 /* UIImageView+.swift in Sources */,
 				D0E796632C4553F0005B47A5 /* RefreshTokenResponseDTO.swift in Sources */,
