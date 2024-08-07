@@ -79,6 +79,8 @@
 		AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */; };
 		D00A48622C633947008B286A /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48612C633947008B286A /* SettingView.swift */; };
 		D00A48642C633959008B286A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48632C633959008B286A /* SettingViewController.swift */; };
+		D00A48672C633C96008B286A /* SettingListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48662C633C96008B286A /* SettingListCollectionViewCell.swift */; };
+		D00A486A2C633EF2008B286A /* SettingListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48692C633EF2008B286A /* SettingListModel.swift */; };
 		D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */; };
 		D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB102C4054D20048B6DF /* TitleModel.swift */; };
 		D063E9852C492D6700434A09 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = D063E9842C492D6700434A09 /* SVGKit */; };
@@ -237,6 +239,8 @@
 		C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOS_Offroad_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D00A48612C633947008B286A /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		D00A48632C633959008B286A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		D00A48662C633C96008B286A /* SettingListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListCollectionViewCell.swift; sourceTree = "<group>"; };
+		D00A48692C633EF2008B286A /* SettingListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingListModel.swift; sourceTree = "<group>"; };
 		D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateToggleButton.swift; sourceTree = "<group>"; };
 		D018BB102C4054D20048B6DF /* TitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleModel.swift; sourceTree = "<group>"; };
 		D018BB1B2C43E4740048B6DF /* Offroad-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Offroad-iOS.entitlements"; sourceTree = "<group>"; };
@@ -655,13 +659,16 @@
 		4E03947B2C2AA7EF007F0517 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				4E0394822C2AA983007F0517 /* DeleteAccount */,
-				4E0394812C2AA969007F0517 /* LogOut */,
-				4E0394802C2AA936007F0517 /* MarketingConsent */,
-				4E03947F2C2AA913007F0517 /* PrivacyPolicy */,
-				4E03947E2C2AA855007F0517 /* TermsOfService */,
-				4E03947D2C2AA850007F0517 /* PlayGuide */,
+				D00A48682C633EDD008B286A /* Model */,
+				D00A48602C633927008B286A /* View */,
+				D00A485F2C63391F008B286A /* ViewController */,
 				4E03947C2C2AA842007F0517 /* NotificationsList */,
+				4E03947D2C2AA850007F0517 /* PlayGuide */,
+				4E03947E2C2AA855007F0517 /* TermsOfService */,
+				4E03947F2C2AA913007F0517 /* PrivacyPolicy */,
+				4E0394802C2AA936007F0517 /* MarketingConsent */,
+				4E0394812C2AA969007F0517 /* LogOut */,
+				4E0394822C2AA983007F0517 /* DeleteAccount */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -957,6 +964,39 @@
 				1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D00A485F2C63391F008B286A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D00A48632C633959008B286A /* SettingViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D00A48602C633927008B286A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D00A48652C633C6D008B286A /* Cell */,
+				D00A48612C633947008B286A /* SettingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D00A48652C633C6D008B286A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D00A48662C633C96008B286A /* SettingListCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		D00A48682C633EDD008B286A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D00A48692C633EF2008B286A /* SettingListModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D018BB0C2C401F5F0048B6DF /* Components */ = {
@@ -1631,6 +1671,7 @@
 				4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */,
 				D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */,
 				D0E795FC2C447511005B47A5 /* AppleAuthManager.swift in Sources */,
+				D00A48672C633C96008B286A /* SettingListCollectionViewCell.swift in Sources */,
 				D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */,
 				D0E7965F2C45518B005B47A5 /* EmblemInfoResponseDTO.swift in Sources */,
 				D0E796432C4538DD005B47A5 /* PlaceAPI.swift in Sources */,
@@ -1701,6 +1742,7 @@
 				D0EAF21B2C3B026500566543 /* SplashViewController.swift in Sources */,
 				4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */,
 				D0E796452C4538E6005B47A5 /* PlaceService.swift in Sources */,
+				D00A486A2C633EF2008B286A /* SettingListModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
