@@ -20,6 +20,9 @@ class QuestMapView: UIView {
     
     //MARK: - UI Properties
     
+    let customNavigationBar = UIView()
+    let navigationBarSeparator = UIView()
+    let titleLabel = UILabel()
     let reloadPlaceButton = UIButton()
     let switchTrackingModeButton = UIButton()
     private let listButtonStackView = UIStackView()
@@ -54,8 +57,24 @@ extension QuestMapView {
     //MARK: - Layout
     
     private func setupLayout() {
+        customNavigationBar.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalToSuperview()
+            make.height.equalTo(123)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.leading.equalTo(safeAreaLayoutGuide).inset(24)
+            make.bottom.equalToSuperview().inset(20)
+        }
+        
+        navigationBarSeparator.snp.makeConstraints { make in
+            make.top.equalTo(customNavigationBar.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(1)
+        }
+        
         reloadPlaceButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(23)
+            make.top.equalTo(customNavigationBar.snp.bottom).offset(23)
             make.centerX.equalToSuperview()
             make.width.equalTo(136)
             make.height.equalTo(33)
@@ -63,11 +82,12 @@ extension QuestMapView {
         
         naverMapView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.verticalEdges.equalTo(safeAreaLayoutGuide)
+            //make.verticalEdges.equalTo(safeAreaLayoutGuide)
+            make.verticalEdges.equalToSuperview()
         }
         
         switchTrackingModeButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(24)
+            make.top.equalTo(customNavigationBar.snp.bottom).offset(24)
             make.trailing.equalTo(safeAreaLayoutGuide).inset(24)
             make.width.height.equalTo(44)
         }
@@ -90,14 +110,31 @@ extension QuestMapView {
     private func setupHierarchy() {
         naverMapView.addSubviews(reloadPlaceButton, switchTrackingModeButton)
         listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
+        customNavigationBar.addSubview(titleLabel)
         addSubviews(
             naverMapView,
             listButtonStackView,
-            compass
+            compass,
+            customNavigationBar,
+            navigationBarSeparator
         )
     }
     
     private func setupStyle() {
+        customNavigationBar.do { view in
+            view.backgroundColor = .main(.main1)
+        }
+        
+        titleLabel.do { label in
+            label.textColor = .main(.main2)
+            label.font = .offroad(style: .iosSubtitle2Bold)
+            label.text = "어디를 탐험해 볼까요?"
+        }
+        
+        navigationBarSeparator.do { view in
+            view.backgroundColor = .grayscale(.gray100)
+        }
+        
         reloadPlaceButton.do { button in
             button.setTitle("현 지도에서 검색", for: .normal)
             button.setImage(.icnReloadArrow, for: .normal)
