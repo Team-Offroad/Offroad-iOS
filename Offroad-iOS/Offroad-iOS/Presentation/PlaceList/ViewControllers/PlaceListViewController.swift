@@ -109,7 +109,7 @@ extension PlaceListViewController: UIGestureRecognizerDelegate {
 
 //MARK: - PlaceListSegmentedControlDelegate
 
-extension PlaceListViewController: PlaceListSegmentedControlDelegate {
+extension PlaceListViewController: CustomSegmentedControlDelegate {
     
     func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int) {
 //        if selectedIndex == 0 {

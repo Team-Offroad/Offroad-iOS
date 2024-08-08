@@ -1,5 +1,5 @@
 //
-//  PageListSegmentedControl.swift
+//  CustomSegmentedControl.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 8/3/24.
@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-protocol PlaceListSegmentedControlDelegate: AnyObject {
+protocol CustomSegmentedControlDelegate: AnyObject {
     func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int)
 }
 
@@ -20,7 +20,7 @@ final class CustomSegmentedControl: UIStackView, CustomSegmentedControlType {
     //MARK: - Properties
     
     private(set) var currentIndex: Int = 0
-    weak var delegate: PlaceListSegmentedControlDelegate? = nil
+    weak var delegate: CustomSegmentedControlDelegate? = nil
     
     lazy var underbarLeadingConstraint = underbar.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
     lazy var underbarTrailingConstraint = underbar.trailingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
