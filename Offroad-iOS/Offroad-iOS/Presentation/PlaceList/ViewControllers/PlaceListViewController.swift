@@ -111,7 +111,7 @@ extension PlaceListViewController: UIGestureRecognizerDelegate {
 
 extension PlaceListViewController: PlaceListSegmentedControlDelegate {
     
-    func segmentedControlDidSelected(segmentedControl: PlaceListSegmentedControl, selectedIndex: Int) {
+    func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int) {
 //        if selectedIndex == 0 {
 //            let currentOffset = rootView.allPlaceListCollectionView.contentOffset
 //            rootView.allPlaceListCollectionView.setContentOffset(currentOffset, animated: false)

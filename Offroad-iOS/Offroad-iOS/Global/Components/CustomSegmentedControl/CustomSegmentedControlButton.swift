@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PlaceListSegmentButton: UIButton {
+final class CustomSegmentedControlButton: UIButton {
     
     //MARK: - Properties
     

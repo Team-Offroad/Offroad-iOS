@@ -19,7 +19,7 @@ class PlaceListView: UIView {
     let titleLabel = UILabel()
     let titleIcon = UIImageView()
     let segmentStackView = UIStackView()
-    let customSegmentedControl = PlaceListSegmentedControl()
+    let customSegmentedControl = CustomSegmentedControl()
     let separator = UIView()
     
     var placeNeverVisitedListCollectionView: UICollectionView!

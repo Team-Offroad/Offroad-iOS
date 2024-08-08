@@ -31,9 +31,9 @@
 		4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394E52C2AC16A007F0517 /* UIScreen+.swift */; };
 		4E08B9572C5DF0920082EFB8 /* PlaceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9562C5DF0920082EFB8 /* PlaceListViewController.swift */; };
 		4E08B9592C5DF0B20082EFB8 /* PlaceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9582C5DF0B20082EFB8 /* PlaceListView.swift */; };
-		4E08B95B2C5E4F860082EFB8 /* PageListSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B95A2C5E4F860082EFB8 /* PageListSegmentedControl.swift */; };
+		4E08B95B2C5E4F860082EFB8 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B95A2C5E4F860082EFB8 /* CustomSegmentedControl.swift */; };
 		4E08B95D2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B95C2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift */; };
-		4E08B95F2C5E53C10082EFB8 /* PlaceListSegmentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B95E2C5E53C10082EFB8 /* PlaceListSegmentButton.swift */; };
+		4E08B95F2C5E53C10082EFB8 /* CustomSegmentedControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B95E2C5E53C10082EFB8 /* CustomSegmentedControlButton.swift */; };
 		4E08B9622C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9612C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift */; };
 		4E08B9652C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9642C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift */; };
 		4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */; };
@@ -191,9 +191,9 @@
 		4E0394E52C2AC16A007F0517 /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		4E08B9562C5DF0920082EFB8 /* PlaceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListViewController.swift; sourceTree = "<group>"; };
 		4E08B9582C5DF0B20082EFB8 /* PlaceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListView.swift; sourceTree = "<group>"; };
-		4E08B95A2C5E4F860082EFB8 /* PageListSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageListSegmentedControl.swift; sourceTree = "<group>"; };
+		4E08B95A2C5E4F860082EFB8 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		4E08B95C2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControlType.swift; sourceTree = "<group>"; };
-		4E08B95E2C5E53C10082EFB8 /* PlaceListSegmentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListSegmentButton.swift; sourceTree = "<group>"; };
+		4E08B95E2C5E53C10082EFB8 /* CustomSegmentedControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControlButton.swift; sourceTree = "<group>"; };
 		4E08B9612C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E08B9642C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListDummyDataManager.swift; sourceTree = "<group>"; };
 		4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationRequestDTO.swift; sourceTree = "<group>"; };
@@ -455,7 +455,6 @@
 		4E0394642C2AA0E4007F0517 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				4E08B95C2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -623,7 +622,6 @@
 			isa = PBXGroup;
 			children = (
 				4E08B9632C5E8EB70082EFB8 /* Models */,
-				4E08B9602C5E5C530082EFB8 /* CustomSegmentedControl */,
 				4E08B9552C5DF07F0082EFB8 /* Views */,
 				4E08B9542C5DF0780082EFB8 /* ViewControllers */,
 			);
@@ -779,15 +777,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		4E08B9602C5E5C530082EFB8 /* CustomSegmentedControl */ = {
-			isa = PBXGroup;
-			children = (
-				4E08B95A2C5E4F860082EFB8 /* PageListSegmentedControl.swift */,
-				4E08B95E2C5E53C10082EFB8 /* PlaceListSegmentButton.swift */,
-			);
-			path = CustomSegmentedControl;
-			sourceTree = "<group>";
-		};
 		4E08B9632C5E8EB70082EFB8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,6 +801,16 @@
 				4E0C69662C471A4B00B6453E /* PlaceInfoPopupView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		4E38B7D82C6471EC0011D997 /* CustomSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				4E08B95C2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift */,
+				4E08B95A2C5E4F860082EFB8 /* CustomSegmentedControl.swift */,
+				4E08B95E2C5E53C10082EFB8 /* CustomSegmentedControlButton.swift */,
+			);
+			path = CustomSegmentedControl;
 			sourceTree = "<group>";
 		};
 		4E393C962C48C97C003403EC /* QuestResult */ = {
@@ -1005,6 +1004,7 @@
 		D018BB0C2C401F5F0048B6DF /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4E38B7D82C6471EC0011D997 /* CustomSegmentedControl */,
 				D018BB0D2C401F700048B6DF /* CustomButton */,
 			);
 			path = Components;
@@ -1704,7 +1704,7 @@
 				4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
 				D0E796502C453B47005B47A5 /* AdventureService.swift in Sources */,
-				4E08B95B2C5E4F860082EFB8 /* PageListSegmentedControl.swift in Sources */,
+				4E08B95B2C5E4F860082EFB8 /* CustomSegmentedControl.swift in Sources */,
 				87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */,
 				D063E9922C57FE7400434A09 /* KeychainManager.swift in Sources */,
 				D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */,
@@ -1738,7 +1738,7 @@
 				8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */,
 				4E0C69672C471A4B00B6453E /* PlaceInfoPopupView.swift in Sources */,
 				8792D0242C3F0843002051AC /* ChoosingCharacterCell.swift in Sources */,
-				4E08B95F2C5E53C10082EFB8 /* PlaceListSegmentButton.swift in Sources */,
+				4E08B95F2C5E53C10082EFB8 /* CustomSegmentedControlButton.swift in Sources */,
 				4E03942F2C2A9DCE007F0517 /* SceneDelegate.swift in Sources */,
 				D0E7961E2C45280F005B47A5 /* SocialLoginResponseDTO.swift in Sources */,
 				D0E796172C4527AA005B47A5 /* AuthService.swift in Sources */,

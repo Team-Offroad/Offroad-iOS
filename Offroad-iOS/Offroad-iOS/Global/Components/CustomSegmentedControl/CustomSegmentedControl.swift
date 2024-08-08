@@ -10,12 +10,12 @@ import UIKit
 import SnapKit
 
 protocol PlaceListSegmentedControlDelegate: AnyObject {
-    func segmentedControlDidSelected(segmentedControl: PlaceListSegmentedControl, selectedIndex: Int)
+    func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int)
 }
 
-final class PlaceListSegmentedControl: UIStackView, CustomSegmentedControlType {
+final class CustomSegmentedControl: UIStackView, CustomSegmentedControlType {
     
-    typealias ConcreteType = PlaceListSegmentedControl
+    typealias ConcreteType = CustomSegmentedControl
     
     //MARK: - Properties
     
@@ -46,9 +46,9 @@ final class PlaceListSegmentedControl: UIStackView, CustomSegmentedControlType {
     }
     
     convenience init(titles: [String]) {
-        var buttonsArray: [PlaceListSegmentButton] = []
+        var buttonsArray: [CustomSegmentedControlButton] = []
         for i in 0..<titles.count {
-            let button = PlaceListSegmentButton(title: titles[i], tag: i)
+            let button = CustomSegmentedControlButton(title: titles[i], tag: i)
             buttonsArray.append(button)
         }
         
@@ -66,7 +66,7 @@ final class PlaceListSegmentedControl: UIStackView, CustomSegmentedControlType {
     
 }
 
-extension PlaceListSegmentedControl {
+extension CustomSegmentedControl {
     
     //MARK: - Private Func
     
@@ -85,9 +85,9 @@ extension PlaceListSegmentedControl {
     }
     
     func addSegments(titles: [String]) {
-        var buttonsArray: [PlaceListSegmentButton] = []
+        var buttonsArray: [CustomSegmentedControlButton] = []
         for i in 0..<titles.count {
-            let button = PlaceListSegmentButton(title: titles[i], tag: i)
+            let button = CustomSegmentedControlButton(title: titles[i], tag: i)
             buttonsArray.append(button)
         }
         buttonsArray.forEach { segmentButton in
@@ -105,7 +105,7 @@ extension PlaceListSegmentedControl {
     
     private func setButtonsTarget() {
         self.arrangedSubviews.forEach { view in
-            guard let button = view as? PlaceListSegmentButton else { return }
+            guard let button = view as? CustomSegmentedControlButton else { return }
             button.addTarget(self, action: #selector(segmentDidTapped(sender:)), for: .touchUpInside)
         }
     }
@@ -123,7 +123,7 @@ extension PlaceListSegmentedControl {
     }
     
     func changeSegmentTitle(at index: Int, to newTitle: String) {
-        guard let button = arrangedSubviews[index] as? PlaceListSegmentButton else { return }
+        guard let button = arrangedSubviews[index] as? CustomSegmentedControlButton else { return }
         button.setTitle(newTitle, for: .normal)
     }
     
