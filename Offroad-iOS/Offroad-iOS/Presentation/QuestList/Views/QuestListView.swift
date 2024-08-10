@@ -18,12 +18,11 @@ class QuestListView: UIView {
     let customBackButton = UIButton()
     let titleLabel = UILabel()
     let titleIcon = UIImageView()
-    let segmentStackView = UIStackView()
-    let customSegmentedControl = CustomSegmentedControl()
+    let ongoingQuestLabel = UILabel()
+    let ongoingQuestToggle = UISwitch()
     let separator = UIView()
 
-    var placeNeverVisitedListCollectionView: UICollectionView!
-    var allPlaceListCollectionView: UICollectionView!
+    var questListCollectionView: UICollectionView!
 
     //MARK: - Life Cycle
 
@@ -41,7 +40,7 @@ class QuestListView: UIView {
 
 }
 
-extension PlaceListView {
+extension QuestListView {
 
     //MARK: - Private Func
 
@@ -77,11 +76,18 @@ extension PlaceListView {
             label.font = .offroad(style: .iosTextTitle)
             label.textColor = .main(.main2)
         }
-
-        customSegmentedControl.do { segmentedControl in
-            segmentedControl.addSegments(titles: ["안 가본 곳", "전체"])
+        
+        ongoingQuestLabel.do { label in
+            label.font = .offroad(style: .iosTextContents)
+            label.text = "진행 중"
+            label.textColor = .grayscale(.gray400)
         }
-
+        
+        ongoingQuestToggle.do {
+            $0.isOn = false
+            $0.tintColor = .sub(.sub)
+        }
+        
         separator.do { view in
             view.backgroundColor = .grayscale(.gray100)
         }
@@ -100,13 +106,8 @@ extension PlaceListView {
         layoutForAllPlace.minimumInteritemSpacing = 100
         layoutForAllPlace.estimatedItemSize.width = UIScreen.current.bounds.width - 32
 
-        placeNeverVisitedListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForPlaceNeverVisited)
-        placeNeverVisitedListCollectionView.backgroundColor = UIColor(hexCode: "F6EEDF")
-
-        allPlaceListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForAllPlace)
-        allPlaceListCollectionView.backgroundColor = UIColor(hexCode: "F6EEDF")
-
-        allPlaceListCollectionView.isHidden = true
+        questListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForPlaceNeverVisited)
+        questListCollectionView.backgroundColor = UIColor(hexCode: "F6EEDF")
     }
 
     private func setupHierarchy() {
@@ -114,17 +115,17 @@ extension PlaceListView {
             customNavigationBar,
             customBackButton,
             titleLabel,
-            customSegmentedControl,
+            ongoingQuestLabel,
+            ongoingQuestToggle,
             separator,
-            placeNeverVisitedListCollectionView,
-            allPlaceListCollectionView
+            questListCollectionView
         )
     }
 
     private func setupLayout() {
         customNavigationBar.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(customSegmentedControl.snp.bottom)
+            make.bottom.equalTo(titleLabel.snp.bottom).offset(28)
         }
 
         customBackButton.snp.makeConstraints { make in
@@ -136,26 +137,24 @@ extension PlaceListView {
             make.top.equalTo(customBackButton.snp.bottom).offset(39)
             make.leading.equalToSuperview().inset(23)
         }
-
-        customSegmentedControl.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(15)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24.5)
-            make.height.equalTo(46)
+        
+        ongoingQuestLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(titleLabel)
+            make.trailing.equalTo(ongoingQuestToggle.snp.leading).offset(-6)
         }
-
+        
+        ongoingQuestToggle.snp.makeConstraints { make in
+            make.centerY.equalTo(titleLabel)
+            make.trailing.equalToSuperview().inset(24)
+        }
+        
         separator.snp.makeConstraints { make in
-            make.top.equalTo(customSegmentedControl.snp.bottom)
+            make.top.equalTo(customNavigationBar.snp.bottom)
             make.horizontalEdges.equalToSuperview()
             make.height.equalTo(1)
         }
 
-        placeNeverVisitedListCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(separator.snp.bottom)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide)
-            make.bottom.equalToSuperview()
-        }
-
-        allPlaceListCollectionView.snp.makeConstraints { make in
+        questListCollectionView.snp.makeConstraints { make in
             make.top.equalTo(separator.snp.bottom)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.bottom.equalToSuperview()

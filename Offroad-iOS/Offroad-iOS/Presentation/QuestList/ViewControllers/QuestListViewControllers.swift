@@ -113,18 +113,18 @@ extension QuestListViewController: CustomSegmentedControlDelegate {
 
     func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int) {
 //        if selectedIndex == 0 {
-//            let currentOffset = rootView.allPlaceListCollectionView.contentOffset
-//            rootView.allPlaceListCollectionView.setContentOffset(currentOffset, animated: false)
+//            let currentOffset = rootView..contentOffset
+//            rootView..setContentOffset(currentOffset, animated: false)
 //        } else {
-//            let currentOffset = rootView.placeNeverVisitedListCollectionView.contentOffset
-//            rootView.placeNeverVisitedListCollectionView.setContentOffset(currentOffset, animated: false)
+//            let currentOffset = rootView.questListCollectionView.contentOffset
+//            rootView.questListCollectionView.setContentOffset(currentOffset, animated: false)
 //        }
 
-        //rootView.placeNeverVisitedListCollectionView.reloadData()
-        //rootView.allPlaceListCollectionView.reloadData()
+        //rootView.questListCollectionView.reloadData()
+        //rootView..reloadData()
 
-        //rootView.placeNeverVisitedListCollectionView.performBatchUpdates(nil)
-        //rootView.allPlaceListCollectionView.performBatchUpdates(nil)
+        //rootView.questListCollectionView.performBatchUpdates(nil)
+        //rootView..performBatchUpdates(nil)
 
         rootView.placeNeverVisitedListCollectionView.isHidden = selectedIndex != 0
         rootView.allPlaceListCollectionView.isHidden = selectedIndex != 1
