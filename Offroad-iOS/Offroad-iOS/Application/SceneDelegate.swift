@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window = UIWindow(windowScene: windowScene)
         self.window?.backgroundColor = .main(.main1)
-        self.window?.rootViewController = QuestMapViewController()
+        self.window?.rootViewController = SplashViewController()
         self.window?.makeKeyAndVisible()
     }
 
