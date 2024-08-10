@@ -18,7 +18,6 @@ class PlaceListView: UIView {
     let customBackButton = UIButton()
     let titleLabel = UILabel()
     let titleIcon = UIImageView()
-    let segmentStackView = UIStackView()
     let customSegmentedControl = CustomSegmentedControl()
     let separator = UIView()
     
