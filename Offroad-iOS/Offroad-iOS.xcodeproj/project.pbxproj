@@ -55,6 +55,7 @@
 		4EB32BE72C67A2B0003F98F2 /* QuestListViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */; };
 		4EB32BE92C67A2DD003F98F2 /* QuestListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BE82C67A2DD003F98F2 /* QuestListView.swift */; };
 		4EB32BEC2C67A39B003F98F2 /* QuestListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */; };
+		4EB32BEF2C67B0C2003F98F2 /* QuestListDummyDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BEE2C67B0C2003F98F2 /* QuestListDummyDataManager.swift */; };
 		4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE34912C3FC73C006DB244 /* QuestQRViewController.swift */; };
 		4EBE34942C3FC749006DB244 /* QuestQRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE34932C3FC749006DB244 /* QuestQRView.swift */; };
 		4EDC3D412C31271F006A1493 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */; };
@@ -212,6 +213,7 @@
 		4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListViewControllers.swift; sourceTree = "<group>"; };
 		4EB32BE82C67A2DD003F98F2 /* QuestListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListView.swift; sourceTree = "<group>"; };
 		4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListCollectionViewCell.swift; sourceTree = "<group>"; };
+		4EB32BEE2C67B0C2003F98F2 /* QuestListDummyDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListDummyDataManager.swift; sourceTree = "<group>"; };
 		4EBE34912C3FC73C006DB244 /* QuestQRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestQRViewController.swift; sourceTree = "<group>"; };
 		4EBE34932C3FC749006DB244 /* QuestQRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestQRView.swift; sourceTree = "<group>"; };
 		4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -610,6 +612,7 @@
 		4E0394752C2AA711007F0517 /* QuestList */ = {
 			isa = PBXGroup;
 			children = (
+				4EB32BED2C67B0A8003F98F2 /* Models */,
 				4EB32BE52C67A229003F98F2 /* Views */,
 				4EB32BE42C67A21C003F98F2 /* ViewControllers */,
 			);
@@ -848,6 +851,14 @@
 				4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		4EB32BED2C67B0A8003F98F2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4EB32BEE2C67B0C2003F98F2 /* QuestListDummyDataManager.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		4EBE348F2C3FC71E006DB244 /* ViewControllers */ = {
@@ -1683,6 +1694,7 @@
 				D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */,
 				4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
+				4EB32BEF2C67B0C2003F98F2 /* QuestListDummyDataManager.swift in Sources */,
 				D0E796502C453B47005B47A5 /* AdventureService.swift in Sources */,
 				87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */,
 				D063E9922C57FE7400434A09 /* KeychainManager.swift in Sources */,
