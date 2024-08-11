@@ -22,7 +22,6 @@ struct QuestDTO {
 
 class QuestListDummyDataManager {
     
-    
     func makeDummyData() -> [QuestDTO] {
         
         return Array<QuestDTO>.init(
@@ -59,8 +58,8 @@ class QuestListDummyDataManager {
         questDescription: "이것은 퀘스트 상세 정보 문구입니다. 이 문구를 읽고 있다는 것은 매우 자세히 보고 있다는 뜻이겠죠? 너무 뚫어지게 쳐다보면 핸드폰 화면이 뚫릴 수 있으니 주의해주세요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "오프로드 회원가입 & 캐릭터 선택 후 홈 첫 진입 시",
         questRewardDescription: "칭호: 오프로드 스타터",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 1,
+        process: 0
     )
     
     let dummyQuest02 = QuestDTO(
@@ -68,8 +67,8 @@ class QuestListDummyDataManager {
         questDescription: "이것은 퀘스트 상세 정보 문구입니다. 이 문구를 읽고 있다는 것은 매우 자세히 보고 있다는 뜻이겠죠? 너무 뚫어지게 쳐다보면 핸드폰 화면이 뚫릴 수 있으니 주의해주세요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "첫 탐험을 성공하였을 시",
         questRewardDescription: "칭호: 위대한 첫 걸음",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 1,
+        process: 0
     )
     
     let dummyQuest03 = QuestDTO(
@@ -77,8 +76,8 @@ class QuestListDummyDataManager {
         questDescription: "너무 무리하면 건강을 잃을 수도 있습니다. 건강이 있어야 작업이 있는 법이겠지요? 만약 이 글을 뚫어지게 쳐다보고 있다면 이 기회에 허리를 펴고 올바를 자세를 잡아보도록 해요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "탐험 3개를 성공했을 시",
         questRewardDescription: "칭호: 왕초보 탐험가",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 3,
+        process: 2
     )
     
     let dummyQuest04 = QuestDTO(
@@ -86,7 +85,7 @@ class QuestListDummyDataManager {
         questDescription: "이것은 퀘스트 상세 정보 문구입니다. 이 문구를 읽고 있다는 것은 매우 자세히 보고 있다는 뜻이겠죠? 너무 뚫어지게 쳐다보면 핸드폰 화면이 뚫릴 수 있으니 주의해주세요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "탐험 10개를 성공했을 시",
         questRewardDescription: "칭호: 초보 탐험가",
-        totalProcess: 5,
+        totalProcess: 10,
         process: 10
     )
     
@@ -95,7 +94,7 @@ class QuestListDummyDataManager {
         questDescription: "바빠서 개발 할 시간이 없는 점이 너무 슬프네요..빠르게 제 일정이 정상화되어 오프로드에 기여할 수 있길 바랍니다! 그럼 오늘도 행복코딩!!",
         questClearDescription: "탐험 50개를 성공했을 시",
         questRewardDescription: "칭호: 베테랑 탐험가",
-        totalProcess: 5,
+        totalProcess: 50,
         process: 10
     )
     
@@ -104,8 +103,8 @@ class QuestListDummyDataManager {
         questDescription: "너무 무리하면 건강을 잃을 수도 있습니다. 건강이 있어야 작업이 있는 법이겠지요? 만약 이 글을 뚫어지게 쳐다보고 있다면 이 기회에 허리를 펴고 올바를 자세를 잡아보도록 해요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "탐험 100개를 성공했을 시",
         questRewardDescription: "칭호: 탐험 전문가",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 100,
+        process: 25
     )
     
     let dummyQuest07 = QuestDTO(
@@ -113,8 +112,8 @@ class QuestListDummyDataManager {
         questDescription: "이것은 퀘스트 상세 정보 문구입니다. 이 문구를 읽고 있다는 것은 매우 자세히 보고 있다는 뜻이겠죠? 너무 뚫어지게 쳐다보면 핸드폰 화면이 뚫릴 수 있으니 주의해주세요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "탐험 300개를 성공했을 시",
         questRewardDescription: "칭호: 탐험의 정수",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 300,
+        process: 13
     )
     
     let dummyQuest08 = QuestDTO(
@@ -122,8 +121,8 @@ class QuestListDummyDataManager {
         questDescription: "바빠서 개발 할 시간이 없는 점이 너무 슬프네요..빠르게 제 일정이 정상화되어 오프로드에 기여할 수 있길 바랍니다! 그럼 오늘도 행복코딩!!",
         questClearDescription: "탐험 500개를 성공했을 시",
         questRewardDescription: "칭호: 탐험 챔피언",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 500,
+        process: 150
     )
     
     let dummyQuest09 = QuestDTO(
@@ -131,8 +130,8 @@ class QuestListDummyDataManager {
         questDescription: "이것은 퀘스트 상세 정보 문구입니다. 이 문구를 읽고 있다는 것은 매우 자세히 보고 있다는 뜻이겠죠? 너무 뚫어지게 쳐다보면 핸드폰 화면이 뚫릴 수 있으니 주의해주세요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "탐험 1000개를 성공했을 시",
         questRewardDescription: "칭호: 탐험의 전설",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 1000,
+        process: 34
     )
     
     let dummyQuest10 = QuestDTO(
@@ -140,8 +139,8 @@ class QuestListDummyDataManager {
         questDescription: "이것은 퀘스트 상세 정보 문구입니다. 이 문구를 읽고 있다는 것은 매우 자세히 보고 있다는 뜻이겠죠? 너무 뚫어지게 쳐다보면 핸드폰 화면이 뚫릴 수 있으니 주의해주세요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "탐험 5000개를 성공했을 시",
         questRewardDescription: "칭호: 탐험의 신",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 5000,
+        process: 1021
     )
     
     let dummyQuest11 = QuestDTO(
@@ -149,8 +148,8 @@ class QuestListDummyDataManager {
         questDescription: "너무 무리하면 건강을 잃을 수도 있습니다. 건강이 있어야 작업이 있는 법이겠지요? 만약 이 글을 뚫어지게 쳐다보고 있다면 이 기회에 허리를 펴고 올바를 자세를 잡아보도록 해요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "첫 공원 방문 시",
         questRewardDescription: "모션: 걷는 모션(산책하는 모션)",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 1,
+        process: 1
     )
     
     let dummyQuest12 = QuestDTO(
@@ -158,8 +157,8 @@ class QuestListDummyDataManager {
         questDescription: "바빠서 개발 할 시간이 없는 점이 너무 슬프네요..빠르게 제 일정이 정상화되어 오프로드에 기여할 수 있길 바랍니다! 그럼 오늘도 행복코딩!!",
         questClearDescription: "공원 10번 방문 시",
         questRewardDescription: "칭호: 산책 마니아",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 10,
+        process: 6
     )
     
     let dummyQuest13 = QuestDTO(
@@ -167,7 +166,7 @@ class QuestListDummyDataManager {
         questDescription: "이것은 퀘스트 상세 정보 문구입니다. 이 문구를 읽고 있다는 것은 매우 자세히 보고 있다는 뜻이겠죠? 너무 뚫어지게 쳐다보면 핸드폰 화면이 뚫릴 수 있으니 주의해주세요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "공원 50번 방문 시",
         questRewardDescription: "칭호: 모르는 개 산책 (모션: 강아지와 산책하는 모션)",
-        totalProcess: 5,
+        totalProcess: 50,
         process: 10
     )
     
@@ -176,8 +175,8 @@ class QuestListDummyDataManager {
         questDescription: "바빠서 개발 할 시간이 없는 점이 너무 슬프네요..빠르게 제 일정이 정상화되어 오프로드에 기여할 수 있길 바랍니다! 그럼 오늘도 행복코딩!!",
         questClearDescription: "첫 식당 방문 시",
         questRewardDescription: "모션: 밥 먹는 모션",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 1,
+        process: 0
     )
     
     let dummyQuest15 = QuestDTO(
@@ -185,7 +184,7 @@ class QuestListDummyDataManager {
         questDescription: "너무 무리하면 건강을 잃을 수도 있습니다. 건강이 있어야 작업이 있는 법이겠지요? 만약 이 글을 뚫어지게 쳐다보고 있다면 이 기회에 허리를 펴고 올바를 자세를 잡아보도록 해요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "식당 10번 방문 시",
         questRewardDescription: "칭호: 맛집 헌터, 쿠폰: 식당 10% 할인",
-        totalProcess: 5,
+        totalProcess: 10,
         process: 10
     )
     
@@ -194,8 +193,8 @@ class QuestListDummyDataManager {
         questDescription: "이것은 퀘스트 상세 정보 문구입니다. 이 문구를 읽고 있다는 것은 매우 자세히 보고 있다는 뜻이겠죠? 너무 뚫어지게 쳐다보면 핸드폰 화면이 뚫릴 수 있으니 주의해주세요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "식당 50번 방문 시",
         questRewardDescription: "칭호: 너와 100번째 식당, 쿠폰: 식당 20만원권",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 50,
+        process: 13
     )
     
     let dummyQuest17 = QuestDTO(
@@ -203,8 +202,8 @@ class QuestListDummyDataManager {
         questDescription: "이것은 퀘스트 상세 정보 문구입니다. 이 문구를 읽고 있다는 것은 매우 자세히 보고 있다는 뜻이겠죠? 너무 뚫어지게 쳐다보면 핸드폰 화면이 뚫릴 수 있으니 주의해주세요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "첫 카페 방문 시",
         questRewardDescription: "모션: 커피 마시는 모션",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 1,
+        process: 1
     )
     
     let dummyQuest18 = QuestDTO(
@@ -212,7 +211,7 @@ class QuestListDummyDataManager {
         questDescription: "너무 무리하면 건강을 잃을 수도 있습니다. 건강이 있어야 작업이 있는 법이겠지요? 만약 이 글을 뚫어지게 쳐다보고 있다면 이 기회에 허리를 펴고 올바를 자세를 잡아보도록 해요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "카페 10번 방문 시",
         questRewardDescription: "칭호: 카페는 내 친구, 쿠폰: 카페 10% 할인",
-        totalProcess: 5,
+        totalProcess: 10,
         process: 10
     )
     
@@ -221,8 +220,8 @@ class QuestListDummyDataManager {
         questDescription: "이것은 퀘스트 상세 정보 문구입니다. 이 문구를 읽고 있다는 것은 매우 자세히 보고 있다는 뜻이겠죠? 너무 뚫어지게 쳐다보면 핸드폰 화면이 뚫릴 수 있으니 주의해주세요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "카페 50번 방문 시",
         questRewardDescription: "칭호: 카페 중독, 쿠폰: 카페 10만원권",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 50,
+        process: 11
     )
     
     let dummyQuest20 = QuestDTO(
@@ -230,8 +229,8 @@ class QuestListDummyDataManager {
         questDescription: "이것은 퀘스트 상세 정보 문구입니다. 이 문구를 읽고 있다는 것은 매우 자세히 보고 있다는 뜻이겠죠? 너무 뚫어지게 쳐다보면 핸드폰 화면이 뚫릴 수 있으니 주의해주세요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "카페 200번 방문 시",
         questRewardDescription: "칭호: 커피바라, 모션: 카피바라와 함께 커피를 마심",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 200,
+        process: 101
     )
     
     let dummyQuest21 = QuestDTO(
@@ -239,8 +238,8 @@ class QuestListDummyDataManager {
         questDescription: "너무 무리하면 건강을 잃을 수도 있습니다. 건강이 있어야 작업이 있는 법이겠지요? 만약 이 글을 뚫어지게 쳐다보고 있다면 이 기회에 허리를 펴고 올바를 자세를 잡아보도록 해요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "첫 스포츠 카테고리 방문 시",
         questRewardDescription: "모션: 운동을 하는 모션",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 1,
+        process: 0
     )
     
     let dummyQuest22 = QuestDTO(
@@ -248,8 +247,8 @@ class QuestListDummyDataManager {
         questDescription: "이것은 퀘스트 상세 정보 문구입니다. 이 문구를 읽고 있다는 것은 매우 자세히 보고 있다는 뜻이겠죠? 너무 뚫어지게 쳐다보면 핸드폰 화면이 뚫릴 수 있으니 주의해주세요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "스포츠 카테고리 15번 방문 시",
         questRewardDescription: "칭호: 경기장의 휘슬 소리",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 15,
+        process: 3
     )
     
     let dummyQuest23 = QuestDTO(
@@ -257,8 +256,8 @@ class QuestListDummyDataManager {
         questDescription: "바빠서 개발 할 시간이 없는 점이 너무 슬프네요..빠르게 제 일정이 정상화되어 오프로드에 기여할 수 있길 바랍니다! 그럼 오늘도 행복코딩!!",
         questClearDescription: "첫 문화 카테고리 방문 시",
         questRewardDescription: "모션: 전시를 구경하는 모션",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 1,
+        process: 0
     )
     
     let dummyQuest24 = QuestDTO(
@@ -266,8 +265,8 @@ class QuestListDummyDataManager {
         questDescription: "이것은 퀘스트 상세 정보 문구입니다. 이 문구를 읽고 있다는 것은 매우 자세히 보고 있다는 뜻이겠죠? 너무 뚫어지게 쳐다보면 핸드폰 화면이 뚫릴 수 있으니 주의해주세요! 그럼 오늘도 행복코딩!!",
         questClearDescription: "문화 카테고리 15번 방문 시",
         questRewardDescription: "칭호: 문화 생활",
-        totalProcess: 5,
-        process: 10
+        totalProcess: 15,
+        process: 7
     )
     
 }

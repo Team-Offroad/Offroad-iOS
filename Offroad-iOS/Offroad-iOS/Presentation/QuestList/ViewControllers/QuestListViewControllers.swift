@@ -11,16 +11,15 @@ class QuestListViewController: UIViewController {
 
     //MARK: - Properties
 
-    var dummyDataSource: [RegisteredPlaceInfo] = []
-    let dummyDataForPlaceNeverVisited: [RegisteredPlaceInfo] = PlaceListDummyDataManager.makeDummyData(count: 100)
-    let dummyDataForAllPlace: [RegisteredPlaceInfo] = PlaceListDummyDataManager.makeDummyData(count: 100)
+    var dummyDataSource: [QuestDTO] = []
+    let questListDummyData: [QuestDTO] = QuestListDummyDataManager().makeDummyData()
 
     let operationQueue = OperationQueue()
     private(set) var isSearchingAllList: Bool = false
 
     //MARK: - UI Properties
 
-    let rootView = PlaceListView()
+    let rootView = QuestListView()
 
     //MARK: - Life Cycle
 
@@ -40,8 +39,7 @@ class QuestListViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        rootView.customSegmentedControl.selectSegment(index: 0)
+        
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
     }
@@ -70,28 +68,17 @@ extension QuestListViewController {
     }
 
     private func setupCollectionView() {
-        rootView.placeNeverVisitedListCollectionView.register(
-            PlaceCollectionViewCell.self,
-            forCellWithReuseIdentifier: PlaceCollectionViewCell.className
+        rootView.questListCollectionView.register(
+            QuestListCollectionViewCell.self,
+            forCellWithReuseIdentifier: QuestListCollectionViewCell.className
         )
-
-        rootView.allPlaceListCollectionView.register(
-            PlaceCollectionViewCell.self,
-            forCellWithReuseIdentifier: PlaceCollectionViewCell.className
-        )
-
-        rootView.placeNeverVisitedListCollectionView.reloadData()
-        rootView.allPlaceListCollectionView.reloadData()
+        
+        rootView.questListCollectionView.reloadData()
     }
 
     private func setupDelegates() {
-        rootView.customSegmentedControl.delegate = self
-
-        rootView.placeNeverVisitedListCollectionView.dataSource = self
-        rootView.placeNeverVisitedListCollectionView.delegate = self
-
-        rootView.allPlaceListCollectionView.dataSource = self
-        rootView.allPlaceListCollectionView.delegate = self
+        rootView.questListCollectionView.dataSource = self
+        rootView.questListCollectionView.delegate = self
     }
 
 }
@@ -107,54 +94,26 @@ extension QuestListViewController: UIGestureRecognizerDelegate {
 
 }
 
-//MARK: - PlaceListSegmentedControlDelegate
-
-extension QuestListViewController: CustomSegmentedControlDelegate {
-
-    func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int) {
-//        if selectedIndex == 0 {
-//            let currentOffset = rootView..contentOffset
-//            rootView..setContentOffset(currentOffset, animated: false)
-//        } else {
-//            let currentOffset = rootView.questListCollectionView.contentOffset
-//            rootView.questListCollectionView.setContentOffset(currentOffset, animated: false)
-//        }
-
-        //rootView.questListCollectionView.reloadData()
-        //rootView..reloadData()
-
-        //rootView.questListCollectionView.performBatchUpdates(nil)
-        //rootView..performBatchUpdates(nil)
-
-        rootView.placeNeverVisitedListCollectionView.isHidden = selectedIndex != 0
-        rootView.allPlaceListCollectionView.isHidden = selectedIndex != 1
-    }
-
-}
-
 //MARK: - UICollectionViewDataSource
 
 extension QuestListViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == rootView.placeNeverVisitedListCollectionView {
-            return dummyDataForPlaceNeverVisited.count
+        if collectionView == rootView.questListCollectionView {
+            return questListDummyData.count
         } else {
-            return dummyDataForAllPlace.count
+            return questListDummyData.count
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: PlaceCollectionViewCell.className,
+            withReuseIdentifier: QuestListCollectionViewCell.className,
             for: indexPath
-        ) as? PlaceCollectionViewCell else { fatalError("cell dequeing Failed!") }
-
-        if collectionView == rootView.placeNeverVisitedListCollectionView {
-            cell.configureCell(with: dummyDataForPlaceNeverVisited[indexPath.item], showingVisitingCount: false)
-        } else if collectionView == rootView.allPlaceListCollectionView {
-            cell.configureCell(with: dummyDataForAllPlace[indexPath.item], showingVisitingCount: true)
-        }
+        ) as? QuestListCollectionViewCell else { fatalError("cell dequeing Failed!") }
+        
+        cell.configureCell(with: questListDummyData[indexPath.item])
+        
         return cell
     }
 
