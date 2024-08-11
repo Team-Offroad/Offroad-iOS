@@ -105,6 +105,10 @@ extension QuestListViewController: UIGestureRecognizerDelegate {
 }
 
 //MARK: - UICollectionViewDataSource
+// (이 주석은 Issue 해결 후 삭제할 예정)
+// 서버의 API가 어떤 식으로 나올 지 아직 몰라서,
+// 우선 현재는 모든 퀘스트 정보를 불러오고, 스위치를 토글하면, 받아온 진행 정보를 바탕으로 필터링하여 보여주는 방식으로 구현하였습니다.
+// 만약 서버의 API에서 '전체 퀘스트'와 '진행 중인 퀘스트'만을 요청하는 API가 존재한다면, 해당 API를 사용하여 구현하여도 좋습니다.
 
 extension QuestListViewController: UICollectionViewDataSource {
 
