@@ -48,6 +48,16 @@ class QuestListViewController: UIViewController {
 }
 
 extension QuestListViewController {
+    
+    //MARK: - @objc Func
+    
+    @objc private func customBackButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func ongoingQuestSwitchValueChanged(sender: UISwitch) {
+        rootView.questListCollectionView.reloadData()
+    }
 
     //MARK: - Private Func
 
@@ -66,17 +76,7 @@ extension QuestListViewController {
     private func setupSwitchActions() {
         rootView.ongoingQuestToggle.addTarget(self, action: #selector(ongoingQuestSwitchValueChanged(sender:)), for: .valueChanged)
     }
-
-    @objc private func customBackButtonTapped() {
-        print(#function)
-        navigationController?.popViewController(animated: true)
-    }
     
-    @objc private func ongoingQuestSwitchValueChanged(sender: UISwitch) {
-        rootView.questListCollectionView.reloadData()
-        //rootView.questListCollectionView.collectionViewLayout.invalidateLayout()
-    }
-
     private func setupCollectionView() {
         rootView.questListCollectionView.register(
             QuestListCollectionViewCell.self,
@@ -144,7 +144,6 @@ extension QuestListViewController: UICollectionViewDataSource {
 extension QuestListViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-
         let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
         animator.addAnimations {
             if collectionView.indexPathsForSelectedItems?.contains(indexPath) ?? false {

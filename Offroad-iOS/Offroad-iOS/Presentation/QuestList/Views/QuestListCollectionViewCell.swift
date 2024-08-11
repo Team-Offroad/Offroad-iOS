@@ -26,16 +26,17 @@ class QuestListCollectionViewCell: UICollectionViewCell {
     
     let questNameLabel = UILabel()
     let questProgressLabel = UILabel()
-    // 지금은 파일이 없어 에러가 뜹니다.
-    // 장소 목록 뷰 PR 올린 내용 중에 해당 파일이 추가되어있습니다.
-    // 해당 브랜치를 머지하면 에러가 발생하지 않습니다.
+    /// 아래 주석 처리된 `let chevronImageView = ... .icnPlace...CellChevron)` 코드 부분을 해제하면 지금은 파일이 없어 에러가 뜹니다.
+    /// 장소 목록 뷰 PR 올린 내용 중에 해당 파일이 추가되어있습니다.
+    /// 해당 브랜치를 머지하면 에러가 발생하지 않습니다.
     //let chevronImageView = UIImageView(image: .icnPlaceListExpendableCellChevron)
+    
+    /// 지금은 임시로 SFSymbol을 사용하여 구현하였습니다.
     let chevronImageView = UIImageView(image: .init(systemName: "chevron.down"))
     
     let questDescriptionLabel = UILabel()
     
     let questInfoView = UILabel()
-    // 아래 두 이미지뷰의 이미지는 임시로 SFSymbol 사용함. 추후 변경 예정
     let checkBoxImageView = UIImageView(image: .icnQuestListCheckBox)
     let giftBoxImageVIew = UIImageView(image: .icnQuestListGiftBox)
     let questClearConditionLabel = UILabel()
@@ -56,13 +57,14 @@ class QuestListCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    deinit {
-        print("cell이 사라짐")
-    }
-
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        questNameLabel.text = ""
+        questProgressLabel.text = ""
+        questDescriptionLabel.text = ""
+        questClearConditionLabel.text = ""
+        questRewardDescriptionLabel.text = ""
     }
 
 }
@@ -88,8 +90,6 @@ extension QuestListCollectionViewCell {
             questClearConditionLabel,
             questRewardDescriptionLabel
         )
-        
-        
     }
 
     private func setupStyle() {
@@ -151,10 +151,10 @@ extension QuestListCollectionViewCell {
             label.numberOfLines = 0
             label.textAlignment = .left
         }
-        
     }
 
     private func setupLayout() {
+        // (이슈 해결 후 삭제 예정)
         // widthConstraint의 priority를 .defaultHigh로 설정하면 첫 번째 셀의 가로 길이가 collectionView를 넘어간다.
         // 이 priority를 .defaultHigh가 아닌 UILayoutPriority.init(1000)으로 설정하면 해당 문제가 해결됨.
         // 왜 그런지 공부하기
@@ -193,30 +193,25 @@ extension QuestListCollectionViewCell {
         }
         
         giftBoxImageVIew.snp.makeConstraints { make in
-            //make.centerY.equalTo(questRewardDescriptionLabel)
-            //make.top.equalTo(checkBoxImageView.snp.bottom).offset(4)
             make.top.greaterThanOrEqualTo(checkBoxImageView.snp.bottom).offset(4)
             make.leading.equalToSuperview().inset(12)
             make.size.equalTo(25)
         }
 
         questClearConditionLabel.snp.makeConstraints { make in
-            //make.centerY.equalTo(checkBoxImageView)
-            // 9 from top
             make.top.equalToSuperview().inset(9)
             make.leading.equalTo(checkBoxImageView.snp.trailing).offset(6)
-            // 피그마상으로는 22라고 되어있는데, 잘못된 것 같아 임의로 조정함.
+            // 피그마상으로는 22라고 되어있는데, 잘못된 것 같아 임의로 설정함.
+            // 디자이너분들과 논의 후 확정 필요
             make.trailing.equalToSuperview().inset(12)
         }
         
         questRewardDescriptionLabel.snp.makeConstraints { make in
             make.centerY.equalTo(giftBoxImageVIew)
-            // 7 from top
-            //make.top.equalTo(questClearConditionLabel.snp.bottom).offset(7)
             make.top.greaterThanOrEqualTo(questClearConditionLabel.snp.bottom).offset(7)
-            
             make.leading.equalTo(giftBoxImageVIew.snp.trailing).offset(6)
-            // 피그마상으로는 22라고 되어있는데, 잘못된 것 같아 임의로 조정함.
+            // 피그마상으로는 22라고 되어있는데, 잘못된 것 같아 임의로 설정함.
+            // 디자이너분들과 논의 후 확정 필요
             make.trailing.equalToSuperview().inset(12)
             make.bottom.equalToSuperview().inset(9)
         }
