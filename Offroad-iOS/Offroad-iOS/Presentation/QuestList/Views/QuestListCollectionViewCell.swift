@@ -36,8 +36,8 @@ class QuestListCollectionViewCell: UICollectionViewCell {
     
     let questInfoView = UILabel()
     // 아래 두 이미지뷰의 이미지는 임시로 SFSymbol 사용함. 추후 변경 예정
-    let checkBoxImageView = UIImageView(image: .init(systemName: "checkmark.square.fill"))
-    let giftBoxImageVIew = UIImageView(image: .init(systemName: "gift.fill"))
+    let checkBoxImageView = UIImageView(image: .icnQuestListCheckBox)
+    let giftBoxImageVIew = UIImageView(image: .icnQuestListGiftBox)
     let questClearConditionLabel = UILabel()
     let questRewardDescriptionLabel = UILabel()
 
