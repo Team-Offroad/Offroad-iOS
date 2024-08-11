@@ -85,7 +85,9 @@ extension QuestListView {
         
         ongoingQuestToggle.do {
             $0.isOn = false
-            $0.tintColor = .sub(.sub)
+            //$0.tintColor = .sub(.sub)
+            //UISwitch 의 tintColor에 대해 공부하기! (onSwitch와의 차이점?)
+            $0.onTintColor = .sub(.sub)
         }
         
         separator.do { view in
