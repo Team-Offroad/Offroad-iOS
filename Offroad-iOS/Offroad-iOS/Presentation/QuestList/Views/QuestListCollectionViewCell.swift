@@ -154,19 +154,24 @@ extension QuestListCollectionViewCell {
     }
 
     private func setupLayout() {
-        widthConstraint.priority = .defaultHigh
+        // widthConstraint의 priority를 .defaultHigh로 설정하면 첫 번째 셀의 가로 길이가 collectionView를 넘어간다.
+        // 이 priority를 .defaultHigh가 아닌 UILayoutPriority.init(1000)으로 설정하면 해당 문제가 해결됨.
+        // 왜 그런지 공부하기
+        widthConstraint.priority = .init(1000)
         widthConstraint.isActive = true
 
         questNameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(18)
             make.leading.equalToSuperview().inset(20)
-            //make.trailing.equalTo(chevronImageView.snp.leading).offset(-17)
+            make.trailing.equalTo(questProgressLabel.snp.leading).offset(-7)
         }
+        questNameLabel.setContentCompressionResistancePriority(.init(0), for: .horizontal)
         
         questProgressLabel.snp.makeConstraints { make in
             make.centerY.equalTo(questNameLabel)
             make.trailing.equalTo(chevronImageView.snp.leading)
         }
+        questProgressLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
         chevronImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(8)
@@ -187,8 +192,9 @@ extension QuestListCollectionViewCell {
         }
         
         giftBoxImageVIew.snp.makeConstraints { make in
-            make.centerY.equalTo(questRewardDescriptionLabel)
+            //make.centerY.equalTo(questRewardDescriptionLabel)
             //make.top.equalTo(checkBoxImageView.snp.bottom).offset(4)
+            make.top.greaterThanOrEqualTo(checkBoxImageView.snp.bottom).offset(4)
             make.leading.equalToSuperview().inset(12)
             make.size.equalTo(25)
         }
@@ -203,9 +209,10 @@ extension QuestListCollectionViewCell {
         }
         
         questRewardDescriptionLabel.snp.makeConstraints { make in
-            //make.centerY.equalTo(giftBoxImageVIew)
+            make.centerY.equalTo(giftBoxImageVIew)
             // 7 from top
-            make.top.equalTo(questClearConditionLabel.snp.bottom).offset(7)
+            //make.top.equalTo(questClearConditionLabel.snp.bottom).offset(7)
+            make.top.greaterThanOrEqualTo(questClearConditionLabel.snp.bottom).offset(7)
             
             make.leading.equalTo(giftBoxImageVIew.snp.trailing).offset(6)
             // 피그마상으로는 22라고 되어있는데, 잘못된 것 같아 임의로 조정함.

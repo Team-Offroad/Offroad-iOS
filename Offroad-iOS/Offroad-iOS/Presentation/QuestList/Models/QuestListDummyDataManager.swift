@@ -54,10 +54,10 @@ class QuestListDummyDataManager {
     }
     
     let dummyQuest01 = QuestDTO(
-        title: "오프로드로 가는 길",
+        title: "오프로드로 가는 길 만약 퀘스트 이름이 너무 길다면? 문제가 생갈까요? 테스트 문구를 넣어보고 있습니다.",
         questDescription: "이것은 퀘스트 상세 정보 문구입니다. 이 문구를 읽고 있다는 것은 매우 자세히 보고 있다는 뜻이겠죠? 너무 뚫어지게 쳐다보면 핸드폰 화면이 뚫릴 수 있으니 주의해주세요! 그럼 오늘도 행복코딩!!",
-        questClearDescription: "오프로드 회원가입 & 캐릭터 선택 후 홈 첫 진입 시",
-        questRewardDescription: "칭호: 오프로드 스타터",
+        questClearDescription: "오프로드 회원가입 & 캐릭터 선택 후 홈 첫 진입 시 만약 퀘스트 이름이 너무 길다면? 문제가 생갈까요? 테스트 문구를 넣어보고 있습니다.",
+        questRewardDescription: "칭호: 오프로드 스타터 만약 퀘스트 이름이 너무 길다면? 문제가 생갈까요? 테스트 문구를 넣어보고 있습니다.",
         totalProcess: 1,
         process: 0
     )
