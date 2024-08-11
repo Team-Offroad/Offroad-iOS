@@ -33,6 +33,7 @@ class QuestListViewController: UIViewController {
         setNavigationController()
         setupNavigationControllerGesture()
         setupButtonsActions()
+        setupSwitchActions()
         setupCollectionView()
         setupDelegates()
     }
@@ -61,10 +62,19 @@ extension QuestListViewController {
     private func setupButtonsActions() {
         rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
     }
+    
+    private func setupSwitchActions() {
+        rootView.ongoingQuestToggle.addTarget(self, action: #selector(ongoingQuestSwitchValueChanged(sender:)), for: .valueChanged)
+    }
 
     @objc private func customBackButtonTapped() {
         print(#function)
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func ongoingQuestSwitchValueChanged(sender: UISwitch) {
+        rootView.questListCollectionView.reloadData()
+        //rootView.questListCollectionView.collectionViewLayout.invalidateLayout()
     }
 
     private func setupCollectionView() {
@@ -99,20 +109,26 @@ extension QuestListViewController: UIGestureRecognizerDelegate {
 extension QuestListViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == rootView.questListCollectionView {
-            return questListDummyData.count
+        if rootView.ongoingQuestToggle.isOn {
+            return questListDummyData.filter({ $0.process > 0 && $0.process < $0.totalProcess }).count
         } else {
             return questListDummyData.count
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: QuestListCollectionViewCell.className,
             for: indexPath
         ) as? QuestListCollectionViewCell else { fatalError("cell dequeing Failed!") }
         
-        cell.configureCell(with: questListDummyData[indexPath.item])
+        if rootView.ongoingQuestToggle.isOn {
+            cell.configureCell(
+                with: questListDummyData.filter({ $0.process > 0 && $0.process < $0.totalProcess })[indexPath.item]
+            )
+        } else {
+            cell.configureCell(with: questListDummyData[indexPath.item])
+        }
         
         return cell
     }

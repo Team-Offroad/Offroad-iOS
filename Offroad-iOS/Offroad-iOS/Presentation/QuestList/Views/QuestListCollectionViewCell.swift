@@ -107,6 +107,7 @@ extension QuestListCollectionViewCell {
         questProgressLabel.do { label in
             label.font = .offroad(style: .iosHint)
             label.textColor = .sub(.sub2)
+            label.textAlignment = .right
         }
         
         chevronImageView.do { imageView in
