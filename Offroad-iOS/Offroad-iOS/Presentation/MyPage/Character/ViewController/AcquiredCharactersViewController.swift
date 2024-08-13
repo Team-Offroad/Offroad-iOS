@@ -4,6 +4,7 @@
 //
 //  Created by  정지원 on 8/11/24.
 //
+
 import UIKit
 
 class AcquiredCharactersViewController: UIViewController {
@@ -20,6 +21,7 @@ class AcquiredCharactersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupDelegate()
     }
     
@@ -52,6 +54,3 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
         // 누르면 이동하는 VC
     }
 }
-
-
-
