@@ -45,7 +45,7 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AcquiredCharactersCell", for: indexPath) as! AcquiredCharactersCell
         let imageNameIndex = (indexPath.item % 3) + 1
         let imageName = "character_\(imageNameIndex)"
-        cell.configure(imageName: imageName)
+        cell.configureCell(imageName: imageName)
         
         return cell
     }
