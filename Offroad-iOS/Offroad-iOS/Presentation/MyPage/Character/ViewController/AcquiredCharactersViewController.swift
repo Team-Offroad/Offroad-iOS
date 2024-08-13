@@ -49,7 +49,34 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // 누르면 이동하는 VC
+        print("Cell \(indexPath.item) selected")
+        let imageNameIndex = (indexPath.item % 3) + 1
+        let imageName = "character_\(imageNameIndex)"
+        
+        let button = UIButton().then { button in
+            button.setImage(.backBarButton, for: .normal)
+            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
+            button.imageView?.contentMode = .scaleAspectFill
+            button.snp.makeConstraints { make in
+                make.width.equalTo(30)
+                make.height.equalTo(44)
+            }
+        }
+        
+        let detailViewController = CharacterDetailViewController(imageName: imageName)
+        let customBackBarButton = UIBarButtonItem(customView: button)
+        detailViewController.navigationItem.leftBarButtonItem = customBackBarButton
+        
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}
+
+extension AcquiredCharactersViewController {
+    
+    // MARK: - @Objc Func
+    
+    @objc private func executePop() {
+        navigationController?.popViewController(animated: true)
     }
 }
 

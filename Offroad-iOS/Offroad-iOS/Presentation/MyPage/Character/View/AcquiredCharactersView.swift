@@ -23,7 +23,7 @@ class AcquiredCharactersView: UIView {
         $0.font = UIFont.offroad(style: .iosTextTitle)
     }
     
-    private let characterImage = UIImageView(image: UIImage(resource: .baby))
+    private let babyImage = UIImageView(image: UIImage(resource: .baby))
     
     private let subLabel = UILabel().then {
         $0.text = "퀘스트를 달성하고 보상으로 캐릭터를 얻어보아요!"
@@ -69,7 +69,7 @@ class AcquiredCharactersView: UIView {
     private func setupHierarchy() {
         addSubview(labelView)
         addSubview(collectionView)
-        labelView.addSubviews(mainLabel, subLabel, characterImage, checkImage)
+        labelView.addSubviews(mainLabel, subLabel, babyImage, checkImage)
     }
 
     private func setupLayout() {
@@ -89,7 +89,7 @@ class AcquiredCharactersView: UIView {
             make.leading.equalTo(checkImage.snp.trailing).offset(6)
         }
 
-        characterImage.snp.makeConstraints { make in
+        babyImage.snp.makeConstraints { make in
             make.centerY.equalTo(mainLabel)
             make.leading.equalTo(mainLabel.snp.trailing).offset(8)
             make.size.equalTo(CGSize(width: 26, height: 21))
