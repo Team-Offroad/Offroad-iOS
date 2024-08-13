@@ -118,7 +118,7 @@ extension MyPageView {
             
             let path = CGMutablePath()
             path.addLines(between: [CGPoint(x: 0, y: 0),
-                                    CGPoint(x: 296, y: 0)])
+                                    CGPoint(x: getBackgroundViewWidth() - 50, y: 0)])
             shapeLayer.path = path
             
             $0.layer.addSublayer(shapeLayer)
