@@ -18,6 +18,7 @@ enum Primary: String, OffroadColor {
     case characterSelectBg1 = "FFF4CC"
     case characterSelectBg2 = "FFE1C5"
     case characterSelectBg3 = "F9E5D2"
+    case listBg = "F6EEDF"
     case wall = "452B0F"
     case ground = "685440"
 }
