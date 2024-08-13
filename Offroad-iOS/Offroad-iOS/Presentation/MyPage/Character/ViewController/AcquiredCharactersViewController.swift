@@ -36,7 +36,7 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
     // MARK: - CollectionView Func
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10 // Adjust based on your data
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -49,8 +49,7 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Handle cell tap, navigate to detail screen
-        // Example: Pushing a new view controller or presenting it
+        // 누르면 이동하는 VC
     }
 }
 
