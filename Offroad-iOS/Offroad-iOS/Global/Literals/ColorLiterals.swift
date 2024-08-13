@@ -87,7 +87,6 @@ enum Home: String, OffroadColor {
     case homeNicknameStroke = "#C0B3A2"
 }
 
-
 extension UIColor {
     
     static func primary(_ style: Primary, alpha: CGFloat = 1) -> UIColor {
