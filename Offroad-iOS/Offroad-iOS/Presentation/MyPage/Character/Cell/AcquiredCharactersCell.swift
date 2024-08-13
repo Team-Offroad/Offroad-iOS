@@ -18,8 +18,15 @@ class AcquiredCharactersCell: UICollectionViewCell {
         $0.clipsToBounds = true
     }
     
-    var imageView = UIImageView().then {
+    private var imageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
+    }
+    
+    private let characterLabel = UILabel().then {
+        $0.text = ""
+        $0.textAlignment = .center
+        $0.textColor = UIColor.primary(.white)
+        $0.font = UIFont.offroad(style: .iosTextContents)
     }
     
     // MARK: - Initializers
@@ -40,7 +47,7 @@ class AcquiredCharactersCell: UICollectionViewCell {
         contentView.clipsToBounds = true
         contentView.backgroundColor = UIColor.home(.homeCharacterName)
         
-        contentView.addSubview(containerView)
+        contentView.addSubviews(containerView, characterLabel)
         containerView.addSubview(imageView)
         
         contentView.snp.makeConstraints { make in
@@ -49,7 +56,7 @@ class AcquiredCharactersCell: UICollectionViewCell {
         }
         
         containerView.snp.makeConstraints { make in
-            make.height.equalTo(154)
+            make.height.equalTo(167)
             make.centerX.equalToSuperview()
             make.top.horizontalEdges.equalTo(contentView).inset(10)
         }
@@ -59,9 +66,32 @@ class AcquiredCharactersCell: UICollectionViewCell {
             make.height.equalTo(136)
             make.center.equalToSuperview()
         }
+        
+        characterLabel.snp.makeConstraints{ make in
+            make.top.equalTo(containerView.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
+        }
     }
     
     func configure(imageName: String) {
         imageView.image = UIImage(named: imageName)
+        
+        switch imageName {
+        case "character_1":
+            contentView.backgroundColor = UIColor.home(.homeCharacterName)
+            containerView.backgroundColor = UIColor.primary(.characterSelectBg3)
+            characterLabel.text = "아루"
+        case "character_2":
+            contentView.backgroundColor = UIColor.myPage(.getCharacter2)
+            containerView.backgroundColor = UIColor.primary(.characterSelectBg2)
+            characterLabel.text = "오푸"
+        case "character_3":
+            contentView.backgroundColor = UIColor.home(.homeContents1GraphMain)
+            containerView.backgroundColor = UIColor.primary(.characterSelectBg1)
+            characterLabel.text = "루미"
+        default:
+            contentView.backgroundColor = UIColor.gray
+            containerView.backgroundColor = UIColor.darkGray
+        }
     }
 }

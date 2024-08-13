@@ -63,7 +63,7 @@ class AcquiredCharactersView: UIView {
     // MARK: - Private Functions
     
     private func setupStyle() {
-        backgroundColor = UIColor.primary(.listBg)
+        backgroundColor = UIColor.myPage(.listBg)
     }
 
     private func setupHierarchy() {
@@ -76,7 +76,7 @@ class AcquiredCharactersView: UIView {
         labelView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(230) // Adjust as necessary
+            make.height.equalTo(230) 
         }
 
         mainLabel.snp.makeConstraints { make in
