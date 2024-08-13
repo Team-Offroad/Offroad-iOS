@@ -9,11 +9,20 @@ import UIKit
 import SnapKit
 
 class AcquiredCharactersCell: UICollectionViewCell {
-    var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+    
+    // MARK: - Properties
+    
+    private let containerView = UIView().then {
+        $0.backgroundColor = UIColor.primary(.characterSelectBg3)
+        $0.layer.cornerRadius = 10
+        $0.clipsToBounds = true
+    }
+    
+    var imageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+    }
+    
+    // MARK: - Initializers
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,25 +33,31 @@ class AcquiredCharactersCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupViews() {
-        // Configure the cell's appearance
+    // MARK: - Setup Functions
+    
+    private func setupViews() {
         contentView.layer.cornerRadius = 10
         contentView.clipsToBounds = true
-        contentView.backgroundColor = UIColor(red: 0.545, green: 0.396, blue: 0.276, alpha: 0.45)
+        contentView.backgroundColor = UIColor.home(.homeCharacterName)
         
-        contentView.addSubview(imageView)
+        contentView.addSubview(containerView)
+        containerView.addSubview(imageView)
         
-        // Apply SnapKit constraints to contentView and imageView
         contentView.snp.makeConstraints { make in
             make.width.equalTo(162)
             make.height.equalTo(214)
         }
         
+        containerView.snp.makeConstraints { make in
+            make.height.equalTo(154)
+            make.centerX.equalToSuperview()
+            make.top.horizontalEdges.equalTo(contentView).inset(10)
+        }
+        
         imageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-            make.bottom.equalToSuperview().offset(-10)
+            make.width.equalTo(75)
+            make.height.equalTo(136)
+            make.center.equalToSuperview()
         }
     }
     

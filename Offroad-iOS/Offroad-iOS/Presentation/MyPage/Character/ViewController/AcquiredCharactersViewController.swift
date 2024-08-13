@@ -7,24 +7,24 @@
 import UIKit
 
 class AcquiredCharactersViewController: UIViewController {
-
+    
     // MARK: - Properties
-
+    
     private let acquiredCharactersView = AcquiredCharactersView()
-
+    
     // MARK: - Life Cycle
-
+    
     override func loadView() {
         self.view = acquiredCharactersView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDelegate()
     }
-
+    
     // MARK: - Private Func
-
+    
     private func setupDelegate() {
         acquiredCharactersView.collectionView.delegate = self
         acquiredCharactersView.collectionView.dataSource = self
@@ -41,7 +41,10 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AcquiredCharactersCell", for: indexPath) as! AcquiredCharactersCell
-        // Configure the cell here, e.g., setting an image or text if needed
+        let imageNameIndex = (indexPath.item % 3) + 1
+        let imageName = "character_\(imageNameIndex)"
+        cell.configure(imageName: imageName)
+        
         return cell
     }
     
