@@ -60,7 +60,7 @@ extension MyPageMenuCollectionViewCell {
         }
         
         backgroundImageView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.trailing.bottom.equalToSuperview()
         }
         
     }
@@ -68,6 +68,7 @@ extension MyPageMenuCollectionViewCell {
     //MARK: - Func
     
     func configureCell(data: MyPageMenuModel) {
+        backgroundColor = data.backgroundColor
         menuLabel.text = data.menuString
         backgroundImageView.image = data.menuImage
     }
