@@ -48,7 +48,7 @@ extension CollectedTitleCollectionViewCell {
         roundCorners(cornerRadius: 5)
         
         titleLabel.do {
-            $0.font = .offroad(style: .iosTextRegular)
+            $0.font = .offroad(style: .iosTextBold)
             $0.textColor = .sub(.sub4)
             $0.textAlignment = .center
         }
