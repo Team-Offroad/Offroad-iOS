@@ -22,7 +22,8 @@ enum Primary: String, OffroadColor {
     case ground = "685440"
     case listBg = "F6EEDF"
     case boxInfo = "FFF5EA"
-    case getCharacter = "FFB141"
+    case getCharacterBg1 = "FFF0BC"
+    case getCharacter2 = "FFB141"
 }
 
 enum Main: String, OffroadColor {
