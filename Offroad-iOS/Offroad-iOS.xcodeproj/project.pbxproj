@@ -66,6 +66,9 @@
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
 		4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */; };
+		872F4BAE2C68C1F600284DE0 /* AcquiredCharactersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BAD2C68C1F600284DE0 /* AcquiredCharactersView.swift */; };
+		872F4BB12C68C43800284DE0 /* AcquiredCharactersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB02C68C43800284DE0 /* AcquiredCharactersCell.swift */; };
+		872F4BB52C68D66200284DE0 /* AcquiredCharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB42C68D66200284DE0 /* AcquiredCharactersViewController.swift */; };
 		8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */; };
 		8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0102C3DA1C9002051AC /* BirthView.swift */; };
 		8792D0152C3E581E002051AC /* GenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0142C3E581E002051AC /* GenderViewController.swift */; };
@@ -224,6 +227,9 @@
 		4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarViewController.swift; sourceTree = "<group>"; };
 		4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapListButton.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		872F4BAD2C68C1F600284DE0 /* AcquiredCharactersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharactersView.swift; sourceTree = "<group>"; };
+		872F4BB02C68C43800284DE0 /* AcquiredCharactersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharactersCell.swift; sourceTree = "<group>"; };
+		872F4BB42C68D66200284DE0 /* AcquiredCharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharactersViewController.swift; sourceTree = "<group>"; };
 		8792CFFB2C3D823F002051AC /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
 		8792D0102C3DA1C9002051AC /* BirthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthView.swift; sourceTree = "<group>"; };
@@ -638,6 +644,9 @@
 		4E0394782C2AA767007F0517 /* Character */ = {
 			isa = PBXGroup;
 			children = (
+				872F4BAF2C68C42500284DE0 /* Cell */,
+				872F4BAA2C68C1B400284DE0 /* ViewController */,
+				872F4BA92C68C1AA00284DE0 /* View */,
 			);
 			path = Character;
 			sourceTree = "<group>";
@@ -903,6 +912,30 @@
 				4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		872F4BA92C68C1AA00284DE0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				872F4BAD2C68C1F600284DE0 /* AcquiredCharactersView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		872F4BAA2C68C1B400284DE0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				872F4BB42C68D66200284DE0 /* AcquiredCharactersViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		872F4BAF2C68C42500284DE0 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				872F4BB02C68C43800284DE0 /* AcquiredCharactersCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		8792D01B2C3E8706002051AC /* View */ = {
@@ -1685,6 +1718,7 @@
 				D0E796292C4533CE005B47A5 /* ProfileUpdateRequestDTO.swift in Sources */,
 				D0E7962D2C4535A5005B47A5 /* NicknameAPI.swift in Sources */,
 				4E0394E32C2AC0D7007F0517 /* UIWindow+.swift in Sources */,
+				872F4BAE2C68C1F600284DE0 /* AcquiredCharactersView.swift in Sources */,
 				4E0394DD2C2ABEF2007F0517 /* UITextField+.swift in Sources */,
 				D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */,
 				4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */,
@@ -1694,6 +1728,7 @@
 				D063E9922C57FE7400434A09 /* KeychainManager.swift in Sources */,
 				D00A485B2C628054008B286A /* MyPageMenuCollectionViewCell.swift in Sources */,
 				D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */,
+				872F4BB12C68C43800284DE0 /* AcquiredCharactersCell.swift in Sources */,
 				D0E796672C455467005B47A5 /* CharacterInfoResponseDTO.swift in Sources */,
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
 				D0E796372C4536F4005B47A5 /* CharacterService.swift in Sources */,
@@ -1718,6 +1753,7 @@
 				D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */,
 				D0E7962B2C45346A005B47A5 /* ProfileUpdateResponseDTO.swift in Sources */,
 				4E9DACE02C3FF7290088A376 /* QuestNavigationBar.swift in Sources */,
+				872F4BB52C68D66200284DE0 /* AcquiredCharactersViewController.swift in Sources */,
 				4E59A11C2C4228C500B548C6 /* AVCameraPreview.swift in Sources */,
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
 				8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */,
