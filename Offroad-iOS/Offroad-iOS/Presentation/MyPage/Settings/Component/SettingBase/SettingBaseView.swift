@@ -20,6 +20,8 @@ class SettingBaseView: UIView {
     let titleImageView = UIImageView()
     private let titleStackView = UIStackView()
     let settingBaseCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    let backButton = UIButton()
+    let previousViewLabel = UILabel()
     
     // MARK: - Life Cycle
     
@@ -52,7 +54,6 @@ extension SettingBaseView {
         }
         
         titleLabel.do {
-            $0.text = "설정"
             $0.font = .offroad(style: .iosTextTitle)
             $0.textColor = .main(.main2)
             $0.textAlignment = .center
@@ -88,19 +89,18 @@ extension SettingBaseView {
     
     private func setupLayout() {
         titleView.snp.makeConstraints {
-            $0.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
-            $0.height.equalTo(92)
+            $0.top.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(titleBorderView.snp.top)
         }
         
         titleBorderView.snp.makeConstraints {
-            $0.top.equalTo(titleView.snp.bottom)
+            $0.top.equalTo(safeAreaLayoutGuide).inset(148)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(1)
         }
         
         titleStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(42)
-            $0.leading.equalToSuperview().inset(24)
+            $0.bottom.leading.equalToSuperview().inset(24)
         }
         
         settingBaseCollectionView.snp.makeConstraints {
