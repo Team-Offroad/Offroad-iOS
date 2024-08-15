@@ -89,6 +89,7 @@
 		D00A487A2C634710008B286A /* SettingBaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48792C634710008B286A /* SettingBaseCollectionViewCell.swift */; };
 		D00A48822C6E5D92008B286A /* NoticePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48812C6E5D92008B286A /* NoticePostViewController.swift */; };
 		D00A48842C6E5DA7008B286A /* NoticePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48832C6E5DA7008B286A /* NoticePostView.swift */; };
+		D00A48872C6E77C5008B286A /* NoticePostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48862C6E77C5008B286A /* NoticePostModel.swift */; };
 		D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */; };
 		D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB102C4054D20048B6DF /* TitleModel.swift */; };
 		D063E9852C492D6700434A09 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = D063E9842C492D6700434A09 /* SVGKit */; };
@@ -255,6 +256,9 @@
 		D00A48702C63443F008B286A /* NoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeView.swift; sourceTree = "<group>"; };
 		D00A48762C634530008B286A /* SettingBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingBaseView.swift; sourceTree = "<group>"; };
 		D00A48792C634710008B286A /* SettingBaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingBaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		D00A48812C6E5D92008B286A /* NoticePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePostViewController.swift; sourceTree = "<group>"; };
+		D00A48832C6E5DA7008B286A /* NoticePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePostView.swift; sourceTree = "<group>"; };
+		D00A48862C6E77C5008B286A /* NoticePostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePostModel.swift; sourceTree = "<group>"; };
 		D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateToggleButton.swift; sourceTree = "<group>"; };
 		D018BB102C4054D20048B6DF /* TitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleModel.swift; sourceTree = "<group>"; };
 		D018BB1B2C43E4740048B6DF /* Offroad-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Offroad-iOS.entitlements"; sourceTree = "<group>"; };
@@ -746,6 +750,9 @@
 		4E0394832C2AA99C007F0517 /* NoticePost */ = {
 			isa = PBXGroup;
 			children = (
+				D00A48852C6E77B5008B286A /* Model */,
+				D00A48802C6E5D7F008B286A /* View */,
+				D00A487F2C6E5D76008B286A /* ViewController */,
 			);
 			path = NoticePost;
 			sourceTree = "<group>";
@@ -1073,6 +1080,30 @@
 				D00A48762C634530008B286A /* SettingBaseView.swift */,
 			);
 			path = SettingBase;
+			sourceTree = "<group>";
+		};
+		D00A487F2C6E5D76008B286A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D00A48812C6E5D92008B286A /* NoticePostViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D00A48802C6E5D7F008B286A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D00A48832C6E5DA7008B286A /* NoticePostView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D00A48852C6E77B5008B286A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D00A48862C6E77C5008B286A /* NoticePostModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		D018BB0C2C401F5F0048B6DF /* Components */ = {
@@ -1741,6 +1772,7 @@
 				4EA90AC62C4521C50046A6E1 /* MyPageViewController.swift in Sources */,
 				4E3F009E2C40D20800B9A31A /* OffroadTabBarController.swift in Sources */,
 				D0E7964E2C453B38005B47A5 /* AdventureAPI.swift in Sources */,
+				D00A48872C6E77C5008B286A /* NoticePostModel.swift in Sources */,
 				D0E7961C2C4527FE005B47A5 /* SocialLoginRequestDTO.swift in Sources */,
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
 				D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */,
@@ -1808,7 +1840,9 @@
 				8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */,
 				D0E796412C4537DE005B47A5 /* QuestInfoResponseDTO.swift in Sources */,
 				D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */,
+				D00A48822C6E5D92008B286A /* NoticePostViewController.swift in Sources */,
 				D0E7962B2C45346A005B47A5 /* ProfileUpdateResponseDTO.swift in Sources */,
+				D00A48842C6E5DA7008B286A /* NoticePostView.swift in Sources */,
 				4E9DACE02C3FF7290088A376 /* QuestNavigationBar.swift in Sources */,
 				872F4BB52C68D66200284DE0 /* AcquiredCharactersViewController.swift in Sources */,
 				4E59A11C2C4228C500B548C6 /* AVCameraPreview.swift in Sources */,

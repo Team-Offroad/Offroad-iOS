@@ -13,6 +13,8 @@ final class NoticePostViewController: UIViewController {
     
     private let rootView = NoticePostView()
     
+    private let noticePostData = NoticePostModel.noticePostModel
+    
     // MARK: - Life Cycle
     
     override func loadView() {
@@ -21,5 +23,7 @@ final class NoticePostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        rootView.setPostText(data: noticePostData)
     }
 }

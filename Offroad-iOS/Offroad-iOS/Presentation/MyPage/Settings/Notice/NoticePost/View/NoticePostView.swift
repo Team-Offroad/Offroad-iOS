@@ -137,4 +137,18 @@ extension NoticePostView {
             $0.edges.equalToSuperview().inset(24)
         }
     }
+    
+    //MARK: - Func
+    
+    func setPostText(data: NoticePostModel) {
+        dateLabel.text = data.dateString
+        titleLabel.text = data.titleString
+        contentLabel.text = data.contentString
+        contentButton.setTitle(data.contentButtonString, for: .normal)
+        
+        let targetText = "[중요]"
+        if data.titleString.contains(targetText) {
+            titleLabel.highlightText(targetText: targetText, color: .sub(.sub2) )
+        }
+    }
 }
