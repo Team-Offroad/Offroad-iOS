@@ -102,24 +102,24 @@ extension CollectedTitlesView {
     
     private func setupLayout() {
         titleView.snp.makeConstraints {
-            $0.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
-            $0.height.equalTo(127)
+            $0.top.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(titleBorderView.snp.top)
         }
         
         titleBorderView.snp.makeConstraints {
-            $0.top.equalTo(titleView.snp.bottom)
+            $0.top.equalTo(safeAreaLayoutGuide).inset(183)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(1)
         }
         
         titleStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(42)
+            $0.bottom.equalTo(checkCircleImageView.snp.top).offset(-15)
             $0.leading.equalToSuperview().inset(24)
         }
         
         checkCircleImageView.snp.makeConstraints {
-            $0.leading.equalTo(titleStackView.snp.leading)
-            $0.top.equalTo(titleStackView.snp.bottom).offset(15)
+            $0.leading.equalToSuperview().inset(24)
+            $0.bottom.equalToSuperview().inset(25)
         }
         
         descriptionLabel.snp.makeConstraints {
