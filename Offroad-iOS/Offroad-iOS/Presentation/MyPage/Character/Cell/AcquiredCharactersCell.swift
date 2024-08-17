@@ -34,7 +34,9 @@ class AcquiredCharactersCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupViews()
+        
+        setupHierarchy()
+        setupLayout()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,7 +51,6 @@ class AcquiredCharactersCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
-        
         contentView.layer.cornerRadius = 10
         contentView.clipsToBounds = true
         contentView.backgroundColor = UIColor.home(.homeCharacterName)
@@ -88,7 +89,7 @@ class AcquiredCharactersCell: UICollectionViewCell {
             containerView.backgroundColor = UIColor.primary(.characterSelectBg3)
             characterLabel.text = "아루"
         case "character_2":
-            contentView.backgroundColor = UIColor.myPage(.getCharacter2)
+            contentView.backgroundColor = UIColor.primary(.getCharacter2)
             containerView.backgroundColor = UIColor.primary(.characterSelectBg2)
             characterLabel.text = "오푸"
         case "character_3":
