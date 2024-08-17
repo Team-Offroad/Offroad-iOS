@@ -91,6 +91,10 @@
 		D063E98E2C49483000434A09 /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E98D2C49483000434A09 /* UIImageView+.swift */; };
 		D063E9902C496EA500434A09 /* LottieAnimationView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E98F2C496EA500434A09 /* LottieAnimationView+.swift */; };
 		D063E9922C57FE7400434A09 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9912C57FE7400434A09 /* KeychainManager.swift */; };
+		D063E99F2C61071100434A09 /* CollectedTitlesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E99E2C61071100434A09 /* CollectedTitlesView.swift */; };
+		D063E9A12C6107D300434A09 /* CollectedTitlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9A02C6107D300434A09 /* CollectedTitlesViewController.swift */; };
+		D063E9A42C6108DB00434A09 /* CollectedTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9A32C6108DB00434A09 /* CollectedTitleModel.swift */; };
+		D063E9A72C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9A62C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
@@ -252,6 +256,10 @@
 		D063E98D2C49483000434A09 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		D063E98F2C496EA500434A09 /* LottieAnimationView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LottieAnimationView+.swift"; sourceTree = "<group>"; };
 		D063E9912C57FE7400434A09 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		D063E99E2C61071100434A09 /* CollectedTitlesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitlesView.swift; sourceTree = "<group>"; };
+		D063E9A02C6107D300434A09 /* CollectedTitlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitlesViewController.swift; sourceTree = "<group>"; };
+		D063E9A32C6108DB00434A09 /* CollectedTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitleModel.swift; sourceTree = "<group>"; };
+		D063E9A62C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitleCollectionViewCell.swift; sourceTree = "<group>"; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		D06D26C22C3D835300E79F25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -661,6 +669,9 @@
 		4E03947A2C2AA78B007F0517 /* Title */ = {
 			isa = PBXGroup;
 			children = (
+				D063E9A22C6108C200434A09 /* Model */,
+				D063E99D2C6106FD00434A09 /* View */,
+				D063E99B2C6106EB00434A09 /* ViewController */,
 			);
 			path = Title;
 			sourceTree = "<group>";
@@ -1035,6 +1046,39 @@
 				D00A485C2C62847A008B286A /* MyPageMenuModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D063E99B2C6106EB00434A09 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D063E9A02C6107D300434A09 /* CollectedTitlesViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D063E99D2C6106FD00434A09 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D063E9A52C61098F00434A09 /* Cell */,
+				D063E99E2C61071100434A09 /* CollectedTitlesView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D063E9A22C6108C200434A09 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D063E9A32C6108DB00434A09 /* CollectedTitleModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D063E9A52C61098F00434A09 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D063E9A62C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		D06D26BA2C3D642D00E79F25 /* ViewController */ = {
@@ -1678,6 +1722,7 @@
 				D0E796632C4553F0005B47A5 /* RefreshTokenResponseDTO.swift in Sources */,
 				D0E7960A2C4522CF005B47A5 /* NetworkService.swift in Sources */,
 				D0EAF2262C3B7D7F00566543 /* LoginViewController.swift in Sources */,
+				D063E9A12C6107D300434A09 /* CollectedTitlesViewController.swift in Sources */,
 				4EBE34942C3FC749006DB244 /* QuestQRView.swift in Sources */,
 				4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */,
 				4EA90AC62C4521C50046A6E1 /* MyPageViewController.swift in Sources */,
@@ -1736,12 +1781,15 @@
 				D0E796242C453360005B47A5 /* ProfileService.swift in Sources */,
 				D06D26CB2C3DAA5300E79F25 /* CustomQuestView.swift in Sources */,
 				D03C83622C620AF100F3094D /* MyPageView.swift in Sources */,
+				D063E9A42C6108DB00434A09 /* CollectedTitleModel.swift in Sources */,
 				D06D26C52C3D83AA00E79F25 /* HomeViewController.swift in Sources */,
 				D0E796612C455391005B47A5 /* ChangeEmblemResponseDTO.swift in Sources */,
 				4E0C69692C4724A100B6453E /* OffroadNMFMarker.swift in Sources */,
 				D06D26CD2C3E6EA200E79F25 /* CustomRecentProgressView.swift in Sources */,
 				D0B81AA02C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift in Sources */,
 				4E1E94132C398C4200A7B08A /* String+.swift in Sources */,
+				D063E99F2C61071100434A09 /* CollectedTitlesView.swift in Sources */,
+				D063E9A72C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift in Sources */,
 				D0E7965B2C455118005B47A5 /* EmblemService.swift in Sources */,
 				D0E7964C2C4539FC005B47A5 /* RegisteredPlaceResponseDTO.swift in Sources */,
 				4E3BB6842C4737030076105C /* PlaceInfoPopupViewController.swift in Sources */,

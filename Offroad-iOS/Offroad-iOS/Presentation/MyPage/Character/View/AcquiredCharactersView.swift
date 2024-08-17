@@ -46,6 +46,7 @@ class AcquiredCharactersView: UIView {
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
         $0.register(AcquiredCharactersCell.self, forCellWithReuseIdentifier: "AcquiredCharactersCell")
         $0.backgroundColor = .clear
+        $0.showsVerticalScrollIndicator = false
     }
 
     // MARK: - Life Cycle
@@ -65,7 +66,7 @@ class AcquiredCharactersView: UIView {
     // MARK: - Private Functions
     
     private func setupStyle() {
-        backgroundColor = UIColor.myPage(.listBg)
+        backgroundColor = .primary(.listBg)
     }
 
     private func setupHierarchy() {
