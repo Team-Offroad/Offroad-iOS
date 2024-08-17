@@ -26,6 +26,10 @@ final class MyPageViewController: UIViewController {
         
         setupDelegate()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
 }
 
 extension MyPageViewController {
@@ -61,6 +65,14 @@ extension MyPageViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.cellForItem(at: indexPath)?.isSelected = true
+        switch indexPath.item {
+        case 2:
+            let collectedTitlesViewController = CollectedTitlesViewController()
+            self.navigationController?.pushViewController(collectedTitlesViewController, animated: true)
+        case 3:
+            let settingViewController = SettingViewController()
+            self.navigationController?.pushViewController(settingViewController, animated: true)
+        default: break
+        }
     }
 }

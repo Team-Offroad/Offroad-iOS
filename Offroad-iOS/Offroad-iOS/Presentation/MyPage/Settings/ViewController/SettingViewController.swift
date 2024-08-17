@@ -57,6 +57,11 @@ extension SettingViewController: UICollectionViewDataSource {
 
 extension SettingViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.cellForItem(at: indexPath)?.isSelected = true
+        switch indexPath.item {
+        case 0:
+            let noticeViewController = NoticeViewController()
+            self.navigationController?.pushViewController(noticeViewController, animated: true)
+        default: break
+        }
     }
 }

@@ -57,6 +57,10 @@ extension NoticeViewController: UICollectionViewDataSource {
 
 extension NoticeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.cellForItem(at: indexPath)?.isSelected = true
-    }
+        switch indexPath.item {
+        case 0:
+            let noticePostViewController = NoticePostViewController()
+            self.navigationController?.pushViewController(noticePostViewController, animated: true)
+        default: break
+        }    }
 }
