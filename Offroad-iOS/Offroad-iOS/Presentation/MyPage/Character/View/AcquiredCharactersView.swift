@@ -4,6 +4,7 @@
 //
 //  Created by  정지원 on 8/11/24.
 //
+
 import UIKit
 
 import SnapKit
@@ -45,12 +46,14 @@ class AcquiredCharactersView: UIView {
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
         $0.register(AcquiredCharactersCell.self, forCellWithReuseIdentifier: "AcquiredCharactersCell")
         $0.backgroundColor = .clear
+        $0.showsVerticalScrollIndicator = false
     }
 
     // MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setupStyle()
         setupHierarchy()
         setupLayout()
@@ -63,13 +66,12 @@ class AcquiredCharactersView: UIView {
     // MARK: - Private Functions
     
     private func setupStyle() {
-        backgroundColor = UIColor.myPage(.listBg)
+        backgroundColor = .primary(.listBg)
     }
 
     private func setupHierarchy() {
-        addSubview(labelView)
-        addSubview(collectionView)
-        labelView.addSubviews(mainLabel, subLabel, babyImage, checkImage)
+        addSubviews(labelView, collectionView)
+        labelView.addSubviews(mainLabel, subLabel, characterImage, checkImage)
     }
 
     private func setupLayout() {
@@ -104,7 +106,7 @@ class AcquiredCharactersView: UIView {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(labelView.snp.bottom).offset(20)
             make.horizontalEdges.equalToSuperview().inset(24.5)
-            make.bottom.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().inset(20)
         }
     }
 }

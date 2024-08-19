@@ -20,6 +20,10 @@ enum Primary: String, OffroadColor {
     case characterSelectBg3 = "F9E5D2"
     case wall = "452B0F"
     case ground = "685440"
+    case listBg = "F6EEDF"
+    case boxInfo = "FFF5EA"
+    case getCharacterBg1 = "FFF0BC"
+    case getCharacter2 = "FFB141"
 }
 
 enum Main: String, OffroadColor {
@@ -84,12 +88,6 @@ enum Home: String, OffroadColor {
     case homeNicknameStroke = "#C0B3A2"
 }
 
-enum MyPage: String, OffroadColor {
-    case listBg = "F6EEDF"
-    case getCharacter2 = "#FFB141"
-}
-
-
 extension UIColor {
     
     static func primary(_ style: Primary, alpha: CGFloat = 1) -> UIColor {
@@ -119,11 +117,6 @@ extension UIColor {
     
     static func neutral(_ style: Neutral, alpha: CGFloat = 1) -> UIColor {
         let alpha = style == .bottomBarButtonStroke ? 0.25 : 1
-        guard let color = UIColor(hexCode: style.rawValue, alpha: alpha) else { fatalError("UIColor init failed") }
-        return color
-    }
-    
-    static func myPage(_ style: MyPage, alpha: CGFloat = 1) -> UIColor {
         guard let color = UIColor(hexCode: style.rawValue, alpha: alpha) else { fatalError("UIColor init failed") }
         return color
     }

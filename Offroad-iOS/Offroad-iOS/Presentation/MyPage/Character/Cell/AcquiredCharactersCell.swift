@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 import SnapKit
 
 class AcquiredCharactersCell: UICollectionViewCell {
@@ -29,11 +30,13 @@ class AcquiredCharactersCell: UICollectionViewCell {
         $0.font = UIFont.offroad(style: .iosTextContents)
     }
     
-    // MARK: - Initializers
+    // MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupViews()
+        
+        setupHierarchy()
+        setupLayout()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,13 +45,15 @@ class AcquiredCharactersCell: UICollectionViewCell {
     
     // MARK: - Setup Functions
     
-    private func setupViews() {
+    private func setupHierarchy() {
+        contentView.addSubviews(containerView, characterLabel)
+        containerView.addSubview(imageView)
+    }
+    
+    private func setupLayout() {
         contentView.layer.cornerRadius = 10
         contentView.clipsToBounds = true
         contentView.backgroundColor = UIColor.home(.homeCharacterName)
-        
-        contentView.addSubviews(containerView, characterLabel)
-        containerView.addSubview(imageView)
         
         contentView.snp.makeConstraints { make in
             make.width.equalTo(162)
@@ -73,7 +78,9 @@ class AcquiredCharactersCell: UICollectionViewCell {
         }
     }
     
-    func configure(imageName: String) {
+    //MARK: - Func
+    
+    func configureCell(imageName: String) {
         imageView.image = UIImage(named: imageName)
         
         switch imageName {
@@ -82,7 +89,7 @@ class AcquiredCharactersCell: UICollectionViewCell {
             containerView.backgroundColor = UIColor.primary(.characterSelectBg3)
             characterLabel.text = "아루"
         case "character_2":
-            contentView.backgroundColor = UIColor.myPage(.getCharacter2)
+            contentView.backgroundColor = UIColor.primary(.getCharacter2)
             containerView.backgroundColor = UIColor.primary(.characterSelectBg2)
             characterLabel.text = "오푸"
         case "character_3":

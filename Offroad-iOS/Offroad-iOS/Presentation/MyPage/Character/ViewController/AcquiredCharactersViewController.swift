@@ -4,6 +4,7 @@
 //
 //  Created by  정지원 on 8/11/24.
 //
+
 import UIKit
 
 class AcquiredCharactersViewController: UIViewController {
@@ -20,6 +21,7 @@ class AcquiredCharactersViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupDelegate()
     }
     
@@ -43,7 +45,7 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AcquiredCharactersCell", for: indexPath) as! AcquiredCharactersCell
         let imageNameIndex = (indexPath.item % 3) + 1
         let imageName = "character_\(imageNameIndex)"
-        cell.configure(imageName: imageName)
+        cell.configureCell(imageName: imageName)
         
         return cell
     }
@@ -79,6 +81,3 @@ extension AcquiredCharactersViewController {
         navigationController?.popViewController(animated: true)
     }
 }
-
-
-
