@@ -69,6 +69,9 @@
 		872F4BAE2C68C1F600284DE0 /* AcquiredCharactersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BAD2C68C1F600284DE0 /* AcquiredCharactersView.swift */; };
 		872F4BB12C68C43800284DE0 /* AcquiredCharactersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB02C68C43800284DE0 /* AcquiredCharactersCell.swift */; };
 		872F4BB52C68D66200284DE0 /* AcquiredCharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB42C68D66200284DE0 /* AcquiredCharactersViewController.swift */; };
+		872F4BB72C6B809800284DE0 /* CharacterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB62C6B809800284DE0 /* CharacterDetailViewController.swift */; };
+		872F4BB92C6B80A600284DE0 /* CharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB82C6B80A600284DE0 /* CharacterDetailView.swift */; };
+		872F4BBB2C6B917800284DE0 /* CharacterDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BBA2C6B917800284DE0 /* CharacterDetailCell.swift */; };
 		8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */; };
 		8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0102C3DA1C9002051AC /* BirthView.swift */; };
 		8792D0152C3E581E002051AC /* GenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0142C3E581E002051AC /* GenderViewController.swift */; };
@@ -234,6 +237,9 @@
 		872F4BAD2C68C1F600284DE0 /* AcquiredCharactersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharactersView.swift; sourceTree = "<group>"; };
 		872F4BB02C68C43800284DE0 /* AcquiredCharactersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharactersCell.swift; sourceTree = "<group>"; };
 		872F4BB42C68D66200284DE0 /* AcquiredCharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharactersViewController.swift; sourceTree = "<group>"; };
+		872F4BB62C6B809800284DE0 /* CharacterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewController.swift; sourceTree = "<group>"; };
+		872F4BB82C6B80A600284DE0 /* CharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailView.swift; sourceTree = "<group>"; };
+		872F4BBA2C6B917800284DE0 /* CharacterDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailCell.swift; sourceTree = "<group>"; };
 		8792CFFB2C3D823F002051AC /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NicknameViewController.swift; sourceTree = "<group>"; };
 		8792D0102C3DA1C9002051AC /* BirthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BirthView.swift; sourceTree = "<group>"; };
@@ -929,6 +935,7 @@
 			isa = PBXGroup;
 			children = (
 				872F4BAD2C68C1F600284DE0 /* AcquiredCharactersView.swift */,
+				872F4BB82C6B80A600284DE0 /* CharacterDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -936,6 +943,7 @@
 		872F4BAA2C68C1B400284DE0 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				872F4BB62C6B809800284DE0 /* CharacterDetailViewController.swift */,
 				872F4BB42C68D66200284DE0 /* AcquiredCharactersViewController.swift */,
 			);
 			path = ViewController;
@@ -945,6 +953,7 @@
 			isa = PBXGroup;
 			children = (
 				872F4BB02C68C43800284DE0 /* AcquiredCharactersCell.swift */,
+				872F4BBA2C6B917800284DE0 /* CharacterDetailCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1715,6 +1724,8 @@
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
 				D00A485D2C62847A008B286A /* MyPageMenuModel.swift in Sources */,
 				8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */,
+				872F4BB72C6B809800284DE0 /* CharacterDetailViewController.swift in Sources */,
+				872F4BBB2C6B917800284DE0 /* CharacterDetailCell.swift in Sources */,
 				D0E7963D2C453787005B47A5 /* QuestService.swift in Sources */,
 				D0E796082C45229B005B47A5 /* MoyaPlugin.swift in Sources */,
 				D0B81AA22C47180800C44ED9 /* ChoosingCharacterPopupView.swift in Sources */,
@@ -1730,6 +1741,7 @@
 				D0E7964E2C453B38005B47A5 /* AdventureAPI.swift in Sources */,
 				D0E7961C2C4527FE005B47A5 /* SocialLoginRequestDTO.swift in Sources */,
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
+				872F4BB92C6B80A600284DE0 /* CharacterDetailView.swift in Sources */,
 				D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */,
 				4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */,
 				D0E796152C452797005B47A5 /* AuthAPI.swift in Sources */,
