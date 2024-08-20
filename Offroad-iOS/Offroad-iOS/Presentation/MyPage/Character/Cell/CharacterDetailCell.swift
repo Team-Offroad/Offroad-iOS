@@ -29,6 +29,19 @@ class CharacterDetailCell: UICollectionViewCell {
         $0.font = UIFont.offroad(style: .iosTextContents)
     }
     
+    private let newTagView = UIView().then {
+        $0.backgroundColor = UIColor.sub(.sub)
+        $0.layer.cornerRadius = 12
+        $0.isHidden = true
+    }
+    
+    private let newTagLabel = UILabel().then {
+        $0.text = "N"
+        $0.textColor = .white
+        $0.textAlignment = .center
+        $0.font = UIFont.boldSystemFont(ofSize: 14)
+    }
+    
     // MARK: - Initializers
     
     override init(frame: CGRect) {
@@ -47,7 +60,8 @@ class CharacterDetailCell: UICollectionViewCell {
         contentView.clipsToBounds = true
         contentView.backgroundColor = UIColor.home(.homeCharacterName)
         
-        contentView.addSubviews(containerView, characterLabel)
+        contentView.addSubviews(containerView, characterLabel, newTagView)
+        newTagView.addSubview(newTagLabel)
         containerView.addSubview(imageView)
         
         contentView.snp.makeConstraints { make in
@@ -71,9 +85,18 @@ class CharacterDetailCell: UICollectionViewCell {
             make.top.equalTo(containerView.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
         }
+        
+        newTagView.snp.makeConstraints { make in
+            make.top.right.equalTo(containerView).inset(10)
+            make.size.equalTo(CGSize(width: 24, height: 24))
+        }
+        
+        newTagLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
-    func configure(imageName: String) {
+    func configure(imageName: String, isNew: Bool = false) {
         imageView.image = UIImage(named: imageName)
         
         switch imageName {
@@ -82,7 +105,7 @@ class CharacterDetailCell: UICollectionViewCell {
             containerView.backgroundColor = UIColor.primary(.characterSelectBg3)
             characterLabel.text = "카페 방문 시"
         case "character_2":
-            contentView.backgroundColor = UIColor.myPage(.getCharacter2)
+            contentView.backgroundColor = UIColor.primary(.getCharacter2)
             containerView.backgroundColor = UIColor.primary(.characterSelectBg2)
             characterLabel.text = "공원 방문 시"
         case "character_3":
@@ -93,6 +116,7 @@ class CharacterDetailCell: UICollectionViewCell {
             contentView.backgroundColor = UIColor.gray
             containerView.backgroundColor = UIColor.darkGray
         }
+        
+        newTagView.isHidden = !isNew
     }
 }
-

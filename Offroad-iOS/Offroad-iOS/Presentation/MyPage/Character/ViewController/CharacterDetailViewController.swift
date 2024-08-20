@@ -47,22 +47,40 @@ class CharacterDetailViewController: UIViewController {
         switch imageName {
         case "character_1":
             view.backgroundColor = UIColor.primary(.characterSelectBg3)
-            characterDetailView.characterLogoImage = UIImageView(image: UIImage(resource: .character1Logo))
-            characterDetailView.characterImage = UIImageView(image: UIImage(named: imageName))
+            characterDetailView.characterLogoImage.image = UIImage(resource: .character1Logo)
+            characterDetailView.characterImage.image = UIImage(named: imageName)
             characterDetailView.nameLabel.text = "아루"
-            characterDetailView.detailLabel.text = "재밌는 걸 보면 두 눈이 반짝!\n호기심이 많은 탐험가 아루예요.\n파우치에는 최소한의 탐험 키트가 들어있답니다."
+            characterDetailView.detailLabel.text = """
+            재밌는 걸 보면 두 눈이 반짝!
+            호기심이 많은 탐험가 아루예요.
+            파우치에는 최소한의 탐험 키트가 들어있답니다.
+            """
+            characterDetailView.detailLabel.setLineSpacing(spacing: 5)
+            
         case "character_2":
             view.backgroundColor = UIColor.primary(.characterSelectBg2)
-            characterDetailView.characterLogoImage = UIImageView(image: UIImage(resource: .character2Logo))
-            characterDetailView.characterImage = UIImageView(image: UIImage(named: imageName))
+            characterDetailView.characterLogoImage.image = UIImage(resource: .character2Logo)
+            characterDetailView.characterImage.image = UIImage(named: imageName)
             characterDetailView.nameLabel.text = "오푸"
-            characterDetailView.detailLabel.text = "세상을 모험하는 건 정말 즐거운 일이야!\n넘치는 열정을 가진 탐험가 오푸예요.\n안경을 쓰면 또 다른 세상이 펼쳐져요!"
+            characterDetailView.detailLabel.text = """
+            세상을 모험하는 건 정말 즐거운 일이야!
+            넘치는 열정을 가진 탐험가 오푸예요.
+            안경을 쓰면 또 다른 세상이 펼쳐져요!
+            """
+            characterDetailView.detailLabel.setLineSpacing(spacing: 5)
+            
         case "character_3":
             view.backgroundColor = UIColor.primary(.characterSelectBg1)
-            characterDetailView.characterLogoImage = UIImageView(image: UIImage(resource: .character3Logo))
-            characterDetailView.characterImage = UIImageView(image: UIImage(named: imageName))
+            characterDetailView.characterLogoImage.image = UIImage(resource: .character3Logo)
+            characterDetailView.characterImage.image = UIImage(named: imageName)
             characterDetailView.nameLabel.text = "루미"
-            characterDetailView.detailLabel.text = "재밌는 걸 보면 두 눈이 반짝!\n호기심이 많은 탐험가 루미예요.\n파우치에는 최소한의 탐험 키트가 들어있답니다."
+            characterDetailView.detailLabel.text = """
+            재밌는 걸 보면 두 눈이 반짝!
+            호기심이 많은 탐험가 루미예요.
+            파우치에는 최소한의 탐험 키트가 들어있답니다.
+            """
+            characterDetailView.detailLabel.setLineSpacing(spacing: 5)
+            
         default:
             view.backgroundColor = UIColor.gray
         }
@@ -78,12 +96,15 @@ extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AcquiredCharactersCell", for: indexPath) as! AcquiredCharactersCell
-        cell.configure(imageName: imageName)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharacterDetailCell", for: indexPath) as! CharacterDetailCell
+        let isNew = indexPath.item == 0
+        cell.configure(imageName: imageName, isNew: isNew)
+        
+        // 높이 업데이트를 호출
+        DispatchQueue.main.async {
+            self.characterDetailView.updateCollectionViewHeight()
+        }
         
         return cell
     }
 }
-
-
-

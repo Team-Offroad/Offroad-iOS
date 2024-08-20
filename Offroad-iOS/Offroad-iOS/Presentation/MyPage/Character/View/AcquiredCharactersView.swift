@@ -13,6 +13,10 @@ class AcquiredCharactersView: UIView {
 
     // MARK: - Properties
     
+    var characterImage = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+    }
+    
     private let labelView = UIView().then {
         $0.backgroundColor = UIColor.main(.main1)
     }
@@ -71,14 +75,13 @@ class AcquiredCharactersView: UIView {
 
     private func setupHierarchy() {
         addSubviews(labelView, collectionView)
-        labelView.addSubviews(mainLabel, subLabel, characterImage, checkImage)
+        labelView.addSubviews(mainLabel, babyImage, subLabel, characterImage, checkImage)
     }
 
     private func setupLayout() {
         labelView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(230) 
         }
 
         mainLabel.snp.makeConstraints { make in
@@ -89,6 +92,7 @@ class AcquiredCharactersView: UIView {
         subLabel.snp.makeConstraints { make in
             make.top.equalTo(mainLabel.snp.bottom).offset(13)
             make.leading.equalTo(checkImage.snp.trailing).offset(6)
+            make.bottom.equalToSuperview().inset(24)
         }
 
         babyImage.snp.makeConstraints { make in
