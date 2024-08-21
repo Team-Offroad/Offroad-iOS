@@ -14,6 +14,7 @@ final class MyPageView: UIView {
     
     //MARK: - Properties
     
+    let backgroundViewWidth = UIScreen.main.bounds.width - 48
     var nicknameString = "비포장도로로로롱"
     var adventureDaysString = "687"
     var adventureTitleString = "상수 고수 악수 박수"
@@ -118,7 +119,7 @@ extension MyPageView {
             
             let path = CGMutablePath()
             path.addLines(between: [CGPoint(x: 0, y: 0),
-                                    CGPoint(x: getBackgroundViewWidth() - 50, y: 0)])
+                                    CGPoint(x: backgroundViewWidth - 50, y: 0)])
             shapeLayer.path = path
             
             $0.layer.addSublayer(shapeLayer)
@@ -237,12 +238,12 @@ extension MyPageView {
         
         completedQuestsCountLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.centerX.equalToSuperview().offset(-getBackgroundViewWidth() / 4)
+            $0.centerX.equalToSuperview().offset(-backgroundViewWidth / 4)
         }
         
         visitedPlacesCountLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.centerX.equalToSuperview().offset(getBackgroundViewWidth() / 4)
+            $0.centerX.equalToSuperview().offset(backgroundViewWidth / 4)
         }
         
         myPageMenuCollectionView.snp.makeConstraints {
@@ -250,11 +251,5 @@ extension MyPageView {
             $0.bottom.equalTo(safeAreaLayoutGuide)
             $0.horizontalEdges.equalToSuperview().inset(24)
         }
-    }
-    
-    //MARK: - Method
-    
-    func getBackgroundViewWidth() -> CGFloat {
-        return UIScreen.main.bounds.width - 48
     }
 }

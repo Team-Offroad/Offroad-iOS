@@ -61,7 +61,7 @@ extension MyPageViewController: UICollectionViewDataSource {
 
 extension MyPageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (rootView.getBackgroundViewWidth() - 13) / 2, height: 138)
+        return CGSize(width: (rootView.backgroundViewWidth - 13) / 2, height: 138)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
