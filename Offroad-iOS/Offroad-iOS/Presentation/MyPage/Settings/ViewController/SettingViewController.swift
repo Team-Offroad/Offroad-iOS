@@ -24,6 +24,7 @@ final class SettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupTarget()
         setupDelegate()
     }
 }
@@ -32,9 +33,19 @@ extension SettingViewController {
     
     // MARK: - Private Method
     
+    private func setupTarget() {
+        rootView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+    }
+    
     private func setupDelegate() {
         rootView.settingBaseCollectionView.dataSource = self
         rootView.settingBaseCollectionView.delegate = self
+    }
+    
+    // MARK: - @objc Method
+    
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
 }
 

@@ -25,5 +25,21 @@ final class NoticePostViewController: UIViewController {
         super.viewDidLoad()
         
         rootView.setPostText(data: noticePostData)
+        setupTarget()
+    }
+}
+
+extension NoticePostViewController {
+    
+    // MARK: - Private Method
+    
+    private func setupTarget() {
+        rootView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+    }
+    
+    // MARK: - @objc Method
+    
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
 }
