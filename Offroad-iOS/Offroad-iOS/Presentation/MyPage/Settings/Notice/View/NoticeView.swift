@@ -36,6 +36,12 @@ extension NoticeView {
             $0.text = "공지사항"
         }
         
-        titleImageView.image = UIImage(resource: .imgLoudspeaker)
+        titleImageView.do {
+            $0.image = UIImage(resource: .imgLoudspeaker)
+        }
+        
+        customBackButton.do {
+            $0.configureButtonTitle(titleString: "설정")
+        }
     }
 }

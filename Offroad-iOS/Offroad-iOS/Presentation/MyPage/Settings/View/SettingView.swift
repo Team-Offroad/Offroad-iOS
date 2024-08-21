@@ -36,6 +36,12 @@ extension SettingView {
             $0.text = "설정"
         }
         
-        titleImageView.image = UIImage(resource: .imgCogwheel)
+        titleImageView.do {
+            $0.image = UIImage(resource: .imgCogwheel)
+        }
+        
+        customBackButton.do {
+            $0.configureButtonTitle(titleString: "마이페이지")
+        }
     }
 }

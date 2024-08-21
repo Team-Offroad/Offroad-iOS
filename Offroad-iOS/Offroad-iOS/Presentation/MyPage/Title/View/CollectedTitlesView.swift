@@ -14,6 +14,7 @@ final class CollectedTitlesView: UIView {
 
     //MARK: - UI Properties
     
+    let customBackButton = NavigationPopButton()
     private let titleView = UIView()
     private let titleBorderView = UIView()
     private let titleLabel = UILabel()
@@ -44,6 +45,10 @@ extension CollectedTitlesView {
     
     private func setupStyle() {
         backgroundColor = .primary(.listBg)
+        
+        customBackButton.do {
+            $0.configureButtonTitle(titleString: "마이페이지")
+        }
         
         titleView.do {
             $0.backgroundColor = .main(.main1)
@@ -92,6 +97,7 @@ extension CollectedTitlesView {
         )
         
         titleView.addSubviews(
+            customBackButton,
             titleStackView,
             descriptionLabel,
             checkCircleImageView
@@ -101,6 +107,11 @@ extension CollectedTitlesView {
     }
     
     private func setupLayout() {
+        customBackButton.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(12)
+            $0.leading.equalToSuperview().inset(12)
+        }
+        
         titleView.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(titleBorderView.snp.top)

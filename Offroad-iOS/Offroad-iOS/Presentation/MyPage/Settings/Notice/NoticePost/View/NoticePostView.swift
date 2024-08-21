@@ -18,6 +18,7 @@ final class NoticePostView: UIView {
     
     //MARK: - UI Properties
 
+    let customBackButton = NavigationPopButton()
     private let dateLabel = UILabel()
     private let titleLabel = UILabel()
     private let labelStackView = UIStackView()
@@ -49,6 +50,10 @@ extension NoticePostView {
     
     private func setupStyle() {
         backgroundColor = .main(.main1)
+        
+        customBackButton.do {
+            $0.configureButtonTitle(titleString: "목록")
+        }
         
         dateLabel.do {
             $0.font = .offroad(style: .iosTextContentsSmall)
@@ -99,6 +104,7 @@ extension NoticePostView {
     
     private func setupHierarchy() {
         addSubviews(
+            customBackButton,
             labelStackView,
             dividerView,
             contentScrollView
@@ -111,6 +117,10 @@ extension NoticePostView {
     }
     
     private func setupLayout() {
+        customBackButton.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(12)
+            $0.leading.equalToSuperview().inset(12)
+        }
         
         labelStackView.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(79)

@@ -14,14 +14,13 @@ class SettingBaseView: UIView {
     
     //MARK: - UI Properties
     
+    let customBackButton = NavigationPopButton()
     private let titleView = UIView()
     private let titleBorderView = UIView()
     let titleLabel = UILabel()
     let titleImageView = UIImageView()
     private let titleStackView = UIStackView()
     let settingBaseCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    let backButton = UIButton()
-    let previousViewLabel = UILabel()
     
     // MARK: - Life Cycle
     
@@ -83,11 +82,16 @@ extension SettingBaseView {
             settingBaseCollectionView
         )
         
-        titleView.addSubview(titleStackView)
+        titleView.addSubviews(customBackButton, titleStackView)
         titleStackView.addArrangedSubviews(titleLabel, titleImageView)
     }
     
     private func setupLayout() {
+        customBackButton.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(12)
+            $0.leading.equalToSuperview().inset(12)
+        }
+        
         titleView.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(titleBorderView.snp.top)
