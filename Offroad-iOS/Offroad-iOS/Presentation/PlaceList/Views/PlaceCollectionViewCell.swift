@@ -53,7 +53,6 @@ class PlaceCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print("cell이 생성됨")
         
         setupHierarchy()
         setupStyle()
@@ -64,15 +63,8 @@ class PlaceCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        print("cell이 사라짐")
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
-        
-        //descriptionLabelTrailingConstraintToSeparator.isActive = false
-        //descriptionLabelTrailingConstraintToSuperView.isActive = false
         
         placeCategoryLabel.text = ""
         placeSectionLabel.text = ""
