@@ -1,19 +1,19 @@
 //
-//  MyPageViewController.swift
+//  CollectedTitlesViewController.swift
 //  Offroad-iOS
 //
-//  Created by 김민성 on 2024/07/15.
+//  Created by 조혜린 on 8/5/24.
 //
 
 import UIKit
 
-final class MyPageViewController: UIViewController {
+final class CollectedTitlesViewController: UIViewController {
     
     //MARK: - Properties
     
-    private let rootView = MyPageView()
+    private let rootView = CollectedTitlesView()
     
-    private var menuModelList = MyPageMenuModel.dummy()
+    private var collectedTitleModelList = CollectedTitleModel.dummy()
     
     // MARK: - Life Cycle
     
@@ -28,26 +28,26 @@ final class MyPageViewController: UIViewController {
     }
 }
 
-extension MyPageViewController {
+extension CollectedTitlesViewController {
     
     // MARK: - Private Method
     
     private func setupDelegate() {
-        rootView.myPageMenuCollectionView.dataSource = self
-        rootView.myPageMenuCollectionView.delegate = self
+        rootView.collectedTitleCollectionView.delegate = self
+        rootView.collectedTitleCollectionView.dataSource = self
     }
 }
 
 //MARK: - UICollectionViewDataSource
 
-extension MyPageViewController: UICollectionViewDataSource {
+extension CollectedTitlesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return menuModelList.count
+        return collectedTitleModelList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageMenuCollectionViewCell.className, for: indexPath) as? MyPageMenuCollectionViewCell else { return UICollectionViewCell() }
-        cell.configureCell(data: menuModelList[indexPath.item])
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectedTitleCollectionViewCell.className, for: indexPath) as? CollectedTitleCollectionViewCell else { return UICollectionViewCell() }
+        cell.configureCell(data: collectedTitleModelList[indexPath.item])
 
         return cell
     }
@@ -55,9 +55,9 @@ extension MyPageViewController: UICollectionViewDataSource {
 
 //MARK: - UICollectionViewDelegateFlowLayout
 
-extension MyPageViewController: UICollectionViewDelegateFlowLayout {
+extension CollectedTitlesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (rootView.getBackgroundViewWidth() - 13) / 2, height: 138)
+        return CGSize(width: rootView.bounds.width - 48, height: 79)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
