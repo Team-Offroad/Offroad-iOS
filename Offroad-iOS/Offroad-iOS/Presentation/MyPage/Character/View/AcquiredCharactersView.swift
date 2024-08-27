@@ -13,6 +13,10 @@ class AcquiredCharactersView: UIView {
 
     // MARK: - Properties
     
+    var characterImage = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+    }
+    
     private let labelView = UIView().then {
         $0.backgroundColor = UIColor.main(.main1)
     }
@@ -24,7 +28,7 @@ class AcquiredCharactersView: UIView {
         $0.font = UIFont.offroad(style: .iosTextTitle)
     }
     
-    private let characterImage = UIImageView(image: UIImage(resource: .baby))
+    private let babyImage = UIImageView(image: UIImage(resource: .baby))
     
     private let subLabel = UILabel().then {
         $0.text = "퀘스트를 달성하고 보상으로 캐릭터를 얻어보아요!"
@@ -38,7 +42,9 @@ class AcquiredCharactersView: UIView {
     private lazy var layout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .vertical
         let padding: CGFloat = 20
-        $0.itemSize = CGSize(width: 162, height: 214)
+        let itemWidth = (UIScreen.main.bounds.width - 2*24.5 - padding)/2
+        let itemHeight: CGFloat = itemWidth * (214 / 162)
+        $0.itemSize = CGSize(width: itemWidth, height: itemHeight)
         $0.minimumLineSpacing = padding
         $0.minimumInteritemSpacing = padding
     }
@@ -71,14 +77,19 @@ class AcquiredCharactersView: UIView {
 
     private func setupHierarchy() {
         addSubviews(labelView, collectionView)
-        labelView.addSubviews(mainLabel, subLabel, characterImage, checkImage)
+        labelView.addSubviews(
+            mainLabel,
+            babyImage,
+            subLabel,
+            characterImage,
+            checkImage
+        )
     }
 
     private func setupLayout() {
         labelView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(20)
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(230) 
         }
 
         mainLabel.snp.makeConstraints { make in
@@ -89,9 +100,10 @@ class AcquiredCharactersView: UIView {
         subLabel.snp.makeConstraints { make in
             make.top.equalTo(mainLabel.snp.bottom).offset(13)
             make.leading.equalTo(checkImage.snp.trailing).offset(6)
+            make.bottom.equalToSuperview().inset(24)
         }
 
-        characterImage.snp.makeConstraints { make in
+        babyImage.snp.makeConstraints { make in
             make.centerY.equalTo(mainLabel)
             make.leading.equalTo(mainLabel.snp.trailing).offset(8)
             make.size.equalTo(CGSize(width: 26, height: 21))
