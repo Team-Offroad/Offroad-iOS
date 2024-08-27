@@ -12,7 +12,7 @@ class CharacterDetailViewController: UIViewController {
     // MARK: - Properties
     
     private var imageName: String
-    
+
     private let characterDetailView = CharacterDetailView()
     
     // MARK: - Life Cycle
@@ -32,6 +32,7 @@ class CharacterDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupDelegate()
         setupUIBasedOnImageName()
     }

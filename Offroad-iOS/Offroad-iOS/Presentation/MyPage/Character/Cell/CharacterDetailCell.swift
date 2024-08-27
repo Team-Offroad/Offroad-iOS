@@ -18,7 +18,7 @@ class CharacterDetailCell: UICollectionViewCell {
         $0.clipsToBounds = true
     }
     
-    private var imageView = UIImageView().then {
+    private var motionImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
     }
     
@@ -35,35 +35,42 @@ class CharacterDetailCell: UICollectionViewCell {
         $0.isHidden = true
     }
     
-    private let newTagLabel = UILabel().then {
-        $0.text = "N"
-        $0.textColor = .white
-        $0.textAlignment = .center
-        $0.font = UIFont.boldSystemFont(ofSize: 14)
+    private let newTagLabel = UIImageView().then {
+        $0.image = UIImage(resource: .imgNewTag)
     }
     
-    // MARK: - Initializers
+    // MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupViews()
+        setupStyle()
+        setupHierarchy()
+        setupLayout()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Setup Functions
+    // MARK: - Private Functions
     
-    private func setupViews() {
-        contentView.layer.cornerRadius = 10
+    private func setupStyle() {
+        contentView.roundCorners(cornerRadius: 10)
         contentView.clipsToBounds = true
         contentView.backgroundColor = UIColor.home(.homeCharacterName)
-        
-        contentView.addSubviews(containerView, characterLabel, newTagView)
+    }
+    
+    private func setupHierarchy() {
+        contentView.addSubviews(
+            containerView,
+            characterLabel,
+            newTagView
+        )
         newTagView.addSubview(newTagLabel)
-        containerView.addSubview(imageView)
-        
+        containerView.addSubview(motionImageView)
+    }
+    
+    private func setupLayout() {
         contentView.snp.makeConstraints { make in
             make.width.equalTo(162)
             make.height.equalTo(214)
@@ -72,10 +79,10 @@ class CharacterDetailCell: UICollectionViewCell {
         containerView.snp.makeConstraints { make in
             make.height.equalTo(167)
             make.centerX.equalToSuperview()
-            make.top.horizontalEdges.equalTo(contentView).inset(10)
+            make.top.horizontalEdges.equalToSuperview().inset(10)
         }
         
-        imageView.snp.makeConstraints { make in
+        motionImageView.snp.makeConstraints { make in
             make.width.equalTo(75)
             make.height.equalTo(136)
             make.center.equalToSuperview()
@@ -87,7 +94,7 @@ class CharacterDetailCell: UICollectionViewCell {
         }
         
         newTagView.snp.makeConstraints { make in
-            make.top.right.equalTo(containerView).inset(10)
+            make.top.trailing.equalTo(containerView).inset(10)
             make.size.equalTo(CGSize(width: 24, height: 24))
         }
         
@@ -97,7 +104,7 @@ class CharacterDetailCell: UICollectionViewCell {
     }
     
     func configure(imageName: String, isNew: Bool = false) {
-        imageView.image = UIImage(named: imageName)
+        motionImageView.image = UIImage(named: imageName)
         
         switch imageName {
         case "character_1":
