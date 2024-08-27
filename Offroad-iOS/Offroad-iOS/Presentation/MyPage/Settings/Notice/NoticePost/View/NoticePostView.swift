@@ -77,10 +77,6 @@ extension NoticePostView {
             $0.backgroundColor = .primary(.listBg)
         }
         
-        contentScrollView.do {
-            $0.contentInsetAdjustmentBehavior = .never
-        }
-        
         contentLabel.do {
             $0.font = .offroad(style: .iosTextRegular)
             $0.textColor = .main(.main2)
