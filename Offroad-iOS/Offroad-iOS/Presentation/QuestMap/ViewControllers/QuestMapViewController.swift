@@ -45,8 +45,7 @@ class QuestMapViewController: OffroadTabBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 더미 데이터로 마커 초기 설정
-        //setupMarkers()
+        setupStyle()
         setupButtonsAction()
         setupDelegates()
     }
@@ -67,6 +66,13 @@ class QuestMapViewController: OffroadTabBarViewController {
         rootView.naverMapView.mapView.positionMode = .compass
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+        
+        // QuestQRViewController를 pop하고 나서 tabBar가 올라오게 하기 위함.
+        // QuestQRViewController의 viewDidDisappear 함수에서 tabBarController에 접근 시 nil이 뜨기 때문에
+        // tabBar를 다시 보이게 하는 함수를 여기에서 호출
+        // 추후 수정 예정
+        let offroadTabBarController = tabBarController as! OffroadTabBarController
+        offroadTabBarController.showTabBarAnimation()
     }
     
 }
@@ -104,19 +110,13 @@ extension QuestMapViewController {
     
     @objc private func pushPlaceListViewController() {
         print(#function)
-        //navigationController?.pushViewController(QuestQRViewController(), animated: true)
+        navigationController?.pushViewController(PlaceListViewController(), animated: true)
     }
     
     //MARK: - Private Func
     
-    private func setupMarkers() {
-        shownMarkersArray = dummyPlaces.map({ place in
-            let marker = NMFMarker(position: place.latLng)
-            marker.mapView = rootView.naverMapView.mapView
-            marker.width = 25
-            marker.height = 35
-            return marker
-        })
+    private func setupStyle() {
+        navigationController?.navigationBar.isHidden = true
     }
     
     private func setupButtonsAction() {
