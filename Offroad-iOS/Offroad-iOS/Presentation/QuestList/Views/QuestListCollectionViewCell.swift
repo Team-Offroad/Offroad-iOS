@@ -26,13 +26,7 @@ class QuestListCollectionViewCell: UICollectionViewCell {
     
     let questNameLabel = UILabel()
     let questProgressLabel = UILabel()
-    /// 아래 주석 처리된 `let chevronImageView = ... .icnPlace...CellChevron)` 코드 부분을 해제하면 지금은 파일이 없어 에러가 뜹니다.
-    /// 장소 목록 뷰 PR 올린 내용 중에 해당 파일이 추가되어있습니다.
-    /// 해당 브랜치를 머지하면 에러가 발생하지 않습니다.
-    //let chevronImageView = UIImageView(image: .icnPlaceListExpendableCellChevron)
-    
-    /// 지금은 임시로 SFSymbol을 사용하여 구현하였습니다.
-    let chevronImageView = UIImageView(image: .init(systemName: "chevron.down"))
+    let chevronImageView = UIImageView(image: .icnQuestListExpendableCellChevron)
     
     let questDescriptionLabel = UILabel()
     

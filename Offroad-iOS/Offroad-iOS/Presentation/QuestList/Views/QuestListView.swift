@@ -72,7 +72,7 @@ extension QuestListView {
         }
 
         titleLabel.do { label in
-            label.text = "장소 목록"
+            label.text = "퀘스트 목록"
             label.font = .offroad(style: .iosTextTitle)
             label.textColor = .main(.main2)
         }
