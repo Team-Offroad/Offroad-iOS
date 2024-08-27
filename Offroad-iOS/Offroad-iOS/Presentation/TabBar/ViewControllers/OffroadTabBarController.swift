@@ -69,7 +69,6 @@ extension OffroadTabBarController {
     // MARK: - Layout
     
     private func setupHierarchy() {
-        print(#function)
         tabBar.addSubview(customOffroadLogoButton)
     }
     
@@ -96,7 +95,7 @@ extension OffroadTabBarController {
     private func setOffroadViewControllers() {
         let viewControllersArray: [UIViewController] = [
             HomeViewController(),
-            QuestMapNavigationController(rootViewController: QuestMapViewController()),
+            UINavigationController(rootViewController: QuestMapViewController()),
             MyPageViewController()
         ]
         
