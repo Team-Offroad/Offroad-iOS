@@ -99,7 +99,7 @@ extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharacterDetailCell", for: indexPath) as! CharacterDetailCell
         let isNew = indexPath.item == 0
-        cell.configure(imageName: imageName, isNew: isNew)
+        cell.configureCharacterImage(imageName: imageName, isNew: isNew)
         
         // 높이 업데이트를 호출
         DispatchQueue.main.async {

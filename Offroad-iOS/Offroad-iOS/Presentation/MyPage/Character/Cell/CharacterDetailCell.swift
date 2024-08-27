@@ -71,11 +71,6 @@ class CharacterDetailCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
-        contentView.snp.makeConstraints { make in
-            make.width.equalTo(162)
-            make.height.equalTo(214)
-        }
-        
         containerView.snp.makeConstraints { make in
             make.height.equalTo(167)
             make.centerX.equalToSuperview()
@@ -95,7 +90,7 @@ class CharacterDetailCell: UICollectionViewCell {
         
         newTagView.snp.makeConstraints { make in
             make.top.trailing.equalTo(containerView).inset(10)
-            make.size.equalTo(CGSize(width: 24, height: 24))
+            make.size.equalTo(24)
         }
         
         newTagLabel.snp.makeConstraints { make in
@@ -103,7 +98,7 @@ class CharacterDetailCell: UICollectionViewCell {
         }
     }
     
-    func configure(imageName: String, isNew: Bool = false) {
+    func configureCharacterImage(imageName: String, isNew: Bool = false) {
         motionImageView.image = UIImage(named: imageName)
         
         switch imageName {

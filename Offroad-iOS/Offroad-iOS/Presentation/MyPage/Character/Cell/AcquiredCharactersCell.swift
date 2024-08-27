@@ -55,11 +55,6 @@ class AcquiredCharactersCell: UICollectionViewCell {
         contentView.clipsToBounds = true
         contentView.backgroundColor = UIColor.home(.homeCharacterName)
         
-        contentView.snp.makeConstraints { make in
-            make.width.equalTo(162)
-            make.height.equalTo(214)
-        }
-        
         containerView.snp.makeConstraints { make in
             make.height.equalTo(167)
             make.centerX.equalToSuperview()

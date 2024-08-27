@@ -42,7 +42,9 @@ class AcquiredCharactersView: UIView {
     private lazy var layout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .vertical
         let padding: CGFloat = 20
-        $0.itemSize = CGSize(width: 162, height: 214)
+        let itemWidth = (UIScreen.main.bounds.width - 2*24.5 - padding)/2
+        let itemHeight: CGFloat = itemWidth * (214 / 162)
+        $0.itemSize = CGSize(width: itemWidth, height: itemHeight)
         $0.minimumLineSpacing = padding
         $0.minimumInteritemSpacing = padding
     }
@@ -75,7 +77,13 @@ class AcquiredCharactersView: UIView {
 
     private func setupHierarchy() {
         addSubviews(labelView, collectionView)
-        labelView.addSubviews(mainLabel, babyImage, subLabel, characterImage, checkImage)
+        labelView.addSubviews(
+            mainLabel,
+            babyImage,
+            subLabel,
+            characterImage,
+            checkImage
+        )
     }
 
     private func setupLayout() {
