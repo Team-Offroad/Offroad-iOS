@@ -21,7 +21,7 @@ final class TermsConsentView: UIView {
     private let agreeAllButton = UIButton()
     private let agreeAllLabel = UILabel()
     private let agreeAllStackView = UIStackView()
-    private let termsListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    let termsListTableView = UITableView()
     private let nextButton = StateToggleButton(state: .isDisabled, title: "다음")
         
     // MARK: - Life Cycle
@@ -88,13 +88,21 @@ extension TermsConsentView {
             $0.spacing = 8
             $0.alignment = .center
         }
+        
+        termsListTableView.do {
+            $0.backgroundColor = .clear
+            $0.separatorStyle = .none
+            $0.isScrollEnabled = false
+            
+            $0.register(TermsListTableViewCell.self, forCellReuseIdentifier: TermsListTableViewCell.className)
+        }
     }
     
     private func setupHierarchy() {
         addSubviews(
             labelStackView,
             agreeAllView,
-            termsListCollectionView,
+            termsListTableView,
             nextButton
         )
         labelStackView.addArrangedSubviews(titleLabel, descriptionLabel)
@@ -117,6 +125,13 @@ extension TermsConsentView {
         agreeAllStackView.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(10)
             $0.centerY.equalToSuperview()
+        }
+        
+        termsListTableView.snp.makeConstraints {
+            $0.top.equalTo(agreeAllView.snp.bottom).offset(17)
+            $0.leading.equalToSuperview().inset(44)
+            $0.trailing.equalToSuperview().inset(47)
+            $0.height.equalTo(176)
         }
         
         nextButton.snp.makeConstraints {

@@ -90,6 +90,7 @@
 		D00A488C2C7830F3008B286A /* TermsConsentPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A488B2C7830F3008B286A /* TermsConsentPopupView.swift */; };
 		D00A48942C78396F008B286A /* TermsConsentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48932C78396F008B286A /* TermsConsentView.swift */; };
 		D00A48962C783988008B286A /* TermsConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48952C783987008B286A /* TermsConsentViewController.swift */; };
+		D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48982C7F04CF008B286A /* TermsListTableViewCell.swift */; };
 		D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */; };
 		D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB102C4054D20048B6DF /* TitleModel.swift */; };
 		D03C83622C620AF100F3094D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C83612C620AF100F3094D /* MyPageView.swift */; };
@@ -103,6 +104,7 @@
 		D063E9A12C6107D300434A09 /* CollectedTitlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9A02C6107D300434A09 /* CollectedTitlesViewController.swift */; };
 		D063E9A42C6108DB00434A09 /* CollectedTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9A32C6108DB00434A09 /* CollectedTitleModel.swift */; };
 		D063E9A72C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9A62C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift */; };
+		D064668E2C7F127A00CF10FD /* TermsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064668D2C7F127A00CF10FD /* TermsModel.swift */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
@@ -264,6 +266,7 @@
 		D00A488B2C7830F3008B286A /* TermsConsentPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConsentPopupView.swift; sourceTree = "<group>"; };
 		D00A48932C78396F008B286A /* TermsConsentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConsentView.swift; sourceTree = "<group>"; };
 		D00A48952C783987008B286A /* TermsConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConsentViewController.swift; sourceTree = "<group>"; };
+		D00A48982C7F04CF008B286A /* TermsListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsListTableViewCell.swift; sourceTree = "<group>"; };
 		D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateToggleButton.swift; sourceTree = "<group>"; };
 		D018BB102C4054D20048B6DF /* TitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleModel.swift; sourceTree = "<group>"; };
 		D018BB1B2C43E4740048B6DF /* Offroad-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Offroad-iOS.entitlements"; sourceTree = "<group>"; };
@@ -276,6 +279,7 @@
 		D063E9A02C6107D300434A09 /* CollectedTitlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitlesViewController.swift; sourceTree = "<group>"; };
 		D063E9A32C6108DB00434A09 /* CollectedTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitleModel.swift; sourceTree = "<group>"; };
 		D063E9A62C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitleCollectionViewCell.swift; sourceTree = "<group>"; };
+		D064668D2C7F127A00CF10FD /* TermsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsModel.swift; sourceTree = "<group>"; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		D06D26C22C3D835300E79F25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -1097,6 +1101,7 @@
 		D00A48912C78394C008B286A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D00A48972C7F04B3008B286A /* Cell */,
 				D00A48932C78396F008B286A /* TermsConsentView.swift */,
 			);
 			path = View;
@@ -1105,8 +1110,17 @@
 		D00A48922C783953008B286A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D064668D2C7F127A00CF10FD /* TermsModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D00A48972C7F04B3008B286A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D00A48982C7F04CF008B286A /* TermsListTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		D018BB0C2C401F5F0048B6DF /* Components */ = {
@@ -1848,6 +1862,7 @@
 				D0E7964A2C4539CE005B47A5 /* RegisteredPlaceRequestDTO.swift in Sources */,
 				D0E796222C45334D005B47A5 /* ProfileAPI.swift in Sources */,
 				D0E796592C455100005B47A5 /* EmblemAPI.swift in Sources */,
+				D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */,
 				D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */,
 				4E0394312C2A9DCE007F0517 /* ViewController.swift in Sources */,
 				4E1E94172C3AC27000A7B08A /* QuestMapViewController.swift in Sources */,
@@ -1902,8 +1917,8 @@
 				D0E796412C4537DE005B47A5 /* QuestInfoResponseDTO.swift in Sources */,
 				D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */,
 				D0E7962B2C45346A005B47A5 /* ProfileUpdateResponseDTO.swift in Sources */,
-				4E9DACE02C3FF7290088A376 /* QuestNavigationBar.swift in Sources */,
 				872F4BB52C68D66200284DE0 /* AcquiredCharactersViewController.swift in Sources */,
+				D064668E2C7F127A00CF10FD /* TermsModel.swift in Sources */,
 				4E59A11C2C4228C500B548C6 /* AVCameraPreview.swift in Sources */,
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
 				8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */,
