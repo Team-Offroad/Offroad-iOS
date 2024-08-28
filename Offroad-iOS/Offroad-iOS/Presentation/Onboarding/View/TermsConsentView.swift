@@ -14,7 +14,15 @@ final class TermsConsentView: UIView {
 
     //MARK: - UI Properties
     
-    private let popupView = TermsConsentPopupView()
+    private let titleLabel = UILabel()
+    private let descriptionLabel = UILabel()
+    private let labelStackView = UIStackView()
+    private let agreeAllView = UIView()
+    private let agreeAllButton = UIButton()
+    private let agreeAllLabel = UILabel()
+    private let agreeAllStackView = UIStackView()
+    private let termsListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    private let nextButton = StateToggleButton(state: .isDisabled, title: "다음")
         
     // MARK: - Life Cycle
     
@@ -37,15 +45,83 @@ extension TermsConsentView {
     
     private func setupStyle() {
         backgroundColor = .main(.main1)
+        
+        titleLabel.do {
+            $0.text = "약관 동의"
+            $0.textColor = .main(.main2)
+            $0.font = .offroad(style: .iosTextTitle)
+            $0.textAlignment = .center
+        }
+        
+        descriptionLabel.do {
+            $0.text = "필수항목 및 선택항목 약관에 동의해 주세요."
+            $0.textColor = .main(.main2)
+            $0.font = .offroad(style: .iosTextAuto)
+            $0.textAlignment = .center
+        }
+        
+        labelStackView.do {
+            $0.axis = .vertical
+            $0.spacing = 12
+            $0.alignment = .leading
+        }
+        
+        agreeAllView.do {
+            $0.backgroundColor = .neutral(.nametagInactive)
+            $0.roundCorners(cornerRadius: 5)
+        }
+        
+        agreeAllLabel.do {
+            $0.text = "전체동의"
+            $0.textColor = .main(.main2)
+            $0.font = .offroad(style: .iosTextBold)
+            $0.textAlignment = .center
+        }
+        
+        agreeAllButton.do {
+            $0.setImage(.btnUnchecked, for: .normal)
+            $0.setImage(.btnChecked, for: .selected)
+        }
+        
+        agreeAllStackView.do {
+            $0.axis = .horizontal
+            $0.spacing = 8
+            $0.alignment = .center
+        }
     }
     
     private func setupHierarchy() {
-        addSubviews(popupView)
+        addSubviews(
+            labelStackView,
+            agreeAllView,
+            termsListCollectionView,
+            nextButton
+        )
+        labelStackView.addArrangedSubviews(titleLabel, descriptionLabel)
+        agreeAllView.addSubview(agreeAllStackView)
+        agreeAllStackView.addArrangedSubviews(agreeAllButton, agreeAllLabel)
     }
     
     private func setupLayout() {
-        popupView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        labelStackView.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(82)
+            $0.leading.equalToSuperview().inset(24)
+        }
+        
+        agreeAllView.snp.makeConstraints {
+            $0.top.equalTo(labelStackView.snp.bottom).offset(49)
+            $0.horizontalEdges.equalToSuperview().inset(34)
+            $0.height.equalTo(54)
+        }
+        
+        agreeAllStackView.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(10)
+            $0.centerY.equalToSuperview()
+        }
+        
+        nextButton.snp.makeConstraints {
+            $0.bottom.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24)
+            $0.height.equalTo(54)
         }
     }
 }
