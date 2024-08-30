@@ -27,6 +27,13 @@ final class SettingViewController: UIViewController {
         setupTarget()
         setupDelegate()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+        offroadTabBarController.hideTabBarAnimation()
+    }
 }
 
 extension SettingViewController {
