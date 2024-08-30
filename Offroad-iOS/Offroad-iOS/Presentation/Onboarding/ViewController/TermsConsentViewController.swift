@@ -13,7 +13,11 @@ final class TermsConsentViewController: UIViewController {
     
     private let rootView = TermsConsentView()
     
-    private let termsModelData = TermsModel.getTermsModelList()
+    private var termsModelData = TermsModel.getTermsModelList() {
+        didSet {
+            termsModelData[0].isSelected && termsModelData[1].isSelected && termsModelData[2].isSelected ? rootView.nextButton.changeState(forState: .isEnabled) : rootView.nextButton.changeState(forState: .isDisabled)
+        }
+    }
     
     // MARK: - Life Cycle
     
@@ -43,14 +47,35 @@ extension TermsConsentViewController {
     }
     
     private func agreeButtonInCellTapped() {
-        print("agreeButtonInCellTapped")
+        rootView.agreeAllButton.isSelected = checkAllButtonisSelected()
+    }
+    
+    private func controlAllButtonState() {
+        if rootView.agreeAllButton.isSelected {
+            for i in 0..<termsModelData.count {
+                termsModelData[i].isSelected = false
+            }
+        } else {
+            for i in 0..<termsModelData.count {
+                termsModelData[i].isSelected = true
+            }
+        }
+    }
+    
+    private func checkAllButtonisSelected() -> Bool {
+        for data in termsModelData {
+            if data.isSelected == false { return false }
+        }
+        
+        return true
     }
     
     //MARK: - @Objc Func
     
-    @objc private func agreeAllButtonTapped() {
-        print("agreeAllButtonTapped")
+    @objc private func agreeAllButtonTapped() {        
+        controlAllButtonState()
         rootView.agreeAllButton.isSelected.toggle()
+        rootView.termsListTableView.reloadData()
     }
 }
 
@@ -65,6 +90,7 @@ extension TermsConsentViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TermsListTableViewCell.className, for: indexPath) as? TermsListTableViewCell else { return UITableViewCell() }
         cell.selectionStyle = .none
         cell.setupAgreeButton {
+            self.termsModelData[indexPath.row].isSelected.toggle()
             self.agreeButtonInCellTapped()
         }
         cell.configureCell(data: termsModelData[indexPath.row])

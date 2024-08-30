@@ -22,7 +22,7 @@ final class TermsConsentView: UIView {
     private let agreeAllLabel = UILabel()
     private let agreeAllStackView = UIStackView()
     let termsListTableView = UITableView()
-    private let nextButton = StateToggleButton(state: .isDisabled, title: "다음")
+    let nextButton = StateToggleButton(state: .isDisabled, title: "다음")
         
     // MARK: - Life Cycle
     

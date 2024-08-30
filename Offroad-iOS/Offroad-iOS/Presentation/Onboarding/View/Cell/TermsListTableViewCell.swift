@@ -94,9 +94,8 @@ extension TermsListTableViewCell {
     
     func configureCell(data: TermsModel) {
         titleLabel.text = data.titleString
-        
+        agreeButton.isSelected = data.isSelected
         selectionStatusImageView.image = data.isRequired ? UIImage(resource: .imgRequired) : UIImage(resource: .imgOptional)
-    
     }
     
     // MARK: - targetView Method
