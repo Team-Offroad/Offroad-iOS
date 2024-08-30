@@ -25,6 +25,7 @@ final class TermsConsentViewController: UIViewController {
         super.viewDidLoad()
         
         setupDelegate()
+        setupAddTarget()
     }
 }
 
@@ -36,6 +37,21 @@ extension TermsConsentViewController {
         rootView.termsListTableView.dataSource = self
         rootView.termsListTableView.delegate = self
     }
+    
+    private func setupAddTarget() {
+        rootView.agreeAllButton.addTarget(self, action: #selector(agreeAllButtonTapped), for: .touchUpInside)
+    }
+    
+    private func agreeButtonInCellTapped() {
+        print("agreeButtonInCellTapped")
+    }
+    
+    //MARK: - @Objc Func
+    
+    @objc private func agreeAllButtonTapped() {
+        print("agreeAllButtonTapped")
+        rootView.agreeAllButton.isSelected.toggle()
+    }
 }
 
 //MARK: - UITableViewDataSource
@@ -46,9 +62,11 @@ extension TermsConsentViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TermsListTableViewCell.className, for: indexPath) as?
-                TermsListTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TermsListTableViewCell.className, for: indexPath) as? TermsListTableViewCell else { return UITableViewCell() }
         cell.selectionStyle = .none
+        cell.setupAgreeButton {
+            self.agreeButtonInCellTapped()
+        }
         cell.configureCell(data: termsModelData[indexPath.row])
         return cell
     }

@@ -18,7 +18,7 @@ final class TermsConsentView: UIView {
     private let descriptionLabel = UILabel()
     private let labelStackView = UIStackView()
     private let agreeAllView = UIView()
-    private let agreeAllButton = UIButton()
+    let agreeAllButton = UIButton()
     private let agreeAllLabel = UILabel()
     private let agreeAllStackView = UIStackView()
     let termsListTableView = UITableView()
@@ -79,6 +79,7 @@ extension TermsConsentView {
         }
         
         agreeAllButton.do {
+            $0.adjustsImageWhenHighlighted = false
             $0.setImage(.btnUnchecked, for: .normal)
             $0.setImage(.btnChecked, for: .selected)
         }

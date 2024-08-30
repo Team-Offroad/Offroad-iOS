@@ -12,9 +12,15 @@ import Then
 
 final class TermsListTableViewCell: UITableViewCell {
     
+    //MARK: - Properties
+    
+    typealias AgreeButtonAction = () -> Void
+    
+    private var agreeButtonAction: AgreeButtonAction?
+    
     //MARK: - UI Properties
     
-    private let agreeButton = UIButton()
+    let agreeButton = UIButton()
     private let selectionStatusImageView = UIImageView(image: UIImage(resource: .imgOptional))
     private let titleLabel = UILabel()
     private let cellStackView = UIStackView()
@@ -51,6 +57,7 @@ extension TermsListTableViewCell {
         backgroundColor = .clear
         
         agreeButton.do {
+            $0.adjustsImageWhenHighlighted = false
             $0.setImage(.btnUnchecked, for: .normal)
             $0.setImage(.btnChecked, for: .selected)
         }
@@ -90,5 +97,19 @@ extension TermsListTableViewCell {
         
         selectionStatusImageView.image = data.isRequired ? UIImage(resource: .imgRequired) : UIImage(resource: .imgOptional)
     
+    }
+    
+    // MARK: - targetView Method
+
+    func setupAgreeButton(action: @escaping AgreeButtonAction) {
+        agreeButtonAction = action
+        agreeButton.addTarget(self, action: #selector(agreeButtonTapped), for: .touchUpInside)
+    }
+    
+    //MARK: - @Objc Func
+    
+    @objc private func agreeButtonTapped() {
+        agreeButton.isSelected.toggle()
+        agreeButtonAction?()
     }
 }
