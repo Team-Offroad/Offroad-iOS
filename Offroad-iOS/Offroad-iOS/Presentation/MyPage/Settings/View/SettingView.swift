@@ -30,8 +30,6 @@ extension SettingView {
     // MARK: - Layout
     
     private func setupStyle() {
-        backgroundColor = .primary(.listBg)
-        
         titleLabel.do {
             $0.text = "설정"
         }

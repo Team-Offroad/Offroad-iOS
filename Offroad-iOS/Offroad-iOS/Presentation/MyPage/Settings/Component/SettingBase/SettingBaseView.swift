@@ -15,8 +15,7 @@ class SettingBaseView: UIView {
     //MARK: - UI Properties
     
     let customBackButton = NavigationPopButton()
-    private let titleView = UIView()
-    private let titleBorderView = UIView()
+    private let borderView = UIView()
     let titleLabel = UILabel()
     let titleImageView = UIImageView()
     private let titleStackView = UIStackView()
@@ -42,13 +41,9 @@ extension SettingBaseView {
     // MARK: - Layout
     
     private func setupStyle() {
-        backgroundColor = .primary(.listBg)
+        backgroundColor = .main(.main1)
         
-        titleView.do {
-            $0.backgroundColor = .main(.main1)
-        }
-        
-        titleBorderView.do {
+        borderView.do {
             $0.backgroundColor = .grayscale(.gray100)
         }
         
@@ -65,10 +60,11 @@ extension SettingBaseView {
         
         settingBaseCollectionView.do {
             let flowLayout = UICollectionViewFlowLayout()
-            flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width - 48, height: 44)
-            flowLayout.minimumLineSpacing = 16
-            flowLayout.sectionInset = UIEdgeInsets(top: 18, left: 24, bottom: 18, right: 24)
+            flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width - 20, height: 56)
+            flowLayout.minimumLineSpacing = 12
+            flowLayout.sectionInset = UIEdgeInsets(top: 26, left: .zero, bottom: 26, right: .zero)
             $0.collectionViewLayout = flowLayout
+            $0.delaysContentTouches = false
             $0.register(SettingBaseCollectionViewCell.self, forCellWithReuseIdentifier: SettingBaseCollectionViewCell.className)
             
             $0.backgroundColor = .main(.main1)
@@ -77,12 +73,12 @@ extension SettingBaseView {
     
     private func setupHierarchy() {
         addSubviews(
-            titleView,
-            titleBorderView,
+            customBackButton,
+            titleStackView,
+            borderView,
             settingBaseCollectionView
         )
         
-        titleView.addSubviews(customBackButton, titleStackView)
         titleStackView.addArrangedSubviews(titleLabel, titleImageView)
     }
     
@@ -92,25 +88,21 @@ extension SettingBaseView {
             $0.leading.equalToSuperview().inset(12)
         }
         
-        titleView.snp.makeConstraints {
-            $0.top.horizontalEdges.equalToSuperview()
-            $0.bottom.equalTo(titleBorderView.snp.top)
+        titleStackView.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(98)
+            $0.leading.equalToSuperview().inset(24)
         }
         
-        titleBorderView.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).inset(148)
+        borderView.snp.makeConstraints {
+            $0.top.equalTo(titleStackView.snp.bottom).offset(24)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(1)
         }
         
-        titleStackView.snp.makeConstraints {
-            $0.bottom.leading.equalToSuperview().inset(24)
-        }
-        
         settingBaseCollectionView.snp.makeConstraints {
-            $0.top.equalTo(titleBorderView.snp.bottom).offset(17)
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(440)
+            $0.top.equalTo(borderView.snp.bottom)
+            $0.bottom.equalTo(safeAreaLayoutGuide)
+            $0.horizontalEdges.equalToSuperview().inset(10)
         }
     }
 }

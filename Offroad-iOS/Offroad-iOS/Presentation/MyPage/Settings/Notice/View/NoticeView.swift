@@ -30,8 +30,6 @@ extension NoticeView {
     // MARK: - Layout
     
     private func setupStyle() {
-        backgroundColor = .primary(.listBg)
-        
         titleLabel.do {
             $0.text = "공지사항"
         }
