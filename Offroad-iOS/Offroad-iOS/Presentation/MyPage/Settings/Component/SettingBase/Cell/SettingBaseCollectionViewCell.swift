@@ -12,6 +12,18 @@ import Then
 
 final class SettingBaseCollectionViewCell: UICollectionViewCell {
     
+    //MARK: - Properties
+    
+    override var isHighlighted: Bool {
+        didSet {
+            if isHighlighted {
+                contentView.backgroundColor = .primary(.listBg)
+            } else {
+                contentView.backgroundColor = .main(.main1)
+            }
+        }
+    }
+    
     //MARK: - UI Properties
     
     private let listLabel = UILabel()
@@ -38,6 +50,7 @@ extension SettingBaseCollectionViewCell {
     
     private func setupStyle() {
         backgroundColor = .main(.main1)
+        roundCorners(cornerRadius: 12)
         
         listLabel.do {
             $0.textColor = .main(.main2)
@@ -47,16 +60,16 @@ extension SettingBaseCollectionViewCell {
     }
     
     private func setupHierarchy() {
-        addSubviews(listLabel, arrowImageView)
+        contentView.addSubviews(listLabel, arrowImageView)
     }
     
     private func setupLayout() {
         listLabel.snp.makeConstraints {
-            $0.leading.centerY.equalToSuperview()
+            $0.leading.centerY.equalToSuperview().inset(14)
         }
         
         arrowImageView.snp.makeConstraints {
-            $0.trailing.centerY.equalToSuperview()
+            $0.trailing.centerY.equalToSuperview().inset(14)
         }
         
     }
