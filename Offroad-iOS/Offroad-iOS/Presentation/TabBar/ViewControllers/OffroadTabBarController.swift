@@ -93,10 +93,12 @@ extension OffroadTabBarController {
     }
     
     private func setOffroadViewControllers() {
+        let mypageNavigationController = UINavigationController(rootViewController: MyPageViewController())
+        
         let viewControllersArray: [UIViewController] = [
             HomeViewController(),
             UINavigationController(rootViewController: QuestMapViewController()),
-            MyPageViewController()
+            mypageNavigationController
         ]
         
         setViewControllers(viewControllersArray, animated: false)

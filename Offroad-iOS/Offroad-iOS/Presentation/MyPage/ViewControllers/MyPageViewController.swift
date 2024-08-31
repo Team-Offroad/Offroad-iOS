@@ -26,6 +26,13 @@ final class MyPageViewController: UIViewController {
         
         setupDelegate()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+        
+        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+        offroadTabBarController.showTabBarAnimation()
+    }
 }
 
 extension MyPageViewController {
@@ -57,10 +64,18 @@ extension MyPageViewController: UICollectionViewDataSource {
 
 extension MyPageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (rootView.getBackgroundViewWidth() - 13) / 2, height: 138)
+        return CGSize(width: (rootView.backgroundViewWidth - 13) / 2, height: 138)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.cellForItem(at: indexPath)?.isSelected = true
+        switch indexPath.item {
+        case 2:
+            let collectedTitlesViewController = CollectedTitlesViewController()
+            self.navigationController?.pushViewController(collectedTitlesViewController, animated: true)
+        case 3:
+            let settingViewController = SettingViewController()
+            self.navigationController?.pushViewController(settingViewController, animated: true)
+        default: break
+        }
     }
 }
