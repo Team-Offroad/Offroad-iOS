@@ -14,6 +14,7 @@ final class CollectedTitlesView: UIView {
 
     //MARK: - UI Properties
     
+    let customBackButton = NavigationPopButton()
     private let titleView = UIView()
     private let titleBorderView = UIView()
     private let titleLabel = UILabel()
@@ -44,6 +45,10 @@ extension CollectedTitlesView {
     
     private func setupStyle() {
         backgroundColor = .primary(.listBg)
+        
+        customBackButton.do {
+            $0.configureButtonTitle(titleString: "마이페이지")
+        }
         
         titleView.do {
             $0.backgroundColor = .main(.main1)
@@ -92,6 +97,7 @@ extension CollectedTitlesView {
         )
         
         titleView.addSubviews(
+            customBackButton,
             titleStackView,
             descriptionLabel,
             checkCircleImageView
@@ -101,25 +107,30 @@ extension CollectedTitlesView {
     }
     
     private func setupLayout() {
+        customBackButton.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(12)
+            $0.leading.equalToSuperview().inset(12)
+        }
+        
         titleView.snp.makeConstraints {
-            $0.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
-            $0.height.equalTo(127)
+            $0.top.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(titleBorderView.snp.top)
         }
         
         titleBorderView.snp.makeConstraints {
-            $0.top.equalTo(titleView.snp.bottom)
+            $0.top.equalTo(safeAreaLayoutGuide).inset(183)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(1)
         }
         
         titleStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(42)
+            $0.bottom.equalTo(checkCircleImageView.snp.top).offset(-15)
             $0.leading.equalToSuperview().inset(24)
         }
         
         checkCircleImageView.snp.makeConstraints {
-            $0.leading.equalTo(titleStackView.snp.leading)
-            $0.top.equalTo(titleStackView.snp.bottom).offset(15)
+            $0.leading.equalToSuperview().inset(24)
+            $0.bottom.equalToSuperview().inset(25)
         }
         
         descriptionLabel.snp.makeConstraints {
