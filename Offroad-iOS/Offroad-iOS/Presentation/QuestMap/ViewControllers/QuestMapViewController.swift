@@ -53,6 +53,8 @@ class QuestMapViewController: OffroadTabBarViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        guard let offroadTabBarController = tabBarController as? OffroadTabBarController else { return }
+        offroadTabBarController.showTabBarAnimation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -63,13 +65,6 @@ class QuestMapViewController: OffroadTabBarViewController {
         rootView.naverMapView.mapView.positionMode = .compass
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
-        
-        // QuestQRViewController를 pop하고 나서 tabBar가 올라오게 하기 위함.
-        // QuestQRViewController의 viewDidDisappear 함수에서 tabBarController에 접근 시 nil이 뜨기 때문에
-        // tabBar를 다시 보이게 하는 함수를 여기에서 호출
-        // 추후 수정 예정
-        let offroadTabBarController = tabBarController as! OffroadTabBarController
-        offroadTabBarController.showTabBarAnimation()
     }
     
 }
