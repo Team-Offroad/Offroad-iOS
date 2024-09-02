@@ -16,7 +16,6 @@ class PlaceListViewController: UIViewController {
     let dummyDataForAllPlace: [RegisteredPlaceInfo] = PlaceListDummyDataManager.makeDummyData(count: 100)
     
     let operationQueue = OperationQueue()
-    private(set) var isSearchingAllList: Bool = false
     
     //MARK: - UI Properties
     

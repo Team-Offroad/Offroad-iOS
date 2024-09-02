@@ -11,15 +11,14 @@ class QuestListViewController: UIViewController {
 
     //MARK: - Properties
 
-    var dummyDataSource: [QuestDTO] = []
-    let questListDummyData: [QuestDTO] = QuestListDummyDataManager().makeDummyData()
+    private var dummyDataSource: [QuestDTO] = []
+    private let questListDummyData: [QuestDTO] = QuestListDummyDataManager().makeDummyData()
 
-    let operationQueue = OperationQueue()
-    private(set) var isSearchingAllList: Bool = false
+    private let operationQueue = OperationQueue()
 
     //MARK: - UI Properties
 
-    let rootView = QuestListView()
+    private let rootView = QuestListView()
 
     //MARK: - Life Cycle
 
@@ -32,8 +31,7 @@ class QuestListViewController: UIViewController {
 
         setNavigationController()
         setupNavigationControllerGesture()
-        setupButtonsActions()
-        setupSwitchActions()
+        setupControlsTarget()
         setupCollectionView()
         setupDelegates()
     }
@@ -68,12 +66,9 @@ extension QuestListViewController {
     private func setupNavigationControllerGesture() {
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
-
-    private func setupButtonsActions() {
-        rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
-    }
     
-    private func setupSwitchActions() {
+    private func setupControlsTarget() {
+        rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
         rootView.ongoingQuestToggle.addTarget(self, action: #selector(ongoingQuestSwitchValueChanged(sender:)), for: .valueChanged)
     }
     

@@ -14,14 +14,15 @@ class QuestListView: UIView {
 
     //MARK: - UI Properties
 
-    let customNavigationBar = UIView()
+    private let customNavigationBar = UIView()
+    private let titleLabel = UILabel()
+    private let titleIcon = UIImageView()
+    private let ongoingQuestLabel = UILabel()
+    private let separator = UIView()
+    
     let customBackButton = UIButton()
-    let titleLabel = UILabel()
-    let titleIcon = UIImageView()
-    let ongoingQuestLabel = UILabel()
     let ongoingQuestToggle = UISwitch()
-    let separator = UIView()
-
+    
     var questListCollectionView: UICollectionView!
 
     //MARK: - Life Cycle

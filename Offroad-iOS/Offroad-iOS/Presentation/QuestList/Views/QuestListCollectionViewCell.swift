@@ -11,12 +11,12 @@ class QuestListCollectionViewCell: UICollectionViewCell {
 
     //MARK: - Properties
 
-    let collectionViewHorizontalSectionInset: CGFloat = 24
-    lazy var widthConstraint = contentView.widthAnchor.constraint(
+    private let collectionViewHorizontalSectionInset: CGFloat = 24
+    private lazy var widthConstraint = contentView.widthAnchor.constraint(
         equalToConstant: UIScreen.current.bounds.width - collectionViewHorizontalSectionInset * 2
     )
-    lazy var expandedBottomConstraint = questInfoView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
-    lazy var shrinkedBottomConstraint = questNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
+    private lazy var expandedBottomConstraint = questInfoView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
+    private lazy var shrinkedBottomConstraint = questNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
 
     override var isSelected: Bool {
         didSet { setAppearance() }
@@ -24,17 +24,17 @@ class QuestListCollectionViewCell: UICollectionViewCell {
 
     //MARK: - UI Properties
     
-    let questNameLabel = UILabel()
-    let questProgressLabel = UILabel()
-    let chevronImageView = UIImageView(image: .icnQuestListExpendableCellChevron)
+    private let questNameLabel = UILabel()
+    private let questProgressLabel = UILabel()
+    private let chevronImageView = UIImageView(image: .icnQuestListExpendableCellChevron)
     
-    let questDescriptionLabel = UILabel()
+    private let questDescriptionLabel = UILabel()
     
-    let questInfoView = UILabel()
-    let checkBoxImageView = UIImageView(image: .icnQuestListCheckBox)
-    let giftBoxImageVIew = UIImageView(image: .icnQuestListGiftBox)
-    let questClearConditionLabel = UILabel()
-    let questRewardDescriptionLabel = UILabel()
+    private let questInfoView = UILabel()
+    private let checkBoxImageView = UIImageView(image: .icnQuestListCheckBox)
+    private let giftBoxImageVIew = UIImageView(image: .icnQuestListGiftBox)
+    private let questClearConditionLabel = UILabel()
+    private let questRewardDescriptionLabel = UILabel()
 
     //MARK: - Life Cycle
 
@@ -72,9 +72,7 @@ extension QuestListCollectionViewCell {
             questNameLabel,
             questProgressLabel,
             chevronImageView,
-            
             questDescriptionLabel,
-            
             questInfoView
         )
         
@@ -89,7 +87,6 @@ extension QuestListCollectionViewCell {
     private func setupStyle() {
         contentView.backgroundColor = .main(.main3)
         contentView.roundCorners(cornerRadius: 5)
-        contentView.layer.borderColor = UIColor.clear.cgColor
         
         questNameLabel.do { label in
             label.font = .offroad(style: .iosTextBold)
@@ -109,16 +106,14 @@ extension QuestListCollectionViewCell {
         }
         
         questDescriptionLabel.do { label in
-            // 추후 FontLiteral에 ios_box_medi가 추가되면 적용 요망
-            label.font = .pretendardFont(ofSize: 14, weight: .medium)
+            label.font = .offroad(style: .iosBoxMedi)
             label.textAlignment = .left
             label.numberOfLines = 0
             label.textColor = .grayscale(.gray400)
         }
         
         questInfoView.do { view in
-            // 추후 ColorLiteral로 변경 요망
-            view.backgroundColor = .init(hexCode: "FFF5EA")
+            view.backgroundColor = .primary(.boxInfo)
             view.roundCorners(cornerRadius: 9)
         }
 
@@ -131,16 +126,14 @@ extension QuestListCollectionViewCell {
         }
         
         questClearConditionLabel.do { label in
-            // 추후 FontLiteral에 ios_box_medi가 추가되면 적용 요망
-            label.font = .pretendardFont(ofSize: 14, weight: .medium)
+            label.font = .offroad(style: .iosBoxMedi)
             label.textColor = .grayscale(.gray400)
             label.numberOfLines = 0
             label.textAlignment = .left
         }
         
         questRewardDescriptionLabel.do { label in
-            // 추후 FontLiteral에 ios_box_medi가 추가되면 적용 요망
-            label.font = .pretendardFont(ofSize: 14, weight: .medium)
+            label.font = .offroad(style: .iosBoxMedi)
             label.textColor = .grayscale(.gray400)
             label.numberOfLines = 0
             label.textAlignment = .left
@@ -223,7 +216,6 @@ extension QuestListCollectionViewCell {
     }
 
     private func setAppearance() {
-        contentView.layer.borderWidth = isSelected ? 1 : 0
         expandedBottomConstraint.isActive = isSelected
         shrinkedBottomConstraint.isActive = !isSelected
 
