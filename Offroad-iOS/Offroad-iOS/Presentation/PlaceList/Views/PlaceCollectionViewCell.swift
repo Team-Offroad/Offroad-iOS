@@ -105,7 +105,6 @@ extension PlaceCollectionViewCell {
     private func setupStyle() {
         contentView.backgroundColor = .main(.main3)
         contentView.roundCorners(cornerRadius: 5)
-        contentView.layer.borderColor = UIColor.clear.cgColor
         
         placeCategoryView.do { view in
             view.backgroundColor = .neutral(.nametagInactive)
@@ -259,7 +258,6 @@ extension PlaceCollectionViewCell {
     }
     
     private func setAppearance() {
-        contentView.layer.borderWidth = isSelected ? 1 : 0
         placeDescriptionView.isHidden = !isSelected
         expandedBottomConstraint.isActive = isSelected
         shrinkedBottomConstraint.isActive = !isSelected
