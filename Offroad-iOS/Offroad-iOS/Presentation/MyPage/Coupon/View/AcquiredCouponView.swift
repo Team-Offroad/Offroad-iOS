@@ -106,7 +106,7 @@ class AcquiredCouponView: UIView {
         }
 
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(segmentedControl.snp.bottom).offset(20)
+            make.top.equalTo(segmentedControl.snp.bottom)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.bottom.equalToSuperview().inset(20)
         }
