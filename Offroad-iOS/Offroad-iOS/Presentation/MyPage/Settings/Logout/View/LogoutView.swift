@@ -47,6 +47,7 @@ extension LogoutView {
         popupView.do {
             $0.backgroundColor = .main(.main3)
             $0.roundCorners(cornerRadius: 15)
+            $0.alpha = 0
         }
 
         titleLabel.do {
@@ -118,5 +119,16 @@ extension LogoutView {
             $0.horizontalEdges.equalToSuperview().inset(46)
             $0.height.equalTo(48)
         }
+    }
+    
+    //MARK: - Func
+    
+    func presentPopupView() {
+        popupView.executePresentPopupAnimation()
+    }
+    
+    func dismissPopupView() {
+        backgroundColor = .clear
+        popupView.executeDismissPopupAnimation()
     }
 }
