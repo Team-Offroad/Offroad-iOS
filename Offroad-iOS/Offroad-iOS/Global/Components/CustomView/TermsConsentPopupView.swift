@@ -25,8 +25,8 @@ final class TermsConsentPopupView: UIView {
     private let contentView = UIView()
     private let contentScrollView = UIScrollView()
     private let contentStackView = UIStackView()
-    private let disagreeButton = UIButton()
-    private let agreeButton = UIButton()
+    let disagreeButton = UIButton()
+    let agreeButton = UIButton()
     private let buttonStackView = UIStackView()
     
     // MARK: - Life Cycle
@@ -54,6 +54,7 @@ extension TermsConsentPopupView {
         popupView.do {
             $0.backgroundColor = .main(.main3)
             $0.roundCorners(cornerRadius: 15)
+            $0.alpha = 0
         }
         
         titleLabel.do {
@@ -67,8 +68,7 @@ extension TermsConsentPopupView {
             $0.textColor = .main(.main2)
             $0.textAlignment = .left
             $0.numberOfLines = 0
-            $0.preferredMaxLayoutWidth = deviceWidth - 92
-            $0.lineBreakMode = .byWordWrapping
+            $0.lineBreakMode = .byCharWrapping
         }
         
         contentLabel.do {
@@ -76,12 +76,10 @@ extension TermsConsentPopupView {
             $0.textColor = .grayscale(.gray400)
             $0.textAlignment = .left
             $0.numberOfLines = 0
-            $0.preferredMaxLayoutWidth = deviceWidth - 92
-            $0.lineBreakMode = .byWordWrapping
+            $0.lineBreakMode = .byCharWrapping
         }
         
         contentScrollView.do {
-            $0.contentInsetAdjustmentBehavior = .never
             $0.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
         }
         
@@ -154,9 +152,62 @@ extension TermsConsentPopupView {
         }
         
         buttonStackView.snp.makeConstraints {
-            $0.top.equalTo(contentScrollView.snp.bottom).offset(39)
+            $0.bottom.equalToSuperview().inset(38)
             $0.horizontalEdges.equalToSuperview().inset(46)
             $0.height.equalTo(48)
         }
+    }
+        
+    
+    //MARK: - Private Func
+    
+    private func applyConditionalIndent(targetString: String) -> (NSMutableAttributedString) {
+        let resultString = NSMutableAttributedString()
+        let strings = targetString.components(separatedBy: "\n")
+        let specialString: Set<String> = ["1. ", "2. ", "3. ", "4. ", "5. ", "6. ", "7. ", "8. ", "9. ", " ∙ "]
+        var textIndent: CGFloat
+        
+        for string in strings {
+            let numberedItem = "\(string)\n"
+            let attributedItem = NSMutableAttributedString(string: numberedItem)
+            let isContainSpecialString = specialString.contains { string.contains($0) }
+            
+            if isContainSpecialString {
+                textIndent = {
+                    let label = UILabel()
+                    label.text = String(string.prefix(3))
+                    label.font = .offroad(style: .iosMarketing)
+                    
+                    return label.sizeThatFits(.zero).width
+                }()
+                
+                let style = NSMutableParagraphStyle()
+                style.firstLineHeadIndent = 0
+                style.headIndent = textIndent
+                style.lineSpacing = 6
+                attributedItem.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: attributedItem.length))
+            }
+            resultString.append(attributedItem)
+        }
+        
+        return resultString
+    }
+    
+    //MARK: - Func
+    
+    func configurePopupView(titleString: String, descriptionString: String, contentString: String) {
+        titleLabel.text = titleString
+        descriptionLabel.text = descriptionString
+        descriptionLabel.setLineSpacing(spacing: 6)
+        contentLabel.attributedText = applyConditionalIndent(targetString: contentString)
+    }
+    
+    func presentPopupView() {
+        popupView.executePresentPopupAnimation()
+    }
+    
+    func dismissPopupView() {
+        backgroundColor = .clear
+        popupView.executeDismissPopupAnimation()
     }
 }
