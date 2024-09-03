@@ -90,10 +90,6 @@
 		AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */; };
 		D00A485B2C628054008B286A /* MyPageMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A485A2C628054008B286A /* MyPageMenuCollectionViewCell.swift */; };
 		D00A485D2C62847A008B286A /* MyPageMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A485C2C62847A008B286A /* MyPageMenuModel.swift */; };
-		D00A488C2C7830F3008B286A /* TermsConsentPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A488B2C7830F3008B286A /* TermsConsentPopupView.swift */; };
-		D00A48942C78396F008B286A /* TermsConsentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48932C78396F008B286A /* TermsConsentView.swift */; };
-		D00A48962C783988008B286A /* TermsConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48952C783987008B286A /* TermsConsentViewController.swift */; };
-		D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48982C7F04CF008B286A /* TermsListTableViewCell.swift */; };
 		D00A48622C633947008B286A /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48612C633947008B286A /* SettingView.swift */; };
 		D00A48642C633959008B286A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48632C633959008B286A /* SettingViewController.swift */; };
 		D00A486A2C633EF2008B286A /* SettingBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48692C633EF2008B286A /* SettingBaseModel.swift */; };
@@ -105,6 +101,10 @@
 		D00A48842C6E5DA7008B286A /* NoticePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48832C6E5DA7008B286A /* NoticePostView.swift */; };
 		D00A48872C6E77C5008B286A /* NoticePostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48862C6E77C5008B286A /* NoticePostModel.swift */; };
 		D00A48892C763D24008B286A /* NavigationPopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48882C763D24008B286A /* NavigationPopButton.swift */; };
+		D00A488C2C7830F3008B286A /* TermsConsentPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A488B2C7830F3008B286A /* TermsConsentPopupView.swift */; };
+		D00A48942C78396F008B286A /* TermsConsentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48932C78396F008B286A /* TermsConsentView.swift */; };
+		D00A48962C783988008B286A /* TermsConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48952C783987008B286A /* TermsConsentViewController.swift */; };
+		D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48982C7F04CF008B286A /* TermsListTableViewCell.swift */; };
 		D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */; };
 		D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB102C4054D20048B6DF /* TitleModel.swift */; };
 		D03C83622C620AF100F3094D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C83612C620AF100F3094D /* MyPageView.swift */; };
@@ -119,6 +119,7 @@
 		D063E9A42C6108DB00434A09 /* CollectedTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9A32C6108DB00434A09 /* CollectedTitleModel.swift */; };
 		D063E9A72C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9A62C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift */; };
 		D064668E2C7F127A00CF10FD /* TermsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064668D2C7F127A00CF10FD /* TermsModel.swift */; };
+		D06466902C83A18400CF10FD /* TermsConsentPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064668F2C83A18400CF10FD /* TermsConsentPopupViewController.swift */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
@@ -280,10 +281,6 @@
 		C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOS_Offroad_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D00A485A2C628054008B286A /* MyPageMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		D00A485C2C62847A008B286A /* MyPageMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMenuModel.swift; sourceTree = "<group>"; };
-		D00A488B2C7830F3008B286A /* TermsConsentPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConsentPopupView.swift; sourceTree = "<group>"; };
-		D00A48932C78396F008B286A /* TermsConsentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConsentView.swift; sourceTree = "<group>"; };
-		D00A48952C783987008B286A /* TermsConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConsentViewController.swift; sourceTree = "<group>"; };
-		D00A48982C7F04CF008B286A /* TermsListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsListTableViewCell.swift; sourceTree = "<group>"; };
 		D00A48612C633947008B286A /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		D00A48632C633959008B286A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		D00A48692C633EF2008B286A /* SettingBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingBaseModel.swift; sourceTree = "<group>"; };
@@ -295,6 +292,10 @@
 		D00A48832C6E5DA7008B286A /* NoticePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePostView.swift; sourceTree = "<group>"; };
 		D00A48862C6E77C5008B286A /* NoticePostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePostModel.swift; sourceTree = "<group>"; };
 		D00A48882C763D24008B286A /* NavigationPopButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPopButton.swift; sourceTree = "<group>"; };
+		D00A488B2C7830F3008B286A /* TermsConsentPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConsentPopupView.swift; sourceTree = "<group>"; };
+		D00A48932C78396F008B286A /* TermsConsentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConsentView.swift; sourceTree = "<group>"; };
+		D00A48952C783987008B286A /* TermsConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConsentViewController.swift; sourceTree = "<group>"; };
+		D00A48982C7F04CF008B286A /* TermsListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsListTableViewCell.swift; sourceTree = "<group>"; };
 		D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateToggleButton.swift; sourceTree = "<group>"; };
 		D018BB102C4054D20048B6DF /* TitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleModel.swift; sourceTree = "<group>"; };
 		D018BB1B2C43E4740048B6DF /* Offroad-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Offroad-iOS.entitlements"; sourceTree = "<group>"; };
@@ -308,6 +309,7 @@
 		D063E9A32C6108DB00434A09 /* CollectedTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitleModel.swift; sourceTree = "<group>"; };
 		D063E9A62C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitleCollectionViewCell.swift; sourceTree = "<group>"; };
 		D064668D2C7F127A00CF10FD /* TermsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsModel.swift; sourceTree = "<group>"; };
+		D064668F2C83A18400CF10FD /* TermsConsentPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConsentPopupViewController.swift; sourceTree = "<group>"; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		D06D26C22C3D835300E79F25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -578,10 +580,10 @@
 		4E03946A2C2AA14D007F0517 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				4E03946B2C2AA15C007F0517 /* Common */,
 				4E3F00992C40D1C000B9A31A /* TabBar */,
 				4E0394C12C2AB3B2007F0517 /* Login */,
 				D00A488D2C783916008B286A /* Onboarding */,
-				4E03946B2C2AA15C007F0517 /* Common */,
 				4E03946D2C2AA5E8007F0517 /* Splash */,
 				87E0468E2C3CE6D5002D12C2 /* Nickname */,
 				4E0394842C2AA9DB007F0517 /* Character */,
@@ -1112,57 +1114,6 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		D00A488A2C78306C008B286A /* CustomView */ = {
-			isa = PBXGroup;
-			children = (
-				D00A488B2C7830F3008B286A /* TermsConsentPopupView.swift */,
-			);
-			path = CustomView;
-			sourceTree = "<group>";
-		};
-		D00A488D2C783916008B286A /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				D00A48922C783953008B286A /* Model */,
-				D00A48912C78394C008B286A /* View */,
-				D00A48902C783945008B286A /* ViewController */,
-			);
-			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		D00A48902C783945008B286A /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				D00A48952C783987008B286A /* TermsConsentViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		D00A48912C78394C008B286A /* View */ = {
-			isa = PBXGroup;
-			children = (
-				D00A48972C7F04B3008B286A /* Cell */,
-				D00A48932C78396F008B286A /* TermsConsentView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		D00A48922C783953008B286A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				D064668D2C7F127A00CF10FD /* TermsModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		D00A48972C7F04B3008B286A /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				D00A48982C7F04CF008B286A /* TermsListTableViewCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
 		D00A485F2C63391F008B286A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1250,6 +1201,58 @@
 				D00A48862C6E77C5008B286A /* NoticePostModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D00A488A2C78306C008B286A /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				D00A488B2C7830F3008B286A /* TermsConsentPopupView.swift */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		D00A488D2C783916008B286A /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				D00A48922C783953008B286A /* Model */,
+				D00A48912C78394C008B286A /* View */,
+				D00A48902C783945008B286A /* ViewController */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		D00A48902C783945008B286A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D00A48952C783987008B286A /* TermsConsentViewController.swift */,
+				D064668F2C83A18400CF10FD /* TermsConsentPopupViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D00A48912C78394C008B286A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D00A48972C7F04B3008B286A /* Cell */,
+				D00A48932C78396F008B286A /* TermsConsentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D00A48922C783953008B286A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D064668D2C7F127A00CF10FD /* TermsModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D00A48972C7F04B3008B286A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D00A48982C7F04CF008B286A /* TermsListTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		D018BB0C2C401F5F0048B6DF /* Components */ = {
@@ -2042,6 +2045,7 @@
 				D0E796612C455391005B47A5 /* ChangeEmblemResponseDTO.swift in Sources */,
 				4E0C69692C4724A100B6453E /* OffroadNMFMarker.swift in Sources */,
 				D06D26CD2C3E6EA200E79F25 /* CustomRecentProgressView.swift in Sources */,
+				D06466902C83A18400CF10FD /* TermsConsentPopupViewController.swift in Sources */,
 				D0B81AA02C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift in Sources */,
 				4E1E94132C398C4200A7B08A /* String+.swift in Sources */,
 				D063E99F2C61071100434A09 /* CollectedTitlesView.swift in Sources */,
@@ -2060,7 +2064,6 @@
 				D00A48822C6E5D92008B286A /* NoticePostViewController.swift in Sources */,
 				D0E7962B2C45346A005B47A5 /* ProfileUpdateResponseDTO.swift in Sources */,
 				D00A48842C6E5DA7008B286A /* NoticePostView.swift in Sources */,
-				4E9DACE02C3FF7290088A376 /* QuestNavigationBar.swift in Sources */,
 				872F4BB52C68D66200284DE0 /* AcquiredCharactersViewController.swift in Sources */,
 				D064668E2C7F127A00CF10FD /* TermsModel.swift in Sources */,
 				4E59A11C2C4228C500B548C6 /* AVCameraPreview.swift in Sources */,

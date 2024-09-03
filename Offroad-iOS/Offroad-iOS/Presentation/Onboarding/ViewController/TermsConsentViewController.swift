@@ -13,12 +13,13 @@ final class TermsConsentViewController: UIViewController {
     
     private let rootView = TermsConsentView()
     
-    private var termsModelData = TermsModel.getTermsModelList() {
+    private var termsModelData = TermsListModel.getTermsListModel() {
         didSet {
             termsModelData[0].isSelected && termsModelData[1].isSelected && termsModelData[2].isSelected ? rootView.nextButton.changeState(forState: .isEnabled) : rootView.nextButton.changeState(forState: .isDisabled)
         }
     }
-    
+    private var termsDetailModel = TermsDetailModel.getTermsDetailModel()
+
     // MARK: - Life Cycle
     
     override func loadView() {
@@ -103,5 +104,15 @@ extension TermsConsentViewController: UITableViewDataSource {
 extension TermsConsentViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let termsConsentPopupViewController = TermsConsentPopupViewController(
+            titleString: termsDetailModel[indexPath.row].titleString,
+            descriptionString: termsDetailModel[indexPath.row].descriptionString,
+            contentString: termsDetailModel[indexPath.row].contentString
+        )
+        termsConsentPopupViewController.modalPresentationStyle = .overCurrentContext
+        self.present(termsConsentPopupViewController, animated: false)
     }
 }
