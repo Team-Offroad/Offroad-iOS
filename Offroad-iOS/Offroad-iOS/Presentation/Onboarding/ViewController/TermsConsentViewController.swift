@@ -110,9 +110,20 @@ extension TermsConsentViewController: UITableViewDelegate {
         let termsConsentPopupViewController = TermsConsentPopupViewController(
             titleString: termsDetailModel[indexPath.row].titleString,
             descriptionString: termsDetailModel[indexPath.row].descriptionString,
-            contentString: termsDetailModel[indexPath.row].contentString
+            contentString: termsDetailModel[indexPath.row].contentString,
+            index: indexPath.row
         )
+        termsConsentPopupViewController.delegate = self
         termsConsentPopupViewController.modalPresentationStyle = .overCurrentContext
         self.present(termsConsentPopupViewController, animated: false)
+    }
+}
+
+
+extension TermsConsentViewController: checkButtonDelegate {
+    func changeCheckState(index: Int, state: Bool) {
+        termsModelData[index].isSelected = state
+        rootView.termsListTableView.reloadData()
+        agreeButtonInCellTapped()
     }
 }

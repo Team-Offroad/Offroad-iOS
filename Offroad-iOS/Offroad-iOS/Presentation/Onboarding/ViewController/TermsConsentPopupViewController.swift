@@ -7,22 +7,30 @@
 
 import UIKit
 
+protocol checkButtonDelegate: AnyObject {
+    func changeCheckState(index: Int, state: Bool)
+}
+
 final class TermsConsentPopupViewController: UIViewController {
     
     //MARK: - Properties
     
     private let rootView = TermsConsentPopupView()
     
+    weak var delegate: checkButtonDelegate?
+    
     private let popupTitleString: String
     private let popupDescriptionString: String
     private let popupContentString: String
+    private let selectedIndex: Int
     
     // MARK: - Life Cycle
     
-    init(titleString: String, descriptionString: String, contentString: String) {
+    init(titleString: String, descriptionString: String, contentString: String, index: Int) {
         popupTitleString = titleString
         popupDescriptionString = descriptionString
         popupContentString = contentString
+        selectedIndex = index
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -63,6 +71,7 @@ extension TermsConsentPopupViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
             self.dismiss(animated: false)
         }
+        delegate?.changeCheckState(index: selectedIndex, state: true)
     }
     
     @objc private func disagreeButtonTapped() {
@@ -70,5 +79,6 @@ extension TermsConsentPopupViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
             self.dismiss(animated: false)
         }
+        delegate?.changeCheckState(index: selectedIndex, state: false)
     }
 }
