@@ -48,4 +48,14 @@ extension AcquiredCouponViewController: UICollectionViewDelegate, UICollectionVi
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let imageName = "coffee_coupon"
+        let image = UIImage(named: imageName)
+        let title = "카페 프로토콜 연희점 카페라떼 1잔"
+        let description = "프로토콜만의 담백한 맛을 자랑하는 라떼\n카공하기 좋은 프로토콜 카페\n시그니처 카페라떼 한 잔 쿠폰입니다."
+        
+        let detailVC = CouponDetailViewController(image: image, title: title, description: description)
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
