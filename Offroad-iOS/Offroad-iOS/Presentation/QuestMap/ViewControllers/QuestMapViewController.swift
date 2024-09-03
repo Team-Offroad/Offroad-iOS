@@ -53,6 +53,9 @@ class QuestMapViewController: OffroadTabBarViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.navigationBar.isHidden = false
+        guard let offroadTabBarController = tabBarController as? OffroadTabBarController else { return }
+        offroadTabBarController.showTabBarAnimation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -101,7 +104,8 @@ extension QuestMapViewController {
     
     @objc private func pushQuestListViewController() {
         print(#function)
-        //navigationController?.pushViewController(QuestQRViewController(), animated: true)
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.pushViewController(QuestListViewController(), animated: true)
     }
     
     @objc private func pushPlaceListViewController() {
