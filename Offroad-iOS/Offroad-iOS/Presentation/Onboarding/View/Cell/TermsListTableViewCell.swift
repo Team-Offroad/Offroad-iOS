@@ -24,7 +24,7 @@ final class TermsListTableViewCell: UITableViewCell {
     private let selectionStatusImageView = UIImageView(image: UIImage(resource: .imgOptional))
     private let titleLabel = UILabel()
     private let cellStackView = UIStackView()
-//    private let arrowImageView = UIImageView(image: UIImage(resource: .iconArrow))
+    private let arrowImageView = UIImageView(image: UIImage(resource: .iconArrow))
 
     //MARK: - Life Cycle
     
@@ -76,7 +76,7 @@ extension TermsListTableViewCell {
     }
     
     private func setupHierarchy() {
-        contentView.addSubviews(cellStackView)
+        contentView.addSubviews(cellStackView, arrowImageView)
         cellStackView.addArrangedSubviews(
             agreeButton,
             selectionStatusImageView,
@@ -88,11 +88,16 @@ extension TermsListTableViewCell {
         cellStackView.snp.makeConstraints {
             $0.leading.centerY.equalToSuperview()
         }
+        
+        arrowImageView.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(2)
+            $0.centerY.equalToSuperview()
+        }
     }
     
     // MARK: - Func
     
-    func configureCell(data: TermsModel) {
+    func configureCell(data: TermsListModel) {
         titleLabel.text = data.titleString
         agreeButton.isSelected = data.isSelected
         selectionStatusImageView.image = data.isRequired ? UIImage(resource: .imgRequired) : UIImage(resource: .imgOptional)
