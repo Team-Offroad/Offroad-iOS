@@ -157,7 +157,6 @@ extension TermsConsentPopupView {
             $0.height.equalTo(48)
         }
     }
-        
     
     //MARK: - Private Func
     

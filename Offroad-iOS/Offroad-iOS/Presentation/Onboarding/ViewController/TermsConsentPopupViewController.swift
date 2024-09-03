@@ -46,7 +46,9 @@ final class TermsConsentPopupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        rootView.configurePopupView(titleString: popupTitleString, descriptionString: popupDescriptionString, contentString: popupContentString)
+        rootView.configurePopupView(titleString: popupTitleString, 
+                                    descriptionString: popupDescriptionString,
+                                    contentString: popupContentString)
         setupAddTarget()
     }
     

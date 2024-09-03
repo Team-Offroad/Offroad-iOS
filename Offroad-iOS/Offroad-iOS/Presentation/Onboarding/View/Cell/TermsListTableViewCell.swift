@@ -43,9 +43,7 @@ final class TermsListTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        contentView.frame = contentView.frame.inset(
-            by: UIEdgeInsets(top: 7, left: .zero, bottom: 7, right: .zero)
-        )
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 7, left: .zero, bottom: 7, right: .zero))
     }
 }
 
