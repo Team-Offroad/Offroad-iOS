@@ -45,8 +45,7 @@ class QuestMapViewController: OffroadTabBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 더미 데이터로 마커 초기 설정
-        //setupMarkers()
+        setupStyle()
         setupButtonsAction()
         setupDelegates()
     }
@@ -54,6 +53,9 @@ class QuestMapViewController: OffroadTabBarViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.navigationBar.isHidden = false
+        guard let offroadTabBarController = tabBarController as? OffroadTabBarController else { return }
+        offroadTabBarController.showTabBarAnimation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -95,24 +97,19 @@ extension QuestMapViewController {
     
     @objc private func pushQuestListViewController() {
         print(#function)
-        //navigationController?.pushViewController(QuestQRViewController(), animated: true)
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.pushViewController(QuestListViewController(), animated: true)
     }
     
     @objc private func pushPlaceListViewController() {
         print(#function)
-        //navigationController?.pushViewController(QuestQRViewController(), animated: true)
+        navigationController?.pushViewController(PlaceListViewController(), animated: true)
     }
     
     //MARK: - Private Func
     
-    private func setupMarkers() {
-        shownMarkersArray = dummyPlaces.map({ place in
-            let marker = NMFMarker(position: place.latLng)
-            marker.mapView = rootView.naverMapView.mapView
-            marker.width = 25
-            marker.height = 35
-            return marker
-        })
+    private func setupStyle() {
+        navigationController?.navigationBar.isHidden = true
     }
     
     private func setupButtonsAction() {

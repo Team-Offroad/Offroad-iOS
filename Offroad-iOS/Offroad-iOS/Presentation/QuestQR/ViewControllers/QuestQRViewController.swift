@@ -59,6 +59,7 @@ class QuestQRViewController: UIViewController {
         setupNavigationControllerGesture()
         setupCaptureSession()
         setupDelegates()
+        setupButtonsAction()
         setupPrevieLayer()
         
         DispatchQueue.global().async { [weak self] in self?.captureSession.startRunning() }
@@ -67,8 +68,9 @@ class QuestQRViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let questMapNavigationController = navigationController as! QuestMapNavigationController
-        questMapNavigationController.setCustomAppearance(state: .questQR)
+        navigationController?.navigationBar.isHidden = true
+        let offroadTabBarController = tabBarController as! OffroadTabBarController
+        offroadTabBarController.hideTabBarAnimation()
     }
     
     override func viewDidLayoutSubviews() {
@@ -76,6 +78,9 @@ class QuestQRViewController: UIViewController {
         
         let screenSize = UIScreen.current.bounds
         let qrTargetRect = questQRView.qrTargetRectBox.frame
+        
+        // 주의!!) rectOfInterest를 정할 때
+        // (0, 0)은 화면의 우측 상단, (1, 1)은 화면의 좌측 하단이다.
         let rectOfInterest = CGRect(
             x: qrTargetRect.minY / screenSize.height,
             y: qrTargetRect.minX / screenSize.width,
@@ -90,9 +95,6 @@ class QuestQRViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let offroadTabBarController = tabBarController as! OffroadTabBarController
-        offroadTabBarController.hideTabBarAnimation()
-        
         AVCaptureDevice.requestAccess(for: .video) { [weak self] isGranted in
             guard isGranted else {
                 self?.showAlert(title: "카메라 사용 권한 막힘", message: "카메라 접근 권한을 허용해주세요.", okCompletionHandler: { _ in
@@ -106,14 +108,8 @@ class QuestQRViewController: UIViewController {
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        let questMapNavigationController = navigationController as! QuestMapNavigationController
-        questMapNavigationController.setCustomAppearance(state: .questMap)
-        
-        let offroadTabBarController = tabBarController as! OffroadTabBarController
-        offroadTabBarController.showTabBarAnimation()
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
     
 }
@@ -139,6 +135,14 @@ extension QuestQRViewController {
     
     private func setupDelegates() {
         metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.global())
+    }
+    
+    private func setupButtonsAction() {
+        questQRView.customBackButton.addTarget(self, action: #selector(customBackButtonDidTapped), for: .touchUpInside)
+    }
+    
+    @objc private func customBackButtonDidTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func setupPrevieLayer() {
