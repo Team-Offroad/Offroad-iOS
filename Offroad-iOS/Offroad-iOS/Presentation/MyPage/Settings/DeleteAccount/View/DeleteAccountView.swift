@@ -1,0 +1,166 @@
+//
+//  DeleteAccountView.swift
+//  Offroad-iOS
+//
+//  Created by 조혜린 on 9/3/24.
+//
+
+import UIKit
+
+import SnapKit
+import Then
+
+final class DeleteAccountView: UIView {
+
+    //MARK: - UI Properties
+    
+    private let popupView = UIView()
+    private let titleLabel = UILabel()
+    private let descriptionLabel = UILabel()
+    let withdrawalMessageLabel = UILabel()
+    let withdrawalMassageTextField = UITextField()
+    private let withdrawalMassageStackView = UIStackView()
+    let cancleButton = UIButton()
+    let withdrawalButton = StateToggleButton(state: .isDisabled, title: "탈퇴")
+    private let buttonStackView = UIStackView()
+    private let mainStackView = UIStackView()
+
+    // MARK: - Life Cycle
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setupHierarchy()
+        setupStyle()
+        setupLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension DeleteAccountView {
+    
+    // MARK: - Layout
+    
+    private func setupStyle() {
+        backgroundColor = .blackOpacity(.black25)
+        
+        popupView.do {
+            $0.backgroundColor = .main(.main3)
+            $0.roundCorners(cornerRadius: 15)
+            $0.alpha = 0
+        }
+
+        titleLabel.do {
+            $0.text = "회원 탈퇴"
+            $0.font = .offroad(style: .iosTextTitle)
+            $0.textColor = .main(.main2)
+            $0.textAlignment = .center
+        }
+
+        descriptionLabel.do {
+            $0.text = "정말 탈퇴하시겠어요?\n탈퇴하신다면 아래 문구를 입력창에\n그대로 입력해주세요."
+            $0.setLineSpacing(spacing: 6)
+            $0.numberOfLines = 3
+            $0.font = .offroad(style: .iosTextRegular)
+            $0.textColor = .main(.main2)
+            $0.textAlignment = .center
+        }
+        
+        withdrawalMessageLabel.do {
+            $0.text = "오프로드 회원을 탈퇴하겠습니다."
+            $0.setLineSpacing(spacing: 6)
+            $0.font = .offroad(style: .iosTextBold)
+            $0.textColor = .sub(.sub2)
+            $0.textAlignment = .center
+        }
+        
+        withdrawalMassageTextField.do {
+            $0.backgroundColor = .main(.main3)
+            $0.layer.borderColor = UIColor.grayscale(.gray200).cgColor
+            $0.layer.borderWidth = 1
+            $0.roundCorners(cornerRadius: 5)
+            $0.font = .offroad(style: .iosHint)
+            $0.attributedPlaceholder = NSAttributedString(string: "상단의 문구를 그대로 입력해 주세요.", attributes: [.foregroundColor: UIColor.grayscale(.gray300), .font: UIFont.offroad(style: .iosHint)])
+            $0.textColor = .main(.main2)
+            $0.addPadding(left: 12)
+        }
+        
+        withdrawalMassageStackView.do {
+            $0.axis = .vertical
+            $0.spacing = 10
+            $0.alignment = .center
+        }
+
+        cancleButton.do {
+            $0.setTitle("아니오", for: .normal)
+            $0.setTitleColor(.main(.main2), for: .normal)
+            $0.titleLabel?.font = .offroad(style: .iosBtnSmall)
+            $0.backgroundColor = .clear
+            $0.roundCorners(cornerRadius: 5)
+            $0.layer.borderColor = UIColor.main(.main2).cgColor
+            $0.layer.borderWidth = 1
+        }
+
+        buttonStackView.do {
+            $0.axis = .horizontal
+            $0.spacing = 14
+            $0.distribution = .fillEqually
+        }
+        
+        mainStackView.do {
+            $0.axis = .vertical
+            $0.spacing = 18
+            $0.alignment = .center
+        }
+    }
+    
+    private func setupHierarchy() {
+        addSubview(popupView)
+        popupView.addSubviews(mainStackView, buttonStackView)
+        withdrawalMassageStackView.addArrangedSubviews(withdrawalMessageLabel, withdrawalMassageTextField)
+        buttonStackView.addArrangedSubviews(cancleButton, withdrawalButton)
+        mainStackView.addArrangedSubviews(titleLabel, descriptionLabel, withdrawalMassageStackView, buttonStackView)
+    }
+    
+    private func setupLayout() {
+        popupView.snp.makeConstraints {
+            $0.height.equalTo(332)
+            $0.width.equalTo(345)
+            $0.center.equalToSuperview()
+        }
+        
+        mainStackView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(46)
+            $0.height.equalToSuperview().inset(27)
+        }
+        
+        withdrawalMassageTextField.snp.makeConstraints {
+            $0.height.equalTo(46)
+            $0.width.equalToSuperview()
+        }
+        
+        withdrawalMassageStackView.snp.makeConstraints {
+            $0.width.equalToSuperview()
+        }
+        
+        buttonStackView.snp.makeConstraints {
+            $0.height.equalTo(48)
+            $0.width.equalToSuperview()
+        }
+    }
+    
+    //MARK: - Func
+    
+    func presentPopupView() {
+        popupView.executePresentPopupAnimation()
+    }
+    
+    func dismissPopupView() {
+        backgroundColor = .clear
+        popupView.executeDismissPopupAnimation()
+    }
+}
