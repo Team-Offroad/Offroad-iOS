@@ -16,7 +16,7 @@ protocol AuthServiceProtocol {
 }
 
 final class AuthService: BaseService, AuthServiceProtocol {
-    let provider = MoyaProvider<AuthAPI>.init(session: Session(interceptor: TokenInterceptor.shared), plugins: [MoyaPlugin()])
+    let provider = MoyaProvider<AuthAPI>(plugins: [MoyaPlugin()])
 
     func postSocialLogin(body: SocialLoginRequestDTO, completion: @escaping (NetworkResult<SocialLoginResponseDTO>) -> ()) {
         provider.request(.postSocialLogin(body: body)) { result in

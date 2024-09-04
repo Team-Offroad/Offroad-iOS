@@ -16,11 +16,22 @@ final class TokenInterceptor: RequestInterceptor {
     private init() {}
 
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-        var urlRequest = urlRequest
-        if let token = KeychainManager.shared.loadAccessToken() {
-            urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print("adapt 진입")
+        guard let urlString = Bundle.main.infoDictionary?["BASE_URL"] as? String else {
+            completion(.success(urlRequest))
+            return
         }
-        completion(.success(urlRequest))
+            
+        guard urlRequest.url?.absoluteString.hasPrefix(urlString) == true,
+              let accessToken = KeychainManager.shared.loadAccessToken()
+        else {
+            completion(.success(urlRequest))
+            return
+        }
+        
+        var newUrlRequest = urlRequest
+        newUrlRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        completion(.success(newUrlRequest))
     }
     
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
@@ -38,6 +49,7 @@ final class TokenInterceptor: RequestInterceptor {
                 
                 KeychainManager.shared.saveAccessToken(token: accessToken)
                 KeychainManager.shared.saveRefreshToken(token: refreshToken)
+                
                 completion(.retry)
             default:
                 completion(.doNotRetry)
