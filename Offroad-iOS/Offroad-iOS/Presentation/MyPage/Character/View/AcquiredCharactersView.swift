@@ -47,8 +47,6 @@ class AcquiredCharactersView: UIView {
         $0.itemSize = CGSize(width: itemWidth, height: itemHeight)
         $0.minimumLineSpacing = padding
         $0.minimumInteritemSpacing = padding
-        
-        $0.sectionInset.top = 20
     }
 
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {

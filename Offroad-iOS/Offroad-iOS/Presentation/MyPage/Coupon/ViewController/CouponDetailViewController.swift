@@ -55,6 +55,7 @@ class CouponDetailViewController: UIViewController {
         $0.font = UIFont.offroad(style: .iosTextRegular)
         $0.numberOfLines = 3
         //Q.여기서 setLineSpacing이 왜 적용이 안되지?
+//        $0.setLineSpacing(spacing: 10)
     }
     
     private let usageTitleLabel = UILabel().then {
@@ -73,6 +74,7 @@ class CouponDetailViewController: UIViewController {
         $0.textColor = UIColor.grayscale(.gray400)
         $0.font = UIFont.offroad(style: .iosBoxMedi)
         $0.numberOfLines = 2
+        $0.setLineSpacing(spacing: 5)
     }
     
     private let useButton = UIButton().then {
@@ -91,6 +93,7 @@ class CouponDetailViewController: UIViewController {
         self.couponImageView.image = image
         self.couponTitleLabel.text = title
         self.couponDescriptionLabel.text = description
+        self.couponDescriptionLabel.setLineSpacing(spacing: 5)
     }
     
     required init?(coder aDecoder: NSCoder) {

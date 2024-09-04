@@ -36,6 +36,8 @@ class AcquiredCouponView: UIView {
         return control
     }()
     
+    let customSegmentedControl = CustomSegmentedControl(titles: ["사용 가능 6", "사용 완료 3"])
+    
     private lazy var collectionViewLayout = UICollectionViewFlowLayout().then {
         let padding: CGFloat = 20
         let itemWidth = (UIScreen.main.bounds.width - 2*24 - padding)/2
@@ -43,6 +45,8 @@ class AcquiredCouponView: UIView {
         $0.itemSize = CGSize(width: itemWidth, height: itemHeight)
         $0.minimumLineSpacing = padding
         $0.minimumInteritemSpacing = padding
+        
+        $0.sectionInset.top = 20
     }
 
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout).then {
@@ -58,6 +62,7 @@ class AcquiredCouponView: UIView {
         setupStyle()
         setupHierarchy()
         setupLayout()
+        setupDelegates()
     }
 
     required init?(coder: NSCoder) {
@@ -78,7 +83,8 @@ class AcquiredCouponView: UIView {
         labelView.addSubviews(
             mainLabel,
             couponLogoImage,
-            segmentedControl
+            //segmentedControl
+            customSegmentedControl
         )
     }
 
@@ -86,7 +92,8 @@ class AcquiredCouponView: UIView {
         labelView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(segmentedControl.snp.bottom)
+            //make.bottom.equalTo(segmentedControl.snp.bottom)
+            make.bottom.equalTo(customSegmentedControl.snp.bottom)
         }
         
         mainLabel.snp.makeConstraints { make in
@@ -100,15 +107,41 @@ class AcquiredCouponView: UIView {
             make.size.equalTo(24)
         }
         
-        segmentedControl.snp.makeConstraints { make in
+//        segmentedControl.snp.makeConstraints { make in
+//            make.top.equalTo(mainLabel.snp.bottom).offset(16)
+//            make.horizontalEdges.equalToSuperview().inset(16)
+//        }
+        
+        customSegmentedControl.snp.makeConstraints { make in
             make.top.equalTo(mainLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(16)
         }
 
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(segmentedControl.snp.bottom)
+            //make.top.equalTo(segmentedControl.snp.bottom)
+            make.top.equalTo(customSegmentedControl.snp.bottom)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.bottom.equalToSuperview().inset(20)
         }
     }
+    
+    private func setupDelegates() {
+        customSegmentedControl.delegate = self
+    }
+}
+
+extension AcquiredCouponView: CustomSegmentedControlDelegate {
+    
+    func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int) {
+        print(#function, selectedIndex)
+        
+        if selectedIndex == 0 {
+            
+        } else if selectedIndex == 1 {
+            
+        }
+        
+    }
+    
+    
 }
