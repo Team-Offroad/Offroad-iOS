@@ -86,11 +86,11 @@ extension DeleteAccountViewController {
         isKeyboardVisible = true
 
         if let keyboardSize = (sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            self.rootView.popupView.transform = CGAffineTransform(translationX: 0, y: -(keyboardSize.height - (self.rootView.popupView.frame.origin.y - 24)))
+            self.rootView.popupView.transform = CGAffineTransform(translationX: 0, y: -(keyboardSize.height - self.rootView.popupView.frame.origin.y + 24))
         }
     }
     
-    @objc func keyboardWillHide(_ sender: Notification) {
+    @objc func keyboardWillHide() {
         isKeyboardVisible = false
 
         self.rootView.popupView.transform = .identity
