@@ -79,6 +79,14 @@ extension SettingViewController: UICollectionViewDelegateFlowLayout {
         case 0:
             let noticeViewController = NoticeViewController()
             self.navigationController?.pushViewController(noticeViewController, animated: true)
+        case 5:
+            let logoutViewController = LogoutViewController()
+            logoutViewController.modalPresentationStyle = .overCurrentContext
+            self.present(logoutViewController, animated: false)
+        case 6:
+            let deleteAccountViewController = DeleteAccountViewController()
+            deleteAccountViewController.modalPresentationStyle = .overCurrentContext
+            self.present(deleteAccountViewController, animated: false)
         default: break
         }
     }
