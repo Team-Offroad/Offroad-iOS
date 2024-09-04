@@ -95,7 +95,7 @@ extension DeleteAccountView {
         }
 
         cancleButton.do {
-            $0.setTitle("아니오", for: .normal)
+            $0.setTitle("취소", for: .normal)
             $0.setTitleColor(.main(.main2), for: .normal)
             $0.titleLabel?.font = .offroad(style: .iosBtnSmall)
             $0.backgroundColor = .clear
