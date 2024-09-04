@@ -54,8 +54,6 @@ class CouponDetailViewController: UIViewController {
         $0.textAlignment = .center
         $0.font = UIFont.offroad(style: .iosTextRegular)
         $0.numberOfLines = 3
-        //Q.여기서 setLineSpacing이 왜 적용이 안되지?
-//        $0.setLineSpacing(spacing: 10)
     }
     
     private let usageTitleLabel = UILabel().then {
@@ -129,7 +127,7 @@ class CouponDetailViewController: UIViewController {
     
     private func setupLayout() {
         couponDetailView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(99.5)
+            make.top.equalToSuperview().inset(125)
             make.horizontalEdges.equalToSuperview().inset(40)
         }
         

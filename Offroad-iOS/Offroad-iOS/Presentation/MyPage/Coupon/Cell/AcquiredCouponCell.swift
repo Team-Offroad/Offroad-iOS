@@ -28,13 +28,12 @@ class AcquiredCouponCell: UICollectionViewCell {
         $0.textAlignment = .center
         $0.textColor = UIColor.main(.main2)
         $0.font = UIFont.offroad(style: .iosTextContentsSmall)
+        $0.numberOfLines = 1
     }
     
-    private let newBadgeView = UIView().then {
-        $0.backgroundColor = UIColor.sub(.sub)
-        $0.layer.cornerRadius = 12
-        $0.clipsToBounds = true
-        $0.isHidden = true
+    private let newBadgeView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+        $0.image = UIImage(resource: .imgNewTag)
     }
     
     private let newBadgeLabel = UILabel().then {
@@ -87,7 +86,9 @@ class AcquiredCouponCell: UICollectionViewCell {
         
         couponLabel.snp.makeConstraints { make in
             make.top.equalTo(containerView.snp.bottom).offset(10)
+            make.bottom.equalToSuperview().inset(10)
             make.centerX.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(10)
         }
         
         newBadgeView.snp.makeConstraints { make in
@@ -106,7 +107,7 @@ class AcquiredCouponCell: UICollectionViewCell {
         newBadgeView.isHidden = !isNew
         
         if imageName == "coffee_coupon" {
-            couponLabel.text = "카페 프로토콜 연희점 라떼"
+            couponLabel.text = "카페 프로토콜 연희점 라떼 1잔입니다."
         }
     }
 }

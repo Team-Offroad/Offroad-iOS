@@ -83,7 +83,6 @@ class AcquiredCouponView: UIView {
         labelView.addSubviews(
             mainLabel,
             couponLogoImage,
-            //segmentedControl
             customSegmentedControl
         )
     }
@@ -92,7 +91,6 @@ class AcquiredCouponView: UIView {
         labelView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview()
-            //make.bottom.equalTo(segmentedControl.snp.bottom)
             make.bottom.equalTo(customSegmentedControl.snp.bottom)
         }
         
@@ -106,11 +104,6 @@ class AcquiredCouponView: UIView {
             make.leading.equalTo(mainLabel.snp.trailing).offset(8)
             make.size.equalTo(24)
         }
-        
-//        segmentedControl.snp.makeConstraints { make in
-//            make.top.equalTo(mainLabel.snp.bottom).offset(16)
-//            make.horizontalEdges.equalToSuperview().inset(16)
-//        }
         
         customSegmentedControl.snp.makeConstraints { make in
             make.top.equalTo(mainLabel.snp.bottom).offset(16)
