@@ -13,6 +13,8 @@ final class DeleteAccountViewController: UIViewController {
     
     private let rootView = DeleteAccountView()
     
+    private var isKeyboardVisible: Bool = false
+    
     // MARK: - Life Cycle
     
     override func loadView() {
@@ -24,10 +26,15 @@ final class DeleteAccountViewController: UIViewController {
         
         setupAddTarget()
         setupDelegate()
+        setupKeyboard()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         rootView.presentPopupView()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        rootView.endEditing(true)
     }
 }
 
@@ -44,17 +51,49 @@ extension DeleteAccountViewController {
         rootView.withdrawalMassageTextField.delegate = self
     }
     
+    private func setupKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
     //MARK: - @Objc Func
     
     @objc private func cancleButtonTapped() {
-        rootView.dismissPopupView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
-            self.dismiss(animated: false)
+        if !isKeyboardVisible {
+            self.rootView.dismissPopupView {
+                self.dismiss(animated: false)
+            }
+        }
+        else {
+            rootView.endEditing(true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3){
+                self.rootView.dismissPopupView {
+                    self.dismiss(animated: false)
+                }
+            }
         }
     }
     
     @objc private func withdrawalButtonTapped() {
+        rootView.endEditing(true)
+    }
+    
+    @objc func keyboardWillShow(_ sender: Notification) {
+        isKeyboardVisible = true
 
+        if let keyboardSize = (sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            self.rootView.popupView.transform = CGAffineTransform(translationX: 0, y: -(keyboardSize.height - (self.rootView.popupView.frame.origin.y - 24)))
+        }
+    }
+    
+    @objc func keyboardWillHide(_ sender: Notification) {
+        isKeyboardVisible = false
+
+        self.rootView.popupView.transform = .identity
     }
 }
 

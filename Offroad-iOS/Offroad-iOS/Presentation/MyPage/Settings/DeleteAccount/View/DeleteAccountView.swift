@@ -14,7 +14,7 @@ final class DeleteAccountView: UIView {
 
     //MARK: - UI Properties
     
-    private let popupView = UIView()
+    let popupView = UIView()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
     let withdrawalMessageLabel = UILabel()
@@ -159,8 +159,10 @@ extension DeleteAccountView {
         popupView.executePresentPopupAnimation()
     }
     
-    func dismissPopupView() {
+    func dismissPopupView(completion: @escaping () -> Void) {
         backgroundColor = .clear
-        popupView.executeDismissPopupAnimation()
+        popupView.executeDismissPopupAnimation { _ in
+            completion()
+        }
     }
 }
