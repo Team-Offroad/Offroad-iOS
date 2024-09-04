@@ -126,7 +126,7 @@ extension TermsConsentPopupView {
     private func setupLayout() {
         popupView.snp.makeConstraints {
             $0.height.equalTo(527)
-            $0.width.equalTo(345)
+            $0.width.equalToSuperview().inset(24)
             $0.center.equalToSuperview()
         }
         

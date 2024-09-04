@@ -44,7 +44,7 @@ extension DeleteAccountViewController {
     
     private func setupAddTarget() {
         rootView.cancleButton.addTarget(self, action: #selector(cancleButtonTapped), for: .touchUpInside)
-        rootView.withdrawalButton.addTarget(self, action: #selector(withdrawalButtonTapped), for: .touchUpInside)
+        rootView.deleteAccountButton.addTarget(self, action: #selector(withdrawalButtonTapped), for: .touchUpInside)
     }
     
     private func setupDelegate() {
@@ -78,7 +78,7 @@ extension DeleteAccountViewController {
         }
     }
     
-    @objc private func withdrawalButtonTapped() {
+    @objc private func deleteAccountButtonTapped() {
         rootView.endEditing(true)
     }
     
@@ -100,9 +100,9 @@ extension DeleteAccountViewController {
 extension DeleteAccountViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if textField.text == rootView.withdrawalMessageLabel.text {
-            rootView.withdrawalButton.changeState(forState: .isEnabled)
+            rootView.deleteAccountButton.changeState(forState: .isEnabled)
         } else {
-            rootView.withdrawalButton.changeState(forState: .isDisabled)
+            rootView.deleteAccountButton.changeState(forState: .isDisabled)
         }
     }
 }

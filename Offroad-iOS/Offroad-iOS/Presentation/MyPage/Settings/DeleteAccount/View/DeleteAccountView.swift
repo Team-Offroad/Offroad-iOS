@@ -21,7 +21,7 @@ final class DeleteAccountView: UIView {
     let withdrawalMassageTextField = UITextField()
     private let withdrawalMassageStackView = UIStackView()
     let cancleButton = UIButton()
-    let withdrawalButton = StateToggleButton(state: .isDisabled, title: "탈퇴")
+    let deleteAccountButton = StateToggleButton(state: .isDisabled, title: "탈퇴")
     private let buttonStackView = UIStackView()
     private let mainStackView = UIStackView()
 
@@ -121,14 +121,14 @@ extension DeleteAccountView {
         addSubview(popupView)
         popupView.addSubviews(mainStackView, buttonStackView)
         withdrawalMassageStackView.addArrangedSubviews(withdrawalMessageLabel, withdrawalMassageTextField)
-        buttonStackView.addArrangedSubviews(cancleButton, withdrawalButton)
+        buttonStackView.addArrangedSubviews(cancleButton, deleteAccountButton)
         mainStackView.addArrangedSubviews(titleLabel, descriptionLabel, withdrawalMassageStackView, buttonStackView)
     }
     
     private func setupLayout() {
         popupView.snp.makeConstraints {
             $0.height.equalTo(332)
-            $0.width.equalTo(345)
+            $0.width.equalToSuperview().inset(24)
             $0.center.equalToSuperview()
         }
         
