@@ -45,8 +45,7 @@ extension LogoutViewController {
     }
     
     @objc private func noButtonTapped() {
-        rootView.dismissPopupView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
+        rootView.dismissPopupView {
             self.dismiss(animated: false)
         }
     }

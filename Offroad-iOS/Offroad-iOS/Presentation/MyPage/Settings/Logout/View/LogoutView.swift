@@ -127,8 +127,10 @@ extension LogoutView {
         popupView.executePresentPopupAnimation()
     }
     
-    func dismissPopupView() {
+    func dismissPopupView(completion: @escaping () -> Void) {
         backgroundColor = .clear
-        popupView.executeDismissPopupAnimation()
+        popupView.executeDismissPopupAnimation { _ in
+            completion()
+        }
     }
 }
