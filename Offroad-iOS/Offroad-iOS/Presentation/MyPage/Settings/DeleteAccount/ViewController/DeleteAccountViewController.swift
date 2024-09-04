@@ -44,7 +44,7 @@ extension DeleteAccountViewController {
     
     private func setupAddTarget() {
         rootView.cancleButton.addTarget(self, action: #selector(cancleButtonTapped), for: .touchUpInside)
-        rootView.deleteAccountButton.addTarget(self, action: #selector(withdrawalButtonTapped), for: .touchUpInside)
+        rootView.deleteAccountButton.addTarget(self, action: #selector(deleteAccountButtonTapped), for: .touchUpInside)
     }
     
     private func setupDelegate() {
