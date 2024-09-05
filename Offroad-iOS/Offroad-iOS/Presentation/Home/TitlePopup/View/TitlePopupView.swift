@@ -91,7 +91,7 @@ extension TitlePopupView {
     private func setupLayout() {
         popupView.snp.makeConstraints {
             $0.height.equalTo(430)
-            $0.width.equalTo(345)
+            $0.width.equalToSuperview().inset(24)
             $0.center.equalToSuperview()
         }
         

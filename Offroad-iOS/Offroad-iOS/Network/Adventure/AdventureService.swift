@@ -17,7 +17,7 @@ protocol AdventureServiceProtocol {
 
 final class AdventureService: BaseService, AdventureServiceProtocol {
     
-    let provider = MoyaProvider<AdventureAPI>(plugins: [MoyaPlugin()])
+    let provider = MoyaProvider<AdventureAPI>.init(session: Session(interceptor: TokenInterceptor.shared), plugins: [MoyaPlugin()])
 
     func getAdventureInfo(category: String, completion: @escaping (NetworkResult<AdventureInfoResponseDTO>) -> ()) {
         provider.request(.getAdventureInfo(category: category)) { result in
