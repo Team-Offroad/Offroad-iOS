@@ -17,6 +17,7 @@ final class CollectedTitleCollectionViewCell: UICollectionViewCell {
     private let titleLabel = UILabel()
     private let collectConditionLabel = UILabel()
     private let labelStackView = UIStackView()
+    private let newTagImageView = UIImageView()
     private let lockedView = UIView()
     private let lockImageView = UIImageView(image: UIImage(resource: .iconLock))
     
@@ -64,13 +65,18 @@ extension CollectedTitleCollectionViewCell {
             $0.alignment = .leading
         }
         
+        newTagImageView.do {
+            $0.image = UIImage(resource: .imgNewTag)
+            $0.isHidden = true
+        }
+        
         lockedView.do {
             $0.backgroundColor = .blackOpacity(.black25)
         }
     }
     
     private func setupHierarchy() {
-        addSubviews(labelStackView, lockedView)
+        addSubviews(labelStackView, newTagImageView, lockedView)
         labelStackView.addArrangedSubviews(titleLabel, collectConditionLabel)
         lockedView.addSubview(lockImageView)
     }
@@ -79,6 +85,11 @@ extension CollectedTitleCollectionViewCell {
         labelStackView.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(18)
             $0.centerY.equalToSuperview()
+        }
+        
+        newTagImageView.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(18)
         }
         
         lockedView.snp.makeConstraints {
