@@ -16,7 +16,7 @@ protocol EmblemServiceProtocol {
 }
 
 final class EmblemService: BaseService, EmblemServiceProtocol {
-    let provider = MoyaProvider<EmblemAPI>(plugins: [MoyaPlugin()])
+    let provider = MoyaProvider<EmblemAPI>.init(session: Session(interceptor: TokenInterceptor.shared), plugins: [MoyaPlugin()])
 
     func getEmblemInfo(completion: @escaping (NetworkResult<EmblemInfoResponseDTO>) -> ()) {
         provider.request(.getEmblemInfo) { result in
