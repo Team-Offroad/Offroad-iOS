@@ -13,8 +13,8 @@ struct EmblemListResponseDTO: Codable {
 }
 
 struct EmblemData: Codable {
-    let gainedEmblems: [EmblemDataList]
-    let notGainedEmblems: [EmblemDataList]
+    var gainedEmblems: [EmblemDataList]
+    var notGainedEmblems: [EmblemDataList]
 }
 
 struct EmblemDataList: Codable {
