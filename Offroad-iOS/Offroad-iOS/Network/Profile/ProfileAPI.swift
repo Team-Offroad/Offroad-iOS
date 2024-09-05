@@ -11,6 +11,7 @@ import Moya
 
 enum ProfileAPI {
     case updateProfile(body: ProfileUpdateRequestDTO)
+    case postDeleteAccount(body: DeleteAccountRequestDTO)
 }
 
 extension ProfileAPI: BaseTargetType {
@@ -21,6 +22,8 @@ extension ProfileAPI: BaseTargetType {
         switch self {
         case .updateProfile:
             return "/users/profiles"
+        case .postDeleteAccount:
+            return "/users/delete"
         }
     }
     
@@ -28,6 +31,8 @@ extension ProfileAPI: BaseTargetType {
         switch self {
         case .updateProfile:
             return .patch
+        case .postDeleteAccount:
+            return .post
         }
     }
     
@@ -35,6 +40,8 @@ extension ProfileAPI: BaseTargetType {
         switch self {
         case .updateProfile(let profileUpdateRequestDTO):
             return .requestJSONEncodable(profileUpdateRequestDTO)
+        case .postDeleteAccount(let deleteAccountRequestDTO):
+            return .requestJSONEncodable(deleteAccountRequestDTO)
         }
     }
 }
