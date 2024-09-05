@@ -45,6 +45,7 @@ extension TermsConsentViewController {
     
     private func setupAddTarget() {
         rootView.agreeAllButton.addTarget(self, action: #selector(agreeAllButtonTapped), for: .touchUpInside)
+        rootView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
     private func agreeButtonInCellTapped() {
@@ -71,12 +72,35 @@ extension TermsConsentViewController {
         return true
     }
     
+    private func presentNavigationController(navigationController: UINavigationController) {
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.modalTransitionStyle = .crossDissolve
+        
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = .fade
+        transition.subtype = .fromRight
+        rootView.fordissolveAnimationView.isHidden = false
+        rootView.window?.layer.add(transition, forKey: kCATransition)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.present(navigationController, animated: true, completion: nil)
+        }
+    }
+    
     //MARK: - @Objc Func
     
     @objc private func agreeAllButtonTapped() {        
         controlAllButtonState()
         rootView.agreeAllButton.isSelected.toggle()
         rootView.termsListTableView.reloadData()
+    }
+    
+    @objc private func nextButtonTapped() {
+        let nicknameViewController = NicknameViewController()
+        let navigationController = UINavigationController(rootViewController: nicknameViewController)
+        
+        self.presentNavigationController(navigationController: navigationController)
     }
 }
 
