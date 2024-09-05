@@ -12,6 +12,7 @@ import Moya
 protocol EmblemServiceProtocol {
     func getEmblemInfo(completion: @escaping (NetworkResult<EmblemInfoResponseDTO>) -> ())
     func patchUserEmblem(parameter: String, completion: @escaping (NetworkResult<ChangeEmblemResponseDTO>) -> ())
+    func getEmblemDataList(completion: @escaping (NetworkResult<EmblemListResponseDTO>) -> ())
 }
 
 final class EmblemService: BaseService, EmblemServiceProtocol {
@@ -37,6 +38,21 @@ final class EmblemService: BaseService, EmblemServiceProtocol {
             switch result {
             case .success(let response):
                 let networkResult: NetworkResult<ChangeEmblemResponseDTO> = self.fetchNetworkResult(
+                    statusCode: response.statusCode,
+                    data: response.data
+                )
+                completion(networkResult)
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    func getEmblemDataList(completion: @escaping (NetworkResult<EmblemListResponseDTO>) -> ()) {
+        provider.request(.getEmblemDataList) { result in
+            switch result {
+            case .success(let response):
+                let networkResult: NetworkResult<EmblemListResponseDTO> = self.fetchNetworkResult(
                     statusCode: response.statusCode,
                     data: response.data
                 )
