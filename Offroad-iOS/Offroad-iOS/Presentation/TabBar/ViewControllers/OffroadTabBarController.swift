@@ -93,10 +93,12 @@ extension OffroadTabBarController {
     }
     
     private func setOffroadViewControllers() {
+        let mypageNavigationController = UINavigationController(rootViewController: MyPageViewController())
+        
         let viewControllersArray: [UIViewController] = [
             HomeViewController(),
             UINavigationController(rootViewController: QuestMapViewController()),
-            MyPageViewController()
+            mypageNavigationController
         ]
         
         setViewControllers(viewControllersArray, animated: false)
@@ -126,10 +128,17 @@ extension OffroadTabBarController {
             self?.showTabBarAnimator.stopAnimation(true)
             self?.tabBar.frame.origin.y = UIScreen.current.bounds.height + 30
         }, delayFactor: delayFactor)
+        hideTabBarAnimator.addCompletion { _ in
+            self.tabBar.isHidden = true
+        }
         hideTabBarAnimator.startAnimation()
     }
     
     func showTabBarAnimation(delayFactor: CGFloat = 0) {
+        if tabBar.isHidden {
+            tabBar.frame.origin.y = UIScreen.current.bounds.height + 30
+            tabBar.isHidden = false
+        }
         showTabBarAnimator.addAnimations({ [weak self] in
             self?.hideTabBarAnimator.stopAnimation(true)
             self?.tabBar.frame.origin.y = UIScreen.current.bounds.height - 96

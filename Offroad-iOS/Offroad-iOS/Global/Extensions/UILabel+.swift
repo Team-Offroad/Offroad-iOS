@@ -33,7 +33,7 @@ extension UILabel {
     }
     
     /// UILabel에서의 줄 간 간격을 설정하는 함수
-    /// - Parameter spacing: 적용할 font
+    /// - Parameter spacing: 행간의 픽셀 값
     /// > 사용 예시 : `label.setLineSpacing(spacing: 15.0)`
     func setLineSpacing(spacing: CGFloat) {
         guard let text = text else { return }
