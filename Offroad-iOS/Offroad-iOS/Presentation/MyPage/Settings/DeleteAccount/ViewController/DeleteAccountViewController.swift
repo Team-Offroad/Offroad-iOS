@@ -60,6 +60,28 @@ extension DeleteAccountViewController {
                                                object: nil)
     }
     
+    private func postDeleteAccount(deleteAccountRequestDTO: DeleteAccountRequestDTO) {
+        NetworkService.shared.profileService.postDeleteAccount(body: deleteAccountRequestDTO) { response in
+            switch response {
+            case .success:
+                print("회원 탈퇴 성공!!!!")
+                UserDefaults.standard.set(false, forKey: "isLoggedIn")
+                
+                let splashViewController = SplashViewController()
+                
+                splashViewController.modalPresentationStyle = .overFullScreen
+                splashViewController.modalTransitionStyle = .crossDissolve
+                
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.present(splashViewController, animated: true)
+                }
+            default:
+                break
+            }
+        }
+    }
+    
     //MARK: - @Objc Func
     
     @objc private func cancleButtonTapped() {
@@ -80,6 +102,9 @@ extension DeleteAccountViewController {
     
     @objc private func deleteAccountButtonTapped() {
         rootView.endEditing(true)
+        
+        self.postDeleteAccount(deleteAccountRequestDTO: DeleteAccountRequestDTO(deleteCode: self.rootView.deleteAccountMessageLabel.text ?? ""))
+
     }
     
     @objc func keyboardWillShow(_ sender: Notification) {
