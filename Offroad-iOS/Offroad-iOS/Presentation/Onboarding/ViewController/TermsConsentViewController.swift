@@ -88,6 +88,17 @@ extension TermsConsentViewController {
         }
     }
     
+    private func patchMarketingConsent(isAgreed: MarketingConsentRequestDTO) {
+        NetworkService.shared.profileService.patchMarketingConsent(body: isAgreed) { response in
+            switch response {
+            case .success:
+                print("마케팅 수신 여부 변경 성공!\n요청 성공 값: \(isAgreed.marketing)")
+            default:
+                break
+            }
+        }
+    }
+    
     //MARK: - @Objc Func
     
     @objc private func agreeAllButtonTapped() {        
@@ -97,6 +108,8 @@ extension TermsConsentViewController {
     }
     
     @objc private func nextButtonTapped() {
+        patchMarketingConsent(isAgreed: MarketingConsentRequestDTO(marketing: termsModelData[3].isSelected))
+        
         let nicknameViewController = NicknameViewController()
         let navigationController = UINavigationController(rootViewController: nicknameViewController)
         

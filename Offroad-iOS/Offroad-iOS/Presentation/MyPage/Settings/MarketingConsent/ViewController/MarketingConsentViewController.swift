@@ -48,7 +48,7 @@ extension MarketingConsentViewController {
     private func patchMarketingConsent(isAgreed: MarketingConsentRequestDTO) {
         NetworkService.shared.profileService.patchMarketingConsent(body: isAgreed) { response in
             switch response {
-            case .success(let data):
+            case .success:
                 print("마케팅 수신 여부 변경 성공!\n요청 성공 값: \(isAgreed.marketing)")
             default:
                 break
