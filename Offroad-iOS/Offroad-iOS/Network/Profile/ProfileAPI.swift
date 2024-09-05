@@ -11,6 +11,7 @@ import Moya
 
 enum ProfileAPI {
     case updateProfile(body: ProfileUpdateRequestDTO)
+    case postMarketingConsent(parameter: Bool)
 }
 
 extension ProfileAPI: BaseTargetType {
@@ -21,6 +22,8 @@ extension ProfileAPI: BaseTargetType {
         switch self {
         case .updateProfile:
             return "/users/profiles"
+        case .postMarketingConsent:
+            return "/users/marketing"
         }
     }
     
@@ -28,6 +31,8 @@ extension ProfileAPI: BaseTargetType {
         switch self {
         case .updateProfile:
             return .patch
+        case .postMarketingConsent:
+            return .post
         }
     }
     
@@ -35,6 +40,8 @@ extension ProfileAPI: BaseTargetType {
         switch self {
         case .updateProfile(let profileUpdateRequestDTO):
             return .requestJSONEncodable(profileUpdateRequestDTO)
+        case .postMarketingConsent(let parameter):
+            return .requestParameters(parameters: ["marketing": parameter], encoding: URLEncoding.queryString)
         }
     }
 }

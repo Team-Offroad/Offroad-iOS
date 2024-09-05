@@ -11,6 +11,7 @@ import Moya
 
 protocol ProfileServiceProtocol {
     func updateProfile(body: ProfileUpdateRequestDTO, completion: @escaping (NetworkResult<ProfileUpdateResponseDTO>) -> ())
+    func postMarketingConsent(parameter: Bool, completion: @escaping (NetworkResult<MarketingConsentResponseDTO>) -> ())
 }
 
 final class ProfileService: BaseService, ProfileServiceProtocol {
@@ -21,6 +22,22 @@ final class ProfileService: BaseService, ProfileServiceProtocol {
             switch result {
             case .success(let response):
                 let networkResult: NetworkResult<ProfileUpdateResponseDTO> = self.fetchNetworkResult(
+                    statusCode: response.statusCode,
+                    data: response.data
+                )
+                completion(networkResult)
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    func postMarketingConsent(parameter: Bool, completion: @escaping (NetworkResult<MarketingConsentResponseDTO>) -> ()) {
+        
+        provider.request(.postMarketingConsent(parameter: parameter)) { result in
+            switch result {
+            case .success(let response):
+                let networkResult: NetworkResult<MarketingConsentResponseDTO> = self.fetchNetworkResult(
                     statusCode: response.statusCode,
                     data: response.data
                 )
