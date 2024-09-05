@@ -9,10 +9,10 @@ import Foundation
 
 struct UserInfoResponseDTO: Codable {
     let message: String
-    let data: UserInfoResponseData
+    let data: UserInfoData
 }
 
-struct UserInfoResponseData: Codable {
+struct UserInfoData: Codable {
     let nickname: String
     let currentEmblem: String
     let elapsedDay: Int
