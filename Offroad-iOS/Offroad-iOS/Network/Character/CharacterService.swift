@@ -15,7 +15,7 @@ protocol CharacterServiceProtocol {
 }
 
 final class CharacterService: BaseService, CharacterServiceProtocol {
-    let provider = MoyaProvider<CharacterAPI>(plugins: [MoyaPlugin()])
+    let provider = MoyaProvider<CharacterAPI>.init(session: Session(interceptor: TokenInterceptor.shared), plugins: [MoyaPlugin()])
 
     func getCharacterInfo(completion: @escaping (NetworkResult<CharacterInfoResponseDTO>) -> ()) {
         provider.request(.getCharacterInfo) { result in

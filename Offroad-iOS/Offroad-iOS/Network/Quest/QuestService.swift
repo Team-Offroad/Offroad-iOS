@@ -14,7 +14,7 @@ protocol QuestServiceProtocol {
 }
 
 final class QuestService: BaseService, QuestServiceProtocol {
-    let provider = MoyaProvider<QuestAPI>(plugins: [MoyaPlugin()])
+    let provider = MoyaProvider<QuestAPI>.init(session: Session(interceptor: TokenInterceptor.shared), plugins: [MoyaPlugin()])
 
     func getQuestInfo(completion: @escaping (NetworkResult<QuestInfoResponseDTO>) -> ()) {
         provider.request(.getQuestInfo) { result in
