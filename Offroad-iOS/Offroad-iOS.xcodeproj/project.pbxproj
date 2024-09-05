@@ -123,12 +123,14 @@
 		D063E9A12C6107D300434A09 /* CollectedTitlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9A02C6107D300434A09 /* CollectedTitlesViewController.swift */; };
 		D063E9A42C6108DB00434A09 /* CollectedTitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9A32C6108DB00434A09 /* CollectedTitleModel.swift */; };
 		D063E9A72C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E9A62C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift */; };
+		D064668E2C7F127A00CF10FD /* TermsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064668D2C7F127A00CF10FD /* TermsModel.swift */; };
+		D06466902C83A18400CF10FD /* TermsConsentPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064668F2C83A18400CF10FD /* TermsConsentPopupViewController.swift */; };
 		D06466942C86F68E00CF10FD /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466932C86F68E00CF10FD /* LogoutViewController.swift */; };
 		D06466962C86F69F00CF10FD /* LogoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466952C86F69F00CF10FD /* LogoutView.swift */; };
 		D064669A2C86FCDB00CF10FD /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466992C86FCDB00CF10FD /* DeleteAccountViewController.swift */; };
 		D064669C2C86FCE800CF10FD /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064669B2C86FCE800CF10FD /* DeleteAccountView.swift */; };
-		D064668E2C7F127A00CF10FD /* TermsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064668D2C7F127A00CF10FD /* TermsModel.swift */; };
-		D06466902C83A18400CF10FD /* TermsConsentPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064668F2C83A18400CF10FD /* TermsConsentPopupViewController.swift */; };
+		D06466A32C89EF6B00CF10FD /* DeleteAccountRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A22C89EF6B00CF10FD /* DeleteAccountRequestDTO.swift */; };
+		D06466A52C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A42C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
@@ -312,8 +314,8 @@
 		D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateToggleButton.swift; sourceTree = "<group>"; };
 		D018BB102C4054D20048B6DF /* TitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleModel.swift; sourceTree = "<group>"; };
 		D018BB1B2C43E4740048B6DF /* Offroad-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Offroad-iOS.entitlements"; sourceTree = "<group>"; };
-		D03C83612C620AF100F3094D /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		D03C835D2C61E44700F3094D /* TokenIntercepter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenIntercepter.swift; sourceTree = "<group>"; };
+		D03C83612C620AF100F3094D /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		D063E98B2C49328200434A09 /* SVGKImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SVGKImage+.swift"; sourceTree = "<group>"; };
 		D063E98D2C49483000434A09 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		D063E98F2C496EA500434A09 /* LottieAnimationView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LottieAnimationView+.swift"; sourceTree = "<group>"; };
@@ -322,12 +324,14 @@
 		D063E9A02C6107D300434A09 /* CollectedTitlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitlesViewController.swift; sourceTree = "<group>"; };
 		D063E9A32C6108DB00434A09 /* CollectedTitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitleModel.swift; sourceTree = "<group>"; };
 		D063E9A62C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedTitleCollectionViewCell.swift; sourceTree = "<group>"; };
+		D064668D2C7F127A00CF10FD /* TermsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsModel.swift; sourceTree = "<group>"; };
+		D064668F2C83A18400CF10FD /* TermsConsentPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConsentPopupViewController.swift; sourceTree = "<group>"; };
 		D06466932C86F68E00CF10FD /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		D06466952C86F69F00CF10FD /* LogoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutView.swift; sourceTree = "<group>"; };
 		D06466992C86FCDB00CF10FD /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewController.swift; sourceTree = "<group>"; };
 		D064669B2C86FCE800CF10FD /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
-		D064668D2C7F127A00CF10FD /* TermsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsModel.swift; sourceTree = "<group>"; };
-		D064668F2C83A18400CF10FD /* TermsConsentPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConsentPopupViewController.swift; sourceTree = "<group>"; };
+		D06466A22C89EF6B00CF10FD /* DeleteAccountRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountRequestDTO.swift; sourceTree = "<group>"; };
+		D06466A42C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountResponseDTO.swift; sourceTree = "<group>"; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		D06D26C22C3D835300E79F25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -1592,6 +1596,7 @@
 			isa = PBXGroup;
 			children = (
 				D0E7962A2C45346A005B47A5 /* ProfileUpdateResponseDTO.swift */,
+				D06466A42C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -1600,6 +1605,7 @@
 			isa = PBXGroup;
 			children = (
 				D0E796282C4533CE005B47A5 /* ProfileUpdateRequestDTO.swift */,
+				D06466A22C89EF6B00CF10FD /* DeleteAccountRequestDTO.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -2111,6 +2117,7 @@
 				4E0394E32C2AC0D7007F0517 /* UIWindow+.swift in Sources */,
 				872F4BAE2C68C1F600284DE0 /* AcquiredCharactersView.swift in Sources */,
 				4E0394DD2C2ABEF2007F0517 /* UITextField+.swift in Sources */,
+				D06466A52C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift in Sources */,
 				D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */,
 				4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
@@ -2168,6 +2175,7 @@
 				4E03942F2C2A9DCE007F0517 /* SceneDelegate.swift in Sources */,
 				D0E7961E2C45280F005B47A5 /* SocialLoginResponseDTO.swift in Sources */,
 				D0E796172C4527AA005B47A5 /* AuthService.swift in Sources */,
+				D06466A32C89EF6B00CF10FD /* DeleteAccountRequestDTO.swift in Sources */,
 				4E393C9A2C48C9A6003403EC /* QuestResultViewController.swift in Sources */,
 				4E416CE82C45DBE200CF6AB4 /* OffroadPlace.swift in Sources */,
 				D0EAF21B2C3B026500566543 /* SplashViewController.swift in Sources */,
