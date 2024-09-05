@@ -48,7 +48,7 @@ extension DeleteAccountViewController {
     }
     
     private func setupDelegate() {
-        rootView.withdrawalMassageTextField.delegate = self
+        rootView.deleteAccountMessageTextField.delegate = self
     }
     
     private func setupKeyboard() {
@@ -99,7 +99,7 @@ extension DeleteAccountViewController {
 
 extension DeleteAccountViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        if textField.text == rootView.withdrawalMessageLabel.text {
+        if textField.text == rootView.deleteAccountMessageLabel.text {
             rootView.deleteAccountButton.changeState(forState: .isEnabled)
         } else {
             rootView.deleteAccountButton.changeState(forState: .isDisabled)
