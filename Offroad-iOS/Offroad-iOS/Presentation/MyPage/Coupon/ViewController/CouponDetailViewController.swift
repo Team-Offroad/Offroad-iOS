@@ -6,11 +6,16 @@
 //
 
 import UIKit
+
 import SnapKit
 
 class CouponDetailViewController: UIViewController {
     
     // MARK: - Properties
+    
+    private let couponUsagePopupView = CouponUsagePopupView().then {
+        $0.isHidden = true
+    }
     
     private let couponDetailView = UIView().then {
         $0.layer.cornerRadius = 12
@@ -104,13 +109,15 @@ class CouponDetailViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         setupLayout()
+        setupTarget()
     }
     
-    // MARK: - Setup
+    //MARK: - Private Func
     
     private func setupView() {
         view.backgroundColor = UIColor.primary(.listBg)
         view.addSubviews(
+            couponUsagePopupView,
             couponDetailView,
             usageTitleLabel,
             usageLogoImageView,
@@ -126,6 +133,10 @@ class CouponDetailViewController: UIViewController {
     }
     
     private func setupLayout() {
+        couponUsagePopupView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         couponDetailView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(125)
             make.horizontalEdges.equalToSuperview().inset(40)
@@ -176,4 +187,30 @@ class CouponDetailViewController: UIViewController {
             make.height.equalTo(54)
         }
     }
+    
+    private func setupTarget() {
+        useButton.addTarget(self, action: #selector(didTapUseButton), for: .touchUpInside)
+        
+        couponUsagePopupView.setupCloseButton { [weak self] in
+            self?.dismissCouponUsagePopupView()
+        }
+    }
+    
+    @objc private func didTapUseButton() {
+        presentCouponUsagePopupView()
+    }
+    
+    private func presentCouponUsagePopupView() {
+        couponUsagePopupView.isHidden = false
+        couponUsagePopupView.layer.zPosition = 999
+        couponUsagePopupView.presentPopupView()
+    }
+    
+    private func dismissCouponUsagePopupView() {
+        couponUsagePopupView.dismissPopupView()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.couponUsagePopupView.isHidden = true
+        }
+    }
 }
+

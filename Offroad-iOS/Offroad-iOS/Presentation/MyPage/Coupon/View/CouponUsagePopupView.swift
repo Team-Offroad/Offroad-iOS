@@ -19,7 +19,7 @@ final class CouponUsagePopupView: UIView {
     
     private var enterCodeAction: EnterCodeAction?
     private var closeButtonAction: CloseButtonAction?
-    
+        
     //MARK: - UI Properties
     
     private let popupView = UIView()
@@ -66,7 +66,7 @@ extension CouponUsagePopupView {
         usageDescriptionLabel.do {
             $0.text = "코드를 입력 후 사장님에게 보여주세요."
             $0.font = UIFont.offroad(style: .iosTextRegular)
-            $0.textColor = UIColor.gray
+            $0.textColor = UIColor.main(.main2)
         }
         
         codeTextField.do {
@@ -115,13 +115,14 @@ extension CouponUsagePopupView {
         
         usageDescriptionLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(usageTitleLabel.snp.bottom).inset(18)
+            $0.top.equalTo(usageTitleLabel.snp.bottom).offset(18)
         }
         
         codeTextField.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(usageDescriptionLabel.snp.bottom).inset(10)
+            $0.top.equalTo(usageDescriptionLabel.snp.bottom).offset(10)
             $0.width.equalTo(usageDescriptionLabel)
+            $0.height.equalTo(43)
         }
         
         closeButton.snp.makeConstraints {
@@ -131,13 +132,18 @@ extension CouponUsagePopupView {
         }
         
         checkButton.snp.makeConstraints {
-            $0.top.equalTo(codeTextField.snp.bottom).inset(18)
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(codeTextField.snp.bottom).offset(18)
             $0.height.equalTo(44)
             $0.width.equalTo(usageDescriptionLabel)
         }
     }
     
-    private func setupActions() {
+    func setupCloseButton(action: @escaping CloseButtonAction) {
+            closeButtonAction = action
+        }
+    
+    func setupActions() {
         codeTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
     }
