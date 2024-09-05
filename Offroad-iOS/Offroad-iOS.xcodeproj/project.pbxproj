@@ -131,6 +131,7 @@
 		D064669C2C86FCE800CF10FD /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064669B2C86FCE800CF10FD /* DeleteAccountView.swift */; };
 		D06466A72C8A05F100CF10FD /* MarketingConsentResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A62C8A05F100CF10FD /* MarketingConsentResponseDTO.swift */; };
 		D06466AA2C8A08E500CF10FD /* MarketingConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A92C8A08E500CF10FD /* MarketingConsentViewController.swift */; };
+		D06466AC2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466AB2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
@@ -332,6 +333,7 @@
 		D064669B2C86FCE800CF10FD /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
 		D06466A62C8A05F100CF10FD /* MarketingConsentResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketingConsentResponseDTO.swift; sourceTree = "<group>"; };
 		D06466A92C8A08E500CF10FD /* MarketingConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketingConsentViewController.swift; sourceTree = "<group>"; };
+		D06466AB2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketingConsentRequestDTO.swift; sourceTree = "<group>"; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		D06D26C22C3D835300E79F25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -1614,6 +1616,7 @@
 			isa = PBXGroup;
 			children = (
 				D0E796282C4533CE005B47A5 /* ProfileUpdateRequestDTO.swift */,
+				D06466AB2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -2054,6 +2057,7 @@
 				D063E9902C496EA500434A09 /* LottieAnimationView+.swift in Sources */,
 				D0E796572C453BCB005B47A5 /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */,
+				D06466AC2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift in Sources */,
 				D06466962C86F69F00CF10FD /* LogoutView.swift in Sources */,
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
 				D00A485D2C62847A008B286A /* MyPageMenuModel.swift in Sources */,
