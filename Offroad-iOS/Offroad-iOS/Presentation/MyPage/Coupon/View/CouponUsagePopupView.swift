@@ -19,10 +19,10 @@ final class CouponUsagePopupView: UIView {
     
     private var enterCodeAction: EnterCodeAction?
     private var closeButtonAction: CloseButtonAction?
-        
+    
     //MARK: - UI Properties
     
-    private let popupView = UIView()
+    let popupView = UIView()
     private let usageTitleLabel = UILabel()
     private let closeButton = UIButton()
     private let usageDescriptionLabel = UILabel()
@@ -46,7 +46,7 @@ final class CouponUsagePopupView: UIView {
 
 extension CouponUsagePopupView {
     
-    // MARK: - Layout
+    // MARK: - Private Func
     
     private func setupStyle() {
         backgroundColor = .blackOpacity(.black55)
@@ -140,8 +140,8 @@ extension CouponUsagePopupView {
     }
     
     func setupCloseButton(action: @escaping CloseButtonAction) {
-            closeButtonAction = action
-        }
+        closeButtonAction = action
+    }
     
     func setupActions() {
         codeTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
@@ -157,7 +157,7 @@ extension CouponUsagePopupView {
         popupView.executeDismissPopupAnimation()
     }
     
-    // MARK: - @Objc
+    // MARK: - @Objc Func
     
     @objc private func textFieldDidChange(_ textField: UITextField) {
         if let text = textField.text, !text.isEmpty {
@@ -172,9 +172,9 @@ extension CouponUsagePopupView {
     @objc private func closeButtonTapped() {
         closeButtonAction?()
         dismissPopupView()
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
-//            self.dismiss(animated: false)
-//        }
+        //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
+        //            self.dismiss(animated: false)
+        //        }
     }
 }
 
