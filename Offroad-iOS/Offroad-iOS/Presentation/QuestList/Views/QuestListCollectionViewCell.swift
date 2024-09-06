@@ -145,7 +145,7 @@ extension QuestListCollectionViewCell {
         // widthConstraint의 priority를 .defaultHigh로 설정하면 첫 번째 셀의 가로 길이가 collectionView를 넘어간다.
         // 이 priority를 .defaultHigh가 아닌 UILayoutPriority.init(1000)으로 설정하면 해당 문제가 해결됨.
         // 왜 그런지 공부하기
-        widthConstraint.priority = .init(1000)
+        widthConstraint.priority = .init(999)
         widthConstraint.isActive = true
 
         questNameLabel.snp.makeConstraints { make in
