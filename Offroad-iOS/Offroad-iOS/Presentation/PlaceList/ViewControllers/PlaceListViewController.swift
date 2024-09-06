@@ -72,21 +72,24 @@ extension PlaceListViewController {
         rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
     }
     
-    @objc private func customBackButtonTapped() {
-        print(#function)
-        navigationController?.popViewController(animated: true)
-    }
-    
     private func setupCollectionView() {
         rootView.placeNeverVisitedListCollectionView.register(
             PlaceCollectionViewCell.self,
             forCellWithReuseIdentifier: PlaceCollectionViewCell.className
         )
+        rootView.placeNeverVisitedListCollectionView.refreshControl = UIRefreshControl()
+        rootView.placeNeverVisitedListCollectionView.refreshControl?.tintColor = .sub(.sub)
+        rootView.placeNeverVisitedListCollectionView.refreshControl?
+            .addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
         
         rootView.allPlaceListCollectionView.register(
             PlaceCollectionViewCell.self,
             forCellWithReuseIdentifier: PlaceCollectionViewCell.className
         )
+        rootView.allPlaceListCollectionView.refreshControl = UIRefreshControl()
+        rootView.allPlaceListCollectionView.refreshControl?.tintColor = .sub(.sub)
+        rootView.allPlaceListCollectionView.refreshControl?
+            .addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
     }
     
     private func setupDelegates() {
@@ -117,12 +120,26 @@ extension PlaceListViewController {
                 guard let responsePlaceArray = response?.data.places else { return }
                 places = responsePlaceArray
                 self.rootView.activityIndicator.stopAnimating()
+                
+                self.rootView.allPlaceListCollectionView.refreshControl?.endRefreshing()
+                self.rootView.placeNeverVisitedListCollectionView.refreshControl?.endRefreshing()
+
                 self.rootView.allPlaceListCollectionView.reloadData()
                 self.rootView.placeNeverVisitedListCollectionView.reloadData()
             default:
                 return
             }
         }
+    }
+    
+    //MARK: - @objc Func
+    
+    @objc private func customBackButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func refreshCollectionView() {
+        reloadCollectionViewData(limit: 100, isBounded: true)
     }
     
 }
