@@ -189,6 +189,7 @@ extension PlaceCollectionViewCell {
         placeCategoryView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(18)
             make.leading.equalToSuperview().inset(20)
+            make.width.greaterThanOrEqualTo(30)
             make.height.equalTo(27)
         }
         
@@ -200,6 +201,7 @@ extension PlaceCollectionViewCell {
         placeSectionView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(18)
             make.leading.equalTo(placeCategoryView.snp.trailing).offset(6)
+            make.width.greaterThanOrEqualTo(30)
             make.height.equalTo(27)
         }
         
