@@ -40,7 +40,6 @@ class QuestListCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print("cell이 생성됨")
 
         setupHierarchy()
         setupStyle()
@@ -174,7 +173,6 @@ extension QuestListCollectionViewCell {
         
         checkBoxImageView.snp.makeConstraints { make in
             make.centerY.equalTo(questClearConditionLabel)
-            //make.top.equalToSuperview().inset(9)
             make.leading.equalToSuperview().inset(12)
             make.size.equalTo(25)
         }
