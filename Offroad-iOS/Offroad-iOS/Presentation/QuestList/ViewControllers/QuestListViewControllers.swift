@@ -58,6 +58,7 @@ extension QuestListViewController {
     }
     
     @objc private func ongoingQuestSwitchValueChanged(sender: UISwitch) {
+        rootView.questListCollectionView.setContentOffset(.zero, animated: false)
         rootView.questListCollectionView.reloadData()
     }
     
