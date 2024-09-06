@@ -20,6 +20,10 @@ enum Primary: String, OffroadColor {
     case characterSelectBg3 = "F9E5D2"
     case wall = "452B0F"
     case ground = "685440"
+    case listBg = "F6EEDF"
+    case boxInfo = "FFF5EA"
+    case getCharacterBg1 = "FFF0BC"
+    case getCharacter2 = "FFB141"
 }
 
 enum Main: String, OffroadColor {
@@ -83,7 +87,6 @@ enum Home: String, OffroadColor {
     case homeCharacterName = "#8B6546"
     case homeNicknameStroke = "#C0B3A2"
 }
-
 
 extension UIColor {
     

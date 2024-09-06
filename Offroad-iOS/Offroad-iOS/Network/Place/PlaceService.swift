@@ -17,7 +17,7 @@ protocol RegisteredPlaceServiceProtocol {
 }
 
 final class RegisteredPlaceService: BaseService, RegisteredPlaceServiceProtocol {
-    private let provider = MoyaProvider<PlaceAPI>(plugins: [MoyaPlugin()])
+    private let provider = MoyaProvider<PlaceAPI>.init(session: Session(interceptor: TokenInterceptor.shared), plugins: [MoyaPlugin()])
 
     func getRegisteredLocation(
         requestDTO: RegisteredPlaceRequestDTO,

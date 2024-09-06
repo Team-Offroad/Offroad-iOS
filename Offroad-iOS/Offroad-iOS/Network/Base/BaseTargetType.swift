@@ -13,6 +13,7 @@ enum HeaderType {
     case noneHeader
     case accessTokenHeaderForGet
     case accessTokenHeaderForGeneral
+    case refreshTokenHeader
 }
 
 protocol BaseTargetType: TargetType {
@@ -46,6 +47,16 @@ extension BaseTargetType {
             let header = ["Content-Type": "application/json",
                           "Authorization": "Bearer \(accessToken)"]
             return header
+        case .refreshTokenHeader:
+            guard let refreshToken = KeychainManager.shared.loadRefreshToken() else { return [:] }
+            
+            let header = ["Authorization": "Bearer \(refreshToken)"]
+            
+            return header
         }
+    }
+    
+    var validationType: ValidationType {
+        return .successCodes
     }
 }
