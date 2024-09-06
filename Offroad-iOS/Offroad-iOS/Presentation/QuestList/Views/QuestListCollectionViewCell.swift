@@ -226,15 +226,15 @@ extension QuestListCollectionViewCell {
 
     //MARK: - Func
 
-    func configureCell(with quest: QuestDTO) {
-        questNameLabel.text = quest.title
-        questProgressLabel.text = "달성도 (\(quest.process)/\(quest.totalProcess))"
+    func configureCell(with quest: Quest) {
+        questNameLabel.text = quest.questName
+        questProgressLabel.text = "달성도 (\(quest.currentCount)/\(quest.totalCount))"
         questProgressLabel.highlightText(targetText: "달성도", color: .grayscale(.gray400))
         
-        questDescriptionLabel.text = quest.questDescription
+        questDescriptionLabel.text = quest.description
         
-        questClearConditionLabel.text = quest.questClearDescription
-        questRewardDescriptionLabel.text = quest.questRewardDescription
+        questClearConditionLabel.text = quest.requirement
+        questRewardDescriptionLabel.text = quest.reward
         
         contentView.layoutIfNeeded()
     }

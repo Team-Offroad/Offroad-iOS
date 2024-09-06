@@ -10,6 +10,9 @@ import UIKit
 class QuestListViewController: UIViewController {
 
     //MARK: - Properties
+    
+    private var questListService = QuestListService()
+    private var questArray: [Quest] = []
 
     private var dummyDataSource: [QuestDTO] = []
     private let questListDummyData: [QuestDTO] = QuestListDummyDataManager().makeDummyData()
@@ -34,6 +37,7 @@ class QuestListViewController: UIViewController {
         setupControlsTarget()
         setupCollectionView()
         setupDelegates()
+        reloadCollectionView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -85,6 +89,21 @@ extension QuestListViewController {
         rootView.questListCollectionView.dataSource = self
         rootView.questListCollectionView.delegate = self
     }
+    
+    private func reloadCollectionView(isActive: Bool = false) {
+        questListService.getQuestList(isActive: isActive) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let response):
+                guard let questListFromServer = response?.data.questList else { return }
+                self.questArray = questListFromServer
+                self.rootView.questListCollectionView.reloadData()
+                
+            default:
+                return
+            }
+        }
+    }
 
 }
 
@@ -109,9 +128,9 @@ extension QuestListViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if rootView.ongoingQuestToggle.isOn {
-            return questListDummyData.filter({ $0.process > 0 && $0.process < $0.totalProcess }).count
+            return questArray.filter({ $0.currentCount > 0 && $0.currentCount < $0.totalCount }).count
         } else {
-            return questListDummyData.count
+            return questArray.count
         }
     }
     
@@ -123,10 +142,10 @@ extension QuestListViewController: UICollectionViewDataSource {
         
         if rootView.ongoingQuestToggle.isOn {
             cell.configureCell(
-                with: questListDummyData.filter({ $0.process > 0 && $0.process < $0.totalProcess })[indexPath.item]
+                with: questArray.filter({ $0.currentCount > 0 && $0.currentCount < $0.totalCount })[indexPath.item]
             )
         } else {
-            cell.configureCell(with: questListDummyData[indexPath.item])
+            cell.configureCell(with: questArray[indexPath.item])
         }
         
         return cell
