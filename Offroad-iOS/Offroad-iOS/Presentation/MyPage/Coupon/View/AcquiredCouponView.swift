@@ -25,16 +25,6 @@ class AcquiredCouponView: UIView {
     }
     
     private var couponLogoImage = UIImageView(image: UIImage(resource: .imgCoupon))
-
-    let segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["사용 가능 6", "사용 완료 3"])
-        control.selectedSegmentIndex = 0
-        control.backgroundColor = .clear
-        control.selectedSegmentTintColor = UIColor.main(.main2)
-        control.setTitleTextAttributes([.foregroundColor: UIColor.gray], for: .normal)
-        control.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
-        return control
-    }()
     
     let customSegmentedControl = CustomSegmentedControl(titles: ["사용 가능 6", "사용 완료 3"])
     
@@ -112,7 +102,6 @@ class AcquiredCouponView: UIView {
         }
 
         collectionView.snp.makeConstraints { make in
-            //make.top.equalTo(segmentedControl.snp.bottom)
             make.top.equalTo(customSegmentedControl.snp.bottom)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.bottom.equalToSuperview().inset(20)
@@ -125,7 +114,6 @@ class AcquiredCouponView: UIView {
 }
 
 extension AcquiredCouponView: CustomSegmentedControlDelegate {
-    
     func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int) {
         print(#function, selectedIndex)
         
@@ -134,8 +122,5 @@ extension AcquiredCouponView: CustomSegmentedControlDelegate {
         } else if selectedIndex == 1 {
             
         }
-        
     }
-    
-    
 }
