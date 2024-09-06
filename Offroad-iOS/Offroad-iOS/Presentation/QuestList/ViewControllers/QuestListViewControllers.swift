@@ -60,6 +60,10 @@ extension QuestListViewController {
     @objc private func ongoingQuestSwitchValueChanged(sender: UISwitch) {
         rootView.questListCollectionView.reloadData()
     }
+    
+    @objc private func refreshCollectionView() {
+        reloadCollectionView()
+    }
 
     //MARK: - Private Func
 
@@ -74,6 +78,7 @@ extension QuestListViewController {
     private func setupControlsTarget() {
         rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
         rootView.ongoingQuestToggle.addTarget(self, action: #selector(ongoingQuestSwitchValueChanged(sender:)), for: .valueChanged)
+        rootView.questListCollectionView.refreshControl?.addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
     }
     
     private func setupCollectionView() {
@@ -97,6 +102,8 @@ extension QuestListViewController {
             case .success(let response):
                 guard let questListFromServer = response?.data.questList else { return }
                 self.questArray = questListFromServer
+                self.rootView.activityIndicatorView.stopAnimating()
+                self.rootView.questListCollectionView.refreshControl?.endRefreshing()
                 self.rootView.questListCollectionView.reloadData()
                 
             default:
