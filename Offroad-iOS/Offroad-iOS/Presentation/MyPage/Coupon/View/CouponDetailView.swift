@@ -20,6 +20,10 @@ final class CouponDetailView: UIView {
     
     // MARK: - UI Properties
     
+    let customBackButton = NavigationPopButton().then {
+            $0.configureButtonTitle(titleString: "획득 쿠폰")
+    }
+    
     private let couponDetailView = UIView().then {
         $0.roundCorners(cornerRadius: 12)
         $0.layer.borderWidth = 1
@@ -114,6 +118,7 @@ final class CouponDetailView: UIView {
     
     private func setupHierarchy() {
         addSubviews(
+            customBackButton,
             couponDetailView,
             usageTitleLabel,
             usageLogoImageView,
@@ -130,6 +135,11 @@ final class CouponDetailView: UIView {
     }
     
     private func setupLayout() {
+        customBackButton.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(12)
+            $0.leading.equalToSuperview().inset(12)
+        }
+        
         couponUsagePopupView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }

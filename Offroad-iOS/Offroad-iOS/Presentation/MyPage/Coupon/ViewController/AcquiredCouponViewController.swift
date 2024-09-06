@@ -22,14 +22,35 @@ class AcquiredCouponViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupTarget()
         setupDelegate()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+        offroadTabBarController.hideTabBarAnimation()
+    }
+}
+   
+extension AcquiredCouponViewController{
+
     // MARK: - Private Func
+    
+    private func setupTarget() {
+        acquiredCouponView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+    }
     
     private func setupDelegate() {
         acquiredCouponView.collectionView.delegate = self
         acquiredCouponView.collectionView.dataSource = self
+    }
+    
+    // MARK: - @objc Method
+    
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
 }
 

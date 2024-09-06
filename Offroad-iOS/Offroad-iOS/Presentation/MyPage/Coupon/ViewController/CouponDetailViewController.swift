@@ -27,6 +27,13 @@ class CouponDetailViewController: UIViewController {
         setupTarget()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+        offroadTabBarController.hideTabBarAnimation()
+    }
+    
     // MARK: - Initializer
     
     init(image: UIImage?, title: String, description: String) {
@@ -41,7 +48,10 @@ class CouponDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Private Func
+    
     private func setupTarget() {
+        couponDetailView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         couponDetailView.useButton.addTarget(self, action: #selector(didTapUseButton), for: .touchUpInside)
         couponDetailView.couponUsagePopupView.codeTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         couponDetailView.couponUsagePopupView.closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
@@ -52,6 +62,7 @@ class CouponDetailViewController: UIViewController {
             self?.dismissCouponUsagePopupView()
         }
     }
+    
     private func presentCouponUsagePopupView() {
         couponDetailView.couponUsagePopupView.isHidden = false
         couponDetailView.couponUsagePopupView.layer.zPosition = 999
@@ -65,34 +76,28 @@ class CouponDetailViewController: UIViewController {
         }
     }
     
-    func setupCloseButton(action: @escaping CouponUsagePopupView.CloseButtonAction) {
+    private func setupCloseButton(action: @escaping CouponUsagePopupView.CloseButtonAction) {
         couponDetailView.couponUsagePopupView.closeButtonAction = action
     }
     
-    func presentPopupView() {
+    private func presentPopupView() {
         couponDetailView.couponUsagePopupView.backgroundColor = .blackOpacity(.black55)
         couponDetailView.couponUsagePopupView.popupView.executePresentPopupAnimation()
     }
     
-    func dismissPopupView() {
+    private func dismissPopupView() {
         couponDetailView.couponUsagePopupView.backgroundColor = .clear
         couponDetailView.couponUsagePopupView.popupView.executeDismissPopupAnimation()
-    }
-    
-    @objc private func closeButtonTapped() {
-        couponDetailView.couponUsagePopupView.closeButtonAction?()
-        dismissPopupView()
-    }
-    
-    @objc private func checkButtonTapped() {
-        couponDetailView.couponUsagePopupView.closeButtonAction?()
-        dismissPopupView()
     }
 }
 
 extension CouponDetailViewController {
     
     //MARK: - @objc Method
+    
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
     
     @objc private func textFieldDidChange() {
         let isTextFieldEmpty = couponDetailView.couponUsagePopupView.codeTextField.text?.isEmpty ?? true
@@ -105,6 +110,16 @@ extension CouponDetailViewController {
     
     @objc private func didTapUseButton() {
         presentCouponUsagePopupView()
+    }
+    
+    @objc private func closeButtonTapped() {
+        couponDetailView.couponUsagePopupView.closeButtonAction?()
+        dismissPopupView()
+    }
+    
+    @objc private func checkButtonTapped() {
+        couponDetailView.couponUsagePopupView.closeButtonAction?()
+        dismissPopupView()
     }
 }
 
