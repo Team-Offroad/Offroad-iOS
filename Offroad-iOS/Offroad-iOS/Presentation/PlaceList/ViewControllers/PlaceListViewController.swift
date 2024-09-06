@@ -6,10 +6,17 @@
 //
 
 import UIKit
+import CoreLocation
 
 class PlaceListViewController: UIViewController {
     
     //MARK: - Properties
+    
+    let locationManager = CLLocationManager()
+    let placeService = RegisteredPlaceService()
+    var places: [RegisteredPlaceInfo] = []
+    var placesNeverVisited: [RegisteredPlaceInfo] { places.filter { $0.visitCount == 0 } }
+    var currentCoordinate: CLLocationCoordinate2D? { locationManager.location?.coordinate }
     
     var dummyDataSource: [RegisteredPlaceInfo] = []
     let dummyDataForPlaceNeverVisited: [RegisteredPlaceInfo] = PlaceListDummyDataManager.makeDummyData(count: 100)
@@ -35,6 +42,8 @@ class PlaceListViewController: UIViewController {
         setupButtonsActions()
         setupCollectionView()
         setupDelegates()
+        
+        reloadCollectionViewData(limit: 100, isBounded: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,6 +102,30 @@ extension PlaceListViewController {
         rootView.allPlaceListCollectionView.delegate = self
     }
     
+    private func reloadCollectionViewData(coordinate: CLLocationCoordinate2D? = nil, limit: Int, isBounded: Bool) {
+        guard let currentCoordinate else {
+            print("현재 위치 좌표를 구할 수 없음")
+            return
+        }
+        let placeRequestDTO = RegisteredPlaceRequestDTO(
+            currentLatitude: currentCoordinate.latitude,
+            currentLongitude: currentCoordinate.longitude,
+            limit: limit,
+            isBounded: isBounded
+        )
+        placeService.getRegisteredLocation(requestDTO: placeRequestDTO) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let response):
+                guard let responsePlaceArray = response?.data.places else { return }
+                places = responsePlaceArray
+                self.rootView.allPlaceListCollectionView.reloadData()
+            default:
+                return
+            }
+        }
+    }
+    
 }
 
 //MARK: - UIGestureRecognizerDelegate
@@ -111,20 +144,6 @@ extension PlaceListViewController: UIGestureRecognizerDelegate {
 extension PlaceListViewController: CustomSegmentedControlDelegate {
     
     func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int) {
-//        if selectedIndex == 0 {
-//            let currentOffset = rootView.allPlaceListCollectionView.contentOffset
-//            rootView.allPlaceListCollectionView.setContentOffset(currentOffset, animated: false)
-//        } else {
-//            let currentOffset = rootView.placeNeverVisitedListCollectionView.contentOffset
-//            rootView.placeNeverVisitedListCollectionView.setContentOffset(currentOffset, animated: false)
-//        }
-        
-        //rootView.placeNeverVisitedListCollectionView.reloadData()
-        //rootView.allPlaceListCollectionView.reloadData()
-        
-        //rootView.placeNeverVisitedListCollectionView.performBatchUpdates(nil)
-        //rootView.allPlaceListCollectionView.performBatchUpdates(nil)
-        
         rootView.placeNeverVisitedListCollectionView.isHidden = selectedIndex != 0
         rootView.allPlaceListCollectionView.isHidden = selectedIndex != 1
     }
@@ -139,7 +158,8 @@ extension PlaceListViewController: UICollectionViewDataSource {
         if collectionView == rootView.placeNeverVisitedListCollectionView {
             return dummyDataForPlaceNeverVisited.count
         } else {
-            return dummyDataForAllPlace.count
+            //return dummyDataForAllPlace.count
+            return places.count
         }
     }
     
@@ -152,7 +172,8 @@ extension PlaceListViewController: UICollectionViewDataSource {
         if collectionView == rootView.placeNeverVisitedListCollectionView {
             cell.configureCell(with: dummyDataForPlaceNeverVisited[indexPath.item], showingVisitingCount: false)
         } else if collectionView == rootView.allPlaceListCollectionView {
-            cell.configureCell(with: dummyDataForAllPlace[indexPath.item], showingVisitingCount: true)
+            //cell.configureCell(with: dummyDataForAllPlace[indexPath.item], showingVisitingCount: true)
+            cell.configureCell(with: places[indexPath.item], showingVisitingCount: true)
         }
         return cell
     }

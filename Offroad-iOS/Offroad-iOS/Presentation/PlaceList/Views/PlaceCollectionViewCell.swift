@@ -286,26 +286,27 @@ extension PlaceCollectionViewCell {
         case "CAFFE":
             placeCategoryLabel.text = "카페"
             placeDescriptionImageView.image = .imgCategoryCafe
-            placeSectionLabel.text = "시간이 머무는 마을"
+//            placeSectionLabel.text = "시간이 머무는 마을"
         case "RESTAURANT":
             placeCategoryLabel.text = "식당"
             placeDescriptionImageView.image = .imgCategoryRestaurant
-            placeSectionLabel.text = "트렌트의 시작점"
+//            placeSectionLabel.text = "트렌트의 시작점"
         case "PARK":
             placeCategoryLabel.text = "공원"
             placeDescriptionImageView.image = .imgCategoryPark
-            placeSectionLabel.text = "예술가의 거리"
-        case "SPORTS":
+//            placeSectionLabel.text = "예술가의 거리"
+        case "SPORT":
             placeCategoryLabel.text = "스포츠"
             placeDescriptionImageView.image = .imgCategorySports
-            placeSectionLabel.text = "피, 땀, 눈물"
+//            placeSectionLabel.text = "피, 땀, 눈물"
         case "CULTURE":
             placeCategoryLabel.text = "문화"
             placeDescriptionImageView.image = .imgCategoryCulture
-            placeSectionLabel.text = "해방의 숲"
+//            placeSectionLabel.text = "해방의 숲"
         default:
             return
         }
+        placeSectionLabel.text = "장소 섹션 라벨(임시)"
         
         contentView.layoutIfNeeded()
     }
