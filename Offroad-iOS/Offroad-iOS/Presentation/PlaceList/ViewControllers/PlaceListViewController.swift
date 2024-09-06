@@ -154,10 +154,8 @@ extension PlaceListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == rootView.placeNeverVisitedListCollectionView {
-            //return dummyDataForPlaceNeverVisited.count
             return placesNeverVisited.count
         } else {
-            //return dummyDataForAllPlace.count
             return places.count
         }
     }
@@ -169,10 +167,8 @@ extension PlaceListViewController: UICollectionViewDataSource {
         ) as? PlaceCollectionViewCell else { fatalError("cell dequeing Failed!") }
         
         if collectionView == rootView.placeNeverVisitedListCollectionView {
-            //cell.configureCell(with: dummyDataForPlaceNeverVisited[indexPath.item], showingVisitingCount: false)
             cell.configureCell(with: placesNeverVisited[indexPath.item], showingVisitingCount: false)
         } else if collectionView == rootView.allPlaceListCollectionView {
-            //cell.configureCell(with: dummyDataForAllPlace[indexPath.item], showingVisitingCount: true)
             cell.configureCell(with: places[indexPath.item], showingVisitingCount: true)
         }
         return cell
