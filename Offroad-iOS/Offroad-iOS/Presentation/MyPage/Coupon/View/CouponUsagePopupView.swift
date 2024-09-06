@@ -17,17 +17,17 @@ final class CouponUsagePopupView: UIView {
     typealias EnterCodeAction = () -> Void
     typealias CloseButtonAction = () -> Void
     
-    private var enterCodeAction: EnterCodeAction?
-    private var closeButtonAction: CloseButtonAction?
+    var enterCodeAction: EnterCodeAction?
+    var closeButtonAction: CloseButtonAction?
     
     //MARK: - UI Properties
     
     let popupView = UIView()
     private let usageTitleLabel = UILabel()
-    private let closeButton = UIButton()
+     let closeButton = UIButton()
     private let usageDescriptionLabel = UILabel()
-    private let codeTextField = UITextField()
-    private let checkButton = StateToggleButton(state: .isDisabled, title: "확인")
+    let codeTextField = UITextField()
+    let checkButton = StateToggleButton(state: .isDisabled, title: "확인")
     
     // MARK: - Life Cycle
     
@@ -138,41 +138,6 @@ extension CouponUsagePopupView {
             $0.height.equalTo(44)
             $0.width.equalTo(usageDescriptionLabel)
         }
-    }
-    
-    func setupCloseButton(action: @escaping CloseButtonAction) {
-        closeButtonAction = action
-    }
-    
-    func setupActions() {
-        codeTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
-    }
-    
-    func presentPopupView() {
-        popupView.executePresentPopupAnimation()
-    }
-    
-    func dismissPopupView() {
-        backgroundColor = .clear
-        popupView.executeDismissPopupAnimation()
-    }
-    
-    // MARK: - @Objc Func
-    
-    @objc private func textFieldDidChange(_ textField: UITextField) {
-        if let text = textField.text, !text.isEmpty {
-            checkButton.isEnabled = true
-            checkButton.changeState(forState: .isEnabled)
-        } else {
-            checkButton.isEnabled = false
-            checkButton.changeState(forState: .isDisabled)
-        }
-    }
-    
-    @objc private func closeButtonTapped() {
-        closeButtonAction?()
-        dismissPopupView()
     }
 }
 
