@@ -11,11 +11,11 @@ import SnapKit
 
 class AcquiredCouponCell: UICollectionViewCell {
     
-    // MARK: - Properties
+    // MARK: - UI Properties
     
     private let containerView = UIView().then {
         $0.backgroundColor = .white
-        $0.layer.cornerRadius = 10
+        $0.roundCorners(cornerRadius: 10)
         $0.clipsToBounds = true
     }
     
@@ -28,19 +28,11 @@ class AcquiredCouponCell: UICollectionViewCell {
         $0.textAlignment = .center
         $0.textColor = UIColor.main(.main2)
         $0.font = UIFont.offroad(style: .iosTextContentsSmall)
-        $0.numberOfLines = 1
     }
     
     private let newBadgeView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
         $0.image = UIImage(resource: .imgNewTag)
-    }
-    
-    private let newBadgeLabel = UILabel().then {
-        $0.text = "N"
-        $0.textColor = .white
-        $0.textAlignment = .center
-        $0.font = UIFont.boldSystemFont(ofSize: 14)
     }
     
     // MARK: - Life Cycle
@@ -49,6 +41,7 @@ class AcquiredCouponCell: UICollectionViewCell {
         super.init(frame: frame)
         
         setupHierarchy()
+        setupStyle()
         setupLayout()
     }
     
@@ -65,16 +58,17 @@ class AcquiredCouponCell: UICollectionViewCell {
             newBadgeView
         )
         containerView.addSubview(imageView)
-        newBadgeView.addSubview(newBadgeLabel)
     }
     
-    private func setupLayout() {
-        contentView.layer.cornerRadius = 12
+    private func setupStyle() {
+        contentView.roundCorners(cornerRadius: 12)
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.home(.homeContents2).cgColor
         contentView.clipsToBounds = true
         contentView.backgroundColor = UIColor.main(.main1)
-        
+    }
+    
+    private func setupLayout() {
         containerView.snp.makeConstraints { make in
             make.horizontalEdges.top.equalToSuperview().inset(10)
             make.bottom.equalTo(contentView).inset(42)
@@ -95,10 +89,6 @@ class AcquiredCouponCell: UICollectionViewCell {
         newBadgeView.snp.makeConstraints { make in
             make.top.trailing.equalTo(containerView).inset(8)
             make.size.equalTo(24)
-        }
-        
-        newBadgeLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
         }
     }
     

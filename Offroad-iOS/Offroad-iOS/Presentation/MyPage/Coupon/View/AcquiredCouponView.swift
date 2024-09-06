@@ -11,7 +11,7 @@ import SnapKit
 
 class AcquiredCouponView: UIView {
 
-    // MARK: - Properties
+    // MARK: - UI Properties
     
     private let labelView = UIView().then {
         $0.backgroundColor = UIColor.main(.main1)

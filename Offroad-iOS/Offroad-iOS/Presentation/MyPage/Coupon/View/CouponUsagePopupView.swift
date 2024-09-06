@@ -74,6 +74,7 @@ extension CouponUsagePopupView {
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.grayscale(.gray200).cgColor
             $0.backgroundColor = UIColor.main(.main3)
+            $0.addPadding(left: 12, right: 12)
             
             let placeholderText = "매장의 고유 코드를 입력해 주세요."
             let attributes: [NSAttributedString.Key: Any] = [
@@ -172,9 +173,6 @@ extension CouponUsagePopupView {
     @objc private func closeButtonTapped() {
         closeButtonAction?()
         dismissPopupView()
-        //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
-        //            self.dismiss(animated: false)
-        //        }
     }
 }
 

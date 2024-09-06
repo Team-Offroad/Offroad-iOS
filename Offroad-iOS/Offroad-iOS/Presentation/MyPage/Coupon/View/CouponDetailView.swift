@@ -21,7 +21,7 @@ final class CouponDetailView: UIView {
     // MARK: - UI Properties
     
     private let couponDetailView = UIView().then {
-        $0.layer.cornerRadius = 12
+        $0.roundCorners(cornerRadius: 12)
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.home(.homeContents2).cgColor
         $0.clipsToBounds = true
@@ -30,7 +30,7 @@ final class CouponDetailView: UIView {
     
     let couponImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.layer.cornerRadius = 10
+        $0.roundCorners(cornerRadius: 10)
         $0.clipsToBounds = true
     }
     
@@ -97,7 +97,8 @@ final class CouponDetailView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupView()
+        setupStyle()
+        setupHierarchy()
         setupLayout()
     }
     
@@ -107,15 +108,18 @@ final class CouponDetailView: UIView {
     
     //MARK: - Private Func
     
-    private func setupView() {
+    private func setupStyle() {
         backgroundColor = UIColor.primary(.listBg)
+    }
+    
+    private func setupHierarchy() {
         addSubviews(
-            couponUsagePopupView,
             couponDetailView,
             usageTitleLabel,
             usageLogoImageView,
             usageDescriptionLabel,
-            useButton
+            useButton,
+            couponUsagePopupView
         )
         couponDetailView.addSubviews(
             couponImageView,
