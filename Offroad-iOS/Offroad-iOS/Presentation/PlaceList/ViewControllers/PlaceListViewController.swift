@@ -116,6 +116,7 @@ extension PlaceListViewController {
             case .success(let response):
                 guard let responsePlaceArray = response?.data.places else { return }
                 places = responsePlaceArray
+                self.rootView.activityIndicator.stopAnimating()
                 self.rootView.allPlaceListCollectionView.reloadData()
                 self.rootView.placeNeverVisitedListCollectionView.reloadData()
             default:
