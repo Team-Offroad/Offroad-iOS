@@ -12,16 +12,30 @@ import NMapsMap
 
 enum PlaceAPI {
     case getRegisteredPlaces(requestDTO: RegisteredPlaceRequestDTO)
+//    case getRegisteredPlaces(coordinate: CLLocationCoordinate2D, limit: Int, isBounded: Bool)
 }
 
 extension PlaceAPI: BaseTargetType {
 
     var headerType: HeaderType { return .accessTokenHeaderForGet }
     
+    var headers: [String : String]? {
+        guard let accessToken = KeychainManager.shared.loadAccessToken() else { return [:] }
+        
+        let header = ["Content-Type": "application/json",
+                      "Authorization": "Bearer \(accessToken)"]
+        return header
+    }
+    
     var parameter: [String : Any]? {
         switch self {
-        case .getRegisteredPlaces:
-            return .none
+        case .getRegisteredPlaces(let dto):
+            return [
+                "currentLatitude": dto.currentLatitude,
+                "currentLongitude": dto.currentLongitude,
+                "limit": dto.limit,
+                "isBounded": dto.isBounded
+            ]
         }
     }
     
@@ -41,12 +55,9 @@ extension PlaceAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getRegisteredPlaces(let requestDTO):
+        case .getRegisteredPlaces:
             return .requestParameters(
-                parameters: [
-                    "currentLatitude": requestDTO.currentLatitude,
-                    "currentLongitude": requestDTO.currentLongitude
-                ],
+                parameters: parameter ?? [:],
                 encoding: URLEncoding.queryString
             )
         }
