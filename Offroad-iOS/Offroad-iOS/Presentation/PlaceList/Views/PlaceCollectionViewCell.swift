@@ -162,6 +162,7 @@ extension PlaceCollectionViewCell {
             label.font = .offroad(style: .iosTextContents)
             label.textColor = .main(.main2)
             label.textAlignment = .left
+            label.lineBreakStrategy = .hangulWordPriority
             label.numberOfLines = 0
         }
         
@@ -230,16 +231,17 @@ extension PlaceCollectionViewCell {
             make.verticalEdges.equalToSuperview().inset(9)
             make.leading.equalTo(placeDescriptionImageView.snp.trailing).offset(6)
         }
+        placeDescriptionLabel.setContentHuggingPriority(.init(1), for: .horizontal)
         
         placeDesctiprionSeparator.snp.makeConstraints { make in
-            //make.leading.equalTo(placeDescriptionLabel.snp.trailing).offset(10)
-            make.trailing.equalTo(visitCountLabel.snp.leading).offset(-10)
+            make.leading.greaterThanOrEqualTo(placeDescriptionLabel.snp.trailing).offset(10)
             make.width.equalTo(1)
             make.verticalEdges.equalToSuperview().inset(7)
         }
         
         visitCountLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
+            make.leading.equalTo(placeDesctiprionSeparator.snp.trailing).offset(9)
             make.trailing.equalToSuperview().inset(13)
         }
         visitCountLabel.setContentCompressionResistancePriority(.init(1000), for: .horizontal)
@@ -274,7 +276,7 @@ extension PlaceCollectionViewCell {
         addressLabel.text = place.address
         placeDescriptionLabel.text = place.shortIntroduction
         
-        visitCountLabel.text = "탐험횟수: \(place.visitCount) "
+        visitCountLabel.text = "탐험횟수: \(place.visitCount)"
         
         placeDesctiprionSeparator.isHidden = !showingVisitingCount
         visitCountLabel.isHidden = !showingVisitingCount
