@@ -140,13 +140,13 @@
 		D06466962C86F69F00CF10FD /* LogoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466952C86F69F00CF10FD /* LogoutView.swift */; };
 		D064669A2C86FCDB00CF10FD /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466992C86FCDB00CF10FD /* DeleteAccountViewController.swift */; };
 		D064669C2C86FCE800CF10FD /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064669B2C86FCE800CF10FD /* DeleteAccountView.swift */; };
-		D064669F2C898E9D00CF10FD /* EmblemListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064669E2C898E9D00CF10FD /* EmblemListResponseDTO.swift */; };
-		D06466A12C89CB5200CF10FD /* UserInfoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A02C89CB5200CF10FD /* UserInfoResponseDTO.swift */; };
 		D06466A32C89EF6B00CF10FD /* DeleteAccountRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A22C89EF6B00CF10FD /* DeleteAccountRequestDTO.swift */; };
 		D06466A52C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A42C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift */; };
 		D06466A72C8A05F100CF10FD /* MarketingConsentResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A62C8A05F100CF10FD /* MarketingConsentResponseDTO.swift */; };
 		D06466AA2C8A08E500CF10FD /* MarketingConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A92C8A08E500CF10FD /* MarketingConsentViewController.swift */; };
 		D06466AC2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466AB2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift */; };
+		D06466A12C89CB5200CF10FD /* UserInfoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A02C89CB5200CF10FD /* UserInfoResponseDTO.swift */; };
+		D064669F2C898E9D00CF10FD /* EmblemListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064669E2C898E9D00CF10FD /* EmblemListResponseDTO.swift */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
