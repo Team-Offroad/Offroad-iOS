@@ -18,10 +18,6 @@ class PlaceListViewController: UIViewController {
     var placesNeverVisited: [RegisteredPlaceInfo] { places.filter { $0.visitCount == 0 } }
     var currentCoordinate: CLLocationCoordinate2D? { locationManager.location?.coordinate }
     
-    var dummyDataSource: [RegisteredPlaceInfo] = []
-    let dummyDataForPlaceNeverVisited: [RegisteredPlaceInfo] = PlaceListDummyDataManager.makeDummyData(count: 100)
-    let dummyDataForAllPlace: [RegisteredPlaceInfo] = PlaceListDummyDataManager.makeDummyData(count: 100)
-    
     let operationQueue = OperationQueue()
     
     //MARK: - UI Properties
