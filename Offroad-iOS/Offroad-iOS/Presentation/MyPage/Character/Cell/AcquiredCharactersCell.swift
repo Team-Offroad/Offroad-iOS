@@ -12,7 +12,7 @@ import Kingfisher
 
 class AcquiredCharactersCell: UICollectionViewCell {
     
-    // MARK: - Properties
+    // MARK: - UI Properties
     
     private let containerView = UIView().then {
         $0.backgroundColor = UIColor.primary(.characterSelectBg3)
@@ -74,48 +74,13 @@ class AcquiredCharactersCell: UICollectionViewCell {
         }
     }
     
-    private func getAcquiredCharacterInfo() {
-        NetworkService.shared.characterService.getCharacterInfo { response in
-            switch response {
-            case .success(let data):
-                let count = data?.data.characters.count ?? 0
-                
-                self.characterInfoModelList = data?.data.characters
-                
-                self.extendedCharacterImageList.insert(data?.data.characters[count - 1].characterBaseImageUrl ?? "", at: 0)
-                for character in data?.data.characters ?? [CharacterList]() {
-                    self.extendedCharacterImageList.append(character.characterBaseImageUrl)
-                    self.characterNames.append(character.name)
-                    self.characterDiscriptions.append(character.description)
-                }
-                self.extendedCharacterImageList.append(data?.data.characters[0].characterBaseImageUrl ?? "")
-                
-            default:
-                break
-            }
-        }
     
     //MARK: - Func
     
-    func configureCell(data: NotGainedCharacterList) {
+    func configureCell(data: GainedCharacterList) {
         imageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
-        
-        switch imageName {
-        case "character_1":
-            contentView.backgroundColor = UIColor.home(.homeCharacterName)
-            containerView.backgroundColor = UIColor.primary(.characterSelectBg3)
-            characterLabel.text = "아루"
-        case "character_2":
-            contentView.backgroundColor = UIColor.primary(.getCharacter2)
-            containerView.backgroundColor = UIColor.primary(.characterSelectBg2)
-            characterLabel.text = "오푸"
-        case "character_3":
-            contentView.backgroundColor = UIColor.home(.homeContents1GraphMain)
-            containerView.backgroundColor = UIColor.primary(.characterSelectBg1)
-            characterLabel.text = "루미"
-        default:
-            contentView.backgroundColor = UIColor.gray
-            containerView.backgroundColor = UIColor.darkGray
-        }
+        characterLabel.text = data.characterName
+        contentView.backgroundColor = UIColor(hexCode: data.characterMainColorCode)
+        containerView.backgroundColor = UIColor(hexCode: data.characterSubColorCode)
     }
 }
