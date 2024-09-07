@@ -103,18 +103,18 @@ extension CollectedTitleCollectionViewCell {
     
     //MARK: - Func
     
-    func configureCollectedCell(data: EmblemDataList) {
+    func configureCell(data: EmblemDataList, isCollected: Bool) {
         titleLabel.text = data.emblemName
         collectConditionLabel.text = "\(data.clearConditionQuestName) 달성 시 획득"
         collectConditionLabel.highlightText(targetText: data.clearConditionQuestName, font: .offroad(style: .iosTextContents))
         newTagImageView.isHidden = data.isNewGained ? false : true
-        lockedView.isHidden = true
+        lockedView.isHidden = isCollected
     }
     
-    func configureNotCollectedCell(data: EmblemDataList) {
-        titleLabel.text = data.emblemName
-        collectConditionLabel.text = "\(data.clearConditionQuestName) 달성 시 획득"
-        collectConditionLabel.highlightText(targetText: data.clearConditionQuestName, font: .offroad(style: .iosTextContents))
-    }
+//    func configureNotCollectedCell(data: EmblemDataList) {
+//        titleLabel.text = data.emblemName
+//        collectConditionLabel.text = "\(data.clearConditionQuestName) 달성 시 획득"
+//        collectConditionLabel.highlightText(targetText: data.clearConditionQuestName, font: .offroad(style: .iosTextContents))
+//    }
 
 }

@@ -95,9 +95,9 @@ extension CollectedTitlesViewController: UICollectionViewDataSource {
         
         if let collectedTitleModelList, let notCollectedTitleModelList {
             if indexPath.item < collectedTitleModelList.count {
-                cell.configureCollectedCell(data: collectedTitleModelList[indexPath.item])
+                cell.configureCell(data: collectedTitleModelList[indexPath.item], isCollected: true)
             } else {
-                cell.configureNotCollectedCell(data: notCollectedTitleModelList[indexPath.item - collectedTitleModelList.count])
+                cell.configureCell(data: notCollectedTitleModelList[indexPath.item - collectedTitleModelList.count], isCollected: false)
             }
         }
 
