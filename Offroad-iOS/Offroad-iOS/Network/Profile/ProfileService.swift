@@ -11,6 +11,7 @@ import Moya
 
 protocol ProfileServiceProtocol {
     func updateProfile(body: ProfileUpdateRequestDTO, completion: @escaping (NetworkResult<ProfileUpdateResponseDTO>) -> ())
+    func getUserInfo(completion: @escaping (NetworkResult<UserInfoResponseDTO>) -> ())
 }
 
 final class ProfileService: BaseService, ProfileServiceProtocol {
@@ -21,6 +22,21 @@ final class ProfileService: BaseService, ProfileServiceProtocol {
             switch result {
             case .success(let response):
                 let networkResult: NetworkResult<ProfileUpdateResponseDTO> = self.fetchNetworkResult(
+                    statusCode: response.statusCode,
+                    data: response.data
+                )
+                completion(networkResult)
+            case .failure(let err):
+                print(err)
+            }
+        }
+    }
+    
+    func getUserInfo(completion: @escaping (NetworkResult<UserInfoResponseDTO>) -> ()) {
+        provider.request(.getUserInfo) { result in
+            switch result {
+            case .success(let response):
+                let networkResult: NetworkResult<UserInfoResponseDTO> = self.fetchNetworkResult(
                     statusCode: response.statusCode,
                     data: response.data
                 )

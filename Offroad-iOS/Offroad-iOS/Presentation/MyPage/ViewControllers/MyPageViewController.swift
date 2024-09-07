@@ -25,6 +25,7 @@ final class MyPageViewController: UIViewController {
         super.viewDidLoad()
         
         setupDelegate()
+        getUserInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,6 +43,19 @@ extension MyPageViewController {
     private func setupDelegate() {
         rootView.myPageMenuCollectionView.dataSource = self
         rootView.myPageMenuCollectionView.delegate = self
+    }
+    
+    private func getUserInfo() {
+        NetworkService.shared.profileService.getUserInfo { response in
+            switch response {
+            case .success(let data):
+                if let userInfoModel = data?.data {
+                    self.rootView.bindData(data: userInfoModel)
+                }
+            default:
+                break
+            }
+        }
     }
 }
 
