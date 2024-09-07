@@ -79,6 +79,10 @@ extension SettingViewController: UICollectionViewDelegateFlowLayout {
         case 0:
             let noticeViewController = NoticeViewController()
             self.navigationController?.pushViewController(noticeViewController, animated: true)
+        case 4:
+            let marketingConsentViewController = MarketingConsentViewController()
+            marketingConsentViewController.modalPresentationStyle = .overCurrentContext
+            self.present(marketingConsentViewController, animated: false)
         case 5:
             let logoutViewController = LogoutViewController()
             logoutViewController.modalPresentationStyle = .overCurrentContext

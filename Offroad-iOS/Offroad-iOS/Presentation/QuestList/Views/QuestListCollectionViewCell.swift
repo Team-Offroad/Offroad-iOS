@@ -40,7 +40,6 @@ class QuestListCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print("cell이 생성됨")
 
         setupHierarchy()
         setupStyle()
@@ -145,7 +144,7 @@ extension QuestListCollectionViewCell {
         // widthConstraint의 priority를 .defaultHigh로 설정하면 첫 번째 셀의 가로 길이가 collectionView를 넘어간다.
         // 이 priority를 .defaultHigh가 아닌 UILayoutPriority.init(1000)으로 설정하면 해당 문제가 해결됨.
         // 왜 그런지 공부하기
-        widthConstraint.priority = .init(1000)
+        widthConstraint.priority = .init(999)
         widthConstraint.isActive = true
 
         questNameLabel.snp.makeConstraints { make in
@@ -174,7 +173,6 @@ extension QuestListCollectionViewCell {
         
         checkBoxImageView.snp.makeConstraints { make in
             make.centerY.equalTo(questClearConditionLabel)
-            //make.top.equalToSuperview().inset(9)
             make.leading.equalToSuperview().inset(12)
             make.size.equalTo(25)
         }
@@ -226,15 +224,15 @@ extension QuestListCollectionViewCell {
 
     //MARK: - Func
 
-    func configureCell(with quest: QuestDTO) {
-        questNameLabel.text = quest.title
-        questProgressLabel.text = "달성도 (\(quest.process)/\(quest.totalProcess))"
+    func configureCell(with quest: Quest) {
+        questNameLabel.text = quest.questName
+        questProgressLabel.text = "달성도 (\(quest.currentCount)/\(quest.totalCount))"
         questProgressLabel.highlightText(targetText: "달성도", color: .grayscale(.gray400))
         
-        questDescriptionLabel.text = quest.questDescription
+        questDescriptionLabel.text = quest.description
         
-        questClearConditionLabel.text = quest.questClearDescription
-        questRewardDescriptionLabel.text = quest.questRewardDescription
+        questClearConditionLabel.text = quest.requirement
+        questRewardDescriptionLabel.text = quest.reward
         
         contentView.layoutIfNeeded()
     }

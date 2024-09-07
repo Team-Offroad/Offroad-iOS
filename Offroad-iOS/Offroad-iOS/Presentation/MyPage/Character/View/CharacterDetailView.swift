@@ -17,6 +17,10 @@ class CharacterDetailView: UIView {
     
     // MARK: - UI Properties
     
+    let customBackButton = NavigationPopButton().then {
+            $0.configureButtonTitle(titleString: "획득 캐릭터")
+    }
+    
     private let scrollView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
     }
@@ -136,7 +140,7 @@ class CharacterDetailView: UIView {
     }
     
     private func setupHierarchy() {
-        addSubview(scrollView)
+        addSubviews(scrollView,customBackButton)
         scrollView.addSubview(contentView)
         
         contentView.addSubviews(
@@ -161,6 +165,11 @@ class CharacterDetailView: UIView {
     }
     
     private func setupLayout() {
+        customBackButton.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(12)
+            $0.leading.equalToSuperview().inset(12)
+        }
+        
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }

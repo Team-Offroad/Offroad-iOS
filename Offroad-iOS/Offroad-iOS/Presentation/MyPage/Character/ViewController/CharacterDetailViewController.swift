@@ -33,11 +33,16 @@ class CharacterDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupTarget()
         setupDelegate()
         setupUIBasedOnImageName()
     }
     
     // MARK: - Private Func
+    
+    private func setupTarget() {
+        characterDetailView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+    }
     
     private func setupDelegate() {
         characterDetailView.collectionView.delegate = self
@@ -85,6 +90,12 @@ class CharacterDetailViewController: UIViewController {
         default:
             view.backgroundColor = UIColor.gray
         }
+    }
+    
+    // MARK: - @Objc Func
+    
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
