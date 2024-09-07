@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AcquiredCharactersViewController: UIViewController {
+final class AcquiredCharactersViewController: UIViewController {
     
     // MARK: - Properties
     

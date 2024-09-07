@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CharacterDetailViewController: UIViewController {
+final class CharacterDetailViewController: UIViewController {
     
     // MARK: - Properties
     
