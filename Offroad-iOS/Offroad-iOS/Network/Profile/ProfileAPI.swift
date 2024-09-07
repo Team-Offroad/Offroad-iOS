@@ -22,7 +22,7 @@ extension ProfileAPI: BaseTargetType {
     
     var parameter: [String : Any]? {
         switch self {
-        case .updateProfile, .patchMarketingConsent, .getUserInfo:
+        case .updateProfile, .postDeleteAccount, .patchMarketingConsent, .getUserInfo:
             return nil
         }
     }
