@@ -11,7 +11,7 @@ import SnapKit
 
 class AcquiredCharactersCell: UICollectionViewCell {
     
-    // MARK: - Properties
+    // MARK: - UI Properties
     
     private let containerView = UIView().then {
         $0.backgroundColor = UIColor.primary(.characterSelectBg3)
@@ -73,27 +73,15 @@ class AcquiredCharactersCell: UICollectionViewCell {
         }
     }
     
+    
     //MARK: - Func
     
-    func configureCell(imageName: String) {
-        imageView.image = UIImage(named: imageName)
-        
-        switch imageName {
-        case "character_1":
-            contentView.backgroundColor = UIColor.home(.homeCharacterName)
-            containerView.backgroundColor = UIColor.primary(.characterSelectBg3)
-            characterLabel.text = "아루"
-        case "character_2":
-            contentView.backgroundColor = UIColor.primary(.getCharacter2)
-            containerView.backgroundColor = UIColor.primary(.characterSelectBg2)
-            characterLabel.text = "오푸"
-        case "character_3":
-            contentView.backgroundColor = UIColor.home(.homeContents1GraphMain)
-            containerView.backgroundColor = UIColor.primary(.characterSelectBg1)
-            characterLabel.text = "루미"
-        default:
-            contentView.backgroundColor = UIColor.gray
-            containerView.backgroundColor = UIColor.darkGray
-        }
+    func configureCell(data: GainedCharacterList) {
+        imageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
+        characterLabel.text = data.characterName
+        contentView.backgroundColor = UIColor(hexCode: data.characterMainColorCode)
+        containerView.backgroundColor = UIColor(hexCode: data.characterSubColorCode)
     }
 }
+
+
