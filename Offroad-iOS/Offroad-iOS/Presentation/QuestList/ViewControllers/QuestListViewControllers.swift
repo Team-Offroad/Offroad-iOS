@@ -14,9 +14,6 @@ class QuestListViewController: UIViewController {
     private var questListService = QuestListService()
     private var questArray: [Quest] = []
 
-    private var dummyDataSource: [QuestDTO] = []
-    private let questListDummyData: [QuestDTO] = QuestListDummyDataManager().makeDummyData()
-
     private let operationQueue = OperationQueue()
 
     //MARK: - UI Properties
