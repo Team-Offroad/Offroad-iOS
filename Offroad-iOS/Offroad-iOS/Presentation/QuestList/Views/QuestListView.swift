@@ -112,7 +112,7 @@ extension QuestListView {
 
         questListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForPlaceNeverVisited)
         questListCollectionView.do { collectionView in
-            collectionView.backgroundColor = UIColor(hexCode: "F6EEDF")
+            collectionView.backgroundColor = .primary(.listBg)
             collectionView.refreshControl = UIRefreshControl()
             collectionView.refreshControl?.tintColor = .sub(.sub)
         }
