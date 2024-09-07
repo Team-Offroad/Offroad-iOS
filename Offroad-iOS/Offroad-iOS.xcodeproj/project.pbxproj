@@ -1179,6 +1179,8 @@
 			isa = PBXGroup;
 			children = (
 				87738CB82C8C1AED00E107C7 /* Response */,
+				87738CBB2C8CA8E400E107C7 /* AcquiredCharacterAPI.swift */,
+				87738CBD2C8CA97200E107C7 /* AcquiredCharacterService.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -2235,6 +2237,7 @@
 				4E1E94112C39870700A7B08A /* ColorLiterals.swift in Sources */,
 				D0E796012C45222D005B47A5 /* BaseTargetType.swift in Sources */,
 				D0E7964A2C4539CE005B47A5 /* RegisteredPlaceRequestDTO.swift in Sources */,
+				87738CBE2C8CA97200E107C7 /* AcquiredCharacterService.swift in Sources */,
 				D0E796222C45334D005B47A5 /* ProfileAPI.swift in Sources */,
 				D0E796592C455100005B47A5 /* EmblemAPI.swift in Sources */,
 				D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */,
@@ -2246,6 +2249,7 @@
 				D0E7962F2C4535B1005B47A5 /* NicknameService.swift in Sources */,
 				D0E796202C4532A6005B47A5 /* ErrorResponseDTO.swift in Sources */,
 				D0E796332C453615005B47A5 /* NicknameCheckResponseDTO.swift in Sources */,
+				87738CBC2C8CA8E400E107C7 /* AcquiredCharacterAPI.swift in Sources */,
 				D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */,
 				D0E796352C4536E8005B47A5 /* CharacterAPI.swift in Sources */,
 				D0E796292C4533CE005B47A5 /* ProfileUpdateRequestDTO.swift in Sources */,
