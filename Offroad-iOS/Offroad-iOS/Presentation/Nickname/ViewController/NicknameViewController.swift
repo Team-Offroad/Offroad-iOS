@@ -37,8 +37,6 @@ final class NicknameViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        nicknameView.nextButton.changeState(forState: .isDisabled)
     }
 }
 
@@ -69,7 +67,7 @@ extension NicknameViewController {
     
     // 화면 터치 시 키보드 내려가게 하는 코드
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)        
+        self.view.endEditing(true)
     }
     
     @objc private func checkButtonTapped() {

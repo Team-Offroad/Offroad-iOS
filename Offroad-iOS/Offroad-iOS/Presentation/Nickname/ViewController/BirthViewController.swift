@@ -47,8 +47,9 @@ final class BirthViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        birthView.nextButton.changeState(forState: .isDisabled)
+        [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].forEach {
+            $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        }
     }
     
     //MARK: - Private Method
