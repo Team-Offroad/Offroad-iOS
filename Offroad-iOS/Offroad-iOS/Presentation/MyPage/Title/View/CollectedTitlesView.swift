@@ -140,7 +140,8 @@ extension CollectedTitlesView {
         
         collectedTitleCollectionView.snp.makeConstraints {
             $0.top.equalTo(titleBorderView.snp.bottom)
-            $0.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide)
+            $0.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview().inset(50)
         }
     }
 }
