@@ -12,11 +12,20 @@ import Moya
 enum ProfileAPI {
     case updateProfile(body: ProfileUpdateRequestDTO)
     case postDeleteAccount(body: DeleteAccountRequestDTO)
+    case patchMarketingConsent(body: MarketingConsentRequestDTO)
+    case getUserInfo
 }
 
 extension ProfileAPI: BaseTargetType {
 
     var headerType: HeaderType { return .accessTokenHeaderForGeneral }
+    
+    var parameter: [String : Any]? {
+        switch self {
+        case .updateProfile, .patchMarketingConsent, .getUserInfo:
+            return nil
+        }
+    }
         
     var path: String {
         switch self {
@@ -24,15 +33,21 @@ extension ProfileAPI: BaseTargetType {
             return "/users/profiles"
         case .postDeleteAccount:
             return "/users/delete"
+        case .patchMarketingConsent:
+            return "/users/agree"
+        case .getUserInfo:
+            return "/users/me"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .updateProfile:
+        case .updateProfile, .patchMarketingConsent:
             return .patch
         case .postDeleteAccount:
             return .post
+        case .getUserInfo:
+            return .get
         }
     }
     
@@ -42,6 +57,10 @@ extension ProfileAPI: BaseTargetType {
             return .requestJSONEncodable(profileUpdateRequestDTO)
         case .postDeleteAccount(let deleteAccountRequestDTO):
             return .requestJSONEncodable(deleteAccountRequestDTO)
+        case .patchMarketingConsent(let marketingConsentRequestDTO):
+            return .requestJSONEncodable(marketingConsentRequestDTO)
+        case .getUserInfo:
+            return .requestParameters(parameters: parameter ?? [:], encoding: URLEncoding.queryString)
         }
     }
 }

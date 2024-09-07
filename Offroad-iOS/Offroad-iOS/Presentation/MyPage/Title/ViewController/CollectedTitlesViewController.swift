@@ -13,7 +13,24 @@ final class CollectedTitlesViewController: UIViewController {
     
     private let rootView = CollectedTitlesView()
     
-    private var collectedTitleModelList = CollectedTitleModel.dummy()
+    private var collectedTitleModelList: [EmblemDataList]? {
+        didSet {
+            rootView.collectedTitleCollectionView.reloadData()
+        }
+    }
+    
+    private var notCollectedTitleModelList: [EmblemDataList]? {
+        didSet {
+            rootView.collectedTitleCollectionView.reloadData()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+        offroadTabBarController.hideTabBarAnimation()
+    }
     
     // MARK: - Life Cycle
     
@@ -26,6 +43,7 @@ final class CollectedTitlesViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
+        getEmblemDataList()
     }
 }
 
@@ -42,6 +60,18 @@ extension CollectedTitlesViewController {
         rootView.collectedTitleCollectionView.dataSource = self
     }
     
+    private func getEmblemDataList() {
+        NetworkService.shared.emblemService.getEmblemDataList { response in
+            switch response {
+            case .success(let data):
+                self.collectedTitleModelList = data?.data.gainedEmblems
+                self.notCollectedTitleModelList = data?.data.notGainedEmblems
+            default:
+                break
+            }
+        }
+    }
+    
     // MARK: - @objc Method
     
     @objc private func backButtonTapped() {
@@ -53,12 +83,23 @@ extension CollectedTitlesViewController {
 
 extension CollectedTitlesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectedTitleModelList.count
+        if let collectedTitleModelList, let notCollectedTitleModelList {
+            let titleModelList = collectedTitleModelList + notCollectedTitleModelList
+            return titleModelList.count
+        }
+        return Int()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CollectedTitleCollectionViewCell.className, for: indexPath) as? CollectedTitleCollectionViewCell else { return UICollectionViewCell() }
-        cell.configureCell(data: collectedTitleModelList[indexPath.item])
+        
+        if let collectedTitleModelList, let notCollectedTitleModelList {
+            if indexPath.item < collectedTitleModelList.count {
+                cell.configureCell(data: collectedTitleModelList[indexPath.item], isCollected: true)
+            } else {
+                cell.configureCell(data: notCollectedTitleModelList[indexPath.item - collectedTitleModelList.count], isCollected: false)
+            }
+        }
 
         return cell
     }
