@@ -6,14 +6,17 @@
 //
 
 import UIKit
+import CoreLocation
 
 class PlaceListViewController: UIViewController {
     
     //MARK: - Properties
     
-    var dummyDataSource: [RegisteredPlaceInfo] = []
-    let dummyDataForPlaceNeverVisited: [RegisteredPlaceInfo] = PlaceListDummyDataManager.makeDummyData(count: 100)
-    let dummyDataForAllPlace: [RegisteredPlaceInfo] = PlaceListDummyDataManager.makeDummyData(count: 100)
+    let locationManager = CLLocationManager()
+    let placeService = RegisteredPlaceService()
+    var places: [RegisteredPlaceInfo] = []
+    var placesNeverVisited: [RegisteredPlaceInfo] { places.filter { $0.visitCount == 0 } }
+    var currentCoordinate: CLLocationCoordinate2D? { locationManager.location?.coordinate }
     
     let operationQueue = OperationQueue()
     
@@ -35,6 +38,8 @@ class PlaceListViewController: UIViewController {
         setupButtonsActions()
         setupCollectionView()
         setupDelegates()
+        
+        reloadCollectionViewData(limit: 100, isBounded: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,9 +54,20 @@ class PlaceListViewController: UIViewController {
 
 extension PlaceListViewController {
     
+    //MARK: - @objc Func
+    
+    @objc private func customBackButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func refreshCollectionView() {
+        reloadCollectionViewData(limit: 100, isBounded: true)
+    }
+    
     //MARK: - Private Func
     
     private func setNavigationController() {
+        self.navigationController?.navigationBar.isHidden = true
         self.navigationItem.setHidesBackButton(true, animated: false)
     }
     
@@ -63,24 +79,24 @@ extension PlaceListViewController {
         rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
     }
     
-    @objc private func customBackButtonTapped() {
-        print(#function)
-        navigationController?.popViewController(animated: true)
-    }
-    
     private func setupCollectionView() {
         rootView.placeNeverVisitedListCollectionView.register(
             PlaceCollectionViewCell.self,
             forCellWithReuseIdentifier: PlaceCollectionViewCell.className
         )
+        rootView.placeNeverVisitedListCollectionView.refreshControl = UIRefreshControl()
+        rootView.placeNeverVisitedListCollectionView.refreshControl?.tintColor = .sub(.sub)
+        rootView.placeNeverVisitedListCollectionView.refreshControl?
+            .addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
         
         rootView.allPlaceListCollectionView.register(
             PlaceCollectionViewCell.self,
             forCellWithReuseIdentifier: PlaceCollectionViewCell.className
         )
-        
-        rootView.placeNeverVisitedListCollectionView.reloadData()
-        rootView.allPlaceListCollectionView.reloadData()
+        rootView.allPlaceListCollectionView.refreshControl = UIRefreshControl()
+        rootView.allPlaceListCollectionView.refreshControl?.tintColor = .sub(.sub)
+        rootView.allPlaceListCollectionView.refreshControl?
+            .addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
     }
     
     private func setupDelegates() {
@@ -91,6 +107,36 @@ extension PlaceListViewController {
         
         rootView.allPlaceListCollectionView.dataSource = self
         rootView.allPlaceListCollectionView.delegate = self
+    }
+    
+    private func reloadCollectionViewData(coordinate: CLLocationCoordinate2D? = nil, limit: Int, isBounded: Bool) {
+        guard let currentCoordinate else {
+            print("현재 위치 좌표를 구할 수 없음")
+            return
+        }
+        let placeRequestDTO = RegisteredPlaceRequestDTO(
+            currentLatitude: currentCoordinate.latitude,
+            currentLongitude: currentCoordinate.longitude,
+            limit: limit,
+            isBounded: isBounded
+        )
+        placeService.getRegisteredLocation(requestDTO: placeRequestDTO) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let response):
+                guard let responsePlaceArray = response?.data.places else { return }
+                places = responsePlaceArray
+                self.rootView.activityIndicator.stopAnimating()
+                
+                self.rootView.allPlaceListCollectionView.refreshControl?.endRefreshing()
+                self.rootView.placeNeverVisitedListCollectionView.refreshControl?.endRefreshing()
+
+                self.rootView.allPlaceListCollectionView.reloadData()
+                self.rootView.placeNeverVisitedListCollectionView.reloadData()
+            default:
+                return
+            }
+        }
     }
     
 }
@@ -111,20 +157,6 @@ extension PlaceListViewController: UIGestureRecognizerDelegate {
 extension PlaceListViewController: CustomSegmentedControlDelegate {
     
     func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int) {
-//        if selectedIndex == 0 {
-//            let currentOffset = rootView.allPlaceListCollectionView.contentOffset
-//            rootView.allPlaceListCollectionView.setContentOffset(currentOffset, animated: false)
-//        } else {
-//            let currentOffset = rootView.placeNeverVisitedListCollectionView.contentOffset
-//            rootView.placeNeverVisitedListCollectionView.setContentOffset(currentOffset, animated: false)
-//        }
-        
-        //rootView.placeNeverVisitedListCollectionView.reloadData()
-        //rootView.allPlaceListCollectionView.reloadData()
-        
-        //rootView.placeNeverVisitedListCollectionView.performBatchUpdates(nil)
-        //rootView.allPlaceListCollectionView.performBatchUpdates(nil)
-        
         rootView.placeNeverVisitedListCollectionView.isHidden = selectedIndex != 0
         rootView.allPlaceListCollectionView.isHidden = selectedIndex != 1
     }
@@ -137,9 +169,9 @@ extension PlaceListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == rootView.placeNeverVisitedListCollectionView {
-            return dummyDataForPlaceNeverVisited.count
+            return placesNeverVisited.count
         } else {
-            return dummyDataForAllPlace.count
+            return places.count
         }
     }
     
@@ -150,9 +182,9 @@ extension PlaceListViewController: UICollectionViewDataSource {
         ) as? PlaceCollectionViewCell else { fatalError("cell dequeing Failed!") }
         
         if collectionView == rootView.placeNeverVisitedListCollectionView {
-            cell.configureCell(with: dummyDataForPlaceNeverVisited[indexPath.item], showingVisitingCount: false)
+            cell.configureCell(with: placesNeverVisited[indexPath.item], showingVisitingCount: false)
         } else if collectionView == rootView.allPlaceListCollectionView {
-            cell.configureCell(with: dummyDataForAllPlace[indexPath.item], showingVisitingCount: true)
+            cell.configureCell(with: places[indexPath.item], showingVisitingCount: true)
         }
         return cell
     }
