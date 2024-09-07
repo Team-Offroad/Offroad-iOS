@@ -47,9 +47,8 @@ extension QuestListView {
     //MARK: - Private Func
 
     private func setupStyle() {
-        // 추후 ColorLiteral로 변경 요망
-        backgroundColor = UIColor(hexCode: "F6EEDF")
-
+        backgroundColor = .primary(.listBg)
+        
         customNavigationBar.do { view in
             view.backgroundColor = .main(.main1)
         }
