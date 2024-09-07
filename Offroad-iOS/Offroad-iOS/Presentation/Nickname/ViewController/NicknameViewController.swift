@@ -37,8 +37,6 @@ final class NicknameViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        nicknameView.nextButton.changeState(forState: .isDisabled)
     }
 }
 
@@ -48,24 +46,28 @@ extension NicknameViewController {
     
     @objc private func textFieldDidChange() {
         let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
+        configureButtonStyle(nicknameView.checkButton, isEnabled: !isTextFieldEmpty)
+        configureTextFieldStyle(nicknameView.textField, isEmpty: isTextFieldEmpty)
+        nicknameView.nextButton.changeState(forState: .isDisabled)
         
-        nicknameView.checkButton.isEnabled = !isTextFieldEmpty
-        nicknameView.checkButton.setTitleColor(isTextFieldEmpty ? UIColor.grayscale(.gray100) : UIColor.primary(.white), for: .normal)
-        nicknameView.checkButton.backgroundColor = isTextFieldEmpty ? UIColor.main(.main3) : UIColor.primary(.black)
-        nicknameView.checkButton.layer.borderWidth = 0
-        
-        if isTextFieldEmpty {
-            nicknameView.textField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        if !formError(self.nicknameView.textField.text ?? "") && !isTextFieldEmpty {
+            nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 말씀해주세요."
+            nicknameView.notionLabel.textColor = UIColor.primary(.error)
+            nicknameView.textField.layer.borderColor = UIColor.primary(.error).cgColor
             nicknameView.nextButton.changeState(forState: .isDisabled)
-        } else {
-            nicknameView.textField.layer.borderColor = UIColor.sub(.sub).cgColor
+        } else if isTextFieldEmpty {
+            nicknameView.notionLabel.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
+            nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
+            nicknameView.notionLabel.font = UIFont.offroad(style: .iosHint)
+        }
+        else {
+            nicknameView.notionLabel.text = ""
         }
     }
     
     // 화면 터치 시 키보드 내려가게 하는 코드
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
-        
     }
     
     @objc private func checkButtonTapped() {
@@ -75,16 +77,20 @@ extension NicknameViewController {
                 self.whetherDuplicate = data?.data.isDuplicate ?? Bool()
                 if self.whetherDuplicate == true {
                     self.nicknameView.notionLabel.text = "중복된 닉네임이에요. 다른 멋진 이름이 있으신가요?"
+                    self.configureButtonStyle(self.nicknameView.checkButton, isEnabled: false)
                     self.nicknameView.notionLabel.textColor = UIColor.primary(.error)
+                    self.nicknameView.nextButton.changeState(forState: .isDisabled)
                 }
                 else if self.whetherDuplicate == false && self.formError(self.nicknameView.textField.text ?? "") == false {
                     self.nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 말씀해주세요."
                     self.nicknameView.notionLabel.textColor = UIColor.primary(.error)
+                    self.nicknameView.textField.layer.borderColor = UIColor.primary(.error).cgColor
                 }
                 else {
                     self.nicknameView.textField.resignFirstResponder()
                     self.nicknameView.notionLabel.text = "좋은 닉네임이에요!"
                     self.nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
+                    self.configureButtonStyle(self.nicknameView.checkButton, isEnabled: false)
                     self.nicknameView.nextButton.changeState(forState: .isEnabled)
                 }
             default:
@@ -129,8 +135,22 @@ extension NicknameViewController {
         nicknameView.textField.delegate = self
     }
     
-    func formError(_ input: String) -> Bool{
-        let pattern = "^[A-Za-z가-힣ㄱ-ㅎ]{2,8}$"
+    // MARK: - UI Configuration Methods
+    
+    private func configureButtonStyle(_ button: UIButton, isEnabled: Bool) {
+        button.isEnabled = isEnabled
+        button.setTitleColor(.primary(.white), for: .normal)
+        button.backgroundColor = isEnabled ? .primary(.black) : .blackOpacity(.black15)
+        button.layer.cornerRadius = 5
+    }
+    
+    private func configureTextFieldStyle(_ textField: UITextField, isEmpty: Bool) {
+        let borderColor: UIColor = isEmpty ? .grayscale(.gray100) : .main(.main2)
+        textField.layer.borderColor = borderColor.cgColor
+    }
+    
+    private func formError(_ input: String) -> Bool{
+        let pattern = "^[A-Za-z가-힣]{2,}$"
         let regex = try? NSRegularExpression(pattern: pattern)
         if let _ = regex?.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count)) {
             print("정규식 통과")
@@ -139,7 +159,6 @@ extension NicknameViewController {
         print("유효하지 않은 id 형식입니다.")
         return false
     }
-    
 }
 
 //MARK: - UITextFieldDelegate
@@ -152,10 +171,6 @@ extension NicknameViewController: UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.layer.borderColor = UIColor.sub(.sub).cgColor
-    }
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // 백스페이스 처리
         if let char = string.cString(using: String.Encoding.utf8) {
@@ -164,10 +179,15 @@ extension NicknameViewController: UITextFieldDelegate {
                 return true
             }
         }
-        //텍스트필드 8글자로 제한
-        guard textField.text!.count < 8 else { return false }
-        return true
+        guard let range = Range(range, in: textField.text!) else { return false }
+        let currentText = textField.text!
+        let newText = currentText.replacingCharacters(in: range, with: string)
+        
+        return newText.eucKrByteLength <= 16
     }
-    
 }
+
+
+
+
 
