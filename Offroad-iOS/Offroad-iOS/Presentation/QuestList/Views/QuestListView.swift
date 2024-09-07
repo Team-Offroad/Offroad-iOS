@@ -24,6 +24,7 @@ class QuestListView: UIView {
     let ongoingQuestToggle = UISwitch()
     
     var questListCollectionView: UICollectionView!
+    var activityIndicatorView = UIActivityIndicatorView(style: .large)
 
     //MARK: - Life Cycle
 
@@ -46,9 +47,8 @@ extension QuestListView {
     //MARK: - Private Func
 
     private func setupStyle() {
-        // 추후 ColorLiteral로 변경 요망
-        backgroundColor = UIColor(hexCode: "F6EEDF")
-
+        backgroundColor = .primary(.listBg)
+        
         customNavigationBar.do { view in
             view.backgroundColor = .main(.main1)
         }
@@ -111,7 +111,16 @@ extension QuestListView {
         layoutForAllPlace.estimatedItemSize.width = UIScreen.current.bounds.width - 32
 
         questListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForPlaceNeverVisited)
-        questListCollectionView.backgroundColor = UIColor(hexCode: "F6EEDF")
+        questListCollectionView.do { collectionView in
+            collectionView.backgroundColor = .primary(.listBg)
+            collectionView.refreshControl = UIRefreshControl()
+            collectionView.refreshControl?.tintColor = .sub(.sub)
+        }
+        
+        activityIndicatorView.do { indicatorView in
+            indicatorView.color = .sub(.sub2)
+            indicatorView.startAnimating()
+        }
     }
 
     private func setupHierarchy() {
@@ -124,6 +133,7 @@ extension QuestListView {
             separator,
             questListCollectionView
         )
+        questListCollectionView.addSubview(activityIndicatorView)
     }
 
     private func setupLayout() {
@@ -162,6 +172,10 @@ extension QuestListView {
             make.top.equalTo(separator.snp.bottom)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
+        }
+        
+        activityIndicatorView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
     }
 
