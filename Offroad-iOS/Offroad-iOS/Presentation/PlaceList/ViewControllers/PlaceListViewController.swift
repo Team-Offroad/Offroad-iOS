@@ -67,6 +67,7 @@ extension PlaceListViewController {
     //MARK: - Private Func
     
     private func setNavigationController() {
+        self.navigationController?.navigationBar.isHidden = true
         self.navigationItem.setHidesBackButton(true, animated: false)
     }
     
