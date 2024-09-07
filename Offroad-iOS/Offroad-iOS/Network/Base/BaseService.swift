@@ -12,7 +12,7 @@ class BaseService {
     /// 200 받았을 때 decoding 할 데이터가 있는 경우 (대부분의 GET)
     func fetchNetworkResult<T: Decodable>(statusCode: Int, data: Data) -> NetworkResult<T> {
         switch statusCode {
-        case 200, 201:
+        case 200, 201, 202:
             if let decodedData = fetchDecodeData(data: data, responseType: T.self) {
                 return .success(decodedData)
             } else { return .decodeErr }

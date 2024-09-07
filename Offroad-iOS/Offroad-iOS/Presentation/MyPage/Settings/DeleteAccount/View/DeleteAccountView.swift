@@ -17,9 +17,9 @@ final class DeleteAccountView: UIView {
     let popupView = UIView()
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
-    let withdrawalMessageLabel = UILabel()
-    let withdrawalMassageTextField = UITextField()
-    private let withdrawalMassageStackView = UIStackView()
+    let deleteAccountMessageLabel = UILabel()
+    let deleteAccountMessageTextField = UITextField()
+    private let deleteAccountMessageStackView = UIStackView()
     let cancleButton = UIButton()
     let deleteAccountButton = StateToggleButton(state: .isDisabled, title: "탈퇴")
     private let buttonStackView = UIStackView()
@@ -69,7 +69,7 @@ extension DeleteAccountView {
             $0.textAlignment = .center
         }
         
-        withdrawalMessageLabel.do {
+        deleteAccountMessageLabel.do {
             $0.text = "오프로드 회원을 탈퇴하겠습니다."
             $0.setLineSpacing(spacing: 6)
             $0.font = .offroad(style: .iosTextBold)
@@ -77,7 +77,7 @@ extension DeleteAccountView {
             $0.textAlignment = .center
         }
         
-        withdrawalMassageTextField.do {
+        deleteAccountMessageTextField.do {
             $0.backgroundColor = .main(.main3)
             $0.layer.borderColor = UIColor.grayscale(.gray200).cgColor
             $0.layer.borderWidth = 1
@@ -88,7 +88,7 @@ extension DeleteAccountView {
             $0.addPadding(left: 12)
         }
         
-        withdrawalMassageStackView.do {
+        deleteAccountMessageStackView.do {
             $0.axis = .vertical
             $0.spacing = 10
             $0.alignment = .center
@@ -120,9 +120,9 @@ extension DeleteAccountView {
     private func setupHierarchy() {
         addSubview(popupView)
         popupView.addSubviews(mainStackView, buttonStackView)
-        withdrawalMassageStackView.addArrangedSubviews(withdrawalMessageLabel, withdrawalMassageTextField)
+        deleteAccountMessageStackView.addArrangedSubviews(deleteAccountMessageLabel, deleteAccountMessageTextField)
         buttonStackView.addArrangedSubviews(cancleButton, deleteAccountButton)
-        mainStackView.addArrangedSubviews(titleLabel, descriptionLabel, withdrawalMassageStackView, buttonStackView)
+        mainStackView.addArrangedSubviews(titleLabel, descriptionLabel, deleteAccountMessageStackView, buttonStackView)
     }
     
     private func setupLayout() {
@@ -138,12 +138,12 @@ extension DeleteAccountView {
             $0.height.equalToSuperview().inset(27)
         }
         
-        withdrawalMassageTextField.snp.makeConstraints {
+        deleteAccountMessageTextField.snp.makeConstraints {
             $0.height.equalTo(46)
             $0.width.equalToSuperview()
         }
         
-        withdrawalMassageStackView.snp.makeConstraints {
+        deleteAccountMessageStackView.snp.makeConstraints {
             $0.width.equalToSuperview()
         }
         

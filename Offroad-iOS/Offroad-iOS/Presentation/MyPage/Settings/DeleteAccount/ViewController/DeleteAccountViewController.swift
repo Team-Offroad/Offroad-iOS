@@ -48,7 +48,7 @@ extension DeleteAccountViewController {
     }
     
     private func setupDelegate() {
-        rootView.withdrawalMassageTextField.delegate = self
+        rootView.deleteAccountMessageTextField.delegate = self
     }
     
     private func setupKeyboard() {
@@ -58,6 +58,28 @@ extension DeleteAccountViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
+    }
+    
+    private func postDeleteAccount(deleteAccountRequestDTO: DeleteAccountRequestDTO) {
+        NetworkService.shared.profileService.postDeleteAccount(body: deleteAccountRequestDTO) { response in
+            switch response {
+            case .success:
+                print("회원 탈퇴 성공!!!!")
+                UserDefaults.standard.set(false, forKey: "isLoggedIn")
+                
+                let splashViewController = SplashViewController()
+                
+                splashViewController.modalPresentationStyle = .overFullScreen
+                splashViewController.modalTransitionStyle = .crossDissolve
+                
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.present(splashViewController, animated: true)
+                }
+            default:
+                break
+            }
+        }
     }
     
     //MARK: - @Objc Func
@@ -80,6 +102,9 @@ extension DeleteAccountViewController {
     
     @objc private func deleteAccountButtonTapped() {
         rootView.endEditing(true)
+        
+        self.postDeleteAccount(deleteAccountRequestDTO: DeleteAccountRequestDTO(deleteCode: self.rootView.deleteAccountMessageLabel.text ?? ""))
+
     }
     
     @objc func keyboardWillShow(_ sender: Notification) {
@@ -99,7 +124,7 @@ extension DeleteAccountViewController {
 
 extension DeleteAccountViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        if textField.text == rootView.withdrawalMessageLabel.text {
+        if textField.text == rootView.deleteAccountMessageLabel.text {
             rootView.deleteAccountButton.changeState(forState: .isEnabled)
         } else {
             rootView.deleteAccountButton.changeState(forState: .isDisabled)

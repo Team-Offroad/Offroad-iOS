@@ -48,7 +48,6 @@ extension LoginViewController {
         
         AppleAuthManager.shared.loginSuccess = { user, identifyToken in
             print("login success!")
-            UserDefaults.standard.set(true, forKey: "isLoggedIn")
             
             var userName = user.name ?? ""
             var userEmail = user.email ?? ""
@@ -91,6 +90,8 @@ extension LoginViewController {
                 
                 KeychainManager.shared.saveAccessToken(token: accessToken)
                 KeychainManager.shared.saveRefreshToken(token: refreshToken)
+                
+                UserDefaults.standard.set(true, forKey: "isLoggedIn")
 
                 self.checkUserChoosingInfo()
             default:

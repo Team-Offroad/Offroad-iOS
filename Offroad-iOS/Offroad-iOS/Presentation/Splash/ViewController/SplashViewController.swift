@@ -39,7 +39,7 @@ extension SplashViewController {
     //MARK: - Private Func
     
     private func presentViewController(viewController: UIViewController) {
-        viewController.modalPresentationStyle = .fullScreen
+        viewController.modalPresentationStyle = .overFullScreen
         viewController.modalTransitionStyle = .crossDissolve
         
         let transition = CATransition()
