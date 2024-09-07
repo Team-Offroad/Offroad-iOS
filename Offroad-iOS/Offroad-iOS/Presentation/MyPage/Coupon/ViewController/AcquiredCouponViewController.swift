@@ -31,6 +31,8 @@ class AcquiredCouponViewController: UIViewController {
         
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
+        
+        acquiredCouponView.customSegmentedControl.selectSegment(index: 0)
     }
 }
    
