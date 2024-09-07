@@ -58,6 +58,16 @@ class PlaceListViewController: UIViewController {
 
 extension PlaceListViewController {
     
+    //MARK: - @objc Func
+    
+    @objc private func customBackButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func refreshCollectionView() {
+        reloadCollectionViewData(limit: 100, isBounded: true)
+    }
+    
     //MARK: - Private Func
     
     private func setNavigationController() {
@@ -130,16 +140,6 @@ extension PlaceListViewController {
                 return
             }
         }
-    }
-    
-    //MARK: - @objc Func
-    
-    @objc private func customBackButtonTapped() {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @objc private func refreshCollectionView() {
-        reloadCollectionViewData(limit: 100, isBounded: true)
     }
     
 }
