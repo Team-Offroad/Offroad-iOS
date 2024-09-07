@@ -15,7 +15,7 @@ protocol NicknameServiceProtocol {
 
 final class NicknameService: BaseService, NicknameServiceProtocol {
     
-    let provider = MoyaProvider<NicknameAPI>(plugins: [MoyaPlugin()])
+    let provider = MoyaProvider<NicknameAPI>.init(session: Session(interceptor: TokenInterceptor.shared), plugins: [MoyaPlugin()])
     
     func checkNicknameDuplicate(inputNickname: String, completion: @escaping (NetworkResult<NicknameCheckResponseDTO>) -> ()) {
         

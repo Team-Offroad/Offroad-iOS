@@ -14,7 +14,7 @@ protocol ProfileServiceProtocol {
 }
 
 final class ProfileService: BaseService, ProfileServiceProtocol {
-    let provider = MoyaProvider<ProfileAPI>(plugins: [MoyaPlugin()])
+    let provider = MoyaProvider<ProfileAPI>.init(session: Session(interceptor: TokenInterceptor.shared), plugins: [MoyaPlugin()])
     
     func updateProfile(body: ProfileUpdateRequestDTO, completion: @escaping (NetworkResult<ProfileUpdateResponseDTO>) -> ()) {
         provider.request(.updateProfile(body: body)) { result in
