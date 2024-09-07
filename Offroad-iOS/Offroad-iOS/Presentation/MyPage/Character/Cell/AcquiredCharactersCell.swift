@@ -8,6 +8,7 @@
 import UIKit
 
 import SnapKit
+import Kingfisher
 
 class AcquiredCharactersCell: UICollectionViewCell {
     
@@ -73,10 +74,31 @@ class AcquiredCharactersCell: UICollectionViewCell {
         }
     }
     
+    private func getAcquiredCharacterInfo() {
+        NetworkService.shared.characterService.getCharacterInfo { response in
+            switch response {
+            case .success(let data):
+                let count = data?.data.characters.count ?? 0
+                
+                self.characterInfoModelList = data?.data.characters
+                
+                self.extendedCharacterImageList.insert(data?.data.characters[count - 1].characterBaseImageUrl ?? "", at: 0)
+                for character in data?.data.characters ?? [CharacterList]() {
+                    self.extendedCharacterImageList.append(character.characterBaseImageUrl)
+                    self.characterNames.append(character.name)
+                    self.characterDiscriptions.append(character.description)
+                }
+                self.extendedCharacterImageList.append(data?.data.characters[0].characterBaseImageUrl ?? "")
+                
+            default:
+                break
+            }
+        }
+    
     //MARK: - Func
     
-    func configureCell(imageName: String) {
-        imageView.image = UIImage(named: imageName)
+    func configureCell(data: NotGainedCharacterList) {
+        imageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
         
         switch imageName {
         case "character_1":
