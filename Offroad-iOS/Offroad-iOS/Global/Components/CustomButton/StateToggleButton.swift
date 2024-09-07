@@ -40,13 +40,12 @@ extension StateToggleButton {
         switch forState {
         case .isEnabled:
             backgroundColor = .main(.main2)
-            setTitleColor(.main(.main1), for: .normal)
+            setTitleColor(UIColor.primary(.white), for: .normal)
             isEnabled = true
         case .isDisabled:
             backgroundColor = .blackOpacity(.black15)
-            layer.borderColor = UIColor.blackOpacity(.black25).cgColor
-            layer.borderWidth = 1
-            setTitleColor(.grayscale(.gray400), for: .normal)
+            layer.borderColor = UIColor.blackOpacity(.black15).cgColor
+            setTitleColor(UIColor.primary(.white), for: .normal)
             isEnabled = false
         }
         roundCorners(cornerRadius: 5)
@@ -58,13 +57,9 @@ extension StateToggleButton {
         switch forState {
         case .isEnabled:
             backgroundColor = .main(.main2)
-            setTitleColor(.main(.main1), for: .normal)
             isEnabled = true
         case .isDisabled:
             backgroundColor = .blackOpacity(.black15)
-            layer.borderColor = UIColor.blackOpacity(.black25).cgColor
-            layer.borderWidth = 1
-            setTitleColor(.grayscale(.gray400), for: .normal)
             isEnabled = false
         }
     }

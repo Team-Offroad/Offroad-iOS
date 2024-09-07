@@ -12,6 +12,7 @@ import Moya
 enum EmblemAPI {
     case getEmblemInfo
     case patchUserEmblem(emBlemCode: String)
+    case getEmblemDataList
 }
 
 extension EmblemAPI: BaseTargetType {
@@ -20,7 +21,7 @@ extension EmblemAPI: BaseTargetType {
     
     var parameter: [String : Any]? {
         switch self {
-        case .getEmblemInfo:
+        case .getEmblemInfo, .getEmblemDataList:
             return .none
         case .patchUserEmblem(let emblemCode):
             return ["emblemCode" : emblemCode]
@@ -31,12 +32,14 @@ extension EmblemAPI: BaseTargetType {
         switch self {
         case .getEmblemInfo, .patchUserEmblem:
             return "/users/emblems"
+        case .getEmblemDataList:
+            return "/emblems"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getEmblemInfo:
+        case .getEmblemInfo, .getEmblemDataList:
             return .get
         case .patchUserEmblem:
             return .patch
@@ -45,7 +48,7 @@ extension EmblemAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getEmblemInfo, .patchUserEmblem:
+        case .getEmblemInfo, .patchUserEmblem, .getEmblemDataList:
             return .requestParameters(parameters: parameter ?? [:], encoding: URLEncoding.queryString)
         }
     }
