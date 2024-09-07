@@ -21,7 +21,7 @@ extension ProfileAPI: BaseTargetType {
     
     var parameter: [String : Any]? {
         switch self {
-        case .updateProfile, .getUserInfo:
+        case .updateProfile, .patchMarketingConsent, .getUserInfo:
             return nil
         }
     }
