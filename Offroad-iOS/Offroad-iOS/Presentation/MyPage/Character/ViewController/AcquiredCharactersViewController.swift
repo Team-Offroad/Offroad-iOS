@@ -22,10 +22,15 @@ final class AcquiredCharactersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupTarget()
         setupDelegate()
     }
     
     // MARK: - Private Func
+    
+    private func setupTarget() {
+        acquiredCharactersView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+    }
     
     private func setupDelegate() {
         acquiredCharactersView.collectionView.delegate = self
@@ -76,6 +81,10 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
 extension AcquiredCharactersViewController {
     
     // MARK: - @Objc Func
+    
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
     
     @objc private func executePop() {
         navigationController?.popViewController(animated: true)

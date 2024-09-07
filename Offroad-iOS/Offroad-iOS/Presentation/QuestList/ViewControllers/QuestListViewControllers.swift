@@ -10,9 +10,9 @@ import UIKit
 class QuestListViewController: UIViewController {
 
     //MARK: - Properties
-
-    private var dummyDataSource: [QuestDTO] = []
-    private let questListDummyData: [QuestDTO] = QuestListDummyDataManager().makeDummyData()
+    
+    private var questListService = QuestListService()
+    private var questArray: [Quest] = []
 
     private let operationQueue = OperationQueue()
 
@@ -34,6 +34,7 @@ class QuestListViewController: UIViewController {
         setupControlsTarget()
         setupCollectionView()
         setupDelegates()
+        reloadCollectionView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +55,12 @@ extension QuestListViewController {
     }
     
     @objc private func ongoingQuestSwitchValueChanged(sender: UISwitch) {
+        rootView.questListCollectionView.setContentOffset(.zero, animated: false)
         rootView.questListCollectionView.reloadData()
+    }
+    
+    @objc private func refreshCollectionView() {
+        reloadCollectionView()
     }
 
     //MARK: - Private Func
@@ -70,6 +76,7 @@ extension QuestListViewController {
     private func setupControlsTarget() {
         rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
         rootView.ongoingQuestToggle.addTarget(self, action: #selector(ongoingQuestSwitchValueChanged(sender:)), for: .valueChanged)
+        rootView.questListCollectionView.refreshControl?.addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
     }
     
     private func setupCollectionView() {
@@ -84,6 +91,23 @@ extension QuestListViewController {
     private func setupDelegates() {
         rootView.questListCollectionView.dataSource = self
         rootView.questListCollectionView.delegate = self
+    }
+    
+    private func reloadCollectionView(isActive: Bool = false) {
+        questListService.getQuestList(isActive: isActive) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let response):
+                guard let questListFromServer = response?.data.questList else { return }
+                self.questArray = questListFromServer
+                self.rootView.activityIndicatorView.stopAnimating()
+                self.rootView.questListCollectionView.refreshControl?.endRefreshing()
+                self.rootView.questListCollectionView.reloadData()
+                
+            default:
+                return
+            }
+        }
     }
 
 }
@@ -100,18 +124,14 @@ extension QuestListViewController: UIGestureRecognizerDelegate {
 }
 
 //MARK: - UICollectionViewDataSource
-// (이 주석은 Issue 해결 후 삭제할 예정)
-// 서버의 API가 어떤 식으로 나올 지 아직 몰라서,
-// 우선 현재는 모든 퀘스트 정보를 불러오고, 스위치를 토글하면, 받아온 진행 정보를 바탕으로 필터링하여 보여주는 방식으로 구현하였습니다.
-// 만약 서버의 API에서 '전체 퀘스트'와 '진행 중인 퀘스트'만을 요청하는 API가 존재한다면, 해당 API를 사용하여 구현하여도 좋습니다.
 
 extension QuestListViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if rootView.ongoingQuestToggle.isOn {
-            return questListDummyData.filter({ $0.process > 0 && $0.process < $0.totalProcess }).count
+            return questArray.filter({ $0.currentCount > 0 && $0.currentCount < $0.totalCount }).count
         } else {
-            return questListDummyData.count
+            return questArray.count
         }
     }
     
@@ -123,10 +143,10 @@ extension QuestListViewController: UICollectionViewDataSource {
         
         if rootView.ongoingQuestToggle.isOn {
             cell.configureCell(
-                with: questListDummyData.filter({ $0.process > 0 && $0.process < $0.totalProcess })[indexPath.item]
+                with: questArray.filter({ $0.currentCount > 0 && $0.currentCount < $0.totalCount })[indexPath.item]
             )
         } else {
-            cell.configureCell(with: questListDummyData[indexPath.item])
+            cell.configureCell(with: questArray[indexPath.item])
         }
         
         return cell

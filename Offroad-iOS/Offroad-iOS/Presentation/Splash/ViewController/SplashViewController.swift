@@ -39,7 +39,7 @@ extension SplashViewController {
     //MARK: - Private Func
     
     private func presentViewController(viewController: UIViewController) {
-        viewController.modalPresentationStyle = .fullScreen
+        viewController.modalPresentationStyle = .overFullScreen
         viewController.modalTransitionStyle = .crossDissolve
         
         let transition = CATransition()
@@ -65,9 +65,7 @@ extension SplashViewController {
                 let characterName = data?.data.characterName ?? ""
                                                 
                 if userNickname == "" {
-                    let nicknameViewController = NicknameViewController()
-                    let navigationController = UINavigationController(rootViewController: nicknameViewController)
-                    self.presentViewController(viewController: navigationController)
+                    self.presentViewController(viewController: TermsConsentViewController())
                 } else if characterName == "" {
                     self.presentViewController(viewController: ChoosingCharacterViewController())
                 } else {

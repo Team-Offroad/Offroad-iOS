@@ -15,11 +15,6 @@ final class MyPageView: UIView {
     //MARK: - Properties
     
     let backgroundViewWidth = UIScreen.main.bounds.width - 48
-    var nicknameString = "비포장도로로로롱"
-    var adventureDaysString = "687"
-    var adventureTitleString = "상수 고수 악수 박수"
-    var completedQuestsCountString = "34253"
-    var visitedPlacesCountString = "334"
 
     //MARK: - UI Properties
     
@@ -63,10 +58,8 @@ extension MyPageView {
         backgroundColor = .primary(.listBg)
         
         nicknameLabel.do {
-            $0.text = "\(nicknameString)님"
             $0.font = .offroad(style: .bothSubtitle3)
             $0.textColor = .main(.main2)
-            $0.highlightText(targetText: nicknameString, font: .offroad(style: .bothProfileTitle))
             $0.textAlignment = .center
         }
         
@@ -89,15 +82,12 @@ extension MyPageView {
         }
         
         adventureDaysLabel.do {
-            $0.text = "\(adventureDaysString)일 째 모험을 떠나는 중"
             $0.textColor = .main(.main2)
             $0.textAlignment = .center
             $0.font = .offroad(style: .iosHint)
-            $0.highlightText(targetText: adventureDaysString, font: .offroad(style: .iosTextContents), color: .sub(.sub2))
         }
         
         adventureTitleLabel.do {
-            $0.text = adventureTitleString
             $0.textColor = .sub(.sub)
             $0.textAlignment = .center
             $0.font = .offroad(style: .iosTextContents)
@@ -126,19 +116,15 @@ extension MyPageView {
         }
         
         completedQuestsCountLabel.do {
-            $0.text = "달성 퀘스트 수 \(completedQuestsCountString)"
             $0.textColor = .main(.main2)
             $0.textAlignment = .center
             $0.font = .offroad(style: .iosTextContentsSmall)
-            $0.highlightText(targetText: completedQuestsCountString, font: .offroad(style: .iosTooltipNumber), color: .sub(.sub2))
         }
         
         visitedPlacesCountLabel.do {
-            $0.text = "방문 장소 수 \(visitedPlacesCountString)"
             $0.textColor = .main(.main2)
             $0.textAlignment = .center
             $0.font = .offroad(style: .iosTextContentsSmall)
-            $0.highlightText(targetText: visitedPlacesCountString, font: .offroad(style: .iosTooltipNumber), color: .sub(.sub2))
         }
         
         dividerView.do {
@@ -251,5 +237,23 @@ extension MyPageView {
             $0.bottom.equalTo(safeAreaLayoutGuide)
             $0.horizontalEdges.equalToSuperview().inset(24)
         }
+    }
+    
+    //MARK: - Func
+    
+    func bindData(data: UserInfoData) {
+        nicknameLabel.text = "\(data.nickname)님"
+        nicknameLabel.highlightText(targetText: data.nickname, font: .offroad(style: .bothProfileTitle))
+
+        adventureDaysLabel.text = "\(String(data.elapsedDay))일 째 모험을 떠나는 중"
+        adventureDaysLabel.highlightText(targetText: String(data.elapsedDay), font: .offroad(style: .iosTextContents), color: .sub(.sub2))
+
+        adventureTitleLabel.text = data.currentEmblem
+        
+        completedQuestsCountLabel.text = "달성 퀘스트 수 \(String(data.completeQuestCount))"
+        completedQuestsCountLabel.highlightText(targetText: String(data.completeQuestCount), font: .offroad(style: .iosTooltipNumber), color: .sub(.sub2))
+        
+        visitedPlacesCountLabel.text = "방문 장소 수 \(String(data.visitedPlaceCount))"
+        visitedPlacesCountLabel.highlightText(targetText: String(data.visitedPlaceCount), font: .offroad(style: .iosTooltipNumber), color: .sub(.sub2))
     }
 }

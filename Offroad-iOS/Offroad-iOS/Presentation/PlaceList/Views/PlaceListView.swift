@@ -23,6 +23,7 @@ class PlaceListView: UIView {
     
     var placeNeverVisitedListCollectionView: UICollectionView!
     var allPlaceListCollectionView: UICollectionView!
+    var activityIndicator = UIActivityIndicatorView(style: .large)
     
     //MARK: - Life Cycle
     
@@ -106,6 +107,12 @@ extension PlaceListView {
         allPlaceListCollectionView.backgroundColor = UIColor(hexCode: "F6EEDF")
         
         allPlaceListCollectionView.isHidden = true
+        
+        activityIndicator.do { indicator in
+            indicator.color = .sub(.sub)
+            indicator.isHidden = false
+            indicator.startAnimating()
+        }
     }
     
     private func setupHierarchy() {
@@ -116,7 +123,8 @@ extension PlaceListView {
             customSegmentedControl,
             separator,
             placeNeverVisitedListCollectionView,
-            allPlaceListCollectionView
+            allPlaceListCollectionView,
+            activityIndicator
         )
     }
     
@@ -158,6 +166,10 @@ extension PlaceListView {
             make.top.equalTo(separator.snp.bottom)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
+        }
+        
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalTo(placeNeverVisitedListCollectionView)
         }
     }
     

@@ -11,7 +11,11 @@ import SnapKit
 
 class AcquiredCharactersView: UIView {
 
-    // MARK: - Properties
+    // MARK: - UI Properties
+    
+    let customBackButton = NavigationPopButton().then {
+            $0.configureButtonTitle(titleString: "마이페이지")
+    }
     
     var characterImage = UIImageView().then {
         $0.contentMode = .scaleAspectFit
@@ -76,8 +80,12 @@ class AcquiredCharactersView: UIView {
     }
 
     private func setupHierarchy() {
-        addSubviews(labelView, collectionView)
+        addSubviews(
+            labelView,
+            collectionView
+        )
         labelView.addSubviews(
+            customBackButton,
             mainLabel,
             babyImage,
             subLabel,
@@ -87,8 +95,13 @@ class AcquiredCharactersView: UIView {
     }
 
     private func setupLayout() {
+        customBackButton.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(12)
+            $0.leading.equalToSuperview().inset(12)
+        }
+        
         labelView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
+            make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview()
         }
 

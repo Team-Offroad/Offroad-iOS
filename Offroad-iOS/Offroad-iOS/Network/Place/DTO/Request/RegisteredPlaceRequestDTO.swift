@@ -10,4 +10,6 @@ import Foundation
 struct RegisteredPlaceRequestDTO: Codable {
     let currentLatitude: Double
     let currentLongitude: Double
+    let limit: Int
+    let isBounded: Bool
 }
