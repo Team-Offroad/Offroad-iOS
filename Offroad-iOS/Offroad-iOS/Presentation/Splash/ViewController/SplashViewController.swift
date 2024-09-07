@@ -65,9 +65,7 @@ extension SplashViewController {
                 let characterName = data?.data.characterName ?? ""
                                                 
                 if userNickname == "" {
-                    let nicknameViewController = NicknameViewController()
-                    let navigationController = UINavigationController(rootViewController: nicknameViewController)
-                    self.presentViewController(viewController: navigationController)
+                    self.presentViewController(viewController: TermsConsentViewController())
                 } else if characterName == "" {
                     self.presentViewController(viewController: ChoosingCharacterViewController())
                 } else {

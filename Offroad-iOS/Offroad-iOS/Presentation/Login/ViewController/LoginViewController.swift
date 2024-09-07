@@ -107,13 +107,11 @@ extension LoginViewController {
                 let characterName = data?.data.characterName ?? ""
                                                 
                 if userNickname == "" {
-                    let nicknameViewController = NicknameViewController()
-                    let navigationController = UINavigationController(rootViewController: nicknameViewController)
-                    
-                    navigationController.modalPresentationStyle = .fullScreen
-                    navigationController.modalTransitionStyle = .crossDissolve
-                    
-                    self.present(navigationController, animated: true)
+                    let termsConsentViewController = TermsConsentViewController()
+                    termsConsentViewController.modalPresentationStyle = .fullScreen
+                    termsConsentViewController.modalTransitionStyle = .crossDissolve
+
+                    self.present(termsConsentViewController, animated: true)
                 } else if characterName == "" {
                     let choosingCharacterViewController = ChoosingCharacterViewController()
                     
