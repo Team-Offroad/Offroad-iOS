@@ -29,6 +29,17 @@ class CharacterDetailCell: UICollectionViewCell {
         $0.font = UIFont.offroad(style: .iosTextContents)
     }
     
+    private let shadowView = UIView().then {
+        $0.backgroundColor = .blackOpacity(.black25)
+        $0.isHidden = true
+    }
+    
+    private let lockImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+        $0.image = UIImage(resource: .imgLock)
+        $0.isHidden = true
+    }
+    
     private let newBadgeView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
         $0.image = UIImage(resource: .imgNewTag)
@@ -60,8 +71,10 @@ class CharacterDetailCell: UICollectionViewCell {
         contentView.addSubviews(
             containerView,
             characterLabel,
+            shadowView,
             newBadgeView
         )
+        shadowView.addSubview(lockImageView)
         containerView.addSubview(motionImageView)
     }
     
@@ -86,6 +99,17 @@ class CharacterDetailCell: UICollectionViewCell {
                 make.centerX.equalToSuperview()
                 make.bottom.equalToSuperview().inset(10)
             }
+        }
+        
+        shadowView.snp.makeConstraints { make in
+            make.edges.equalTo(contentView)
+        }
+        
+        lockImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().inset(75)
+            make.width.equalTo(33)
+            make.height.equalTo(37)
         }
         
         newBadgeView.snp.makeConstraints { make in
@@ -113,6 +137,9 @@ class CharacterDetailCell: UICollectionViewCell {
             characterLabel.text = "헬스장 방문 시"
         }
         
+        shadowView.isHidden = true
+        lockImageView.isHidden = true
+        
         if data.isNewGained {
             newBadgeView.isHidden = false
         }
@@ -135,7 +162,10 @@ class CharacterDetailCell: UICollectionViewCell {
         else if data.category == "SPORT" {
             characterLabel.text = "헬스장 방문 시"
         }
-            
+        
+        shadowView.isHidden = false
+        lockImageView.isHidden = false
+        
         if data.isNewGained {
             newBadgeView.isHidden = false
         }
