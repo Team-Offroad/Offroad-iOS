@@ -13,8 +13,9 @@ final class CharacterDetailViewController: UIViewController {
     
     private let imageName: String
     private let characterId: Int
-
+    
     private let characterDetailView = CharacterDetailView()
+    private var characterDetailList: [GainedCharacterList]?
     
     // MARK: - Life Cycle
     
@@ -39,6 +40,7 @@ final class CharacterDetailViewController: UIViewController {
         setupTarget()
         setupDelegate()
         setupUIBasedOnImageName()
+        getCharacterDetailInfo()
     }
     
     // MARK: - Private Func
@@ -92,6 +94,21 @@ final class CharacterDetailViewController: UIViewController {
             
         default:
             view.backgroundColor = UIColor.gray
+        }
+    }
+    
+    func getCharacterDetailInfo() {
+        NetworkService.shared.characterDetailService.getAcquiredCharacterInfo(characterId: characterId) { response in
+            switch response {
+            case .success(let data):
+                print("Character details: \(data)")
+                
+                DispatchQueue.main.async {
+                    self.characterDetailView.collectionView.reloadData()
+                }
+            default:
+                break
+            }
         }
     }
     

@@ -21,4 +21,5 @@ final class NetworkService {
     let nicknameService: NicknameServiceProtocol = NicknameService()
     let profileService: ProfileServiceProtocol = ProfileService()
     let acquiredCharacterService: AcquiredCharacterServiceProtocol = AcquiredCharacterService()
+    let characterDetailService: CharacterDetailServiceProtocol = CharacterDetailService()
 }
