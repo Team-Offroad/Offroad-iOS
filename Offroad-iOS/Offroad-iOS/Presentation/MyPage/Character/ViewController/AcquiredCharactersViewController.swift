@@ -12,10 +12,10 @@ final class AcquiredCharactersViewController: UIViewController {
     // MARK: - Properties
     
     private let acquiredCharactersView = AcquiredCharactersView()
-    private let acquiredCharactersCell = AcquiredCharactersCell()
+    private var combinedCharacterList: [(isGained: Bool, character: Any)] = []
     
     private var gainedCharacterList: [GainedCharacterList]?
-    private var notGainedCHaracterList: [NotGainedCharacterList]?
+    private var notGainedCharacterList: [NotGainedCharacterList]?
     
     // MARK: - Life Cycle
     
@@ -47,7 +47,17 @@ final class AcquiredCharactersViewController: UIViewController {
             switch response {
             case .success(let data):
                 self.gainedCharacterList = data?.data.gainedCharacters
-                self.notGainedCHaracterList = data?.data.notGainedCharacters
+                self.notGainedCharacterList = data?.data.notGainedCharacters
+                
+                //gainedCharacterList와 notGainedCharacterList 통합한 배열
+                //isGained로 획득 여부 표현
+                self.combinedCharacterList = []
+                self.gainedCharacterList?.forEach { gainedCharacter in
+                    self.combinedCharacterList.append((isGained: true, character: gainedCharacter))
+                }
+                self.notGainedCharacterList?.forEach { notGainedCharacter in
+                    self.combinedCharacterList.append((isGained: false, character: notGainedCharacter))
+                }
                 
                 DispatchQueue.main.async {
                     self.acquiredCharactersView.collectionView.reloadData()
@@ -64,20 +74,31 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
     // MARK: - CollectionView Func
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return gainedCharacterList?.count ?? 0
+        return combinedCharacterList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AcquiredCharactersCell", for: indexPath) as! AcquiredCharactersCell
-        if let characterData = gainedCharacterList?[indexPath.item] {
-                    cell.configureCell(data: characterData)
-                }
+        let characterData = combinedCharacterList[indexPath.item]
+        if characterData.isGained, let gainedCharacter = characterData.character as? GainedCharacterList {
+            cell.gainedCharacterCell(data: gainedCharacter)
+        } else if let notGainedCharacter = characterData.character as? NotGainedCharacterList {
+            cell.notGainedCharacterCell(data: notGainedCharacter)
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell \(indexPath.item) selected")
-        let characterData = gainedCharacterList?[indexPath.item]
+        let characterData = combinedCharacterList[indexPath.item]
+        
+        self.combinedCharacterList = []
+        self.gainedCharacterList?.forEach { gainedCharacter in
+            self.combinedCharacterList.append((isGained: true, character: gainedCharacter))
+        }
+        self.notGainedCharacterList?.forEach { notGainedCharacter in
+            self.combinedCharacterList.append((isGained: false, character: notGainedCharacter))
+        }
         
         let button = UIButton().then { button in
             button.setImage(.backBarButton, for: .normal)
@@ -89,7 +110,15 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
             }
         }
         
-        let detailViewController = CharacterDetailViewController(imageName: characterData?.characterThumbnailImageUrl ?? "")
+        let detailViewController: CharacterDetailViewController
+        
+        if characterData.isGained, let gainedCharacter = characterData.character as? GainedCharacterList {
+            detailViewController = CharacterDetailViewController(imageName: gainedCharacter.characterThumbnailImageUrl)
+        } else if let notGainedCharacter = characterData.character as? NotGainedCharacterList {
+            detailViewController = CharacterDetailViewController(imageName: notGainedCharacter.characterThumbnailImageUrl)
+        } else {
+            return
+        }
         let customBackBarButton = UIBarButtonItem(customView: button)
         detailViewController.navigationItem.leftBarButtonItem = customBackBarButton
         
@@ -109,3 +138,5 @@ extension AcquiredCharactersViewController {
         navigationController?.popViewController(animated: true)
     }
 }
+
+

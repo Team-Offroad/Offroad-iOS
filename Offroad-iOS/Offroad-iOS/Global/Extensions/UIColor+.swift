@@ -7,9 +7,9 @@
 
 import UIKit
 
-//UIColor(hex: String(hexColorCode.suffix(6)))
+/// 8자리 또는 6자리 Hex String을 UIColor로 변환
+/// > 사용 예시 : `UIColor(hex: data.characterMainColorCode)`
 extension UIColor {
-    // 8자리 또는 6자리 Hex String을 UIColor로 변환하는 함수
     convenience init?(hex: String) {
         var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
         hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")

@@ -59,9 +59,9 @@ class AcquiredCharactersCell: UICollectionViewCell {
         }
         
         imageView.snp.makeConstraints { make in
-            make.width.equalTo(75)
-            make.height.equalTo(136)
-            make.center.equalToSuperview()
+            make.width.equalTo(81)
+            make.height.equalTo(147)
+            make.centerX.centerY.equalToSuperview()
         }
         
         characterLabel.snp.makeConstraints{ make in
@@ -74,7 +74,14 @@ class AcquiredCharactersCell: UICollectionViewCell {
     
     //MARK: - Func
     
-    func configureCell(data: GainedCharacterList) {
+    func gainedCharacterCell(data: GainedCharacterList) {
+        imageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
+        characterLabel.text = data.characterName
+        contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
+        containerView.backgroundColor = UIColor(hex: data.characterSubColorCode)
+    }
+    
+    func notGainedCharacterCell(data: NotGainedCharacterList) {
         imageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
         characterLabel.text = data.characterName
         contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)

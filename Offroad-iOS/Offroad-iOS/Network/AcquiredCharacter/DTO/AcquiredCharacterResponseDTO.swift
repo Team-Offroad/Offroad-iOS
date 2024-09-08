@@ -36,3 +36,4 @@ struct NotGainedCharacterList: Codable {
     let isNewGained: Bool
 //    let representativeCharacterId: Int
 }
+
