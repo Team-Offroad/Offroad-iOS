@@ -20,6 +20,7 @@ final class AcquiredCharacterService: BaseService, AcquiredCharacterServiceProto
         provider.request(.getAcquiredCharacterInfo) { result in
             switch result {
             case .success(let response):
+                print("===[\(response.statusCode)] \(response.data)===")
                 let networkResult: NetworkResult<AcquiredCharacterResponseDTO> = self.fetchNetworkResult(
                     statusCode: response.statusCode,
                     data: response.data

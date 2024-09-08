@@ -46,8 +46,8 @@ final class AcquiredCharactersViewController: UIViewController {
         NetworkService.shared.acquiredCharacterService.getAcquiredCharacterInfo { response in
             switch response {
             case .success(let data):
-                self.gainedCharacterList = data?.data.isGainedCharacters
-                self.notGainedCHaracterList = data?.data.isNotGainedCharacters
+                self.gainedCharacterList = data?.data.gainedCharacters
+                self.notGainedCHaracterList = data?.data.notGainedCharacters
                 
                 DispatchQueue.main.async {
                     self.acquiredCharactersView.collectionView.reloadData()

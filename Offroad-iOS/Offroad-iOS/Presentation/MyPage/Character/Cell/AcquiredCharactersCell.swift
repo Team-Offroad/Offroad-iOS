@@ -15,7 +15,6 @@ class AcquiredCharactersCell: UICollectionViewCell {
     // MARK: - UI Properties
     
     private let containerView = UIView().then {
-        $0.backgroundColor = UIColor.primary(.characterSelectBg3)
         $0.layer.cornerRadius = 10
         $0.clipsToBounds = true
     }
@@ -25,7 +24,6 @@ class AcquiredCharactersCell: UICollectionViewCell {
     }
     
     private let characterLabel = UILabel().then {
-        $0.text = ""
         $0.textAlignment = .center
         $0.textColor = UIColor.primary(.white)
         $0.font = UIFont.offroad(style: .iosTextContents)
@@ -54,10 +52,8 @@ class AcquiredCharactersCell: UICollectionViewCell {
     private func setupLayout() {
         contentView.layer.cornerRadius = 10
         contentView.clipsToBounds = true
-        contentView.backgroundColor = UIColor.home(.homeCharacterName)
         
         containerView.snp.makeConstraints { make in
-            make.height.equalTo(167)
             make.centerX.equalToSuperview()
             make.top.horizontalEdges.equalTo(contentView).inset(10)
         }
@@ -71,6 +67,7 @@ class AcquiredCharactersCell: UICollectionViewCell {
         characterLabel.snp.makeConstraints{ make in
             make.top.equalTo(containerView.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().inset(10)
         }
     }
     
@@ -80,7 +77,7 @@ class AcquiredCharactersCell: UICollectionViewCell {
     func configureCell(data: GainedCharacterList) {
         imageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
         characterLabel.text = data.characterName
-        contentView.backgroundColor = UIColor(hexCode: data.characterMainColorCode)
-        containerView.backgroundColor = UIColor(hexCode: data.characterSubColorCode)
+        contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
+        containerView.backgroundColor = UIColor(hex: data.characterSubColorCode)
     }
 }

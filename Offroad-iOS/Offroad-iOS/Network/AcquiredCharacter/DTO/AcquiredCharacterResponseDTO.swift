@@ -13,8 +13,8 @@ struct AcquiredCharacterResponseDTO: Codable {
 }
 
 struct AcquiredCharacterInfo: Codable {
-    let isGainedCharacters: [GainedCharacterList]
-    let isNotGainedCharacters: [NotGainedCharacterList]
+    let gainedCharacters: [GainedCharacterList]
+    let notGainedCharacters: [NotGainedCharacterList]
 }
 
 struct GainedCharacterList: Codable {
@@ -24,7 +24,7 @@ struct GainedCharacterList: Codable {
     let characterMainColorCode: String
     let characterSubColorCode: String
     let isNewGained: Bool
-    let representativeCharacterId: Int
+//    let representativeCharacterId: Int
 }
 
 struct NotGainedCharacterList: Codable {
@@ -34,5 +34,5 @@ struct NotGainedCharacterList: Codable {
     let characterMainColorCode: String
     let characterSubColorCode: String
     let isNewGained: Bool
-    let representativeCharacterId: Int
+//    let representativeCharacterId: Int
 }
