@@ -22,4 +22,5 @@ final class NetworkService {
     let profileService: ProfileServiceProtocol = ProfileService()
     let acquiredCharacterService: AcquiredCharacterServiceProtocol = AcquiredCharacterService()
     let characterDetailService: CharacterDetailServiceProtocol = CharacterDetailService()
+    let characterMotionService: CharacterMotionServiceProtocol = CharacterMotionService()
 }

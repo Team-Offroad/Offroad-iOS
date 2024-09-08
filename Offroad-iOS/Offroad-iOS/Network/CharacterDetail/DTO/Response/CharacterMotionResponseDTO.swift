@@ -13,8 +13,8 @@ struct CharacterMotionResponseDTO: Codable {
 }
 
 struct CharacterMotionInfo: Codable {
-    let gainedCharacterMotion: [GainedCharacterMotionList]
-    let notGainedCharacterMotion: [NotGainedCharacterMotionList]
+    let gainedCharacterMotions: [GainedCharacterMotionList]
+    let notGainedCharacterMotions: [NotGainedCharacterMotionList]
 }
 
 struct GainedCharacterMotionList: Codable {

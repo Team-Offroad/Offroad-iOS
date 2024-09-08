@@ -29,14 +29,10 @@ class CharacterDetailCell: UICollectionViewCell {
         $0.font = UIFont.offroad(style: .iosTextContents)
     }
     
-    private let newTagView = UIView().then {
-        $0.backgroundColor = UIColor.sub(.sub)
-        $0.layer.cornerRadius = 12
-        $0.isHidden = true
-    }
-    
-    private let newTagLabel = UIImageView().then {
+    private let newBadgeView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
         $0.image = UIImage(resource: .imgNewTag)
+        $0.isHidden = true
     }
     
     // MARK: - Life Cycle
@@ -64,61 +60,89 @@ class CharacterDetailCell: UICollectionViewCell {
         contentView.addSubviews(
             containerView,
             characterLabel,
-            newTagView
+            newBadgeView
         )
-        newTagView.addSubview(newTagLabel)
         containerView.addSubview(motionImageView)
     }
     
     private func setupLayout() {
+        contentView.layer.cornerRadius = 10
+        contentView.clipsToBounds = true
+        
         containerView.snp.makeConstraints { make in
-            make.height.equalTo(167)
             make.centerX.equalToSuperview()
-            make.top.horizontalEdges.equalToSuperview().inset(10)
+            make.top.horizontalEdges.equalTo(contentView).inset(10)
         }
         
         motionImageView.snp.makeConstraints { make in
-            make.width.equalTo(75)
-            make.height.equalTo(136)
-            make.center.equalToSuperview()
+            make.width.equalTo(81)
+            make.height.equalTo(147)
+            make.centerX.centerY.equalToSuperview()
         }
         
         characterLabel.snp.makeConstraints{ make in
-            make.top.equalTo(containerView.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
+            characterLabel.snp.makeConstraints{ make in
+                make.top.equalTo(containerView.snp.bottom).offset(10)
+                make.centerX.equalToSuperview()
+                make.bottom.equalToSuperview().inset(10)
+            }
         }
         
-        newTagView.snp.makeConstraints { make in
-            make.top.trailing.equalTo(containerView).inset(10)
+        newBadgeView.snp.makeConstraints { make in
+            make.top.trailing.equalTo(containerView).inset(8)
             make.size.equalTo(24)
+        }    }
+    
+    //MARK: - Func
+    
+    func gainedMotionCell(data: GainedCharacterMotionList) {
+        motionImageView.fetchSvgURLToImageView(svgUrlString: data.characterMotionImageUrl)
+        if data.category == "CAFFE" {
+            characterLabel.text = "카페 방문 시"
+        }
+        else if data.category == "PARK" {
+            characterLabel.text = "공원 방문 시"
+        }
+        else if data.category == "CULTURE" {
+            characterLabel.text = "문화 방문 시"
+        }
+        else if data.category == "RESTAURANT" {
+            characterLabel.text = "식당 방문 시"
+        }
+        else if data.category == "SPORT" {
+            characterLabel.text = "헬스장 방문 시"
         }
         
-        newTagLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        if data.isNewGained {
+            newBadgeView.isHidden = false
         }
     }
     
-//    func configureCharacterImage(imageName: String, isNew: Bool = false) {
-//        motionImageView.image = UIImage(named: imageName)
-//        
-//        switch imageName {
-//        case "character_1":
-//            contentView.backgroundColor = UIColor.home(.homeCharacterName)
-//            containerView.backgroundColor = UIColor.primary(.characterSelectBg3)
-//            characterLabel.text = "카페 방문 시"
-//        case "character_2":
-//            contentView.backgroundColor = UIColor.primary(.getCharacter2)
-//            containerView.backgroundColor = UIColor.primary(.characterSelectBg2)
-//            characterLabel.text = "공원 방문 시"
-//        case "character_3":
-//            contentView.backgroundColor = UIColor.home(.homeContents1GraphMain)
-//            containerView.backgroundColor = UIColor.primary(.characterSelectBg1)
-//            characterLabel.text = "식당 방문 시"
-//        default:
-//            contentView.backgroundColor = UIColor.gray
-//            containerView.backgroundColor = UIColor.darkGray
-//        }
-//        
-//        newTagView.isHidden = !isNew
-//    }
+    func notGainedMotionCell(data: NotGainedCharacterMotionList) {
+        motionImageView.fetchSvgURLToImageView(svgUrlString: data.characterMotionImageUrl)
+        if data.category == "CAFFE" {
+            characterLabel.text = "카페 방문 시"
+        }
+        else if data.category == "PARK" {
+            characterLabel.text = "공원 방문 시"
+        }
+        else if data.category == "CULTURE" {
+            characterLabel.text = "문화 방문 시"
+        }
+        else if data.category == "RESTAURANT" {
+            characterLabel.text = "식당 방문 시"
+        }
+        else if data.category == "SPORT" {
+            characterLabel.text = "헬스장 방문 시"
+        }
+            
+        if data.isNewGained {
+            newBadgeView.isHidden = false
+        }
+    }
+    
+    func configureCellColor(mainColor: String, subColor: String){
+        contentView.backgroundColor = UIColor(hex: mainColor)
+        containerView.backgroundColor = UIColor(hex: subColor)
+    }
 }

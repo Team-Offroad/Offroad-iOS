@@ -105,7 +105,6 @@ class AcquiredCharactersCell: UICollectionViewCell {
         }
     }
     
-    
     //MARK: - Func
     
     func gainedCharacterCell(data: GainedCharacterList) {

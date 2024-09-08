@@ -11,16 +11,21 @@ final class CharacterDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let imageName: String
     private let characterId: Int
     
     private let characterDetailView = CharacterDetailView()
     private var characterDetailList: [CharacterDetailList]?
     
+    private var characterMainColorCode: String?
+    private var characterSubColorCode: String?
+    
+    private var combinedCharacterMotionList: [(isGained: Bool, character: Any)] = []
+    private var gainedCharacterMotionList: [GainedCharacterMotionList]?
+    private var notGainedCharacterMotionList: [NotGainedCharacterMotionList]?
+    
     // MARK: - Life Cycle
     
-    init(imageName: String, characterId: Int) {
-        self.imageName = imageName
+    init(characterId: Int) {
         self.characterId = characterId
         
         super.init(nibName: nil, bundle: nil)
@@ -39,8 +44,8 @@ final class CharacterDetailViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
-        setupUIBasedOnImageName()
         getCharacterDetailInfo()
+        characterMotionInfo()
     }
     
     // MARK: - Private Func
@@ -54,38 +59,50 @@ final class CharacterDetailViewController: UIViewController {
         characterDetailView.collectionView.dataSource = self
     }
     
-    private func setupUIBasedOnImageName() {
-        switch imageName {
-        case "character_1":
-            view.backgroundColor = UIColor.primary(.characterSelectBg3)
-            characterDetailView.characterLogoImage.image = UIImage(resource: .character1Logo)
-            characterDetailView.characterImage.image = UIImage(named: imageName)
-            characterDetailView.nameLabel.text = "아루"
-            characterDetailView.detailLabel.text = """
-            재밌는 걸 보면 두 눈이 반짝!
-            호기심이 많은 탐험가 아루예요.
-            파우치에는 최소한의 탐험 키트가 들어있답니다.
-            """
-            characterDetailView.detailLabel.setLineSpacing(spacing: 5)
-            
-        default:
-            view.backgroundColor = UIColor.gray
-        }
-    }
-    
     func getCharacterDetailInfo() {
         NetworkService.shared.characterDetailService.getAcquiredCharacterInfo(characterId: characterId) { response in
             switch response {
             case .success(let characterDetailResponse):
                 guard let characterData = characterDetailResponse?.data else { return }
                 
-                print("Character details: \(characterData)")
+                self.characterMainColorCode = characterData.characterMainColorCode
+                self.characterSubColorCode = characterData.characterSubColorCode
                 self.view.backgroundColor = UIColor(hex: characterData.characterSubColorCode)
                 self.characterDetailView.characterImage.fetchSvgURLToImageView(svgUrlString: characterData.characterBaseImageUrl)
                 self.characterDetailView.characterLogoImage.fetchSvgURLToImageView(svgUrlString: characterData.characterIconImageUrl)
                 self.characterDetailView.nameLabel.text = characterData.characterName
                 self.characterDetailView.titleLabel.text = characterData.characterSummaryDescription
                 self.characterDetailView.detailLabel.text = characterData.characterDescription
+                self.characterDetailView.detailLabel.setLineSpacing(spacing: 5)
+                print("\(characterData.characterMainColorCode)")
+                print("\(characterData.characterMainColorCode)")
+                print("\(characterData.characterMainColorCode)")
+                
+                DispatchQueue.main.async {
+                    self.characterDetailView.collectionView.reloadData()
+                }
+            default:
+                break
+            }
+        }
+    }
+    
+    func characterMotionInfo() {
+        NetworkService.shared.characterMotionService.getCharacterMotionList(characterId: characterId) { response in
+            switch response {
+            case .success(let data):
+                guard let motionData = data?.data else { return }
+                print("Character Motion: \(motionData)")
+                self.gainedCharacterMotionList = data?.data.gainedCharacterMotions
+                self.notGainedCharacterMotionList = data?.data.notGainedCharacterMotions
+                
+                self.combinedCharacterMotionList = []
+                self.gainedCharacterMotionList?.forEach { gainedCharacterMotion in
+                    self.combinedCharacterMotionList.append((isGained: true, character: gainedCharacterMotion))
+                }
+                self.notGainedCharacterMotionList?.forEach { notGainedCharacterMotion in
+                    self.combinedCharacterMotionList.append((isGained: false, character: notGainedCharacterMotion))
+                }
                 
                 DispatchQueue.main.async {
                     self.characterDetailView.collectionView.reloadData()
@@ -108,21 +125,40 @@ extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionV
     // MARK: - CollectionView Func
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return combinedCharacterMotionList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharacterDetailCell", for: indexPath) as! CharacterDetailCell
-        let isNew = indexPath.item == 0
-//        let characterData = characterDetailList[indexPath.item]
-//        
-//        cell.contentView.backgroundColor = UIColor(hex: characterData.characterMainColorCode)
-//        cell.containerView.backgroundColor = UIColor(hex: characterData.characterSubColorCode)
-//        
+        
+        let characterMotionData = combinedCharacterMotionList[indexPath.item]
+        
+        if characterMotionData.isGained, let gainedCharacterMotion = characterMotionData.character as? GainedCharacterMotionList {
+            cell.gainedMotionCell(data: gainedCharacterMotion)
+        } else if let notGainedCharacterMotion = characterMotionData.character as? NotGainedCharacterMotionList {
+            cell.notGainedMotionCell(data: notGainedCharacterMotion)
+        }
+        
+        if let mainColor = self.characterMainColorCode, let subColor = self.characterSubColorCode {
+            cell.configureCellColor(mainColor: mainColor, subColor: subColor)
+        }
+        
         DispatchQueue.main.async {
             self.characterDetailView.updateCollectionViewHeight()
         }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Cell \(indexPath.item) selected")
+        
+        self.combinedCharacterMotionList = []
+        self.gainedCharacterMotionList?.forEach { gainedCharacterMotion in
+            self.combinedCharacterMotionList.append((isGained: true, character: gainedCharacterMotion))
+        }
+        self.notGainedCharacterMotionList?.forEach { notGainedCharacterMotion in
+            self.combinedCharacterMotionList.append((isGained: false, character: notGainedCharacterMotion))
+        }
     }
 }

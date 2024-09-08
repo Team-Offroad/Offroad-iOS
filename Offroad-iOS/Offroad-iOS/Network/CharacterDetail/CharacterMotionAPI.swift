@@ -26,7 +26,7 @@ extension CharacterMotionAPI: BaseTargetType {
     var path: String {
         switch self {
         case .getCharacterMotionList(let characterId):
-            return "/characters/\(characterId)"
+            return "/motions/\(characterId)"
         }
     }
     
