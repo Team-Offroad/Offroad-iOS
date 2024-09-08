@@ -25,6 +25,7 @@ final class MyPageViewController: UIViewController {
         super.viewDidLoad()
         
         setupDelegate()
+        getUserInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +44,19 @@ extension MyPageViewController {
         rootView.myPageMenuCollectionView.dataSource = self
         rootView.myPageMenuCollectionView.delegate = self
     }
+    
+    private func getUserInfo() {
+        NetworkService.shared.profileService.getUserInfo { response in
+            switch response {
+            case .success(let data):
+                if let userInfoModel = data?.data {
+                    self.rootView.bindData(data: userInfoModel)
+                }
+            default:
+                break
+            }
+        }
+    }
 }
 
 //MARK: - UICollectionViewDataSource
@@ -55,7 +69,7 @@ extension MyPageViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageMenuCollectionViewCell.className, for: indexPath) as? MyPageMenuCollectionViewCell else { return UICollectionViewCell() }
         cell.configureCell(data: menuModelList[indexPath.item])
-
+        
         return cell
     }
 }
@@ -69,6 +83,12 @@ extension MyPageViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.item {
+        case 0:
+            let acquiredCharactersViewController = AcquiredCharactersViewController()
+            self.navigationController?.pushViewController(acquiredCharactersViewController, animated: true)
+        case 1:
+            let acquiredCouponViewController = AcquiredCouponViewController()
+            self.navigationController?.pushViewController(acquiredCouponViewController, animated: true)
         case 2:
             let collectedTitlesViewController = CollectedTitlesViewController()
             self.navigationController?.pushViewController(collectedTitlesViewController, animated: true)

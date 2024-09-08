@@ -48,7 +48,6 @@ extension LoginViewController {
         
         AppleAuthManager.shared.loginSuccess = { user, identifyToken in
             print("login success!")
-            UserDefaults.standard.set(true, forKey: "isLoggedIn")
             
             var userName = user.name ?? ""
             var userEmail = user.email ?? ""
@@ -91,6 +90,8 @@ extension LoginViewController {
                 
                 KeychainManager.shared.saveAccessToken(token: accessToken)
                 KeychainManager.shared.saveRefreshToken(token: refreshToken)
+                
+                UserDefaults.standard.set(true, forKey: "isLoggedIn")
 
                 self.checkUserChoosingInfo()
             default:
@@ -107,13 +108,11 @@ extension LoginViewController {
                 let characterName = data?.data.characterName ?? ""
                                                 
                 if userNickname == "" {
-                    let nicknameViewController = NicknameViewController()
-                    let navigationController = UINavigationController(rootViewController: nicknameViewController)
-                    
-                    navigationController.modalPresentationStyle = .fullScreen
-                    navigationController.modalTransitionStyle = .crossDissolve
-                    
-                    self.present(navigationController, animated: true)
+                    let termsConsentViewController = TermsConsentViewController()
+                    termsConsentViewController.modalPresentationStyle = .fullScreen
+                    termsConsentViewController.modalTransitionStyle = .crossDissolve
+
+                    self.present(termsConsentViewController, animated: true)
                 } else if characterName == "" {
                     let choosingCharacterViewController = ChoosingCharacterViewController()
                     

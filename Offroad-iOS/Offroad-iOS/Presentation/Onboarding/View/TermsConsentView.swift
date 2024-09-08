@@ -23,6 +23,7 @@ final class TermsConsentView: UIView {
     private let agreeAllStackView = UIStackView()
     let termsListTableView = UITableView()
     let nextButton = StateToggleButton(state: .isDisabled, title: "다음")
+    let fordissolveAnimationView = UIView()
         
     // MARK: - Life Cycle
     
@@ -97,6 +98,11 @@ extension TermsConsentView {
             
             $0.register(TermsListTableViewCell.self, forCellReuseIdentifier: TermsListTableViewCell.className)
         }
+        
+        fordissolveAnimationView.do {
+            $0.backgroundColor = .main(.main2)
+            $0.isHidden = true
+        }
     }
     
     private func setupHierarchy() {
@@ -104,7 +110,8 @@ extension TermsConsentView {
             labelStackView,
             agreeAllView,
             termsListTableView,
-            nextButton
+            nextButton,
+            fordissolveAnimationView
         )
         labelStackView.addArrangedSubviews(titleLabel, descriptionLabel)
         agreeAllView.addSubview(agreeAllStackView)
@@ -138,6 +145,10 @@ extension TermsConsentView {
         nextButton.snp.makeConstraints {
             $0.bottom.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24)
             $0.height.equalTo(54)
+        }
+        
+        fordissolveAnimationView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
 }

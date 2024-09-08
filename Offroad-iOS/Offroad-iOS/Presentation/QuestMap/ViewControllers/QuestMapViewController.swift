@@ -154,7 +154,8 @@ extension QuestMapViewController {
             lat: currentCoordinate.latitude,
             lng: currentCoordinate.longitude
         )
-        
+        print("latitude: \(currentCoordinate.latitude)")
+        print("longitude: \(currentCoordinate.longitude)")
     }
     
     private func updateRegisteredLocation() {
@@ -162,7 +163,9 @@ extension QuestMapViewController {
         
         let requestPlaceDTO = RegisteredPlaceRequestDTO(
             currentLatitude: cameraPositionTarget.lat,
-            currentLongitude: cameraPositionTarget.lng
+            currentLongitude: cameraPositionTarget.lng,
+            limit: 100,
+            isBounded: true
         )
         
         locationService.getRegisteredLocation(requestDTO: requestPlaceDTO) { [weak self] response in

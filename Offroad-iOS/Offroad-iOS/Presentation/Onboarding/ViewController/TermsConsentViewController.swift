@@ -45,6 +45,7 @@ extension TermsConsentViewController {
     
     private func setupAddTarget() {
         rootView.agreeAllButton.addTarget(self, action: #selector(agreeAllButtonTapped), for: .touchUpInside)
+        rootView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
     private func agreeButtonInCellTapped() {
@@ -71,12 +72,48 @@ extension TermsConsentViewController {
         return true
     }
     
+    private func presentNavigationController(navigationController: UINavigationController) {
+        navigationController.modalPresentationStyle = .fullScreen
+        navigationController.modalTransitionStyle = .crossDissolve
+        
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = .fade
+        transition.subtype = .fromRight
+        rootView.fordissolveAnimationView.isHidden = false
+        rootView.window?.layer.add(transition, forKey: kCATransition)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.present(navigationController, animated: true, completion: nil)
+        }
+    }
+    
+    private func patchMarketingConsent(isAgreed: MarketingConsentRequestDTO) {
+        NetworkService.shared.profileService.patchMarketingConsent(body: isAgreed) { response in
+            switch response {
+            case .success:
+                print("마케팅 수신 여부 변경 성공!\n요청 성공 값: \(isAgreed.marketing)")
+            default:
+                break
+            }
+        }
+    }
+    
     //MARK: - @Objc Func
     
     @objc private func agreeAllButtonTapped() {        
         controlAllButtonState()
         rootView.agreeAllButton.isSelected.toggle()
         rootView.termsListTableView.reloadData()
+    }
+    
+    @objc private func nextButtonTapped() {
+        patchMarketingConsent(isAgreed: MarketingConsentRequestDTO(marketing: termsModelData[3].isSelected))
+        
+        let nicknameViewController = NicknameViewController()
+        let navigationController = UINavigationController(rootViewController: nicknameViewController)
+        
+        self.presentNavigationController(navigationController: navigationController)
     }
 }
 
