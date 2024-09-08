@@ -138,8 +138,9 @@ extension QuestMapView {
         reloadPlaceButton.do { button in
             button.setTitle("현 지도에서 검색", for: .normal)
             button.setImage(.icnReloadArrow, for: .normal)
-            button.backgroundColor = .primary(.white)
+            button.setBackgroundColor(.primary(.white), for: .normal)
             button.setTitleColor(.grayscale(.gray400), for: .normal)
+            button.setTitleColor(.primary(.black), for: .highlighted)
             button.clipsToBounds = true
             button.layer.cornerRadius = 5.5
             button.layer.borderWidth = 1
