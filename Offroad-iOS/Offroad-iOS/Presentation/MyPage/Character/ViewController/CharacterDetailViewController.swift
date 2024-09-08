@@ -74,9 +74,6 @@ final class CharacterDetailViewController: UIViewController {
                 self.characterDetailView.titleLabel.text = characterData.characterSummaryDescription
                 self.characterDetailView.detailLabel.text = characterData.characterDescription
                 self.characterDetailView.detailLabel.setLineSpacing(spacing: 5)
-                print("\(characterData.characterMainColorCode)")
-                print("\(characterData.characterMainColorCode)")
-                print("\(characterData.characterMainColorCode)")
                 
                 DispatchQueue.main.async {
                     self.characterDetailView.collectionView.reloadData()
