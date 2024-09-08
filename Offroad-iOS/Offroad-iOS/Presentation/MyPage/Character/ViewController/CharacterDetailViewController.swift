@@ -11,14 +11,17 @@ final class CharacterDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var imageName: String
+    private let imageName: String
+    private let characterId: Int
 
     private let characterDetailView = CharacterDetailView()
     
     // MARK: - Life Cycle
     
-    init(imageName: String) {
+    init(imageName: String, characterId: Int) {
         self.imageName = imageName
+        self.characterId = characterId
+        
         super.init(nibName: nil, bundle: nil)
     }
     

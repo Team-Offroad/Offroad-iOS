@@ -87,6 +87,9 @@
 		87738CC02C8CB2F100E107C7 /* AcquiredCharacterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CBF2C8CB2F100E107C7 /* AcquiredCharacterAPI.swift */; };
 		87738CC22C8CB33600E107C7 /* AcquiredCharacterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CC12C8CB33600E107C7 /* AcquiredCharacterService.swift */; };
 		87738CD02C8DC15200E107C7 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CCF2C8DC15200E107C7 /* UIColor+.swift */; };
+		87738CD52C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CD42C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift */; };
+		87738CD82C8DFDF400E107C7 /* CharacterDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CD72C8DFDF400E107C7 /* CharacterDetailAPI.swift */; };
+		87738CDA2C8E018F00E107C7 /* CharacterDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CD92C8E018F00E107C7 /* CharacterDetailService.swift */; };
 		8791EDF22C7E118900E7F8B9 /* AcquiredCouponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF12C7E118900E7F8B9 /* AcquiredCouponCell.swift */; };
 		8791EDF42C7E11E000E7F8B9 /* AcquiredCouponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF32C7E11E000E7F8B9 /* AcquiredCouponView.swift */; };
 		8791EDF62C7E121400E7F8B9 /* AcquiredCouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF52C7E121400E7F8B9 /* AcquiredCouponViewController.swift */; };
@@ -305,6 +308,9 @@
 		87738CBF2C8CB2F100E107C7 /* AcquiredCharacterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharacterAPI.swift; sourceTree = "<group>"; };
 		87738CC12C8CB33600E107C7 /* AcquiredCharacterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharacterService.swift; sourceTree = "<group>"; };
 		87738CCF2C8DC15200E107C7 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		87738CD42C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailResponseDTO.swift; sourceTree = "<group>"; };
+		87738CD72C8DFDF400E107C7 /* CharacterDetailAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailAPI.swift; sourceTree = "<group>"; };
+		87738CD92C8E018F00E107C7 /* CharacterDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailService.swift; sourceTree = "<group>"; };
 		8791EDF12C7E118900E7F8B9 /* AcquiredCouponCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCouponCell.swift; sourceTree = "<group>"; };
 		8791EDF32C7E11E000E7F8B9 /* AcquiredCouponView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCouponView.swift; sourceTree = "<group>"; };
 		8791EDF52C7E121400E7F8B9 /* AcquiredCouponViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCouponViewController.swift; sourceTree = "<group>"; };
@@ -588,6 +594,7 @@
 		4E0394662C2AA0F9007F0517 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				87738CD12C8DEA4000E107C7 /* CharacterDetail */,
 				4E58FBFD2C7DFE40002A951B /* QuestList */,
 				87738CB62C8C1AB800E107C7 /* AcquiredCharacter */,
 				4E0394672C2AA132007F0517 /* Base */,
@@ -1192,6 +1199,32 @@
 				87738CB92C8C1B0500E107C7 /* AcquiredCharacterResponseDTO.swift */,
 			);
 			name = Response;
+			sourceTree = "<group>";
+		};
+		87738CD12C8DEA4000E107C7 /* CharacterDetail */ = {
+			isa = PBXGroup;
+			children = (
+				87738CD22C8DEA4800E107C7 /* DTO */,
+				87738CD72C8DFDF400E107C7 /* CharacterDetailAPI.swift */,
+				87738CD92C8E018F00E107C7 /* CharacterDetailService.swift */,
+			);
+			path = CharacterDetail;
+			sourceTree = "<group>";
+		};
+		87738CD22C8DEA4800E107C7 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				87738CD32C8DEA4D00E107C7 /* Response */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		87738CD32C8DEA4D00E107C7 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				87738CD42C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift */,
+			);
+			path = Response;
 			sourceTree = "<group>";
 		};
 		8791EDEE2C7E10F700E7F8B9 /* Cell */ = {
@@ -2166,6 +2199,7 @@
 				4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */,
 				4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */,
 				D0E7966C2C457D64005B47A5 /* AdventureInfoResponseDTO.swift in Sources */,
+				87738CD82C8DFDF400E107C7 /* CharacterDetailAPI.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */,
 				4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */,
 				D063E98C2C49328300434A09 /* SVGKImage+.swift in Sources */,
@@ -2210,11 +2244,13 @@
 				D00A48872C6E77C5008B286A /* NoticePostModel.swift in Sources */,
 				4E08B95D2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift in Sources */,
 				D0E7961C2C4527FE005B47A5 /* SocialLoginRequestDTO.swift in Sources */,
+				87738CD52C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift in Sources */,
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
 				872F4BB92C6B80A600284DE0 /* CharacterDetailView.swift in Sources */,
 				D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */,
 				4EB32BEC2C67A39B003F98F2 /* QuestListCollectionViewCell.swift in Sources */,
 				4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */,
+				87738CDA2C8E018F00E107C7 /* CharacterDetailService.swift in Sources */,
 				D0E796152C452797005B47A5 /* AuthAPI.swift in Sources */,
 				D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */,
 				4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */,
