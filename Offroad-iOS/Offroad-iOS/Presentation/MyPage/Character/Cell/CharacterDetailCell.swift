@@ -12,7 +12,7 @@ class CharacterDetailCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    private let containerView = UIView().then {
+    let containerView = UIView().then {
         $0.backgroundColor = UIColor.primary(.characterSelectBg3)
         $0.layer.cornerRadius = 10
         $0.clipsToBounds = true
@@ -98,27 +98,27 @@ class CharacterDetailCell: UICollectionViewCell {
         }
     }
     
-    func configureCharacterImage(imageName: String, isNew: Bool = false) {
-        motionImageView.image = UIImage(named: imageName)
-        
-        switch imageName {
-        case "character_1":
-            contentView.backgroundColor = UIColor.home(.homeCharacterName)
-            containerView.backgroundColor = UIColor.primary(.characterSelectBg3)
-            characterLabel.text = "카페 방문 시"
-        case "character_2":
-            contentView.backgroundColor = UIColor.primary(.getCharacter2)
-            containerView.backgroundColor = UIColor.primary(.characterSelectBg2)
-            characterLabel.text = "공원 방문 시"
-        case "character_3":
-            contentView.backgroundColor = UIColor.home(.homeContents1GraphMain)
-            containerView.backgroundColor = UIColor.primary(.characterSelectBg1)
-            characterLabel.text = "식당 방문 시"
-        default:
-            contentView.backgroundColor = UIColor.gray
-            containerView.backgroundColor = UIColor.darkGray
-        }
-        
-        newTagView.isHidden = !isNew
-    }
+//    func configureCharacterImage(imageName: String, isNew: Bool = false) {
+//        motionImageView.image = UIImage(named: imageName)
+//        
+//        switch imageName {
+//        case "character_1":
+//            contentView.backgroundColor = UIColor.home(.homeCharacterName)
+//            containerView.backgroundColor = UIColor.primary(.characterSelectBg3)
+//            characterLabel.text = "카페 방문 시"
+//        case "character_2":
+//            contentView.backgroundColor = UIColor.primary(.getCharacter2)
+//            containerView.backgroundColor = UIColor.primary(.characterSelectBg2)
+//            characterLabel.text = "공원 방문 시"
+//        case "character_3":
+//            contentView.backgroundColor = UIColor.home(.homeContents1GraphMain)
+//            containerView.backgroundColor = UIColor.primary(.characterSelectBg1)
+//            characterLabel.text = "식당 방문 시"
+//        default:
+//            contentView.backgroundColor = UIColor.gray
+//            containerView.backgroundColor = UIColor.darkGray
+//        }
+//        
+//        newTagView.isHidden = !isNew
+//    }
 }

@@ -90,6 +90,9 @@
 		87738CD52C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CD42C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift */; };
 		87738CD82C8DFDF400E107C7 /* CharacterDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CD72C8DFDF400E107C7 /* CharacterDetailAPI.swift */; };
 		87738CDA2C8E018F00E107C7 /* CharacterDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CD92C8E018F00E107C7 /* CharacterDetailService.swift */; };
+		87738CDC2C8E164200E107C7 /* CharacterMotionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CDB2C8E164200E107C7 /* CharacterMotionResponseDTO.swift */; };
+		87738CDE2C8E171F00E107C7 /* CharacterMotionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CDD2C8E171F00E107C7 /* CharacterMotionAPI.swift */; };
+		87738CE02C8E176700E107C7 /* CharacterMotionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CDF2C8E176700E107C7 /* CharacterMotionService.swift */; };
 		8791EDF22C7E118900E7F8B9 /* AcquiredCouponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF12C7E118900E7F8B9 /* AcquiredCouponCell.swift */; };
 		8791EDF42C7E11E000E7F8B9 /* AcquiredCouponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF32C7E11E000E7F8B9 /* AcquiredCouponView.swift */; };
 		8791EDF62C7E121400E7F8B9 /* AcquiredCouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF52C7E121400E7F8B9 /* AcquiredCouponViewController.swift */; };
@@ -311,6 +314,9 @@
 		87738CD42C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailResponseDTO.swift; sourceTree = "<group>"; };
 		87738CD72C8DFDF400E107C7 /* CharacterDetailAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailAPI.swift; sourceTree = "<group>"; };
 		87738CD92C8E018F00E107C7 /* CharacterDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailService.swift; sourceTree = "<group>"; };
+		87738CDB2C8E164200E107C7 /* CharacterMotionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterMotionResponseDTO.swift; sourceTree = "<group>"; };
+		87738CDD2C8E171F00E107C7 /* CharacterMotionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterMotionAPI.swift; sourceTree = "<group>"; };
+		87738CDF2C8E176700E107C7 /* CharacterMotionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterMotionService.swift; sourceTree = "<group>"; };
 		8791EDF12C7E118900E7F8B9 /* AcquiredCouponCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCouponCell.swift; sourceTree = "<group>"; };
 		8791EDF32C7E11E000E7F8B9 /* AcquiredCouponView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCouponView.swift; sourceTree = "<group>"; };
 		8791EDF52C7E121400E7F8B9 /* AcquiredCouponViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCouponViewController.swift; sourceTree = "<group>"; };
@@ -1207,6 +1213,8 @@
 				87738CD22C8DEA4800E107C7 /* DTO */,
 				87738CD72C8DFDF400E107C7 /* CharacterDetailAPI.swift */,
 				87738CD92C8E018F00E107C7 /* CharacterDetailService.swift */,
+				87738CDD2C8E171F00E107C7 /* CharacterMotionAPI.swift */,
+				87738CDF2C8E176700E107C7 /* CharacterMotionService.swift */,
 			);
 			path = CharacterDetail;
 			sourceTree = "<group>";
@@ -1223,6 +1231,7 @@
 			isa = PBXGroup;
 			children = (
 				87738CD42C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift */,
+				87738CDB2C8E164200E107C7 /* CharacterMotionResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -2247,6 +2256,7 @@
 				87738CD52C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift in Sources */,
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
 				872F4BB92C6B80A600284DE0 /* CharacterDetailView.swift in Sources */,
+				87738CE02C8E176700E107C7 /* CharacterMotionService.swift in Sources */,
 				D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */,
 				4EB32BEC2C67A39B003F98F2 /* QuestListCollectionViewCell.swift in Sources */,
 				4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */,
@@ -2280,6 +2290,7 @@
 				D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */,
 				D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */,
 				4E0394312C2A9DCE007F0517 /* ViewController.swift in Sources */,
+				87738CDC2C8E164200E107C7 /* CharacterMotionResponseDTO.swift in Sources */,
 				4E1E94172C3AC27000A7B08A /* QuestMapViewController.swift in Sources */,
 				8791EDF42C7E11E000E7F8B9 /* AcquiredCouponView.swift in Sources */,
 				4E393C9C2C48C9B2003403EC /* QuestResultView.swift in Sources */,
@@ -2347,6 +2358,7 @@
 				872F4BB52C68D66200284DE0 /* AcquiredCharactersViewController.swift in Sources */,
 				D064668E2C7F127A00CF10FD /* TermsModel.swift in Sources */,
 				4E59A11C2C4228C500B548C6 /* AVCameraPreview.swift in Sources */,
+				87738CDE2C8E171F00E107C7 /* CharacterMotionAPI.swift in Sources */,
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
 				8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */,
 				D00A488C2C7830F3008B286A /* TermsConsentPopupView.swift in Sources */,
