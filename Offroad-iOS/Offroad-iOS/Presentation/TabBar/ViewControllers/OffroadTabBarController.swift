@@ -118,6 +118,10 @@ extension OffroadTabBarController {
         tabBar.items?[2].title = "My"
     }
     
+    private func setupButtonsAction() {
+        customOffroadLogoButton.addTarget(self, action: #selector(centerTabBarButtonItemTapped), for: .touchUpInside)
+    }
+    
     private func setupDelegates() {
         guard let questMapNavigationController = viewControllers?[1] as? UINavigationController else { return }
         guard let myPageNavigationController = viewControllers?[2] as? UINavigationController else { return }
@@ -138,12 +142,8 @@ extension OffroadTabBarController {
         })
         customOffroadLogoButton.isUserInteractionEnabled = true
     }
-        
-    // MARK: - Func
     
-    private func setupButtonsAction() {
-        customOffroadLogoButton.addTarget(self, action: #selector(centerTabBarButtonItemTapped), for: .touchUpInside)
-    }
+    // MARK: - Func
     
     func hideTabBarAnimation(delayFactor: CGFloat = 0) {
         hideTabBarAnimator.addAnimations({ [weak self] in
