@@ -40,6 +40,12 @@ class AcquiredCharactersCell: UICollectionViewCell {
         $0.isHidden = true
     }
     
+    private let newBadgeView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+        $0.image = UIImage(resource: .imgNewTag)
+        $0.isHidden = true
+    }
+    
     // MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -56,7 +62,7 @@ class AcquiredCharactersCell: UICollectionViewCell {
     // MARK: - Setup Functions
     
     private func setupHierarchy() {
-        contentView.addSubviews(containerView, characterLabel, shadowView)
+        contentView.addSubviews(containerView, characterLabel, shadowView, newBadgeView)
         shadowView.addSubview(lockImageView)
         containerView.addSubview(imageView)
     }
@@ -92,6 +98,11 @@ class AcquiredCharactersCell: UICollectionViewCell {
             make.width.equalTo(33)
             make.height.equalTo(37)
         }
+        
+        newBadgeView.snp.makeConstraints { make in
+            make.top.trailing.equalTo(containerView).inset(8)
+            make.size.equalTo(24)
+        }
     }
     
     
@@ -105,6 +116,10 @@ class AcquiredCharactersCell: UICollectionViewCell {
         
         shadowView.isHidden = true
         lockImageView.isHidden = true
+        
+        if data.isNewGained {
+            newBadgeView.isHidden = false
+        }
     }
     
     func notGainedCharacterCell(data: NotGainedCharacterList) {
@@ -115,5 +130,9 @@ class AcquiredCharactersCell: UICollectionViewCell {
         
         shadowView.isHidden = false
         lockImageView.isHidden = false
+        
+        if data.isNewGained {
+            newBadgeView.isHidden = false
+        }
     }
 }
