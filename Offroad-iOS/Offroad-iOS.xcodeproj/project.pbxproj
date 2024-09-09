@@ -77,6 +77,7 @@
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
 		4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */; };
+		4EFCDFDA2C8F3721006DEBB6 /* CouponCodeInputPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFD92C8F3721006DEBB6 /* CouponCodeInputPopupViewController.swift */; };
 		872F4BAE2C68C1F600284DE0 /* AcquiredCharactersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BAD2C68C1F600284DE0 /* AcquiredCharactersView.swift */; };
 		872F4BB12C68C43800284DE0 /* AcquiredCharactersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB02C68C43800284DE0 /* AcquiredCharactersCell.swift */; };
 		872F4BB52C68D66200284DE0 /* AcquiredCharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB42C68D66200284DE0 /* AcquiredCharactersViewController.swift */; };
@@ -137,13 +138,13 @@
 		D06466962C86F69F00CF10FD /* LogoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466952C86F69F00CF10FD /* LogoutView.swift */; };
 		D064669A2C86FCDB00CF10FD /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466992C86FCDB00CF10FD /* DeleteAccountViewController.swift */; };
 		D064669C2C86FCE800CF10FD /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064669B2C86FCE800CF10FD /* DeleteAccountView.swift */; };
+		D064669F2C898E9D00CF10FD /* EmblemListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064669E2C898E9D00CF10FD /* EmblemListResponseDTO.swift */; };
+		D06466A12C89CB5200CF10FD /* UserInfoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A02C89CB5200CF10FD /* UserInfoResponseDTO.swift */; };
 		D06466A32C89EF6B00CF10FD /* DeleteAccountRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A22C89EF6B00CF10FD /* DeleteAccountRequestDTO.swift */; };
 		D06466A52C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A42C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift */; };
 		D06466A72C8A05F100CF10FD /* MarketingConsentResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A62C8A05F100CF10FD /* MarketingConsentResponseDTO.swift */; };
 		D06466AA2C8A08E500CF10FD /* MarketingConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A92C8A08E500CF10FD /* MarketingConsentViewController.swift */; };
 		D06466AC2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466AB2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift */; };
-		D06466A12C89CB5200CF10FD /* UserInfoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466A02C89CB5200CF10FD /* UserInfoResponseDTO.swift */; };
-		D064669F2C898E9D00CF10FD /* EmblemListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064669E2C898E9D00CF10FD /* EmblemListResponseDTO.swift */; };
 		D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */; };
 		D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C22C3D835300E79F25 /* HomeView.swift */; };
@@ -290,6 +291,7 @@
 		4EDC3D4A2C312850006A1493 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
 		4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarViewController.swift; sourceTree = "<group>"; };
 		4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapListButton.swift; sourceTree = "<group>"; };
+		4EFCDFD92C8F3721006DEBB6 /* CouponCodeInputPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponCodeInputPopupViewController.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		872F4BAD2C68C1F600284DE0 /* AcquiredCharactersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharactersView.swift; sourceTree = "<group>"; };
 		872F4BB02C68C43800284DE0 /* AcquiredCharactersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharactersCell.swift; sourceTree = "<group>"; };
@@ -351,13 +353,13 @@
 		D06466952C86F69F00CF10FD /* LogoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutView.swift; sourceTree = "<group>"; };
 		D06466992C86FCDB00CF10FD /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewController.swift; sourceTree = "<group>"; };
 		D064669B2C86FCE800CF10FD /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
+		D064669E2C898E9D00CF10FD /* EmblemListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmblemListResponseDTO.swift; sourceTree = "<group>"; };
+		D06466A02C89CB5200CF10FD /* UserInfoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoResponseDTO.swift; sourceTree = "<group>"; };
 		D06466A22C89EF6B00CF10FD /* DeleteAccountRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountRequestDTO.swift; sourceTree = "<group>"; };
 		D06466A42C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountResponseDTO.swift; sourceTree = "<group>"; };
 		D06466A62C8A05F100CF10FD /* MarketingConsentResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketingConsentResponseDTO.swift; sourceTree = "<group>"; };
 		D06466A92C8A08E500CF10FD /* MarketingConsentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketingConsentViewController.swift; sourceTree = "<group>"; };
 		D06466AB2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketingConsentRequestDTO.swift; sourceTree = "<group>"; };
-		D06466A02C89CB5200CF10FD /* UserInfoResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoResponseDTO.swift; sourceTree = "<group>"; };
-		D064669E2C898E9D00CF10FD /* EmblemListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmblemListResponseDTO.swift; sourceTree = "<group>"; };
 		D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Optician-Sans.otf"; sourceTree = "<group>"; };
 		D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		D06D26C22C3D835300E79F25 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -1181,6 +1183,7 @@
 			children = (
 				8791EDF52C7E121400E7F8B9 /* AcquiredCouponViewController.swift */,
 				8791EDF72C7E1D2B00E7F8B9 /* CouponDetailViewController.swift */,
+				4EFCDFD92C8F3721006DEBB6 /* CouponCodeInputPopupViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2255,6 +2258,7 @@
 				D0E7965B2C455118005B47A5 /* EmblemService.swift in Sources */,
 				4E08B9622C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift in Sources */,
 				4E08B9572C5DF0920082EFB8 /* PlaceListViewController.swift in Sources */,
+				4EFCDFDA2C8F3721006DEBB6 /* CouponCodeInputPopupViewController.swift in Sources */,
 				D0E7964C2C4539FC005B47A5 /* RegisteredPlaceResponseDTO.swift in Sources */,
 				4E3BB6842C4737030076105C /* PlaceInfoPopupViewController.swift in Sources */,
 				D06466A72C8A05F100CF10FD /* MarketingConsentResponseDTO.swift in Sources */,

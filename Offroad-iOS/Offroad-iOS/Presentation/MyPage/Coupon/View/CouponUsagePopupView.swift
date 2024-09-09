@@ -24,7 +24,7 @@ final class CouponUsagePopupView: UIView {
     
     let popupView = UIView()
     private let usageTitleLabel = UILabel()
-     let closeButton = UIButton()
+    let closeButton = UIButton()
     private let usageDescriptionLabel = UILabel()
     let codeTextField = UITextField()
     let checkButton = StateToggleButton(state: .isDisabled, title: "확인")
