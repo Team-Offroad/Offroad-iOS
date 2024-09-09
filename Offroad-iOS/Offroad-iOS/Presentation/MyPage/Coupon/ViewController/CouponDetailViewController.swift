@@ -109,7 +109,8 @@ extension CouponDetailViewController {
     }
     
     @objc private func didTapUseButton() {
-        presentCouponUsagePopupView()
+        //presentCouponUsagePopupView()
+        present(CouponCodeInputPopupViewController(), animated: false)
     }
     
     @objc private func closeButtonTapped() {
