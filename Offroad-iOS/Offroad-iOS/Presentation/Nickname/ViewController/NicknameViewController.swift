@@ -126,7 +126,7 @@ extension NicknameViewController {
     //MARK: - Private Func
     
     private func setupTarget() {
-        nicknameView.checkButton.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
+        nicknameView.checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
         nicknameView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         nicknameView.nextButton.addTarget(self, action: #selector(buttonToBirthVC), for: .touchUpInside)
     }
