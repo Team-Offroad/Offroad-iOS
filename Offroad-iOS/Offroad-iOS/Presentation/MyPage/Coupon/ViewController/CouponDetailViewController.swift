@@ -55,7 +55,7 @@ class CouponDetailViewController: UIViewController {
         couponDetailView.useButton.addTarget(self, action: #selector(didTapUseButton), for: .touchUpInside)
         couponDetailView.couponUsagePopupView.couponCodeTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         couponDetailView.couponUsagePopupView.closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
-        couponDetailView.couponUsagePopupView.okButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
+        couponDetailView.couponUsagePopupView.okButton.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
         
         
         setupCloseButton { [weak self] in
@@ -117,7 +117,7 @@ extension CouponDetailViewController {
         dismissPopupView()
     }
     
-    @objc private func checkButtonTapped() {
+    @objc private func okButtonTapped() {
         couponDetailView.couponUsagePopupView.closeButtonAction?()
         dismissPopupView()
     }
