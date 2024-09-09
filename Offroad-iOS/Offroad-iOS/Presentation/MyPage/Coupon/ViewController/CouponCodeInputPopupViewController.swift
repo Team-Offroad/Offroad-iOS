@@ -8,7 +8,19 @@
 import UIKit
 
 class CouponCodeInputPopupViewController: UIViewController {
-
+    
+    //MARK: - Properties
+    
+    //MARK: - UI Properties
+    
+    let rootView = CouponCodeInputPopupView()
+    
+    //MARK: - Life Cycle
+    
+    override func loadView() {
+        view = rootView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -53,9 +53,9 @@ class CouponDetailViewController: UIViewController {
     private func setupTarget() {
         couponDetailView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         couponDetailView.useButton.addTarget(self, action: #selector(didTapUseButton), for: .touchUpInside)
-        couponDetailView.couponUsagePopupView.codeTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        couponDetailView.couponUsagePopupView.couponCodeTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         couponDetailView.couponUsagePopupView.closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
-        couponDetailView.couponUsagePopupView.checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
+        couponDetailView.couponUsagePopupView.okButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
         
         
         setupCloseButton { [weak self] in
@@ -100,12 +100,12 @@ extension CouponDetailViewController {
     }
     
     @objc private func textFieldDidChange() {
-        let isTextFieldEmpty = couponDetailView.couponUsagePopupView.codeTextField.text?.isEmpty ?? true
+        let isTextFieldEmpty = couponDetailView.couponUsagePopupView.couponCodeTextField.text?.isEmpty ?? true
         
         if isTextFieldEmpty {
-            couponDetailView.couponUsagePopupView.checkButton.changeState(forState: .isDisabled)
+            couponDetailView.couponUsagePopupView.okButton.changeState(forState: .isDisabled)
         } else {
-            couponDetailView.couponUsagePopupView.checkButton.changeState(forState: .isEnabled)            }
+            couponDetailView.couponUsagePopupView.okButton.changeState(forState: .isEnabled)            }
     }
     
     @objc private func didTapUseButton() {

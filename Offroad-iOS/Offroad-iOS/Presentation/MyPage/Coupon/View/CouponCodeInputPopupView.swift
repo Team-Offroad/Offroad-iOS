@@ -20,14 +20,17 @@ final class CouponCodeInputPopupView: UIView {
     var enterCodeAction: EnterCodeAction?
     var closeButtonAction: CloseButtonAction?
     
+    var screenSize: CGSize { return UIScreen.current.bounds.size }
+    lazy var popupViewCenterYConstraint = popupView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+    
     //MARK: - UI Properties
     
     let popupView = UIView()
-    private let usageTitleLabel = UILabel()
+    private let popupTitleLabel = UILabel()
     let closeButton = UIButton()
-    private let usageDescriptionLabel = UILabel()
-    let codeTextField = UITextField()
-    let checkButton = StateToggleButton(state: .isDisabled, title: "확인")
+    private let popupDescriptionLabel = UILabel()
+    let couponCodeTextField = UITextField()
+    let okButton = StateToggleButton(state: .isDisabled, title: "확인")
     
     // MARK: - Life Cycle
     
@@ -57,19 +60,21 @@ extension CouponCodeInputPopupView {
             $0.alpha = 0
         }
         
-        usageTitleLabel.do {
+        popupTitleLabel.do {
             $0.text = "쿠폰 사용"
             $0.textColor = UIColor.main(.main2)
             $0.font = UIFont.offroad(style: .iosTextTitle)
+            $0.textAlignment = .center
         }
         
-        usageDescriptionLabel.do {
+        popupDescriptionLabel.do {
             $0.text = "코드를 입력 후 사장님에게 보여주세요."
             $0.font = UIFont.offroad(style: .iosTextRegular)
             $0.textColor = UIColor.main(.main2)
+            $0.textAlignment = .center
         }
         
-        codeTextField.do {
+        couponCodeTextField.do {
             $0.layer.cornerRadius = 5
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.grayscale(.gray200).cgColor
@@ -94,49 +99,46 @@ extension CouponCodeInputPopupView {
     private func setupHierarchy() {
         addSubview(popupView)
         popupView.addSubviews(
-            usageTitleLabel,
+            popupTitleLabel,
             closeButton,
-            usageDescriptionLabel,
-            codeTextField,
-            checkButton
+            popupDescriptionLabel,
+            couponCodeTextField,
+            okButton
         )
     }
     
     private func setupLayout() {
         popupView.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(24)
             $0.height.equalTo(240)
-            $0.width.equalTo(345)
-            $0.center.equalToSuperview()
         }
+        popupViewCenterYConstraint.isActive = true
         
-        usageTitleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
+        popupTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(29)
+            $0.horizontalEdges.equalToSuperview().inset(46)
         }
         
-        usageDescriptionLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(usageTitleLabel.snp.bottom).offset(18)
+        popupDescriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(popupTitleLabel.snp.bottom).offset(18)
+            $0.horizontalEdges.equalToSuperview().inset(46)
         }
         
-        codeTextField.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(usageDescriptionLabel.snp.bottom).offset(10)
-            $0.width.equalTo(usageDescriptionLabel)
+        couponCodeTextField.snp.makeConstraints {
+            $0.top.equalTo(popupDescriptionLabel.snp.bottom).offset(10)
+            $0.horizontalEdges.equalToSuperview().inset(46)
             $0.height.equalTo(43)
         }
         
         closeButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(13)
-            $0.trailing.equalToSuperview().inset(12)
-            $0.height.width.equalTo(44)
+            $0.top.trailing.equalToSuperview().inset(12)
+            $0.size.equalTo(44)
         }
         
-        checkButton.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(codeTextField.snp.bottom).offset(18)
+        okButton.snp.makeConstraints {
+            $0.top.equalTo(couponCodeTextField.snp.bottom).offset(18)
+            $0.horizontalEdges.equalToSuperview().inset(46)
             $0.height.equalTo(44)
-            $0.width.equalTo(usageDescriptionLabel)
         }
     }
 }
