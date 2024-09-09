@@ -14,7 +14,7 @@ final class CouponDetailView: UIView {
     
     // MARK: - Properties
     
-    let couponUsagePopupView = CouponUsagePopupView().then {
+    let couponUsagePopupView = CouponCodeInputPopupView().then {
         $0.isHidden = true
     }
     

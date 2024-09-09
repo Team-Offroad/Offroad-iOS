@@ -76,7 +76,7 @@ class CouponDetailViewController: UIViewController {
         }
     }
     
-    private func setupCloseButton(action: @escaping CouponUsagePopupView.CloseButtonAction) {
+    private func setupCloseButton(action: @escaping CouponCodeInputPopupView.CloseButtonAction) {
         couponDetailView.couponUsagePopupView.closeButtonAction = action
     }
     

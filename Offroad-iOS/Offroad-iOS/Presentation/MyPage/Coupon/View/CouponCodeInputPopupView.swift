@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class CouponUsagePopupView: UIView {
+final class CouponCodeInputPopupView: UIView {
     
     //MARK: - Properties
     
@@ -44,7 +44,7 @@ final class CouponUsagePopupView: UIView {
     }
 }
 
-extension CouponUsagePopupView {
+extension CouponCodeInputPopupView {
     
     // MARK: - Private Func
     
