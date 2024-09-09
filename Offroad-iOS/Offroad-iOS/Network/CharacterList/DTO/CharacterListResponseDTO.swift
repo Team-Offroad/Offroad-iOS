@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct AcquiredCharacterResponseDTO: Codable {
+struct CharacterListResponseDTO: Codable {
     let message: String
-    let data: AcquiredCharacterInfo
+    let data: CharacterListInfo
 }
 
-struct AcquiredCharacterInfo: Codable {
+struct CharacterListInfo: Codable {
     let gainedCharacters: [GainedCharacter]
     let notGainedCharacters: [NotGainedCharacter]
 }

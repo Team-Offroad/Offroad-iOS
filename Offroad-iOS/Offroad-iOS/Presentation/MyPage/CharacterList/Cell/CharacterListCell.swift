@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-class AcquiredCharactersCell: UICollectionViewCell {
+class CharacterListCell: UICollectionViewCell {
     
     // MARK: - UI Properties
     

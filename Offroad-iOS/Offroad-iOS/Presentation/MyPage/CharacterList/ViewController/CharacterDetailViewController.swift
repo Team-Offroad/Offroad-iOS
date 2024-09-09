@@ -38,13 +38,6 @@ final class CharacterDetailViewController: UIViewController {
         setupUIBasedOnImageName()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
-        offroadTabBarController.hideTabBarAnimation()
-    }
-    
     // MARK: - Private Func
     
     private func setupTarget() {

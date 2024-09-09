@@ -77,15 +77,15 @@
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
 		4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */; };
-		872F4BAE2C68C1F600284DE0 /* AcquiredCharactersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BAD2C68C1F600284DE0 /* AcquiredCharactersView.swift */; };
-		872F4BB12C68C43800284DE0 /* AcquiredCharactersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB02C68C43800284DE0 /* AcquiredCharactersCell.swift */; };
-		872F4BB52C68D66200284DE0 /* AcquiredCharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB42C68D66200284DE0 /* AcquiredCharactersViewController.swift */; };
+		872F4BAE2C68C1F600284DE0 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */; };
+		872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB02C68C43800284DE0 /* CharacterListCell.swift */; };
+		872F4BB52C68D66200284DE0 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB42C68D66200284DE0 /* CharacterListViewController.swift */; };
 		872F4BB72C6B809800284DE0 /* CharacterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB62C6B809800284DE0 /* CharacterDetailViewController.swift */; };
 		872F4BB92C6B80A600284DE0 /* CharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB82C6B80A600284DE0 /* CharacterDetailView.swift */; };
 		872F4BBB2C6B917800284DE0 /* CharacterDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BBA2C6B917800284DE0 /* CharacterDetailCell.swift */; };
-		87738CBA2C8C1B0500E107C7 /* AcquiredCharacterResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CB92C8C1B0500E107C7 /* AcquiredCharacterResponseDTO.swift */; };
-		87738CC02C8CB2F100E107C7 /* AcquiredCharacterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CBF2C8CB2F100E107C7 /* AcquiredCharacterAPI.swift */; };
-		87738CC22C8CB33600E107C7 /* AcquiredCharacterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CC12C8CB33600E107C7 /* AcquiredCharacterService.swift */; };
+		87738CBA2C8C1B0500E107C7 /* CharacterListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CB92C8C1B0500E107C7 /* CharacterListResponseDTO.swift */; };
+		87738CC02C8CB2F100E107C7 /* CharacterListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CBF2C8CB2F100E107C7 /* CharacterListAPI.swift */; };
+		87738CC22C8CB33600E107C7 /* CharacterListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CC12C8CB33600E107C7 /* CharacterListService.swift */; };
 		87738CD02C8DC15200E107C7 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CCF2C8DC15200E107C7 /* UIColor+.swift */; };
 		8791EDF22C7E118900E7F8B9 /* AcquiredCouponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF12C7E118900E7F8B9 /* AcquiredCouponCell.swift */; };
 		8791EDF42C7E11E000E7F8B9 /* AcquiredCouponView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF32C7E11E000E7F8B9 /* AcquiredCouponView.swift */; };
@@ -295,15 +295,15 @@
 		4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarViewController.swift; sourceTree = "<group>"; };
 		4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapListButton.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
-		872F4BAD2C68C1F600284DE0 /* AcquiredCharactersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharactersView.swift; sourceTree = "<group>"; };
-		872F4BB02C68C43800284DE0 /* AcquiredCharactersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharactersCell.swift; sourceTree = "<group>"; };
-		872F4BB42C68D66200284DE0 /* AcquiredCharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharactersViewController.swift; sourceTree = "<group>"; };
+		872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
+		872F4BB02C68C43800284DE0 /* CharacterListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListCell.swift; sourceTree = "<group>"; };
+		872F4BB42C68D66200284DE0 /* CharacterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewController.swift; sourceTree = "<group>"; };
 		872F4BB62C6B809800284DE0 /* CharacterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewController.swift; sourceTree = "<group>"; };
 		872F4BB82C6B80A600284DE0 /* CharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailView.swift; sourceTree = "<group>"; };
 		872F4BBA2C6B917800284DE0 /* CharacterDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailCell.swift; sourceTree = "<group>"; };
-		87738CB92C8C1B0500E107C7 /* AcquiredCharacterResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharacterResponseDTO.swift; sourceTree = "<group>"; };
-		87738CBF2C8CB2F100E107C7 /* AcquiredCharacterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharacterAPI.swift; sourceTree = "<group>"; };
-		87738CC12C8CB33600E107C7 /* AcquiredCharacterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCharacterService.swift; sourceTree = "<group>"; };
+		87738CB92C8C1B0500E107C7 /* CharacterListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListResponseDTO.swift; sourceTree = "<group>"; };
+		87738CBF2C8CB2F100E107C7 /* CharacterListAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListAPI.swift; sourceTree = "<group>"; };
+		87738CC12C8CB33600E107C7 /* CharacterListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListService.swift; sourceTree = "<group>"; };
 		87738CCF2C8DC15200E107C7 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		8791EDF12C7E118900E7F8B9 /* AcquiredCouponCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCouponCell.swift; sourceTree = "<group>"; };
 		8791EDF32C7E11E000E7F8B9 /* AcquiredCouponView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredCouponView.swift; sourceTree = "<group>"; };
@@ -589,7 +589,7 @@
 			isa = PBXGroup;
 			children = (
 				4E58FBFD2C7DFE40002A951B /* QuestList */,
-				87738CB62C8C1AB800E107C7 /* AcquiredCharacter */,
+				87738CB62C8C1AB800E107C7 /* CharacterList */,
 				4E0394672C2AA132007F0517 /* Base */,
 				4E0394682C2AA135007F0517 /* Auth */,
 				4E0394692C2AA13A007F0517 /* Profile */,
@@ -757,7 +757,7 @@
 				D03C83602C620AE300F3094D /* Model */,
 				D03C835F2C620AC800F3094D /* View */,
 				4EA90AC42C4521AF0046A6E1 /* ViewControllers */,
-				4E0394782C2AA767007F0517 /* Character */,
+				4E0394782C2AA767007F0517 /* CharacterList */,
 				4E0394792C2AA783007F0517 /* Coupon */,
 				4E03947A2C2AA78B007F0517 /* Title */,
 				4E03947B2C2AA7EF007F0517 /* Settings */,
@@ -765,14 +765,14 @@
 			path = MyPage;
 			sourceTree = "<group>";
 		};
-		4E0394782C2AA767007F0517 /* Character */ = {
+		4E0394782C2AA767007F0517 /* CharacterList */ = {
 			isa = PBXGroup;
 			children = (
 				872F4BAF2C68C42500284DE0 /* Cell */,
 				872F4BAA2C68C1B400284DE0 /* ViewController */,
 				872F4BA92C68C1AA00284DE0 /* View */,
 			);
-			path = Character;
+			path = CharacterList;
 			sourceTree = "<group>";
 		};
 		4E0394792C2AA783007F0517 /* Coupon */ = {
@@ -1144,7 +1144,7 @@
 		872F4BA92C68C1AA00284DE0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				872F4BAD2C68C1F600284DE0 /* AcquiredCharactersView.swift */,
+				872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */,
 				872F4BB82C6B80A600284DE0 /* CharacterDetailView.swift */,
 			);
 			path = View;
@@ -1154,7 +1154,7 @@
 			isa = PBXGroup;
 			children = (
 				872F4BB62C6B809800284DE0 /* CharacterDetailViewController.swift */,
-				872F4BB42C68D66200284DE0 /* AcquiredCharactersViewController.swift */,
+				872F4BB42C68D66200284DE0 /* CharacterListViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1162,20 +1162,20 @@
 		872F4BAF2C68C42500284DE0 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				872F4BB02C68C43800284DE0 /* AcquiredCharactersCell.swift */,
+				872F4BB02C68C43800284DE0 /* CharacterListCell.swift */,
 				872F4BBA2C6B917800284DE0 /* CharacterDetailCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		87738CB62C8C1AB800E107C7 /* AcquiredCharacter */ = {
+		87738CB62C8C1AB800E107C7 /* CharacterList */ = {
 			isa = PBXGroup;
 			children = (
 				87738CB72C8C1AE300E107C7 /* DTO */,
-				87738CBF2C8CB2F100E107C7 /* AcquiredCharacterAPI.swift */,
-				87738CC12C8CB33600E107C7 /* AcquiredCharacterService.swift */,
+				87738CBF2C8CB2F100E107C7 /* CharacterListAPI.swift */,
+				87738CC12C8CB33600E107C7 /* CharacterListService.swift */,
 			);
-			path = AcquiredCharacter;
+			path = CharacterList;
 			sourceTree = "<group>";
 		};
 		87738CB72C8C1AE300E107C7 /* DTO */ = {
@@ -1189,7 +1189,7 @@
 		87738CB82C8C1AED00E107C7 /* Response */ = {
 			isa = PBXGroup;
 			children = (
-				87738CB92C8C1B0500E107C7 /* AcquiredCharacterResponseDTO.swift */,
+				87738CB92C8C1B0500E107C7 /* CharacterListResponseDTO.swift */,
 			);
 			name = Response;
 			sourceTree = "<group>";
@@ -2188,7 +2188,7 @@
 				D06466A12C89CB5200CF10FD /* UserInfoResponseDTO.swift in Sources */,
 				872F4BBB2C6B917800284DE0 /* CharacterDetailCell.swift in Sources */,
 				D0E7963D2C453787005B47A5 /* QuestService.swift in Sources */,
-				87738CC22C8CB33600E107C7 /* AcquiredCharacterService.swift in Sources */,
+				87738CC22C8CB33600E107C7 /* CharacterListService.swift in Sources */,
 				D0E796082C45229B005B47A5 /* MoyaPlugin.swift in Sources */,
 				D00A48712C63443F008B286A /* NoticeView.swift in Sources */,
 				D0B81AA22C47180800C44ED9 /* ChoosingCharacterPopupView.swift in Sources */,
@@ -2256,7 +2256,7 @@
 				4E08B9592C5DF0B20082EFB8 /* PlaceListView.swift in Sources */,
 				D0E7962D2C4535A5005B47A5 /* NicknameAPI.swift in Sources */,
 				4E0394E32C2AC0D7007F0517 /* UIWindow+.swift in Sources */,
-				872F4BAE2C68C1F600284DE0 /* AcquiredCharactersView.swift in Sources */,
+				872F4BAE2C68C1F600284DE0 /* CharacterListView.swift in Sources */,
 				4E0394DD2C2ABEF2007F0517 /* UITextField+.swift in Sources */,
 				D06466A52C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift in Sources */,
 				D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */,
@@ -2268,8 +2268,8 @@
 				D063E9922C57FE7400434A09 /* KeychainManager.swift in Sources */,
 				D00A485B2C628054008B286A /* MyPageMenuCollectionViewCell.swift in Sources */,
 				D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */,
-				872F4BB12C68C43800284DE0 /* AcquiredCharactersCell.swift in Sources */,
-				87738CC02C8CB2F100E107C7 /* AcquiredCharacterAPI.swift in Sources */,
+				872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */,
+				87738CC02C8CB2F100E107C7 /* CharacterListAPI.swift in Sources */,
 				D0E796672C455467005B47A5 /* CharacterInfoResponseDTO.swift in Sources */,
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
 				D0E796372C4536F4005B47A5 /* CharacterService.swift in Sources */,
@@ -2301,14 +2301,14 @@
 				4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */,
 				8792D01E2C3E872D002051AC /* ChoosingCharacterView.swift in Sources */,
 				8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */,
-				87738CBA2C8C1B0500E107C7 /* AcquiredCharacterResponseDTO.swift in Sources */,
+				87738CBA2C8C1B0500E107C7 /* CharacterListResponseDTO.swift in Sources */,
 				D0E796412C4537DE005B47A5 /* QuestInfoResponseDTO.swift in Sources */,
 				D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */,
 				D00A48822C6E5D92008B286A /* NoticePostViewController.swift in Sources */,
 				879F62E82C89A56200FEC5BE /* CouponDetailView.swift in Sources */,
 				D0E7962B2C45346A005B47A5 /* ProfileUpdateResponseDTO.swift in Sources */,
 				D00A48842C6E5DA7008B286A /* NoticePostView.swift in Sources */,
-				872F4BB52C68D66200284DE0 /* AcquiredCharactersViewController.swift in Sources */,
+				872F4BB52C68D66200284DE0 /* CharacterListViewController.swift in Sources */,
 				D064668E2C7F127A00CF10FD /* TermsModel.swift in Sources */,
 				4E59A11C2C4228C500B548C6 /* AVCameraPreview.swift in Sources */,
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
