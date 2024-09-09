@@ -19,7 +19,7 @@ class AcquiredCharactersCell: UICollectionViewCell {
         $0.clipsToBounds = true
     }
     
-    private var imageView = UIImageView().then {
+    private var acqiredCharacterImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
     }
     
@@ -52,6 +52,7 @@ class AcquiredCharactersCell: UICollectionViewCell {
         super.init(frame: frame)
         
         setupHierarchy()
+        setupStyle()
         setupLayout()
     }
     
@@ -64,19 +65,20 @@ class AcquiredCharactersCell: UICollectionViewCell {
     private func setupHierarchy() {
         contentView.addSubviews(containerView, characterLabel, shadowView, newBadgeView)
         shadowView.addSubview(lockImageView)
-        containerView.addSubview(imageView)
+        containerView.addSubview(acqiredCharacterImageView)
+    }
+    
+    private func setupStyle() {
+        contentView.roundCorners(cornerRadius: 10)
     }
     
     private func setupLayout() {
-        contentView.layer.cornerRadius = 10
-        contentView.clipsToBounds = true
-        
         containerView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.horizontalEdges.equalTo(contentView).inset(10)
         }
         
-        imageView.snp.makeConstraints { make in
+        acqiredCharacterImageView.snp.makeConstraints { make in
             make.width.equalTo(81)
             make.height.equalTo(147)
             make.centerX.centerY.equalToSuperview()
@@ -108,8 +110,8 @@ class AcquiredCharactersCell: UICollectionViewCell {
     
     //MARK: - Func
     
-    func gainedCharacterCell(data: GainedCharacterList) {
-        imageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
+    func gainedCharacterCell(data: GainedCharacter) {
+        acqiredCharacterImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
         characterLabel.text = data.characterName
         contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
         containerView.backgroundColor = UIColor(hex: data.characterSubColorCode)
@@ -117,13 +119,11 @@ class AcquiredCharactersCell: UICollectionViewCell {
         shadowView.isHidden = true
         lockImageView.isHidden = true
         
-        if data.isNewGained {
-            newBadgeView.isHidden = false
-        }
+        newBadgeView.isHidden = !data.isNewGained
     }
     
-    func notGainedCharacterCell(data: NotGainedCharacterList) {
-        imageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
+    func notGainedCharacterCell(data: NotGainedCharacter) {
+        acqiredCharacterImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
         characterLabel.text = data.characterName
         contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
         containerView.backgroundColor = UIColor(hex: data.characterSubColorCode)

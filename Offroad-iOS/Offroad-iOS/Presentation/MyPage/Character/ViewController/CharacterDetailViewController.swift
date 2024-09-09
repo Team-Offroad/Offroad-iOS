@@ -12,7 +12,7 @@ final class CharacterDetailViewController: UIViewController {
     // MARK: - Properties
     
     private var imageName: String
-
+    
     private let characterDetailView = CharacterDetailView()
     
     // MARK: - Life Cycle
@@ -36,6 +36,13 @@ final class CharacterDetailViewController: UIViewController {
         setupTarget()
         setupDelegate()
         setupUIBasedOnImageName()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+        offroadTabBarController.hideTabBarAnimation()
     }
     
     // MARK: - Private Func

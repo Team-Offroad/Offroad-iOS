@@ -14,8 +14,8 @@ final class AcquiredCharactersViewController: UIViewController {
     private let acquiredCharactersView = AcquiredCharactersView()
     private var combinedCharacterList: [(isGained: Bool, character: Any)] = []
     
-    private var gainedCharacterList: [GainedCharacterList]?
-    private var notGainedCharacterList: [NotGainedCharacterList]?
+    private var gainedCharacter: [GainedCharacter]?
+    private var notGainedCharacter: [NotGainedCharacter]?
     
     // MARK: - Life Cycle
     
@@ -46,16 +46,16 @@ final class AcquiredCharactersViewController: UIViewController {
         NetworkService.shared.acquiredCharacterService.getAcquiredCharacterInfo { response in
             switch response {
             case .success(let data):
-                self.gainedCharacterList = data?.data.gainedCharacters
-                self.notGainedCharacterList = data?.data.notGainedCharacters
+                self.gainedCharacter = data?.data.gainedCharacters
+                self.notGainedCharacter = data?.data.notGainedCharacters
                 
-                //gainedCharacterList와 notGainedCharacterList 통합한 배열
+                //gainedCharacter와 notGainedCharacter 통합한 배열
                 //isGained로 획득 여부 표현
                 self.combinedCharacterList = []
-                self.gainedCharacterList?.forEach { gainedCharacter in
+                self.gainedCharacter?.forEach { gainedCharacter in
                     self.combinedCharacterList.append((isGained: true, character: gainedCharacter))
                 }
-                self.notGainedCharacterList?.forEach { notGainedCharacter in
+                self.notGainedCharacter?.forEach { notGainedCharacter in
                     self.combinedCharacterList.append((isGained: false, character: notGainedCharacter))
                 }
                 
@@ -80,9 +80,9 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AcquiredCharactersCell", for: indexPath) as! AcquiredCharactersCell
         let characterData = combinedCharacterList[indexPath.item]
-        if characterData.isGained, let gainedCharacter = characterData.character as? GainedCharacterList {
+        if characterData.isGained, let gainedCharacter = characterData.character as? GainedCharacter {
             cell.gainedCharacterCell(data: gainedCharacter)
-        } else if let notGainedCharacter = characterData.character as? NotGainedCharacterList {
+        } else if let notGainedCharacter = characterData.character as? NotGainedCharacter {
             cell.notGainedCharacterCell(data: notGainedCharacter)
         }
         return cell
@@ -93,10 +93,10 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
         let characterData = combinedCharacterList[indexPath.item]
         
         self.combinedCharacterList = []
-        self.gainedCharacterList?.forEach { gainedCharacter in
+        self.gainedCharacter?.forEach { gainedCharacter in
             self.combinedCharacterList.append((isGained: true, character: gainedCharacter))
         }
-        self.notGainedCharacterList?.forEach { notGainedCharacter in
+        self.notGainedCharacter?.forEach { notGainedCharacter in
             self.combinedCharacterList.append((isGained: false, character: notGainedCharacter))
         }
         
@@ -112,9 +112,9 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
         
         let detailViewController: CharacterDetailViewController
         
-        if characterData.isGained, let gainedCharacter = characterData.character as? GainedCharacterList {
+        if characterData.isGained, let gainedCharacter = characterData.character as? GainedCharacter {
             detailViewController = CharacterDetailViewController(imageName: gainedCharacter.characterThumbnailImageUrl)
-        } else if let notGainedCharacter = characterData.character as? NotGainedCharacterList {
+        } else if let notGainedCharacter = characterData.character as? NotGainedCharacter {
             detailViewController = CharacterDetailViewController(imageName: notGainedCharacter.characterThumbnailImageUrl)
         } else {
             return
