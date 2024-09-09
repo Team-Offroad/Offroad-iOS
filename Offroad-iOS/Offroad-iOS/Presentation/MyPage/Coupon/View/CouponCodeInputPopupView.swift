@@ -52,7 +52,7 @@ extension CouponCodeInputPopupView {
     // MARK: - Private Func
     
     private func setupStyle() {
-        //backgroundColor = .blackOpacity(.black55)
+        backgroundColor = .clear
         
         popupView.do {
             $0.backgroundColor = UIColor.main(.main3)
