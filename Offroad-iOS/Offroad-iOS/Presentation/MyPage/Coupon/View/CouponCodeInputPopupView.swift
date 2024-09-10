@@ -24,7 +24,8 @@ final class CouponCodeInputPopupView: UIView {
     //lazy var popupViewCenterYConstraint = popupView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
     lazy var popupViewBottomConstraint = popupView.bottomAnchor.constraint(
         equalTo: self.bottomAnchor,
-        constant: -(screenSize.height/2 - 120)
+        //constant: -(screenSize.height/2 - 120)
+        constant: 0
     )
     
     //MARK: - UI Properties

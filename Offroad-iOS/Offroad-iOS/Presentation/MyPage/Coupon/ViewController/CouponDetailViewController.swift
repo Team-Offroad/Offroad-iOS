@@ -80,7 +80,8 @@ extension CouponDetailViewController {
     
     @objc private func didTapUseButton() {
         //presentCouponUsagePopupView()
-        present(CouponCodeInputPopupViewController(), animated: false)
+        let popupViewController = CouponCodeInputPopupViewController()
+        present(popupViewController, animated: false)
     }
     
 }
