@@ -15,7 +15,7 @@ class CharacterListCell: UICollectionViewCell {
     // MARK: - UI Properties
     
     private let containerView = UIView().then {
-        $0.layer.cornerRadius = 10
+        $0.roundCorners(cornerRadius: 10)
         $0.clipsToBounds = true
     }
     

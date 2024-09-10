@@ -141,7 +141,8 @@ extension NicknameViewController {
         button.isEnabled = isEnabled
         button.setTitleColor(.primary(.white), for: .normal)
         button.backgroundColor = isEnabled ? .primary(.black) : .blackOpacity(.black15)
-        button.layer.cornerRadius = 5
+        button.roundCorners(cornerRadius: 5)
+
     }
     
     private func configureTextFieldStyle(_ textField: UITextField, isEmpty: Bool) {

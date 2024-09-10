@@ -14,7 +14,7 @@ class CharacterDetailCell: UICollectionViewCell {
     
     let containerView = UIView().then {
         $0.backgroundColor = UIColor.primary(.characterSelectBg3)
-        $0.layer.cornerRadius = 10
+        $0.roundCorners(cornerRadius: 10)
         $0.clipsToBounds = true
     }
     
@@ -79,7 +79,8 @@ class CharacterDetailCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
-        contentView.layer.cornerRadius = 10
+        contentView.roundCorners(cornerRadius: 10)
+
         contentView.clipsToBounds = true
         
         containerView.snp.makeConstraints { make in

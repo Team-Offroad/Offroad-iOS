@@ -95,7 +95,7 @@ class CharacterDetailView: UIView {
         $0.backgroundColor = UIColor.home(.homeBg)
         $0.setTitleColor(UIColor.main(.main1), for: .normal)
         $0.titleLabel?.font = UIFont.offroad(style: .iosTextContents)
-        $0.layer.cornerRadius = 20
+        $0.roundCorners(cornerRadius: 20)
     }
     
     private let characterMotionView = UIView().then {
