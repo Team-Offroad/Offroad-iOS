@@ -9,38 +9,38 @@ import Foundation
 
 import Moya
 
-enum AcquiredCharacterAPI {
-    case getAcquiredCharacterInfo
+enum CharacterListAPI {
+    case getCharacterListInfo
 }
 
-extension AcquiredCharacterAPI: BaseTargetType {
+extension CharacterListAPI: BaseTargetType {
 
     var headerType: HeaderType { return .accessTokenHeaderForGet }
     
     var parameter: [String : Any]? {
         switch self {
-        case .getAcquiredCharacterInfo:
+        case .getCharacterListInfo:
             return .none
         }
     }
     
     var path: String {
         switch self {
-        case .getAcquiredCharacterInfo:
+        case .getCharacterListInfo:
             return "/users/characters"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getAcquiredCharacterInfo:
+        case .getCharacterListInfo:
             return .get
         }
     }
     
     var task: Moya.Task {
         switch self {
-        case .getAcquiredCharacterInfo:
+        case .getCharacterListInfo:
             return .requestPlain
         }
     }

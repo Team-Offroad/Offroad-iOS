@@ -84,8 +84,8 @@ extension MyPageViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.item {
         case 0:
-            let acquiredCharactersViewController = AcquiredCharactersViewController()
-            self.navigationController?.pushViewController(acquiredCharactersViewController, animated: true)
+            let characterListViewController = CharacterListViewController()
+            self.navigationController?.pushViewController(characterListViewController, animated: true)
         case 1:
             let acquiredCouponViewController = AcquiredCouponViewController()
             self.navigationController?.pushViewController(acquiredCouponViewController, animated: true)

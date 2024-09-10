@@ -7,20 +7,24 @@
 
 import UIKit
 
-final class AcquiredCharactersViewController: UIViewController {
+final class CharacterListViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let acquiredCharactersView = AcquiredCharactersView()
-    private var combinedCharacterList: [(isGained: Bool, character: Any)] = []
+    private let characterListView = CharacterListView()
+    private var combinedCharacterList: [(isGained: Bool, character: Any)] = [] {
+        didSet {
+            characterListView.collectionView.reloadData()
+        }
+    }
     
-    private var gainedCharacterList: [GainedCharacterList]?
-    private var notGainedCharacterList: [NotGainedCharacterList]?
+    private var gainedCharacter: [GainedCharacter]?
+    private var notGainedCharacter: [NotGainedCharacter]?
     
     // MARK: - Life Cycle
     
     override func loadView() {
-        self.view = acquiredCharactersView
+        self.view = characterListView
     }
     
     override func viewDidLoad() {
@@ -28,40 +32,44 @@ final class AcquiredCharactersViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
-        getAcquiredCharacterInfo()
+        getCharacterListInfo()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+        offroadTabBarController.hideTabBarAnimation()
     }
     
     // MARK: - Private Func
     
     private func setupTarget() {
-        acquiredCharactersView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        characterListView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
     private func setupDelegate() {
-        acquiredCharactersView.collectionView.delegate = self
-        acquiredCharactersView.collectionView.dataSource = self
+        characterListView.collectionView.delegate = self
+        characterListView.collectionView.dataSource = self
     }
     
-    func getAcquiredCharacterInfo() {
-        NetworkService.shared.acquiredCharacterService.getAcquiredCharacterInfo { response in
+    func getCharacterListInfo() {
+        NetworkService.shared.characterListService.getCharacterListInfo { response in
             switch response {
             case .success(let data):
-                self.gainedCharacterList = data?.data.gainedCharacters
-                self.notGainedCharacterList = data?.data.notGainedCharacters
+                self.gainedCharacter = data?.data.gainedCharacters
+                self.notGainedCharacter = data?.data.notGainedCharacters
                 
-                //gainedCharacterList와 notGainedCharacterList 통합한 배열
+                //gainedCharacter와 notGainedCharacter 통합한 업데이트된 배열
                 //isGained로 획득 여부 표현
-                self.combinedCharacterList = []
-                self.gainedCharacterList?.forEach { gainedCharacter in
-                    self.combinedCharacterList.append((isGained: true, character: gainedCharacter))
+                var newCombinedList: [(isGained: Bool, character: Any)] = []
+                self.gainedCharacter?.forEach { gainedCharacter in
+                    newCombinedList.append((isGained: true, character: gainedCharacter))
                 }
-                self.notGainedCharacterList?.forEach { notGainedCharacter in
-                    self.combinedCharacterList.append((isGained: false, character: notGainedCharacter))
+                self.notGainedCharacter?.forEach { notGainedCharacter in
+                    newCombinedList.append((isGained: false, character: notGainedCharacter))
                 }
-                
-                DispatchQueue.main.async {
-                    self.acquiredCharactersView.collectionView.reloadData()
-                }
+                self.combinedCharacterList = newCombinedList
             default:
                 break
             }
@@ -69,7 +77,7 @@ final class AcquiredCharactersViewController: UIViewController {
     }
 }
 
-extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension CharacterListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     // MARK: - CollectionView Func
     
@@ -78,11 +86,11 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AcquiredCharactersCell", for: indexPath) as! AcquiredCharactersCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharacterListCell", for: indexPath) as! CharacterListCell
         let characterData = combinedCharacterList[indexPath.item]
-        if characterData.isGained, let gainedCharacter = characterData.character as? GainedCharacterList {
+        if characterData.isGained, let gainedCharacter = characterData.character as? GainedCharacter {
             cell.gainedCharacterCell(data: gainedCharacter)
-        } else if let notGainedCharacter = characterData.character as? NotGainedCharacterList {
+        } else if let notGainedCharacter = characterData.character as? NotGainedCharacter {
             cell.notGainedCharacterCell(data: notGainedCharacter)
         }
         return cell
@@ -93,10 +101,10 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
         let characterData = combinedCharacterList[indexPath.item]
         
         self.combinedCharacterList = []
-        self.gainedCharacterList?.forEach { gainedCharacter in
+        self.gainedCharacter?.forEach { gainedCharacter in
             self.combinedCharacterList.append((isGained: true, character: gainedCharacter))
         }
-        self.notGainedCharacterList?.forEach { notGainedCharacter in
+        self.notGainedCharacter?.forEach { notGainedCharacter in
             self.combinedCharacterList.append((isGained: false, character: notGainedCharacter))
         }
         
@@ -126,7 +134,7 @@ extension AcquiredCharactersViewController: UICollectionViewDelegate, UICollecti
     }
 }
 
-extension AcquiredCharactersViewController {
+extension CharacterListViewController {
     
     // MARK: - @Objc Func
     
