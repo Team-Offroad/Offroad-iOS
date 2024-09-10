@@ -27,7 +27,7 @@ final class CharacterDetailViewController: UIViewController {
     
     init(characterId: Int) {
         self.characterId = characterId
-        
+
         super.init(nibName: nil, bundle: nil)
     }
     

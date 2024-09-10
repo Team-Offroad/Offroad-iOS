@@ -119,7 +119,6 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
         }
         
         let detailViewController: CharacterDetailViewController
-        
         if characterData.isGained, let gainedCharacter = characterData.character as? GainedCharacterList {
             detailViewController = CharacterDetailViewController(characterId: gainedCharacter.characterId)
         } else if let notGainedCharacter = characterData.character as? NotGainedCharacterList {
