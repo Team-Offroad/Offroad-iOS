@@ -21,7 +21,11 @@ final class CouponCodeInputPopupView: UIView {
     var closeButtonAction: CloseButtonAction?
     
     var screenSize: CGSize { return UIScreen.current.bounds.size }
-    lazy var popupViewCenterYConstraint = popupView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+    //lazy var popupViewCenterYConstraint = popupView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+    lazy var popupViewBottomConstraint = popupView.bottomAnchor.constraint(
+        equalTo: self.bottomAnchor,
+        constant: -(screenSize.height/2 - 120)
+    )
     
     //MARK: - UI Properties
     
@@ -80,6 +84,7 @@ extension CouponCodeInputPopupView {
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.grayscale(.gray200).cgColor
             $0.backgroundColor = UIColor.main(.main3)
+            $0.keyboardAppearance = .light
             $0.addPadding(left: 12, right: 12)
             
             let placeholderText = "매장의 고유 코드를 입력해 주세요."
@@ -113,7 +118,8 @@ extension CouponCodeInputPopupView {
             $0.horizontalEdges.equalToSuperview().inset(24)
             $0.height.equalTo(240)
         }
-        popupViewCenterYConstraint.isActive = true
+        //popupViewCenterYConstraint.isActive = true
+        popupViewBottomConstraint.isActive = true
         
         popupTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(29)
