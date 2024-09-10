@@ -24,6 +24,10 @@ class AcquiredCouponViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
+        
+        if let offroadTabBarController = self.tabBarController as? OffroadTabBarController {
+                    offroadTabBarController.hideTabBarAnimation()
+                }
     }
     
     override func viewWillAppear(_ animated: Bool) {

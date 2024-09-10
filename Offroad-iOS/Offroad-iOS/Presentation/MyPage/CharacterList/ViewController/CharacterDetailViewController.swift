@@ -7,12 +7,12 @@
 
 import UIKit
 
-class CharacterDetailViewController: UIViewController {
+final class CharacterDetailViewController: UIViewController {
     
     // MARK: - Properties
     
     private var imageName: String
-
+    
     private let characterDetailView = CharacterDetailView()
     
     // MARK: - Life Cycle
