@@ -71,6 +71,7 @@ extension CouponCodeInputPopupView {
             $0.text = "코드를 입력 후 사장님에게 보여주세요."
             $0.font = UIFont.offroad(style: .iosTextRegular)
             $0.textColor = UIColor.main(.main2)
+            $0.numberOfLines = 0
             $0.textAlignment = .center
         }
         
