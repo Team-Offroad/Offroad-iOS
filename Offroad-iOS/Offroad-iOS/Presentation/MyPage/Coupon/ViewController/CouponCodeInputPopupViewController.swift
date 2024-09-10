@@ -62,17 +62,21 @@ extension CouponCodeInputPopupViewController {
     
     @objc private func closeButtonTapped() {
         dismissalAnimator.addAnimations { [weak self] in
-            self?.rootView.backgroundColor = .clear
+            guard let self else { return }
+            self.rootView.backgroundColor = .clear
+            self.rootView.popupViewBottomConstraint.constant = -(UIScreen.current.bounds.height/2 - 120)
+            self.rootView.popupView.alpha = 0
+            self.rootView.layoutIfNeeded()
         }
         dismissalAnimator.startAnimation()
         
         rootView.couponCodeTextField.resignFirstResponder()
         // duration: 0.4
-        rootView.popupView.executeDismissPopupAnimation { [weak self] isFinished in
-            guard isFinished else { return }
-            guard let self else { return }
-            dismiss(animated: false)
-        }
+//        rootView.popupView.executeDismissPopupAnimation { [weak self] isFinished in
+//            guard isFinished else { return }
+//            guard let self else { return }
+//            dismiss(animated: false)
+//        }
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
@@ -83,8 +87,8 @@ extension CouponCodeInputPopupViewController {
         }
     }
     
-    @objc private func keyboardWillHide() {
-        
+    @objc private func keyboardDidHide() {
+        self.dismiss(animated: false)
     }
     
     //MARK: - Private Func
@@ -99,7 +103,7 @@ extension CouponCodeInputPopupViewController {
     
     private func setupNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIResponder.keyboardDidHideNotification, object: nil)
     }
     
     private func executePopupPresentation() {
@@ -118,11 +122,11 @@ extension CouponCodeInputPopupViewController {
     private func popupPresentation() {
         rootView.popupViewBottomConstraint.constant = -(keyboardHeight + 40)
         
-        CATransaction.begin()
-        CATransaction.setDisableActions(true)
-        rootView.popupView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+//        CATransaction.begin()
+//        CATransaction.setDisableActions(true)
+//        rootView.popupView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         rootView.layoutIfNeeded()
-        CATransaction.commit()
+//        CATransaction.commit()
         
         presentationAnimator.addAnimations { [weak self] in
             guard let self else { return }
