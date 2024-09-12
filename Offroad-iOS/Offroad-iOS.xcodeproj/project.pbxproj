@@ -77,6 +77,9 @@
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
 		4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */; };
+		4EFCDFDD2C92BB27006DEBB6 /* OFRPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDC2C92BB27006DEBB6 /* OFRPopupController.swift */; };
+		4EFCDFDF2C92BD8A006DEBB6 /* OFRPopupBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDE2C92BD8A006DEBB6 /* OFRPopupBaseView.swift */; };
+		4EFCDFE12C92BD93006DEBB6 /* OFRPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE02C92BD93006DEBB6 /* OFRPopupView.swift */; };
 		872F4BAE2C68C1F600284DE0 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */; };
 		872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB02C68C43800284DE0 /* CharacterListCell.swift */; };
 		872F4BB52C68D66200284DE0 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB42C68D66200284DE0 /* CharacterListViewController.swift */; };
@@ -294,6 +297,9 @@
 		4EDC3D4A2C312850006A1493 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
 		4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarViewController.swift; sourceTree = "<group>"; };
 		4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapListButton.swift; sourceTree = "<group>"; };
+		4EFCDFDC2C92BB27006DEBB6 /* OFRPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRPopupController.swift; sourceTree = "<group>"; };
+		4EFCDFDE2C92BD8A006DEBB6 /* OFRPopupBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRPopupBaseView.swift; sourceTree = "<group>"; };
+		4EFCDFE02C92BD93006DEBB6 /* OFRPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRPopupView.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
 		872F4BB02C68C43800284DE0 /* CharacterListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListCell.swift; sourceTree = "<group>"; };
@@ -1112,6 +1118,16 @@
 			path = UIComponents;
 			sourceTree = "<group>";
 		};
+		4EFCDFDB2C92B647006DEBB6 /* PopupController */ = {
+			isa = PBXGroup;
+			children = (
+				4EFCDFDC2C92BB27006DEBB6 /* OFRPopupController.swift */,
+				4EFCDFDE2C92BD8A006DEBB6 /* OFRPopupBaseView.swift */,
+				4EFCDFE02C92BD93006DEBB6 /* OFRPopupView.swift */,
+			);
+			path = PopupController;
+			sourceTree = "<group>";
+		};
 		80700C167D3310A86AF0ADA5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1431,6 +1447,7 @@
 		D018BB0C2C401F5F0048B6DF /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4EFCDFDB2C92B647006DEBB6 /* PopupController */,
 				4E38B7D82C6471EC0011D997 /* CustomSegmentedControl */,
 				D00A488A2C78306C008B286A /* CustomView */,
 				D018BB0D2C401F700048B6DF /* CustomButton */,
@@ -2215,6 +2232,7 @@
 				D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */,
 				4EB32BEC2C67A39B003F98F2 /* QuestListCollectionViewCell.swift in Sources */,
 				4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */,
+				4EFCDFDF2C92BD8A006DEBB6 /* OFRPopupBaseView.swift in Sources */,
 				D0E796152C452797005B47A5 /* AuthAPI.swift in Sources */,
 				D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */,
 				4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */,
@@ -2251,6 +2269,7 @@
 				D0E796202C4532A6005B47A5 /* ErrorResponseDTO.swift in Sources */,
 				D0E796332C453615005B47A5 /* NicknameCheckResponseDTO.swift in Sources */,
 				D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */,
+				4EFCDFE12C92BD93006DEBB6 /* OFRPopupView.swift in Sources */,
 				D0E796352C4536E8005B47A5 /* CharacterAPI.swift in Sources */,
 				D0E796292C4533CE005B47A5 /* ProfileUpdateRequestDTO.swift in Sources */,
 				4E08B9592C5DF0B20082EFB8 /* PlaceListView.swift in Sources */,
@@ -2330,6 +2349,7 @@
 				4E58FC002C7DFE78002A951B /* QuestListAPI.swift in Sources */,
 				D00A48962C783988008B286A /* TermsConsentViewController.swift in Sources */,
 				D0E796452C4538E6005B47A5 /* PlaceService.swift in Sources */,
+				4EFCDFDD2C92BB27006DEBB6 /* OFRPopupController.swift in Sources */,
 				D00A486A2C633EF2008B286A /* SettingBaseModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
