@@ -7,6 +7,6 @@
 
 import UIKit
 
-class OFRPopupBaseView: UIView {
+class OFRPopupBackgroundView: UIView {
     
 }

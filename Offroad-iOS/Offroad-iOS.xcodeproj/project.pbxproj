@@ -78,7 +78,7 @@
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
 		4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */; };
 		4EFCDFDD2C92BB27006DEBB6 /* OFRPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDC2C92BB27006DEBB6 /* OFRPopupController.swift */; };
-		4EFCDFDF2C92BD8A006DEBB6 /* OFRPopupBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDE2C92BD8A006DEBB6 /* OFRPopupBaseView.swift */; };
+		4EFCDFDF2C92BD8A006DEBB6 /* OFRPopupBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDE2C92BD8A006DEBB6 /* OFRPopupBackgroundView.swift */; };
 		4EFCDFE12C92BD93006DEBB6 /* OFRPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE02C92BD93006DEBB6 /* OFRPopupView.swift */; };
 		872F4BAE2C68C1F600284DE0 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */; };
 		872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB02C68C43800284DE0 /* CharacterListCell.swift */; };
@@ -298,7 +298,7 @@
 		4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarViewController.swift; sourceTree = "<group>"; };
 		4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapListButton.swift; sourceTree = "<group>"; };
 		4EFCDFDC2C92BB27006DEBB6 /* OFRPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRPopupController.swift; sourceTree = "<group>"; };
-		4EFCDFDE2C92BD8A006DEBB6 /* OFRPopupBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRPopupBaseView.swift; sourceTree = "<group>"; };
+		4EFCDFDE2C92BD8A006DEBB6 /* OFRPopupBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRPopupBackgroundView.swift; sourceTree = "<group>"; };
 		4EFCDFE02C92BD93006DEBB6 /* OFRPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRPopupView.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
@@ -1122,7 +1122,7 @@
 			isa = PBXGroup;
 			children = (
 				4EFCDFDC2C92BB27006DEBB6 /* OFRPopupController.swift */,
-				4EFCDFDE2C92BD8A006DEBB6 /* OFRPopupBaseView.swift */,
+				4EFCDFDE2C92BD8A006DEBB6 /* OFRPopupBackgroundView.swift */,
 				4EFCDFE02C92BD93006DEBB6 /* OFRPopupView.swift */,
 			);
 			path = PopupController;
@@ -2232,7 +2232,7 @@
 				D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */,
 				4EB32BEC2C67A39B003F98F2 /* QuestListCollectionViewCell.swift in Sources */,
 				4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */,
-				4EFCDFDF2C92BD8A006DEBB6 /* OFRPopupBaseView.swift in Sources */,
+				4EFCDFDF2C92BD8A006DEBB6 /* OFRPopupBackgroundView.swift in Sources */,
 				D0E796152C452797005B47A5 /* AuthAPI.swift in Sources */,
 				D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */,
 				4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */,
