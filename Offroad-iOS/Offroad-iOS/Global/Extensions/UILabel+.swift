@@ -46,4 +46,21 @@ extension UILabel {
                                      range: NSRange(location: 0, length: attributeString.length))
         attributedText = attributeString
     }
+    
+    /// 피그마에서 폰트를 표현할 때 Line Height가 설정된 경우 행간을 구현
+    /// - Parameter percentage: 피그마상에서 폰트의 Line Height 값. 백분율로 표시된다.
+    func setLineHeight(percentage: CGFloat) {
+        guard let text = text else { return }
+        
+        let attributeString = NSMutableAttributedString(string: text)
+        let style = NSMutableParagraphStyle()
+        let lineSpacing = font.ascender * ((percentage-100)/100) + font.descender
+        style.lineSpacing = lineSpacing
+        attributeString.addAttribute(.paragraphStyle,
+                                     value: style,
+                                     range: NSRange(location: 0, length: attributeString.length))
+        attributedText = attributeString
+    }
+    
+    
 }
