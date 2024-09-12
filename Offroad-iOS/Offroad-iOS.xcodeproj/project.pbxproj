@@ -80,6 +80,7 @@
 		4EFCDFDD2C92BB27006DEBB6 /* OFRPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDC2C92BB27006DEBB6 /* OFRPopupController.swift */; };
 		4EFCDFDF2C92BD8A006DEBB6 /* OFRPopupBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDE2C92BD8A006DEBB6 /* OFRPopupBackgroundView.swift */; };
 		4EFCDFE12C92BD93006DEBB6 /* OFRPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE02C92BD93006DEBB6 /* OFRPopupView.swift */; };
+		4EFCDFE32C92C1F1006DEBB6 /* OFRPopupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE22C92C1F1006DEBB6 /* OFRPopupButton.swift */; };
 		872F4BAE2C68C1F600284DE0 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */; };
 		872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB02C68C43800284DE0 /* CharacterListCell.swift */; };
 		872F4BB52C68D66200284DE0 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB42C68D66200284DE0 /* CharacterListViewController.swift */; };
@@ -300,6 +301,7 @@
 		4EFCDFDC2C92BB27006DEBB6 /* OFRPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRPopupController.swift; sourceTree = "<group>"; };
 		4EFCDFDE2C92BD8A006DEBB6 /* OFRPopupBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRPopupBackgroundView.swift; sourceTree = "<group>"; };
 		4EFCDFE02C92BD93006DEBB6 /* OFRPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRPopupView.swift; sourceTree = "<group>"; };
+		4EFCDFE22C92C1F1006DEBB6 /* OFRPopupButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRPopupButton.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
 		872F4BB02C68C43800284DE0 /* CharacterListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListCell.swift; sourceTree = "<group>"; };
@@ -1124,6 +1126,7 @@
 				4EFCDFDC2C92BB27006DEBB6 /* OFRPopupController.swift */,
 				4EFCDFDE2C92BD8A006DEBB6 /* OFRPopupBackgroundView.swift */,
 				4EFCDFE02C92BD93006DEBB6 /* OFRPopupView.swift */,
+				4EFCDFE22C92C1F1006DEBB6 /* OFRPopupButton.swift */,
 			);
 			path = PopupController;
 			sourceTree = "<group>";
@@ -2184,6 +2187,7 @@
 				4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */,
 				D0E7966C2C457D64005B47A5 /* AdventureInfoResponseDTO.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */,
+				4EFCDFE32C92C1F1006DEBB6 /* OFRPopupButton.swift in Sources */,
 				4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */,
 				D063E98C2C49328300434A09 /* SVGKImage+.swift in Sources */,
 				D06D26CF2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift in Sources */,
