@@ -49,6 +49,8 @@ extension UILabel {
     
     /// 피그마에서 폰트를 표현할 때 Line Height가 설정된 경우 행간을 구현
     /// - Parameter percentage: 피그마상에서 폰트의 Line Height 값. 백분율로 표시된다.
+    ///
+    /// 피그마상에서 라벨의 높이를 지정한 경우, UILabel에서도 높이를 명시적으로 설정해야 함.
     func setLineHeight(percentage: CGFloat) {
         guard let text = text else { return }
         
