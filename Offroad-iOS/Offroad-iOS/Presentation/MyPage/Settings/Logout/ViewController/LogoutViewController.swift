@@ -49,10 +49,7 @@ extension LogoutViewController {
         let splashViewController = SplashViewController()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
-                window.rootViewController = splashViewController
-            }
+            UIWindow.current.rootViewController = splashViewController
         }
     }
     
