@@ -41,7 +41,7 @@ class CouponDetailViewController: UIViewController {
         couponDetailView.couponImageView.image = image
         couponDetailView.couponTitleLabel.text = title
         couponDetailView.couponDescriptionLabel.text = description
-        couponDetailView.couponDescriptionLabel.setLineSpacing(spacing: 5)
+        couponDetailView.couponDescriptionLabel.setLineHeight(percentage: 150)
     }
     
     required init?(coder aDecoder: NSCoder) {
