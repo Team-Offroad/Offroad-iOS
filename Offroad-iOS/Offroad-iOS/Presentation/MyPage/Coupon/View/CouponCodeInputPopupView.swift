@@ -21,10 +21,8 @@ final class CouponCodeInputPopupView: UIView {
     var closeButtonAction: CloseButtonAction?
     
     var screenSize: CGSize { return UIScreen.current.bounds.size }
-    //lazy var popupViewCenterYConstraint = popupView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
     lazy var popupViewBottomConstraint = popupView.bottomAnchor.constraint(
         equalTo: self.bottomAnchor,
-        //constant: -(screenSize.height/2 - 120)
         constant: 0
     )
     
@@ -119,7 +117,6 @@ extension CouponCodeInputPopupView {
             $0.horizontalEdges.equalToSuperview().inset(24)
             $0.height.equalTo(240)
         }
-        //popupViewCenterYConstraint.isActive = true
         popupViewBottomConstraint.isActive = true
         
         popupTitleLabel.snp.makeConstraints {
