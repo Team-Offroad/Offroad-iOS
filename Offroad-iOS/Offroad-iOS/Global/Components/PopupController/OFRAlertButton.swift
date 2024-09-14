@@ -1,5 +1,5 @@
 //
-//  OFRPopupButton.swift
+//  OFRAlertButton.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 9/12/24.
@@ -9,7 +9,7 @@ import UIKit
 
 
 
-class OFRPopupButton: UIButton {
+class OFRAlertButton: UIButton {
     
     //MARK: - Properties
     
@@ -29,7 +29,7 @@ class OFRPopupButton: UIButton {
     
 }
 
-extension OFRPopupButton {
+extension OFRAlertButton {
     
     //MARK: - Layout
     

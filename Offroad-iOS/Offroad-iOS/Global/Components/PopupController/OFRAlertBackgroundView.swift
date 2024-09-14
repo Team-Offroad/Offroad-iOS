@@ -1,5 +1,5 @@
 //
-//  OFRPopupBaseView.swift
+//  OFRAlertBaseView.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 9/12/24.
@@ -9,13 +9,13 @@ import UIKit
 
 import SnapKit
 
-class OFRPopupBackgroundView: UIView {
+class OFRAlertBackgroundView: UIView {
     
     //MARK: - Properties
     
     //MARK: - UI Properties
     
-    let popupView = OFRPopupView()
+    let popupView = OFRAlertView()
     
     //MARK: - Life Cycle
     
@@ -33,7 +33,7 @@ class OFRPopupBackgroundView: UIView {
     
 }
 
-extension OFRPopupBackgroundView {
+extension OFRAlertBackgroundView {
     
     //MARK: - Layout
     

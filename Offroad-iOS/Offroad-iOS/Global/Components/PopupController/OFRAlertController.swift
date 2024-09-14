@@ -1,5 +1,5 @@
 //
-//  OFRPopupController.swift
+//  OFRAlertController.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 9/12/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OFRPopupController: UIViewController {
+class OFRAlertController: UIViewController {
     
     //MARK: - Properties
     
@@ -49,7 +49,7 @@ class OFRPopupController: UIViewController {
     
     //MARK: - UI Properties
     
-    let backgroundView = OFRPopupBackgroundView()
+    let backgroundView = OFRAlertBackgroundView()
     
     //MARK: - Life Cycle
     
@@ -85,7 +85,7 @@ class OFRPopupController: UIViewController {
 }
 
 
-extension OFRPopupController {
+extension OFRAlertController {
     
     //MARK: - Layout
     

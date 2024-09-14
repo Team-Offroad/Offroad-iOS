@@ -1,5 +1,5 @@
 //
-//  OFRPopupView.swift
+//  OFRAlertView.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 9/12/24.
@@ -13,7 +13,7 @@ enum PopupViewRatio {
     case square
 }
 
-class OFRPopupView: UIView {
+class OFRAlertView: UIView {
     
     //MARK: - Properties
     
@@ -62,7 +62,7 @@ class OFRPopupView: UIView {
     
 }
 
-extension OFRPopupView {
+extension OFRAlertView {
     
     //MARK: - Layout
     
