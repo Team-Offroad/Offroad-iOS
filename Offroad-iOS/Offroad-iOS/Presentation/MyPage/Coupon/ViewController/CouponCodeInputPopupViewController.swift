@@ -11,7 +11,7 @@ class CouponCodeInputPopupViewController: UIViewController {
     
     //MARK: - Properties
     
-    let presentationAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
+    let presentationAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.7)
     let dismissalAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     
     var keyboardHeight: CGFloat = 0 {
@@ -64,19 +64,13 @@ extension CouponCodeInputPopupViewController {
         dismissalAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.backgroundColor = .clear
-            self.rootView.popupViewBottomConstraint.constant = -(UIScreen.current.bounds.height/2 - 120)
+            self.rootView.popupView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
             self.rootView.popupView.alpha = 0
             self.rootView.layoutIfNeeded()
         }
         dismissalAnimator.startAnimation()
         
         rootView.couponCodeTextField.resignFirstResponder()
-        // duration: 0.4
-//        rootView.popupView.executeDismissPopupAnimation { [weak self] isFinished in
-//            guard isFinished else { return }
-//            guard let self else { return }
-//            dismiss(animated: false)
-//        }
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
@@ -121,11 +115,11 @@ extension CouponCodeInputPopupViewController {
     private func popupPresentation() {
         rootView.popupViewBottomConstraint.constant = -(keyboardHeight + 40)
         
-//        CATransaction.begin()
-//        CATransaction.setDisableActions(true)
-//        rootView.popupView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        rootView.popupView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         rootView.layoutIfNeeded()
-//        CATransaction.commit()
+        CATransaction.commit()
         
         presentationAnimator.addAnimations { [weak self] in
             guard let self else { return }
@@ -134,7 +128,6 @@ extension CouponCodeInputPopupViewController {
             self.rootView.popupView.alpha = 1
         }
         presentationAnimator.startAnimation()
-        //rootView.popupView.executePresentPopupAnimation()
     }
     
 }
