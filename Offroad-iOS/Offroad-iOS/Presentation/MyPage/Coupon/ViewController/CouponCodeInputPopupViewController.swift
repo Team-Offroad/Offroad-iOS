@@ -113,11 +113,10 @@ extension CouponCodeInputPopupViewController {
     
     /*
      `CATransaction`과 관련된 코드는 UIKit의 자동 애니메이션 동작(implicit animation behavior)을 막기 위해서
-     chat GPT의 도움을 받아 적은 코드.
+     chatGPT의 도움을 받아 적은 코드임.
      CATransaction 관련 코드를 적지 않으면 의도와 다르게 동작한다.
      이 때문에 `executePresentPopupAnimation()` 메서드를 사용할 수가 없는 상황.
      UIKit의 자동 애니메이션 동작에 대해 자세히 공부할 필요가 있어 보임.
-     추가로, 이와 관련하여 팝업 애니메이션의 동작에 대해 기획 및 디자인 파트와 논의하면 좋을 것으로 생각함. 
      */
     private func popupPresentation() {
         rootView.popupViewBottomConstraint.constant = -(keyboardHeight + 40)
