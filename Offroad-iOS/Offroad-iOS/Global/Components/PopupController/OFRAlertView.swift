@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum PopupViewRatio {
+enum AlertViewRatio {
     case vertical
     case horizontal
     case square
@@ -17,7 +17,7 @@ class OFRAlertView: UIView {
     
     //MARK: - Properties
     
-    var ratio: PopupViewRatio = .horizontal
+    var ratio: AlertViewRatio = .horizontal
     
     var title: String?
     var message: String?
@@ -98,7 +98,7 @@ extension OFRAlertView {
     
     private func setupStyle() {
         /*
-         popupView 투명도의 초깃값을 0으로 설정.
+         AlertView 투명도의 초깃값을 0으로 설정.
          팝업 애니메이션이 젹용되면서 투명도를 1로 설정.
          */
         alpha = 0

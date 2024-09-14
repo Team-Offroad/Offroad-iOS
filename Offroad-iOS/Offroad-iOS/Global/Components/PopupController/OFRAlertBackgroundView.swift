@@ -15,7 +15,7 @@ class OFRAlertBackgroundView: UIView {
     
     //MARK: - UI Properties
     
-    let popupView = OFRAlertView()
+    let AlertView = OFRAlertView()
     
     //MARK: - Life Cycle
     
@@ -38,7 +38,7 @@ extension OFRAlertBackgroundView {
     //MARK: - Layout
     
     private func setupLayout() {
-        popupView.snp.makeConstraints { make in
+        AlertView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(24)
         }
     }
@@ -54,7 +54,7 @@ extension OFRAlertBackgroundView {
     }
     
     private func setupHierarchy() {
-        addSubview(popupView)
+        addSubview(AlertView)
     }
     
     //MARK: - Func

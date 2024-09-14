@@ -18,8 +18,8 @@ class OFRAlertController: UIViewController {
      팝업의 제목
      */
     override var title: String? {
-        get { backgroundView.popupView.title }
-        set { backgroundView.popupView.title = newValue }
+        get { backgroundView.AlertView.title }
+        set { backgroundView.AlertView.title = newValue }
     }
     
     /**
@@ -29,7 +29,7 @@ class OFRAlertController: UIViewController {
     var actions: [UIAction] = []
     
     /**
-     해당 변수에 해당하는 텍스트필드는 popup이 present되면서 자동으로 `firstResponder`가 되고, 키보드가 같이 올라오게 된다.
+     해당 변수에 해당하는 텍스트필드는 alert가 present되면서 자동으로 `firstResponder`가 되고, 키보드가 같이 올라오게 된다.
      */
     var textFieldToBeFirstResponder: UITextField? = nil
     
