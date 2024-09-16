@@ -9,13 +9,15 @@ import UIKit
 
 import SnapKit
 
-class OFRAlertBackgroundView: UIView {
+internal class OFRAlertBackgroundView: UIView {
     
     //MARK: - Properties
     
+    var keyboardRect: CGRect? = nil
+    
     //MARK: - UI Properties
     
-    let AlertView = OFRAlertView()
+    let alertView = OFRAlertView()
     
     //MARK: - Life Cycle
     
@@ -25,6 +27,7 @@ class OFRAlertBackgroundView: UIView {
         setupStyle()
         setupHierarchy()
         setupLayout()
+        setupNotification()
     }
     
     required init?(coder: NSCoder) {
@@ -38,12 +41,21 @@ extension OFRAlertBackgroundView {
     //MARK: - Layout
     
     private func setupLayout() {
-        AlertView.snp.makeConstraints { make in
+        alertView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(24)
+            make.centerY.equalToSuperview()
         }
+        
     }
     
     //MARK: - @objc Func
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRect = keyboardFrame.cgRectValue
+            self.keyboardRect = keyboardRect
+        }
+    }
     
     //MARK: - Private Func
     
@@ -54,7 +66,16 @@ extension OFRAlertBackgroundView {
     }
     
     private func setupHierarchy() {
-        addSubview(AlertView)
+        addSubview(alertView)
+    }
+    
+    private func setupNotification() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
     }
     
     //MARK: - Func

@@ -21,7 +21,7 @@ class OFRAlertView: UIView {
     
     var title: String?
     var message: String?
-    var actions: [UIAction] = []
+    var actions: [OFRAlertAction] = []
     
     var horizontalInset: CGFloat = 46
     var verticalInset: CGFloat {
@@ -75,6 +75,7 @@ extension OFRAlertView {
         contentView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(horizontalInset)
             make.verticalEdges.equalToSuperview().inset(verticalInset)
+            make.height.greaterThanOrEqualTo(184)
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -82,8 +83,9 @@ extension OFRAlertView {
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(18)
+            make.top.equalTo(titleLabel.snp.bottom)
             make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(buttonStackView.snp.top)
         }
         
         buttonStackView.snp.makeConstraints { make in
@@ -118,7 +120,7 @@ extension OFRAlertView {
         descriptionLabel.do { label in
             label.font = .offroad(style: .iosTextRegular)
             label.textColor = .main(.main2)
-            label.setLineSpacing(spacing: <#T##CGFloat#>)
+            label.setLineHeight(percentage: 150)
         }
         
         

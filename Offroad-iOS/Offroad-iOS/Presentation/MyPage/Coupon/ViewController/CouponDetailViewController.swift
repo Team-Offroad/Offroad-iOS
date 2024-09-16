@@ -79,8 +79,14 @@ extension CouponDetailViewController {
     }
     
     @objc private func didTapUseButton() {
-        let popupViewController = CouponCodeInputPopupViewController()
-        present(popupViewController, animated: false)
+//        let popupViewController = CouponCodeInputPopupViewController()
+//        present(popupViewController, animated: false)
+        
+        let alertController = OFRAlertController(title: "사용 완료", message: "쿠폰 사용이 완료되었어요!")
+        let okAction = OFRAlertAction(title: "확인", style: .default)
+        alertController.addAction(okAction)
+        
+        present(alertController, animated: true)
     }
     
 }
