@@ -82,9 +82,34 @@ extension CouponDetailViewController {
 //        let popupViewController = CouponCodeInputPopupViewController()
 //        present(popupViewController, animated: false)
         
-        let alertController = OFRAlertController(title: "사용 완료", message: "쿠폰 사용이 완료되었어요!")
-        let okAction = OFRAlertAction(title: "확인", style: .default)
+        
+        // 케이스 1
+//        let alertController = OFRAlertController(title: "로그아웃", message: "정말 로그아웃 하시겠어요?", type: .normal)
+//        let cancelAction = OFRAlertAction(title: "아니오", style: .cancel) { _ in return }
+//        let okAction = OFRAlertAction(title: "네", style: .default) { _ in return }
+//
+//        alertController.addAction(cancelAction)
+//        alertController.addAction(okAction)
+        
+        
+        //케이스 2
+//        let alertController = OFRAlertController(
+//            title: "퀘스트 성공!",
+//            message: "퀘스트 '퀘스트 이름' 외 n개를 클리어했어요! 마이페이지에서 보상을 확인해보세요.",
+//            type: .normal
+//        )
+//        let okAction = OFRAlertAction(title: "확인", style: .default) { _ in return }
+//        alertController.addAction(okAction)
+        
+        //케이스 3 (쿠폰 코드 입력)
+        let alertController = OFRAlertController(title: "쿠폰 사용", message: "코드를 입력 후 사장님에게 보여주세요", type: .textField)
+        let okAction = OFRAlertAction(title: "확인", style: .default) { action in
+            return
+        }
         alertController.addAction(okAction)
+        alertController.configureDefaultTextField { textField in
+            textField.placeholder = "매장의 고유 코드를 입력해 주세요"
+        }
         
         present(alertController, animated: true)
     }

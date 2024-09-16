@@ -12,8 +12,8 @@ class OFRAlertController: UIViewController {
     //MARK: - Properties
     
     let transitionDelegate = ZeroDurationTransitionDelegate()
-    let presentationAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.8)
-    let dismissalAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.8)
+    let presentationAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.7)
+    let dismissalAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     
     /**
      팝업의 제목
@@ -31,10 +31,17 @@ class OFRAlertController: UIViewController {
         set { backgroundView.alertView.title = newValue }
     }
     
+    /// 팝업 뷰의 타입
+    var type: OFRAlertViewType {
+        get { backgroundView.alertView.type }
+    }
+    
     var actions: [OFRAlertAction] { backgroundView.alertView.actions }
     
     /**
      해당 변수에 해당하는 텍스트필드는 alert가 present되면서 자동으로 `firstResponder`가 되고, 키보드가 같이 올라오게 된다.
+     alert controller의 type을 `.textField`로 설정할 경우, 기본 제공되는 텍스트필드가 할당됨.
+     type이 `.textFiled`가 아닌 `.custom`이고 별도 text field를 추가한 경우에는 이 변수에 직접 할당해 주어야 함.
      */
     var textFieldToBeFirstResponder: UITextField? = nil
     
@@ -68,11 +75,15 @@ class OFRAlertController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(title: String? = nil, message: String? = nil) {
+    convenience init(title: String? = nil, message: String? = nil, type: OFRAlertViewType) {
         self.init(nibName: nil, bundle: nil)
         
         backgroundView.alertView.title = title
         backgroundView.alertView.message = message
+        backgroundView.alertView.type = type
+        if type == .textField {
+            textFieldToBeFirstResponder = backgroundView.alertView.defaultTextField
+        }
     }
     
     override func loadView() {
@@ -154,12 +165,22 @@ extension OFRAlertController {
     
     func addAction(_ action: OFRAlertAction) {
         backgroundView.alertView.actions.append(action)
+        self.backgroundView.layoutIfNeeded()
     }
     
-    func addTextField(configurationHandler: ((UITextField) -> Void)? = nil) {
-        let textField = UITextField()
-        
-        configurationHandler?(textField)
+//    func addTextField(configurationHandler: ((UITextField) -> Void)? = nil) {
+//        let textField = UITextField()
+//        
+//        configurationHandler?(textField)
+//    }
+    
+    /**
+     alert controller의 type이 `.textField`인 경우 `defaultTextField`의 속성을 변경하는 함수.
+     alert controller의 type이 `.textField`가 아닌 경우, 이 함수는 아무런 동작도 하지 않는다.
+     */
+    func configureDefaultTextField(_ configure: (UITextField) -> Void) {
+        guard self.type == .textField else { return }
+        configure(backgroundView.alertView.defaultTextField)
     }
     
 }
@@ -167,13 +188,15 @@ extension OFRAlertController {
 
 class OFRAlertAction {
     
-    init(title: String?, style: OFRAlertAction.Style, handler: ((OFRAlertAction) -> Void)? = nil) {
+    init(title: String?, style: OFRAlertAction.Style, handler: @escaping ((UIAction) -> Void)) {
         self.title = title
         self.style = style
+        self.handler = handler
     }
     
     var title: String?
     var style: OFRAlertAction.Style
+    var handler: ((UIAction) -> Void)
     var isEnabled: Bool = true
 }
 

@@ -26,7 +26,7 @@ internal class OFRAlertBackgroundView: UIView {
         
         setupStyle()
         setupHierarchy()
-        setupLayout()
+        setupLayout(of: .normal)
         setupNotification()
     }
     
@@ -40,7 +40,7 @@ extension OFRAlertBackgroundView {
     
     //MARK: - Layout
     
-    private func setupLayout() {
+    private func setupLayout(of type: OFRAlertViewType) {
         alertView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(24)
             make.centerY.equalToSuperview()

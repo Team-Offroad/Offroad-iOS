@@ -9,7 +9,6 @@ import UIKit
 
 class ZeroDurationAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
-    // 애니메이션 지속 시간을 0으로 설정
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0
     }
