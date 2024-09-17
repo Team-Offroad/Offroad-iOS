@@ -53,8 +53,6 @@
 		4E3F009E2C40D20800B9A31A /* OffroadTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */; };
 		4E416CE82C45DBE200CF6AB4 /* OffroadPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */; };
 		4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4A8FD62C4A5752001FB498 /* UIImage+.swift */; };
-		4E56F5482C98B18B00EEE677 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4E56F5472C98B18B00EEE677 /* RxCocoa */; };
-		4E56F54A2C98B18B00EEE677 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 4E56F5492C98B18B00EEE677 /* RxRelay */; };
 		4E58FC002C7DFE78002A951B /* QuestListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FBFF2C7DFE78002A951B /* QuestListAPI.swift */; };
 		4E58FC022C7DFE87002A951B /* QuestListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FC012C7DFE87002A951B /* QuestListService.swift */; };
 		4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */; };
@@ -79,7 +77,6 @@
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
 		4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */; };
-		4EFCDFDA2C8F3721006DEBB6 /* CouponCodeInputPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFD92C8F3721006DEBB6 /* CouponCodeInputPopupViewController.swift */; };
 		872F4BAE2C68C1F600284DE0 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */; };
 		872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB02C68C43800284DE0 /* CharacterListCell.swift */; };
 		872F4BB52C68D66200284DE0 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB42C68D66200284DE0 /* CharacterListViewController.swift */; };
@@ -451,10 +448,8 @@
 				4E0394D52C2AB846007F0517 /* KakaoSDKUser in Frameworks */,
 				4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */,
 				D063E9872C492D6700434A09 /* SVGKitSwift in Frameworks */,
-				4E56F5482C98B18B00EEE677 /* RxCocoa in Frameworks */,
 				4E0394C82C2AB723007F0517 /* SnapKit in Frameworks */,
 				4E0394D32C2AB846007F0517 /* KakaoSDKCommon in Frameworks */,
-				4E56F54A2C98B18B00EEE677 /* RxRelay in Frameworks */,
 				4E0394D12C2AB846007F0517 /* KakaoSDKAuth in Frameworks */,
 				4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */,
 				304C93D171B33D99789DA86D /* Pods_Offroad_iOS.framework in Frameworks */,
@@ -1968,8 +1963,6 @@
 				4E8B478E2C382A4800D9B8EE /* Lottie */,
 				D063E9842C492D6700434A09 /* SVGKit */,
 				D063E9862C492D6700434A09 /* SVGKitSwift */,
-				4E56F5472C98B18B00EEE677 /* RxCocoa */,
-				4E56F5492C98B18B00EEE677 /* RxRelay */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E0394292C2A9DCE007F0517 /* Offroad-iOS.app */;
@@ -2054,7 +2047,6 @@
 				4E6A5BC12C2E8C290027FDF0 /* XCRemoteSwiftPackageReference "Then" */,
 				4E8B478D2C382A4800D9B8EE /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				D063E9832C492D6700434A09 /* XCRemoteSwiftPackageReference "SVGKit" */,
-				4E56F5462C98B18B00EEE677 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 4E03942A2C2A9DCE007F0517 /* Products */;
 			projectDirPath = "";
@@ -2781,14 +2773,6 @@
 				minimumVersion = 2.22.3;
 			};
 		};
-		4E56F5462C98B18B00EEE677 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.7.1;
-			};
-		};
 		4E6A5BC12C2E8C290027FDF0 /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then";
@@ -2845,16 +2829,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E0394CF2C2AB846007F0517 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
-		};
-		4E56F5472C98B18B00EEE677 /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E56F5462C98B18B00EEE677 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-		4E56F5492C98B18B00EEE677 /* RxRelay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E56F5462C98B18B00EEE677 /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxRelay;
 		};
 		4E6A5BC22C2E8C290027FDF0 /* Then */ = {
 			isa = XCSwiftPackageProductDependency;

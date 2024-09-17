@@ -14,17 +14,12 @@ final class CharacterDetailViewController: UIViewController {
     private let characterId: Int
     
     private let characterDetailView = CharacterDetailView()
+    private var characterDetailList: [CharacterDetailList]?
     
     private var characterMainColorCode: String?
     private var characterSubColorCode: String?
     
-    private var combinedCharacterMotionList: [(isGained: Bool, character: Any)] = [] {
-        didSet {
-            DispatchQueue.main.async {
-                self.characterDetailView.collectionView.reloadData()
-            }
-        }
-    }
+    private var combinedCharacterMotionList: [(isGained: Bool, character: Any)] = []
     private var gainedCharacterMotionList: [CharacterMotionList]?
     private var notGainedCharacterMotionList: [CharacterMotionList]?
     
@@ -49,8 +44,8 @@ final class CharacterDetailViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
-        characterMotionInfo()
         getCharacterDetailInfo()
+        characterMotionInfo()
     }
     
     // MARK: - Private Func
@@ -135,6 +130,7 @@ extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionV
             fatalError("Could not dequeue CharacterDetailCell")
         }
         
+        
         let characterMotionData = combinedCharacterMotionList[indexPath.item]
         
         if characterMotionData.isGained, let gainedCharacterMotion = characterMotionData.character as? CharacterMotionList {
@@ -156,5 +152,13 @@ extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell \(indexPath.item) selected")
+        
+        self.combinedCharacterMotionList = []
+        self.gainedCharacterMotionList?.forEach { gainedCharacterMotion in
+            self.combinedCharacterMotionList.append((isGained: true, character: gainedCharacterMotion))
+        }
+        self.notGainedCharacterMotionList?.forEach { notGainedCharacterMotion in
+            self.combinedCharacterMotionList.append((isGained: false, character: notGainedCharacterMotion))
+        }
     }
 }
