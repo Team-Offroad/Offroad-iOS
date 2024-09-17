@@ -49,8 +49,8 @@ final class CharacterDetailViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
-        getCharacterDetailInfo()
         characterMotionInfo()
+        getCharacterDetailInfo()
     }
     
     // MARK: - Private Func
@@ -135,7 +135,6 @@ extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionV
             fatalError("Could not dequeue CharacterDetailCell")
         }
         
-        
         let characterMotionData = combinedCharacterMotionList[indexPath.item]
         
         if characterMotionData.isGained, let gainedCharacterMotion = characterMotionData.character as? CharacterMotionList {
@@ -157,13 +156,5 @@ extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell \(indexPath.item) selected")
-        
-        self.combinedCharacterMotionList = []
-        self.gainedCharacterMotionList?.forEach { gainedCharacterMotion in
-            self.combinedCharacterMotionList.append((isGained: true, character: gainedCharacterMotion))
-        }
-        self.notGainedCharacterMotionList?.forEach { notGainedCharacterMotion in
-            self.combinedCharacterMotionList.append((isGained: false, character: notGainedCharacterMotion))
-        }
     }
 }
