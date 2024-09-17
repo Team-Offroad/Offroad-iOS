@@ -20,14 +20,14 @@ final class CharacterDetailViewController: UIViewController {
     private var characterSubColorCode: String?
     
     private var combinedCharacterMotionList: [(isGained: Bool, character: Any)] = []
-    private var gainedCharacterMotionList: [GainedCharacterMotionList]?
-    private var notGainedCharacterMotionList: [NotGainedCharacterMotionList]?
+    private var gainedCharacterMotionList: [CharacterMotionList]?
+    private var notGainedCharacterMotionList: [CharacterMotionList]?
     
     // MARK: - Life Cycle
     
     init(characterId: Int) {
         self.characterId = characterId
-
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -126,14 +126,17 @@ extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharacterDetailCell", for: indexPath) as! CharacterDetailCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterDetailCell.className, for: indexPath) as? CharacterDetailCell else {
+            fatalError("Could not dequeue CharacterDetailCell")
+        }
+        
         
         let characterMotionData = combinedCharacterMotionList[indexPath.item]
         
-        if characterMotionData.isGained, let gainedCharacterMotion = characterMotionData.character as? GainedCharacterMotionList {
-            cell.gainedMotionCell(data: gainedCharacterMotion)
-        } else if let notGainedCharacterMotion = characterMotionData.character as? NotGainedCharacterMotionList {
-            cell.notGainedMotionCell(data: notGainedCharacterMotion)
+        if characterMotionData.isGained, let gainedCharacterMotion = characterMotionData.character as? CharacterMotionList {
+            cell.configureMotionCell(data: gainedCharacterMotion, isGained: true)
+        } else if let notGainedCharacterMotion = characterMotionData.character as? CharacterMotionList {
+            cell.configureMotionCell(data: notGainedCharacterMotion, isGained: false)
         }
         
         if let mainColor = self.characterMainColorCode, let subColor = self.characterSubColorCode {

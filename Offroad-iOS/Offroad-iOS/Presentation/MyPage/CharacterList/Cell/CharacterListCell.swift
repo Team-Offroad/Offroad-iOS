@@ -16,7 +16,6 @@ class CharacterListCell: UICollectionViewCell {
     
     private let containerView = UIView().then {
         $0.roundCorners(cornerRadius: 10)
-        $0.clipsToBounds = true
     }
     
     private var acqiredCharacterImageView = UIImageView().then {

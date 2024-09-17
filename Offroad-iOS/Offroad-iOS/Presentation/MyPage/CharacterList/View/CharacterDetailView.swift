@@ -57,7 +57,7 @@ class CharacterDetailView: UIView {
         $0.roundCorners(cornerRadius: 10)
     }
     
-    var nameLabel = UILabel().then {
+    let nameLabel = UILabel().then {
         $0.textAlignment = .left
         $0.textColor = UIColor.sub(.sub4)
         $0.font = UIFont.offroad(style: .iosSubtitle2Bold)

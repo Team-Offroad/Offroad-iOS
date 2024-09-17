@@ -22,7 +22,7 @@ class CharacterDetailCell: UICollectionViewCell {
         $0.contentMode = .scaleAspectFit
     }
     
-    private let characterLabel = UILabel().then {
+    private let motionTitleLabel = UILabel().then {
         $0.text = ""
         $0.textAlignment = .center
         $0.textColor = UIColor.primary(.white)
@@ -70,7 +70,7 @@ class CharacterDetailCell: UICollectionViewCell {
     private func setupHierarchy() {
         contentView.addSubviews(
             containerView,
-            characterLabel,
+            motionTitleLabel,
             shadowView,
             newBadgeView
         )
@@ -80,7 +80,7 @@ class CharacterDetailCell: UICollectionViewCell {
     
     private func setupLayout() {
         contentView.roundCorners(cornerRadius: 10)
-
+        
         contentView.clipsToBounds = true
         
         containerView.snp.makeConstraints { make in
@@ -94,12 +94,10 @@ class CharacterDetailCell: UICollectionViewCell {
             make.centerX.centerY.equalToSuperview()
         }
         
-        characterLabel.snp.makeConstraints{ make in
-            characterLabel.snp.makeConstraints{ make in
+        motionTitleLabel.snp.makeConstraints{ make in
                 make.top.equalTo(containerView.snp.bottom).offset(10)
                 make.centerX.equalToSuperview()
                 make.bottom.equalToSuperview().inset(10)
-            }
         }
         
         shadowView.snp.makeConstraints { make in
@@ -120,57 +118,29 @@ class CharacterDetailCell: UICollectionViewCell {
     
     //MARK: - Func
     
-    func gainedMotionCell(data: GainedCharacterMotionList) {
+    func configureMotionCell(data: CharacterMotionList, isGained: Bool) {
         motionImageView.fetchSvgURLToImageView(svgUrlString: data.characterMotionImageUrl)
-        if data.category == "CAFFE" {
-            characterLabel.text = "카페 방문 시"
-        }
-        else if data.category == "PARK" {
-            characterLabel.text = "공원 방문 시"
-        }
-        else if data.category == "CULTURE" {
-            characterLabel.text = "문화 방문 시"
-        }
-        else if data.category == "RESTAURANT" {
-            characterLabel.text = "식당 방문 시"
-        }
-        else if data.category == "SPORT" {
-            characterLabel.text = "헬스장 방문 시"
+        switch data.category {
+        case "CAFFE":
+            motionTitleLabel.text = "카페 방문 시"
+        case "PARK":
+            motionTitleLabel.text = "공원 방문 시"
+        case "CULTURE":
+            motionTitleLabel.text = "문화 방문 시"
+        case "RESTAURANT":
+            motionTitleLabel.text = "식당 방문 시"
+        case "SPORT":
+            motionTitleLabel.text = "헬스장 방문 시"
+        default:
+            motionTitleLabel.text = ""
         }
         
-        shadowView.isHidden = true
-        lockImageView.isHidden = true
+        shadowView.isHidden = isGained
+        lockImageView.isHidden = isGained
         
-        if data.isNewGained {
-            newBadgeView.isHidden = false
-        }
+        newBadgeView.isHidden = !data.isNewGained
     }
     
-    func notGainedMotionCell(data: NotGainedCharacterMotionList) {
-        motionImageView.fetchSvgURLToImageView(svgUrlString: data.characterMotionImageUrl)
-        if data.category == "CAFFE" {
-            characterLabel.text = "카페 방문 시"
-        }
-        else if data.category == "PARK" {
-            characterLabel.text = "공원 방문 시"
-        }
-        else if data.category == "CULTURE" {
-            characterLabel.text = "문화 방문 시"
-        }
-        else if data.category == "RESTAURANT" {
-            characterLabel.text = "식당 방문 시"
-        }
-        else if data.category == "SPORT" {
-            characterLabel.text = "헬스장 방문 시"
-        }
-        
-        shadowView.isHidden = false
-        lockImageView.isHidden = false
-        
-        if data.isNewGained {
-            newBadgeView.isHidden = false
-        }
-    }
     
     func configureCellColor(mainColor: String, subColor: String){
         contentView.backgroundColor = UIColor(hex: mainColor)
