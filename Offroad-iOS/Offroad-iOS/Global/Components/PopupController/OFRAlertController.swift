@@ -11,6 +11,8 @@ class OFRAlertController: UIViewController {
     
     //MARK: - Properties
     
+    let viewModel = OFRAlertViewModel()
+    
     let transitionDelegate = ZeroDurationTransitionDelegate()
     let presentationAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.7)
     let dismissalAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
@@ -97,6 +99,8 @@ class OFRAlertController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNotification()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -136,6 +140,21 @@ extension OFRAlertController {
         self.dismiss(animated: false)
     }
     
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRect = keyboardFrame.cgRectValue
+            viewModel.keyboardFrameObservable = keyboardRect
+        }
+    }
+    
+    @objc private func keyboardWillHide() {
+        
+    }
+
+    @objc private func keyboardDidHide() {
+        
+    }
+    
     //MARK: - Private Func
     
     private func setupPresentationStyle() {
@@ -172,13 +191,27 @@ extension OFRAlertController {
         dismissalAnimator.startAnimation()
     }
     
-    private func checkAlertViewPosition() {
+    private func checkAlertViewPosition() { // 텍스트필드 띄우는 함수인데? 이름 다시 생각해보기
         if type == .textField && isKeyboardShowWhenPresented {
             textFieldToBeFirstResponder?.becomeFirstResponder()
             
             
         } else {
             return
+        }
+    }
+    
+    private func setupNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIResponder.keyboardDidHideNotification, object: nil)
+    }
+    
+    private func bind() {
+        viewModel.onKeyboardWillShow = { [weak self] in
+            let keyboardHeight = self?.viewModel.keyboardFrameObservable?.height
         }
     }
     

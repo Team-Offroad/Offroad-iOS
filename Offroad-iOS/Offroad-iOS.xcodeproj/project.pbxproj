@@ -55,6 +55,7 @@
 		4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4A8FD62C4A5752001FB498 /* UIImage+.swift */; };
 		4E56F53D2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */; };
 		4E56F53F2C987C5500EEE677 /* ZeroDurationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */; };
+		4E56F54C2C995BA800EEE677 /* OFRAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F54B2C995BA800EEE677 /* OFRAlertViewModel.swift */; };
 		4E58FC002C7DFE78002A951B /* QuestListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FBFF2C7DFE78002A951B /* QuestListAPI.swift */; };
 		4E58FC022C7DFE87002A951B /* QuestListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FC012C7DFE87002A951B /* QuestListService.swift */; };
 		4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */; };
@@ -280,6 +281,7 @@
 		4E4A8FD62C4A5752001FB498 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationTransitionDelegate.swift; sourceTree = "<group>"; };
 		4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationAnimator.swift; sourceTree = "<group>"; };
+		4E56F54B2C995BA800EEE677 /* OFRAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRAlertViewModel.swift; sourceTree = "<group>"; };
 		4E58FBFF2C7DFE78002A951B /* QuestListAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListAPI.swift; sourceTree = "<group>"; };
 		4E58FC012C7DFE87002A951B /* QuestListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListService.swift; sourceTree = "<group>"; };
 		4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListResponseDTO.swift; sourceTree = "<group>"; };
@@ -1135,6 +1137,7 @@
 				4EFCDFE22C92C1F1006DEBB6 /* OFRAlertButton.swift */,
 				4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */,
 				4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */,
+				4E56F54B2C995BA800EEE677 /* OFRAlertViewModel.swift */,
 			);
 			path = PopupController;
 			sourceTree = "<group>";
@@ -2223,6 +2226,7 @@
 				D00A48712C63443F008B286A /* NoticeView.swift in Sources */,
 				D0B81AA22C47180800C44ED9 /* ChoosingCharacterPopupView.swift in Sources */,
 				D063E98E2C49483000434A09 /* UIImageView+.swift in Sources */,
+				4E56F54C2C995BA800EEE677 /* OFRAlertViewModel.swift in Sources */,
 				D0E796632C4553F0005B47A5 /* RefreshTokenResponseDTO.swift in Sources */,
 				D00A48622C633947008B286A /* SettingView.swift in Sources */,
 				D064669C2C86FCE800CF10FD /* DeleteAccountView.swift in Sources */,
