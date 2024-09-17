@@ -93,7 +93,7 @@ final class CouponDetailView: UIView {
         $0.titleLabel?.textAlignment = .center
         $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
         $0.backgroundColor = UIColor.main(.main2)
-        $0.layer.cornerRadius = 5
+        $0.roundCorners(cornerRadius: 5)
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
     }
     

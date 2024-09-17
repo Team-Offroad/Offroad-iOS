@@ -45,7 +45,7 @@ final class BirthView: UIView {
         $0.keyboardType = .numberPad
         $0.backgroundColor = UIColor.main(.main3)
         $0.layer.borderWidth = 1.0
-        $0.layer.cornerRadius = 5
+        $0.roundCorners(cornerRadius: 5)
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         $0.textColor = UIColor.main(.main2)
         $0.textAlignment = .center
@@ -59,7 +59,7 @@ final class BirthView: UIView {
         $0.keyboardType = .numberPad
         $0.backgroundColor = UIColor.main(.main3)
         $0.layer.borderWidth = 1.0
-        $0.layer.cornerRadius = 5
+        $0.roundCorners(cornerRadius: 5)
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         $0.textColor = UIColor.main(.main2)
         $0.textAlignment = .center
@@ -73,7 +73,7 @@ final class BirthView: UIView {
         $0.keyboardType = .numberPad
         $0.backgroundColor = UIColor.main(.main3)
         $0.layer.borderWidth = 1.0
-        $0.layer.cornerRadius = 5
+        $0.roundCorners(cornerRadius: 5)
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         $0.textColor = UIColor.main(.main2)
         $0.textAlignment = .center

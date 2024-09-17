@@ -18,7 +18,7 @@ class CharacterDetailView: UIView {
     // MARK: - UI Properties
     
     let customBackButton = NavigationPopButton().then {
-            $0.configureButtonTitle(titleString: "획득 캐릭터")
+        $0.configureButtonTitle(titleString: "획득 캐릭터")
     }
     
     private let scrollView = UIScrollView().then {
@@ -67,7 +67,7 @@ class CharacterDetailView: UIView {
         $0.text = "캐릭터 모션"
         $0.textAlignment = .left
         $0.textColor = UIColor.main(.main2)
-        $0.font = UIFont.offroad(style: .iosTextTitle)
+        $0.font = UIFont.offroad(style: .iosSubtitle2Bold)
     }
     
     private let babyImage = UIImageView(image: UIImage(resource: .baby))
@@ -76,7 +76,7 @@ class CharacterDetailView: UIView {
         $0.contentMode = .scaleAspectFit
     }
     
-    private let titleLabel = UILabel().then {
+    let titleLabel = UILabel().then {
         $0.text = "호기심이 많은 탐험가"
         $0.textAlignment = .left
         $0.textColor = UIColor.grayscale(.gray300)
@@ -95,7 +95,7 @@ class CharacterDetailView: UIView {
         $0.backgroundColor = UIColor.home(.homeBg)
         $0.setTitleColor(UIColor.main(.main1), for: .normal)
         $0.titleLabel?.font = UIFont.offroad(style: .iosTextContents)
-        $0.layer.cornerRadius = 20
+        $0.roundCorners(cornerRadius: 20)
     }
     
     private let characterMotionView = UIView().then {

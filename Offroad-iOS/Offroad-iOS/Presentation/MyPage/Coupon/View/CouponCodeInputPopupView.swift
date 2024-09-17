@@ -78,8 +78,8 @@ extension CouponCodeInputPopupView {
             $0.textAlignment = .center
         }
         
-        couponCodeTextField.do {
-            $0.layer.cornerRadius = 5
+        codeTextField.do {
+            $0.roundCorners(cornerRadius: 5)
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.grayscale(.gray200).cgColor
             $0.backgroundColor = UIColor.main(.main3)
