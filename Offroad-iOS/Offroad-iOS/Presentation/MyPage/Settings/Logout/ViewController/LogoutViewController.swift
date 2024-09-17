@@ -42,15 +42,6 @@ extension LogoutViewController {
     //MARK: - @Objc Func
     
     @objc private func yesButtonTapped() {
-        KeychainManager.shared.deleteAccessToken()
-        KeychainManager.shared.deleteRefreshToken()
-        UserDefaults.standard.set(false, forKey: "isLoggedIn")
-        
-        let splashViewController = SplashViewController()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            UIWindow.current.rootViewController = splashViewController
-        }
     }
     
     @objc private func noButtonTapped() {
