@@ -15,6 +15,8 @@ internal class OFRAlertBackgroundView: UIView {
     
     var keyboardRect: CGRect? = nil
     
+    lazy var alertViewCenterYCosntraint = alertView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+    
     //MARK: - UI Properties
     
     let alertView = OFRAlertView()
@@ -26,7 +28,9 @@ internal class OFRAlertBackgroundView: UIView {
         
         setupStyle()
         setupHierarchy()
-        setupLayout(of: .normal)
+        setupDefaultLayout()
+        self.layoutIfNeeded()
+        //setupLayout(of: .normal)
         setupNotification()
     }
     
@@ -40,12 +44,11 @@ extension OFRAlertBackgroundView {
     
     //MARK: - Layout
     
-    private func setupLayout(of type: OFRAlertViewType) {
+    private func setupDefaultLayout() {
         alertView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.centerY.equalToSuperview()
         }
-        
+        alertViewCenterYCosntraint.isActive = true
     }
     
     //MARK: - @objc Func
@@ -79,5 +82,19 @@ extension OFRAlertBackgroundView {
     }
     
     //MARK: - Func
+    
+    func setupLayout(of type: OFRAlertViewType, keyboardRect: CGRect? = nil) {
+        switch type {
+        case .textField:
+            guard let keyboardRect else { return }
+            alertViewCenterYCosntraint.isActive = false
+            alertView.snp.makeConstraints { make in
+                make.bottom.equalToSuperview().inset(keyboardRect.height + 24)
+            }
+            
+        default:
+            alertViewCenterYCosntraint.isActive = true
+        }
+    }
     
 }

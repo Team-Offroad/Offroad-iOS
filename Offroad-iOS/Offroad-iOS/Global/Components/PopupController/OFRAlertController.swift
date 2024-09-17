@@ -7,14 +7,18 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
+
 class OFRAlertController: UIViewController {
     
     //MARK: - Properties
     
     let viewModel = OFRAlertViewModel()
+    var disposeBag = DisposeBag()
     
     let transitionDelegate = ZeroDurationTransitionDelegate()
-    let presentationAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.7)
+    let presentationAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.7)
     let dismissalAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     
     /**
@@ -111,7 +115,7 @@ class OFRAlertController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        showAlertView()
+        showKeyboardIfNeeded()
     }
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
@@ -143,7 +147,7 @@ extension OFRAlertController {
     @objc private func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRect = keyboardFrame.cgRectValue
-            viewModel.keyboardFrameObservable = keyboardRect
+            viewModel.keyboardFrameObservable.accept(keyboardRect)
         }
     }
     
@@ -170,8 +174,12 @@ extension OFRAlertController {
     }
     
     private func showAlertView() {
-        checkAlertViewPosition()
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
         backgroundView.alertView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        backgroundView.layoutIfNeeded()
+        CATransaction.commit()
         
         presentationAnimator.addAnimations { [weak self] in
             self?.backgroundView.backgroundColor = .blackOpacity(.black25)
@@ -191,13 +199,13 @@ extension OFRAlertController {
         dismissalAnimator.startAnimation()
     }
     
-    private func checkAlertViewPosition() { // 텍스트필드 띄우는 함수인데? 이름 다시 생각해보기
+    private func showKeyboardIfNeeded() { // 텍스트필드 띄우는 함수인데? 이름 다시 생각해보기
         if type == .textField && isKeyboardShowWhenPresented {
             textFieldToBeFirstResponder?.becomeFirstResponder()
             
-            
         } else {
-            return
+            backgroundView.setupLayout(of: type)
+            showAlertView()
         }
     }
     
@@ -210,9 +218,14 @@ extension OFRAlertController {
     }
     
     private func bind() {
-        viewModel.onKeyboardWillShow = { [weak self] in
-            let keyboardHeight = self?.viewModel.keyboardFrameObservable?.height
-        }
+        viewModel.keyboardFrameObservable
+            .debug()
+            .subscribe { rect in
+                self.showAlertView()
+                self.backgroundView.setupLayout(of: .textField, keyboardRect: rect)
+                self.view.layoutIfNeeded()
+            }
+            .disposed(by: disposeBag)
     }
     
     //MARK: - Func

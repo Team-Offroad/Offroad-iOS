@@ -7,15 +7,12 @@
 
 import Foundation
 
+import RxSwift
+import RxCocoa
+
 class OFRAlertViewModel {
     
-    var onKeyboardWillShow: (() -> Void)? = nil
-    
-    var keyboardFrameObservable: CGRect? = nil {
-        didSet {
-            onKeyboardWillShow?()
-        }
-    }
+    var keyboardFrameObservable = PublishRelay<CGRect>()
     
     
     
