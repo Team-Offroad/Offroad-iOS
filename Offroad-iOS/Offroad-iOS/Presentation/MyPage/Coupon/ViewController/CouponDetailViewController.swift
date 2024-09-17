@@ -85,8 +85,12 @@ extension CouponDetailViewController {
         
         // 케이스 1
 //        let alertController = OFRAlertController(title: "로그아웃", message: "정말 로그아웃 하시겠어요?", type: .normal)
-//        let cancelAction = OFRAlertAction(title: "아니오", style: .cancel) { _ in return }
-//        let okAction = OFRAlertAction(title: "네", style: .default) { _ in return }
+//        let cancelAction = OFRAlertAction(title: "아니오", style: .cancel) { _ in
+//            print("아니오 버튼 눌림!!!!")
+//        }
+//        let okAction = OFRAlertAction(title: "네", style: .default) { _ in
+//            print("네 버튼 눌림!!!!")
+//        }
 //
 //        alertController.addAction(cancelAction)
 //        alertController.addAction(okAction)
@@ -104,6 +108,7 @@ extension CouponDetailViewController {
         //케이스 3 (쿠폰 코드 입력)
         let alertController = OFRAlertController(title: "쿠폰 사용", message: "코드를 입력 후 사장님에게 보여주세요", type: .textField)
         let okAction = OFRAlertAction(title: "확인", style: .default) { action in
+            print("확인 버튼 눌림!!!!!")
             return
         }
         alertController.addAction(okAction)

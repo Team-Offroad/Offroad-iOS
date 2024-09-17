@@ -11,11 +11,11 @@ class OFRAlertButton: UIButton {
     
     //MARK: - Properties
     
-    var primaryAction: OFRAlertAction? {
+    var action: OFRAlertAction {
         didSet {
-            guard let primaryAction else { return }
-            setTitle(primaryAction.title, for: .normal)
-            setupStyle(of: primaryAction.style)
+//            guard let primaryAction else { return }
+//            setTitle(primaryAction.title, for: .normal)
+//            setupStyle(of: primaryAction.style)
         }
     }
     
@@ -23,30 +23,18 @@ class OFRAlertButton: UIButton {
     
     //MARK: - Life Cycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(alertAction: OFRAlertAction) {
+        self.action = alertAction
+        super.init(frame: .zero)
         
-        //setupStyle()
         setupLayout()
+        setupButtonAction(alertAction)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(primaryAction: OFRAlertAction) {
-        
-        /*
-         생성자 내에서 primaryAction에 값을 할당하는 경우, didSet이 호출되지 않음.
-         이 문제를 해결하기 위해서 생성자 내에서 defer()을 호출하여 값이 할당될 때 didSet이 호출되도록 임시 조치하였음.
-         추후 RxSwift를 이용하여 해결할 수 있으면 리팩토링하기
-         */
-        defer {
-            self.primaryAction = primaryAction
-        }
-        
-        self.init()
-    }
 }
 
 extension OFRAlertButton {
@@ -95,6 +83,11 @@ extension OFRAlertButton {
             layer.borderWidth = 1
             clipsToBounds = true
         }
+    }
+    
+    private func setupButtonAction(_ action: OFRAlertAction) {
+        setTitle(action.title, for: .normal)
+        setupStyle(of: action.style)
     }
     
     //MARK: - Func

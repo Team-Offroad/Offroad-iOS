@@ -63,6 +63,10 @@ class OFRAlertController: UIViewController {
     
     let backgroundView = OFRAlertBackgroundView()
     
+    var buttons: [OFRAlertButton] {
+        backgroundView.alertView.buttons
+    }
+    
     //MARK: - Life Cycle
     
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -93,7 +97,6 @@ class OFRAlertController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTargets()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,6 +111,7 @@ class OFRAlertController: UIViewController {
     }
     
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        view.endEditing(true)
         hideAlertView {
             super.dismiss(animated: flag, completion: completion)
         }
@@ -126,6 +130,12 @@ extension OFRAlertController {
         dismiss(animated: false)
     }
     
+    @objc private func alertButtonTapped(sender: OFRAlertButton) {
+        print(#function)
+        sender.action.handler(sender.action)
+        self.dismiss(animated: false)
+    }
+    
     //MARK: - Private Func
     
     private func setupPresentationStyle() {
@@ -135,10 +145,13 @@ extension OFRAlertController {
     
     private func setupTargets() {
         backgroundView.alertView.closeButton.addTarget(self, action: #selector(closeButtonDidTapped), for: .touchUpInside)
+        buttons.forEach { button in
+            button.addTarget(self, action: #selector(alertButtonTapped(sender:)), for: .touchUpInside)
+        }
     }
     
     private func showAlertView() {
-        
+        checkAlertViewPosition()
         backgroundView.alertView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         
         presentationAnimator.addAnimations { [weak self] in
@@ -150,7 +163,6 @@ extension OFRAlertController {
     }
     
     private func hideAlertView(completion: (() -> Void)? = nil) {
-        
         dismissalAnimator.addAnimations { [weak self] in
             self?.backgroundView.backgroundColor = .clear
             self?.backgroundView.alertView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
@@ -160,19 +172,23 @@ extension OFRAlertController {
         dismissalAnimator.startAnimation()
     }
     
+    private func checkAlertViewPosition() {
+        if type == .textField && isKeyboardShowWhenPresented {
+            textFieldToBeFirstResponder?.becomeFirstResponder()
+            
+            
+        } else {
+            return
+        }
+    }
     
     //MARK: - Func
     
     func addAction(_ action: OFRAlertAction) {
         backgroundView.alertView.actions.append(action)
+        setupTargets()
         self.backgroundView.layoutIfNeeded()
     }
-    
-//    func addTextField(configurationHandler: ((UITextField) -> Void)? = nil) {
-//        let textField = UITextField()
-//        
-//        configurationHandler?(textField)
-//    }
     
     /**
      alert controller의 type이 `.textField`인 경우 `defaultTextField`의 속성을 변경하는 함수.
@@ -188,7 +204,7 @@ extension OFRAlertController {
 
 class OFRAlertAction {
     
-    init(title: String?, style: OFRAlertAction.Style, handler: @escaping ((UIAction) -> Void)) {
+    init(title: String?, style: OFRAlertAction.Style, handler: @escaping ((OFRAlertAction) -> Void)) {
         self.title = title
         self.style = style
         self.handler = handler
@@ -196,7 +212,7 @@ class OFRAlertAction {
     
     var title: String?
     var style: OFRAlertAction.Style
-    var handler: ((UIAction) -> Void)
+    var handler: ((OFRAlertAction) -> Void)
     var isEnabled: Bool = true
 }
 

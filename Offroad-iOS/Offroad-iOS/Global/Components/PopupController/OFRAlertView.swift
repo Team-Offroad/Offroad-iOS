@@ -76,7 +76,7 @@ class OFRAlertView: UIView {
     var actions: [OFRAlertAction] = [] {
         didSet {
             buttons = actions.map({ action in
-                let button = OFRAlertButton(primaryAction: action)
+                let button = OFRAlertButton(alertAction: action)
                 return button
             })
         }
@@ -102,7 +102,7 @@ class OFRAlertView: UIView {
     
     var defaultTextField = UITextField()
     
-    var buttons: [UIButton] = [] {
+    var buttons: [OFRAlertButton] = [] {
         didSet {
             print("현재 버튼의 수: \(buttons.count)")
             //buttonStackView = UIStackView(arrangedSubviews: [])
