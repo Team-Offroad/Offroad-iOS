@@ -64,14 +64,17 @@ extension DeleteAccountViewController {
         NetworkService.shared.profileService.postDeleteAccount(body: deleteAccountRequestDTO) { response in
             switch response {
             case .success:
-                KeychainManager.shared.deleteAccessToken()
-                KeychainManager.shared.deleteRefreshToken()
+                print("회원 탈퇴 성공!!!!")
                 UserDefaults.standard.set(false, forKey: "isLoggedIn")
                 
                 let splashViewController = SplashViewController()
                 
+                splashViewController.modalPresentationStyle = .overFullScreen
+                splashViewController.modalTransitionStyle = .crossDissolve
+                
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    UIWindow.current.rootViewController = splashViewController
+                    self.present(splashViewController, animated: true)
                 }
             default:
                 break

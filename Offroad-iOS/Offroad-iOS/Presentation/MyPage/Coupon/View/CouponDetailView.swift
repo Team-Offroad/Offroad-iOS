@@ -14,7 +14,7 @@ final class CouponDetailView: UIView {
     
     // MARK: - Properties
     
-    let couponUsagePopupView = CouponCodeInputPopupView().then {
+    let couponUsagePopupView = CouponUsagePopupView().then {
         $0.isHidden = true
     }
     
@@ -65,7 +65,7 @@ final class CouponDetailView: UIView {
         $0.textColor = UIColor.main(.main2)
         $0.textAlignment = .center
         $0.font = UIFont.offroad(style: .iosTextRegular)
-        $0.numberOfLines = 0
+        $0.numberOfLines = 3
     }
     
     private let usageTitleLabel = UILabel().then {
@@ -85,7 +85,6 @@ final class CouponDetailView: UIView {
         $0.font = UIFont.offroad(style: .iosBoxMedi)
         $0.numberOfLines = 2
         $0.setLineSpacing(spacing: 5)
-        $0.setLineHeight(percentage: 160)
     }
     
     let useButton = UIButton().then {
@@ -187,7 +186,6 @@ final class CouponDetailView: UIView {
             make.top.equalTo(usageLogoImageView)
             make.leading.equalTo(usageLogoImageView.snp.trailing).offset(8)
             make.trailing.equalToSuperview().inset(51.36)
-            make.height.equalTo(44)
         }
         
         useButton.snp.makeConstraints { make in
