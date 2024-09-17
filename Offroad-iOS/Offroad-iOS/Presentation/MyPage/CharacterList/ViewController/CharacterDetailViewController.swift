@@ -14,12 +14,17 @@ final class CharacterDetailViewController: UIViewController {
     private let characterId: Int
     
     private let characterDetailView = CharacterDetailView()
-    private var characterDetailList: [CharacterDetailList]?
     
     private var characterMainColorCode: String?
     private var characterSubColorCode: String?
     
-    private var combinedCharacterMotionList: [(isGained: Bool, character: Any)] = []
+    private var combinedCharacterMotionList: [(isGained: Bool, character: Any)] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                self.characterDetailView.collectionView.reloadData()
+            }
+        }
+    }
     private var gainedCharacterMotionList: [CharacterMotionList]?
     private var notGainedCharacterMotionList: [CharacterMotionList]?
     
