@@ -9,10 +9,10 @@ import Foundation
 
 struct CharacterDetailResponseDTO: Codable {
     let message: String
-    let data: CharacterDetailList
+    let data: CharacterDetailInfo
 }
 
-struct CharacterDetailList: Codable {
+struct CharacterDetailInfo: Codable {
     let characterId: Int
     let characterName: String
     let characterBaseImageUrl: String
