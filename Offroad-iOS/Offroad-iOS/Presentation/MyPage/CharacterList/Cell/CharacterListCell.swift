@@ -15,8 +15,7 @@ class CharacterListCell: UICollectionViewCell {
     // MARK: - UI Properties
     
     private let containerView = UIView().then {
-        $0.layer.cornerRadius = 10
-        $0.clipsToBounds = true
+        $0.roundCorners(cornerRadius: 10)
     }
     
     private var acqiredCharacterImageView = UIImageView().then {
@@ -106,7 +105,6 @@ class CharacterListCell: UICollectionViewCell {
             make.size.equalTo(24)
         }
     }
-    
     
     //MARK: - Func
     

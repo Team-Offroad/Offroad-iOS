@@ -12,9 +12,9 @@ class CharacterDetailCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    private let containerView = UIView().then {
+    let containerView = UIView().then {
         $0.backgroundColor = UIColor.primary(.characterSelectBg3)
-        $0.layer.cornerRadius = 10
+        $0.roundCorners(cornerRadius: 10)
         $0.clipsToBounds = true
     }
     
@@ -22,21 +22,28 @@ class CharacterDetailCell: UICollectionViewCell {
         $0.contentMode = .scaleAspectFit
     }
     
-    private let characterLabel = UILabel().then {
+    private let motionTitleLabel = UILabel().then {
         $0.text = ""
         $0.textAlignment = .center
         $0.textColor = UIColor.primary(.white)
         $0.font = UIFont.offroad(style: .iosTextContents)
     }
     
-    private let newTagView = UIView().then {
-        $0.backgroundColor = UIColor.sub(.sub)
-        $0.layer.cornerRadius = 12
+    private let shadowView = UIView().then {
+        $0.backgroundColor = .blackOpacity(.black25)
         $0.isHidden = true
     }
     
-    private let newTagLabel = UIImageView().then {
+    private let lockImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+        $0.image = UIImage(resource: .imgLock)
+        $0.isHidden = true
+    }
+    
+    private let newBadgeView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
         $0.image = UIImage(resource: .imgNewTag)
+        $0.isHidden = true
     }
     
     // MARK: - Life Cycle
@@ -63,62 +70,80 @@ class CharacterDetailCell: UICollectionViewCell {
     private func setupHierarchy() {
         contentView.addSubviews(
             containerView,
-            characterLabel,
-            newTagView
+            motionTitleLabel,
+            shadowView,
+            newBadgeView
         )
-        newTagView.addSubview(newTagLabel)
+        shadowView.addSubview(lockImageView)
         containerView.addSubview(motionImageView)
     }
     
     private func setupLayout() {
+        contentView.roundCorners(cornerRadius: 10)
+        
+        contentView.clipsToBounds = true
+        
         containerView.snp.makeConstraints { make in
-            make.height.equalTo(167)
             make.centerX.equalToSuperview()
-            make.top.horizontalEdges.equalToSuperview().inset(10)
+            make.top.horizontalEdges.equalTo(contentView).inset(10)
         }
         
         motionImageView.snp.makeConstraints { make in
-            make.width.equalTo(75)
-            make.height.equalTo(136)
-            make.center.equalToSuperview()
+            make.width.equalTo(81)
+            make.height.equalTo(147)
+            make.centerX.centerY.equalToSuperview()
         }
         
-        characterLabel.snp.makeConstraints{ make in
-            make.top.equalTo(containerView.snp.bottom).offset(10)
+        motionTitleLabel.snp.makeConstraints{ make in
+                make.top.equalTo(containerView.snp.bottom).offset(10)
+                make.centerX.equalToSuperview()
+                make.bottom.equalToSuperview().inset(10)
+        }
+        
+        shadowView.snp.makeConstraints { make in
+            make.edges.equalTo(contentView)
+        }
+        
+        lockImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
+            make.top.equalToSuperview().inset(75)
+            make.width.equalTo(33)
+            make.height.equalTo(37)
         }
         
-        newTagView.snp.makeConstraints { make in
-            make.top.trailing.equalTo(containerView).inset(10)
+        newBadgeView.snp.makeConstraints { make in
+            make.top.trailing.equalTo(containerView).inset(8)
             make.size.equalTo(24)
+        }    }
+    
+    //MARK: - Func
+    
+    func configureMotionCell(data: CharacterMotionList, isGained: Bool) {
+        motionImageView.fetchSvgURLToImageView(svgUrlString: data.characterMotionImageUrl)
+        switch data.category {
+        case "CAFFE":
+            motionTitleLabel.text = "카페 방문 시"
+        case "PARK":
+            motionTitleLabel.text = "공원 방문 시"
+        case "CULTURE":
+            motionTitleLabel.text = "문화 방문 시"
+        case "RESTAURANT":
+            motionTitleLabel.text = "식당 방문 시"
+        case "SPORT":
+            motionTitleLabel.text = "헬스장 방문 시"
+        default:
+            motionTitleLabel.text = ""
         }
         
-        newTagLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        shadowView.isHidden = isGained
+        lockImageView.isHidden = isGained
+        
+        newBadgeView.isHidden = !data.isNewGained
     }
     
-    func configureCharacterImage(imageName: String, isNew: Bool = false) {
-        motionImageView.image = UIImage(named: imageName)
-        
-        switch imageName {
-        case "character_1":
-            contentView.backgroundColor = UIColor.home(.homeCharacterName)
-            containerView.backgroundColor = UIColor.primary(.characterSelectBg3)
-            characterLabel.text = "카페 방문 시"
-        case "character_2":
-            contentView.backgroundColor = UIColor.primary(.getCharacter2)
-            containerView.backgroundColor = UIColor.primary(.characterSelectBg2)
-            characterLabel.text = "공원 방문 시"
-        case "character_3":
-            contentView.backgroundColor = UIColor.home(.homeContents1GraphMain)
-            containerView.backgroundColor = UIColor.primary(.characterSelectBg1)
-            characterLabel.text = "식당 방문 시"
-        default:
-            contentView.backgroundColor = UIColor.gray
-            containerView.backgroundColor = UIColor.darkGray
-        }
-        
-        newTagView.isHidden = !isNew
+    
+    func configureCellColor(mainColor: String, subColor: String){
+        contentView.backgroundColor = UIColor(hex: mainColor)
+        containerView.backgroundColor = UIColor(hex: subColor)
     }
 }

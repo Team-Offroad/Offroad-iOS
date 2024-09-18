@@ -33,7 +33,7 @@ final class NicknameView: UIView {
         $0.backgroundColor = UIColor.main(.main3)
         $0.addPadding(left: 13,right: 13)
         $0.layer.borderWidth = 1.0
-        $0.layer.cornerRadius = 5
+        $0.roundCorners(cornerRadius: 5)
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         $0.attributedPlaceholder = NSAttributedString(
             string: "닉네임을 입력",
@@ -48,7 +48,7 @@ final class NicknameView: UIView {
         $0.titleLabel?.font = UIFont.offroad(style: .iosBtnSmall)
         $0.setTitleColor(UIColor.primary(.white), for: .normal)
         $0.backgroundColor = UIColor.blackOpacity(.black15)
-        $0.layer.cornerRadius = 5
+        $0.roundCorners(cornerRadius: 5)
         $0.isEnabled = false
     }
     

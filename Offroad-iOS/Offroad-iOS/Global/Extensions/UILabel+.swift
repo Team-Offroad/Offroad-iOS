@@ -41,6 +41,9 @@ extension UILabel {
         let attributeString = NSMutableAttributedString(string: text)
         let style = NSMutableParagraphStyle()
         style.lineSpacing = spacing
+        style.alignment = textAlignment
+        style.lineBreakMode = lineBreakMode
+        style.lineBreakStrategy = lineBreakStrategy
         attributeString.addAttribute(.paragraphStyle,
                                      value: style,
                                      range: NSRange(location: 0, length: attributeString.length))
@@ -58,6 +61,9 @@ extension UILabel {
         let style = NSMutableParagraphStyle()
         let lineSpacing = font.ascender * ((percentage-100)/100) + font.descender
         style.lineSpacing = lineSpacing
+        style.alignment = textAlignment
+        style.lineBreakMode = lineBreakMode
+        style.lineBreakStrategy = lineBreakStrategy
         attributeString.addAttribute(.paragraphStyle,
                                      value: style,
                                      range: NSRange(location: 0, length: attributeString.length))

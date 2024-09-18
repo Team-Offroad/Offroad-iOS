@@ -73,7 +73,7 @@ class CharacterListView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Private Functions
+    // MARK: - Private Func
     
     private func setupStyle() {
         backgroundColor = .primary(.listBg)
