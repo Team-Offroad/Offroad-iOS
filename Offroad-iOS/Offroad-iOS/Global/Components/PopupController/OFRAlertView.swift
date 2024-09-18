@@ -53,13 +53,6 @@ class OFRAlertView: UIView {
     //MARK: - Properties
     
     var ratio: OFRAlertViewRatio = .horizontal
-    var type: OFRAlertViewType = .normal {
-        didSet {
-            // 순서 조심! view hierarchy -> constraint 순서로
-            setupHierarchy(of: type)
-            setupLayout(of: type)
-        }
-    }
     
     var title: String? {
         didSet {
@@ -202,10 +195,6 @@ extension OFRAlertView {
         backgroundColor = .main(.main3)
         roundCorners(cornerRadius: 15)
         
-        contentView.do { view in
-            view.backgroundColor = .systemGray5
-        }
-        
         // 이미지 에셋 폴더 및 파일 정리하기
         closeButton.do { button in
             button.setImage(.iconClose, for: .normal)
@@ -269,5 +258,11 @@ extension OFRAlertView {
     }
     
     //MARK: - Func
+    
+    func setFinalLayout(of type: OFRAlertViewType) {
+        // 순서 조심! view hierarchy -> constraint 순서로
+        setupHierarchy(of: type)
+        setupLayout(of: type)
+    }
     
 }

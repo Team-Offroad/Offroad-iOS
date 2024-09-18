@@ -53,11 +53,11 @@
 		4E3F009E2C40D20800B9A31A /* OffroadTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */; };
 		4E416CE82C45DBE200CF6AB4 /* OffroadPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */; };
 		4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4A8FD62C4A5752001FB498 /* UIImage+.swift */; };
-		4E56F5542C99ACD300EEE677 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4E56F5532C99ACD300EEE677 /* RxCocoa */; };
-		4E56F5562C99ACD300EEE677 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 4E56F5552C99ACD300EEE677 /* RxRelay */; };
 		4E56F53D2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */; };
 		4E56F53F2C987C5500EEE677 /* ZeroDurationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */; };
 		4E56F54C2C995BA800EEE677 /* OFRAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F54B2C995BA800EEE677 /* OFRAlertViewModel.swift */; };
+		4E56F5542C99ACD300EEE677 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 4E56F5532C99ACD300EEE677 /* RxCocoa */; };
+		4E56F5562C99ACD300EEE677 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 4E56F5552C99ACD300EEE677 /* RxRelay */; };
 		4E58FC002C7DFE78002A951B /* QuestListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FBFF2C7DFE78002A951B /* QuestListAPI.swift */; };
 		4E58FC022C7DFE87002A951B /* QuestListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FC012C7DFE87002A951B /* QuestListService.swift */; };
 		4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */; };
@@ -82,11 +82,11 @@
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
 		4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */; };
+		4EFCDFDA2C8F3721006DEBB6 /* CouponCodeInputPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFD92C8F3721006DEBB6 /* CouponCodeInputPopupViewController.swift */; };
 		4EFCDFDD2C92BB27006DEBB6 /* OFRAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDC2C92BB27006DEBB6 /* OFRAlertController.swift */; };
 		4EFCDFDF2C92BD8A006DEBB6 /* OFRAlertBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDE2C92BD8A006DEBB6 /* OFRAlertBackgroundView.swift */; };
 		4EFCDFE12C92BD93006DEBB6 /* OFRAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE02C92BD93006DEBB6 /* OFRAlertView.swift */; };
 		4EFCDFE32C92C1F1006DEBB6 /* OFRAlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE22C92C1F1006DEBB6 /* OFRAlertButton.swift */; };
-		4EFCDFDA2C8F3721006DEBB6 /* CouponCodeInputPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFD92C8F3721006DEBB6 /* CouponCodeInputPopupViewController.swift */; };
 		872F4BAE2C68C1F600284DE0 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */; };
 		872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB02C68C43800284DE0 /* CharacterListCell.swift */; };
 		872F4BB52C68D66200284DE0 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB42C68D66200284DE0 /* CharacterListViewController.swift */; };
@@ -1149,12 +1149,12 @@
 			isa = PBXGroup;
 			children = (
 				4EFCDFDC2C92BB27006DEBB6 /* OFRAlertController.swift */,
+				4E56F54B2C995BA800EEE677 /* OFRAlertViewModel.swift */,
 				4EFCDFDE2C92BD8A006DEBB6 /* OFRAlertBackgroundView.swift */,
 				4EFCDFE02C92BD93006DEBB6 /* OFRAlertView.swift */,
 				4EFCDFE22C92C1F1006DEBB6 /* OFRAlertButton.swift */,
 				4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */,
 				4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */,
-				4E56F54B2C995BA800EEE677 /* OFRAlertViewModel.swift */,
 			);
 			path = PopupController;
 			sourceTree = "<group>";

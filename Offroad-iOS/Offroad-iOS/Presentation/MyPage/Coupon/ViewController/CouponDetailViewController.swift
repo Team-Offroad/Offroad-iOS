@@ -112,8 +112,10 @@ extension CouponDetailViewController {
             return
         }
         alertController.addAction(okAction)
+        alertController.showsKeyboardWhenPresented = true
         alertController.configureDefaultTextField { textField in
             textField.placeholder = "매장의 고유 코드를 입력해 주세요"
+            textField.keyboardType = .numberPad
         }
         
         present(alertController, animated: true)
