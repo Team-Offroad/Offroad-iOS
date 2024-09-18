@@ -14,12 +14,12 @@ class OFRAlertController: UIViewController {
     
     //MARK: - Properties
     
-    let viewModel = OFRAlertViewModel()
-    var disposeBag = DisposeBag()
+    private let viewModel = OFRAlertViewModel()
+    private var disposeBag = DisposeBag()
     
-    let transitionDelegate = ZeroDurationTransitionDelegate()
-    let presentationAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.7)
-    let dismissalAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    private let transitionDelegate = ZeroDurationTransitionDelegate()
+    private let presentationAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.7)
+    private let dismissalAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     
     /**
      팝업의 제목
@@ -56,16 +56,14 @@ class OFRAlertController: UIViewController {
      */
     var showsKeyboardWhenPresented: Bool = true
     
-    /**
-     팝업 우측 상단의 X 버튼(팝업 창 닫는 버튼) 이 보여지도록 할 지 설정
-     */
-    var showsCloseButton: Bool = false
-    
-    var keyboardHeight: CGFloat? = nil
+    var textFieldToBeFirstResponder: UITextField? {
+        get { viewModel.textFieldToBeFirstResponder }
+        set { viewModel.textFieldToBeFirstResponderSubject.onNext(newValue) }
+    }
     
     //MARK: - UI Properties
     
-    let backgroundView = OFRAlertBackgroundView()
+    private let backgroundView = OFRAlertBackgroundView()
     
     private var defaultTextField: UITextField {
         backgroundView.alertView.defaultTextField
