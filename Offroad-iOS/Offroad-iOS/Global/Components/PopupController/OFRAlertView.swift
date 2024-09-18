@@ -173,7 +173,6 @@ extension OFRAlertView {
                 make.height.equalTo(43)
             }
             
-            
         case .scrollableContent:
             return
         case .custom:
@@ -197,7 +196,7 @@ extension OFRAlertView {
         
         // 이미지 에셋 폴더 및 파일 정리하기
         closeButton.do { button in
-            button.setImage(.iconClose, for: .normal)
+            button.setImage(.iosOfrAlertXmark, for: .normal)
         }
         
         titleLabel.do { label in
