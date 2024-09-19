@@ -173,6 +173,7 @@ extension QuestListCollectionViewCell {
         
         checkBoxImageView.snp.makeConstraints { make in
             make.centerY.equalTo(questClearConditionLabel)
+            make.top.greaterThanOrEqualTo(questInfoView.snp.top).inset(9)
             make.leading.equalToSuperview().inset(12)
             make.size.equalTo(25)
         }
@@ -180,6 +181,7 @@ extension QuestListCollectionViewCell {
         giftBoxImageVIew.snp.makeConstraints { make in
             make.top.greaterThanOrEqualTo(checkBoxImageView.snp.bottom).offset(4)
             make.leading.equalToSuperview().inset(12)
+            make.bottom.lessThanOrEqualTo(questInfoView.snp.bottom).inset(9)
             make.size.equalTo(25)
         }
 
