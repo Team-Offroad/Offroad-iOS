@@ -44,7 +44,7 @@ final class GenderView: UIView {
         $0.setBackgroundColor(UIColor.neutral(.nametagInactive), for: .selected)
         $0.layer.borderWidth = 1.0
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-        $0.layer.cornerRadius = 5
+        $0.roundCorners(cornerRadius: 5)
     }
     
     let femaleButton = UIButton().then {
@@ -57,7 +57,7 @@ final class GenderView: UIView {
         $0.setBackgroundColor(UIColor.neutral(.nametagInactive), for: .selected)
         $0.layer.borderWidth = 1.0
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-        $0.layer.cornerRadius = 5
+        $0.roundCorners(cornerRadius: 5)
     }
     
     let etcButton = UIButton().then {
@@ -70,7 +70,7 @@ final class GenderView: UIView {
         $0.setBackgroundColor(UIColor.neutral(.nametagInactive), for: .selected)
         $0.layer.borderWidth = 1.0
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-        $0.layer.cornerRadius = 5
+        $0.roundCorners(cornerRadius: 5)
     }
     
     let nextButton = StateToggleButton(state: .isDisabled, title: "다음")

@@ -24,6 +24,10 @@ class AcquiredCouponViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
+        
+        if let offroadTabBarController = self.tabBarController as? OffroadTabBarController {
+            offroadTabBarController.hideTabBarAnimation()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,9 +39,9 @@ class AcquiredCouponViewController: UIViewController {
         acquiredCouponView.customSegmentedControl.selectSegment(index: 0)
     }
 }
-   
-extension AcquiredCouponViewController{
 
+extension AcquiredCouponViewController{
+    
     // MARK: - Private Func
     
     private func setupTarget() {

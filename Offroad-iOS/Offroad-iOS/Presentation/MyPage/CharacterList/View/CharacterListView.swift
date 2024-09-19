@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-class AcquiredCharactersView: UIView {
+class CharacterListView: UIView {
 
     // MARK: - UI Properties
     
@@ -54,7 +54,7 @@ class AcquiredCharactersView: UIView {
     }
 
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
-        $0.register(AcquiredCharactersCell.self, forCellWithReuseIdentifier: "AcquiredCharactersCell")
+        $0.register(CharacterListCell.self, forCellWithReuseIdentifier: "CharacterListCell")
         $0.backgroundColor = .clear
         $0.showsVerticalScrollIndicator = false
     }
@@ -73,7 +73,7 @@ class AcquiredCharactersView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Private Functions
+    // MARK: - Private Func
     
     private func setupStyle() {
         backgroundColor = .primary(.listBg)
