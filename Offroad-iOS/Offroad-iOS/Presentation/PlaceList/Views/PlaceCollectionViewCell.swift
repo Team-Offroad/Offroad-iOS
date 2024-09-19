@@ -274,6 +274,7 @@ extension PlaceCollectionViewCell {
     //MARK: - Func
     
     func configureCell(with place: RegisteredPlaceInfo, showingVisitingCount: Bool) {
+        placeSectionLabel.text = place.placeArea
         placeNameLabel.text = place.name
         addressLabel.text = place.address
         placeDescriptionLabel.text = place.shortIntroduction
@@ -305,8 +306,6 @@ extension PlaceCollectionViewCell {
         default:
             return
         }
-        
-        placeSectionLabel.text = "장소 섹션 라벨(임시)"
         
         contentView.layoutIfNeeded()
     }
