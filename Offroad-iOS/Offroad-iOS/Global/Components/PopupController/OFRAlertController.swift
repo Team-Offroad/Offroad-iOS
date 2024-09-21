@@ -200,7 +200,6 @@ extension OFRAlertController {
     
     private func setupNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
@@ -262,32 +261,6 @@ extension OFRAlertController {
     func configureDefaultTextField(_ configure: (UITextField) -> Void) {
         guard viewModel.type == .textField else { return }
         configure(defaultTextField)
-    }
-    
-}
-
-//MARK: - OFRAlertAction
-
-class OFRAlertAction {
-    
-    init(title: String?, style: OFRAlertAction.Style, handler: @escaping ((OFRAlertAction) -> Void)) {
-        self.title = title
-        self.style = style
-        self.handler = handler
-    }
-    
-    var title: String?
-    var style: OFRAlertAction.Style
-    var handler: ((OFRAlertAction) -> Void)
-    var isEnabled: Bool = true
-}
-
-extension OFRAlertAction {
-    
-    enum Style {
-        case `default`
-        case cancel
-        case destructive
     }
     
 }

@@ -47,6 +47,7 @@
 		4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6CE2C456FBF007358DA /* UITabBar+.swift */; };
 		4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */; };
 		4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */; };
+		4E38F0EF2C9EBAFA00C7B866 /* OFRAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38F0EE2C9EBAFA00C7B866 /* OFRAlertAction.swift */; };
 		4E393C9A2C48C9A6003403EC /* QuestResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E393C992C48C9A6003403EC /* QuestResultViewController.swift */; };
 		4E393C9C2C48C9B2003403EC /* QuestResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E393C9B2C48C9B2003403EC /* QuestResultView.swift */; };
 		4E3BB6842C4737030076105C /* PlaceInfoPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3BB6832C4737030076105C /* PlaceInfoPopupViewController.swift */; };
@@ -281,6 +282,7 @@
 		4E37B6CE2C456FBF007358DA /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterView.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/View/CompleteChoosingCharacterView.swift"; sourceTree = SOURCE_ROOT; };
 		4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterViewController.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/ViewController/CompleteChoosingCharacterViewController.swift"; sourceTree = SOURCE_ROOT; };
+		4E38F0EE2C9EBAFA00C7B866 /* OFRAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRAlertAction.swift; sourceTree = "<group>"; };
 		4E393C992C48C9A6003403EC /* QuestResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestResultViewController.swift; sourceTree = "<group>"; };
 		4E393C9B2C48C9B2003403EC /* QuestResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestResultView.swift; sourceTree = "<group>"; };
 		4E3BB6832C4737030076105C /* PlaceInfoPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoPopupViewController.swift; sourceTree = "<group>"; };
@@ -1155,6 +1157,7 @@
 				4EFCDFE22C92C1F1006DEBB6 /* OFRAlertButton.swift */,
 				4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */,
 				4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */,
+				4E38F0EE2C9EBAFA00C7B866 /* OFRAlertAction.swift */,
 			);
 			path = PopupController;
 			sourceTree = "<group>";
@@ -2322,6 +2325,7 @@
 				D0E7960C2C4522F2005B47A5 /* NetworkResult.swift in Sources */,
 				4E0394D92C2ABCCC007F0517 /* UIView+.swift in Sources */,
 				D06466AA2C8A08E500CF10FD /* MarketingConsentViewController.swift in Sources */,
+				4E38F0EF2C9EBAFA00C7B866 /* OFRAlertAction.swift in Sources */,
 				8792D0152C3E581E002051AC /* GenderViewController.swift in Sources */,
 				4EB32BE72C67A2B0003F98F2 /* QuestListViewControllers.swift in Sources */,
 				8791EDF22C7E118900E7F8B9 /* AcquiredCouponCell.swift in Sources */,
