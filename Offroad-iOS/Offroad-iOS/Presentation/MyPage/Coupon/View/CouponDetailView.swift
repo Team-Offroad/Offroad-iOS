@@ -19,7 +19,7 @@ final class CouponDetailView: UIView {
     }
     
     private let couponDetailView = UIView().then {
-        $0.roundCorners(cornerRadius: 12)
+        $0.roundCorners(cornerRadius: 22)
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.home(.homeContents2).cgColor
         $0.clipsToBounds = true
@@ -27,6 +27,7 @@ final class CouponDetailView: UIView {
     }
     
     let couponImageView = UIImageView().then {
+        $0.backgroundColor = .systemBlue
         $0.contentMode = .scaleAspectFit
         $0.roundCorners(cornerRadius: 10)
         $0.clipsToBounds = true
@@ -134,14 +135,17 @@ final class CouponDetailView: UIView {
         }
         
         couponDetailView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(125)
-            make.horizontalEdges.equalToSuperview().inset(40)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(customBackButton.snp.bottom).offset(43)
+            //make.top.equalToSuperview().inset(125)
+            //make.horizontalEdges.equalToSuperview().inset(40)
+            make.width.equalTo(312)
         }
         
         couponImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(22)
-            make.horizontalEdges.equalToSuperview().inset(21.5)
-            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().inset(21)
+            make.horizontalEdges.equalToSuperview().inset(21)
+            make.size.equalTo(270)
         }
         
         couponTitleLabel.snp.makeConstraints { make in
@@ -159,11 +163,12 @@ final class CouponDetailView: UIView {
             make.top.equalTo(dottedLineView.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(20)
+            make.height.equalTo(72)
         }
         
         usageTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(couponDetailView.snp.bottom).offset(24.5)
-            make.leading.equalToSuperview().inset(51.36)
+            make.horizontalEdges.equalToSuperview().inset(50)
         }
         
         usageLogoImageView.snp.makeConstraints { make in
@@ -175,7 +180,7 @@ final class CouponDetailView: UIView {
         usageDescriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(usageLogoImageView)
             make.leading.equalTo(usageLogoImageView.snp.trailing).offset(8)
-            make.trailing.equalToSuperview().inset(51.36)
+            make.trailing.equalToSuperview().inset(50)
         }
         
         useButton.snp.makeConstraints { make in
