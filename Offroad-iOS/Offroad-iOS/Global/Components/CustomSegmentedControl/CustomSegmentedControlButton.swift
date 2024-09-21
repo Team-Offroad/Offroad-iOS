@@ -14,10 +14,8 @@ final class CustomSegmentedControlButton: UIButton {
     //버튼 선택 시 글자 색 변경
     override var isSelected: Bool {
         didSet {
-            let textWeight: PretendardFontWeight = isSelected ? .bold : .medium
             let textColor: UIColor = isSelected ? .main(.main2) : .grayscale(.gray300)
-            // 추후 FontLiteral 만들어서 변경 요망
-            self.titleLabel?.font = .pretendardFont(ofSize: 18, weight: textWeight)
+            self.titleLabel?.font = isSelected ? .offroad(style: .iosTooltipTitle) : .offroad(style: .iosTabbarMedi)
             self.setTitleColor(textColor, for: .normal)
         }
     }

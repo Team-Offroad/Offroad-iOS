@@ -138,7 +138,7 @@ extension PlaceCollectionViewCell {
         
         addressLabel.do { label in
             label.font = .offroad(style: .iosHint)
-            // 추후 ColorLiteral로 변경 요망
+            // 추후 ColorLiteral로 변경 가능성 있음.
             label.textColor = .init(hexCode: "717171")
             label.textAlignment = .left
             label.numberOfLines = 0
@@ -149,8 +149,7 @@ extension PlaceCollectionViewCell {
         }
         
         placeDescriptionView.do { view in
-            // 추후 ColorLiteral로 변경 요망
-            view.backgroundColor = .init(hexCode: "FFF5EA")
+            view.backgroundColor = .primary(.boxInfo)
             view.roundCorners(cornerRadius: 9)
         }
         

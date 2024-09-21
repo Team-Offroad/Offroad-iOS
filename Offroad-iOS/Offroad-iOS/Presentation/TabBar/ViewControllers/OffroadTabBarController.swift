@@ -32,6 +32,7 @@ class OffroadTabBarController: UITabBarController {
         setOffroadViewControllers()
         setTabBarButtons()
         setupButtonsAction()
+        setupDelegates()
     }
     
     override func viewWillLayoutSubviews() {
@@ -116,12 +117,33 @@ extension OffroadTabBarController {
         tabBar.items?[2].image = UIImage.icnPerson
         tabBar.items?[2].title = "My"
     }
-        
-    // MARK: - Func
     
     private func setupButtonsAction() {
         customOffroadLogoButton.addTarget(self, action: #selector(centerTabBarButtonItemTapped), for: .touchUpInside)
     }
+    
+    private func setupDelegates() {
+        guard let questMapNavigationController = viewControllers?[1] as? UINavigationController else { return }
+        guard let myPageNavigationController = viewControllers?[2] as? UINavigationController else { return }
+        questMapNavigationController.delegate = self
+        myPageNavigationController.delegate = self
+    }
+    
+    private func disableTabBarInteraction() {
+        tabBar.items?.forEach({ item in
+            item.isEnabled = false
+        })
+        customOffroadLogoButton.isUserInteractionEnabled = false
+    }
+    
+    private func enableTabBarInteraction() {
+        tabBar.items?.forEach({ item in
+            item.isEnabled = true
+        })
+        customOffroadLogoButton.isUserInteractionEnabled = true
+    }
+    
+    // MARK: - Func
     
     func hideTabBarAnimation(delayFactor: CGFloat = 0) {
         hideTabBarAnimator.addAnimations({ [weak self] in
@@ -145,4 +167,18 @@ extension OffroadTabBarController {
         }, delayFactor: delayFactor)
         showTabBarAnimator.startAnimation()
     }
+}
+
+//MARK: - UINavigationControllerDelegate
+
+extension OffroadTabBarController: UINavigationControllerDelegate {
+    
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        disableTabBarInteraction()
+    }
+    
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        enableTabBarInteraction()
+    }
+    
 }
