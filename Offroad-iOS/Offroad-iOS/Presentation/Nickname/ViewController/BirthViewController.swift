@@ -177,13 +177,15 @@ extension BirthViewController {
             } else {
                 textField.layer.borderColor = UIColor.primary(.error).cgColor
             }
-        } else if textField == birthView.monthTextField {
+        } 
+        else if textField == birthView.monthTextField {
             if validateMonth() {
                 textField.layer.borderColor = UIColor.main(.main2).cgColor
             } else {
                 textField.layer.borderColor = UIColor.primary(.error).cgColor
             }
-        } else if textField == birthView.dayTextField {
+        } 
+        else if textField == birthView.dayTextField {
             if validateDay() {
                 textField.layer.borderColor = UIColor.main(.main2).cgColor
             } else {
@@ -213,7 +215,8 @@ extension BirthViewController {
             else {
                 textField.layer.borderColor = UIColor.primary(.error).cgColor
             }
-        } else if textField == birthView.monthTextField {
+        } 
+        else if textField == birthView.monthTextField {
             if validateMonth() && textField.text?.count == 2 {
                 birthView.dayTextField.becomeFirstResponder()
                 birthView.notionLabel.text = ""

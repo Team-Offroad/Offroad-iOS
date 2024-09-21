@@ -109,7 +109,8 @@ extension NicknameViewController {
             nicknameView.notionLabel.textColor = UIColor.primary(.error)
             nicknameView.textField.layer.borderColor = UIColor.primary(.error).cgColor
             nicknameView.nextButton.changeState(forState: .isDisabled)
-        } else if isTextFieldEmpty {
+        }
+        else if isTextFieldEmpty {
             nicknameView.notionLabel.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
             nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
             nicknameView.notionLabel.font = UIFont.offroad(style: .iosHint)
@@ -204,8 +205,3 @@ extension NicknameViewController: UITextFieldDelegate {
         return newText.eucKrByteLength <= 16
     }
 }
-
-
-
-
-
