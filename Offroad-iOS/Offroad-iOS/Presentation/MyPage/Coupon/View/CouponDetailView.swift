@@ -70,7 +70,7 @@ final class CouponDetailView: UIView {
     
     private let usageTitleLabel = UILabel().then {
         $0.text = "사용방법"
-        $0.textColor = UIColor.main(.main2)
+        $0.textColor = UIColor.sub(.sub2)
         $0.font = UIFont.offroad(style: .iosHint)
     }
     
@@ -80,11 +80,10 @@ final class CouponDetailView: UIView {
     }
     
     private let usageDescriptionLabel = UILabel().then {
-        $0.text = "매장에 게시되어 있거나 매장 직원에게 전달받은\n고유 코드를 입력한 후 제시해 사용해 주세요."
+        $0.text = "매장에 게시되어 있거나 매장 직원에게 전달받은 고유 코드를 입력한 후 제시해 사용해 주세요."
         $0.textColor = UIColor.grayscale(.gray400)
         $0.font = UIFont.offroad(style: .iosBoxMedi)
-        $0.numberOfLines = 2
-        $0.setLineSpacing(spacing: 5)
+        $0.numberOfLines = 0
         $0.setLineHeight(percentage: 160)
     }
     
@@ -181,13 +180,13 @@ final class CouponDetailView: UIView {
         usageLogoImageView.snp.makeConstraints { make in
             make.top.equalTo(usageTitleLabel.snp.bottom).offset(12)
             make.leading.equalTo(usageTitleLabel)
+            make.size.equalTo(21)
         }
         
         usageDescriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(usageLogoImageView)
             make.leading.equalTo(usageLogoImageView.snp.trailing).offset(8)
             make.trailing.equalToSuperview().inset(51.36)
-            make.height.equalTo(44)
         }
         
         useButton.snp.makeConstraints { make in
