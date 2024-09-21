@@ -47,6 +47,7 @@ final class BirthViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].forEach {
             $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         }
@@ -148,6 +149,9 @@ final class BirthViewController: UIViewController {
     }
     
     private func validateInputs() -> Bool {
+        if validateYear() && validateMonth() && validateDay() {
+            birthView.notionLabel.text = ""
+        }
         return validateYear() && validateMonth() && validateDay()
     }
 }
@@ -158,11 +162,38 @@ extension BirthViewController {
     
     @objc private func textFieldDidChange(_ sender: UITextField) {
         [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].forEach {
-            $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+                if $0.layer.borderColor != UIColor.primary(.error).cgColor {
+                    $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+                }
+            }
+        if sender.layer.borderColor != UIColor.primary(.error).cgColor{
+            sender.layer.borderColor = UIColor.main(.main2).cgColor
         }
-        sender.layer.borderColor = UIColor.main(.main2).cgColor
     }
     
+    @objc private func textFieldDidBegin(_ textField: UITextField) {
+        // 유효성 검사에 따라 색상 설정
+        if textField == birthView.yearTextField {
+            if validateYear() {
+                textField.layer.borderColor = UIColor.main(.main2).cgColor
+            } else {
+                textField.layer.borderColor = UIColor.primary(.error).cgColor
+            }
+        } else if textField == birthView.monthTextField {
+            if validateMonth() {
+                textField.layer.borderColor = UIColor.main(.main2).cgColor
+            } else {
+                textField.layer.borderColor = UIColor.primary(.error).cgColor
+            }
+        } else if textField == birthView.dayTextField {
+            if validateDay() {
+                textField.layer.borderColor = UIColor.main(.main2).cgColor
+            } else {
+                textField.layer.borderColor = UIColor.primary(.error).cgColor
+            }
+        }
+    }
+
     
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
         let maxLength: Int
@@ -178,38 +209,65 @@ extension BirthViewController {
         if textField == birthView.yearTextField {
             if validateYear() && textField.text?.count == 4 {
                 birthView.monthTextField.becomeFirstResponder()
+                textField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
                 birthView.notionLabel.text = ""
+            }
+            else {
+                textField.layer.borderColor = UIColor.primary(.error).cgColor
             }
         } else if textField == birthView.monthTextField {
             if validateMonth() && textField.text?.count == 2 {
                 birthView.dayTextField.becomeFirstResponder()
                 birthView.notionLabel.text = ""
             }
+            else if validateMonth() && textField.text?.count == 1 {
+                textField.layer.borderColor = UIColor.main(.main2).cgColor
+            }
+            else {
+                textField.layer.borderColor = UIColor.primary(.error).cgColor
+            }
         }
         else if textField == birthView.dayTextField && !validateDay() {
             birthView.notionLabel.text = "다시 한 번 확인해주세요."
+            textField.layer.borderColor = UIColor.primary(.error).cgColor
         } else if validateInputs() {
             birthView.notionLabel.text = ""
+            textField.layer.borderColor = UIColor.main(.main2).cgColor
             birthView.nextButton.changeState(forState: .isEnabled)
         } else {
             birthView.nextButton.changeState(forState: .isDisabled)
         }
+        
+        if validateInputs() {
+                birthView.nextButton.changeState(forState: .isEnabled)
+            } else if !validateYear() || !validateMonth() || !validateDay() {
+                //유효하지 않으면 빨간 layer 계속 유지
+                if textField == birthView.yearTextField && !validateYear() {
+                    textField.layer.borderColor = UIColor.primary(.error).cgColor
+                } else if textField == birthView.monthTextField && !validateMonth() {
+                    textField.layer.borderColor = UIColor.primary(.error).cgColor
+                } else if textField == birthView.dayTextField && !validateDay() {
+                    textField.layer.borderColor = UIColor.primary(.error).cgColor
+                }
+                birthView.nextButton.changeState(forState: .isDisabled)
+            }
     }
     
     // 1자리수를 2자리수로 자동 변환
     @objc internal func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == birthView.monthTextField {
             if let monthText = birthView.monthTextField.text, monthText.count == 1 {
+                textField.layer.borderColor = UIColor.main(.main2).cgColor
                 birthView.monthTextField.text = "0\(monthText)"
             }
         } else if textField == birthView.dayTextField {
             if let dayText = birthView.dayTextField.text, dayText.count == 1 {
+                textField.layer.borderColor = UIColor.main(.main2).cgColor
                 birthView.dayTextField.text = "0\(dayText)"
             }
         }
         
         if validateInputs() {
-            birthView.notionLabel.text = ""
             birthView.nextButton.changeState(forState: .isEnabled)
         } else {
             birthView.nextButton.changeState(forState: .isDisabled)

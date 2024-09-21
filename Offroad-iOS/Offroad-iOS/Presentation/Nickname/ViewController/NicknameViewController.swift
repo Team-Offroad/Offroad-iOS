@@ -105,7 +105,7 @@ extension NicknameViewController {
         nicknameView.nextButton.changeState(forState: .isDisabled)
         
         if !formError(self.nicknameView.textField.text ?? "") && !isTextFieldEmpty {
-            nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 말씀해주세요."
+            nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 작성해주세요."
             nicknameView.notionLabel.textColor = UIColor.primary(.error)
             nicknameView.textField.layer.borderColor = UIColor.primary(.error).cgColor
             nicknameView.nextButton.changeState(forState: .isDisabled)
