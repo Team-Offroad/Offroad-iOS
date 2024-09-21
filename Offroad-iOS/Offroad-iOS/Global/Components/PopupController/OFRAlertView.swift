@@ -52,17 +52,23 @@ class OFRAlertView: UIView {
     
     //MARK: - Properties
     
-    var ratio: OFRAlertViewRatio = .horizontal
+    private var ratio: OFRAlertViewRatio = .horizontal
     
-    var title: String? {
-        didSet {
-            self.titleLabel.text = title
-        }
+    private(set) var title: String? {
+        didSet { self.titleLabel.text = title }
     }
     
-    var message: String? {
-        didSet {
-            self.messageLabel.text = message
+    private(set) var message: String? {
+        didSet { self.messageLabel.text = message }
+    }
+    
+    private var horizontalInset: CGFloat = 46
+    private var verticalInset: CGFloat {
+        switch ratio {
+        case .vertical:
+            return 38
+        case .horizontal, .square:
+            return 28
         }
     }
     
@@ -75,27 +81,17 @@ class OFRAlertView: UIView {
         }
     }
     
-    var horizontalInset: CGFloat = 46
-    var verticalInset: CGFloat {
-        switch ratio {
-        case .vertical:
-            return 38
-        case .horizontal, .square:
-            return 28
-        }
-    }
-    
     //MARK: - UI Properties
     
-    let contentView = UIView()
+    private let contentView = UIView()
     
     let closeButton = UIButton()
     let titleLabel = UILabel()
     let messageLabel = UILabel()
     
-    var defaultTextField = UITextField()
+    private(set) var defaultTextField = UITextField()
     
-    var buttons: [OFRAlertButton] = [] {
+    private(set) var buttons: [OFRAlertButton] = [] {
         didSet {
             print("현재 버튼의 수: \(buttons.count)")
             //buttonStackView = UIStackView(arrangedSubviews: [])
@@ -104,7 +100,7 @@ class OFRAlertView: UIView {
         }
     }
     
-    lazy var buttonStackView: UIStackView = UIStackView(arrangedSubviews: buttons)
+    private lazy var buttonStackView: UIStackView = UIStackView(arrangedSubviews: buttons)
     
     //MARK: - Life Cycle
     
@@ -181,8 +177,6 @@ extension OFRAlertView {
         
     }
     
-    //MARK: - @objc Func
-    
     //MARK: - Private Func
     
     private func setupDefaultStyle() {
@@ -194,7 +188,6 @@ extension OFRAlertView {
         backgroundColor = .main(.main3)
         roundCorners(cornerRadius: 15)
         
-        // 이미지 에셋 폴더 및 파일 정리하기
         closeButton.do { button in
             button.setImage(.iosOfrAlertXmark, for: .normal)
         }
@@ -245,10 +238,8 @@ extension OFRAlertView {
         switch type {
         case .normal:
             return
-            
         case .textField:
             contentView.addSubview(defaultTextField)
-            
         case .scrollableContent:
             return
         case .custom:

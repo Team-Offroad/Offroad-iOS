@@ -11,15 +11,7 @@ class OFRAlertButton: UIButton {
     
     //MARK: - Properties
     
-    var action: OFRAlertAction {
-        didSet {
-//            guard let primaryAction else { return }
-//            setTitle(primaryAction.title, for: .normal)
-//            setupStyle(of: primaryAction.style)
-        }
-    }
-    
-    //MARK: - UI Properties
+    var action: OFRAlertAction
     
     //MARK: - Life Cycle
     
@@ -48,16 +40,10 @@ extension OFRAlertButton {
         }
     }
     
-    //MARK: - @objc Func
-    
     //MARK: - Private Func
     
     private func setupStyle() {
         setupStyle(of: .default)
-    }
-    
-    private func setupHierarchy() {
-        
     }
     
     private func setupStyle(of style: OFRAlertAction.Style) {
@@ -118,7 +104,5 @@ extension OFRAlertButton {
         setTitle(action.title, for: .normal)
         setupStyle(of: action.style)
     }
-    
-    //MARK: - Func
     
 }

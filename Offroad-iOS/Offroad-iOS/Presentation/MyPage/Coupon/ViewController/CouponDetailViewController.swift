@@ -79,36 +79,9 @@ extension CouponDetailViewController {
     }
     
     @objc private func didTapUseButton() {
-//        let popupViewController = CouponCodeInputPopupViewController()
-//        present(popupViewController, animated: false)
-        
-        
-        // 케이스 1
-//        let alertController = OFRAlertController(title: "로그아웃", message: "정말 로그아웃 하시겠어요?", type: .normal)
-//        let cancelAction = OFRAlertAction(title: "아니오", style: .cancel) { _ in
-//            print("아니오 버튼 눌림!!!!")
-//        }
-//        let okAction = OFRAlertAction(title: "네", style: .default) { _ in
-//            print("네 버튼 눌림!!!!")
-//        }
-//
-//        alertController.addAction(cancelAction)
-//        alertController.addAction(okAction)
-        
-        
-        //케이스 2
-//        let alertController = OFRAlertController(
-//            title: "퀘스트 성공!",
-//            message: "퀘스트 '퀘스트 이름' 외 n개를 클리어했어요! 마이페이지에서 보상을 확인해보세요.",
-//            type: .normal
-//        )
-//        let okAction = OFRAlertAction(title: "확인", style: .default) { _ in return }
-//        alertController.addAction(okAction)
-        
-        //케이스 3 (쿠폰 코드 입력)
         let alertController = OFRAlertController(title: "쿠폰 사용", message: "코드를 입력 후 사장님에게 보여주세요", type: .textField)
         let okAction = OFRAlertAction(title: "확인", style: .default) { action in
-            print("확인 버튼 눌림!!!!!")
+            print("확인 버튼 눌림")
             return
         }
         alertController.addAction(okAction)

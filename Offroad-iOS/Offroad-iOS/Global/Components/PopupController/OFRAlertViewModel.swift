@@ -12,17 +12,16 @@ import RxCocoa
 
 class OFRAlertViewModel {
     
-    var disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
     
     var titleRelay = PublishRelay<String?>()
     var messageRelay = PublishRelay<String?>()
-    var alertTypeRelay = PublishSubject<OFRAlertViewType>()
+    private var alertTypeRelay = PublishSubject<OFRAlertViewType>()
     var type: OFRAlertViewType = .normal
     
     var animationStartedSubject = BehaviorSubject(value: false)
     
     var backgroundTapGesture = UITapGestureRecognizer()
-    var backgroundTapEventSubject = PublishSubject<Void>()
     
     var textFieldToBeFirstResponderSubject: BehaviorSubject<UITextField?> = BehaviorSubject(value: nil)
     var textFieldToBeFirstResponder: UITextField? = nil
@@ -34,7 +33,6 @@ class OFRAlertViewModel {
     var isInputEmptyObservable: Observable<Bool>
     
     init() {
-        
         self.isInputEmptyObservable = textInput.map( { $0 == "" })
         
         alertTypeRelay.subscribe { [weak self] type in
@@ -48,8 +46,5 @@ class OFRAlertViewModel {
             })
             .disposed(by: disposeBag)
     }
-    
-    
-    
     
 }

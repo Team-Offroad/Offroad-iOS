@@ -131,8 +131,6 @@ class OFRAlertController: UIViewController {
 
 extension OFRAlertController {
     
-    //MARK: - Layout
-    
     //MARK: - @objc Func
     
     @objc private func closeButtonDidTapped() {
@@ -254,7 +252,7 @@ extension OFRAlertController {
     func addAction(_ action: OFRAlertAction) {
         backgroundView.alertView.actions.append(action)
         setupTargets()
-        self.backgroundView.layoutIfNeeded()
+        backgroundView.layoutIfNeeded()
     }
     
     /**
