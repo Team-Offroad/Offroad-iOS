@@ -46,8 +46,7 @@ extension PlaceListView {
     //MARK: - Private Func
     
     private func setupStyle() {
-        // 추후 ColorLiteral로 변경 요망
-        backgroundColor = UIColor(hexCode: "F6EEDF")
+        backgroundColor = .primary(.listBg)
         
         customNavigationBar.do { view in
             view.backgroundColor = .main(.main1)
@@ -101,10 +100,10 @@ extension PlaceListView {
         layoutForAllPlace.estimatedItemSize.width = UIScreen.current.bounds.width - 32
         
         placeNeverVisitedListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForPlaceNeverVisited)
-        placeNeverVisitedListCollectionView.backgroundColor = UIColor(hexCode: "F6EEDF")
+        placeNeverVisitedListCollectionView.backgroundColor = .primary(.listBg)
         
         allPlaceListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForAllPlace)
-        allPlaceListCollectionView.backgroundColor = UIColor(hexCode: "F6EEDF")
+        allPlaceListCollectionView.backgroundColor = .primary(.listBg)
         
         allPlaceListCollectionView.isHidden = true
         
