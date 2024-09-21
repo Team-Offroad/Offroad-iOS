@@ -12,12 +12,6 @@ import Then
 
 final class CouponDetailView: UIView {
     
-    // MARK: - Properties
-    
-    let couponUsagePopupView = CouponCodeInputPopupView().then {
-        $0.isHidden = true
-    }
-    
     // MARK: - UI Properties
     
     let customBackButton = NavigationPopButton().then {
@@ -123,8 +117,7 @@ final class CouponDetailView: UIView {
             usageTitleLabel,
             usageLogoImageView,
             usageDescriptionLabel,
-            useButton,
-            couponUsagePopupView
+            useButton
         )
         couponDetailView.addSubviews(
             couponImageView,
@@ -138,10 +131,6 @@ final class CouponDetailView: UIView {
         customBackButton.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(12)
             $0.leading.equalToSuperview().inset(12)
-        }
-        
-        couponUsagePopupView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
         }
         
         couponDetailView.snp.makeConstraints { make in
