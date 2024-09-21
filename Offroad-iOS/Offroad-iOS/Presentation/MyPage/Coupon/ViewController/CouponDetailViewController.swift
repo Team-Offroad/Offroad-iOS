@@ -79,8 +79,19 @@ extension CouponDetailViewController {
     }
     
     @objc private func didTapUseButton() {
-        let popupViewController = CouponCodeInputPopupViewController()
-        present(popupViewController, animated: false)
+        let alertController = OFRAlertController(title: "쿠폰 사용", message: "코드를 입력 후 사장님에게 보여주세요", type: .textField)
+        let okAction = OFRAlertAction(title: "확인", style: .default) { action in
+            print("확인 버튼 눌림")
+            return
+        }
+        alertController.addAction(okAction)
+        alertController.showsKeyboardWhenPresented = true
+        alertController.configureDefaultTextField { textField in
+            textField.placeholder = "매장의 고유 코드를 입력해 주세요"
+            textField.keyboardType = .numberPad
+        }
+        
+        present(alertController, animated: true)
     }
     
 }
