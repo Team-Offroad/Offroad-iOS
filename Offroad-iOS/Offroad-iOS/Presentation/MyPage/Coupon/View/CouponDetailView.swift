@@ -27,7 +27,6 @@ final class CouponDetailView: UIView {
     }
     
     let couponImageView = UIImageView().then {
-        $0.backgroundColor = .systemBlue
         $0.contentMode = .scaleAspectFit
         $0.roundCorners(cornerRadius: 10)
         $0.clipsToBounds = true
