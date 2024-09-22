@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ios_ofrAlert_xmark.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
