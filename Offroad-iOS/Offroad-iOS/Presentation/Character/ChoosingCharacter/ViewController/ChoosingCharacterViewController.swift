@@ -6,7 +6,9 @@
 //
 
 import UIKit
+
 import SnapKit
+import SVGKit
 import Then
 
 final class ChoosingCharacterViewController: UIViewController {
@@ -21,7 +23,7 @@ final class ChoosingCharacterViewController: UIViewController {
         }
     }
     
-    private var extendedCharacterImageList = [String]() {
+    private var extendedCharacterImageList = [UIImage]() {
         didSet {
             choosingCharacterView.collectionView.reloadData()
             if extendedCharacterImageList.count > 2 {
@@ -76,21 +78,33 @@ final class ChoosingCharacterViewController: UIViewController {
             switch response {
             case .success(let data):
                 let count = data?.data.characters.count ?? 0
+                let firstCharacterImageURL = data?.data.characters[0].characterBaseImageUrl ?? ""
+                let lastCharacterImageURL = data?.data.characters[count - 1].characterBaseImageUrl ?? ""
                 
                 self.characterInfoModelList = data?.data.characters
                 
-                self.extendedCharacterImageList.insert(data?.data.characters[count - 1].characterBaseImageUrl ?? "", at: 0)
+                self.extendedCharacterImageList.insert(self.convertSvgURLToUIImage(svgUrlString: lastCharacterImageURL), at: 0)
                 for character in data?.data.characters ?? [CharacterList]() {
-                    self.extendedCharacterImageList.append(character.characterBaseImageUrl)
+                    let characterImageURL = character.characterBaseImageUrl
+                    
+                    self.extendedCharacterImageList.append(self.convertSvgURLToUIImage(svgUrlString: characterImageURL))
                     self.characterNames.append(character.name)
                     self.characterDiscriptions.append(character.description)
                 }
-                self.extendedCharacterImageList.append(data?.data.characters[0].characterBaseImageUrl ?? "")
+                self.extendedCharacterImageList.append(self.convertSvgURLToUIImage(svgUrlString: firstCharacterImageURL))
                 
             default:
                 break
             }
         }
+    }
+    
+    private func convertSvgURLToUIImage(svgUrlString: String) -> UIImage {
+        guard let svgURL = URL(string: svgUrlString) else { return UIImage() }
+        
+        guard let svgImage = SVGKImage(contentsOf: svgURL) else { return UIImage() }
+        
+        return svgImage.renderedUIImage ?? UIImage()
     }
     
     //MARK: - @objc Method
@@ -102,11 +116,6 @@ final class ChoosingCharacterViewController: UIViewController {
         
         let previousIndex = indexPath.item - 1
         choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: previousIndex, section: 0), at: .centeredHorizontally, animated: true)
-//        if previousIndex == 0 {
-//            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
-//        } else {
-//            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: previousIndex, section: 0), at: .centeredHorizontally, animated: true)
-//        }
     }
     
     @objc private func rightArrowTapped() {
@@ -116,12 +125,6 @@ final class ChoosingCharacterViewController: UIViewController {
         
         let nextIndex = indexPath.item + 1
         choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: nextIndex, section: 0), at: .centeredHorizontally, animated: true)
-        //마지막 항목일 때
-//        if nextIndex == extendedCharacterImageList.count - 1 {
-//            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: extendedCharacterImageList.count - 1, section: 0), at: .centeredHorizontally, animated: true)
-//        } else {
-//            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: nextIndex, section: 0), at: .centeredHorizontally, animated: true)
-//        }
     }
     
     @objc private func selectButtonTapped() {
@@ -142,7 +145,7 @@ extension ChoosingCharacterViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChoosingCharacterCell.className, for: indexPath) as! ChoosingCharacterCell
-        cell.configureCell(imageURL: extendedCharacterImageList[indexPath.item])
+        cell.configureCell(imageData: extendedCharacterImageList[indexPath.item])
         return cell
     }
     
