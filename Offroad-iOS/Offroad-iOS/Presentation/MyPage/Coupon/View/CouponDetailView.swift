@@ -43,16 +43,16 @@ final class CouponDetailView: UIView {
     private let dottedLineView = UIView().then {
         let shapeLayer = CAShapeLayer()
         shapeLayer.strokeColor = UIColor.home(.homeContents2).cgColor
-        shapeLayer.lineWidth = 0.5
+        shapeLayer.lineWidth = 2
         shapeLayer.lineDashPattern = [3, 3]
         
         let viewWidth = UIScreen.main.bounds.width
         
         let path = CGMutablePath()
-        path.addLines(between: [CGPoint(x: 0, y: 0),
-                                CGPoint(x: viewWidth-50, y: 0)])
+        path.addLines(between: [CGPoint(x: 0, y: 0), CGPoint(x: viewWidth, y: 0)])
         shapeLayer.path = path
         
+        $0.layer.masksToBounds = true
         $0.layer.addSublayer(shapeLayer)
     }
     
@@ -155,7 +155,7 @@ final class CouponDetailView: UIView {
         
         dottedLineView.snp.makeConstraints { make in
             make.top.equalTo(couponTitleLabel.snp.bottom).offset(14)
-            make.height.equalTo(0.5)
+            make.height.equalTo(1)
             make.horizontalEdges.equalToSuperview().inset(21.5)
         }
         
