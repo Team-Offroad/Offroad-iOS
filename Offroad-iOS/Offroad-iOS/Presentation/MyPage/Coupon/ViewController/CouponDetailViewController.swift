@@ -55,10 +55,6 @@ class CouponDetailViewController: UIViewController {
         couponDetailView.useButton.addTarget(self, action: #selector(didTapUseButton), for: .touchUpInside)
     }
     
-    private func setupCloseButton(action: @escaping CouponCodeInputPopupView.CloseButtonAction) {
-        couponDetailView.couponUsagePopupView.closeButtonAction = action
-    }
-    
 }
 
 extension CouponDetailViewController {
@@ -67,15 +63,6 @@ extension CouponDetailViewController {
     
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
-    }
-    
-    @objc private func textFieldDidChange() {
-        let isTextFieldEmpty = couponDetailView.couponUsagePopupView.couponCodeTextField.text?.isEmpty ?? true
-        
-        if isTextFieldEmpty {
-            couponDetailView.couponUsagePopupView.okButton.changeState(forState: .isDisabled)
-        } else {
-            couponDetailView.couponUsagePopupView.okButton.changeState(forState: .isEnabled)            }
     }
     
     @objc private func didTapUseButton() {
