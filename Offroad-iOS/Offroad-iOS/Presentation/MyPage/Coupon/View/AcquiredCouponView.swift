@@ -37,9 +37,7 @@ class AcquiredCouponView: UIView {
         let verticalInset: CGFloat = 20
         let interItemSpacing: CGFloat = 20
         let lineSpacing: CGFloat = 20
-        
         let itemWidth = (UIScreen.current.bounds.width - 2 * horizontalInset - interItemSpacing)/2
-        
         $0.minimumInteritemSpacing = interItemSpacing
         $0.minimumLineSpacing = lineSpacing
         $0.sectionInset = .init(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
@@ -47,7 +45,25 @@ class AcquiredCouponView: UIView {
     }
     
     lazy var collectionViewForAvailableCoupons = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayoutForAvailableCoupons).then {
-        $0.register(AcquiredCouponCell.self, forCellWithReuseIdentifier: "AcquiredCouponCell")
+        $0.register(AvailableCouponCell.self, forCellWithReuseIdentifier: "AvailableCouponCell")
+        $0.backgroundColor = .clear
+        $0.showsVerticalScrollIndicator = false
+    }
+    
+    private lazy var collectionViewLayoutForUsedCoupons = UICollectionViewFlowLayout().then {
+        let horizontalInset: CGFloat = 24
+        let verticalInset: CGFloat = 20
+        let interItemSpacing: CGFloat = 20
+        let lineSpacing: CGFloat = 20
+        let itemWidth = (UIScreen.current.bounds.width - 2 * horizontalInset - interItemSpacing)/2
+        $0.minimumInteritemSpacing = interItemSpacing
+        $0.minimumLineSpacing = lineSpacing
+        $0.sectionInset = .init(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
+        $0.estimatedItemSize = .init(width: itemWidth, height: itemWidth)
+    }
+    
+    lazy var collectionViewForUsedCoupons = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayoutForUsedCoupons).then {
+        $0.register(UsedCouponCell.self, forCellWithReuseIdentifier: "UsedCouponCell")
         $0.backgroundColor = .clear
         $0.showsVerticalScrollIndicator = false
     }
@@ -60,7 +76,6 @@ class AcquiredCouponView: UIView {
         setupStyle()
         setupHierarchy()
         setupLayout()
-        setupDelegates()
     }
     
     required init?(coder: NSCoder) {
@@ -76,7 +91,8 @@ class AcquiredCouponView: UIView {
     private func setupHierarchy() {
         addSubviews(
             labelView,
-            collectionViewForAvailableCoupons
+            collectionViewForAvailableCoupons,
+            collectionViewForUsedCoupons
         )
         labelView.addSubviews(
             customBackButton,
@@ -117,25 +133,13 @@ class AcquiredCouponView: UIView {
         
         collectionViewForAvailableCoupons.snp.makeConstraints { make in
             make.top.equalTo(customSegmentedControl.snp.bottom)
-//            make.horizontalEdges.equalToSuperview().inset(24)
-//            make.bottom.equalToSuperview().inset(20)
+            make.horizontalEdges.bottom.equalToSuperview()
+        }
+        
+        collectionViewForUsedCoupons.snp.makeConstraints { make in
+            make.top.equalTo(customSegmentedControl.snp.bottom)
             make.horizontalEdges.bottom.equalToSuperview()
         }
     }
     
-    private func setupDelegates() {
-        customSegmentedControl.delegate = self
-    }
-}
-
-extension AcquiredCouponView: CustomSegmentedControlDelegate {
-    func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int) {
-        print(#function, selectedIndex)
-        
-        if selectedIndex == 0 {
-            
-        } else if selectedIndex == 1 {
-            
-        }
-    }
 }

@@ -11,8 +11,23 @@ class AcquiredCouponViewController: UIViewController {
     
     // MARK: - Properties
     
-    var availableCoupons: [AvailableCoupon] = []
-    var usedCoupons: [UsedCoupon] = []
+    var selectedIndex: Int = 0
+    
+    var availableCoupons: [AvailableCoupon] = [
+        AvailableCoupon(id: 0, name: "사용가능 쿠폰", couponImageUrl: "", description: "사용 가능 쿠폰입니다", isNewGained: false, placeId: 0),
+        AvailableCoupon(id: 1, name: "사용가능 쿠폰", couponImageUrl: "", description: "사용 가능 쿠폰입니다", isNewGained: false, placeId: 1),
+        AvailableCoupon(id: 2, name: "사용가능 쿠폰", couponImageUrl: "", description: "사용 가능 쿠폰입니다", isNewGained: false, placeId: 2),
+        AvailableCoupon(id: 3, name: "사용가능 쿠폰", couponImageUrl: "", description: "사용 가능 쿠폰입니다", isNewGained: false, placeId: 3),
+        AvailableCoupon(id: 4, name: "사용가능 쿠폰", couponImageUrl: "", description: "사용 가능 쿠폰입니다", isNewGained: false, placeId: 4),
+        AvailableCoupon(id: 5, name: "사용가능 쿠폰", couponImageUrl: "", description: "사용 가능 쿠폰입니다", isNewGained: false, placeId: 5)
+    ]
+    
+    var usedCoupons: [UsedCoupon] = [
+        UsedCoupon(name: "이미 사용된 쿠폰", couponImageUrl: ""),
+        UsedCoupon(name: "이미 사용된 쿠폰", couponImageUrl: ""),
+        UsedCoupon(name: "이미 사용된 쿠폰", couponImageUrl: ""),
+        UsedCoupon(name: "이미 사용된 쿠폰", couponImageUrl: "")
+    ]
     
     // MARK: - UIProperties
     
@@ -38,7 +53,7 @@ class AcquiredCouponViewController: UIViewController {
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
         
-        acquiredCouponView.customSegmentedControl.selectSegment(index: 0)
+        acquiredCouponView.customSegmentedControl.selectSegment(index: selectedIndex)
     }
 }
 
@@ -53,6 +68,9 @@ extension AcquiredCouponViewController{
     private func setupDelegate() {
         acquiredCouponView.collectionViewForAvailableCoupons.delegate = self
         acquiredCouponView.collectionViewForAvailableCoupons.dataSource = self
+        acquiredCouponView.collectionViewForUsedCoupons.delegate = self
+        acquiredCouponView.collectionViewForUsedCoupons.dataSource = self
+        acquiredCouponView.customSegmentedControl.delegate = self
     }
     
     private func getAcquiredCouponsList() {
@@ -82,15 +100,36 @@ extension AcquiredCouponViewController: UICollectionViewDelegate, UICollectionVi
     // MARK: - CollectionView Func
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if collectionView == acquiredCouponView.collectionViewForAvailableCoupons {
+            return availableCoupons.count
+        } else if collectionView == acquiredCouponView.collectionViewForUsedCoupons {
+            return usedCoupons.count
+        } else {
+            fatalError()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AcquiredCouponCell", for: indexPath) as! AcquiredCouponCell
         let imageName = "coffee_coupon"
-        cell.configureCell(imageName: imageName, isNew: indexPath.item == 0)
         
-        return cell
+        if collectionView == acquiredCouponView.collectionViewForAvailableCoupons {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AvailableCouponCell", for: indexPath) as? AvailableCouponCell else { fatalError() }
+            
+            //cell.configureCell(imageName: imageName, isNew: indexPath.item == 0)
+            cell.configure(with: availableCoupons[indexPath.item])
+            return cell
+            
+        } else if collectionView == acquiredCouponView.collectionViewForUsedCoupons {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UsedCouponCell", for: indexPath) as? UsedCouponCell else { fatalError() }
+            
+            //cell.configureCell(imageName: imageName, isNew: indexPath.item == 0)
+            cell.configure(with: usedCoupons[indexPath.item])
+            return cell
+            
+        } else {
+            fatalError()
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -101,5 +140,20 @@ extension AcquiredCouponViewController: UICollectionViewDelegate, UICollectionVi
         
         let detailVC = CouponDetailViewController(image: image, title: title, description: description)
         self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+}
+
+//MARK: - CustomSegmentedControlDelegate
+
+extension AcquiredCouponViewController: CustomSegmentedControlDelegate {
+    func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int) {
+        print(#function, selectedIndex)
+        self.selectedIndex = selectedIndex
+        
+        acquiredCouponView.collectionViewForAvailableCoupons.isHidden = selectedIndex == 1
+        acquiredCouponView.collectionViewForUsedCoupons.isHidden = selectedIndex == 0
+        
+        acquiredCouponView.collectionViewForAvailableCoupons.reloadData()
+        acquiredCouponView.collectionViewForUsedCoupons.reloadData()
     }
 }

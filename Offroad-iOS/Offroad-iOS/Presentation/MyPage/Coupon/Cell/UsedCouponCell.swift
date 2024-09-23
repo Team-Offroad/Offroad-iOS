@@ -1,15 +1,13 @@
 //
-//  AcquiredCouponCell.swift
+//  UsedCouponCell.swift
 //  Offroad-iOS
 //
-//  Created by  정지원 on 8/27/24.
+//  Created by 김민성 on 9/23/24.
 //
 
 import UIKit
 
-import SnapKit
-
-class AcquiredCouponCell: UICollectionViewCell {
+class UsedCouponCell: UICollectionViewCell {
     
     // MARK: - UI Properties
     
@@ -94,4 +92,10 @@ class AcquiredCouponCell: UICollectionViewCell {
             couponNameLabel.text = "카페 프로토콜 연희점 라떼 1잔입니다."
         }
     }
+    
+    func configure(with coupon: UsedCoupon) {
+        couponNameLabel.text = coupon.name
+        newBadgeView.isHidden = true
+    }
+    
 }
