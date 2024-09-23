@@ -136,8 +136,6 @@ final class CouponDetailView: UIView {
         couponDetailView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(customBackButton.snp.bottom).offset(43)
-            //make.top.equalToSuperview().inset(125)
-            //make.horizontalEdges.equalToSuperview().inset(40)
             make.width.equalTo(312)
         }
         
