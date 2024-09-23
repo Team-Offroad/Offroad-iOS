@@ -16,6 +16,7 @@ class BaseService {
             if let decodedData = fetchDecodeData(data: data, responseType: T.self) {
                 return .success(decodedData)
             } else { return .decodeErr }
+        case 204: return .success(nil)
         case 400: return .requestErr
         case 401: return .unAuthentication
         case 403: return .unAuthorization
@@ -29,7 +30,7 @@ class BaseService {
     /// 200 받았을 때 decoding 할 데이터가 없는 경우 (대부분의 PATCH, PUT, DELETE)
     func fetchNetworkResult(statusCode: Int, data: Data) -> NetworkResult<Any> {
         switch statusCode {
-        case 200, 201: return .success(nil)
+        case 200, 201, 204: return .success(nil)
         case 400: return .requestErr
         case 401: return .unAuthentication
         case 403: return .unAuthorization
