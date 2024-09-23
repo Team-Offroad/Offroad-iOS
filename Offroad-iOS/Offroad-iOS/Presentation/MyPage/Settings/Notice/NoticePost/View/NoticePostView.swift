@@ -146,15 +146,18 @@ extension NoticePostView {
     
     //MARK: - Func
     
-    func setPostText(data: NoticePostModel) {
-        dateLabel.text = data.dateString
-        titleLabel.text = data.titleString
-        contentLabel.text = data.contentString
-        contentButton.setTitle(data.contentButtonString, for: .normal)
+    func setPostText(data: NoticeInfo) {
+        let importantText = "[중요]"
         
-        let targetText = "[중요]"
-        if data.titleString.contains(targetText) {
-            titleLabel.highlightText(targetText: targetText, color: .sub(.sub2) )
-        }
+        titleLabel.text = data.isImportant ? "\(importantText) \(data.title)" : data.title
+        titleLabel.highlightText(targetText: importantText, color: .sub(.sub2))
+        
+        let yearString = data.updateAt.sliceByRange(string: data.updateAt, start: 0, end: 4)
+        let monthString = data.updateAt.sliceByRange(string: data.updateAt, start: 5, end: 7)
+        let dayString = data.updateAt.sliceByRange(string: data.updateAt, start: 8, end: 10)
+        
+        dateLabel.text = "\(yearString) / \(monthString) / \(dayString)"
+        contentLabel.text = data.content
+//        contentButton.setTitle(data.contentButtonString, for: .normal)
     }
 }
