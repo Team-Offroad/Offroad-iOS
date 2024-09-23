@@ -11,6 +11,9 @@ class AcquiredCouponViewController: UIViewController {
     
     // MARK: - Properties
     
+    var availableCoupons: [AvailableCoupon] = []
+    var usedCoupons: [UsedCoupon] = []
+    
     // MARK: - UIProperties
     
     private let acquiredCouponView = AcquiredCouponView()
@@ -48,8 +51,8 @@ extension AcquiredCouponViewController{
     }
     
     private func setupDelegate() {
-        acquiredCouponView.collectionView.delegate = self
-        acquiredCouponView.collectionView.dataSource = self
+        acquiredCouponView.collectionViewForAvailableCoupons.delegate = self
+        acquiredCouponView.collectionViewForAvailableCoupons.dataSource = self
     }
     
     private func getAcquiredCouponsList() {

@@ -13,18 +13,14 @@ class AcquiredCouponCell: UICollectionViewCell {
     
     // MARK: - UI Properties
     
-    private let containerView = UIView().then {
-        $0.backgroundColor = .white
-        $0.roundCorners(cornerRadius: 10)
-        $0.clipsToBounds = true
-    }
-    
     private var imageView = UIImageView().then {
-        $0.contentMode = .scaleToFill
+        $0.backgroundColor = .primary(.white)
+        $0.roundCorners(cornerRadius: 10)
+        $0.contentMode = .scaleAspectFit
         $0.clipsToBounds = true
     }
     
-    private let couponLabel = UILabel().then {
+    private let couponNameLabel = UILabel().then {
         $0.textAlignment = .center
         $0.textColor = UIColor.main(.main2)
         $0.font = UIFont.offroad(style: .iosTextContentsSmall)
@@ -53,11 +49,10 @@ class AcquiredCouponCell: UICollectionViewCell {
     
     private func setupHierarchy() {
         contentView.addSubviews(
-            containerView,
-            couponLabel,
+            imageView,
+            couponNameLabel,
             newBadgeView
         )
-        containerView.addSubview(imageView)
     }
     
     private func setupStyle() {
@@ -69,25 +64,23 @@ class AcquiredCouponCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
-        containerView.snp.makeConstraints { make in
-            make.horizontalEdges.top.equalToSuperview().inset(10)
-            make.bottom.equalTo(contentView).inset(42)
-        }
-        
         imageView.snp.makeConstraints { make in
-            make.size.equalTo(142)
-            make.centerX.equalToSuperview()
+            // collectionView의 가로 sectionInset: 24
+            // collectionView's interItemSpacing: 20
+            let imageViewHorizontalInset: CGFloat = 10
+            let imageWidth = floor((UIScreen.current.bounds.width - 24*2 - 20)/2 - imageViewHorizontalInset*2)
+            make.size.equalTo(imageWidth)
+            make.top.horizontalEdges.equalToSuperview().inset(imageViewHorizontalInset)
         }
         
-        couponLabel.snp.makeConstraints { make in
-            make.top.equalTo(containerView.snp.bottom).offset(10)
-            make.bottom.equalToSuperview().inset(10)
-            make.centerX.equalToSuperview()
+        couponNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(imageView.snp.bottom).offset(14)
+            make.bottom.equalToSuperview().inset(14)
             make.horizontalEdges.equalToSuperview().inset(10)
         }
         
         newBadgeView.snp.makeConstraints { make in
-            make.top.trailing.equalTo(containerView).inset(8)
+            make.top.trailing.equalTo(imageView).inset(8)
             make.size.equalTo(24)
         }
     }
@@ -98,7 +91,7 @@ class AcquiredCouponCell: UICollectionViewCell {
         newBadgeView.isHidden = !isNew
         
         if imageName == "coffee_coupon" {
-            couponLabel.text = "카페 프로토콜 연희점 라떼 1잔입니다."
+            couponNameLabel.text = "카페 프로토콜 연희점 라떼 1잔입니다."
         }
     }
 }

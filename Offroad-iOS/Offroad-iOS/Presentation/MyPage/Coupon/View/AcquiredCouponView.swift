@@ -32,18 +32,21 @@ class AcquiredCouponView: UIView {
     
     let customSegmentedControl = CustomSegmentedControl(titles: ["사용 가능 6", "사용 완료 3"])
     
-    private lazy var collectionViewLayout = UICollectionViewFlowLayout().then {
-        let padding: CGFloat = 20
-        let itemWidth = (UIScreen.main.bounds.width - 2*24 - padding)/2
-        let itemHeight: CGFloat = itemWidth * (194 / 162)
-        $0.itemSize = CGSize(width: itemWidth, height: itemHeight)
-        $0.minimumLineSpacing = padding
-        $0.minimumInteritemSpacing = padding
+    private lazy var collectionViewLayoutForAvailableCoupons = UICollectionViewFlowLayout().then {
+        let horizontalInset: CGFloat = 24
+        let verticalInset: CGFloat = 20
+        let interItemSpacing: CGFloat = 20
+        let lineSpacing: CGFloat = 20
         
-        $0.sectionInset.top = 20
+        let itemWidth = (UIScreen.current.bounds.width - 2 * horizontalInset - interItemSpacing)/2
+        
+        $0.minimumInteritemSpacing = interItemSpacing
+        $0.minimumLineSpacing = lineSpacing
+        $0.sectionInset = .init(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
+        $0.estimatedItemSize = .init(width: itemWidth, height: itemWidth)
     }
     
-    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout).then {
+    lazy var collectionViewForAvailableCoupons = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayoutForAvailableCoupons).then {
         $0.register(AcquiredCouponCell.self, forCellWithReuseIdentifier: "AcquiredCouponCell")
         $0.backgroundColor = .clear
         $0.showsVerticalScrollIndicator = false
@@ -73,7 +76,7 @@ class AcquiredCouponView: UIView {
     private func setupHierarchy() {
         addSubviews(
             labelView,
-            collectionView
+            collectionViewForAvailableCoupons
         )
         labelView.addSubviews(
             customBackButton,
@@ -112,10 +115,11 @@ class AcquiredCouponView: UIView {
             make.height.equalTo(46)
         }
         
-        collectionView.snp.makeConstraints { make in
+        collectionViewForAvailableCoupons.snp.makeConstraints { make in
             make.top.equalTo(customSegmentedControl.snp.bottom)
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.bottom.equalToSuperview().inset(20)
+//            make.horizontalEdges.equalToSuperview().inset(24)
+//            make.bottom.equalToSuperview().inset(20)
+            make.horizontalEdges.bottom.equalToSuperview()
         }
     }
     
