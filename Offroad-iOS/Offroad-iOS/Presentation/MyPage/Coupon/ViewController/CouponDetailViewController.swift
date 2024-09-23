@@ -89,6 +89,15 @@ extension CouponDetailViewController {
         let alertController = OFRAlertController(title: "쿠폰 사용", message: "코드를 입력 후 사장님에게 보여주세요", type: .textField)
         let okAction = OFRAlertAction(title: "확인", style: .default) { action in
             print("확인 버튼 눌림")
+            alertController.dismiss(animated: true) { [weak self] in
+                guard let self else { return }
+                let alertController = OFRAlertController(title: "사용 완료", message: "쿠폰 사용이 완료되었어요!", type: .normal)
+                let action = OFRAlertAction(title: "확인", style: .default) { action in
+                    alertController.dismiss(animated: true)
+                }
+                alertController.addAction(action)
+                self.present(alertController, animated: true)
+            }
             return
         }
         alertController.addAction(okAction)
