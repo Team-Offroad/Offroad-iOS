@@ -11,11 +11,9 @@ class AcquiredCouponViewController: UIViewController {
     
     // MARK: - Properties
     
-    var selectedIndex: Int = 0
-    
-    var availableCoupons: [AvailableCoupon] = []
-    
-    var usedCoupons: [UsedCoupon] = []
+    private var selectedIndex: Int = 0
+    private var availableCoupons: [AvailableCoupon] = []
+    private var usedCoupons: [UsedCoupon] = []
     
     // MARK: - UIProperties
     
@@ -32,7 +30,7 @@ class AcquiredCouponViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
-        getAcquiredCouponsList()
+        fetchAcquiredCouponsData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +44,12 @@ class AcquiredCouponViewController: UIViewController {
 }
 
 extension AcquiredCouponViewController{
+    
+    // MARK: - @objc Method
+    
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
     
     // MARK: - Private Func
     
@@ -61,7 +65,7 @@ extension AcquiredCouponViewController{
         acquiredCouponView.customSegmentedControl.delegate = self
     }
     
-    private func getAcquiredCouponsList() {
+    private func fetchAcquiredCouponsData() {
         NetworkService.shared.couponService.getAcquiredCouponList { [weak self] result in
             guard let self else { return }
             switch result {
@@ -80,11 +84,6 @@ extension AcquiredCouponViewController{
         }
     }
     
-    // MARK: - @objc Method
-    
-    @objc private func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
-    }
 }
 
 //MARK: - UICollectionViewDataSource
