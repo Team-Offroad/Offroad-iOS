@@ -65,6 +65,7 @@ final class CouponDetailView: UIView {
         $0.textColor = UIColor.main(.main2)
         $0.textAlignment = .center
         $0.font = UIFont.offroad(style: .iosTextRegular)
+        $0.setLineHeight(percentage: 150)
         $0.numberOfLines = 0
     }
     

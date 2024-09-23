@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Kingfisher
 import SnapKit
 
 class CouponDetailViewController: UIViewController {
@@ -34,14 +35,13 @@ class CouponDetailViewController: UIViewController {
         offroadTabBarController.hideTabBarAnimation()
     }
     
-    // MARK: - Initializer
-    
-    init(image: UIImage?, title: String, description: String) {
+    init(coupon: AvailableCoupon) {
         super.init(nibName: nil, bundle: nil)
-        couponDetailView.couponImageView.image = image
-        couponDetailView.couponTitleLabel.text = title
-        couponDetailView.couponDescriptionLabel.text = description
-        couponDetailView.couponDescriptionLabel.setLineHeight(percentage: 150)
+        
+        let url = URL(string: coupon.couponImageUrl)
+        couponDetailView.couponImageView.kf.setImage(with: url)
+        couponDetailView.couponTitleLabel.text = coupon.name
+        couponDetailView.couponDescriptionLabel.text = coupon.description
     }
     
     required init?(coder aDecoder: NSCoder) {
