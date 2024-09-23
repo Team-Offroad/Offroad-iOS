@@ -85,16 +85,6 @@ class AvailableCouponCell: UICollectionViewCell {
         }
     }
     
-    func configureCell(imageName: String, isNew: Bool) {
-        imageView.image = UIImage(named: imageName)
-        
-        newBadgeView.isHidden = !isNew
-        
-        if imageName == "coffee_coupon" {
-            couponNameLabel.text = "카페 프로토콜 연희점 라떼 1잔입니다."
-        }
-    }
-    
     func configure(with coupon: AvailableCoupon) {
         couponNameLabel.text = coupon.name
         newBadgeView.isHidden = !coupon.isNewGained
