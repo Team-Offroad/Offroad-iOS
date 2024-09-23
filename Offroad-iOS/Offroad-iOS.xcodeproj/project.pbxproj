@@ -191,7 +191,6 @@
 		D0E796222C45334D005B47A5 /* ProfileAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796212C45334D005B47A5 /* ProfileAPI.swift */; };
 		D0E796242C453360005B47A5 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796232C453360005B47A5 /* ProfileService.swift */; };
 		D0E796292C4533CE005B47A5 /* ProfileUpdateRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796282C4533CE005B47A5 /* ProfileUpdateRequestDTO.swift */; };
-		D0E7962B2C45346A005B47A5 /* ProfileUpdateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7962A2C45346A005B47A5 /* ProfileUpdateResponseDTO.swift */; };
 		D0E7962D2C4535A5005B47A5 /* NicknameAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7962C2C4535A5005B47A5 /* NicknameAPI.swift */; };
 		D0E7962F2C4535B1005B47A5 /* NicknameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7962E2C4535B1005B47A5 /* NicknameService.swift */; };
 		D0E796332C453615005B47A5 /* NicknameCheckResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796322C453615005B47A5 /* NicknameCheckResponseDTO.swift */; };
@@ -422,7 +421,6 @@
 		D0E796212C45334D005B47A5 /* ProfileAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAPI.swift; sourceTree = "<group>"; };
 		D0E796232C453360005B47A5 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		D0E796282C4533CE005B47A5 /* ProfileUpdateRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdateRequestDTO.swift; sourceTree = "<group>"; };
-		D0E7962A2C45346A005B47A5 /* ProfileUpdateResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUpdateResponseDTO.swift; sourceTree = "<group>"; };
 		D0E7962C2C4535A5005B47A5 /* NicknameAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameAPI.swift; sourceTree = "<group>"; };
 		D0E7962E2C4535B1005B47A5 /* NicknameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameService.swift; sourceTree = "<group>"; };
 		D0E796322C453615005B47A5 /* NicknameCheckResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameCheckResponseDTO.swift; sourceTree = "<group>"; };
@@ -1797,7 +1795,6 @@
 		D0E796262C45336D005B47A5 /* Response */ = {
 			isa = PBXGroup;
 			children = (
-				D0E7962A2C45346A005B47A5 /* ProfileUpdateResponseDTO.swift */,
 				D06466A42C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift */,
 				D06466A62C8A05F100CF10FD /* MarketingConsentResponseDTO.swift */,
 				D06466A02C89CB5200CF10FD /* UserInfoResponseDTO.swift */,
@@ -2395,7 +2392,6 @@
 				D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */,
 				D00A48822C6E5D92008B286A /* NoticePostViewController.swift in Sources */,
 				879F62E82C89A56200FEC5BE /* CouponDetailView.swift in Sources */,
-				D0E7962B2C45346A005B47A5 /* ProfileUpdateResponseDTO.swift in Sources */,
 				D00A48842C6E5DA7008B286A /* NoticePostView.swift in Sources */,
 				872F4BB52C68D66200284DE0 /* CharacterListViewController.swift in Sources */,
 				D064668E2C7F127A00CF10FD /* TermsModel.swift in Sources */,
