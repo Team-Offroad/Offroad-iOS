@@ -29,12 +29,11 @@ class SelectMainCharacterView: UIView {
     
     // MARK: - Life Cycle
     
-    init(frame: CGRect, characterName: String) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         
         setupHierarchy()
         setupLayout()
-        setMessage(characterName: characterName)
     }
     
     required init?(coder: NSCoder) {
@@ -66,7 +65,7 @@ class SelectMainCharacterView: UIView {
         }
     }
     
-    private func setMessage(characterName: String) {
+    func setMessage(characterName: String) {
         selectMessageLabel.text = "‘\(characterName)’로 대표 캐릭터가 변경되었어요!"
         selectMessageLabel.highlightText(targetText: characterName, font: UIFont.offroad(style: .iosTextBold))
     }

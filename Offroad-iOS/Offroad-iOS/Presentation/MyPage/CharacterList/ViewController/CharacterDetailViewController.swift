@@ -57,6 +57,7 @@ final class CharacterDetailViewController: UIViewController {
     
     private func setupTarget() {
         characterDetailView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        characterDetailView.selectButton.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
     }
     
     private func setupDelegate() {
@@ -79,6 +80,7 @@ final class CharacterDetailViewController: UIViewController {
                 self.characterDetailView.titleLabel.text = characterData.characterSummaryDescription
                 self.characterDetailView.detailLabel.text = characterData.characterDescription
                 self.characterDetailView.detailLabel.setLineSpacing(spacing: 5)
+                self.characterDetailView.selectMainCharacterView.setMessage(characterName: characterData.characterName)
                 
                 DispatchQueue.main.async {
                     self.characterDetailView.collectionView.reloadData()
@@ -119,6 +121,10 @@ final class CharacterDetailViewController: UIViewController {
     
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func selectButtonTapped() {
+        characterDetailView.selectMainCharacterView.isHidden = false
     }
 }
 

@@ -8,12 +8,16 @@
 import UIKit
 
 import SnapKit
+import Then
 
 class CharacterDetailView: UIView {
     
     // MARK: - Properties
     
     private var collectionViewHeightConstraint: Constraint? // 컬렉션 뷰의 동적 높이 조절을 위한 변수
+    var selectMainCharacterView = SelectMainCharacterView().then {
+        $0.isHidden = true
+    }
     
     // MARK: - UI Properties
     
@@ -90,7 +94,7 @@ class CharacterDetailView: UIView {
         $0.font = UIFont.offroad(style: .iosBoxMedi)
     }
     
-    private let selectButton = UIButton().then {
+    let selectButton = UIButton().then {
         $0.setTitle("대표 캐릭터로 선택하기", for: .normal)
         $0.backgroundColor = UIColor.home(.homeBg)
         $0.setTitleColor(UIColor.main(.main1), for: .normal)
@@ -140,7 +144,11 @@ class CharacterDetailView: UIView {
     }
     
     private func setupHierarchy() {
-        addSubviews(scrollView,customBackButton)
+        addSubviews(
+            selectMainCharacterView,
+            scrollView,
+            customBackButton
+        )
         scrollView.addSubview(contentView)
         
         contentView.addSubviews(
@@ -165,6 +173,11 @@ class CharacterDetailView: UIView {
     }
     
     private func setupLayout() {
+        selectMainCharacterView.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.height.equalTo(45)
+        }
+        
         customBackButton.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(12)
             $0.leading.equalToSuperview().inset(12)
