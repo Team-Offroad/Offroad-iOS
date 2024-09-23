@@ -164,7 +164,10 @@ extension BirthViewController {
                 $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
             }
         }
-        if sender.layer.borderColor != UIColor.primary(.error).cgColor{
+        if sender.text?.isEmpty ?? true {
+            sender.layer.borderColor = UIColor.main(.main2).cgColor
+        }
+        else if sender.layer.borderColor != UIColor.primary(.error).cgColor {
             sender.layer.borderColor = UIColor.main(.main2).cgColor
         }
     }
@@ -177,14 +180,14 @@ extension BirthViewController {
             } else {
                 textField.layer.borderColor = UIColor.primary(.error).cgColor
             }
-        } 
+        }
         else if textField == birthView.monthTextField {
             if validateMonth() {
                 textField.layer.borderColor = UIColor.main(.main2).cgColor
             } else {
                 textField.layer.borderColor = UIColor.primary(.error).cgColor
             }
-        } 
+        }
         else if textField == birthView.dayTextField {
             if validateDay() {
                 textField.layer.borderColor = UIColor.main(.main2).cgColor
@@ -215,7 +218,7 @@ extension BirthViewController {
             else {
                 textField.layer.borderColor = UIColor.primary(.error).cgColor
             }
-        } 
+        }
         else if textField == birthView.monthTextField {
             if validateMonth() && textField.text?.count == 2 {
                 birthView.dayTextField.becomeFirstResponder()
