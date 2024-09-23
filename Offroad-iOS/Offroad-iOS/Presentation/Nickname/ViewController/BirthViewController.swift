@@ -199,6 +199,7 @@ extension BirthViewController {
         }
         else if textField == birthView.monthTextField {
             if validateMonth() && textField.text?.count == 2 {
+                textField.layer.borderColor = UIColor.main(.main2).cgColor
                 birthView.dayTextField.becomeFirstResponder()
                 birthView.notionLabel.text = ""
             }
