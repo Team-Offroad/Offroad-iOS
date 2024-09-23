@@ -24,11 +24,6 @@ class UsedCouponCell: UICollectionViewCell {
         $0.font = UIFont.offroad(style: .iosTextContentsSmall)
     }
     
-    private let newBadgeView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(resource: .imgNewTag)
-    }
-    
     // MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -48,8 +43,7 @@ class UsedCouponCell: UICollectionViewCell {
     private func setupHierarchy() {
         contentView.addSubviews(
             imageView,
-            couponNameLabel,
-            newBadgeView
+            couponNameLabel
         )
     }
     
@@ -76,16 +70,10 @@ class UsedCouponCell: UICollectionViewCell {
             make.bottom.equalToSuperview().inset(14)
             make.horizontalEdges.equalToSuperview().inset(10)
         }
-        
-        newBadgeView.snp.makeConstraints { make in
-            make.top.trailing.equalTo(imageView).inset(8)
-            make.size.equalTo(24)
-        }
     }
     
     func configure(with coupon: UsedCoupon) {
         couponNameLabel.text = coupon.name
-        newBadgeView.isHidden = true
     }
     
 }

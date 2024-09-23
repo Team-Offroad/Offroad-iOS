@@ -41,6 +41,12 @@ class AcquiredCouponViewController: UIViewController {
         
         acquiredCouponView.customSegmentedControl.selectSegment(index: selectedIndex)
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        reloadCollectionViews()
+    }
 }
 
 extension AcquiredCouponViewController{
@@ -75,13 +81,16 @@ extension AcquiredCouponViewController{
                 }
                 self.availableCoupons = response.data.availableCoupons
                 self.usedCoupons = response.data.usedCoupons
-                self.acquiredCouponView.collectionViewForAvailableCoupons.reloadData()
-                self.acquiredCouponView.collectionViewForUsedCoupons.reloadData()
-                
+                self.reloadCollectionViews()
             default:
                 fatalError()
             }
         }
+    }
+    
+    private func reloadCollectionViews() {
+        acquiredCouponView.collectionViewForAvailableCoupons.reloadData()
+        acquiredCouponView.collectionViewForUsedCoupons.reloadData()
     }
     
 }
