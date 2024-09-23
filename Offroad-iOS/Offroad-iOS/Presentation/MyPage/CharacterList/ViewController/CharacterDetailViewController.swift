@@ -124,7 +124,7 @@ final class CharacterDetailViewController: UIViewController {
     }
     
     @objc private func selectButtonTapped() {
-        characterDetailView.selectMainCharacterView.isHidden = false
+        characterDetailView.showToastMessage()
     }
 }
 

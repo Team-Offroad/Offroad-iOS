@@ -16,7 +16,8 @@ class CharacterDetailView: UIView {
     
     private var collectionViewHeightConstraint: Constraint? // 컬렉션 뷰의 동적 높이 조절을 위한 변수
     var selectMainCharacterView = SelectMainCharacterView().then {
-        $0.isHidden = true
+        //맨 처음에 투명하게
+        $0.alpha = 0.0
     }
     
     // MARK: - UI Properties
@@ -147,7 +148,8 @@ class CharacterDetailView: UIView {
         addSubviews(
             selectMainCharacterView,
             scrollView,
-            customBackButton
+            customBackButton,
+            selectMainCharacterView
         )
         scrollView.addSubview(contentView)
         
@@ -270,7 +272,21 @@ class CharacterDetailView: UIView {
         }
     }
     
-    func updateCollectionViewHeight() {
+    func showToastMessage(duration: TimeInterval = 2.0) {
+        //fade-in
+        UIView.animate(withDuration: 0.3, animations: {
+            self.selectMainCharacterView.alpha = 1.0
+        }) { _ in
+            //fade-out
+            UIView.animate(withDuration: 0.3, delay: duration, options: [], animations: {
+                self.selectMainCharacterView.alpha = 0.0
+            }) { _ in
+                self.selectMainCharacterView.removeFromSuperview()
+            }
+        }
+    }
+    
+     func updateCollectionViewHeight() {
         let contentHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
         collectionViewHeightConstraint?.update(offset: contentHeight)
     }

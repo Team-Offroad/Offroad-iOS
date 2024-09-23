@@ -44,8 +44,7 @@ class SelectMainCharacterView: UIView {
     
     private func setupHierarchy() {
         addSubview(selectMessageBackgroundView)
-        selectMessageBackgroundView.addSubview(checkmarkImageView)
-        selectMessageBackgroundView.addSubview(selectMessageLabel)
+        selectMessageBackgroundView.addSubviews(checkmarkImageView, selectMessageLabel)
     }
     
     private func setupLayout() {
