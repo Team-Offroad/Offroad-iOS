@@ -114,7 +114,8 @@ extension GenderViewController {
             }
         }
         
-        ProfileService().updateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender)) { result in
+        
+        ProfileService().patchUpdateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender)) { result in
             switch result {
             case .success(let response):
                 print("프로필 업데이트 성공~~~~~~~~~")
