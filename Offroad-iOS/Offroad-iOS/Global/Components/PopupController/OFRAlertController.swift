@@ -140,7 +140,6 @@ extension OFRAlertController {
     @objc private func alertButtonTapped(sender: OFRAlertButton) {
         print(#function)
         sender.action.handler(sender.action)
-        self.dismiss(animated: false)
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
