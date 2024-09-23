@@ -11,6 +11,8 @@ class AcquiredCouponViewController: UIViewController {
     
     // MARK: - Properties
     
+    // MARK: - UIProperties
+    
     private let acquiredCouponView = AcquiredCouponView()
     
     // MARK: - Life Cycle
@@ -24,7 +26,7 @@ class AcquiredCouponViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
-        
+        getAcquiredCouponsList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +50,21 @@ extension AcquiredCouponViewController{
     private func setupDelegate() {
         acquiredCouponView.collectionView.delegate = self
         acquiredCouponView.collectionView.dataSource = self
+    }
+    
+    private func getAcquiredCouponsList() {
+        NetworkService.shared.couponService.getAcquiredCouponList { result in
+            switch result {
+            case .success(let response):
+                guard let response else {
+                    print("responseDTO is nil")
+                    return
+                }
+                
+            default:
+                fatalError()
+            }
+        }
     }
     
     // MARK: - @objc Method

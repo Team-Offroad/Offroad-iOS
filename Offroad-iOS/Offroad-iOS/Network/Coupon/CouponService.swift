@@ -11,7 +11,7 @@ import Moya
 
 protocol CouponServiceProtocol {
     
-    func getAcquiredCouponList(completion: @escaping (NetworkResult<CouponRedemptionResponseDTO>) -> Void)
+    func getAcquiredCouponList(completion: @escaping (NetworkResult<CouponListResponseDTO>) -> Void)
     func postCouponRedemption(body: CouponRedemptionRequestDTO, completion: @escaping (NetworkResult<CouponRedemptionResponseDTO>) -> Void)
     
 }
@@ -19,7 +19,7 @@ protocol CouponServiceProtocol {
 final class CouponService: BaseService, CouponServiceProtocol {
     let provider = MoyaProvider<CouponAPI>(plugins: [MoyaPlugin()])
     
-    func getAcquiredCouponList(completion: @escaping (NetworkResult<CouponRedemptionResponseDTO>) -> Void) {
+    func getAcquiredCouponList(completion: @escaping (NetworkResult<CouponListResponseDTO>) -> Void) {
         provider.request(.getCoupons, completion: { result in
             switch result {
             case .success(let response):
@@ -27,6 +27,7 @@ final class CouponService: BaseService, CouponServiceProtocol {
                     statusCode: response.statusCode,
                     data: response.data
                 )
+                completion(networkResult)
             case .failure(let error):
                 print(error.localizedDescription)
             }
