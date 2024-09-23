@@ -22,9 +22,9 @@ extension CouponAPI: BaseTargetType {
     var path: String {
         switch self {
         case .getCoupons:
-            "/api/users/coupons"
+            "/users/coupons"
         case .redeemCoupon:
-            "api/users/coupons"
+            "/users/coupons"
         }
     }
     
