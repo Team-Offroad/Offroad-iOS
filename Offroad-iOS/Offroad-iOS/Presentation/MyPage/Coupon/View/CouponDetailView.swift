@@ -28,8 +28,8 @@ final class CouponDetailView: UIView {
     
     let couponImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
+        $0.backgroundColor = .primary(.white)
         $0.roundCorners(cornerRadius: 10)
-        $0.clipsToBounds = true
     }
     
     let couponTitleLabel = UILabel().then {
