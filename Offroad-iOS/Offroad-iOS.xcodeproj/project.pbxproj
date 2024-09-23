@@ -81,6 +81,7 @@
 		4EDC3D482C31271F006A1493 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D3F2C31271F006A1493 /* Pretendard-SemiBold.otf */; };
 		4EDC3D492C31271F006A1493 /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D402C31271F006A1493 /* Pretendard-ExtraLight.otf */; };
 		4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
+		4EE0497B2CA0FD1300754488 /* CouponListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE049772CA0FD1300754488 /* CouponListResponseDTO.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
 		4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */; };
 		4EFCDFDA2C8F3721006DEBB6 /* CouponCodeInputPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFD92C8F3721006DEBB6 /* CouponCodeInputPopupViewController.swift */; };
@@ -313,6 +314,7 @@
 		4EDC3D3F2C31271F006A1493 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		4EDC3D402C31271F006A1493 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		4EDC3D4A2C312850006A1493 /* FontLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterals.swift; sourceTree = "<group>"; };
+		4EE049772CA0FD1300754488 /* CouponListResponseDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponListResponseDTO.swift; sourceTree = "<group>"; };
 		4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarViewController.swift; sourceTree = "<group>"; };
 		4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapListButton.swift; sourceTree = "<group>"; };
 		4EFCDFD92C8F3721006DEBB6 /* CouponCodeInputPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponCodeInputPopupViewController.swift; sourceTree = "<group>"; };
@@ -622,6 +624,7 @@
 		4E0394662C2AA0F9007F0517 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				4EE0497A2CA0FD1300754488 /* Coupon */,
 				87738CD12C8DEA4000E107C7 /* CharacterDetail */,
 				4E58FBFD2C7DFE40002A951B /* QuestList */,
 				87738CB62C8C1AB800E107C7 /* CharacterList */,
@@ -1136,6 +1139,30 @@
 				4EDC3D3E2C31271F006A1493 /* Pretendard-Thin.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		4EE049782CA0FD1300754488 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				4EE049772CA0FD1300754488 /* CouponListResponseDTO.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		4EE049792CA0FD1300754488 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				4EE049782CA0FD1300754488 /* Response */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		4EE0497A2CA0FD1300754488 /* Coupon */ = {
+			isa = PBXGroup;
+			children = (
+				4EE049792CA0FD1300754488 /* DTO */,
+			);
+			path = Coupon;
 			sourceTree = "<group>";
 		};
 		4EFA80892C3E79B800876D05 /* UIComponents */ = {
@@ -2267,6 +2294,7 @@
 				4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */,
 				D06466AC2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift in Sources */,
 				D06466962C86F69F00CF10FD /* LogoutView.swift in Sources */,
+				4EE0497B2CA0FD1300754488 /* CouponListResponseDTO.swift in Sources */,
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
 				D00A485D2C62847A008B286A /* MyPageMenuModel.swift in Sources */,
 				8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */,
