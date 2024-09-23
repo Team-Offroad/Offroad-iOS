@@ -14,6 +14,10 @@ class CouponDetailViewController: UIViewController {
     
     // MARK: - Properties
     
+    let coupon: AvailableCoupon
+    
+    // MARK: - UI Properties
+    
     private let couponDetailView = CouponDetailView()
     
     // MARK: - Life Cycle
@@ -36,6 +40,7 @@ class CouponDetailViewController: UIViewController {
     }
     
     init(coupon: AvailableCoupon) {
+        self.coupon = coupon
         super.init(nibName: nil, bundle: nil)
         
         let url = URL(string: coupon.couponImageUrl)
@@ -53,6 +58,21 @@ class CouponDetailViewController: UIViewController {
     private func setupTarget() {
         couponDetailView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         couponDetailView.useButton.addTarget(self, action: #selector(didTapUseButton), for: .touchUpInside)
+    }
+    
+    private func redeemCoupon(code: String) {
+        let requestDTO = CouponRedemptionRequestDTO(code: code, couponId: coupon.id)
+        NetworkService.shared.couponService.postCouponRedemption(
+            // 현재 result를 받아오지 못하고, 서버에서 404에러를 응답함. (없는 장소 Id라고 뜸)
+            body: requestDTO) { result in
+                switch result {
+                case .success(let response):
+                    guard let response else { return }
+                    print("쿠폰 사용 결과: " + "\(response.data.success)")
+                default:
+                    return
+                }
+            }
     }
     
 }
