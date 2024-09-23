@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 enum ProfileAPI {
-    case updateProfile(body: ProfileUpdateRequestDTO)
+    case patchUpdateProfile(body: ProfileUpdateRequestDTO)
     case postDeleteAccount(body: DeleteAccountRequestDTO)
     case patchMarketingConsent(body: MarketingConsentRequestDTO)
     case getUserInfo
@@ -22,14 +22,14 @@ extension ProfileAPI: BaseTargetType {
     
     var parameter: [String : Any]? {
         switch self {
-        case .updateProfile, .postDeleteAccount, .patchMarketingConsent, .getUserInfo:
+        case .patchUpdateProfile, .postDeleteAccount, .patchMarketingConsent, .getUserInfo:
             return nil
         }
     }
         
     var path: String {
         switch self {
-        case .updateProfile:
+        case .patchUpdateProfile:
             return "/users/profiles"
         case .postDeleteAccount:
             return "/users/delete"
@@ -42,7 +42,7 @@ extension ProfileAPI: BaseTargetType {
     
     var method: Moya.Method {
         switch self {
-        case .updateProfile, .patchMarketingConsent:
+        case .patchUpdateProfile, .patchMarketingConsent:
             return .patch
         case .postDeleteAccount:
             return .post
@@ -53,7 +53,7 @@ extension ProfileAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .updateProfile(let profileUpdateRequestDTO):
+        case .patchUpdateProfile(let profileUpdateRequestDTO):
             return .requestJSONEncodable(profileUpdateRequestDTO)
         case .postDeleteAccount(let deleteAccountRequestDTO):
             return .requestJSONEncodable(deleteAccountRequestDTO)
