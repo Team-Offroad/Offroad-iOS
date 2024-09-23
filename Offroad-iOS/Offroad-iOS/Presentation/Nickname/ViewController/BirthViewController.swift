@@ -172,32 +172,6 @@ extension BirthViewController {
         }
     }
     
-    @objc private func textFieldDidBegin(_ textField: UITextField) {
-        // 유효성 검사에 따라 색상 설정
-        if textField == birthView.yearTextField {
-            if validateYear() {
-                textField.layer.borderColor = UIColor.main(.main2).cgColor
-            } else {
-                textField.layer.borderColor = UIColor.primary(.error).cgColor
-            }
-        }
-        else if textField == birthView.monthTextField {
-            if validateMonth() {
-                textField.layer.borderColor = UIColor.main(.main2).cgColor
-            } else {
-                textField.layer.borderColor = UIColor.primary(.error).cgColor
-            }
-        }
-        else if textField == birthView.dayTextField {
-            if validateDay() {
-                textField.layer.borderColor = UIColor.main(.main2).cgColor
-            } else {
-                textField.layer.borderColor = UIColor.primary(.error).cgColor
-            }
-        }
-    }
-    
-    
     @objc private func textFieldEditingChanged(_ textField: UITextField) {
         let maxLength: Int
         if textField == birthView.yearTextField {
@@ -215,6 +189,10 @@ extension BirthViewController {
                 textField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
                 birthView.notionLabel.text = ""
             }
+            else if textField.text?.isEmpty ?? true {
+                birthView.notionLabel.text = ""
+                textField.layer.borderColor = UIColor.main(.main2).cgColor
+            }
             else {
                 textField.layer.borderColor = UIColor.primary(.error).cgColor
             }
@@ -225,6 +203,10 @@ extension BirthViewController {
                 birthView.notionLabel.text = ""
             }
             else if validateMonth() && textField.text?.count == 1 {
+                textField.layer.borderColor = UIColor.main(.main2).cgColor
+            }
+            else if textField.text?.isEmpty ?? true {
+                birthView.notionLabel.text = ""
                 textField.layer.borderColor = UIColor.main(.main2).cgColor
             }
             else {
@@ -238,6 +220,10 @@ extension BirthViewController {
             birthView.notionLabel.text = ""
             textField.layer.borderColor = UIColor.main(.main2).cgColor
             birthView.nextButton.changeState(forState: .isEnabled)
+        }
+        else if textField.text?.isEmpty ?? true {
+            birthView.notionLabel.text = ""
+            textField.layer.borderColor = UIColor.main(.main2).cgColor
         } else {
             birthView.nextButton.changeState(forState: .isDisabled)
         }
@@ -369,5 +355,10 @@ extension BirthViewController {
     //빈 곳 누르면 키보드 내려가게 함
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+        [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].forEach {
+            if $0.layer.borderColor != UIColor.primary(.error).cgColor {
+                $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+            }
+        }
     }
 }
