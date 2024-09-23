@@ -59,7 +59,7 @@ final class BirthViewController: UIViewController {
         birthView.yearTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
         birthView.monthTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
-        
+
         birthView.yearTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.monthTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
@@ -321,18 +321,6 @@ extension BirthViewController {
     // 텍스트 필드 글자 수 제한
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
-    }
-    
-    //MARK: - Private Func
-    
-    private func setupTarget() {
-        birthView.yearTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        birthView.monthTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        birthView.dayTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
-        birthView.skipButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: birthView.skipButton)
     }
 }
 
