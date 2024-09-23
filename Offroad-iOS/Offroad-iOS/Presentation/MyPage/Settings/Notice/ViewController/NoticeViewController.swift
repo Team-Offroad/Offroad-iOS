@@ -13,7 +13,11 @@ final class NoticeViewController: UIViewController {
     
     private let rootView = NoticeView()
     
-    private var noticeModelList = SettingBaseModel.settingNoticeModel
+    private var noticeModelList: [NoticeInfo]? {
+        didSet {
+            rootView.settingBaseCollectionView.reloadData()
+        }
+    }
     
     // MARK: - Life Cycle
     
@@ -26,6 +30,7 @@ final class NoticeViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
+        getNoticeList()
     }
 }
 
@@ -42,6 +47,17 @@ extension NoticeViewController {
         rootView.settingBaseCollectionView.delegate = self
     }
     
+    private func getNoticeList() {
+        NetworkService.shared.noticeService.getNoticeList { response in
+            switch response {
+            case .success(let data):
+                self.noticeModelList = data?.data.announcements ?? [NoticeInfo]()
+            default:
+                break
+            }
+        }
+    }
+    
     // MARK: - @objc Method
     
     @objc private func backButtonTapped() {
@@ -53,13 +69,19 @@ extension NoticeViewController {
 
 extension NoticeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return noticeModelList.count
+        if let noticeModelList {
+            return noticeModelList.count
+        }
+        return Int()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SettingBaseCollectionViewCell.className, for: indexPath) as? SettingBaseCollectionViewCell else { return UICollectionViewCell() }
-        cell.configureCell(data: noticeModelList[indexPath.item])
         
+        if let noticeModelList {
+            cell.configureNoticeCell(data: noticeModelList[indexPath.item])
+        }
+
         return cell
     }
 }

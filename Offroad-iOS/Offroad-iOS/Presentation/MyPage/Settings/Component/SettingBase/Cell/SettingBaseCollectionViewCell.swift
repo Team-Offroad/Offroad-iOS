@@ -76,12 +76,13 @@ extension SettingBaseCollectionViewCell {
     
     //MARK: - Func
     
-    func configureCell(data: SettingBaseModel) {
+    func configureSettingCell(data: SettingBaseModel) {
         listLabel.text = data.listString
-        
-        let targetText = "[중요]"
-        if data.listString.contains(targetText) {
-            listLabel.highlightText(targetText: targetText, color: .sub(.sub2) )
-        }
+    }
+    
+    func configureNoticeCell(data: NoticeInfo) {
+        let importantText = "[중요]"
+        listLabel.text = data.isImportant ? "\(importantText) \(data.title)" : data.title
+        listLabel.highlightText(targetText: importantText, color: .sub(.sub2))
     }
 }
