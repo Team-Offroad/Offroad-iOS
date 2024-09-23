@@ -173,6 +173,7 @@ extension QuestListCollectionViewCell {
         
         checkBoxImageView.snp.makeConstraints { make in
             make.centerY.equalTo(questClearConditionLabel)
+            make.top.greaterThanOrEqualTo(questInfoView.snp.top).inset(9)
             make.leading.equalToSuperview().inset(12)
             make.size.equalTo(25)
         }
@@ -180,6 +181,7 @@ extension QuestListCollectionViewCell {
         giftBoxImageVIew.snp.makeConstraints { make in
             make.top.greaterThanOrEqualTo(checkBoxImageView.snp.bottom).offset(4)
             make.leading.equalToSuperview().inset(12)
+            make.bottom.lessThanOrEqualTo(questInfoView.snp.bottom).inset(9)
             make.size.equalTo(25)
         }
 
@@ -229,10 +231,10 @@ extension QuestListCollectionViewCell {
         questProgressLabel.text = "달성도 (\(quest.currentCount)/\(quest.totalCount))"
         questProgressLabel.highlightText(targetText: "달성도", color: .grayscale(.gray400))
         
-        questDescriptionLabel.text = quest.description
+        questDescriptionLabel.text = quest.description == "" ? "데이터 없음" : quest.description
         
-        questClearConditionLabel.text = quest.requirement
-        questRewardDescriptionLabel.text = quest.reward
+        questClearConditionLabel.text = quest.requirement == "" ? "데이터 없음" : quest.requirement
+        questRewardDescriptionLabel.text = quest.reward == "" ? "데이터 없음" : quest.reward
         
         contentView.layoutIfNeeded()
     }

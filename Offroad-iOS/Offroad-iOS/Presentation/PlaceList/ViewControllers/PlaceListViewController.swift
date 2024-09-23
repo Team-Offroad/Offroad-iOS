@@ -39,7 +39,7 @@ class PlaceListViewController: UIViewController {
         setupCollectionView()
         setupDelegates()
         
-        reloadCollectionViewData(limit: 100, isBounded: true)
+        reloadCollectionViewData(limit: 100, isBounded: false)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,6 +112,7 @@ extension PlaceListViewController {
     private func reloadCollectionViewData(coordinate: CLLocationCoordinate2D? = nil, limit: Int, isBounded: Bool) {
         guard let currentCoordinate else {
             print("현재 위치 좌표를 구할 수 없음")
+            // 위치 정보 불러올 수 없을 경우 피드백 논의하기
             return
         }
         let placeRequestDTO = RegisteredPlaceRequestDTO(
@@ -196,7 +197,6 @@ extension PlaceListViewController: UICollectionViewDataSource {
 extension PlaceListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        
         let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
         animator.addAnimations {
             if collectionView.indexPathsForSelectedItems?.contains(indexPath) ?? false {
