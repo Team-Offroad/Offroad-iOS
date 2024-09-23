@@ -9,9 +9,9 @@ import Foundation
 
 struct CouponRedemptionResponseDTO: Codable {
     let message: String
-    fileprivate let data: CouponRedemptionResult
+    let data: CouponRedemptionResult
 }
 
-fileprivate struct CouponRedemptionResult: Codable {
+struct CouponRedemptionResult: Codable {
     let success: Bool
 }
