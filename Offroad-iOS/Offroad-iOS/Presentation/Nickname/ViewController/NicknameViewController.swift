@@ -71,7 +71,9 @@ extension NicknameViewController {
     private func formError(_ input: String) -> Bool{
         let pattern = "^[A-Za-z가-힣]{2,}$"
         let regex = try? NSRegularExpression(pattern: pattern)
-        if let _ = regex?.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count)) {
+        let eucKrLength = input.eucKrByteLength
+        if let _ = regex?.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count)),
+           eucKrLength >= 4 {
             print("정규식 통과")
             return true
         }
@@ -202,6 +204,14 @@ extension NicknameViewController: UITextFieldDelegate {
         let currentText = textField.text!
         let newText = currentText.replacingCharacters(in: range, with: string)
         
-        return newText.eucKrByteLength <= 16
+        //입력된 텍스트의 byte 길이를 계산한 후 최대 바이트 길이인 16을 초과하는 경우에만 입력을 막는 코드
+        let byteLength = newText.eucKrByteLength
+        
+        if byteLength > 16 {
+            return false
+        } else {
+            return true
+        }
     }
 }
+
