@@ -23,7 +23,7 @@ class SelectMainCharacterView: UIView {
     }
     
     private let selectMessageLabel = UILabel().then {
-        $0.font = UIFont.offroad(style: .iosTextMedium)
+        $0.font = UIFont.offroad(style: .iosTextRegular)
         $0.textColor = UIColor.primary(.white)
     }
     

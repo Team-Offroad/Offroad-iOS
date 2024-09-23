@@ -27,7 +27,6 @@ enum offroadFontStyle {
     case iosSubtitle2Semibold
     case iosTooltipTitle
     case iosTextBold
-    case iosTextMedium
     case iosTextRegular
     case iosTextAuto
     case iosBtnLogin
@@ -88,7 +87,6 @@ extension UIFont {
         case .iosSubtitle2Semibold: return UIFont.pretendardFont(ofSize: 18, weight: .semiBold)
         case .iosTooltipTitle:return UIFont.pretendardFont(ofSize: 18, weight: .bold)
         case .iosTextBold: return UIFont.pretendardFont(ofSize: 16, weight: .bold) //lineHeight 150%
-        case .iosTextMedium: return UIFont.pretendardFont(ofSize: 16, weight: .medium)
         case .iosTextRegular: return UIFont.pretendardFont(ofSize: 16, weight: .regular) //lineHeight 150%
         case .iosTextAuto: return UIFont.pretendardFont(ofSize: 16, weight: .regular)
         case .iosBtnLogin: return UIFont.pretendardFont(ofSize: 15, weight: .semiBold)

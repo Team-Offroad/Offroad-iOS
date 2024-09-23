@@ -174,6 +174,7 @@ class CharacterDetailView: UIView {
     
     private func setupLayout() {
         selectMainCharacterView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(113)
             $0.horizontalEdges.equalToSuperview().inset(24)
             $0.height.equalTo(45)
         }
