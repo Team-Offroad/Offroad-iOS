@@ -19,7 +19,7 @@ class OFRAlertController: UIViewController {
     
     private let transitionDelegate = ZeroDurationTransitionDelegate()
     private let presentationAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.7)
-    private let dismissalAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    private let dismissalAnimator = UIViewPropertyAnimator(duration: 0.2, dampingRatio: 1)
     
     /**
      팝업의 제목
@@ -136,7 +136,7 @@ extension OFRAlertController {
     //MARK: - @objc Func
     
     @objc private func closeButtonDidTapped() {
-        dismiss(animated: false)
+        dismiss(animated: true)
     }
     
     @objc private func alertButtonTapped(sender: OFRAlertButton) {
