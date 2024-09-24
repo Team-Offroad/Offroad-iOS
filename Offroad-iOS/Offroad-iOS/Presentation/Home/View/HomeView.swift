@@ -143,12 +143,16 @@ extension HomeView {
             $0.textColor = .main(.main1)
             $0.textAlignment = .center
             $0.font = .offroad(style: .bothRecentNum)
+            $0.adjustsFontSizeToFitWidth = true
+            $0.minimumScaleFactor = 0.5
         }
         
         almostDoneQuestProgressLabel.do {
             $0.textColor = .blackOpacity(.black25)
             $0.textAlignment = .center
             $0.font = .offroad(style: .bothUpcomingSmallNum)
+            $0.adjustsFontSizeToFitWidth = true
+            $0.minimumScaleFactor = 0.5
         }
     }
     
@@ -208,8 +212,6 @@ extension HomeView {
         }
         
         characterMotionView.snp.makeConstraints {
-//            $0.height.equalTo(200)
-//            $0.width.equalTo(180)
             $0.bottom.equalTo(titleView.snp.top).offset(-25)
             $0.centerX.equalToSuperview()
         }
@@ -243,6 +245,7 @@ extension HomeView {
         
         recentQuestProgressLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
+            $0.width.equalTo(70)
         }
         
         almostDoneQuestProgressView.snp.makeConstraints {
@@ -254,6 +257,7 @@ extension HomeView {
         
         almostDoneQuestProgressLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(58)
+            $0.width.equalTo(140)
             $0.centerX.equalToSuperview()
         }
     }

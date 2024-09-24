@@ -80,7 +80,8 @@ extension TermsConsentPopupView {
         }
         
         contentScrollView.do {
-            $0.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+            $0.indicatorStyle = .black
+            $0.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
         }
         
         contentStackView.do {
@@ -163,29 +164,38 @@ extension TermsConsentPopupView {
     private func applyConditionalIndent(targetString: String) -> (NSMutableAttributedString) {
         let resultString = NSMutableAttributedString()
         let strings = targetString.components(separatedBy: "\n")
-        let specialString: Set<String> = ["1. ", "2. ", "3. ", "4. ", "5. ", "6. ", "7. ", "8. ", "9. ", " ∙ "]
+        let specialNumberStrings: Set<String> = ["1. ", "2. ", "3. ", "4. ", "5. ", "6. ", "7. ", "8. ", "9. ", " ∙ "]
+        let specialHangeulStrings: Set<String> = ["가. ", "나. ", "다. ", "라. ", "마. ", "바. ", "사. ", "아. "]
         var textIndent: CGFloat
         
         for string in strings {
             let numberedItem = "\(string)\n"
             let attributedItem = NSMutableAttributedString(string: numberedItem)
-            let isContainSpecialString = specialString.contains { string.contains($0) }
+            let prefix = String(string.prefix(3))
+            let isContainSpecialNumberString = specialNumberStrings.contains(prefix)
+            let isContainSpecialHangeulString = specialHangeulStrings.contains(prefix)
+            let style = NSMutableParagraphStyle()
             
-            if isContainSpecialString {
+            if isContainSpecialNumberString || isContainSpecialHangeulString {
                 textIndent = {
                     let label = UILabel()
-                    label.text = String(string.prefix(3))
+                    label.text = prefix
                     label.font = .offroad(style: .iosMarketing)
                     
                     return label.sizeThatFits(.zero).width
                 }()
                 
-                let style = NSMutableParagraphStyle()
-                style.firstLineHeadIndent = 0
-                style.headIndent = textIndent
-                style.lineSpacing = 6
-                attributedItem.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: attributedItem.length))
+                if isContainSpecialNumberString {
+                    style.firstLineHeadIndent = 10
+                    style.headIndent = textIndent + 10
+                } else if isContainSpecialHangeulString {
+                    style.firstLineHeadIndent = 30
+                    style.headIndent = textIndent + 30
+                }
             }
+            style.lineSpacing = 6
+            attributedItem.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: attributedItem.length))
+
             resultString.append(attributedItem)
         }
         
@@ -196,9 +206,14 @@ extension TermsConsentPopupView {
     
     func configurePopupView(titleString: String, descriptionString: String, contentString: String) {
         titleLabel.text = titleString
-        descriptionLabel.text = descriptionString
-        descriptionLabel.setLineSpacing(spacing: 6)
         contentLabel.attributedText = applyConditionalIndent(targetString: contentString)
+        
+        if descriptionString == "" {
+            descriptionLabel.isHidden = true
+        } else {
+            descriptionLabel.text = descriptionString
+            descriptionLabel.setLineSpacing(spacing: 6)
+        }
     }
     
     func presentPopupView() {

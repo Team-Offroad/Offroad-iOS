@@ -7,6 +7,8 @@
 
 import UIKit
 
+import SafariServices
+
 final class SettingViewController: UIViewController {
     
     //MARK: - Properties
@@ -14,6 +16,11 @@ final class SettingViewController: UIViewController {
     private let rootView = SettingView()
     
     private var settingModelList = SettingBaseModel.settingListModel
+    private let redirectionURLStrings = [
+        "https://tan-antlion-a47.notion.site/105120a9d80f80cea574f7d62179bfa8?pvs=4",
+        "https://tan-antlion-a47.notion.site/90c70d8bf0974b37a3a4470022df303d?pvs=4",
+        "https://tan-antlion-a47.notion.site/105120a9d80f80739f54fa78902015d7?pvs=4"
+    ]
     
     // MARK: - Life Cycle
     
@@ -79,6 +86,10 @@ extension SettingViewController: UICollectionViewDelegateFlowLayout {
         case 0:
             let noticeViewController = NoticeViewController()
             self.navigationController?.pushViewController(noticeViewController, animated: true)
+        case 1, 2, 3:
+            let redirectionURL = NSURL(string: redirectionURLStrings[indexPath.item - 1])
+            let safariView = SFSafariViewController(url: (redirectionURL ?? NSURL()) as URL)
+            self.present(safariView, animated: true, completion: nil)
         case 4:
             let marketingConsentViewController = MarketingConsentViewController()
             marketingConsentViewController.modalPresentationStyle = .overCurrentContext
