@@ -80,7 +80,8 @@ extension TermsConsentPopupView {
         }
         
         contentScrollView.do {
-            $0.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+            $0.indicatorStyle = .black
+            $0.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
         }
         
         contentStackView.do {
