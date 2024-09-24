@@ -45,7 +45,7 @@ class AcquiredCouponViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        reloadCollectionViews()
+        fetchAcquiredCouponsData()
     }
 }
 
