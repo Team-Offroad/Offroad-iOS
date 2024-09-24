@@ -119,6 +119,9 @@
 		87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046932C3D2B38002D12C2 /* BirthViewController.swift */; };
 		87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046972C3D5E3D002D12C2 /* NicknameView.swift */; };
 		AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */; };
+		D004F8562CA12A7A00D5A2CD /* NoticeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8552CA12A7A00D5A2CD /* NoticeResponseDTO.swift */; };
+		D004F8582CA12B1500D5A2CD /* NoticeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8572CA12B1000D5A2CD /* NoticeAPI.swift */; };
+		D004F85A2CA12B2200D5A2CD /* NoticeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8592CA12B1C00D5A2CD /* NoticeService.swift */; };
 		D00A485B2C628054008B286A /* MyPageMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A485A2C628054008B286A /* MyPageMenuCollectionViewCell.swift */; };
 		D00A485D2C62847A008B286A /* MyPageMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A485C2C62847A008B286A /* MyPageMenuModel.swift */; };
 		D00A48622C633947008B286A /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48612C633947008B286A /* SettingView.swift */; };
@@ -130,7 +133,6 @@
 		D00A487A2C634710008B286A /* SettingBaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48792C634710008B286A /* SettingBaseCollectionViewCell.swift */; };
 		D00A48822C6E5D92008B286A /* NoticePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48812C6E5D92008B286A /* NoticePostViewController.swift */; };
 		D00A48842C6E5DA7008B286A /* NoticePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48832C6E5DA7008B286A /* NoticePostView.swift */; };
-		D00A48872C6E77C5008B286A /* NoticePostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48862C6E77C5008B286A /* NoticePostModel.swift */; };
 		D00A48892C763D24008B286A /* NavigationPopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48882C763D24008B286A /* NavigationPopButton.swift */; };
 		D00A488C2C7830F3008B286A /* TermsConsentPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A488B2C7830F3008B286A /* TermsConsentPopupView.swift */; };
 		D00A48942C78396F008B286A /* TermsConsentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48932C78396F008B286A /* TermsConsentView.swift */; };
@@ -349,6 +351,9 @@
 		87E046932C3D2B38002D12C2 /* BirthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewController.swift; sourceTree = "<group>"; };
 		87E046972C3D5E3D002D12C2 /* NicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameView.swift; sourceTree = "<group>"; };
 		C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOS_Offroad_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D004F8552CA12A7A00D5A2CD /* NoticeResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeResponseDTO.swift; sourceTree = "<group>"; };
+		D004F8572CA12B1000D5A2CD /* NoticeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeAPI.swift; sourceTree = "<group>"; };
+		D004F8592CA12B1C00D5A2CD /* NoticeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeService.swift; sourceTree = "<group>"; };
 		D00A485A2C628054008B286A /* MyPageMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		D00A485C2C62847A008B286A /* MyPageMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMenuModel.swift; sourceTree = "<group>"; };
 		D00A48612C633947008B286A /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -360,7 +365,6 @@
 		D00A48792C634710008B286A /* SettingBaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingBaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		D00A48812C6E5D92008B286A /* NoticePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePostViewController.swift; sourceTree = "<group>"; };
 		D00A48832C6E5DA7008B286A /* NoticePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePostView.swift; sourceTree = "<group>"; };
-		D00A48862C6E77C5008B286A /* NoticePostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticePostModel.swift; sourceTree = "<group>"; };
 		D00A48882C763D24008B286A /* NavigationPopButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPopButton.swift; sourceTree = "<group>"; };
 		D00A488B2C7830F3008B286A /* TermsConsentPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConsentPopupView.swift; sourceTree = "<group>"; };
 		D00A48932C78396F008B286A /* TermsConsentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConsentView.swift; sourceTree = "<group>"; };
@@ -614,10 +618,11 @@
 		4E0394662C2AA0F9007F0517 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				4E0394672C2AA132007F0517 /* Base */,
+				D004F84E2CA129FC00D5A2CD /* Notice */,
 				87738CD12C8DEA4000E107C7 /* CharacterDetail */,
 				4E58FBFD2C7DFE40002A951B /* QuestList */,
 				87738CB62C8C1AB800E107C7 /* CharacterList */,
-				4E0394672C2AA132007F0517 /* Base */,
 				4E0394682C2AA135007F0517 /* Auth */,
 				4E0394692C2AA13A007F0517 /* Profile */,
 				D0E7960D2C4526A0005B47A5 /* Nickname */,
@@ -900,7 +905,6 @@
 		4E0394832C2AA99C007F0517 /* NoticePost */ = {
 			isa = PBXGroup;
 			children = (
-				D00A48852C6E77B5008B286A /* Model */,
 				D00A48802C6E5D7F008B286A /* View */,
 				D00A487F2C6E5D76008B286A /* ViewController */,
 			);
@@ -1349,6 +1353,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D004F84E2CA129FC00D5A2CD /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				D004F8502CA12A1500D5A2CD /* DTO */,
+				D004F8572CA12B1000D5A2CD /* NoticeAPI.swift */,
+				D004F8592CA12B1C00D5A2CD /* NoticeService.swift */,
+			);
+			path = Notice;
+			sourceTree = "<group>";
+		};
+		D004F84F2CA12A0E00D5A2CD /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				D004F8552CA12A7A00D5A2CD /* NoticeResponseDTO.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		D004F8502CA12A1500D5A2CD /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				D004F84F2CA12A0E00D5A2CD /* Response */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
 		D00A48592C627EC8008B286A /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1436,14 +1466,6 @@
 				D00A48832C6E5DA7008B286A /* NoticePostView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		D00A48852C6E77B5008B286A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				D00A48862C6E77C5008B286A /* NoticePostModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		D00A488A2C78306C008B286A /* CustomView */ = {
@@ -2258,6 +2280,7 @@
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
 				D00A485D2C62847A008B286A /* MyPageMenuModel.swift in Sources */,
 				8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */,
+				D004F8582CA12B1500D5A2CD /* NoticeAPI.swift in Sources */,
 				872F4BB72C6B809800284DE0 /* CharacterDetailViewController.swift in Sources */,
 				D06466A12C89CB5200CF10FD /* UserInfoResponseDTO.swift in Sources */,
 				872F4BBB2C6B917800284DE0 /* CharacterDetailCell.swift in Sources */,
@@ -2282,7 +2305,6 @@
 				4E58FC022C7DFE87002A951B /* QuestListService.swift in Sources */,
 				4E3F009E2C40D20800B9A31A /* OffroadTabBarController.swift in Sources */,
 				D0E7964E2C453B38005B47A5 /* AdventureAPI.swift in Sources */,
-				D00A48872C6E77C5008B286A /* NoticePostModel.swift in Sources */,
 				4E56F53F2C987C5500EEE677 /* ZeroDurationAnimator.swift in Sources */,
 				4E08B95D2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift in Sources */,
 				D0E7961C2C4527FE005B47A5 /* SocialLoginRequestDTO.swift in Sources */,
@@ -2349,6 +2371,7 @@
 				4E08B95B2C5E4F860082EFB8 /* CustomSegmentedControl.swift in Sources */,
 				87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */,
 				D063E9922C57FE7400434A09 /* KeychainManager.swift in Sources */,
+				D004F85A2CA12B2200D5A2CD /* NoticeService.swift in Sources */,
 				D00A485B2C628054008B286A /* MyPageMenuCollectionViewCell.swift in Sources */,
 				D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */,
 				872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */,
@@ -2370,6 +2393,7 @@
 				D064669A2C86FCDB00CF10FD /* DeleteAccountViewController.swift in Sources */,
 				D06466902C83A18400CF10FD /* TermsConsentPopupViewController.swift in Sources */,
 				D0B81AA02C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift in Sources */,
+				D004F8562CA12A7A00D5A2CD /* NoticeResponseDTO.swift in Sources */,
 				4E1E94132C398C4200A7B08A /* String+.swift in Sources */,
 				D063E99F2C61071100434A09 /* CollectedTitlesView.swift in Sources */,
 				D063E9A72C6109AB00434A09 /* CollectedTitleCollectionViewCell.swift in Sources */,

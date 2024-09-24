@@ -72,7 +72,7 @@ extension SettingViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SettingBaseCollectionViewCell.className, for: indexPath) as? SettingBaseCollectionViewCell else { return UICollectionViewCell() }
-        cell.configureCell(data: settingModelList[indexPath.item])
+        cell.configureSettingCell(data: settingModelList[indexPath.item])
         
         return cell
     }

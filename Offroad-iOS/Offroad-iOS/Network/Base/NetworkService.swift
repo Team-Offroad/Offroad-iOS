@@ -23,4 +23,5 @@ final class NetworkService {
     let characterDetailService: CharacterDetailServiceProtocol = CharacterDetailService()
     let characterMotionService: CharacterMotionServiceProtocol = CharacterMotionService()
     let characterListService: CharacterListServiceProtocol = CharacterListService()
+    let noticeService: NoticeServiceProtocol = NoticeService()
 }
