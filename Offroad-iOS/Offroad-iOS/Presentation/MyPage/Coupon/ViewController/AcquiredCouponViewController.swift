@@ -74,6 +74,9 @@ extension AcquiredCouponViewController{
     private func fetchAcquiredCouponsData() {
         NetworkService.shared.couponService.getAcquiredCouponList { [weak self] result in
             guard let self else { return }
+            
+            let alertController: OFRAlertController
+            let action = OFRAlertAction(title: "확인", style: .default) { _ in return }
             switch result {
             case .success(let response):
                 guard let response else {
@@ -83,7 +86,10 @@ extension AcquiredCouponViewController{
                 self.usedCoupons = response.data.usedCoupons
                 self.reloadCollectionViews()
             default:
-                fatalError()
+                alertController = OFRAlertController(title: "에러", message: "\(result)", type: .normal)
+                alertController.addAction(action)
+                alertController.xButton.isHidden = true
+                self.present(alertController, animated: true)
             }
         }
     }

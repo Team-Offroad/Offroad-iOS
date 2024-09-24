@@ -70,8 +70,7 @@ class CouponDetailViewController: UIViewController {
         
         couponCodeInputSubject.subscribe { [weak self] codeInput in
             guard let self else { return }
-            //self.redeemCoupon(code: codeInput)
-            self.redeemCouponTest(code: codeInput)
+            self.redeemCoupon(code: codeInput)
         }.disposed(by: disposeBag)
         
         
@@ -97,10 +96,8 @@ class CouponDetailViewController: UIViewController {
         }.disposed(by: disposeBag)
     }
     
-    /// 현재는 서버 문제가 해결될 때까지 호출될 일이 없으므로, 어디에서도 불리지 않음. 서버 문제가 해결될 때 까지는 추가로 구현한 redeemCouponTest 함수를 이용
     private func redeemCoupon(code: String) {
         let requestDTO = CouponRedemptionRequestDTO(code: code, couponId: coupon.id)
-        // 현재 result를 받아오지 못하고, 서버에서 404에러를 응답함. (없는 장소 Id라고 뜸)
         NetworkService.shared.couponService.postCouponRedemption(body: requestDTO) { [weak self] result in
             guard let self else { return }
             
@@ -109,14 +106,17 @@ class CouponDetailViewController: UIViewController {
                 guard let response else { return }
                 print("쿠폰 사용 결과: " + "\(response.data.success)")
                 self.afterCouponRedemptionSubject.onNext(response.data.success)
-                //completion(response.data.success)
             default:
                 return
             }
         }
     }
     
-    /// 테스트용 함수 코드가 0000일 경우 0.3초 후에 응답값 true, 그렇지 않을 경우 응답값 false.
+    /**
+     테스트용 함수.
+     
+     코드가 0000일 경우 0.3초 후에 응답값 true, 그렇지 않을 경우 응답값 false.
+     */
     private func redeemCouponTest(code: String) {
         DispatchQueue.global().asyncAfter(deadline: .now() + 0.3) { [weak self] in
             guard let self else { return }

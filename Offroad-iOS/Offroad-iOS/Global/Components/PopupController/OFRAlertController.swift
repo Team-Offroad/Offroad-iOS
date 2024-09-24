@@ -73,6 +73,10 @@ class OFRAlertController: UIViewController {
         backgroundView.alertView.buttons
     }
     
+    var xButton: UIButton {
+        backgroundView.alertView.closeButton
+    }
+    
     //MARK: - Life Cycle
     
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
