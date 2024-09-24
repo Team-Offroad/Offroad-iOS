@@ -267,4 +267,8 @@ extension OFRAlertController {
         configure(defaultTextField)
     }
     
+    func configureMessageLabel(_ configure: (UILabel) -> Void) {
+        configure(self.backgroundView.alertView.messageLabel)
+    }
+    
 }

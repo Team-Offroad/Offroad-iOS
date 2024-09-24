@@ -8,13 +8,18 @@
 import UIKit
 
 import Kingfisher
+import RxSwift
 import SnapKit
 
 class CouponDetailViewController: UIViewController {
     
     // MARK: - Properties
     
+    var disposeBag = DisposeBag()
+    
     let coupon: AvailableCoupon
+    let couponCodeInputSubject = PublishSubject<String>()
+    let afterCouponRedemptionSubject = PublishSubject<Bool>()
     
     // MARK: - UI Properties
     
@@ -30,6 +35,7 @@ class CouponDetailViewController: UIViewController {
         super.viewDidLoad()
         
         setupTarget()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,17 +66,62 @@ class CouponDetailViewController: UIViewController {
         couponDetailView.useButton.addTarget(self, action: #selector(didTapUseButton), for: .touchUpInside)
     }
     
+    private func bind() {
+        
+        couponCodeInputSubject.subscribe { [weak self] codeInput in
+            guard let self else { return }
+            //self.redeemCoupon(code: codeInput)
+            self.redeemCouponTest(code: codeInput)
+        }.disposed(by: disposeBag)
+        
+        
+        afterCouponRedemptionSubject
+            .observe(on: ConcurrentMainScheduler.instance)
+            .subscribe { [weak self] isSuccess in
+            guard let self else { return }
+            
+            let alertController: OFRAlertController
+            if isSuccess {
+                alertController = OFRAlertController(title: "사용 완료", message: "쿠폰 사용이 완료되었어요!", type: .normal)
+            } else {
+                alertController = OFRAlertController(title: "사용 실패", message: "다시 한 번 확인해 주세요.", type: .normal)
+                alertController.configureMessageLabel { label in
+                    label.textColor = .primary(.error)
+                    label.font = .offroad(style: .iosSubtitle2Semibold)
+                }
+            }
+            
+            let action = OFRAlertAction(title: "확인", style: .default) { _ in return }
+            alertController.addAction(action)
+            self.present(alertController, animated: true)
+        }.disposed(by: disposeBag)
+    }
+    
+    /// 현재는 서버 문제가 해결될 때까지 호출될 일이 없으므로, 어디에서도 불리지 않음. 서버 문제가 해결될 때 까지는 추가로 구현한 redeemCouponTest 함수를 이용
     private func redeemCoupon(code: String) {
         let requestDTO = CouponRedemptionRequestDTO(code: code, couponId: coupon.id)
         // 현재 result를 받아오지 못하고, 서버에서 404에러를 응답함. (없는 장소 Id라고 뜸)
-        NetworkService.shared.couponService.postCouponRedemption(body: requestDTO) { result in
+        NetworkService.shared.couponService.postCouponRedemption(body: requestDTO) { [weak self] result in
+            guard let self else { return }
+            
             switch result {
             case .success(let response):
                 guard let response else { return }
                 print("쿠폰 사용 결과: " + "\(response.data.success)")
+                self.afterCouponRedemptionSubject.onNext(response.data.success)
+                //completion(response.data.success)
             default:
                 return
             }
+        }
+    }
+    
+    /// 테스트용 함수 코드가 0000일 경우 0.3초 후에 응답값 true, 그렇지 않을 경우 응답값 false.
+    private func redeemCouponTest(code: String) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.3) { [weak self] in
+            guard let self else { return }
+            //completion(code == "0000" ? true : false)
+            self.afterCouponRedemptionSubject.onNext(code == "0000" ? true : false)
         }
     }
     
@@ -87,13 +138,11 @@ extension CouponDetailViewController {
     @objc private func didTapUseButton() {
         
         let alertController = OFRAlertController(title: "쿠폰 사용", message: "코드를 입력 후 사장님에게 보여주세요", type: .textField)
-        let okAction = OFRAlertAction(title: "확인", style: .default) { action in
+        let okAction = OFRAlertAction(title: "확인", style: .default) { [weak self] action in
+            guard let self else { return }
             
             // 여기서 쿠폰 사용 API 호출하기
-            let alertController = OFRAlertController(title: "사용 완료", message: "쿠폰 사용이 완료되었어요!", type: .normal)
-            let action = OFRAlertAction(title: "확인", style: .default) { _ in return }
-            alertController.addAction(action)
-            self.present(alertController, animated: true)
+            self.couponCodeInputSubject.onNext(alertController.textFieldToBeFirstResponder?.text ?? "")
         }
         
         alertController.addAction(okAction)
