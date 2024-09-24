@@ -12,7 +12,7 @@ final class CharacterListViewController: UIViewController {
     // MARK: - Properties
     
     private var selectedMainCharacterId: Int?
-
+    
     private let characterListView = CharacterListView()
     private var combinedCharacterList: [(isGained: Bool, character: Any)] = [] {
         didSet {
@@ -101,7 +101,8 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharacterListCell", for: indexPath) as! CharacterListCell
         let characterData = combinedCharacterList[indexPath.item]
         if characterData.isGained, let gainedCharacter = characterData.character as? GainedCharacter {
-            cell.gainedCharacterCell(data: gainedCharacter)
+            let isMainCharacter = (gainedCharacter.characterId == selectedMainCharacterId)
+            cell.gainedCharacterCell(data: gainedCharacter, isMainCharacter: isMainCharacter)
         } else if let notGainedCharacter = characterData.character as? NotGainedCharacter {
             cell.notGainedCharacterCell(data: notGainedCharacter)
         }

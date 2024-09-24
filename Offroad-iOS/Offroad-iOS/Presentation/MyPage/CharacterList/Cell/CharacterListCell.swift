@@ -119,7 +119,7 @@ class CharacterListCell: UICollectionViewCell {
     
     //MARK: - Func
     
-    func gainedCharacterCell(data: GainedCharacter) {
+    func gainedCharacterCell(data: GainedCharacter, isMainCharacter: Bool) {
         acqiredCharacterImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
         characterLabel.text = data.characterName
         contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
@@ -129,6 +129,7 @@ class CharacterListCell: UICollectionViewCell {
         lockImageView.isHidden = true
         
         newBadgeView.isHidden = !data.isNewGained
+        mainCharacterBadgeView.isHidden = !isMainCharacter
     }
     
     func notGainedCharacterCell(data: NotGainedCharacter) {
