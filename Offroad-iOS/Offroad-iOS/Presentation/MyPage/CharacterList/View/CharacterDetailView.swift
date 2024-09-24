@@ -88,6 +88,12 @@ class CharacterDetailView: UIView {
         $0.font = UIFont.offroad(style: .iosTextContentsSmall)
     }
     
+    let mainCharacterBadgeView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+        $0.image = UIImage(resource: .imgCrownTag)
+        $0.isHidden = true
+    }
+    
     let detailLabel = UILabel().then {
         $0.textAlignment = .left
         $0.numberOfLines = 3
@@ -163,6 +169,7 @@ class CharacterDetailView: UIView {
         )
         labelView.addSubviews(
             nameLabel,
+            mainCharacterBadgeView,
             titleLabel,
             characterLogoImage
         )
@@ -211,12 +218,18 @@ class CharacterDetailView: UIView {
         characterLogoImage.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().inset(22)
-            make.size.equalTo(CGSize(width: 50, height: 50))
+            make.size.equalTo(50)
         }
         
         nameLabel.snp.makeConstraints { make in
             make.leading.equalTo(characterLogoImage.snp.trailing).offset(17)
             make.top.equalToSuperview().inset(21)
+        }
+        
+        mainCharacterBadgeView.snp.makeConstraints { make in
+            make.leading.equalTo(nameLabel.snp.trailing)
+            make.centerY.equalTo(nameLabel)
+            make.size.equalTo(21)
         }
         
         titleLabel.snp.makeConstraints { make in
