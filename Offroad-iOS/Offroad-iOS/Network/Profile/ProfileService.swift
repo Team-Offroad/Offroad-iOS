@@ -12,7 +12,7 @@ import Moya
 protocol ProfileServiceProtocol {
     func patchUpdateProfile(body: ProfileUpdateRequestDTO, completion: @escaping (NetworkResult<Any>) -> ())
     func postDeleteAccount(body: DeleteAccountRequestDTO, completion: @escaping (NetworkResult<DeleteAccountResponseDTO>) -> ())
-    func patchMarketingConsent(body: MarketingConsentRequestDTO, completion: @escaping (NetworkResult<MarketingConsentResponseDTO>) -> ())
+    func patchMarketingConsent(body: MarketingConsentRequestDTO, completion: @escaping (NetworkResult<Any>) -> ())
     func getUserInfo(completion: @escaping (NetworkResult<UserInfoResponseDTO>) -> ())
 }
 
@@ -49,12 +49,12 @@ final class ProfileService: BaseService, ProfileServiceProtocol {
         }
     }
     
-    func patchMarketingConsent(body: MarketingConsentRequestDTO, completion: @escaping (NetworkResult<MarketingConsentResponseDTO>) -> ()) {
+    func patchMarketingConsent(body: MarketingConsentRequestDTO, completion: @escaping (NetworkResult<Any>) -> ()) {
         
         provider.request(.patchMarketingConsent(body: body)) { result in
             switch result {
             case .success(let response):
-                let networkResult: NetworkResult<MarketingConsentResponseDTO> = self.fetchNetworkResult(
+                let networkResult: NetworkResult<Any> = self.fetchNetworkResult(
                     statusCode: response.statusCode,
                     data: response.data
                 )
