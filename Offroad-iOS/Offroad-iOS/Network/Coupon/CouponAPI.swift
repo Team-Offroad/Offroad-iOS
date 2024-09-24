@@ -20,12 +20,7 @@ extension CouponAPI: BaseTargetType {
     }
     
     var path: String {
-        switch self {
-        case .getCoupons:
-            "/users/coupons"
-        case .redeemCoupon:
-            "/users/coupons"
-        }
+        "/users/coupons"
     }
     
     var method: Moya.Method {

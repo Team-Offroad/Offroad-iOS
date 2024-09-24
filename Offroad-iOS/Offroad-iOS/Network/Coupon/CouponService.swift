@@ -17,7 +17,7 @@ protocol CouponServiceProtocol {
 }
 
 final class CouponService: BaseService, CouponServiceProtocol {
-    let provider = MoyaProvider<CouponAPI>(plugins: [MoyaPlugin()])
+    let provider = MoyaProvider<CouponAPI>.init(session: Session(interceptor: TokenInterceptor.shared), plugins: [MoyaPlugin()])
     
     func getAcquiredCouponList(completion: @escaping (NetworkResult<CouponListResponseDTO>) -> Void) {
         provider.request(.getCoupons, completion: { result in
