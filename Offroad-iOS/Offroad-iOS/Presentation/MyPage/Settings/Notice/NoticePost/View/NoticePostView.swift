@@ -152,11 +152,12 @@ extension NoticePostView {
         titleLabel.text = data.isImportant ? "\(importantText) \(data.title)" : data.title
         titleLabel.highlightText(targetText: importantText, color: .sub(.sub2))
         
-        let yearString = data.updateAt.sliceByRange(string: data.updateAt, start: 0, end: 4)
-        let monthString = data.updateAt.sliceByRange(string: data.updateAt, start: 5, end: 7)
-        let dayString = data.updateAt.sliceByRange(string: data.updateAt, start: 8, end: 10)
+        let date = ISO8601DateFormatter().date(from: data.updateAt)
         
-        dateLabel.text = "\(yearString) / \(monthString) / \(dayString)"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy / MM / dd"
+        
+        dateLabel.text = dateFormatter.string(from: date ?? Date())
         contentLabel.text = data.content
 //        contentButton.setTitle(data.contentButtonString, for: .normal)
     }
