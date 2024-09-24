@@ -11,6 +11,8 @@ final class CharacterListViewController: UIViewController {
     
     // MARK: - Properties
     
+    private var selectedMainCharacterId: Int?
+
     private let characterListView = CharacterListView()
     private var combinedCharacterList: [(isGained: Bool, character: Any)] = [] {
         didSet {
@@ -77,6 +79,16 @@ final class CharacterListViewController: UIViewController {
     }
 }
 
+extension CharacterListViewController: CharacterDetailViewControllerDelegate {
+    func didSelectMainCharacter(characterId: Int) {
+        // 선택된 메인 캐릭터 ID 저장
+        selectedMainCharacterId = characterId
+        
+        characterListView.collectionView.reloadData()
+    }
+}
+
+
 extension CharacterListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     // MARK: - CollectionView Func
@@ -126,6 +138,9 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
         } else {
             return
         }
+        
+        detailViewController.delegate = self
+        
         let customBackBarButton = UIBarButtonItem(customView: button)
         detailViewController.navigationItem.leftBarButtonItem = customBackBarButton
         
