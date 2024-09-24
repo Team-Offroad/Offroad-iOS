@@ -146,15 +146,19 @@ extension NoticePostView {
     
     //MARK: - Func
     
-    func setPostText(data: NoticePostModel) {
-        dateLabel.text = data.dateString
-        titleLabel.text = data.titleString
-        contentLabel.text = data.contentString
-        contentButton.setTitle(data.contentButtonString, for: .normal)
+    func setPostText(data: NoticeInfo) {
+        let importantText = "[중요]"
         
-        let targetText = "[중요]"
-        if data.titleString.contains(targetText) {
-            titleLabel.highlightText(targetText: targetText, color: .sub(.sub2) )
-        }
+        titleLabel.text = data.isImportant ? "\(importantText) \(data.title)" : data.title
+        titleLabel.highlightText(targetText: importantText, color: .sub(.sub2))
+        
+        let date = ISO8601DateFormatter().date(from: data.updateAt)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy / MM / dd"
+        
+        dateLabel.text = dateFormatter.string(from: date ?? Date())
+        contentLabel.text = data.content
+//        contentButton.setTitle(data.contentButtonString, for: .normal)
     }
 }

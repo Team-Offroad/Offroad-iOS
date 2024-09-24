@@ -30,4 +30,16 @@ extension String {
         }
         return count
     }
+    
+    /// 문자열에서 특정 범위를 지정하여 슬라이싱한 문자열을 반환하는 함수
+    /// - Parameter string: 함수를 적용할 String 값
+    /// - Parameter start: 추출할 문자열의 시작 글자 위치 - 1 (ex: 1번째 문자부터 시작이라면 0)
+    /// - Parameter end: 추출할 문자열의 끝 글자 위치
+    /// > 사용 예시 : `string.sliceByRange(string: titleString, start: 0, end: 8)`
+    func sliceByRange(string: String, start: Int, end: Int) -> String {
+        let startIndex = string.index(string.startIndex, offsetBy: start)
+        let endIndex = string.index(string.startIndex, offsetBy: end)
+        
+        return String(string[startIndex..<endIndex])
+    }
 }

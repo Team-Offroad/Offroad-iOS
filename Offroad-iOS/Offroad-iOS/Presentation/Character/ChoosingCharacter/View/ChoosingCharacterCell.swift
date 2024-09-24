@@ -30,6 +30,12 @@ final class ChoosingCharacterCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        imageView.image = nil
+    }
 }
 
 extension ChoosingCharacterCell {
@@ -49,17 +55,7 @@ extension ChoosingCharacterCell {
     
     //MARK: - Func
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        imageView.image = nil
-    }
-    
-    func configureCell(imageURL: String) {
-        imageView.fetchSvgURLToImageView(svgUrlString: imageURL)
-    }
-    
-    func configureCell(using image: UIImage?) {
-        imageView.image = image
+    func configureCell(imageData: UIImage) {
+        imageView.image = imageData
     }
 }
