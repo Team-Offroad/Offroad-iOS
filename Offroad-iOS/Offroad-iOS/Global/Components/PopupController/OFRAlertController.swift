@@ -119,10 +119,12 @@ class OFRAlertController: UIViewController {
         showKeyboardIfNeeded()
     }
     
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+    override func dismiss(animated: Bool, completion: (() -> Void)? = nil) {
         view.endEditing(true)
-        hideAlertView {
-            super.dismiss(animated: flag, completion: completion)
+        if animated {
+            hideAlertView { super.dismiss(animated: false, completion: completion) }
+        } else {
+            super.dismiss(animated: false, completion: completion)
         }
     }
     
@@ -139,7 +141,9 @@ extension OFRAlertController {
     
     @objc private func alertButtonTapped(sender: OFRAlertButton) {
         print(#function)
-        sender.action.handler(sender.action)
+        self.dismiss(animated: true) {
+            sender.action.handler(sender.action)
+        }
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
