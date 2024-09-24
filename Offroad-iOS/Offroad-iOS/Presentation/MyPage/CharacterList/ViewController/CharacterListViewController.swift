@@ -10,9 +10,7 @@ import UIKit
 final class CharacterListViewController: UIViewController {
     
     // MARK: - Properties
-    
-    private var selectedMainCharacterId: Int?
-    
+        
     private let characterListView = CharacterListView()
     private var combinedCharacterList: [(isGained: Bool, character: Any)] = [] {
         didSet {
@@ -79,16 +77,6 @@ final class CharacterListViewController: UIViewController {
     }
 }
 
-extension CharacterListViewController: CharacterDetailViewControllerDelegate {
-    func didSelectMainCharacter(characterId: Int) {
-        // 선택된 메인 캐릭터 ID 저장
-        selectedMainCharacterId = characterId
-        
-        characterListView.collectionView.reloadData()
-    }
-}
-
-
 extension CharacterListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     // MARK: - CollectionView Func
@@ -101,8 +89,7 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharacterListCell", for: indexPath) as! CharacterListCell
         let characterData = combinedCharacterList[indexPath.item]
         if characterData.isGained, let gainedCharacter = characterData.character as? GainedCharacter {
-            let isMainCharacter = (gainedCharacter.characterId == selectedMainCharacterId)
-            cell.gainedCharacterCell(data: gainedCharacter, isMainCharacter: isMainCharacter)
+            cell.gainedCharacterCell(data: gainedCharacter)
         } else if let notGainedCharacter = characterData.character as? NotGainedCharacter {
             cell.notGainedCharacterCell(data: notGainedCharacter)
         }
@@ -139,9 +126,7 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
         } else {
             return
         }
-        
-        detailViewController.delegate = self
-        
+                
         let customBackBarButton = UIBarButtonItem(customView: button)
         detailViewController.navigationItem.leftBarButtonItem = customBackBarButton
         
