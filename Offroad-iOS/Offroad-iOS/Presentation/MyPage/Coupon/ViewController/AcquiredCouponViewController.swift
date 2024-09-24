@@ -11,6 +11,12 @@ class AcquiredCouponViewController: UIViewController {
     
     // MARK: - Properties
     
+    private var selectedIndex: Int = 0
+    private var availableCoupons: [AvailableCoupon] = []
+    private var usedCoupons: [UsedCoupon] = []
+    
+    // MARK: - UIProperties
+    
     private let acquiredCouponView = AcquiredCouponView()
     
     // MARK: - Life Cycle
@@ -24,10 +30,7 @@ class AcquiredCouponViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
-        
-        if let offroadTabBarController = self.tabBarController as? OffroadTabBarController {
-            offroadTabBarController.hideTabBarAnimation()
-        }
+        fetchAcquiredCouponsData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,11 +39,23 @@ class AcquiredCouponViewController: UIViewController {
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
         
-        acquiredCouponView.customSegmentedControl.selectSegment(index: 0)
+        acquiredCouponView.customSegmentedControl.selectSegment(index: selectedIndex)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        reloadCollectionViews()
     }
 }
 
 extension AcquiredCouponViewController{
+    
+    // MARK: - @objc Method
+    
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
     
     // MARK: - Private Func
     
@@ -49,40 +64,100 @@ extension AcquiredCouponViewController{
     }
     
     private func setupDelegate() {
-        acquiredCouponView.collectionView.delegate = self
-        acquiredCouponView.collectionView.dataSource = self
+        acquiredCouponView.collectionViewForAvailableCoupons.delegate = self
+        acquiredCouponView.collectionViewForAvailableCoupons.dataSource = self
+        acquiredCouponView.collectionViewForUsedCoupons.delegate = self
+        acquiredCouponView.collectionViewForUsedCoupons.dataSource = self
+        acquiredCouponView.customSegmentedControl.delegate = self
     }
     
-    // MARK: - @objc Method
-    
-    @objc private func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
+    private func fetchAcquiredCouponsData() {
+        NetworkService.shared.couponService.getAcquiredCouponList { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let response):
+                guard let response else {
+                    return
+                }
+                self.availableCoupons = response.data.availableCoupons
+                self.usedCoupons = response.data.usedCoupons
+                self.reloadCollectionViews()
+            default:
+                fatalError()
+            }
+        }
     }
+    
+    private func reloadCollectionViews() {
+        acquiredCouponView.collectionViewForAvailableCoupons.reloadData()
+        acquiredCouponView.collectionViewForUsedCoupons.reloadData()
+    }
+    
 }
 
-extension AcquiredCouponViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    // MARK: - CollectionView Func
+//MARK: - UICollectionViewDataSource
+
+extension AcquiredCouponViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if collectionView == acquiredCouponView.collectionViewForAvailableCoupons {
+            return availableCoupons.count
+        } else if collectionView == acquiredCouponView.collectionViewForUsedCoupons {
+            return usedCoupons.count
+        } else {
+            fatalError()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AcquiredCouponCell", for: indexPath) as! AcquiredCouponCell
-        let imageName = "coffee_coupon"
-        cell.configureCell(imageName: imageName, isNew: indexPath.item == 0)
+        if collectionView == acquiredCouponView.collectionViewForAvailableCoupons {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "AvailableCouponCell",
+                for: indexPath
+            ) as? AvailableCouponCell else { fatalError() }
+            
+            cell.configure(with: availableCoupons[indexPath.item])
+            return cell
+            
+        } else if collectionView == acquiredCouponView.collectionViewForUsedCoupons {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "UsedCouponCell",
+                for: indexPath
+            ) as? UsedCouponCell else { fatalError() }
+            
+            cell.configure(with: usedCoupons[indexPath.item])
+            return cell
+            
+        } else {
+            fatalError()
+        }
         
-        return cell
     }
     
+}
+
+//MARK: - UICollectionViewDelegate
+
+extension AcquiredCouponViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let imageName = "coffee_coupon"
-        let image = UIImage(named: imageName)
-        let title = "카페 프로토콜 연희점 카페라떼 1잔"
-        let description = "프로토콜만의 담백한 맛을 자랑하는 라떼\n카공하기 좋은 프로토콜 카페\n시그니처 카페라떼 한 잔 쿠폰입니다."
+        let couponDetailViewController = CouponDetailViewController(coupon: availableCoupons[indexPath.item])
+        navigationController?.pushViewController(couponDetailViewController, animated: true)
+    }
+    
+}
+
+//MARK: - CustomSegmentedControlDelegate
+
+extension AcquiredCouponViewController: CustomSegmentedControlDelegate {
+    func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int) {
+        print(#function, selectedIndex)
+        self.selectedIndex = selectedIndex
         
-        let detailVC = CouponDetailViewController(image: image, title: title, description: description)
-        self.navigationController?.pushViewController(detailVC, animated: true)
+        acquiredCouponView.collectionViewForAvailableCoupons.isHidden = selectedIndex == 1
+        acquiredCouponView.collectionViewForUsedCoupons.isHidden = selectedIndex == 0
+        
+        acquiredCouponView.collectionViewForAvailableCoupons.reloadData()
+        acquiredCouponView.collectionViewForUsedCoupons.reloadData()
     }
 }

@@ -140,7 +140,6 @@ extension OFRAlertController {
     @objc private func alertButtonTapped(sender: OFRAlertButton) {
         print(#function)
         sender.action.handler(sender.action)
-        self.dismiss(animated: false)
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
@@ -221,6 +220,7 @@ extension OFRAlertController {
         viewModel.isInputEmptyObservable
             .subscribe(onNext: {
                 print($0 ? "비었음" : "입력됨")
+                for button in self.buttons { button.isEnabled = !$0 }
             })
             .disposed(by: disposeBag)
         

@@ -28,8 +28,8 @@ final class CouponDetailView: UIView {
     
     let couponImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
+        $0.backgroundColor = .primary(.white)
         $0.roundCorners(cornerRadius: 10)
-        $0.clipsToBounds = true
     }
     
     let couponTitleLabel = UILabel().then {
@@ -59,6 +59,7 @@ final class CouponDetailView: UIView {
         $0.textColor = UIColor.main(.main2)
         $0.textAlignment = .center
         $0.font = UIFont.offroad(style: .iosTextRegular)
+        $0.setLineHeight(percentage: 150)
         $0.numberOfLines = 0
     }
     
