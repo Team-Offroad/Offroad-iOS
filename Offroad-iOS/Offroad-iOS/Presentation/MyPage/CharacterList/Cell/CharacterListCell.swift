@@ -45,6 +45,12 @@ class CharacterListCell: UICollectionViewCell {
         $0.isHidden = true
     }
     
+    let mainCharacterBadgeView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+        $0.image = UIImage(resource: .imgCrownTag)
+        $0.isHidden = true
+    }
+    
     // MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -101,6 +107,11 @@ class CharacterListCell: UICollectionViewCell {
         }
         
         newBadgeView.snp.makeConstraints { make in
+            make.top.trailing.equalTo(containerView).inset(8)
+            make.size.equalTo(24)
+        }
+        
+        mainCharacterBadgeView.snp.makeConstraints { make in
             make.top.trailing.equalTo(containerView).inset(8)
             make.size.equalTo(24)
         }

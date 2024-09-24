@@ -10,6 +10,7 @@ import UIKit
 final class CharacterDetailViewController: UIViewController {
     
     // MARK: - Properties
+    weak var delegate: CharacterDetailViewControllerDelegate?
     
     private let characterId: Int
     
@@ -126,6 +127,8 @@ final class CharacterDetailViewController: UIViewController {
     @objc private func selectButtonTapped() {
         characterDetailView.showToastMessage()
         characterDetailView.mainCharacterBadgeView.isHidden = false
+        
+        delegate?.didSelectMainCharacter(characterId: characterId)
     }
 }
 
@@ -164,4 +167,8 @@ extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell \(indexPath.item) selected")
     }
+}
+
+protocol CharacterDetailViewControllerDelegate: AnyObject {
+    func didSelectMainCharacter(characterId: Int)
 }
