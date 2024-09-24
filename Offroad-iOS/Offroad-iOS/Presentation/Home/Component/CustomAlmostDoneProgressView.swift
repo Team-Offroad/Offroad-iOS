@@ -44,7 +44,6 @@ extension CustomAlmostDoneProgressView {
         lineLayer.strokeColor = UIColor.blackOpacity(.black25).cgColor
         layer.addSublayer(lineLayer)
         
-        progressLayer.lineCap = .round
         progressLayer.lineWidth = 9
         progressLayer.strokeColor = UIColor.sub(.sub4).cgColor
         layer.addSublayer(progressLayer)
@@ -58,8 +57,8 @@ extension CustomAlmostDoneProgressView {
         progressPath.move(to: CGPoint(x: bounds.minX, y: bounds.midY))
         progressPath.addLine(to: CGPoint(x: endPointX, y: bounds.midY))
         
-        if progressValue == 0 {
-            progressLayer.lineCap = .butt
+        if progressValue != 0 {
+            progressLayer.lineCap = .round
         }
         progressLayer.path = progressPath.cgPath
     }
