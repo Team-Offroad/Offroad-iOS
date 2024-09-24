@@ -63,7 +63,6 @@ class CharacterDetailView: UIView {
     }
     
     let nameLabel = UILabel().then {
-        $0.textAlignment = .left
         $0.textColor = UIColor.sub(.sub4)
         $0.font = UIFont.offroad(style: .iosSubtitle2Bold)
     }
@@ -224,10 +223,11 @@ class CharacterDetailView: UIView {
         nameLabel.snp.makeConstraints { make in
             make.leading.equalTo(characterLogoImage.snp.trailing).offset(17)
             make.top.equalToSuperview().inset(21)
+            make.width.equalTo(35)
         }
         
         mainCharacterBadgeView.snp.makeConstraints { make in
-            make.leading.equalTo(nameLabel.snp.trailing)
+            make.leading.equalTo(nameLabel.snp.trailing).offset(6)
             make.centerY.equalTo(nameLabel)
             make.size.equalTo(21)
         }
