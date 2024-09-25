@@ -25,6 +25,16 @@ class PlaceListView: UIView {
     var allPlaceListCollectionView: UICollectionView!
     var activityIndicator = UIActivityIndicatorView(style: .large)
     
+    private var layoutMaker: UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.sectionInset = .init(top: 20, left: 24, bottom: 0, right: 24)
+        layout.minimumLineSpacing = 16
+        layout.minimumInteritemSpacing = 100
+        layout.estimatedItemSize.width = UIScreen.current.bounds.width - 32
+        return layout
+    }
+    
     //MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -85,24 +95,10 @@ extension PlaceListView {
             view.backgroundColor = .grayscale(.gray100)
         }
         
-        let layoutForPlaceNeverVisited = UICollectionViewFlowLayout()
-        layoutForPlaceNeverVisited.scrollDirection = .vertical
-        layoutForPlaceNeverVisited.sectionInset = .init(top: 20, left: 24, bottom: 0, right: 24)
-        layoutForPlaceNeverVisited.minimumLineSpacing = 16
-        layoutForPlaceNeverVisited.minimumInteritemSpacing = 100
-        layoutForPlaceNeverVisited.estimatedItemSize.width = UIScreen.current.bounds.width - 32
-        
-        let layoutForAllPlace = UICollectionViewFlowLayout()
-        layoutForAllPlace.scrollDirection = .vertical
-        layoutForAllPlace.sectionInset = .init(top: 20, left: 24, bottom: 0, right: 24)
-        layoutForAllPlace.minimumLineSpacing = 16
-        layoutForAllPlace.minimumInteritemSpacing = 100
-        layoutForAllPlace.estimatedItemSize.width = UIScreen.current.bounds.width - 32
-        
-        placeNeverVisitedListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForPlaceNeverVisited)
+        placeNeverVisitedListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
         placeNeverVisitedListCollectionView.backgroundColor = .primary(.listBg)
         
-        allPlaceListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForAllPlace)
+        allPlaceListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
         allPlaceListCollectionView.backgroundColor = .primary(.listBg)
         
         allPlaceListCollectionView.isHidden = true
