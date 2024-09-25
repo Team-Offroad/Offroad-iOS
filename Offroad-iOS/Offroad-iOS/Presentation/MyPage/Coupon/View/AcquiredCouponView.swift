@@ -45,7 +45,7 @@ class AcquiredCouponView: UIView {
     }
     
     lazy var collectionViewForAvailableCoupons = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayoutForAvailableCoupons).then {
-        $0.register(AvailableCouponCell.self, forCellWithReuseIdentifier: "AvailableCouponCell")
+        $0.register(AvailableCouponCell.self, forCellWithReuseIdentifier: AvailableCouponCell.className)
         $0.backgroundColor = .clear
         $0.showsVerticalScrollIndicator = false
     }
@@ -63,7 +63,7 @@ class AcquiredCouponView: UIView {
     }
     
     lazy var collectionViewForUsedCoupons = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayoutForUsedCoupons).then {
-        $0.register(UsedCouponCell.self, forCellWithReuseIdentifier: "UsedCouponCell")
+        $0.register(UsedCouponCell.self, forCellWithReuseIdentifier: UsedCouponCell.className)
         $0.backgroundColor = .clear
         $0.showsVerticalScrollIndicator = false
     }

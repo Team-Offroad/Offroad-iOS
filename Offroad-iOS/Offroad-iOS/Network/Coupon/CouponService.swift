@@ -47,6 +47,7 @@ final class CouponService: BaseService, CouponServiceProtocol {
                     statusCode: response.statusCode,
                     data: response.data
                 )
+                completion(networkResult)
             case .failure(let error):
                 print(error.localizedDescription)
             }
