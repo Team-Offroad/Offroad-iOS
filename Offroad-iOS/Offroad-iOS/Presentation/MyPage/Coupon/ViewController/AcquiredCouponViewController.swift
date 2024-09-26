@@ -30,7 +30,7 @@ class AcquiredCouponViewController: UIViewController {
         setupTarget()
         setupDelegate()
         fetchAcquiredCouponsData()
-        acquiredCouponView.customSegmentedControl.selectSegment(index: 0)
+        acquiredCouponView.segmentedControl.selectSegment(index: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,7 +66,7 @@ extension AcquiredCouponViewController{
         acquiredCouponView.collectionViewForAvailableCoupons.dataSource = self
         acquiredCouponView.collectionViewForUsedCoupons.delegate = self
         acquiredCouponView.collectionViewForUsedCoupons.dataSource = self
-        acquiredCouponView.customSegmentedControl.delegate = self
+        acquiredCouponView.segmentedControl.delegate = self
     }
     
     private func fetchAcquiredCouponsData() {
@@ -151,10 +151,10 @@ extension AcquiredCouponViewController: UICollectionViewDelegate {
     
 }
 
-//MARK: - CustomSegmentedControlDelegate
+//MARK: - OFRSegmentedControlDelegate
 
-extension AcquiredCouponViewController: CustomSegmentedControlDelegate {
-    func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int) {
+extension AcquiredCouponViewController: OFRSegmentedControlDelegate {
+    func segmentedControlDidSelected(segmentedControl: OFRSegmentedControl, selectedIndex: Int) {
         
         acquiredCouponView.collectionViewForAvailableCoupons.isHidden = selectedIndex == 1
         acquiredCouponView.collectionViewForUsedCoupons.isHidden = selectedIndex == 0

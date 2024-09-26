@@ -1,5 +1,5 @@
 //
-//  CustomSegmentedControl.swift
+//  OFRSegmentedControl.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 8/3/24.
@@ -9,16 +9,16 @@ import UIKit
 
 import SnapKit
 
-protocol CustomSegmentedControlDelegate: AnyObject {
-    func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int)
+protocol OFRSegmentedControlDelegate: AnyObject {
+    func segmentedControlDidSelected(segmentedControl: OFRSegmentedControl, selectedIndex: Int)
 }
 
-final class CustomSegmentedControl: UIView {
+final class OFRSegmentedControl: UIView {
     
     //MARK: - Properties
     
     let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    weak var delegate: CustomSegmentedControlDelegate? = nil
+    weak var delegate: OFRSegmentedControlDelegate? = nil
     
     private(set) var selectedIndex: Int = 0
     lazy var underbarLeadingConstraint = underbar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0)
@@ -33,7 +33,7 @@ final class CustomSegmentedControl: UIView {
     
     init(titles: [String]) {
         let buttonsArray = titles.enumerated().map { (index, title) in
-            CustomSegmentedControlButton(title: title, tag: index)
+            OFRSegmentedControlButton(title: title, tag: index)
         }
         self.stackView = UIStackView(arrangedSubviews: buttonsArray)
         super.init(frame: .zero)
@@ -65,7 +65,7 @@ final class CustomSegmentedControl: UIView {
     
 }
 
-extension CustomSegmentedControl {
+extension OFRSegmentedControl {
     
     //MARK: @objc Func
     
@@ -105,7 +105,7 @@ extension CustomSegmentedControl {
     
     private func setButtonsTarget() {
         stackView.arrangedSubviews.forEach { view in
-            guard let button = view as? CustomSegmentedControlButton else { return }
+            guard let button = view as? OFRSegmentedControlButton else { return }
             button.addTarget(self, action: #selector(segmentDidSelected(sender:)), for: .touchUpInside)
         }
     }
@@ -138,7 +138,7 @@ extension CustomSegmentedControl {
     }
     
     func changeSegmentTitle(at index: Int, to newTitle: String) {
-        guard let button = stackView.arrangedSubviews[index] as? CustomSegmentedControlButton else { return }
+        guard let button = stackView.arrangedSubviews[index] as? OFRSegmentedControlButton else { return }
         button.setTitle(newTitle, for: .normal)
     }
     

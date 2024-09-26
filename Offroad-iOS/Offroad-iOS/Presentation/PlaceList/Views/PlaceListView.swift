@@ -18,7 +18,7 @@ class PlaceListView: UIView {
     let customBackButton = UIButton()
     let titleLabel = UILabel()
     let titleIcon = UIImageView()
-    let customSegmentedControl = CustomSegmentedControl(titles: ["안 가본 곳", "전체"])
+    let segmentedControl = OFRSegmentedControl(titles: ["안 가본 곳", "전체"])
     let separator = UIView()
     
     var placeNeverVisitedListCollectionView: UICollectionView!
@@ -111,7 +111,7 @@ extension PlaceListView {
             customNavigationBar,
             customBackButton,
             titleLabel,
-            customSegmentedControl,
+            segmentedControl,
             separator,
             placeNeverVisitedListCollectionView,
             allPlaceListCollectionView,
@@ -122,7 +122,7 @@ extension PlaceListView {
     private func setupLayout() {
         customNavigationBar.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(customSegmentedControl.snp.bottom)
+            make.bottom.equalTo(segmentedControl.snp.bottom)
         }
         
         customBackButton.snp.makeConstraints { make in
@@ -135,14 +135,14 @@ extension PlaceListView {
             make.leading.equalToSuperview().inset(23)
         }
         
-        customSegmentedControl.snp.makeConstraints { make in
+        segmentedControl.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(15)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24.5)
             make.height.equalTo(46)
         }
         
         separator.snp.makeConstraints { make in
-            make.top.equalTo(customSegmentedControl.snp.bottom)
+            make.top.equalTo(segmentedControl.snp.bottom)
             make.horizontalEdges.equalToSuperview()
             make.height.equalTo(1)
         }

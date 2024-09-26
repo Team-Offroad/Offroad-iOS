@@ -19,7 +19,7 @@ class AcquiredCouponView: UIView {
     private let mainLabel = UILabel()
     private var couponLogoImage = UIImageView(image: UIImage(resource: .imgCoupon))
     
-    let customSegmentedControl = CustomSegmentedControl(titles: ["사용 가능 6", "사용 완료 3"])
+    let segmentedControl = OFRSegmentedControl(titles: ["사용 가능 6", "사용 완료 3"])
     
     private var layoutMaker: UICollectionViewFlowLayout {
         let horizontalInset: CGFloat = 24
@@ -92,7 +92,7 @@ class AcquiredCouponView: UIView {
             customBackButton,
             mainLabel,
             couponLogoImage,
-            customSegmentedControl
+            segmentedControl
         )
     }
     
@@ -105,7 +105,7 @@ class AcquiredCouponView: UIView {
         labelView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(customSegmentedControl.snp.bottom)
+            make.bottom.equalTo(segmentedControl.snp.bottom)
         }
         
         mainLabel.snp.makeConstraints { make in
@@ -119,7 +119,7 @@ class AcquiredCouponView: UIView {
             make.size.equalTo(24)
         }
         
-        customSegmentedControl.snp.makeConstraints { make in
+        segmentedControl.snp.makeConstraints { make in
             make.top.equalTo(mainLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(46)

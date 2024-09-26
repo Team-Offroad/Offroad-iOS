@@ -40,7 +40,7 @@ class PlaceListViewController: UIViewController {
         setupDelegates()
         
         reloadCollectionViewData(limit: 100, isBounded: false)
-        rootView.customSegmentedControl.selectSegment(index: 0)
+        rootView.segmentedControl.selectSegment(index: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,7 +100,7 @@ extension PlaceListViewController {
     }
     
     private func setupDelegates() {
-        rootView.customSegmentedControl.delegate = self
+        rootView.segmentedControl.delegate = self
         
         rootView.placeNeverVisitedListCollectionView.dataSource = self
         rootView.placeNeverVisitedListCollectionView.delegate = self
@@ -155,9 +155,9 @@ extension PlaceListViewController: UIGestureRecognizerDelegate {
 
 //MARK: - PlaceListSegmentedControlDelegate
 
-extension PlaceListViewController: CustomSegmentedControlDelegate {
+extension PlaceListViewController: OFRSegmentedControlDelegate {
     
-    func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int) {
+    func segmentedControlDidSelected(segmentedControl: OFRSegmentedControl, selectedIndex: Int) {
         rootView.placeNeverVisitedListCollectionView.isHidden = selectedIndex != 0
         rootView.allPlaceListCollectionView.isHidden = selectedIndex != 1
     }
