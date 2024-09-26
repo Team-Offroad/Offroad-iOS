@@ -123,15 +123,16 @@ class AcquiredCouponView: UIView {
             make.top.equalTo(mainLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(46)
+            make.bottom.equalToSuperview()
         }
         
         collectionViewForAvailableCoupons.snp.makeConstraints { make in
-            make.top.equalTo(customSegmentedControl.snp.bottom)
+            make.top.equalTo(labelView.snp.bottom)
             make.horizontalEdges.bottom.equalToSuperview()
         }
         
         collectionViewForUsedCoupons.snp.makeConstraints { make in
-            make.top.equalTo(customSegmentedControl.snp.bottom)
+            make.top.equalTo(labelView.snp.bottom)
             make.horizontalEdges.bottom.equalToSuperview()
         }
     }

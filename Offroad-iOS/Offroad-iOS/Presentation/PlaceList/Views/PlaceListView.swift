@@ -18,7 +18,7 @@ class PlaceListView: UIView {
     let customBackButton = UIButton()
     let titleLabel = UILabel()
     let titleIcon = UIImageView()
-    let customSegmentedControl = CustomSegmentedControl()
+    let customSegmentedControl = CustomSegmentedControl(titles: ["안 가본 곳", "전체"])
     let separator = UIView()
     
     var placeNeverVisitedListCollectionView: UICollectionView!
@@ -85,10 +85,6 @@ extension PlaceListView {
             label.text = "장소 목록"
             label.font = .offroad(style: .iosTextTitle)
             label.textColor = .main(.main2)
-        }
-        
-        customSegmentedControl.do { segmentedControl in
-            segmentedControl.addSegments(titles: ["안 가본 곳", "전체"])
         }
         
         separator.do { view in

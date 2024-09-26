@@ -11,7 +11,6 @@ class AcquiredCouponViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var selectedIndex: Int = 0
     private var availableCoupons: [AvailableCoupon] = []
     private var usedCoupons: [UsedCoupon] = []
     
@@ -22,7 +21,7 @@ class AcquiredCouponViewController: UIViewController {
     // MARK: - Life Cycle
     
     override func loadView() {
-        self.view = acquiredCouponView
+        view = acquiredCouponView
     }
     
     override func viewDidLoad() {
@@ -31,6 +30,7 @@ class AcquiredCouponViewController: UIViewController {
         setupTarget()
         setupDelegate()
         fetchAcquiredCouponsData()
+        acquiredCouponView.customSegmentedControl.selectSegment(index: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,8 +38,6 @@ class AcquiredCouponViewController: UIViewController {
         
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
-        
-        acquiredCouponView.customSegmentedControl.selectSegment(index: selectedIndex)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -157,8 +155,6 @@ extension AcquiredCouponViewController: UICollectionViewDelegate {
 
 extension AcquiredCouponViewController: CustomSegmentedControlDelegate {
     func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int) {
-        print(#function, selectedIndex)
-        self.selectedIndex = selectedIndex
         
         acquiredCouponView.collectionViewForAvailableCoupons.isHidden = selectedIndex == 1
         acquiredCouponView.collectionViewForUsedCoupons.isHidden = selectedIndex == 0

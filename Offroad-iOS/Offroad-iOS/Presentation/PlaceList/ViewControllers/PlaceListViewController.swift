@@ -40,12 +40,12 @@ class PlaceListViewController: UIViewController {
         setupDelegates()
         
         reloadCollectionViewData(limit: 100, isBounded: false)
+        rootView.customSegmentedControl.selectSegment(index: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        rootView.customSegmentedControl.selectSegment(index: 0)
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
     }
