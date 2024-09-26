@@ -32,7 +32,6 @@
 		4E08B9572C5DF0920082EFB8 /* PlaceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9562C5DF0920082EFB8 /* PlaceListViewController.swift */; };
 		4E08B9592C5DF0B20082EFB8 /* PlaceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9582C5DF0B20082EFB8 /* PlaceListView.swift */; };
 		4E08B95B2C5E4F860082EFB8 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B95A2C5E4F860082EFB8 /* CustomSegmentedControl.swift */; };
-		4E08B95D2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B95C2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift */; };
 		4E08B95F2C5E53C10082EFB8 /* CustomSegmentedControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B95E2C5E53C10082EFB8 /* CustomSegmentedControlButton.swift */; };
 		4E08B9622C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9612C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift */; };
 		4E08B9652C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9642C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift */; };
@@ -271,7 +270,6 @@
 		4E08B9562C5DF0920082EFB8 /* PlaceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListViewController.swift; sourceTree = "<group>"; };
 		4E08B9582C5DF0B20082EFB8 /* PlaceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListView.swift; sourceTree = "<group>"; };
 		4E08B95A2C5E4F860082EFB8 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
-		4E08B95C2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControlType.swift; sourceTree = "<group>"; };
 		4E08B95E2C5E53C10082EFB8 /* CustomSegmentedControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControlButton.swift; sourceTree = "<group>"; };
 		4E08B9612C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E08B9642C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListDummyDataManager.swift; sourceTree = "<group>"; };
@@ -998,7 +996,6 @@
 		4E38B7D82C6471EC0011D997 /* CustomSegmentedControl */ = {
 			isa = PBXGroup;
 			children = (
-				4E08B95C2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift */,
 				4E08B95A2C5E4F860082EFB8 /* CustomSegmentedControl.swift */,
 				4E08B95E2C5E53C10082EFB8 /* CustomSegmentedControlButton.swift */,
 			);
@@ -2357,7 +2354,6 @@
 				4E3F009E2C40D20800B9A31A /* OffroadTabBarController.swift in Sources */,
 				D0E7964E2C453B38005B47A5 /* AdventureAPI.swift in Sources */,
 				4E56F53F2C987C5500EEE677 /* ZeroDurationAnimator.swift in Sources */,
-				4E08B95D2C5E4FF10082EFB8 /* CustomSegmentedControlType.swift in Sources */,
 				D0E7961C2C4527FE005B47A5 /* SocialLoginRequestDTO.swift in Sources */,
 				87738CD52C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift in Sources */,
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
