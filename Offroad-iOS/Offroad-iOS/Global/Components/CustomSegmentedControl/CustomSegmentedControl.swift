@@ -13,48 +13,32 @@ protocol CustomSegmentedControlDelegate: AnyObject {
     func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int)
 }
 
-final class CustomSegmentedControl: UIStackView, CustomSegmentedControlType {
-    
-    typealias ConcreteType = CustomSegmentedControl
+final class CustomSegmentedControl: UIView {
     
     //MARK: - Properties
     
-    private(set) var currentIndex: Int = 0
+    let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     weak var delegate: CustomSegmentedControlDelegate? = nil
     
-    lazy var underbarLeadingConstraint = underbar.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
-    lazy var underbarTrailingConstraint = underbar.trailingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
+    private(set) var selectedIndex: Int = 0
+    lazy var underbarLeadingConstraint = underbar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0)
+    lazy var underbarTrailingConstraint = underbar.trailingAnchor.constraint(equalTo: leadingAnchor, constant: 0)
     
     //MARK: - UI Properties
     
-    let underbar: UIView = {
-        let view = UIView()
-        view.backgroundColor = .sub(.sub)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private let stackView: UIStackView
+    private let underbar = UIView()
     
     //MARK: - Life Cycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setupStackViewLayout()
-        setupHierarchy()
-        setupLayout()
-        setButtonsTarget()
-    }
-    
-    convenience init(titles: [String]) {
-        var buttonsArray: [CustomSegmentedControlButton] = []
-        for i in 0..<titles.count {
-            let button = CustomSegmentedControlButton(title: titles[i], tag: i)
-            buttonsArray.append(button)
+    init(titles: [String]) {
+        let buttonsArray = titles.enumerated().map { (index, title) in
+            CustomSegmentedControlButton(title: title, tag: index)
         }
+        self.stackView = UIStackView(arrangedSubviews: buttonsArray)
+        super.init(frame: .zero)
         
-        self.init(arrangedSubviews: buttonsArray)
-        
-        setupStackViewLayout()
+        setupStyle()
         setupHierarchy()
         setupLayout()
         setButtonsTarget()
@@ -64,66 +48,97 @@ final class CustomSegmentedControl: UIStackView, CustomSegmentedControlType {
         fatalError("init(coder:) has not been implemented")
     }
     
+    convenience init() {
+        self.init(titles: [])
+    }
+    
+    override convenience init(frame: CGRect) {
+        self.init(titles: [])
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateUnderbarPosition(to: selectedIndex)
+        selectSegment(index: selectedIndex)
+    }
+    
 }
 
 extension CustomSegmentedControl {
     
-    //MARK: - Private Func
+    //MARK: @objc Func
     
-    private func setupHierarchy() {
-        addSubviews(underbar)
+    @objc private func segmentDidSelected(sender: UIButton) {
+        selectSegment(index: sender.tag)
     }
     
+    //MARK: - Layout Func
+    
     private func setupLayout() {
+        stackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         underbarLeadingConstraint.isActive = true
         underbarTrailingConstraint.isActive = true
-        
         underbar.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.height.equalTo(3)
         }
     }
     
-    func addSegments(titles: [String]) {
-        var buttonsArray: [CustomSegmentedControlButton] = []
-        for i in 0..<titles.count {
-            let button = CustomSegmentedControlButton(title: titles[i], tag: i)
-            buttonsArray.append(button)
+    //MARK: - Private Func
+    
+    private func setupStyle() {
+        stackView.do { stackView in
+            stackView.axis = .horizontal
+            stackView.distribution = .fillEqually
+            stackView.spacing = 0
         }
-        buttonsArray.forEach { segmentButton in
-            addArrangedSubview(segmentButton)
-        }
-        
-        setButtonsTarget()
+        underbar.backgroundColor = .sub(.sub)
     }
     
-    private func setupStackViewLayout() {
-        axis = .horizontal
-        distribution = .fillEqually
-        spacing = 0
+    private func setupHierarchy() {
+        addSubviews(stackView, underbar)
     }
     
     private func setButtonsTarget() {
-        self.arrangedSubviews.forEach { view in
+        stackView.arrangedSubviews.forEach { view in
             guard let button = view as? CustomSegmentedControlButton else { return }
-            button.addTarget(self, action: #selector(segmentDidTapped(sender:)), for: .touchUpInside)
+            button.addTarget(self, action: #selector(segmentDidSelected(sender:)), for: .touchUpInside)
         }
     }
     
-    @objc private func segmentDidTapped(sender: UIButton) {
-        selectSegment(index: sender.tag)
+    private func updateUnderbarPosition(to index: Int) {
+        let selectedButton = stackView.arrangedSubviews[index]
+        animator.addAnimations { [unowned self] in
+            self.underbarLeadingConstraint.constant = selectedButton.frame.origin.x
+            self.underbarTrailingConstraint.constant = selectedButton.frame.origin.x + selectedButton.bounds.width
+            self.layoutIfNeeded()
+        }
+        animator.startAnimation()
+    }
+    
+    private func updateSegmentState(selectedIndex: Int) {
+        stackView.arrangedSubviews.forEach { view in
+            let button = view as! UIButton
+            button.isSelected = (button.tag == selectedIndex)
+        }
     }
     
     //MARK: - Func
     
     func selectSegment(index: Int) {
+        guard index >= 0 && index < stackView.arrangedSubviews.count else { return }
+        selectedIndex = index
         updateSegmentState(selectedIndex: index)
-        setUnderbarPosition(to: index)
+        updateUnderbarPosition(to: index)
         delegate?.segmentedControlDidSelected(segmentedControl: self, selectedIndex: index)
     }
     
     func changeSegmentTitle(at index: Int, to newTitle: String) {
-        guard let button = arrangedSubviews[index] as? CustomSegmentedControlButton else { return }
+        guard let button = stackView.arrangedSubviews[index] as? CustomSegmentedControlButton else { return }
         button.setTitle(newTitle, for: .normal)
     }
     
