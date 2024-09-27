@@ -19,6 +19,7 @@ final class OFRSegmentedControl: UIView {
     
     let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     weak var delegate: OFRSegmentedControlDelegate? = nil
+    var isLayoutDone: Bool = false
     
     private(set) var selectedIndex: Int = 0
     lazy var underbarLeadingConstraint = underbar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0)
@@ -59,6 +60,7 @@ final class OFRSegmentedControl: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        isLayoutDone = true
         updateUnderbarPosition(to: selectedIndex)
         selectSegment(index: selectedIndex)
     }
@@ -135,6 +137,7 @@ extension OFRSegmentedControl {
         guard index >= 0 && index < stackView.arrangedSubviews.count else { return }
         selectedIndex = index
         updateSegmentState(selectedIndex: index)
+        guard isLayoutDone else { return }
         updateUnderbarPosition(to: index)
     }
     
