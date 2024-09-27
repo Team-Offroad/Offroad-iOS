@@ -70,7 +70,9 @@ extension OFRSegmentedControl {
     //MARK: @objc Func
     
     @objc private func segmentDidSelected(sender: UIButton) {
+        guard sender.tag != selectedIndex else { return }
         selectSegment(index: sender.tag)
+        delegate?.segmentedControlDidSelected(segmentedControl: self, selectedIndex: sender.tag)
     }
     
     //MARK: - Layout Func
@@ -134,7 +136,6 @@ extension OFRSegmentedControl {
         selectedIndex = index
         updateSegmentState(selectedIndex: index)
         updateUnderbarPosition(to: index)
-        delegate?.segmentedControlDidSelected(segmentedControl: self, selectedIndex: index)
     }
     
     func changeSegmentTitle(at index: Int, to newTitle: String) {

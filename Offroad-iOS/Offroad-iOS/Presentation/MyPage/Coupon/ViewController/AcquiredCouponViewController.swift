@@ -155,7 +155,6 @@ extension AcquiredCouponViewController: UICollectionViewDelegate {
 
 extension AcquiredCouponViewController: OFRSegmentedControlDelegate {
     func segmentedControlDidSelected(segmentedControl: OFRSegmentedControl, selectedIndex: Int) {
-        
         acquiredCouponView.collectionViewForAvailableCoupons.isHidden = selectedIndex == 1
         acquiredCouponView.collectionViewForUsedCoupons.isHidden = selectedIndex == 0
         

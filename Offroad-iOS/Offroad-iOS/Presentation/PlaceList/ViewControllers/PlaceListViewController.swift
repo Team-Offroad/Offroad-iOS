@@ -153,7 +153,7 @@ extension PlaceListViewController: UIGestureRecognizerDelegate {
     
 }
 
-//MARK: - PlaceListSegmentedControlDelegate
+//MARK: - OFRSegmentedControlDelegate
 
 extension PlaceListViewController: OFRSegmentedControlDelegate {
     
