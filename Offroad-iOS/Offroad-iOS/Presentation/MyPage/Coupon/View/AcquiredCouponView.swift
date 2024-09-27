@@ -26,7 +26,7 @@ class AcquiredCouponView: UIView {
         let verticalInset: CGFloat = 20
         let interItemSpacing: CGFloat = 20
         let lineSpacing: CGFloat = 20
-        let itemWidth = (UIScreen.current.bounds.width - 2 * horizontalInset - interItemSpacing)/2
+        let itemWidth = floor((UIScreen.current.bounds.width - 2 * horizontalInset - interItemSpacing)/2)
         
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = interItemSpacing
@@ -72,12 +72,14 @@ class AcquiredCouponView: UIView {
             collectionView.register(AvailableCouponCell.self, forCellWithReuseIdentifier: AvailableCouponCell.className)
             collectionView.backgroundColor = .clear
             collectionView.showsVerticalScrollIndicator = false
+            collectionView.isHidden = false
         }
         
         collectionViewForUsedCoupons.do { collectionView in
             collectionView.register(UsedCouponCell.self, forCellWithReuseIdentifier: UsedCouponCell.className)
             collectionView.backgroundColor = .clear
             collectionView.showsVerticalScrollIndicator = false
+            collectionView.isHidden = true
         }
     }
     
