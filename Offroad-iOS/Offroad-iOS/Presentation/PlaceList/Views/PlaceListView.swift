@@ -26,12 +26,21 @@ class PlaceListView: UIView {
     var activityIndicator = UIActivityIndicatorView(style: .large)
     
     private var layoutMaker: UICollectionViewFlowLayout {
+        let collectionViewHorizontalInset: CGFloat = 24
+        let collectionViewVerticalInset: CGFloat = 20
+        let itemWidth = floor(UIScreen.current.bounds.width - collectionViewHorizontalInset * 2)
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.sectionInset = .init(top: 20, left: 24, bottom: 0, right: 24)
+        layout.sectionInset = .init(
+            top: collectionViewVerticalInset,
+            left: collectionViewHorizontalInset,
+            bottom: collectionViewVerticalInset,
+            right: collectionViewHorizontalInset
+        )
         layout.minimumLineSpacing = 16
         layout.minimumInteritemSpacing = 100
-        layout.estimatedItemSize.width = UIScreen.current.bounds.width - 32
+        layout.estimatedItemSize = CGSize(width: itemWidth, height: 125)
         return layout
     }
     

@@ -32,7 +32,7 @@ class AcquiredCouponView: UIView {
         layout.minimumInteritemSpacing = interItemSpacing
         layout.minimumLineSpacing = lineSpacing
         layout.sectionInset = .init(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
-        layout.estimatedItemSize = .init(width: itemWidth, height: itemWidth)
+        layout.estimatedItemSize = .init(width: itemWidth, height: itemWidth + 32)
         return layout
     }
     
