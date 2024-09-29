@@ -105,6 +105,8 @@ extension AcquiredCouponViewController{
     private func reloadCollectionViews() {
         acquiredCouponView.collectionViewForAvailableCoupons.reloadData()
         acquiredCouponView.collectionViewForUsedCoupons.reloadData()
+        acquiredCouponView.segmentedControl.changeSegmentTitle(at: 0, to: "사용 가능 \(availableCoupons.count)")
+        acquiredCouponView.segmentedControl.changeSegmentTitle(at: 1, to: "사용 완료 \(usedCoupons.count)")
     }
     
     private func setPageViewControllerPage(to targetIndex: Int) {

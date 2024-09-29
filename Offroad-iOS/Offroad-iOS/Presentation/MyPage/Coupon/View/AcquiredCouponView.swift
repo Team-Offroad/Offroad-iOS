@@ -20,7 +20,7 @@ class AcquiredCouponView: UIView {
     private let mainLabel = UILabel()
     private var couponLogoImage = UIImageView(image: UIImage(resource: .imgCoupon))
     
-    let segmentedControl = OFRSegmentedControl(titles: ["사용 가능 6", "사용 완료 3"])
+    let segmentedControl = OFRSegmentedControl(titles: ["사용 가능 0", "사용 완료 0"])
     
     private var layoutMaker: UICollectionViewFlowLayout {
         let horizontalInset: CGFloat = 24
