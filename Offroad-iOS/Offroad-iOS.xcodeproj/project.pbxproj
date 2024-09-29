@@ -70,6 +70,7 @@
 		4EB32BEC2C67A39B003F98F2 /* QuestListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */; };
 		4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE34912C3FC73C006DB244 /* QuestQRViewController.swift */; };
 		4EBE34942C3FC749006DB244 /* QuestQRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE34932C3FC749006DB244 /* QuestQRView.swift */; };
+		4EC3EC932CA9049F008139BE /* CouponCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC3EC922CA9049F008139BE /* CouponCollectionViewController.swift */; };
 		4EDC3D412C31271F006A1493 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */; };
 		4EDC3D422C31271F006A1493 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D392C31271E006A1493 /* Pretendard-Light.otf */; };
 		4EDC3D432C31271F006A1493 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D3A2C31271E006A1493 /* Pretendard-Regular.otf */; };
@@ -305,6 +306,7 @@
 		4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListCollectionViewCell.swift; sourceTree = "<group>"; };
 		4EBE34912C3FC73C006DB244 /* QuestQRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestQRViewController.swift; sourceTree = "<group>"; };
 		4EBE34932C3FC749006DB244 /* QuestQRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestQRView.swift; sourceTree = "<group>"; };
+		4EC3EC922CA9049F008139BE /* CouponCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponCollectionViewController.swift; sourceTree = "<group>"; };
 		4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		4EDC3D392C31271E006A1493 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		4EDC3D3A2C31271E006A1493 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
@@ -1338,6 +1340,7 @@
 			children = (
 				8791EDF52C7E121400E7F8B9 /* AcquiredCouponViewController.swift */,
 				8791EDF72C7E1D2B00E7F8B9 /* CouponDetailViewController.swift */,
+				4EC3EC922CA9049F008139BE /* CouponCollectionViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2347,6 +2350,7 @@
 				D00A487A2C634710008B286A /* SettingBaseCollectionViewCell.swift in Sources */,
 				D0EAF2262C3B7D7F00566543 /* LoginViewController.swift in Sources */,
 				D063E9A12C6107D300434A09 /* CollectedTitlesViewController.swift in Sources */,
+				4EC3EC932CA9049F008139BE /* CouponCollectionViewController.swift in Sources */,
 				4EBE34942C3FC749006DB244 /* QuestQRView.swift in Sources */,
 				4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */,
 				4EA90AC62C4521C50046A6E1 /* MyPageViewController.swift in Sources */,
