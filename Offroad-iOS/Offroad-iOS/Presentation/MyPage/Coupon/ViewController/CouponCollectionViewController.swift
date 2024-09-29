@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 ///  획득 쿠폰 뷰의 PageViewController안에 보여질 view controller
 class CouponCollectionViewController: UIViewController {
     

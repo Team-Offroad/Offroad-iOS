@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 ///  장소 목록 뷰의 PageViewController에 보여질 view controller
 class PlaceListCollectionViewController: UIViewController {
     
