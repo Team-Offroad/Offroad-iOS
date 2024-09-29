@@ -14,6 +14,7 @@ class AcquiredCouponView: UIView {
     // MARK: - UI Properties
     
     let customBackButton = NavigationPopButton()
+    let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     
     private let labelView = UIView()
     private let mainLabel = UILabel()
@@ -72,22 +73,19 @@ class AcquiredCouponView: UIView {
             collectionView.register(AvailableCouponCell.self, forCellWithReuseIdentifier: AvailableCouponCell.className)
             collectionView.backgroundColor = .clear
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.isHidden = false
         }
         
         collectionViewForUsedCoupons.do { collectionView in
             collectionView.register(UsedCouponCell.self, forCellWithReuseIdentifier: UsedCouponCell.className)
             collectionView.backgroundColor = .clear
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.isHidden = true
         }
     }
     
     private func setupHierarchy() {
         addSubviews(
             labelView,
-            collectionViewForAvailableCoupons,
-            collectionViewForUsedCoupons
+            pageViewController.view
         )
         
         labelView.addSubviews(
@@ -128,12 +126,7 @@ class AcquiredCouponView: UIView {
             make.bottom.equalToSuperview()
         }
         
-        collectionViewForAvailableCoupons.snp.makeConstraints { make in
-            make.top.equalTo(labelView.snp.bottom)
-            make.horizontalEdges.bottom.equalToSuperview()
-        }
-        
-        collectionViewForUsedCoupons.snp.makeConstraints { make in
+        pageViewController.view.snp.makeConstraints { make in
             make.top.equalTo(labelView.snp.bottom)
             make.horizontalEdges.bottom.equalToSuperview()
         }

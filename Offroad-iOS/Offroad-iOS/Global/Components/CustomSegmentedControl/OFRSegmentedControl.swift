@@ -19,6 +19,7 @@ final class OFRSegmentedControl: UIView {
     
     let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     weak var delegate: OFRSegmentedControlDelegate? = nil
+    var titles: [String]
     var isLayoutDone: Bool = false
     
     private(set) var selectedIndex: Int = 0
@@ -33,6 +34,7 @@ final class OFRSegmentedControl: UIView {
     //MARK: - Life Cycle
     
     init(titles: [String]) {
+        self.titles = titles
         let buttonsArray = titles.enumerated().map { (index, title) in
             OFRSegmentedControlButton(title: title, tag: index)
         }

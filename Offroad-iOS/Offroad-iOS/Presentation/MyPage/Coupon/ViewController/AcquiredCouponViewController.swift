@@ -13,10 +13,17 @@ class AcquiredCouponViewController: UIViewController {
     
     private var availableCoupons: [AvailableCoupon] = []
     private var usedCoupons: [UsedCoupon] = []
+    private var pageViewController: UIPageViewController {
+        acquiredCouponView.pageViewController
+    }
     
     // MARK: - UIProperties
     
     private let acquiredCouponView = AcquiredCouponView()
+    lazy var viewControllerList: [UIViewController] = [
+        CouponCollectionViewController(collectionView: acquiredCouponView.collectionViewForAvailableCoupons),
+        CouponCollectionViewController(collectionView: acquiredCouponView.collectionViewForUsedCoupons)
+    ]
     
     // MARK: - Life Cycle
     
@@ -31,6 +38,7 @@ class AcquiredCouponViewController: UIViewController {
         setupDelegate()
         fetchAcquiredCouponsData()
         acquiredCouponView.segmentedControl.selectSegment(index: 0)
+        setPageViewControllerPage(to: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,6 +75,8 @@ extension AcquiredCouponViewController{
         acquiredCouponView.collectionViewForUsedCoupons.delegate = self
         acquiredCouponView.collectionViewForUsedCoupons.dataSource = self
         acquiredCouponView.segmentedControl.delegate = self
+        pageViewController.dataSource = self
+        pageViewController.delegate = self
     }
     
     private func fetchAcquiredCouponsData() {
@@ -95,6 +105,25 @@ extension AcquiredCouponViewController{
     private func reloadCollectionViews() {
         acquiredCouponView.collectionViewForAvailableCoupons.reloadData()
         acquiredCouponView.collectionViewForUsedCoupons.reloadData()
+    }
+    
+    private func setPageViewControllerPage(to targetIndex: Int) {
+        guard let currentViewCotnroller = pageViewController.viewControllers?.first else {
+            // viewDidLoad에서 호출될 때 (처음 한 번)
+            pageViewController.setViewControllers([viewControllerList.first!], direction: .forward, animated: false)
+            return
+        }
+        guard let currentIndex = viewControllerList.firstIndex(of: currentViewCotnroller) else { return }
+        guard targetIndex >= 0 else { return }
+        guard targetIndex < acquiredCouponView.segmentedControl.titles.count,
+              targetIndex < viewControllerList.count
+        else { return }
+        
+        pageViewController.setViewControllers(
+            [viewControllerList[targetIndex]],
+            direction: targetIndex > currentIndex ? .forward : .reverse,
+            animated: true
+        )
     }
     
 }
@@ -154,11 +183,47 @@ extension AcquiredCouponViewController: UICollectionViewDelegate {
 //MARK: - OFRSegmentedControlDelegate
 
 extension AcquiredCouponViewController: OFRSegmentedControlDelegate {
+    
     func segmentedControlDidSelected(segmentedControl: OFRSegmentedControl, selectedIndex: Int) {
-        acquiredCouponView.collectionViewForAvailableCoupons.isHidden = selectedIndex == 1
-        acquiredCouponView.collectionViewForUsedCoupons.isHidden = selectedIndex == 0
-        
-        acquiredCouponView.collectionViewForAvailableCoupons.reloadData()
-        acquiredCouponView.collectionViewForUsedCoupons.reloadData()
+        setPageViewControllerPage(to: selectedIndex)
     }
+    
+}
+
+//MARK: - UIPageViewControllerDataSource
+
+extension AcquiredCouponViewController: UIPageViewControllerDataSource {
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let index = viewControllerList.firstIndex(of: viewController) else { return nil }
+        let previousIndex = index - 1
+        if previousIndex < 0 { return nil }
+        return viewControllerList[previousIndex]
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let index = viewControllerList.firstIndex(of: viewController) else { return nil }
+        let nextIndex = index + 1
+        if nextIndex >= viewControllerList.count { return nil }
+        return viewControllerList[nextIndex]
+    }
+    
+}
+
+//MARK: - UIPageViewControllerDelegate
+
+extension AcquiredCouponViewController: UIPageViewControllerDelegate {
+    
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        didFinishAnimating finished: Bool,
+        previousViewControllers: [UIViewController],
+        transitionCompleted completed: Bool
+    ) {
+        guard pageViewController.viewControllers?.first != nil else { return }
+        if let index = viewControllerList.firstIndex(of: pageViewController.viewControllers!.first!) {
+            acquiredCouponView.segmentedControl.selectSegment(index: index)
+        }
+    }
+    
 }
