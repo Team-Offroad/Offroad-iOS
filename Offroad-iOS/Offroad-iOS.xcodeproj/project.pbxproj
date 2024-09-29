@@ -998,13 +998,13 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		4E38B7D82C6471EC0011D997 /* CustomSegmentedControl */ = {
+		4E38B7D82C6471EC0011D997 /* SegmentedControl */ = {
 			isa = PBXGroup;
 			children = (
 				4E08B95A2C5E4F860082EFB8 /* OFRSegmentedControl.swift */,
 				4E08B95E2C5E53C10082EFB8 /* OFRSegmentedControlButton.swift */,
 			);
-			path = CustomSegmentedControl;
+			path = SegmentedControl;
 			sourceTree = "<group>";
 		};
 		4E393C962C48C97C003403EC /* QuestResult */ = {
@@ -1577,7 +1577,7 @@
 			isa = PBXGroup;
 			children = (
 				4EFCDFDB2C92B647006DEBB6 /* PopupController */,
-				4E38B7D82C6471EC0011D997 /* CustomSegmentedControl */,
+				4E38B7D82C6471EC0011D997 /* SegmentedControl */,
 				D00A488A2C78306C008B286A /* CustomView */,
 				D018BB0D2C401F700048B6DF /* CustomButton */,
 			);
