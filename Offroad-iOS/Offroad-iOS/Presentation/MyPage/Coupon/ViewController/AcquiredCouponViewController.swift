@@ -17,7 +17,7 @@ class AcquiredCouponViewController: UIViewController {
         acquiredCouponView.pageViewController
     }
     
-    // MARK: - UIProperties
+    // MARK: - UI Properties
     
     private let acquiredCouponView = AcquiredCouponView()
     lazy var viewControllerList: [UIViewController] = [

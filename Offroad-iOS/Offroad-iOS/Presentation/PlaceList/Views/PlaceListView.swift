@@ -20,6 +20,7 @@ class PlaceListView: UIView {
     let titleIcon = UIImageView()
     let segmentedControl = OFRSegmentedControl(titles: ["안 가본 곳", "전체"])
     let separator = UIView()
+    let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     
     var placeNeverVisitedListCollectionView: UICollectionView!
     var allPlaceListCollectionView: UICollectionView!
@@ -106,8 +107,6 @@ extension PlaceListView {
         allPlaceListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
         allPlaceListCollectionView.backgroundColor = .primary(.listBg)
         
-        allPlaceListCollectionView.isHidden = true
-        
         activityIndicator.do { indicator in
             indicator.color = .sub(.sub)
             indicator.isHidden = false
@@ -122,8 +121,7 @@ extension PlaceListView {
             titleLabel,
             segmentedControl,
             separator,
-            placeNeverVisitedListCollectionView,
-            allPlaceListCollectionView,
+            pageViewController.view,
             activityIndicator
         )
     }
@@ -156,20 +154,14 @@ extension PlaceListView {
             make.height.equalTo(1)
         }
         
-        placeNeverVisitedListCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(separator.snp.bottom)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide)
-            make.bottom.equalToSuperview()
-        }
-        
-        allPlaceListCollectionView.snp.makeConstraints { make in
+        pageViewController.view.snp.makeConstraints { make in
             make.top.equalTo(separator.snp.bottom)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
         }
         
         activityIndicator.snp.makeConstraints { make in
-            make.center.equalTo(placeNeverVisitedListCollectionView)
+            make.center.equalTo(pageViewController.view)
         }
     }
     
