@@ -1,5 +1,5 @@
 //
-//  CouponCollectionViewController.swift
+//  PlaceListCollectionViewController.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 9/29/24.
@@ -8,8 +8,8 @@
 import UIKit
 
 
-///  획득 쿠폰 뷰의 PageViewController안에 보여질 view controller
-class CouponCollectionViewController: UIViewController {
+///  장소 목록 뷰의 PageViewController에 보여질 view controller
+class PlaceListCollectionViewController: UIViewController {
     
     //MARK: - UI Properties
     
