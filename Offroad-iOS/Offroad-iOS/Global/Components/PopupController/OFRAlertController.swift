@@ -19,7 +19,7 @@ class OFRAlertController: UIViewController {
     
     private let transitionDelegate = ZeroDurationTransitionDelegate()
     private let presentationAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.7)
-    private let dismissalAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    private let dismissalAnimator = UIViewPropertyAnimator(duration: 0.2, dampingRatio: 1)
     
     /**
      팝업의 제목
@@ -73,6 +73,10 @@ class OFRAlertController: UIViewController {
         backgroundView.alertView.buttons
     }
     
+    var xButton: UIButton {
+        backgroundView.alertView.closeButton
+    }
+    
     //MARK: - Life Cycle
     
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -119,10 +123,12 @@ class OFRAlertController: UIViewController {
         showKeyboardIfNeeded()
     }
     
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+    override func dismiss(animated: Bool, completion: (() -> Void)? = nil) {
         view.endEditing(true)
-        hideAlertView {
-            super.dismiss(animated: flag, completion: completion)
+        if animated {
+            hideAlertView { super.dismiss(animated: false, completion: completion) }
+        } else {
+            super.dismiss(animated: false, completion: completion)
         }
     }
     
@@ -134,12 +140,14 @@ extension OFRAlertController {
     //MARK: - @objc Func
     
     @objc private func closeButtonDidTapped() {
-        dismiss(animated: false)
+        dismiss(animated: true)
     }
     
     @objc private func alertButtonTapped(sender: OFRAlertButton) {
         print(#function)
-        sender.action.handler(sender.action)
+        self.dismiss(animated: true) {
+            sender.action.handler(sender.action)
+        }
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
@@ -261,6 +269,10 @@ extension OFRAlertController {
     func configureDefaultTextField(_ configure: (UITextField) -> Void) {
         guard viewModel.type == .textField else { return }
         configure(defaultTextField)
+    }
+    
+    func configureMessageLabel(_ configure: (UILabel) -> Void) {
+        configure(self.backgroundView.alertView.messageLabel)
     }
     
 }
