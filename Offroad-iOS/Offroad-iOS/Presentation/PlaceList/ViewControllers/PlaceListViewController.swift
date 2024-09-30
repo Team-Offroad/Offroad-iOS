@@ -67,7 +67,7 @@ extension PlaceListViewController {
     }
     
     @objc private func refreshCollectionView() {
-        reloadCollectionViewData(limit: 100, isBounded: true)
+        reloadCollectionViewData(limit: 100, isBounded: false)
     }
     
     //MARK: - Private Func
