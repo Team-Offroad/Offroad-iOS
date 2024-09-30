@@ -147,5 +147,7 @@ class CharacterListCell: UICollectionViewCell {
         if data.isNewGained {
             newBadgeView.isHidden = false
         }
+        
+        mainCharacterBadgeView.isHidden = true
     }
 }

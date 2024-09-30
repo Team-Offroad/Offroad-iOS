@@ -26,13 +26,15 @@ final class CharacterDetailViewController: UIViewController {
         }
     }
     
+    private let representativeCharacterId: Int
     private var gainedCharacterMotionList: [CharacterMotionList]?
     private var notGainedCharacterMotionList: [CharacterMotionList]?
     
     // MARK: - Life Cycle
     
-    init(characterId: Int) {
+    init(characterId: Int, representativeCharacterId: Int) {
         self.characterId = characterId
+        self.representativeCharacterId = representativeCharacterId
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -47,6 +49,13 @@ final class CharacterDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if characterId == representativeCharacterId {
+            characterDetailView.selectButton.isEnabled = false
+            characterDetailView.selectButton.setTitle("이미 선택된 캐릭터예요", for: .normal)
+            characterDetailView.selectButton.backgroundColor = UIColor.blackOpacity(.black25)
+            characterDetailView.mainCharacterBadgeView.isHidden = false
+        }
     }
     
     override func viewDidLoad() {
