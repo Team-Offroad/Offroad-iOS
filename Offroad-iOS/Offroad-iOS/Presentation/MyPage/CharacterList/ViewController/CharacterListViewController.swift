@@ -10,7 +10,7 @@ import UIKit
 final class CharacterListViewController: UIViewController {
     
     // MARK: - Properties
-    
+        
     private let characterListView = CharacterListView()
     private var combinedCharacterList: [(isGained: Bool, character: Any)] = [] {
         didSet {
@@ -18,6 +18,7 @@ final class CharacterListViewController: UIViewController {
         }
     }
     
+    private var representativeCharacterId: Int?
     private var gainedCharacter: [GainedCharacter]?
     private var notGainedCharacter: [NotGainedCharacter]?
     
@@ -121,11 +122,14 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
         let detailViewController: CharacterDetailViewController
         if characterData.isGained, let gainedCharacter = characterData.character as? GainedCharacter {
             detailViewController = CharacterDetailViewController(characterId: gainedCharacter.characterId)
-        } else if let notGainedCharacter = characterData.character as? NotGainedCharacter {
-            detailViewController = CharacterDetailViewController(characterId: notGainedCharacter.characterId)
-        } else {
+        } 
+//            else if let notGainedCharacter = characterData.character as? NotGainedCharacter {
+//            detailViewController = CharacterDetailViewController(characterId: notGainedCharacter.characterId)
+//        } 
+            else {
             return
         }
+                
         let customBackBarButton = UIBarButtonItem(customView: button)
         detailViewController.navigationItem.leftBarButtonItem = customBackBarButton
         

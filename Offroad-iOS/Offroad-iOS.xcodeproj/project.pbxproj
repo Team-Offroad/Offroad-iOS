@@ -99,6 +99,7 @@
 		872F4BB72C6B809800284DE0 /* CharacterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB62C6B809800284DE0 /* CharacterDetailViewController.swift */; };
 		872F4BB92C6B80A600284DE0 /* CharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB82C6B80A600284DE0 /* CharacterDetailView.swift */; };
 		872F4BBB2C6B917800284DE0 /* CharacterDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BBA2C6B917800284DE0 /* CharacterDetailCell.swift */; };
+		876948B22CA202D00053F233 /* SelectMainCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876948B12CA202D00053F233 /* SelectMainCharacterView.swift */; };
 		87738CBA2C8C1B0500E107C7 /* CharacterListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CB92C8C1B0500E107C7 /* CharacterListResponseDTO.swift */; };
 		87738CC02C8CB2F100E107C7 /* CharacterListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CBF2C8CB2F100E107C7 /* CharacterListAPI.swift */; };
 		87738CC22C8CB33600E107C7 /* CharacterListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CC12C8CB33600E107C7 /* CharacterListService.swift */; };
@@ -336,6 +337,7 @@
 		872F4BB62C6B809800284DE0 /* CharacterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewController.swift; sourceTree = "<group>"; };
 		872F4BB82C6B80A600284DE0 /* CharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailView.swift; sourceTree = "<group>"; };
 		872F4BBA2C6B917800284DE0 /* CharacterDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailCell.swift; sourceTree = "<group>"; };
+		876948B12CA202D00053F233 /* SelectMainCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMainCharacterView.swift; sourceTree = "<group>"; };
 		87738CB92C8C1B0500E107C7 /* CharacterListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListResponseDTO.swift; sourceTree = "<group>"; };
 		87738CBF2C8CB2F100E107C7 /* CharacterListAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListAPI.swift; sourceTree = "<group>"; };
 		87738CC12C8CB33600E107C7 /* CharacterListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListService.swift; sourceTree = "<group>"; };
@@ -1241,6 +1243,7 @@
 			children = (
 				872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */,
 				872F4BB82C6B80A600284DE0 /* CharacterDetailView.swift */,
+				876948B12CA202D00053F233 /* SelectMainCharacterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2380,6 +2383,7 @@
 				D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */,
 				D00A48892C763D24008B286A /* NavigationPopButton.swift in Sources */,
 				D0E7965F2C45518B005B47A5 /* EmblemInfoResponseDTO.swift in Sources */,
+				876948B22CA202D00053F233 /* SelectMainCharacterView.swift in Sources */,
 				D00A48942C78396F008B286A /* TermsConsentView.swift in Sources */,
 				D0E796432C4538DD005B47A5 /* PlaceAPI.swift in Sources */,
 				D0E7963B2C45377C005B47A5 /* QuestAPI.swift in Sources */,
