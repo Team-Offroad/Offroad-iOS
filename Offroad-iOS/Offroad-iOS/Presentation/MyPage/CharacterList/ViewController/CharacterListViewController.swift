@@ -111,9 +111,9 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
             cell.configureCellImage(image: image)
         
         if characterData.isGained, let gainedCharacter = characterData.character as? CharacterListData {
-            cell.gainedCharacterCell(data: gainedCharacter, representiveCharacterId: self.representativeCharacterId ?? 0)
+            cell.configureCharacterCell(data: gainedCharacter, gained: characterData.isGained, representiveCharacterId: self.representativeCharacterId ?? 0)
         } else if let notGainedCharacter = characterData.character as? CharacterListData {
-            cell.notGainedCharacterCell(data: notGainedCharacter)
+            cell.configureCharacterCell(data: notGainedCharacter, gained: characterData.isGained, representiveCharacterId: self.representativeCharacterId ?? 0)
         }
         return cell
     }
@@ -122,37 +122,15 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
         print("Cell \(indexPath.item) selected")
         let characterData = combinedCharacterList[indexPath.item]
         
-        self.combinedCharacterList = []
-        self.gainedCharacter?.forEach { gainedCharacter in
-            self.combinedCharacterList.append((isGained: true, character: gainedCharacter))
-        }
-        self.notGainedCharacter?.forEach { notGainedCharacter in
-            self.combinedCharacterList.append((isGained: false, character: notGainedCharacter))
-        }
-        
-        let button = UIButton().then { button in
-            button.setImage(.backBarButton, for: .normal)
-            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
-            button.imageView?.contentMode = .scaleAspectFill
-            button.snp.makeConstraints { make in
-                make.width.equalTo(30)
-                make.height.equalTo(44)
-            }
-        }
-        
         let detailViewController: CharacterDetailViewController
         if characterData.isGained, let gainedCharacter = characterData.character as? CharacterListData {
             detailViewController = CharacterDetailViewController(characterId: gainedCharacter.characterId, representativeCharacterId: representativeCharacterId ?? 0)
         }
-        else {
-            return
-        }
-        
-        let customBackBarButton = UIBarButtonItem(customView: button)
-        detailViewController.navigationItem.leftBarButtonItem = customBackBarButton
+        else { return }
         
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
+    
 }
 
 extension CharacterListViewController {
@@ -163,9 +141,4 @@ extension CharacterListViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc private func executePop() {
-        navigationController?.popViewController(animated: true)
-    }
 }
-
-
