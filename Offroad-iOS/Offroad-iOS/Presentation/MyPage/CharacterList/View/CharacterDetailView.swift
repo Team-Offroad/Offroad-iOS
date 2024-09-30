@@ -283,7 +283,7 @@ class CharacterDetailView: UIView {
         }
     }
     
-    func showToastMessage(duration: TimeInterval = 2.0) {
+    func showToastMessage(duration: TimeInterval = 2.0, completion: (() -> Void)? = nil) {
         //fade-in
         UIView.animate(withDuration: 0.3, animations: {
             self.selectMainCharacterView.alpha = 1.0
@@ -293,6 +293,7 @@ class CharacterDetailView: UIView {
                 self.selectMainCharacterView.alpha = 0.0
             }) { _ in
                 self.selectMainCharacterView.removeFromSuperview()
+                completion?()
             }
         }
     }

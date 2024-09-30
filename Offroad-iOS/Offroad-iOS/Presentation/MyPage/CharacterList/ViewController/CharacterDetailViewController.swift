@@ -130,11 +130,13 @@ final class CharacterDetailViewController: UIViewController {
     }
     
     @objc private func selectButtonTapped() {
-        characterDetailView.showToastMessage()
-        characterDetailView.mainCharacterBadgeView.isHidden = false
+        // 토스트 메세지가 떠 있는 동안엔 버튼 비활성화
         characterDetailView.selectButton.isEnabled = false
-        characterDetailView.selectButton.backgroundColor = UIColor.blackOpacity(.black25)
-        characterDetailView.selectButton.setTitle("이미 선택된 캐릭터예요", for: .normal)
+        characterDetailView.showToastMessage { [weak self] in
+            self?.characterDetailView.selectButton.setTitle("이미 선택된 캐릭터예요", for: .normal)
+            self?.characterDetailView.selectButton.backgroundColor = UIColor.blackOpacity(.black25)
+            self?.characterDetailView.mainCharacterBadgeView.isHidden = false
+        }
     }
 }
 
