@@ -119,40 +119,29 @@ class CharacterListCell: UICollectionViewCell {
     
     //MARK: - Func
     
-    func gainedCharacterCell(data: CharacterListData, representiveCharacterId: Int) {
+    func configureCharacterCell(data: CharacterListData, gained: Bool, representiveCharacterId: Int) {
         characterListCellImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
         characterLabel.text = data.characterName
         contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
         containerView.backgroundColor = UIColor(hex: data.characterSubColorCode)
         
-        shadowView.isHidden = true
-        lockImageView.isHidden = true
-        
-        newBadgeView.isHidden = !data.isNewGained
-        
-        if data.characterId == representiveCharacterId {
-            mainCharacterBadgeView.isHidden = false
+        if gained {
+            shadowView.isHidden = true
+            lockImageView.isHidden = true
+            newBadgeView.isHidden = !data.isNewGained
+            
+            mainCharacterBadgeView.isHidden = data.characterId != representiveCharacterId
+        } else {
+            shadowView.isHidden = false
+            lockImageView.isHidden = false
+            newBadgeView.isHidden = !data.isNewGained
+            
+            mainCharacterBadgeView.isHidden = true
         }
-    }
-    
-    func notGainedCharacterCell(data: CharacterListData) {
-        
-        characterListCellImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
-        characterLabel.text = data.characterName
-        contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
-        containerView.backgroundColor = UIColor(hex: data.characterSubColorCode)
-        
-        shadowView.isHidden = false
-        lockImageView.isHidden = false
-        
-        if data.isNewGained {
-            newBadgeView.isHidden = false
-        }
-        
-        mainCharacterBadgeView.isHidden = true
     }
     
     func configureCellImage(image: UIImage?) {
-            characterListCellImageView.image = image
-        }
+        characterListCellImageView.image = image
+    }
+    
 }
