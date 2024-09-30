@@ -19,8 +19,8 @@ final class CharacterListViewController: UIViewController {
     }
     
     private var representativeCharacterId: Int?
-    private var gainedCharacter: [GainedCharacter]?
-    private var notGainedCharacter: [NotGainedCharacter]?
+    private var gainedCharacter: [CharacterListData]?
+    private var notGainedCharacter: [CharacterListData]?
     
     // MARK: - Life Cycle
     
