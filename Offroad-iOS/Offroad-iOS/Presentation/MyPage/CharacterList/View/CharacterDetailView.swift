@@ -153,9 +153,7 @@ class CharacterDetailView: UIView {
         addSubviews(
             selectMainCharacterView,
             scrollView,
-            customBackButton,
-            selectMainCharacterView
-        )
+            customBackButton        )
         scrollView.addSubview(contentView)
         
         contentView.addSubviews(
@@ -299,7 +297,7 @@ class CharacterDetailView: UIView {
         }
     }
     
-     func updateCollectionViewHeight() {
+    func updateCollectionViewHeight() {
         let contentHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
         collectionViewHeightConstraint?.update(offset: contentHeight)
     }
