@@ -136,7 +136,7 @@ class CharacterListCell: UICollectionViewCell {
     }
     
     func notGainedCharacterCell(data: CharacterListData) {
-        characterListCellImageView.alpha = 0.0
+        
         characterListCellImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
         characterLabel.text = data.characterName
         contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
