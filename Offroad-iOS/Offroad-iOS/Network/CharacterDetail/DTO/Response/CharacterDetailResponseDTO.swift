@@ -21,7 +21,6 @@ struct CharacterDetailInfo: Codable {
     let characterSummaryDescription: String
     let characterMainColorCode: String
     let characterSubColorCode: String
-    let representativeCharacterId: Int?
 }
 
 

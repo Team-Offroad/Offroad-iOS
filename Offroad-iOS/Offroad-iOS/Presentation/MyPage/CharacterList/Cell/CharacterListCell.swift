@@ -108,7 +108,7 @@ class CharacterListCell: UICollectionViewCell {
     
     //MARK: - Func
     
-    func gainedCharacterCell(data: GainedCharacter) {
+    func gainedCharacterCell(data: CharacterListData) {
         acqiredCharacterImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
         characterLabel.text = data.characterName
         contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
@@ -120,7 +120,7 @@ class CharacterListCell: UICollectionViewCell {
         newBadgeView.isHidden = !data.isNewGained
     }
     
-    func notGainedCharacterCell(data: NotGainedCharacter) {
+    func notGainedCharacterCell(data: CharacterListData) {
         acqiredCharacterImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
         characterLabel.text = data.characterName
         contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
