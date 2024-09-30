@@ -95,9 +95,9 @@ class CharacterDetailCell: UICollectionViewCell {
         }
         
         motionTitleLabel.snp.makeConstraints{ make in
-                make.top.equalTo(containerView.snp.bottom).offset(10)
-                make.centerX.equalToSuperview()
-                make.bottom.equalToSuperview().inset(10)
+            make.top.equalTo(containerView.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().inset(10)
         }
         
         shadowView.snp.makeConstraints { make in
@@ -114,7 +114,8 @@ class CharacterDetailCell: UICollectionViewCell {
         newBadgeView.snp.makeConstraints { make in
             make.top.trailing.equalTo(containerView).inset(8)
             make.size.equalTo(24)
-        }    }
+        }
+    }
     
     //MARK: - Func
     
