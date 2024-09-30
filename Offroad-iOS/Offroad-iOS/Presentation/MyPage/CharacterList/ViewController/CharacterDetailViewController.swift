@@ -27,6 +27,7 @@ final class CharacterDetailViewController: UIViewController {
     }
     private var gainedCharacterMotionList: [CharacterMotionList]?
     private var notGainedCharacterMotionList: [CharacterMotionList]?
+    private var characterInfoModelList: [CharacterList]?
     
     // MARK: - Life Cycle
     
@@ -57,6 +58,7 @@ final class CharacterDetailViewController: UIViewController {
     
     private func setupTarget() {
         characterDetailView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        characterDetailView.selectButton.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
     }
     
     private func setupDelegate() {
@@ -115,10 +117,25 @@ final class CharacterDetailViewController: UIViewController {
         }
     }
     
+    private func postCharacterID() {
+        NetworkService.shared.characterService.postChoosingCharacter(parameter: characterId) { response in
+            switch response {
+            case .success(let response):
+                print("=======대표 캐릭터 설정: " + "\(response?.data.characterImageUrl)========")
+            default:
+                break
+            }
+        }
+    }
+    
     // MARK: - @Objc Func
     
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func selectButtonTapped() {
+        postCharacterID()
     }
 }
 

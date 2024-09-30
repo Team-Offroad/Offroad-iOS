@@ -90,7 +90,7 @@ class CharacterDetailView: UIView {
         $0.font = UIFont.offroad(style: .iosBoxMedi)
     }
     
-    private let selectButton = UIButton().then {
+    let selectButton = UIButton().then {
         $0.setTitle("대표 캐릭터로 선택하기", for: .normal)
         $0.backgroundColor = UIColor.home(.homeBg)
         $0.setTitleColor(UIColor.main(.main1), for: .normal)
