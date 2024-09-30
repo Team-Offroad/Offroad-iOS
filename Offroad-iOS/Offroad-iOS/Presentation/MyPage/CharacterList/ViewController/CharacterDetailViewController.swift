@@ -25,6 +25,8 @@ final class CharacterDetailViewController: UIViewController {
             }
         }
     }
+    
+    private var representativeCharacterId: Int?
     private var gainedCharacterMotionList: [CharacterMotionList]?
     private var notGainedCharacterMotionList: [CharacterMotionList]?
     
@@ -42,6 +44,10 @@ final class CharacterDetailViewController: UIViewController {
     
     override func loadView() {
         self.view = characterDetailView
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     override func viewDidLoad() {
@@ -126,6 +132,9 @@ final class CharacterDetailViewController: UIViewController {
     @objc private func selectButtonTapped() {
         characterDetailView.showToastMessage()
         characterDetailView.mainCharacterBadgeView.isHidden = false
+        characterDetailView.selectButton.isEnabled = false
+        characterDetailView.selectButton.backgroundColor = UIColor.blackOpacity(.black25)
+        characterDetailView.selectButton.setTitle("이미 선택된 캐릭터예요", for: .normal)
     }
 }
 
