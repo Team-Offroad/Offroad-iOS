@@ -23,8 +23,10 @@ final class OFRSegmentedControl: UIView {
     var isLayoutDone: Bool = false
     
     private(set) var selectedIndex: Int = 0
-    lazy var underbarLeadingConstraint = underbar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0)
-    lazy var underbarTrailingConstraint = underbar.trailingAnchor.constraint(equalTo: leadingAnchor, constant: 0)
+    
+    // underbar의 leading, trailing anchor의 제약을 담는 변수. 여기서 할당하는 값은 초깃값을 위한 값일 뿐이므로 의미 없음.
+    lazy var underbarLeadingConstraint = underbar.leadingAnchor.constraint(equalTo: leadingAnchor)
+    lazy var underbarTrailingConstraint = underbar.trailingAnchor.constraint(equalTo: trailingAnchor)
     
     //MARK: - UI Properties
     
@@ -49,14 +51,6 @@ final class OFRSegmentedControl: UIView {
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    convenience init() {
-        self.init(titles: [])
-    }
-    
-    override convenience init(frame: CGRect) {
-        self.init(titles: [])
     }
     
     override func layoutSubviews() {
@@ -86,8 +80,6 @@ extension OFRSegmentedControl {
             make.edges.equalToSuperview()
         }
         
-        underbarLeadingConstraint.isActive = true
-        underbarTrailingConstraint.isActive = true
         underbar.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.height.equalTo(3)
@@ -119,8 +111,13 @@ extension OFRSegmentedControl {
     private func updateUnderbarPosition(to index: Int) {
         let selectedButton = stackView.arrangedSubviews[index]
         animator.addAnimations { [unowned self] in
-            self.underbarLeadingConstraint.constant = selectedButton.frame.origin.x
-            self.underbarTrailingConstraint.constant = selectedButton.frame.origin.x + selectedButton.bounds.width
+            self.underbarLeadingConstraint.isActive = false
+            self.underbarTrailingConstraint.isActive = false
+            
+            self.underbarLeadingConstraint = underbar.leadingAnchor.constraint(equalTo: selectedButton.leadingAnchor)
+            self.underbarTrailingConstraint = underbar.trailingAnchor.constraint(equalTo: selectedButton.trailingAnchor)
+            self.underbarLeadingConstraint.isActive = true
+            self.underbarTrailingConstraint.isActive = true
             self.layoutIfNeeded()
         }
         animator.startAnimation()

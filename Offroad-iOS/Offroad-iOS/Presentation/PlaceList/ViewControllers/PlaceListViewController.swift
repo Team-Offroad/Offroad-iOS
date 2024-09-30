@@ -40,8 +40,6 @@ class PlaceListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setNavigationController()
-        setupNavigationControllerGesture()
         setupButtonsActions()
         setupCollectionView()
         setupDelegates()
@@ -73,16 +71,7 @@ extension PlaceListViewController {
     }
     
     //MARK: - Private Func
-    
-    private func setNavigationController() {
-        self.navigationController?.navigationBar.isHidden = true
-        self.navigationItem.setHidesBackButton(true, animated: false)
-    }
-    
-    private func setupNavigationControllerGesture() {
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
-    }
-    
+        
     private func setupButtonsActions() {
         rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
     }
@@ -168,17 +157,6 @@ extension PlaceListViewController {
             direction: targetIndex > currentIndex ? .forward : .reverse,
             animated: true
         )
-    }
-    
-}
-
-//MARK: - UIGestureRecognizerDelegate
-
-extension PlaceListViewController: UIGestureRecognizerDelegate {
-    
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        // Navigation stack에서 root view controller가 아닌 경우에만 pop 제스처를 허용
-        return navigationController!.viewControllers.count > 1
     }
     
 }
