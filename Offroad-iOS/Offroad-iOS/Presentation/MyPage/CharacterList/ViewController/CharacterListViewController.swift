@@ -20,7 +20,7 @@ final class CharacterListViewController: UIViewController {
         }
     }
     private var characterImageList = [UIImage?]()
-
+    
     private var representativeCharacterId: Int?
     private var gainedCharacter: [CharacterListData]?
     private var notGainedCharacter: [CharacterListData]?
@@ -92,7 +92,7 @@ final class CharacterListViewController: UIViewController {
         
         return svgImage.renderedUIImage ?? UIImage()
     }
-
+    
 }
 
 extension CharacterListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -108,7 +108,7 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
         let characterData = combinedCharacterList[indexPath.item]
         
         let image = characterImageList[indexPath.item] ?? UIImage(named: "placeholderImage")
-            cell.configureCellImage(image: image)
+        cell.configureCellImage(image: image)
         
         if characterData.isGained, let gainedCharacter = characterData.character as? CharacterListData {
             cell.configureCharacterCell(data: gainedCharacter, gained: characterData.isGained, representiveCharacterId: self.representativeCharacterId ?? 0)
@@ -125,6 +125,7 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
         let detailViewController: CharacterDetailViewController
         if characterData.isGained, let gainedCharacter = characterData.character as? CharacterListData {
             detailViewController = CharacterDetailViewController(characterId: gainedCharacter.characterId, representativeCharacterId: representativeCharacterId ?? 0)
+            detailViewController.delegate = self
         }
         else { return }
         
@@ -141,4 +142,17 @@ extension CharacterListViewController {
         navigationController?.popViewController(animated: true)
     }
     
+}
+
+extension CharacterListViewController: SelectMainCharacterDelegate {
+    
+    func didSelectMainCharacter(characterId: Int) {
+        representativeCharacterId = characterId
+        characterListView.collectionView.reloadData()
+    }
+    
+}
+
+protocol SelectMainCharacterDelegate: AnyObject {
+    func didSelectMainCharacter(characterId: Int)
 }

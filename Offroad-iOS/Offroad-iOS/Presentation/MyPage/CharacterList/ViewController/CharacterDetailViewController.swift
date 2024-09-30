@@ -11,6 +11,8 @@ final class CharacterDetailViewController: UIViewController {
     
     // MARK: - Properties
     
+    weak var delegate: SelectMainCharacterDelegate?
+    
     private let characterId: Int
     
     private let characterDetailView = CharacterDetailView()
@@ -158,6 +160,8 @@ final class CharacterDetailViewController: UIViewController {
             self?.characterDetailView.mainCharacterBadgeView.isHidden = false
         }
         postCharacterID()
+        //CharacterListViewController에 대표 캐릭터 Id 전달
+        delegate?.didSelectMainCharacter(characterId: characterId)
     }
 }
 
