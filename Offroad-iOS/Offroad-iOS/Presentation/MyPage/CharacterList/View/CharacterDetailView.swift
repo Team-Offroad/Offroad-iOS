@@ -151,9 +151,10 @@ class CharacterDetailView: UIView {
     
     private func setupHierarchy() {
         addSubviews(
-            mainCharacterToastMessageView,
             scrollView,
-            customBackButton        )
+            customBackButton,
+            mainCharacterToastMessageView
+        )
         scrollView.addSubview(contentView)
         
         contentView.addSubviews(

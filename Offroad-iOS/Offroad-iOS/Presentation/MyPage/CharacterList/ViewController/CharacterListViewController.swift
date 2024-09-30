@@ -18,6 +18,7 @@ final class CharacterListViewController: UIViewController {
         }
     }
     
+    private var representativeCharacterId: Int?
     private var gainedCharacter: [GainedCharacter]?
     private var notGainedCharacter: [NotGainedCharacter]?
     
