@@ -45,7 +45,6 @@ class QuestMapViewController: OffroadTabBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupStyle()
         setupButtonsAction()
         setupDelegates()
     }
@@ -53,7 +52,7 @@ class QuestMapViewController: OffroadTabBarViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.isHidden = true
         guard let offroadTabBarController = tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.showTabBarAnimation()
     }
@@ -97,7 +96,6 @@ extension QuestMapViewController {
     
     @objc private func pushQuestListViewController() {
         print(#function)
-        navigationController?.navigationBar.isHidden = true
         navigationController?.pushViewController(QuestListViewController(), animated: true)
     }
     
@@ -107,10 +105,6 @@ extension QuestMapViewController {
     }
     
     //MARK: - Private Func
-    
-    private func setupStyle() {
-        navigationController?.navigationBar.isHidden = true
-    }
     
     private func setupButtonsAction() {
         rootView.reloadPlaceButton

@@ -13,60 +13,32 @@ class AcquiredCouponView: UIView {
     
     // MARK: - UI Properties
     
-    let customBackButton = NavigationPopButton().then {
-        $0.configureButtonTitle(titleString: "마이페이지")
-    }
+    let customBackButton = NavigationPopButton()
+    let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     
-    private let labelView = UIView().then {
-        $0.backgroundColor = UIColor.main(.main1)
-    }
-    
-    private let mainLabel = UILabel().then {
-        $0.text = "획득 쿠폰"
-        $0.textColor = UIColor.main(.main2)
-        $0.textAlignment = .center
-        $0.font = UIFont.offroad(style: .iosTextTitle)
-    }
-    
+    private let labelView = UIView()
+    private let mainLabel = UILabel()
     private var couponLogoImage = UIImageView(image: UIImage(resource: .imgCoupon))
     
-    let customSegmentedControl = CustomSegmentedControl(titles: ["사용 가능 6", "사용 완료 3"])
+    let segmentedControl = OFRSegmentedControl(titles: ["사용 가능 0", "사용 완료 0"])
     
-    private lazy var collectionViewLayoutForAvailableCoupons = UICollectionViewFlowLayout().then {
+    private var layoutMaker: UICollectionViewFlowLayout {
         let horizontalInset: CGFloat = 24
         let verticalInset: CGFloat = 20
         let interItemSpacing: CGFloat = 20
         let lineSpacing: CGFloat = 20
-        let itemWidth = (UIScreen.current.bounds.width - 2 * horizontalInset - interItemSpacing)/2
-        $0.minimumInteritemSpacing = interItemSpacing
-        $0.minimumLineSpacing = lineSpacing
-        $0.sectionInset = .init(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
-        $0.estimatedItemSize = .init(width: itemWidth, height: itemWidth)
+        let itemWidth = floor((UIScreen.current.bounds.width - 2 * horizontalInset - interItemSpacing)/2)
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = interItemSpacing
+        layout.minimumLineSpacing = lineSpacing
+        layout.sectionInset = .init(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
+        layout.estimatedItemSize = .init(width: itemWidth, height: itemWidth + 32)
+        return layout
     }
     
-    lazy var collectionViewForAvailableCoupons = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayoutForAvailableCoupons).then {
-        $0.register(AvailableCouponCell.self, forCellWithReuseIdentifier: AvailableCouponCell.className)
-        $0.backgroundColor = .clear
-        $0.showsVerticalScrollIndicator = false
-    }
-    
-    private lazy var collectionViewLayoutForUsedCoupons = UICollectionViewFlowLayout().then {
-        let horizontalInset: CGFloat = 24
-        let verticalInset: CGFloat = 20
-        let interItemSpacing: CGFloat = 20
-        let lineSpacing: CGFloat = 20
-        let itemWidth = (UIScreen.current.bounds.width - 2 * horizontalInset - interItemSpacing)/2
-        $0.minimumInteritemSpacing = interItemSpacing
-        $0.minimumLineSpacing = lineSpacing
-        $0.sectionInset = .init(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
-        $0.estimatedItemSize = .init(width: itemWidth, height: itemWidth)
-    }
-    
-    lazy var collectionViewForUsedCoupons = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayoutForUsedCoupons).then {
-        $0.register(UsedCouponCell.self, forCellWithReuseIdentifier: UsedCouponCell.className)
-        $0.backgroundColor = .clear
-        $0.showsVerticalScrollIndicator = false
-    }
+    lazy var collectionViewForAvailableCoupons = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
+    lazy var collectionViewForUsedCoupons = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
     
     // MARK: - Life Cycle
     
@@ -86,19 +58,41 @@ class AcquiredCouponView: UIView {
     
     private func setupStyle() {
         backgroundColor = .primary(.listBg)
+        
+        customBackButton.configureButtonTitle(titleString: "마이페이지")
+        labelView.backgroundColor = UIColor.main(.main1)
+        
+        mainLabel.do { label in
+            label.text = "획득 쿠폰"
+            label.textColor = UIColor.main(.main2)
+            label.textAlignment = .center
+            label.font = UIFont.offroad(style: .iosTextTitle)
+        }
+        
+        collectionViewForAvailableCoupons.do { collectionView in
+            collectionView.register(AvailableCouponCell.self, forCellWithReuseIdentifier: AvailableCouponCell.className)
+            collectionView.backgroundColor = .clear
+            collectionView.showsVerticalScrollIndicator = false
+        }
+        
+        collectionViewForUsedCoupons.do { collectionView in
+            collectionView.register(UsedCouponCell.self, forCellWithReuseIdentifier: UsedCouponCell.className)
+            collectionView.backgroundColor = .clear
+            collectionView.showsVerticalScrollIndicator = false
+        }
     }
     
     private func setupHierarchy() {
         addSubviews(
             labelView,
-            collectionViewForAvailableCoupons,
-            collectionViewForUsedCoupons
+            pageViewController.view
         )
+        
         labelView.addSubviews(
             customBackButton,
             mainLabel,
             couponLogoImage,
-            customSegmentedControl
+            segmentedControl
         )
     }
     
@@ -111,7 +105,7 @@ class AcquiredCouponView: UIView {
         labelView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(customSegmentedControl.snp.bottom)
+            make.bottom.equalTo(segmentedControl.snp.bottom)
         }
         
         mainLabel.snp.makeConstraints { make in
@@ -125,19 +119,15 @@ class AcquiredCouponView: UIView {
             make.size.equalTo(24)
         }
         
-        customSegmentedControl.snp.makeConstraints { make in
+        segmentedControl.snp.makeConstraints { make in
             make.top.equalTo(mainLabel.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(46)
+            make.bottom.equalToSuperview()
         }
         
-        collectionViewForAvailableCoupons.snp.makeConstraints { make in
-            make.top.equalTo(customSegmentedControl.snp.bottom)
-            make.horizontalEdges.bottom.equalToSuperview()
-        }
-        
-        collectionViewForUsedCoupons.snp.makeConstraints { make in
-            make.top.equalTo(customSegmentedControl.snp.bottom)
+        pageViewController.view.snp.makeConstraints { make in
+            make.top.equalTo(labelView.snp.bottom)
             make.horizontalEdges.bottom.equalToSuperview()
         }
     }

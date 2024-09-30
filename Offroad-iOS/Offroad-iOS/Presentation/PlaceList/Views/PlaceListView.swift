@@ -18,12 +18,32 @@ class PlaceListView: UIView {
     let customBackButton = UIButton()
     let titleLabel = UILabel()
     let titleIcon = UIImageView()
-    let customSegmentedControl = CustomSegmentedControl()
+    let segmentedControl = OFRSegmentedControl(titles: ["안 가본 곳", "전체"])
     let separator = UIView()
+    let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     
     var placeNeverVisitedListCollectionView: UICollectionView!
     var allPlaceListCollectionView: UICollectionView!
     var activityIndicator = UIActivityIndicatorView(style: .large)
+    
+    private var layoutMaker: UICollectionViewFlowLayout {
+        let collectionViewHorizontalInset: CGFloat = 24
+        let collectionViewVerticalInset: CGFloat = 20
+        let itemWidth = floor(UIScreen.current.bounds.width - collectionViewHorizontalInset * 2)
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.sectionInset = .init(
+            top: collectionViewVerticalInset,
+            left: collectionViewHorizontalInset,
+            bottom: collectionViewVerticalInset,
+            right: collectionViewHorizontalInset
+        )
+        layout.minimumLineSpacing = 16
+        layout.minimumInteritemSpacing = 100
+        layout.estimatedItemSize = CGSize(width: itemWidth, height: 125)
+        return layout
+    }
     
     //MARK: - Life Cycle
     
@@ -77,35 +97,15 @@ extension PlaceListView {
             label.textColor = .main(.main2)
         }
         
-        customSegmentedControl.do { segmentedControl in
-            segmentedControl.addSegments(titles: ["안 가본 곳", "전체"])
-        }
-        
         separator.do { view in
             view.backgroundColor = .grayscale(.gray100)
         }
         
-        let layoutForPlaceNeverVisited = UICollectionViewFlowLayout()
-        layoutForPlaceNeverVisited.scrollDirection = .vertical
-        layoutForPlaceNeverVisited.sectionInset = .init(top: 20, left: 24, bottom: 0, right: 24)
-        layoutForPlaceNeverVisited.minimumLineSpacing = 16
-        layoutForPlaceNeverVisited.minimumInteritemSpacing = 100
-        layoutForPlaceNeverVisited.estimatedItemSize.width = UIScreen.current.bounds.width - 32
-        
-        let layoutForAllPlace = UICollectionViewFlowLayout()
-        layoutForAllPlace.scrollDirection = .vertical
-        layoutForAllPlace.sectionInset = .init(top: 20, left: 24, bottom: 0, right: 24)
-        layoutForAllPlace.minimumLineSpacing = 16
-        layoutForAllPlace.minimumInteritemSpacing = 100
-        layoutForAllPlace.estimatedItemSize.width = UIScreen.current.bounds.width - 32
-        
-        placeNeverVisitedListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForPlaceNeverVisited)
+        placeNeverVisitedListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
         placeNeverVisitedListCollectionView.backgroundColor = .primary(.listBg)
         
-        allPlaceListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForAllPlace)
+        allPlaceListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
         allPlaceListCollectionView.backgroundColor = .primary(.listBg)
-        
-        allPlaceListCollectionView.isHidden = true
         
         activityIndicator.do { indicator in
             indicator.color = .sub(.sub)
@@ -119,10 +119,9 @@ extension PlaceListView {
             customNavigationBar,
             customBackButton,
             titleLabel,
-            customSegmentedControl,
+            segmentedControl,
             separator,
-            placeNeverVisitedListCollectionView,
-            allPlaceListCollectionView,
+            pageViewController.view,
             activityIndicator
         )
     }
@@ -130,7 +129,7 @@ extension PlaceListView {
     private func setupLayout() {
         customNavigationBar.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(customSegmentedControl.snp.bottom)
+            make.bottom.equalTo(segmentedControl.snp.bottom)
         }
         
         customBackButton.snp.makeConstraints { make in
@@ -143,32 +142,26 @@ extension PlaceListView {
             make.leading.equalToSuperview().inset(23)
         }
         
-        customSegmentedControl.snp.makeConstraints { make in
+        segmentedControl.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(15)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24.5)
             make.height.equalTo(46)
         }
         
         separator.snp.makeConstraints { make in
-            make.top.equalTo(customSegmentedControl.snp.bottom)
+            make.top.equalTo(segmentedControl.snp.bottom)
             make.horizontalEdges.equalToSuperview()
             make.height.equalTo(1)
         }
         
-        placeNeverVisitedListCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(separator.snp.bottom)
-            make.horizontalEdges.equalTo(safeAreaLayoutGuide)
-            make.bottom.equalToSuperview()
-        }
-        
-        allPlaceListCollectionView.snp.makeConstraints { make in
+        pageViewController.view.snp.makeConstraints { make in
             make.top.equalTo(separator.snp.bottom)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
         }
         
         activityIndicator.snp.makeConstraints { make in
-            make.center.equalTo(placeNeverVisitedListCollectionView)
+            make.center.equalTo(pageViewController.view)
         }
     }
     
