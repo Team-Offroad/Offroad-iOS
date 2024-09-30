@@ -18,7 +18,7 @@ class CharacterListCell: UICollectionViewCell {
         $0.roundCorners(cornerRadius: 10)
     }
     
-    private var acqiredCharacterImageView = UIImageView().then {
+    private var characterListCellImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
     }
     
@@ -70,7 +70,7 @@ class CharacterListCell: UICollectionViewCell {
     private func setupHierarchy() {
         contentView.addSubviews(containerView, characterLabel, shadowView, newBadgeView, mainCharacterBadgeView)
         shadowView.addSubview(lockImageView)
-        containerView.addSubview(acqiredCharacterImageView)
+        containerView.addSubview(characterListCellImageView)
     }
     
     private func setupStyle() {
@@ -83,7 +83,7 @@ class CharacterListCell: UICollectionViewCell {
             make.top.horizontalEdges.equalTo(contentView).inset(10)
         }
         
-        acqiredCharacterImageView.snp.makeConstraints { make in
+        characterListCellImageView.snp.makeConstraints { make in
             make.width.equalTo(81)
             make.height.equalTo(147)
             make.centerX.centerY.equalToSuperview()
@@ -120,7 +120,7 @@ class CharacterListCell: UICollectionViewCell {
     //MARK: - Func
     
     func gainedCharacterCell(data: CharacterListData, representiveCharacterId: Int) {
-        acqiredCharacterImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
+        characterListCellImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
         characterLabel.text = data.characterName
         contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
         containerView.backgroundColor = UIColor(hex: data.characterSubColorCode)
@@ -136,7 +136,8 @@ class CharacterListCell: UICollectionViewCell {
     }
     
     func notGainedCharacterCell(data: CharacterListData) {
-        acqiredCharacterImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
+        characterListCellImageView.alpha = 0.0
+        characterListCellImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
         characterLabel.text = data.characterName
         contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
         containerView.backgroundColor = UIColor(hex: data.characterSubColorCode)
