@@ -151,4 +151,8 @@ class CharacterListCell: UICollectionViewCell {
         
         mainCharacterBadgeView.isHidden = true
     }
+    
+    func configureCellImage(image: UIImage?) {
+            characterListCellImageView.image = image
+        }
 }
