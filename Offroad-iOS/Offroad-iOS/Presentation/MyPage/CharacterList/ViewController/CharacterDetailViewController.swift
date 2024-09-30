@@ -26,7 +26,6 @@ final class CharacterDetailViewController: UIViewController {
         }
     }
     
-    private var representativeCharacterId: Int?
     private var gainedCharacterMotionList: [CharacterMotionList]?
     private var notGainedCharacterMotionList: [CharacterMotionList]?
     

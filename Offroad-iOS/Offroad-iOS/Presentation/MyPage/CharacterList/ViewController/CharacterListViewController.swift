@@ -54,12 +54,13 @@ final class CharacterListViewController: UIViewController {
         characterListView.collectionView.dataSource = self
     }
     
-    func getCharacterListInfo() {
+    private func getCharacterListInfo() {
         NetworkService.shared.characterListService.getCharacterListInfo { response in
             switch response {
             case .success(let data):
                 self.gainedCharacter = data?.data.gainedCharacters
                 self.notGainedCharacter = data?.data.notGainedCharacters
+                self.representativeCharacterId = data?.data.representativeCharacterId
                 
                 //gainedCharacter와 notGainedCharacter 통합한 업데이트된 배열
                 //isGained로 획득 여부 표현
@@ -89,9 +90,9 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharacterListCell", for: indexPath) as! CharacterListCell
         let characterData = combinedCharacterList[indexPath.item]
-        if characterData.isGained, let gainedCharacter = characterData.character as? GainedCharacter {
-            cell.gainedCharacterCell(data: gainedCharacter)
-        } else if let notGainedCharacter = characterData.character as? NotGainedCharacter {
+        if characterData.isGained, let gainedCharacter = characterData.character as? CharacterListData {
+            cell.gainedCharacterCell(data: gainedCharacter, representiveCharacterId: self.representativeCharacterId ?? 0)
+        } else if let notGainedCharacter = characterData.character as? CharacterListData {
             cell.notGainedCharacterCell(data: notGainedCharacter)
         }
         return cell
@@ -120,7 +121,7 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
         }
         
         let detailViewController: CharacterDetailViewController
-        if characterData.isGained, let gainedCharacter = characterData.character as? GainedCharacter {
+        if characterData.isGained, let gainedCharacter = characterData.character as? CharacterListData {
             detailViewController = CharacterDetailViewController(characterId: gainedCharacter.characterId)
         } 
 //            else if let notGainedCharacter = characterData.character as? NotGainedCharacter {
