@@ -25,6 +25,8 @@ final class CharacterDetailViewController: UIViewController {
             }
         }
     }
+    
+    private var representativeCharacterId: Int?
     private var gainedCharacterMotionList: [CharacterMotionList]?
     private var notGainedCharacterMotionList: [CharacterMotionList]?
     
@@ -44,6 +46,10 @@ final class CharacterDetailViewController: UIViewController {
         self.view = characterDetailView
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,6 +63,7 @@ final class CharacterDetailViewController: UIViewController {
     
     private func setupTarget() {
         characterDetailView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        characterDetailView.selectButton.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
     }
     
     private func setupDelegate() {
@@ -79,6 +86,7 @@ final class CharacterDetailViewController: UIViewController {
                 self.characterDetailView.titleLabel.text = characterData.characterSummaryDescription
                 self.characterDetailView.detailLabel.text = characterData.characterDescription
                 self.characterDetailView.detailLabel.setLineSpacing(spacing: 5)
+                self.characterDetailView.mainCharacterToastMessageView.setMessage(characterName: characterData.characterName)
                 
                 DispatchQueue.main.async {
                     self.characterDetailView.collectionView.reloadData()
@@ -119,6 +127,16 @@ final class CharacterDetailViewController: UIViewController {
     
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func selectButtonTapped() {
+        // 토스트 메세지가 떠 있는 동안엔 버튼 비활성화
+        characterDetailView.selectButton.isEnabled = false
+        characterDetailView.showToastMessage { [weak self] in
+            self?.characterDetailView.selectButton.setTitle("이미 선택된 캐릭터예요", for: .normal)
+            self?.characterDetailView.selectButton.backgroundColor = UIColor.blackOpacity(.black25)
+            self?.characterDetailView.mainCharacterBadgeView.isHidden = false
+        }
     }
 }
 

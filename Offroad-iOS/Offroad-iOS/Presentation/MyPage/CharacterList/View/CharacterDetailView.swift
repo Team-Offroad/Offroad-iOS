@@ -8,12 +8,17 @@
 import UIKit
 
 import SnapKit
+import Then
 
 class CharacterDetailView: UIView {
     
     // MARK: - Properties
     
     private var collectionViewHeightConstraint: Constraint? // 컬렉션 뷰의 동적 높이 조절을 위한 변수
+    var mainCharacterToastMessageView = MainCharacterToastMessageView().then {
+        //맨 처음에 투명하게
+        $0.alpha = 0.0
+    }
     
     // MARK: - UI Properties
     
@@ -58,7 +63,6 @@ class CharacterDetailView: UIView {
     }
     
     let nameLabel = UILabel().then {
-        $0.textAlignment = .left
         $0.textColor = UIColor.sub(.sub4)
         $0.font = UIFont.offroad(style: .iosSubtitle2Bold)
     }
@@ -83,6 +87,12 @@ class CharacterDetailView: UIView {
         $0.font = UIFont.offroad(style: .iosTextContentsSmall)
     }
     
+    let mainCharacterBadgeView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+        $0.image = UIImage(resource: .imgCrownTag)
+        $0.isHidden = true
+    }
+    
     let detailLabel = UILabel().then {
         $0.textAlignment = .left
         $0.numberOfLines = 3
@@ -90,7 +100,7 @@ class CharacterDetailView: UIView {
         $0.font = UIFont.offroad(style: .iosBoxMedi)
     }
     
-    private let selectButton = UIButton().then {
+    let selectButton = UIButton().then {
         $0.setTitle("대표 캐릭터로 선택하기", for: .normal)
         $0.backgroundColor = UIColor.home(.homeBg)
         $0.setTitleColor(UIColor.main(.main1), for: .normal)
@@ -140,7 +150,11 @@ class CharacterDetailView: UIView {
     }
     
     private func setupHierarchy() {
-        addSubviews(scrollView,customBackButton)
+        addSubviews(
+            scrollView,
+            customBackButton,
+            mainCharacterToastMessageView
+        )
         scrollView.addSubview(contentView)
         
         contentView.addSubviews(
@@ -153,6 +167,7 @@ class CharacterDetailView: UIView {
         )
         labelView.addSubviews(
             nameLabel,
+            mainCharacterBadgeView,
             titleLabel,
             characterLogoImage
         )
@@ -165,6 +180,12 @@ class CharacterDetailView: UIView {
     }
     
     private func setupLayout() {
+        mainCharacterToastMessageView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(113)
+            $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.height.equalTo(45)
+        }
+        
         customBackButton.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(12)
             $0.leading.equalToSuperview().inset(12)
@@ -195,12 +216,19 @@ class CharacterDetailView: UIView {
         characterLogoImage.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().inset(22)
-            make.size.equalTo(CGSize(width: 50, height: 50))
+            make.size.equalTo(50)
         }
         
         nameLabel.snp.makeConstraints { make in
             make.leading.equalTo(characterLogoImage.snp.trailing).offset(17)
             make.top.equalToSuperview().inset(21)
+            make.width.equalTo(35)
+        }
+        
+        mainCharacterBadgeView.snp.makeConstraints { make in
+            make.leading.equalTo(nameLabel.snp.trailing).offset(6)
+            make.centerY.equalTo(nameLabel)
+            make.size.equalTo(21)
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -253,6 +281,21 @@ class CharacterDetailView: UIView {
             make.horizontalEdges.equalToSuperview().inset(24.5)
             collectionViewHeightConstraint = make.height.equalTo(800).constraint // 초기 높이
             make.bottom.equalToSuperview().inset(78)
+        }
+    }
+    
+    func showToastMessage(duration: TimeInterval = 2.0, completion: (() -> Void)? = nil) {
+        //fade-in
+        UIView.animate(withDuration: 0.3, animations: {
+            self.mainCharacterToastMessageView.alpha = 1.0
+        }) { _ in
+            //fade-out
+            UIView.animate(withDuration: 0.3, delay: duration, options: [], animations: {
+                self.mainCharacterToastMessageView.alpha = 0.0
+            }) { _ in
+                self.mainCharacterToastMessageView.removeFromSuperview()
+                completion?()
+            }
         }
     }
     
