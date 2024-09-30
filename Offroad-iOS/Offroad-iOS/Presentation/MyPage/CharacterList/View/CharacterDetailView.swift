@@ -15,7 +15,7 @@ class CharacterDetailView: UIView {
     // MARK: - Properties
     
     private var collectionViewHeightConstraint: Constraint? // 컬렉션 뷰의 동적 높이 조절을 위한 변수
-    var selectMainCharacterView = SelectMainCharacterView().then {
+    var mainCharacterToastMessageView = MainCharacterToastMessageView().then {
         //맨 처음에 투명하게
         $0.alpha = 0.0
     }
@@ -151,7 +151,7 @@ class CharacterDetailView: UIView {
     
     private func setupHierarchy() {
         addSubviews(
-            selectMainCharacterView,
+            mainCharacterToastMessageView,
             scrollView,
             customBackButton        )
         scrollView.addSubview(contentView)
@@ -179,7 +179,7 @@ class CharacterDetailView: UIView {
     }
     
     private func setupLayout() {
-        selectMainCharacterView.snp.makeConstraints {
+        mainCharacterToastMessageView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(113)
             $0.horizontalEdges.equalToSuperview().inset(24)
             $0.height.equalTo(45)
@@ -286,13 +286,13 @@ class CharacterDetailView: UIView {
     func showToastMessage(duration: TimeInterval = 2.0, completion: (() -> Void)? = nil) {
         //fade-in
         UIView.animate(withDuration: 0.3, animations: {
-            self.selectMainCharacterView.alpha = 1.0
+            self.mainCharacterToastMessageView.alpha = 1.0
         }) { _ in
             //fade-out
             UIView.animate(withDuration: 0.3, delay: duration, options: [], animations: {
-                self.selectMainCharacterView.alpha = 0.0
+                self.mainCharacterToastMessageView.alpha = 0.0
             }) { _ in
-                self.selectMainCharacterView.removeFromSuperview()
+                self.mainCharacterToastMessageView.removeFromSuperview()
                 completion?()
             }
         }

@@ -1,5 +1,5 @@
 //
-//  SelectMainCharacterView.swift
+//  MainCharacterToastMessageView.swift
 //  Offroad-iOS
 //
 //  Created by  정지원 on 9/24/24.
@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class SelectMainCharacterView: UIView {
+class MainCharacterToastMessageView: UIView {
 
     // MARK: - UI Properties
     

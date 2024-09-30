@@ -86,7 +86,7 @@ final class CharacterDetailViewController: UIViewController {
                 self.characterDetailView.titleLabel.text = characterData.characterSummaryDescription
                 self.characterDetailView.detailLabel.text = characterData.characterDescription
                 self.characterDetailView.detailLabel.setLineSpacing(spacing: 5)
-                self.characterDetailView.selectMainCharacterView.setMessage(characterName: characterData.characterName)
+                self.characterDetailView.mainCharacterToastMessageView.setMessage(characterName: characterData.characterName)
                 
                 DispatchQueue.main.async {
                     self.characterDetailView.collectionView.reloadData()
