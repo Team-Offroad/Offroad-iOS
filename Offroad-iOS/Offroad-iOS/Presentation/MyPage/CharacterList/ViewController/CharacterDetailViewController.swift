@@ -11,6 +11,8 @@ final class CharacterDetailViewController: UIViewController {
     
     // MARK: - Properties
     
+    weak var delegate: SelectMainCharacterDelegate?
+    
     private let characterId: Int
     
     private let characterDetailView = CharacterDetailView()
@@ -29,6 +31,7 @@ final class CharacterDetailViewController: UIViewController {
     private let representativeCharacterId: Int
     private var gainedCharacterMotionList: [CharacterMotionList]?
     private var notGainedCharacterMotionList: [CharacterMotionList]?
+    private var characterInfoModelList: [CharacterList]?
     
     // MARK: - Life Cycle
     
@@ -131,6 +134,17 @@ final class CharacterDetailViewController: UIViewController {
         }
     }
     
+    private func postCharacterID() {
+        NetworkService.shared.characterService.postChoosingCharacter(parameter: characterId) { response in
+            switch response {
+            case .success(let response):
+                print("=======대표 캐릭터 설정: " + "\(response?.data.characterImageUrl)========")
+            default:
+                break
+            }
+        }
+    }
+    
     // MARK: - @Objc Func
     
     @objc private func backButtonTapped() {
@@ -145,6 +159,9 @@ final class CharacterDetailViewController: UIViewController {
             self?.characterDetailView.selectButton.backgroundColor = UIColor.blackOpacity(.black25)
             self?.characterDetailView.mainCharacterBadgeView.isHidden = false
         }
+        postCharacterID()
+        //CharacterListViewController에 대표 캐릭터 Id 전달
+        delegate?.didSelectMainCharacter(characterId: characterId)
     }
 }
 
