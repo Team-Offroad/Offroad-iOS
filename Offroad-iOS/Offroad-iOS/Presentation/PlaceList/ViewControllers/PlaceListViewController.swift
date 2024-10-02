@@ -17,12 +17,19 @@ class PlaceListViewController: UIViewController {
     var places: [RegisteredPlaceInfo] = []
     var placesNeverVisited: [RegisteredPlaceInfo] { places.filter { $0.visitCount == 0 } }
     var currentCoordinate: CLLocationCoordinate2D? { locationManager.location?.coordinate }
+    var pageViewController: UIPageViewController {
+        rootView.pageViewController
+    }
     
     let operationQueue = OperationQueue()
     
     //MARK: - UI Properties
     
     let rootView = PlaceListView()
+    lazy var viewControllerList: [UIViewController] = [
+        PlaceListCollectionViewController(collectionView: rootView.placeNeverVisitedListCollectionView),
+        PlaceListCollectionViewController(collectionView: rootView.allPlaceListCollectionView)
+    ]
     
     //MARK: - Life Cycle
     
@@ -33,19 +40,18 @@ class PlaceListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setNavigationController()
-        setupNavigationControllerGesture()
         setupButtonsActions()
         setupCollectionView()
         setupDelegates()
+        setPageViewControllerPage(to: 0)
         
         reloadCollectionViewData(limit: 100, isBounded: false)
+        rootView.segmentedControl.selectSegment(index: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        rootView.customSegmentedControl.selectSegment(index: 0)
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
     }
@@ -61,20 +67,11 @@ extension PlaceListViewController {
     }
     
     @objc private func refreshCollectionView() {
-        reloadCollectionViewData(limit: 100, isBounded: true)
+        reloadCollectionViewData(limit: 100, isBounded: false)
     }
     
     //MARK: - Private Func
-    
-    private func setNavigationController() {
-        self.navigationController?.navigationBar.isHidden = true
-        self.navigationItem.setHidesBackButton(true, animated: false)
-    }
-    
-    private func setupNavigationControllerGesture() {
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
-    }
-    
+        
     private func setupButtonsActions() {
         rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
     }
@@ -100,13 +97,16 @@ extension PlaceListViewController {
     }
     
     private func setupDelegates() {
-        rootView.customSegmentedControl.delegate = self
+        rootView.segmentedControl.delegate = self
         
         rootView.placeNeverVisitedListCollectionView.dataSource = self
         rootView.placeNeverVisitedListCollectionView.delegate = self
         
         rootView.allPlaceListCollectionView.dataSource = self
         rootView.allPlaceListCollectionView.delegate = self
+        
+        rootView.pageViewController.dataSource = self
+        rootView.pageViewController.delegate = self
     }
     
     private func reloadCollectionViewData(coordinate: CLLocationCoordinate2D? = nil, limit: Int, isBounded: Bool) {
@@ -140,26 +140,33 @@ extension PlaceListViewController {
         }
     }
     
-}
-
-//MARK: - UIGestureRecognizerDelegate
-
-extension PlaceListViewController: UIGestureRecognizerDelegate {
-    
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        // Navigation stack에서 root view controller가 아닌 경우에만 pop 제스처를 허용
-        return navigationController!.viewControllers.count > 1
+    private func setPageViewControllerPage(to targetIndex: Int) {
+        guard let currentViewCotnroller = pageViewController.viewControllers?.first else {
+            // viewDidLoad에서 호출될 때 (처음 한 번)
+            pageViewController.setViewControllers([viewControllerList.first!], direction: .forward, animated: false)
+            return
+        }
+        guard let currentIndex = viewControllerList.firstIndex(of: currentViewCotnroller) else { return }
+        guard targetIndex >= 0 else { return }
+        guard targetIndex < rootView.segmentedControl.titles.count,
+              targetIndex < viewControllerList.count
+        else { return }
+        
+        pageViewController.setViewControllers(
+            [viewControllerList[targetIndex]],
+            direction: targetIndex > currentIndex ? .forward : .reverse,
+            animated: true
+        )
     }
     
 }
 
-//MARK: - PlaceListSegmentedControlDelegate
+//MARK: - OFRSegmentedControlDelegate
 
-extension PlaceListViewController: CustomSegmentedControlDelegate {
+extension PlaceListViewController: OFRSegmentedControlDelegate {
     
-    func segmentedControlDidSelected(segmentedControl: CustomSegmentedControl, selectedIndex: Int) {
-        rootView.placeNeverVisitedListCollectionView.isHidden = selectedIndex != 0
-        rootView.allPlaceListCollectionView.isHidden = selectedIndex != 1
+    func segmentedControlDidSelected(segmentedControl: OFRSegmentedControl, selectedIndex: Int) {
+        setPageViewControllerPage(to: selectedIndex)
     }
     
 }
@@ -213,6 +220,44 @@ extension PlaceListViewController: UICollectionViewDelegate {
         
         operationQueue.addOperation(animationOperation)
         return false
+    }
+    
+}
+
+//MARK: - UIPageViewControllerDataSource
+
+extension PlaceListViewController: UIPageViewControllerDataSource {
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let index = viewControllerList.firstIndex(of: viewController) else { return nil }
+        let previousIndex = index - 1
+        if previousIndex < 0 { return nil }
+        return viewControllerList[previousIndex]
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let index = viewControllerList.firstIndex(of: viewController) else { return nil }
+        let nextIndex = index + 1
+        if nextIndex >= viewControllerList.count { return nil }
+        return viewControllerList[nextIndex]
+    }
+    
+}
+
+//MARK: - UIPageViewControllerDelegate
+
+extension PlaceListViewController: UIPageViewControllerDelegate {
+    
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        didFinishAnimating finished: Bool,
+        previousViewControllers: [UIViewController],
+        transitionCompleted completed: Bool
+    ) {
+        guard pageViewController.viewControllers?.first != nil else { return }
+        if let index = viewControllerList.firstIndex(of: pageViewController.viewControllers!.first!) {
+            rootView.segmentedControl.selectSegment(index: index)
+        }
     }
     
 }

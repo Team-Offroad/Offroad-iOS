@@ -13,20 +13,12 @@ struct CharacterListResponseDTO: Codable {
 }
 
 struct CharacterListInfo: Codable {
-    let gainedCharacters: [GainedCharacter]
-    let notGainedCharacters: [NotGainedCharacter]
+    let gainedCharacters: [CharacterListData]
+    let notGainedCharacters: [CharacterListData]
+    let representativeCharacterId: Int?
 }
 
-struct GainedCharacter: Codable {
-    let characterId: Int
-    let characterName: String
-    let characterThumbnailImageUrl: String
-    let characterMainColorCode: String
-    let characterSubColorCode: String
-    let isNewGained: Bool
-}
-
-struct NotGainedCharacter: Codable {
+struct CharacterListData: Codable {
     let characterId: Int
     let characterName: String
     let characterThumbnailImageUrl: String

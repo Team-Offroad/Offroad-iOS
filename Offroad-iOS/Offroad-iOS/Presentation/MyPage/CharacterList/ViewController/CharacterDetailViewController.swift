@@ -11,6 +11,8 @@ final class CharacterDetailViewController: UIViewController {
     
     // MARK: - Properties
     
+    weak var delegate: SelectMainCharacterDelegate?
+    
     private let characterId: Int
     
     private let characterDetailView = CharacterDetailView()
@@ -25,13 +27,17 @@ final class CharacterDetailViewController: UIViewController {
             }
         }
     }
+    
+    private let representativeCharacterId: Int
     private var gainedCharacterMotionList: [CharacterMotionList]?
     private var notGainedCharacterMotionList: [CharacterMotionList]?
+    private var characterInfoModelList: [CharacterList]?
     
     // MARK: - Life Cycle
     
-    init(characterId: Int) {
+    init(characterId: Int, representativeCharacterId: Int) {
         self.characterId = characterId
+        self.representativeCharacterId = representativeCharacterId
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -42,6 +48,17 @@ final class CharacterDetailViewController: UIViewController {
     
     override func loadView() {
         self.view = characterDetailView
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if characterId == representativeCharacterId {
+            characterDetailView.selectButton.isEnabled = false
+            characterDetailView.selectButton.setTitle("이미 선택된 캐릭터예요", for: .normal)
+            characterDetailView.selectButton.backgroundColor = UIColor.blackOpacity(.black25)
+            characterDetailView.mainCharacterBadgeView.isHidden = false
+        }
     }
     
     override func viewDidLoad() {
@@ -57,6 +74,7 @@ final class CharacterDetailViewController: UIViewController {
     
     private func setupTarget() {
         characterDetailView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        characterDetailView.selectButton.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
     }
     
     private func setupDelegate() {
@@ -79,6 +97,7 @@ final class CharacterDetailViewController: UIViewController {
                 self.characterDetailView.titleLabel.text = characterData.characterSummaryDescription
                 self.characterDetailView.detailLabel.text = characterData.characterDescription
                 self.characterDetailView.detailLabel.setLineSpacing(spacing: 5)
+                self.characterDetailView.mainCharacterToastMessageView.setMessage(characterName: characterData.characterName)
                 
                 DispatchQueue.main.async {
                     self.characterDetailView.collectionView.reloadData()
@@ -115,10 +134,34 @@ final class CharacterDetailViewController: UIViewController {
         }
     }
     
+    private func postCharacterID() {
+        NetworkService.shared.characterService.postChoosingCharacter(parameter: characterId) { response in
+            switch response {
+            case .success(let response):
+                print("=======대표 캐릭터 설정: " + "\(response?.data.characterImageUrl)========")
+            default:
+                break
+            }
+        }
+    }
+    
     // MARK: - @Objc Func
     
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func selectButtonTapped() {
+        // 토스트 메세지가 떠 있는 동안엔 버튼 비활성화
+        characterDetailView.selectButton.isEnabled = false
+        characterDetailView.showToastMessage { [weak self] in
+            self?.characterDetailView.selectButton.setTitle("이미 선택된 캐릭터예요", for: .normal)
+            self?.characterDetailView.selectButton.backgroundColor = UIColor.blackOpacity(.black25)
+            self?.characterDetailView.mainCharacterBadgeView.isHidden = false
+        }
+        postCharacterID()
+        //CharacterListViewController에 대표 캐릭터 Id 전달
+        delegate?.didSelectMainCharacter(characterId: characterId)
     }
 }
 
