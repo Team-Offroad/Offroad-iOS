@@ -176,6 +176,7 @@ extension AcquiredCouponViewController: UICollectionViewDataSource {
 extension AcquiredCouponViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard collectionView.cellForItem(at: indexPath) is AvailableCouponCell else { return }
         let couponDetailViewController = CouponDetailViewController(coupon: availableCoupons[indexPath.item])
         navigationController?.pushViewController(couponDetailViewController, animated: true)
     }
