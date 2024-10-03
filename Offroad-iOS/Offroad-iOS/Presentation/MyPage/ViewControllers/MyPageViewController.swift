@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MyPageViewController: UIViewController {
+final class MyPageViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
     
