@@ -22,7 +22,6 @@ final class GenderViewController: UIViewController {
     
     //MARK: - Life Cycle
     
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
     }
@@ -50,12 +49,10 @@ final class GenderViewController: UIViewController {
         setupAddTarget()
         
         self.modalPresentationStyle = .fullScreen
-        
     }
     
     private func presentToNextVC() {
         let choosingCharacterViewController = ChoosingCharacterViewController()
-        
         present(UINavigationController(rootViewController: choosingCharacterViewController), animated: true)
     }
     
@@ -81,7 +78,6 @@ extension GenderViewController {
     
     //MARK: - @objc Method
     @objc func buttonTapped(_ sender: UIButton) {
-        
         [genderView.maleButton, genderView.femaleButton, genderView.etcButton].forEach { button in
             if button == sender {
                 button.isSelected.toggle()
@@ -119,7 +115,7 @@ extension GenderViewController {
         }
         
         
-        ProfileService().updateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender)) { result in
+        ProfileService().patchUpdateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender)) { result in
             switch result {
             case .success(let response):
                 print("프로필 업데이트 성공~~~~~~~~~")
@@ -138,5 +134,3 @@ extension GenderViewController {
         navigationController?.popViewController(animated: true)
     }
 }
-
-

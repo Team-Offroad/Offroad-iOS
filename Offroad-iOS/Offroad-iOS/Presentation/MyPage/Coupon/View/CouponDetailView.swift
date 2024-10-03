@@ -12,12 +12,6 @@ import Then
 
 final class CouponDetailView: UIView {
     
-    // MARK: - Properties
-    
-    let couponUsagePopupView = CouponCodeInputPopupView().then {
-        $0.isHidden = true
-    }
-    
     // MARK: - UI Properties
     
     let customBackButton = NavigationPopButton().then {
@@ -25,7 +19,7 @@ final class CouponDetailView: UIView {
     }
     
     private let couponDetailView = UIView().then {
-        $0.roundCorners(cornerRadius: 12)
+        $0.roundCorners(cornerRadius: 22)
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor.home(.homeContents2).cgColor
         $0.clipsToBounds = true
@@ -34,8 +28,8 @@ final class CouponDetailView: UIView {
     
     let couponImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
+        $0.backgroundColor = .primary(.white)
         $0.roundCorners(cornerRadius: 10)
-        $0.clipsToBounds = true
     }
     
     let couponTitleLabel = UILabel().then {
@@ -48,16 +42,16 @@ final class CouponDetailView: UIView {
     private let dottedLineView = UIView().then {
         let shapeLayer = CAShapeLayer()
         shapeLayer.strokeColor = UIColor.home(.homeContents2).cgColor
-        shapeLayer.lineWidth = 0.5
+        shapeLayer.lineWidth = 2
         shapeLayer.lineDashPattern = [3, 3]
         
         let viewWidth = UIScreen.main.bounds.width
         
         let path = CGMutablePath()
-        path.addLines(between: [CGPoint(x: 0, y: 0),
-                                CGPoint(x: viewWidth-50, y: 0)])
+        path.addLines(between: [CGPoint(x: 0, y: 0), CGPoint(x: viewWidth, y: 0)])
         shapeLayer.path = path
         
+        $0.layer.masksToBounds = true
         $0.layer.addSublayer(shapeLayer)
     }
     
@@ -65,12 +59,13 @@ final class CouponDetailView: UIView {
         $0.textColor = UIColor.main(.main2)
         $0.textAlignment = .center
         $0.font = UIFont.offroad(style: .iosTextRegular)
+        $0.setLineHeight(percentage: 150)
         $0.numberOfLines = 0
     }
     
     private let usageTitleLabel = UILabel().then {
         $0.text = "사용방법"
-        $0.textColor = UIColor.main(.main2)
+        $0.textColor = UIColor.sub(.sub2)
         $0.font = UIFont.offroad(style: .iosHint)
     }
     
@@ -80,11 +75,10 @@ final class CouponDetailView: UIView {
     }
     
     private let usageDescriptionLabel = UILabel().then {
-        $0.text = "매장에 게시되어 있거나 매장 직원에게 전달받은\n고유 코드를 입력한 후 제시해 사용해 주세요."
+        $0.text = "매장에 게시되어 있거나 매장 직원에게 전달받은 고유 코드를 입력한 후 제시해 사용해 주세요."
         $0.textColor = UIColor.grayscale(.gray400)
         $0.font = UIFont.offroad(style: .iosBoxMedi)
-        $0.numberOfLines = 2
-        $0.setLineSpacing(spacing: 5)
+        $0.numberOfLines = 0
         $0.setLineHeight(percentage: 160)
     }
     
@@ -124,8 +118,7 @@ final class CouponDetailView: UIView {
             usageTitleLabel,
             usageLogoImageView,
             usageDescriptionLabel,
-            useButton,
-            couponUsagePopupView
+            useButton
         )
         couponDetailView.addSubviews(
             couponImageView,
@@ -141,19 +134,16 @@ final class CouponDetailView: UIView {
             $0.leading.equalToSuperview().inset(12)
         }
         
-        couponUsagePopupView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
         couponDetailView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(125)
-            make.horizontalEdges.equalToSuperview().inset(40)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(customBackButton.snp.bottom).offset(43)
+            make.width.equalTo(312)
         }
         
         couponImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(22)
-            make.horizontalEdges.equalToSuperview().inset(21.5)
-            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().inset(21)
+            make.horizontalEdges.equalToSuperview().inset(21)
+            make.size.equalTo(270)
         }
         
         couponTitleLabel.snp.makeConstraints { make in
@@ -163,7 +153,7 @@ final class CouponDetailView: UIView {
         
         dottedLineView.snp.makeConstraints { make in
             make.top.equalTo(couponTitleLabel.snp.bottom).offset(14)
-            make.height.equalTo(0.5)
+            make.height.equalTo(1)
             make.horizontalEdges.equalToSuperview().inset(21.5)
         }
         
@@ -171,23 +161,24 @@ final class CouponDetailView: UIView {
             make.top.equalTo(dottedLineView.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(20)
+            make.height.equalTo(72)
         }
         
         usageTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(couponDetailView.snp.bottom).offset(24.5)
-            make.leading.equalToSuperview().inset(51.36)
+            make.horizontalEdges.equalToSuperview().inset(50)
         }
         
         usageLogoImageView.snp.makeConstraints { make in
             make.top.equalTo(usageTitleLabel.snp.bottom).offset(12)
             make.leading.equalTo(usageTitleLabel)
+            make.size.equalTo(21)
         }
         
         usageDescriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(usageLogoImageView)
             make.leading.equalTo(usageLogoImageView.snp.trailing).offset(8)
-            make.trailing.equalToSuperview().inset(51.36)
-            make.height.equalTo(44)
+            make.trailing.equalToSuperview().inset(50)
         }
         
         useButton.snp.makeConstraints { make in

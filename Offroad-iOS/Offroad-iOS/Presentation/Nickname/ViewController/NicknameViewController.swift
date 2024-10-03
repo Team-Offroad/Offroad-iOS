@@ -41,8 +41,64 @@ final class NicknameViewController: UIViewController {
 }
 
 extension NicknameViewController {
+    //MARK: - Private Func
+    
+    private func setupTarget() {
+        nicknameView.checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
+        nicknameView.textField.addTarget(self, action: #selector(textFieldDidBegin), for: .editingDidBegin)
+        nicknameView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        nicknameView.textField.addTarget(self, action: #selector(textFieldDidEnd), for: .editingDidEnd)
+        nicknameView.nextButton.addTarget(self, action: #selector(buttonToBirthVC), for: .touchUpInside)
+    }
+    
+    private func setupDelegate() {
+        nicknameView.textField.delegate = self
+    }
+    
+    private func configureButtonStyle(_ button: UIButton, isEnabled: Bool) {
+        button.isEnabled = isEnabled
+        button.setTitleColor(.primary(.white), for: .normal)
+        button.backgroundColor = isEnabled ? .primary(.black) : .blackOpacity(.black15)
+        button.roundCorners(cornerRadius: 5)
+        
+    }
+    
+    private func configureTextFieldStyle(_ textField: UITextField, isEmpty: Bool) {
+        let borderColor: UIColor = isEmpty ? .grayscale(.gray100) : .main(.main2)
+        textField.layer.borderColor = borderColor.cgColor
+    }
+    
+    private func formError(_ input: String) -> Bool{
+        let pattern = "^[A-Za-z가-힣]{2,}$"
+        let regex = try? NSRegularExpression(pattern: pattern)
+        let eucKrLength = input.eucKrByteLength
+        if let _ = regex?.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count)),
+           eucKrLength >= 4 {
+            print("정규식 통과")
+            return true
+        }
+        print("유효하지 않은 id 형식입니다.")
+        return false
+    }
+}
+
+extension NicknameViewController {
     
     //MARK: - @objc Method
+    
+    @objc private func textFieldDidBegin() {
+        let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
+        if isTextFieldEmpty {
+            nicknameView.textField.layer.borderColor = UIColor.main(.main2).cgColor
+        }
+    }
+    
+    @objc private func textFieldDidEnd() {
+        let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
+        if isTextFieldEmpty {
+            nicknameView.textField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        }
+    }
     
     @objc private func textFieldDidChange() {
         let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
@@ -51,14 +107,16 @@ extension NicknameViewController {
         nicknameView.nextButton.changeState(forState: .isDisabled)
         
         if !formError(self.nicknameView.textField.text ?? "") && !isTextFieldEmpty {
-            nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 말씀해주세요."
+            nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 작성해주세요."
             nicknameView.notionLabel.textColor = UIColor.primary(.error)
             nicknameView.textField.layer.borderColor = UIColor.primary(.error).cgColor
             nicknameView.nextButton.changeState(forState: .isDisabled)
-        } else if isTextFieldEmpty {
+        }
+        else if isTextFieldEmpty {
             nicknameView.notionLabel.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
             nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
             nicknameView.notionLabel.font = UIFont.offroad(style: .iosHint)
+            nicknameView.textField.layer.borderColor = UIColor.main(.main2).cgColor
         }
         else {
             nicknameView.notionLabel.text = ""
@@ -122,44 +180,6 @@ extension NicknameViewController {
     @objc private func executePop() {
         navigationController?.popViewController(animated: true)
     }
-    
-    //MARK: - Private Func
-    
-    private func setupTarget() {
-        nicknameView.checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
-        nicknameView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        nicknameView.nextButton.addTarget(self, action: #selector(buttonToBirthVC), for: .touchUpInside)
-    }
-    
-    private func setupDelegate() {
-        nicknameView.textField.delegate = self
-    }
-    
-    // MARK: - UI Configuration Methods
-    
-    private func configureButtonStyle(_ button: UIButton, isEnabled: Bool) {
-        button.isEnabled = isEnabled
-        button.setTitleColor(.primary(.white), for: .normal)
-        button.backgroundColor = isEnabled ? .primary(.black) : .blackOpacity(.black15)
-        button.roundCorners(cornerRadius: 5)
-
-    }
-    
-    private func configureTextFieldStyle(_ textField: UITextField, isEmpty: Bool) {
-        let borderColor: UIColor = isEmpty ? .grayscale(.gray100) : .main(.main2)
-        textField.layer.borderColor = borderColor.cgColor
-    }
-    
-    private func formError(_ input: String) -> Bool{
-        let pattern = "^[A-Za-z가-힣]{2,}$"
-        let regex = try? NSRegularExpression(pattern: pattern)
-        if let _ = regex?.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count)) {
-            print("정규식 통과")
-            return true
-        }
-        print("유효하지 않은 id 형식입니다.")
-        return false
-    }
 }
 
 //MARK: - UITextFieldDelegate
@@ -184,11 +204,14 @@ extension NicknameViewController: UITextFieldDelegate {
         let currentText = textField.text!
         let newText = currentText.replacingCharacters(in: range, with: string)
         
-        return newText.eucKrByteLength <= 16
+        //입력된 텍스트의 byte 길이를 계산한 후 최대 바이트 길이인 16을 초과하는 경우에만 입력을 막는 코드
+        let byteLength = newText.eucKrByteLength
+        
+        if byteLength > 16 {
+            return false
+        } else {
+            return true
+        }
     }
 }
-
-
-
-
 

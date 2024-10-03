@@ -18,7 +18,7 @@ class CharacterListCell: UICollectionViewCell {
         $0.roundCorners(cornerRadius: 10)
     }
     
-    private var acqiredCharacterImageView = UIImageView().then {
+    private var characterListCellImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
     }
     
@@ -45,6 +45,12 @@ class CharacterListCell: UICollectionViewCell {
         $0.isHidden = true
     }
     
+    let mainCharacterBadgeView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+        $0.image = UIImage(resource: .imgCrownTag)
+        $0.isHidden = true
+    }
+    
     // MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -62,9 +68,9 @@ class CharacterListCell: UICollectionViewCell {
     // MARK: - Setup Functions
     
     private func setupHierarchy() {
-        contentView.addSubviews(containerView, characterLabel, shadowView, newBadgeView)
+        contentView.addSubviews(containerView, characterLabel, shadowView, newBadgeView, mainCharacterBadgeView)
         shadowView.addSubview(lockImageView)
-        containerView.addSubview(acqiredCharacterImageView)
+        containerView.addSubview(characterListCellImageView)
     }
     
     private func setupStyle() {
@@ -77,7 +83,7 @@ class CharacterListCell: UICollectionViewCell {
             make.top.horizontalEdges.equalTo(contentView).inset(10)
         }
         
-        acqiredCharacterImageView.snp.makeConstraints { make in
+        characterListCellImageView.snp.makeConstraints { make in
             make.width.equalTo(81)
             make.height.equalTo(147)
             make.centerX.centerY.equalToSuperview()
@@ -104,33 +110,38 @@ class CharacterListCell: UICollectionViewCell {
             make.top.trailing.equalTo(containerView).inset(8)
             make.size.equalTo(24)
         }
+        
+        mainCharacterBadgeView.snp.makeConstraints { make in
+            make.top.trailing.equalTo(containerView).inset(8)
+            make.size.equalTo(24)
+        }
     }
     
     //MARK: - Func
     
-    func gainedCharacterCell(data: GainedCharacter) {
-        acqiredCharacterImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
+    func configureCharacterCell(data: CharacterListData, gained: Bool, representiveCharacterId: Int) {
+        characterListCellImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
         characterLabel.text = data.characterName
         contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
         containerView.backgroundColor = UIColor(hex: data.characterSubColorCode)
         
-        shadowView.isHidden = true
-        lockImageView.isHidden = true
-        
-        newBadgeView.isHidden = !data.isNewGained
-    }
-    
-    func notGainedCharacterCell(data: NotGainedCharacter) {
-        acqiredCharacterImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
-        characterLabel.text = data.characterName
-        contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
-        containerView.backgroundColor = UIColor(hex: data.characterSubColorCode)
-        
-        shadowView.isHidden = false
-        lockImageView.isHidden = false
-        
-        if data.isNewGained {
-            newBadgeView.isHidden = false
+        if gained {
+            shadowView.isHidden = true
+            lockImageView.isHidden = true
+            newBadgeView.isHidden = !data.isNewGained
+            
+            mainCharacterBadgeView.isHidden = data.characterId != representiveCharacterId
+        } else {
+            shadowView.isHidden = false
+            lockImageView.isHidden = false
+            newBadgeView.isHidden = !data.isNewGained
+            
+            mainCharacterBadgeView.isHidden = true
         }
     }
+    
+    func configureCellImage(image: UIImage?) {
+        characterListCellImageView.image = image
+    }
+    
 }

@@ -7,11 +7,21 @@
 
 import UIKit
 
+import Kingfisher
+import RxSwift
 import SnapKit
 
 class CouponDetailViewController: UIViewController {
     
     // MARK: - Properties
+    
+    var disposeBag = DisposeBag()
+    
+    let coupon: AvailableCoupon
+    let couponCodeInputSubject = PublishSubject<String>()
+    let afterCouponRedemptionSubject = PublishSubject<Bool>()
+    
+    // MARK: - UI Properties
     
     private let couponDetailView = CouponDetailView()
     
@@ -25,6 +35,7 @@ class CouponDetailViewController: UIViewController {
         super.viewDidLoad()
         
         setupTarget()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,14 +45,14 @@ class CouponDetailViewController: UIViewController {
         offroadTabBarController.hideTabBarAnimation()
     }
     
-    // MARK: - Initializer
-    
-    init(image: UIImage?, title: String, description: String) {
+    init(coupon: AvailableCoupon) {
+        self.coupon = coupon
         super.init(nibName: nil, bundle: nil)
-        couponDetailView.couponImageView.image = image
-        couponDetailView.couponTitleLabel.text = title
-        couponDetailView.couponDescriptionLabel.text = description
-        couponDetailView.couponDescriptionLabel.setLineHeight(percentage: 150)
+        
+        let url = URL(string: coupon.couponImageUrl)
+        couponDetailView.couponImageView.kf.setImage(with: url)
+        couponDetailView.couponTitleLabel.text = coupon.name
+        couponDetailView.couponDescriptionLabel.text = coupon.description
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -55,8 +66,63 @@ class CouponDetailViewController: UIViewController {
         couponDetailView.useButton.addTarget(self, action: #selector(didTapUseButton), for: .touchUpInside)
     }
     
-    private func setupCloseButton(action: @escaping CouponCodeInputPopupView.CloseButtonAction) {
-        couponDetailView.couponUsagePopupView.closeButtonAction = action
+    private func bind() {
+        
+        couponCodeInputSubject.subscribe { [weak self] codeInput in
+            guard let self else { return }
+            self.redeemCoupon(code: codeInput)
+        }.disposed(by: disposeBag)
+        
+        
+        afterCouponRedemptionSubject
+            .observe(on: ConcurrentMainScheduler.instance)
+            .subscribe { [weak self] isSuccess in
+            guard let self else { return }
+            
+            let alertController: OFRAlertController
+            if isSuccess {
+                alertController = OFRAlertController(title: "사용 완료", message: "쿠폰 사용이 완료되었어요!", type: .normal)
+            } else {
+                alertController = OFRAlertController(title: "사용 실패", message: "다시 한 번 확인해 주세요.", type: .normal)
+                alertController.configureMessageLabel { label in
+                    label.textColor = .primary(.error)
+                    label.font = .offroad(style: .iosSubtitle2Semibold)
+                }
+            }
+            
+            let action = OFRAlertAction(title: "확인", style: .default) { _ in return }
+            alertController.addAction(action)
+            self.present(alertController, animated: true)
+        }.disposed(by: disposeBag)
+    }
+    
+    private func redeemCoupon(code: String) {
+        let requestDTO = CouponRedemptionRequestDTO(code: code, couponId: coupon.id)
+        NetworkService.shared.couponService.postCouponRedemption(body: requestDTO) { [weak self] result in
+            guard let self else { return }
+            
+            switch result {
+            case .success(let response):
+                guard let response else { return }
+                print("쿠폰 사용 결과: " + "\(response.data.success)")
+                self.afterCouponRedemptionSubject.onNext(response.data.success)
+            default:
+                return
+            }
+        }
+    }
+    
+    /**
+     테스트용 함수.
+     
+     코드가 0000일 경우 0.3초 후에 응답값 true, 그렇지 않을 경우 응답값 false.
+     */
+    private func redeemCouponTest(code: String) {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.3) { [weak self] in
+            guard let self else { return }
+            //completion(code == "0000" ? true : false)
+            self.afterCouponRedemptionSubject.onNext(code == "0000" ? true : false)
+        }
     }
     
 }
@@ -69,21 +135,16 @@ extension CouponDetailViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc private func textFieldDidChange() {
-        let isTextFieldEmpty = couponDetailView.couponUsagePopupView.couponCodeTextField.text?.isEmpty ?? true
-        
-        if isTextFieldEmpty {
-            couponDetailView.couponUsagePopupView.okButton.changeState(forState: .isDisabled)
-        } else {
-            couponDetailView.couponUsagePopupView.okButton.changeState(forState: .isEnabled)            }
-    }
-    
     @objc private func didTapUseButton() {
+        
         let alertController = OFRAlertController(title: "쿠폰 사용", message: "코드를 입력 후 사장님에게 보여주세요", type: .textField)
-        let okAction = OFRAlertAction(title: "확인", style: .default) { action in
-            print("확인 버튼 눌림")
-            return
+        let okAction = OFRAlertAction(title: "확인", style: .default) { [weak self] action in
+            guard let self else { return }
+            
+            // 여기서 쿠폰 사용 API 호출하기
+            self.couponCodeInputSubject.onNext(alertController.textFieldToBeFirstResponder?.text ?? "")
         }
+        
         alertController.addAction(okAction)
         alertController.showsKeyboardWhenPresented = true
         alertController.configureDefaultTextField { textField in

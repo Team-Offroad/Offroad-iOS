@@ -23,7 +23,6 @@ struct AvailableCoupon: Codable {
     let couponImageUrl: String
     let description: String
     let isNewGained: Bool
-    let placeId: Int
 }
 
 struct UsedCoupon: Codable {
