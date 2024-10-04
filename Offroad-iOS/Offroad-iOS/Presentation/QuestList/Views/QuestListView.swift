@@ -113,6 +113,7 @@ extension QuestListView {
             collectionView.backgroundColor = .primary(.listBg)
             collectionView.refreshControl = UIRefreshControl()
             collectionView.refreshControl?.tintColor = .sub(.sub)
+            collectionView.indicatorStyle = .black
         }
         
         activityIndicatorView.do { indicatorView in
