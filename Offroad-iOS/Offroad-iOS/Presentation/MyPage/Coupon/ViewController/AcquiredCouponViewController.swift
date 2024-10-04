@@ -80,6 +80,8 @@ extension AcquiredCouponViewController{
     }
     
     private func fetchAcquiredCouponsData() {
+        acquiredCouponView.segmentedControl.isUserInteractionEnabled = false
+        acquiredCouponView.pageViewController.view.isUserInteractionEnabled = false
         NetworkService.shared.couponService.getAcquiredCouponList { [weak self] result in
             guard let self else { return }
             
@@ -93,6 +95,9 @@ extension AcquiredCouponViewController{
                 self.availableCoupons = response.data.availableCoupons
                 self.usedCoupons = response.data.usedCoupons
                 self.reloadCollectionViews()
+                
+                self.acquiredCouponView.segmentedControl.isUserInteractionEnabled = true
+                self.acquiredCouponView.pageViewController.view.isUserInteractionEnabled = true
             default:
                 alertController = OFRAlertController(title: "에러", message: "\(result)", type: .normal)
                 alertController.addAction(action)
@@ -110,6 +115,7 @@ extension AcquiredCouponViewController{
     }
     
     private func setPageViewControllerPage(to targetIndex: Int) {
+        acquiredCouponView.pageViewController.view.isUserInteractionEnabled = false
         guard let currentViewCotnroller = pageViewController.viewControllers?.first else {
             // viewDidLoad에서 호출될 때 (처음 한 번)
             pageViewController.setViewControllers([viewControllerList.first!], direction: .forward, animated: false)
@@ -124,7 +130,11 @@ extension AcquiredCouponViewController{
         pageViewController.setViewControllers(
             [viewControllerList[targetIndex]],
             direction: targetIndex > currentIndex ? .forward : .reverse,
-            animated: true
+            animated: true,
+            completion: { [weak self] isCompleted in
+                guard let self else { return }
+                self.acquiredCouponView.pageViewController.view.isUserInteractionEnabled = true
+            }
         )
     }
     

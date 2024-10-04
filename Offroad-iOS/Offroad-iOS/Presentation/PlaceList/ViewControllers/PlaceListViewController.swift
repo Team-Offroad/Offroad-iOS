@@ -110,6 +110,8 @@ extension PlaceListViewController {
     }
     
     private func reloadCollectionViewData(coordinate: CLLocationCoordinate2D? = nil, limit: Int, isBounded: Bool) {
+        rootView.segmentedControl.isUserInteractionEnabled = false
+        rootView.pageViewController.view.isUserInteractionEnabled = false
         guard let currentCoordinate else {
             print("현재 위치 좌표를 구할 수 없음")
             // 위치 정보 불러올 수 없을 경우 피드백 논의하기
@@ -134,6 +136,9 @@ extension PlaceListViewController {
 
                 self.rootView.allPlaceListCollectionView.reloadData()
                 self.rootView.placeNeverVisitedListCollectionView.reloadData()
+                
+                self.rootView.segmentedControl.isUserInteractionEnabled = true
+                self.rootView.pageViewController.view.isUserInteractionEnabled = true
             default:
                 return
             }
@@ -141,6 +146,7 @@ extension PlaceListViewController {
     }
     
     private func setPageViewControllerPage(to targetIndex: Int) {
+        rootView.pageViewController.view.isUserInteractionEnabled = false
         guard let currentViewCotnroller = pageViewController.viewControllers?.first else {
             // viewDidLoad에서 호출될 때 (처음 한 번)
             pageViewController.setViewControllers([viewControllerList.first!], direction: .forward, animated: false)
@@ -155,7 +161,11 @@ extension PlaceListViewController {
         pageViewController.setViewControllers(
             [viewControllerList[targetIndex]],
             direction: targetIndex > currentIndex ? .forward : .reverse,
-            animated: true
+            animated: true,
+            completion: ({ [weak self] isCompleted in
+                guard let self else { return }
+                self.rootView.pageViewController.view.isUserInteractionEnabled = true
+            })
         )
     }
     
