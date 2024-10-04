@@ -9,8 +9,9 @@ import UIKit
 
 import SnapKit
 
-protocol OFRSegmentedControlDelegate: AnyObject {
-    func segmentedControlDidSelected(segmentedControl: OFRSegmentedControl, selectedIndex: Int)
+@objc protocol OFRSegmentedControlDelegate: AnyObject {
+    @objc optional func segmentedControlDidSelect(segmentedControl: OFRSegmentedControl, selectedIndex: Int)
+    @objc optional func segmentedControlWillSelect(segmentedControl: OFRSegmentedControl, selectedIndex: Int)
 }
 
 final class OFRSegmentedControl: UIView {
@@ -69,8 +70,9 @@ extension OFRSegmentedControl {
     
     @objc private func segmentDidSelected(sender: UIButton) {
         guard sender.tag != selectedIndex else { return }
+        delegate?.segmentedControlWillSelect?(segmentedControl: self, selectedIndex: sender.tag)
         selectSegment(index: sender.tag)
-        delegate?.segmentedControlDidSelected(segmentedControl: self, selectedIndex: sender.tag)
+        delegate?.segmentedControlDidSelect?(segmentedControl: self, selectedIndex: sender.tag)
     }
     
     //MARK: - Layout Func

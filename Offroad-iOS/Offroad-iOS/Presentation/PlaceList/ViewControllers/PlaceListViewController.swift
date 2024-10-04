@@ -175,7 +175,7 @@ extension PlaceListViewController {
 
 extension PlaceListViewController: OFRSegmentedControlDelegate {
     
-    func segmentedControlDidSelected(segmentedControl: OFRSegmentedControl, selectedIndex: Int) {
+    func segmentedControlDidSelect(segmentedControl: OFRSegmentedControl, selectedIndex: Int) {
         setPageViewControllerPage(to: selectedIndex)
     }
     

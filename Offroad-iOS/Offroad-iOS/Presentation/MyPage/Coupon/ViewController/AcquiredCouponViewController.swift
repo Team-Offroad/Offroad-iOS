@@ -197,7 +197,7 @@ extension AcquiredCouponViewController: UICollectionViewDelegate {
 
 extension AcquiredCouponViewController: OFRSegmentedControlDelegate {
     
-    func segmentedControlDidSelected(segmentedControl: OFRSegmentedControl, selectedIndex: Int) {
+    func segmentedControlDidSelect(segmentedControl: OFRSegmentedControl, selectedIndex: Int) {
         setPageViewControllerPage(to: selectedIndex)
     }
     
