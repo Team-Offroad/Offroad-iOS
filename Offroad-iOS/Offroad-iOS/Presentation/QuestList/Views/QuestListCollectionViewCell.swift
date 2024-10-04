@@ -219,6 +219,9 @@ extension QuestListCollectionViewCell {
         expandedBottomConstraint.isActive = isSelected
         shrinkedBottomConstraint.isActive = !isSelected
 
+        questDescriptionLabel.isHidden = !isSelected
+        questInfoView.isHidden = !isSelected
+        
         let rotationTransform = isSelected ? CGAffineTransform(rotationAngle: .pi * 0.999) : CGAffineTransform.identity
         chevronImageView.transform = rotationTransform
         contentView.layoutIfNeeded()
