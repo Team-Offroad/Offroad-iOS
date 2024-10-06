@@ -119,6 +119,8 @@ extension QuestResultView {
         goToHomeButton.do { button in
             button.setTitle("홈으로", for: .normal)
             button.setBackgroundColor(.main(.main2), for: .normal)
+            button.configureBackgroundColorWhen(normal: .main(.main2), highlighted: .grayscale(.gray400))
+            button.configureTitleFontWhen(normal: .offroad(style: .iosBtnSmall))
             button.titleLabel?.textColor = .primary(.white)
             button.roundCorners(cornerRadius: 5)
         }
