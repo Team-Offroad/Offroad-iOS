@@ -11,18 +11,10 @@ class UsedCouponCell: UICollectionViewCell {
     
     // MARK: - UI Properties
     
-    private var imageView = UIImageView().then {
-        $0.backgroundColor = .primary(.white)
-        $0.roundCorners(cornerRadius: 10)
-        $0.contentMode = .scaleAspectFit
-        $0.clipsToBounds = true
-    }
-    
-    private let couponNameLabel = UILabel().then {
-        $0.textAlignment = .center
-        $0.textColor = UIColor.main(.main2)
-        $0.font = UIFont.offroad(style: .iosTextContentsSmall)
-    }
+    private var couponimageView = UIImageView()
+    private let couponNameLabel = UILabel()
+    private let dimmedView = UIView()
+    private let checkMark = UIImageView(image: .icnCouponListCheckmark)
     
     // MARK: - Life Cycle
     
@@ -42,8 +34,10 @@ class UsedCouponCell: UICollectionViewCell {
     
     private func setupHierarchy() {
         contentView.addSubviews(
-            imageView,
-            couponNameLabel
+            couponimageView,
+            couponNameLabel,
+            dimmedView,
+            checkMark
         )
     }
     
@@ -53,10 +47,27 @@ class UsedCouponCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor.home(.homeContents2).cgColor
         contentView.clipsToBounds = true
         contentView.backgroundColor = UIColor.main(.main1)
+        
+        couponimageView.do { imageView in
+            imageView.backgroundColor = .primary(.white)
+            imageView.roundCorners(cornerRadius: 10)
+            imageView.contentMode = .scaleAspectFit
+            imageView.clipsToBounds = true
+        }
+        
+        couponNameLabel.do { label in
+            label.textAlignment = .center
+            label.textColor = UIColor.main(.main2)
+            label.font = UIFont.offroad(style: .iosTextContentsSmall)
+        }
+        
+        dimmedView.do { view in
+            view.backgroundColor = .blackOpacity(.black25)
+        }
     }
     
     private func setupLayout() {
-        imageView.snp.makeConstraints { make in
+        couponimageView.snp.makeConstraints { make in
             // collectionView의 가로 sectionInset: 24
             // collectionView's interItemSpacing: 20
             let imageViewHorizontalInset: CGFloat = 10
@@ -66,9 +77,18 @@ class UsedCouponCell: UICollectionViewCell {
         }
         
         couponNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).offset(14)
+            make.top.equalTo(couponimageView.snp.bottom).offset(14)
             make.bottom.equalToSuperview().inset(14)
             make.horizontalEdges.equalToSuperview().inset(10)
+        }
+        
+        dimmedView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        checkMark.snp.makeConstraints { make in
+            make.center.equalTo(couponimageView)
+            make.size.equalTo(32)
         }
     }
     
