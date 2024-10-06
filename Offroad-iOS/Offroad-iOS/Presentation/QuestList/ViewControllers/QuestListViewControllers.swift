@@ -28,9 +28,7 @@ class QuestListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setNavigationController()
-        setupNavigationControllerGesture()
+        
         setupControlsTarget()
         setupCollectionView()
         setupDelegates()
@@ -64,14 +62,6 @@ extension QuestListViewController {
     }
 
     //MARK: - Private Func
-
-    private func setNavigationController() {
-        self.navigationItem.setHidesBackButton(true, animated: false)
-    }
-
-    private func setupNavigationControllerGesture() {
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
-    }
     
     private func setupControlsTarget() {
         rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
@@ -108,17 +98,6 @@ extension QuestListViewController {
                 return
             }
         }
-    }
-
-}
-
-//MARK: - UIGestureRecognizerDelegate
-
-extension QuestListViewController: UIGestureRecognizerDelegate {
-
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        // Navigation stack에서 root view controller가 아닌 경우에만 pop 제스처를 허용
-        return navigationController!.viewControllers.count > 1
     }
 
 }
