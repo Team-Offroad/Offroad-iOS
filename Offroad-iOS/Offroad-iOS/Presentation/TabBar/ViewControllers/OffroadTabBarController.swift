@@ -118,8 +118,11 @@ extension OffroadTabBarController {
     }
     
     private func setTabBarButtons() {
+        let titleAttributes: [NSAttributedString.Key : Any] = [.font: UIFont.offroad(style: .bothBottomLabel)]
+        
         tabBar.items?[0].image = UIImage.icnHome
         tabBar.items?[0].title = "Home"
+        tabBar.items?[0].setTitleTextAttributes(titleAttributes, for: .normal)
         
         tabBar.items?[1].image = nil
         tabBar.items?[1].title = nil
@@ -127,6 +130,7 @@ extension OffroadTabBarController {
         
         tabBar.items?[2].image = UIImage.icnPerson
         tabBar.items?[2].title = "My"
+        tabBar.items?[2].setTitleTextAttributes(titleAttributes, for: .normal)
     }
     
     private func setupButtonsAction() {
