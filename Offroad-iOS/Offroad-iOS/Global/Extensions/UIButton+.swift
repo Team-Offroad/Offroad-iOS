@@ -61,7 +61,7 @@ extension UIButton {
             case .disabled:
                 return disabled ?? .gray
             default:
-                return self.backgroundColor!
+                return normal
             }
         }
         newConfiguration.background.backgroundColorTransformer = transformer
