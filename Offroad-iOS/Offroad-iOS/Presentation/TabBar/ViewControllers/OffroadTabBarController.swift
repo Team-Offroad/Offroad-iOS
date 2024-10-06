@@ -162,9 +162,9 @@ extension OffroadTabBarController {
     // MARK: - Func
     
     func hideTabBarAnimation(delayFactor: CGFloat = 0) {
+        showTabBarAnimator.stopAnimation(true)
         hideTabBarAnimator.addAnimations({ [weak self] in
-            self?.showTabBarAnimator.stopAnimation(true)
-            self?.tabBar.frame.origin.y = UIScreen.current.bounds.height + 30
+            self?.tabBar.frame.origin.y = UIScreen.current.bounds.height + 50
         }, delayFactor: delayFactor)
         hideTabBarAnimator.addCompletion { _ in
             self.tabBar.isHidden = true
@@ -177,9 +177,9 @@ extension OffroadTabBarController {
             tabBar.frame.origin.y = UIScreen.current.bounds.height + 30
             tabBar.isHidden = false
         }
+        self.hideTabBarAnimator.stopAnimation(true)
         showTabBarAnimator.addAnimations({ [weak self] in
             guard let self else { return }
-            self.hideTabBarAnimator.stopAnimation(true)
             self.tabBar.frame.origin.y = UIScreen.current.bounds.height - self.tabBarHeight
         }, delayFactor: delayFactor)
         showTabBarAnimator.startAnimation()
