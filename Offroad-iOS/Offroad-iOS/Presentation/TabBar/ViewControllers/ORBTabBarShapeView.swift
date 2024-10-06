@@ -23,6 +23,16 @@ final class ORBTabBarShapeView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
+        drawORBTabBarShape()
+    }
+    
+}
+
+extension ORBTabBarShapeView {
+    
+    //MARK: - Private Func
+    
+    private func drawORBTabBarShape() {
         let path = UIBezierPath()
         path.move(to: .zero)
         path.addLine(to: .init(x: center.x - 55.4, y: 0))
@@ -50,12 +60,10 @@ final class ORBTabBarShapeView: UIView {
         path.addLine(to: .init(x: bounds.width, y: 0))
         path.addLine(to: .init(x: bounds.width, y: bounds.height))
         path.addLine(to: .init(x: 0, y: bounds.height))
-//        path.addLine(to: .zero) // 없어도 될 듯?
         path.close()
         
         UIColor.sub(.sub4).setFill()
         path.fill()
-        
     }
     
 }
