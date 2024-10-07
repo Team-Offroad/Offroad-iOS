@@ -63,6 +63,9 @@
 		4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */; };
 		4E59A11C2C4228C500B548C6 /* AVCameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */; };
 		4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4E6A5BC22C2E8C290027FDF0 /* Then */; };
+		4E700C832CB3C9C900C664C2 /* ORBToastController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E700C822CB3C9C900C664C2 /* ORBToastController.swift */; };
+		4E700C852CB3CA1E00C664C2 /* ORBOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */; };
+		4E700C872CB3DE4A00C664C2 /* ORBToastBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E700C862CB3DE4A00C664C2 /* ORBToastBackgroundView.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4EA90AC62C4521C50046A6E1 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */; };
 		4EB32BE72C67A2B0003F98F2 /* QuestListViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */; };
@@ -302,6 +305,9 @@
 		4E58FC012C7DFE87002A951B /* QuestListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListService.swift; sourceTree = "<group>"; };
 		4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListResponseDTO.swift; sourceTree = "<group>"; };
 		4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCameraPreview.swift; sourceTree = "<group>"; };
+		4E700C822CB3C9C900C664C2 /* ORBToastController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastController.swift; sourceTree = "<group>"; };
+		4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBOverlayViewController.swift; sourceTree = "<group>"; };
+		4E700C862CB3DE4A00C664C2 /* ORBToastBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastBackgroundView.swift; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListViewControllers.swift; sourceTree = "<group>"; };
@@ -1088,6 +1094,28 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
+		4E700C802CB3C95E00C664C2 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				4EFCDFDC2C92BB27006DEBB6 /* OFRAlertController.swift */,
+				4E56F54B2C995BA800EEE677 /* OFRAlertViewModel.swift */,
+				4EFCDFDE2C92BD8A006DEBB6 /* OFRAlertBackgroundView.swift */,
+				4EFCDFE02C92BD93006DEBB6 /* OFRAlertView.swift */,
+				4EFCDFE22C92C1F1006DEBB6 /* OFRAlertButton.swift */,
+				4E38F0EE2C9EBAFA00C7B866 /* OFRAlertAction.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		4E700C812CB3C99900C664C2 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				4E700C822CB3C9C900C664C2 /* ORBToastController.swift */,
+				4E700C862CB3DE4A00C664C2 /* ORBToastBackgroundView.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 		4EA90AC42C4521AF0046A6E1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1199,19 +1227,16 @@
 			path = UIComponents;
 			sourceTree = "<group>";
 		};
-		4EFCDFDB2C92B647006DEBB6 /* PopupController */ = {
+		4EFCDFDB2C92B647006DEBB6 /* Overlay */ = {
 			isa = PBXGroup;
 			children = (
-				4EFCDFDC2C92BB27006DEBB6 /* OFRAlertController.swift */,
-				4E56F54B2C995BA800EEE677 /* OFRAlertViewModel.swift */,
-				4EFCDFDE2C92BD8A006DEBB6 /* OFRAlertBackgroundView.swift */,
-				4EFCDFE02C92BD93006DEBB6 /* OFRAlertView.swift */,
-				4EFCDFE22C92C1F1006DEBB6 /* OFRAlertButton.swift */,
+				4E700C812CB3C99900C664C2 /* Toast */,
+				4E700C802CB3C95E00C664C2 /* Alert */,
 				4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */,
 				4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */,
-				4E38F0EE2C9EBAFA00C7B866 /* OFRAlertAction.swift */,
+				4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */,
 			);
-			path = PopupController;
+			path = Overlay;
 			sourceTree = "<group>";
 		};
 		80700C167D3310A86AF0ADA5 /* Pods */ = {
@@ -1582,7 +1607,7 @@
 		D018BB0C2C401F5F0048B6DF /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				4EFCDFDB2C92B647006DEBB6 /* PopupController */,
+				4EFCDFDB2C92B647006DEBB6 /* Overlay */,
 				4E38B7D82C6471EC0011D997 /* SegmentedControl */,
 				D00A488A2C78306C008B286A /* CustomView */,
 				D018BB0D2C401F700048B6DF /* CustomButton */,
@@ -2315,6 +2340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E09BF572C48A5B7009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */,
+				4E700C852CB3CA1E00C664C2 /* ORBOverlayViewController.swift in Sources */,
 				D06466942C86F68E00CF10FD /* LogoutViewController.swift in Sources */,
 				4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */,
 				4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */,
@@ -2437,6 +2463,7 @@
 				87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */,
 				D063E9922C57FE7400434A09 /* KeychainManager.swift in Sources */,
 				D004F85A2CA12B2200D5A2CD /* NoticeService.swift in Sources */,
+				4E700C832CB3C9C900C664C2 /* ORBToastController.swift in Sources */,
 				D00A485B2C628054008B286A /* MyPageMenuCollectionViewCell.swift in Sources */,
 				D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */,
 				872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */,
@@ -2456,6 +2483,7 @@
 				4E0C69692C4724A100B6453E /* OffroadNMFMarker.swift in Sources */,
 				D06D26CD2C3E6EA200E79F25 /* CustomRecentProgressView.swift in Sources */,
 				D064669A2C86FCDB00CF10FD /* DeleteAccountViewController.swift in Sources */,
+				4E700C872CB3DE4A00C664C2 /* ORBToastBackgroundView.swift in Sources */,
 				D06466902C83A18400CF10FD /* TermsConsentPopupViewController.swift in Sources */,
 				D0B81AA02C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift in Sources */,
 				D004F8562CA12A7A00D5A2CD /* NoticeResponseDTO.swift in Sources */,
