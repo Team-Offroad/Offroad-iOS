@@ -14,12 +14,14 @@ class OffroadTabBarController: UITabBarController {
     let centerTabBarItemSideLength: CGFloat = 85
     let tabBarItemWidth: CGFloat = 77
     var originalTabBarHeight: CGFloat = 0
+    private let tabBarHeight: CGFloat = 92
     private var hideTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     private var showTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     
     //MARK: - UI Properties
     
     let customOffroadLogoButton = UIButton()
+    let customTabBar = ORBTabBarShapeView()
     
     // MARK: - Life Cycle
     
@@ -52,7 +54,7 @@ class OffroadTabBarController: UITabBarController {
         
         originalTabBarHeight = tabBar.frame.height
         
-        let tabBarHeightFromBottomEdge: CGFloat = 96
+        let tabBarHeightFromBottomEdge: CGFloat = tabBarHeight
         var newFrame = tabBar.frame
         newFrame.size.height = tabBarHeightFromBottomEdge
         newFrame.origin.y = view.frame.size.height - tabBarHeightFromBottomEdge
@@ -70,24 +72,33 @@ extension OffroadTabBarController {
     // MARK: - Layout
     
     private func setupHierarchy() {
+        tabBar.addSubview(customTabBar)
         tabBar.addSubview(customOffroadLogoButton)
     }
     
     private func setupLayout() {
         customOffroadLogoButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(36)
-            make.width.height.equalTo(85)
+            // 28: 오브 로고 버튼과 탭바의 세로 영역이 겹치는 부분의 높이
+            make.bottom.equalToSuperview().inset(tabBarHeight - 28)
+            make.width.height.equalTo(74)
+        }
+        
+        customTabBar.snp.makeConstraints { make in
+            make.horizontalEdges.bottom.equalToSuperview()
+            make.height.equalTo(tabBarHeight)
         }
     }
     
     private func setupStyle() {
+        customTabBar.roundCorners(
+            cornerRadius: 25,
+            maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        )
+        
         customOffroadLogoButton.do { button in
             button.setImage(.icnTabBarOffroadLogo, for: .normal)
         }
-        
-        tabBar.clipsToBounds = false
-        tabBar.backgroundColor = .sub(.sub4)
         
         tabBar.tintColor = .main(.main1)
         tabBar.unselectedItemTintColor = .main(.main175)
@@ -107,8 +118,11 @@ extension OffroadTabBarController {
     }
     
     private func setTabBarButtons() {
+        let titleAttributes: [NSAttributedString.Key : Any] = [.font: UIFont.offroad(style: .bothBottomLabel)]
+        
         tabBar.items?[0].image = UIImage.icnHome
         tabBar.items?[0].title = "Home"
+        tabBar.items?[0].setTitleTextAttributes(titleAttributes, for: .normal)
         
         tabBar.items?[1].image = nil
         tabBar.items?[1].title = nil
@@ -116,6 +130,7 @@ extension OffroadTabBarController {
         
         tabBar.items?[2].image = UIImage.icnPerson
         tabBar.items?[2].title = "My"
+        tabBar.items?[2].setTitleTextAttributes(titleAttributes, for: .normal)
     }
     
     private func setupButtonsAction() {
@@ -138,6 +153,7 @@ extension OffroadTabBarController {
     
     private func enableTabBarInteraction() {
         tabBar.items?.forEach({ item in
+            guard item != tabBar.items?[1] else { return }
             item.isEnabled = true
         })
         customOffroadLogoButton.isUserInteractionEnabled = true
@@ -146,9 +162,9 @@ extension OffroadTabBarController {
     // MARK: - Func
     
     func hideTabBarAnimation(delayFactor: CGFloat = 0) {
+        showTabBarAnimator.stopAnimation(true)
         hideTabBarAnimator.addAnimations({ [weak self] in
-            self?.showTabBarAnimator.stopAnimation(true)
-            self?.tabBar.frame.origin.y = UIScreen.current.bounds.height + 30
+            self?.tabBar.frame.origin.y = UIScreen.current.bounds.height + 50
         }, delayFactor: delayFactor)
         hideTabBarAnimator.addCompletion { _ in
             self.tabBar.isHidden = true
@@ -161,9 +177,10 @@ extension OffroadTabBarController {
             tabBar.frame.origin.y = UIScreen.current.bounds.height + 30
             tabBar.isHidden = false
         }
+        self.hideTabBarAnimator.stopAnimation(true)
         showTabBarAnimator.addAnimations({ [weak self] in
-            self?.hideTabBarAnimator.stopAnimation(true)
-            self?.tabBar.frame.origin.y = UIScreen.current.bounds.height - 96
+            guard let self else { return }
+            self.tabBar.frame.origin.y = UIScreen.current.bounds.height - self.tabBarHeight
         }, delayFactor: delayFactor)
         showTabBarAnimator.startAnimation()
     }
