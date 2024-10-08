@@ -22,11 +22,8 @@ extension UIScreen {
     /// screen의 긴 변의 길이가 짧은 변의 길이의 두 배가 넘는 지의 여부를 계산하는 변수.
     /// 사용 중인 기기가 홈 버튼이 있는 기종인지 여부를 판단하기 위해 사용할 수 있음.
     var isAspectRatioTall: Bool {
-        let isVerticalDirection: Bool = bounds.size.height > bounds.size.width
-        let longSideLength: CGFloat = isVerticalDirection ? bounds.size.height : bounds.size.width
-        let shortSideLength: CGFloat = isVerticalDirection ? bounds.size.width : bounds.size.height
-        
-        return longSideLength >= (shortSideLength * 2)
+        let (width, height) = (bounds.size.width, bounds.size.height)
+        return max(width, height) >= min(width, height) * 2
     }
     
 }
