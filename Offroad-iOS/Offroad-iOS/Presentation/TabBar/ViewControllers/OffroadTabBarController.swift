@@ -14,7 +14,7 @@ class OffroadTabBarController: UITabBarController {
     let centerTabBarItemSideLength: CGFloat = 85
     let tabBarItemWidth: CGFloat = 77
     var originalTabBarHeight: CGFloat = 0
-    private let tabBarHeight: CGFloat = 92
+    var tabBarHeight: CGFloat = UIScreen.current.isAspectRatioTall ? 92 : 60
     private var hideTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     private var showTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     
