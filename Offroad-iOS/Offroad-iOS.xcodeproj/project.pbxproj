@@ -2690,6 +2690,10 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Offroad-iOS/Global/Resources/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "식당과 카페를 탐험하려면 QR 코드 인증이 필요해요.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -2726,6 +2730,10 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Offroad-iOS/Global/Resources/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "식당과 카페를 탐험하려면 QR 코드 인증이 필요해요.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
