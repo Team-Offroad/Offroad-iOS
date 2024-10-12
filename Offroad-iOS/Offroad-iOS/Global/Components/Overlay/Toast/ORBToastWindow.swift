@@ -24,17 +24,13 @@ final class ORBToastWindow: ORBOverlayWindow {
     
     //MARK: Life Cycle
     
-    override init(windowScene: UIWindowScene) {
-        super.init(windowScene: windowScene)
-        
-        setupHierarchy()
-        setupLayout()
-        setupStyle()
-        setupAnimator()
+    convenience init(message: String) {
+        self.init(windowScene: UIWindowScene.current)
+        self.messageLabel.text = message != "" ? message : "빈 토스트 메시지"
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(windowScene: UIWindowScene) {
+        super.init(windowScene: windowScene)
         
         setupHierarchy()
         setupLayout()
@@ -79,8 +75,6 @@ extension ORBToastWindow {
     
     private func setupStyle() {
         windowLevel = UIWindow.Level.alert + 1
-        backgroundColor = .blue.withAlphaComponent(0.3)
-        
         toastView.backgroundColor = .orange
         
         messageLabel.do { label in
