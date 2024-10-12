@@ -15,7 +15,7 @@ final class ORBToastManager {
     
     //MARK: - Properties
     
-    var toastWindow: ORBToastWindow? = nil
+    private var toastWindow: ORBToastWindow? = nil
     
     //MARK: - Life Cycle
     
@@ -28,6 +28,10 @@ final class ORBToastManager {
             toastWindow = nil
         })
         toastWindow?.showToast()
+    }
+    
+    func hideToast() {
+        toastWindow?.hideToast()
     }
     
 }

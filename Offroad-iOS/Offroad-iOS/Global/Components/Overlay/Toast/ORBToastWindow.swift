@@ -11,8 +11,8 @@ final class ORBToastWindow: ORBOverlayWindow {
     
     //MARK: - Properties
     
-    private let showAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    let hideAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    private let showAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
+    let hideAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     
     private lazy var toastViewTopConstraint = toastView.topAnchor.constraint(equalTo: self.topAnchor, constant: 100)
     private lazy var toastViewBottomConstraint = toastView.bottomAnchor.constraint(equalTo: self.topAnchor)
@@ -75,11 +75,15 @@ extension ORBToastWindow {
     
     private func setupStyle() {
         windowLevel = UIWindow.Level.alert + 1
-        toastView.backgroundColor = .orange
+        
+        toastView.do({ view in
+            view.backgroundColor = .blackOpacity(.black55)
+            view.roundCorners(cornerRadius: 10)
+        })
         
         messageLabel.do { label in
             label.font = .offroad(style: .iosTextAuto)
-            label.textColor = .primary(.black)
+            label.textColor = .primary(.white)
             label.numberOfLines = 0
             label.text = "이것은 테스트 토스트 메시지입니다. 토스트테스트중"
         }
@@ -122,6 +126,7 @@ extension ORBToastWindow {
     }
     
     func hideToast() {
+        showAnimator.stopAnimation(true)
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.hideAnimator.startAnimation()
