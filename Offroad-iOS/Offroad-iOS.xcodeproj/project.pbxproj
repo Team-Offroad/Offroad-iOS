@@ -56,6 +56,7 @@
 		4E46E5F72CB997B4000A1EEE /* ORBToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5F62CB997B4000A1EEE /* ORBToastManager.swift */; };
 		4E46E5F92CB99944000A1EEE /* ORBToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5F82CB99944000A1EEE /* ORBToastWindow.swift */; };
 		4E46E5FB2CBA3F55000A1EEE /* UIWindowScene+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */; };
+		4E46E5FD2CBA483D000A1EEE /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */; };
 		4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4A8FD62C4A5752001FB498 /* UIImage+.swift */; };
 		4E56F53D2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */; };
 		4E56F53F2C987C5500EEE677 /* ZeroDurationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */; };
@@ -305,6 +306,7 @@
 		4E46E5F62CB997B4000A1EEE /* ORBToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastManager.swift; sourceTree = "<group>"; };
 		4E46E5F82CB99944000A1EEE /* ORBToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastWindow.swift; sourceTree = "<group>"; };
 		4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindowScene+.swift"; sourceTree = "<group>"; };
+		4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		4E4A8FD62C4A5752001FB498 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationTransitionDelegate.swift; sourceTree = "<group>"; };
 		4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationAnimator.swift; sourceTree = "<group>"; };
@@ -609,6 +611,7 @@
 				4E0394E22C2AC0D7007F0517 /* UIWindow+.swift */,
 				4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */,
 				4E0394E52C2AC16A007F0517 /* UIScreen+.swift */,
+				4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */,
 				4E1E94122C398C4200A7B08A /* String+.swift */,
 				D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */,
 				8792D0182C3E5E40002051AC /* UIButton+.swift */,
@@ -2393,6 +2396,7 @@
 				4E56F54C2C995BA800EEE677 /* OFRAlertViewModel.swift in Sources */,
 				D0E796632C4553F0005B47A5 /* RefreshTokenResponseDTO.swift in Sources */,
 				D00A48622C633947008B286A /* SettingView.swift in Sources */,
+				4E46E5FD2CBA483D000A1EEE /* UIViewController+.swift in Sources */,
 				D064669C2C86FCE800CF10FD /* DeleteAccountView.swift in Sources */,
 				D0E7960A2C4522CF005B47A5 /* NetworkService.swift in Sources */,
 				D00A48772C634530008B286A /* SettingBaseView.swift in Sources */,
