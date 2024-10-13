@@ -11,29 +11,16 @@ final class CharacterDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    weak var delegate: SelectMainCharacterDelegate?
-    
     private let characterId: Int
-    
-    private let characterDetailView = CharacterDetailView()
+    private let representativeCharacterId: Int
+    private let rootView = CharacterDetailView()
     
     private var characterMainColorCode: String?
     private var characterSubColorCode: String?
     
-    private var combinedCharacterMotionList: [(isGained: Bool, character: Any)] = [] //{
-//        didSet {
-//            DispatchQueue.main.async {
-//                self.characterDetailView.collectionView.reloadData()
-//            }
-//        }
-//    }
+    private var combinedCharacterMotionList: [(isGained: Bool, character: Any)] = []
     
-    var combinedCharacterMotionDict: [ORBCharacter: Bool] = [:]
-    
-    private let representativeCharacterId: Int
-    //    private var gainedCharacterMotionList: [ORBCharacterMotion]?
-    //    private var notGainedCharacterMotionList: [ORBCharacterMotion]?
-    private var characterInfoModelList: [ORBCharacter]?
+    weak var delegate: SelectMainCharacterDelegate?
     
     // MARK: - Life Cycle
     
@@ -49,17 +36,17 @@ final class CharacterDetailViewController: UIViewController {
     }
     
     override func loadView() {
-        self.view = characterDetailView
+        self.view = rootView
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if characterId == representativeCharacterId {
-            characterDetailView.selectButton.isEnabled = false
-            characterDetailView.selectButton.setTitle("이미 선택된 캐릭터예요", for: .normal)
-            characterDetailView.selectButton.backgroundColor = UIColor.blackOpacity(.black25)
-            characterDetailView.mainCharacterBadgeView.isHidden = false
+            rootView.selectButton.isEnabled = false
+            rootView.crownBadgeImageView.isHidden = false
+//            rootView.selectButton.setTitle("이미 선택된 캐릭터예요", for: .normal)
+//            rootView.selectButton.backgroundColor = UIColor.blackOpacity(.black25)
         }
     }
     
@@ -79,35 +66,32 @@ extension CharacterDetailViewController {
     // MARK: - Private Func
     
     private func setupTarget() {
-        characterDetailView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        characterDetailView.selectButton.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
+        rootView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        rootView.selectButton.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
     }
     
     private func setupDelegate() {
-        characterDetailView.collectionView.delegate = self
-        characterDetailView.collectionView.dataSource = self
+        rootView.collectionView.delegate = self
+        rootView.collectionView.dataSource = self
     }
     
     private func getCharacterDetailInfo() {
         NetworkService.shared.characterDetailService.getAcquiredCharacterInfo(characterId: characterId) { response in
             switch response {
             case .success(let characterDetailResponse):
-                guard let characterData = characterDetailResponse?.data else { return }
+                guard let characterDetailInfo = characterDetailResponse?.data else { return }
                 
-                self.characterMainColorCode = characterData.characterMainColorCode
-                self.characterSubColorCode = characterData.characterSubColorCode
-                self.view.backgroundColor = UIColor(hex: characterData.characterSubColorCode)
-                self.characterDetailView.characterImage.fetchSvgURLToImageView(svgUrlString: characterData.characterBaseImageUrl)
-                self.characterDetailView.characterLogoImage.fetchSvgURLToImageView(svgUrlString: characterData.characterIconImageUrl)
-                self.characterDetailView.nameLabel.text = characterData.characterName
-                self.characterDetailView.titleLabel.text = characterData.characterSummaryDescription
-                self.characterDetailView.detailLabel.text = characterData.characterDescription
-                self.characterDetailView.detailLabel.setLineSpacing(spacing: 5)
-                self.characterDetailView.mainCharacterToastMessageView.setMessage(characterName: characterData.characterName)
+                self.characterMainColorCode = characterDetailInfo.characterMainColorCode
+                self.characterSubColorCode = characterDetailInfo.characterSubColorCode
+                self.view.backgroundColor = UIColor(hex: characterDetailInfo.characterSubColorCode)
+                self.rootView.characterImage.fetchSvgURLToImageView(svgUrlString: characterDetailInfo.characterBaseImageUrl)
+                self.rootView.characterLogoImage.fetchSvgURLToImageView(svgUrlString: characterDetailInfo.characterIconImageUrl)
+                self.rootView.nameLabel.text = characterDetailInfo.characterName
+                self.rootView.titleLabel.text = characterDetailInfo.characterSummaryDescription
+                self.rootView.detailLabel.text = characterDetailInfo.characterDescription
+                self.rootView.detailLabel.setLineSpacing(spacing: 5)
+                self.rootView.mainCharacterToastMessageView.setMessage(characterName: characterDetailInfo.characterName)
                 
-                DispatchQueue.main.async {
-                    self.characterDetailView.collectionView.reloadData()
-                }
             default:
                 break
             }
@@ -115,31 +99,18 @@ extension CharacterDetailViewController {
     }
     
     private func characterMotionInfo() {
-        NetworkService.shared.characterMotionService.getCharacterMotionList(characterId: characterId) { response in
+        NetworkService.shared.characterMotionService.getCharacterMotionList(characterId: characterId) { [weak self] response in
+            guard let self else { return }
             switch response {
             case .success(let result):
                 guard let result else { return }
-//                guard let motionData = result.data else { return }
-//                print("Character Motion: \(motionData)")
-//                self.gainedCharacterMotionList = data?.data.gainedCharacterMotions
-//                self.notGainedCharacterMotionList = data?.data.notGainedCharacterMotions
-                
-//                self.combinedCharacterMotionList = []
-//                self.gainedCharacterMotionList?.forEach { gainedCharacterMotion in
-//                    self.combinedCharacterMotionList.append((isGained: true, character: gainedCharacterMotion))
-//                }
-//                self.notGainedCharacterMotionList?.forEach { notGainedCharacterMotion in
-//                    self.combinedCharacterMotionList.append((isGained: false, character: notGainedCharacterMotion))
-//                }
-                
                 self.combinedCharacterMotionList.append(
                     contentsOf: result.data.gainedCharacterMotions.map { (isGained: true, character: $0) }
                 )
                 self.combinedCharacterMotionList.append(
                     contentsOf: result.data.notGainedCharacterMotions.map { (isGained: false, character: $0) }
                 )
-                
-                self.characterDetailView.collectionView.reloadData()
+                self.rootView.collectionView.reloadData()
                 
             default:
                 break
@@ -148,10 +119,15 @@ extension CharacterDetailViewController {
     }
     
     private func postCharacterID() {
-        NetworkService.shared.characterService.postChoosingCharacter(parameter: characterId) { response in
+        NetworkService.shared.characterService.postChoosingCharacter(parameter: characterId) { [weak self] response in
+            guard let self else { return }
             switch response {
             case .success(let response):
                 print("=======대표 캐릭터 설정: " + "\(response?.data.characterImageUrl)========")
+                self.rootView.crownBadgeImageView.isHidden = false
+                self.rootView.selectButton.isEnabled = false
+                self.rootView.showToastMessage()
+                self.delegate?.didSelectMainCharacter(characterId: self.characterId)
             default:
                 break
             }
@@ -166,15 +142,15 @@ extension CharacterDetailViewController {
     
     @objc private func selectButtonTapped() {
         // 토스트 메세지가 떠 있는 동안엔 버튼 비활성화
-        characterDetailView.selectButton.isEnabled = false
-        characterDetailView.showToastMessage { [weak self] in
-            self?.characterDetailView.selectButton.setTitle("이미 선택된 캐릭터예요", for: .normal)
-            self?.characterDetailView.selectButton.backgroundColor = UIColor.blackOpacity(.black25)
-            self?.characterDetailView.mainCharacterBadgeView.isHidden = false
-        }
+//        rootView.selectButton.isEnabled = false
+//        rootView.showToastMessage { [weak self] in
+//            self?.rootView.selectButton.setTitle("이미 선택된 캐릭터예요", for: .normal)
+//            self?.rootView.selectButton.backgroundColor = UIColor.blackOpacity(.black25)
+//            self?.rootView.crownBadgeImageView.isHidden = false
+//        }
         postCharacterID()
         //CharacterListViewController에 대표 캐릭터 Id 전달
-        delegate?.didSelectMainCharacter(characterId: characterId)
+//        delegate?.didSelectMainCharacter(characterId: characterId)
     }
 }
 
@@ -204,7 +180,7 @@ extension CharacterDetailViewController: UICollectionViewDataSource {
         }
         
         DispatchQueue.main.async {
-            self.characterDetailView.updateCollectionViewHeight()
+            self.rootView.updateCollectionViewHeight()
         }
         
         return cell

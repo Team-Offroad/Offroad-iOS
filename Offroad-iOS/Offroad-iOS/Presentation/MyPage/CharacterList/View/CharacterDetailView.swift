@@ -87,7 +87,7 @@ class CharacterDetailView: UIView {
         $0.font = UIFont.offroad(style: .iosTextContentsSmall)
     }
     
-    let mainCharacterBadgeView = UIImageView().then {
+    let crownBadgeImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
         $0.image = UIImage(resource: .imgCrownTag)
         $0.isHidden = true
@@ -100,13 +100,15 @@ class CharacterDetailView: UIView {
         $0.font = UIFont.offroad(style: .iosBoxMedi)
     }
     
-    let selectButton = UIButton().then {
-        $0.setTitle("대표 캐릭터로 선택하기", for: .normal)
-        $0.backgroundColor = UIColor.home(.homeBg)
-        $0.setTitleColor(UIColor.main(.main1), for: .normal)
-        $0.titleLabel?.font = UIFont.offroad(style: .iosTextContents)
-        $0.roundCorners(cornerRadius: 20)
-    }
+//    let selectButton = UIButton().then {
+//        $0.setTitle("대표 캐릭터로 선택하기", for: .normal)
+//        $0.backgroundColor = UIColor.home(.homeBg)
+//        $0.setTitleColor(UIColor.main(.main1), for: .normal)
+//        $0.titleLabel?.font = UIFont.offroad(style: .iosTextContents)
+//        $0.roundCorners(cornerRadius: 20)
+//    }
+    
+    let selectButton = UIButton()
     
     private let characterMotionView = UIView().then {
         $0.backgroundColor = UIColor.main(.main1)
@@ -195,7 +197,7 @@ extension CharacterDetailView {
             make.width.equalTo(35)
         }
         
-        mainCharacterBadgeView.snp.makeConstraints { make in
+        crownBadgeImageView.snp.makeConstraints { make in
             make.leading.equalTo(nameLabel.snp.trailing).offset(6)
             make.centerY.equalTo(nameLabel)
             make.size.equalTo(21)
@@ -258,6 +260,16 @@ extension CharacterDetailView {
     
     private func setupStyle() {
         backgroundColor = UIColor.primary(.listBg)
+        
+        selectButton.do { button in
+            button.configureBackgroundColorWhen(normal: .home(.homeBg), highlighted: .blackOpacity(.black55), disabled: .blackOpacity(.black25))
+            button.configureTitleFontWhen(normal: .offroad(style: .iosTextContents))
+            button.setTitleColor(.primary(.white), for: .normal)
+            button.setTitleColor(.primary(.white), for: .disabled)
+            button.setTitle("대표 캐릭터로 선택하기", for: .normal)
+            button.setTitle("이미 선택된 캐릭터에요", for: .disabled)
+        }
+        
     }
     
     private func setupHierarchy() {
@@ -278,7 +290,7 @@ extension CharacterDetailView {
         )
         labelView.addSubviews(
             nameLabel,
-            mainCharacterBadgeView,
+            crownBadgeImageView,
             titleLabel,
             characterLogoImage
         )
