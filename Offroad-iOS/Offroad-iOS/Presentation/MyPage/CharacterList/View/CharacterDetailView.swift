@@ -143,41 +143,11 @@ class CharacterDetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Private Functions
+}
+
+extension CharacterDetailView {
     
-    private func setupStyle() {
-        backgroundColor = UIColor.primary(.listBg)
-    }
-    
-    private func setupHierarchy() {
-        addSubviews(
-            scrollView,
-            customBackButton,
-            mainCharacterToastMessageView
-        )
-        scrollView.addSubview(contentView)
-        
-        contentView.addSubviews(
-            characterImage,
-            labelView,
-            dottedLineView,
-            detailLabelView,
-            selectButton,
-            characterMotionView
-        )
-        labelView.addSubviews(
-            nameLabel,
-            mainCharacterBadgeView,
-            titleLabel,
-            characterLogoImage
-        )
-        detailLabelView.addSubview(detailLabel)
-        characterMotionView.addSubviews(
-            mainLabel,
-            babyImage,
-            collectionView
-        )
-    }
+    //MARK: - Layout Func
     
     private func setupLayout() {
         mainCharacterToastMessageView.snp.makeConstraints {
@@ -282,6 +252,42 @@ class CharacterDetailView: UIView {
             collectionViewHeightConstraint = make.height.equalTo(800).constraint // 초기 높이
             make.bottom.equalToSuperview().inset(78)
         }
+    }
+    
+    // MARK: - Private Func
+    
+    private func setupStyle() {
+        backgroundColor = UIColor.primary(.listBg)
+    }
+    
+    private func setupHierarchy() {
+        addSubviews(
+            scrollView,
+            customBackButton,
+            mainCharacterToastMessageView
+        )
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubviews(
+            characterImage,
+            labelView,
+            dottedLineView,
+            detailLabelView,
+            selectButton,
+            characterMotionView
+        )
+        labelView.addSubviews(
+            nameLabel,
+            mainCharacterBadgeView,
+            titleLabel,
+            characterLogoImage
+        )
+        detailLabelView.addSubview(detailLabel)
+        characterMotionView.addSubviews(
+            mainLabel,
+            babyImage,
+            collectionView
+        )
     }
     
     func showToastMessage(duration: TimeInterval = 2.0, completion: (() -> Void)? = nil) {

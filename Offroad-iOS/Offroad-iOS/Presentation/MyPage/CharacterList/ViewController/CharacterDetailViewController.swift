@@ -20,18 +20,20 @@ final class CharacterDetailViewController: UIViewController {
     private var characterMainColorCode: String?
     private var characterSubColorCode: String?
     
-    private var combinedCharacterMotionList: [(isGained: Bool, character: Any)] = [] {
-        didSet {
-            DispatchQueue.main.async {
-                self.characterDetailView.collectionView.reloadData()
-            }
-        }
-    }
+    private var combinedCharacterMotionList: [(isGained: Bool, character: Any)] = [] //{
+//        didSet {
+//            DispatchQueue.main.async {
+//                self.characterDetailView.collectionView.reloadData()
+//            }
+//        }
+//    }
+    
+    var combinedCharacterMotionDict: [ORBCharacter: Bool] = [:]
     
     private let representativeCharacterId: Int
-    private var gainedCharacterMotionList: [CharacterMotionList]?
-    private var notGainedCharacterMotionList: [CharacterMotionList]?
-    private var characterInfoModelList: [CharacterList]?
+    //    private var gainedCharacterMotionList: [ORBCharacterMotion]?
+    //    private var notGainedCharacterMotionList: [ORBCharacterMotion]?
+    private var characterInfoModelList: [ORBCharacter]?
     
     // MARK: - Life Cycle
     
@@ -70,6 +72,10 @@ final class CharacterDetailViewController: UIViewController {
         getCharacterDetailInfo()
     }
     
+}
+
+extension CharacterDetailViewController {
+    
     // MARK: - Private Func
     
     private func setupTarget() {
@@ -82,7 +88,7 @@ final class CharacterDetailViewController: UIViewController {
         characterDetailView.collectionView.dataSource = self
     }
     
-    func getCharacterDetailInfo() {
+    private func getCharacterDetailInfo() {
         NetworkService.shared.characterDetailService.getAcquiredCharacterInfo(characterId: characterId) { response in
             switch response {
             case .success(let characterDetailResponse):
@@ -108,26 +114,33 @@ final class CharacterDetailViewController: UIViewController {
         }
     }
     
-    func characterMotionInfo() {
+    private func characterMotionInfo() {
         NetworkService.shared.characterMotionService.getCharacterMotionList(characterId: characterId) { response in
             switch response {
-            case .success(let data):
-                guard let motionData = data?.data else { return }
-                print("Character Motion: \(motionData)")
-                self.gainedCharacterMotionList = data?.data.gainedCharacterMotions
-                self.notGainedCharacterMotionList = data?.data.notGainedCharacterMotions
+            case .success(let result):
+                guard let result else { return }
+//                guard let motionData = result.data else { return }
+//                print("Character Motion: \(motionData)")
+//                self.gainedCharacterMotionList = data?.data.gainedCharacterMotions
+//                self.notGainedCharacterMotionList = data?.data.notGainedCharacterMotions
                 
-                self.combinedCharacterMotionList = []
-                self.gainedCharacterMotionList?.forEach { gainedCharacterMotion in
-                    self.combinedCharacterMotionList.append((isGained: true, character: gainedCharacterMotion))
-                }
-                self.notGainedCharacterMotionList?.forEach { notGainedCharacterMotion in
-                    self.combinedCharacterMotionList.append((isGained: false, character: notGainedCharacterMotion))
-                }
+//                self.combinedCharacterMotionList = []
+//                self.gainedCharacterMotionList?.forEach { gainedCharacterMotion in
+//                    self.combinedCharacterMotionList.append((isGained: true, character: gainedCharacterMotion))
+//                }
+//                self.notGainedCharacterMotionList?.forEach { notGainedCharacterMotion in
+//                    self.combinedCharacterMotionList.append((isGained: false, character: notGainedCharacterMotion))
+//                }
                 
-                DispatchQueue.main.async {
-                    self.characterDetailView.collectionView.reloadData()
-                }
+                self.combinedCharacterMotionList.append(
+                    contentsOf: result.data.gainedCharacterMotions.map { (isGained: true, character: $0) }
+                )
+                self.combinedCharacterMotionList.append(
+                    contentsOf: result.data.notGainedCharacterMotions.map { (isGained: false, character: $0) }
+                )
+                
+                self.characterDetailView.collectionView.reloadData()
+                
             default:
                 break
             }
@@ -145,7 +158,7 @@ final class CharacterDetailViewController: UIViewController {
         }
     }
     
-    // MARK: - @Objc Func
+    // MARK: - @objc Func
     
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
@@ -165,9 +178,9 @@ final class CharacterDetailViewController: UIViewController {
     }
 }
 
-extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    // MARK: - CollectionView Func
+//MARK: - UICollectionViewDataSource
+
+extension CharacterDetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return combinedCharacterMotionList.count
@@ -180,9 +193,9 @@ extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionV
         
         let characterMotionData = combinedCharacterMotionList[indexPath.item]
         
-        if characterMotionData.isGained, let gainedCharacterMotion = characterMotionData.character as? CharacterMotionList {
+        if characterMotionData.isGained, let gainedCharacterMotion = characterMotionData.character as? ORBCharacterMotion {
             cell.configureMotionCell(data: gainedCharacterMotion, isGained: true)
-        } else if let notGainedCharacterMotion = characterMotionData.character as? CharacterMotionList {
+        } else if let notGainedCharacterMotion = characterMotionData.character as? ORBCharacterMotion {
             cell.configureMotionCell(data: notGainedCharacterMotion, isGained: false)
         }
         
@@ -197,7 +210,14 @@ extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionV
         return cell
     }
     
+}
+
+//MARK: - UICollectionViewDelegate
+
+extension CharacterDetailViewController: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell \(indexPath.item) selected")
     }
+    
 }

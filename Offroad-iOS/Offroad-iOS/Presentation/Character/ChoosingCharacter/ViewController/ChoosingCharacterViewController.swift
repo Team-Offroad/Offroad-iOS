@@ -17,7 +17,7 @@ final class ChoosingCharacterViewController: UIViewController {
     
     private let choosingCharacterView = ChoosingCharacterView()
     
-    private var characterInfoModelList: [CharacterList]? {
+    private var characterInfoModelList: [ORBCharacter]? {
         didSet {
             choosingCharacterView.setPageControlPageNumbers(pageNumber: characterInfoModelList?.count ?? 0)
         }
@@ -84,7 +84,7 @@ final class ChoosingCharacterViewController: UIViewController {
                 self.characterInfoModelList = data?.data.characters
                 
                 self.extendedCharacterImageList.insert(self.convertSvgURLToUIImage(svgUrlString: lastCharacterImageURL), at: 0)
-                for character in data?.data.characters ?? [CharacterList]() {
+                for character in data?.data.characters ?? [ORBCharacter]() {
                     let characterImageURL = character.characterBaseImageUrl
                     
                     self.extendedCharacterImageList.append(self.convertSvgURLToUIImage(svgUrlString: characterImageURL))
