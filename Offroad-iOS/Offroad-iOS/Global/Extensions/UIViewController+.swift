@@ -9,8 +9,8 @@ import UIKit
 
 extension UIViewController {
     
-    func showToast(message: String) {
-        ORBToastManager.shared.showToast(message: message)
+    func showToast(message: String, inset: CGFloat) {
+        ORBToastManager.shared.showToast(message: message, inset: inset)
     }
     
     func hideToast() {

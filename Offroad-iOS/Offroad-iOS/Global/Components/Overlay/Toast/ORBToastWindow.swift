@@ -13,24 +13,23 @@ final class ORBToastWindow: ORBOverlayWindow {
     
     private let showAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     let hideAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
+    private var inset: CGFloat
     
-    private lazy var toastViewTopConstraint = toastView.topAnchor.constraint(equalTo: self.topAnchor, constant: 100)
+    private lazy var toastViewTopConstraint = toastView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: inset)
     private lazy var toastViewBottomConstraint = toastView.bottomAnchor.constraint(equalTo: self.topAnchor)
     
     //MARK: - UI Properties
     
     let toastView: UIView = UIView()
+    let imageView: UIImageView = .init(image: .btnChecked)
     let messageLabel: UILabel = UILabel()
     
     //MARK: Life Cycle
     
-    convenience init(message: String) {
-        self.init(windowScene: UIWindowScene.current)
+    init(message: String, inset: CGFloat) {
+        self.inset = inset
         self.messageLabel.text = message != "" ? message : "빈 토스트 메시지"
-    }
-    
-    override init(windowScene: UIWindowScene) {
-        super.init(windowScene: windowScene)
+        super.init(windowScene: UIWindowScene.current)
         
         setupHierarchy()
         setupLayout()
@@ -42,10 +41,6 @@ final class ORBToastWindow: ORBOverlayWindow {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        print("ORBToastWindow가 메모리에서 해제됨.")
-    }
-    
 }
 
 extension ORBToastWindow {
@@ -53,6 +48,9 @@ extension ORBToastWindow {
     //MARK: - Layout Func
     
     private func setupLayout() {
+        toastViewTopConstraint.priority = .defaultHigh
+        toastViewBottomConstraint.priority = .defaultHigh
+        
         toastViewTopConstraint.isActive = false
         toastViewBottomConstraint.isActive = true
         toastView.snp.makeConstraints { make in
@@ -60,8 +58,15 @@ extension ORBToastWindow {
             make.horizontalEdges.equalToSuperview().inset(24)
         }
         
+        imageView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalToSuperview().inset(21)
+            make.size.equalTo(22)
+        }
+        
         messageLabel.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.leading.equalTo(imageView.snp.trailing).offset(11)
+            make.trailing.equalToSuperview().inset(20)
             make.verticalEdges.equalToSuperview().inset(10.5)
         }
     }
@@ -70,7 +75,7 @@ extension ORBToastWindow {
     
     private func setupHierarchy() {
         addSubview(toastView)
-        toastView.addSubview(messageLabel)
+        toastView.addSubviews(imageView, messageLabel)
     }
     
     private func setupStyle() {
@@ -81,11 +86,14 @@ extension ORBToastWindow {
             view.roundCorners(cornerRadius: 10)
         })
         
+        imageView.do { imageView in
+            imageView.contentMode = .scaleAspectFit
+        }
+        
         messageLabel.do { label in
             label.font = .offroad(style: .iosTextAuto)
             label.textColor = .primary(.white)
             label.numberOfLines = 0
-            label.text = "이것은 테스트 토스트 메시지입니다. 토스트테스트중"
         }
     }
     
