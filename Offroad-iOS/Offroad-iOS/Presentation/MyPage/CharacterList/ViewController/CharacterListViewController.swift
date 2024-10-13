@@ -19,11 +19,10 @@ final class CharacterListViewController: UIViewController {
             characterListView.collectionView.reloadData()
         }
     }
-    private var characterImageList = [UIImage?]()
     
     private var representativeCharacterId: Int?
-    private var gainedCharacter: [CharacterListData]?
-    private var notGainedCharacter: [CharacterListData]?
+    private var gainedCharacters: [CharacterListData]?
+    private var notGainedCharacters: [CharacterListData]?
     
     // MARK: - Life Cycle
     
@@ -60,23 +59,19 @@ final class CharacterListViewController: UIViewController {
     private func getCharacterListInfo() {
         NetworkService.shared.characterListService.getCharacterListInfo { response in
             switch response {
-            case .success(let data):
-                self.gainedCharacter = data?.data.gainedCharacters
-                self.notGainedCharacter = data?.data.notGainedCharacters
-                self.representativeCharacterId = data?.data.representativeCharacterId
-                //이미지 배열 초기화
-                self.characterImageList = Array(repeating: nil, count: (self.gainedCharacter?.count ?? 0) + (self.notGainedCharacter?.count ?? 0))
+            case .success(let result):
+                self.gainedCharacters = result?.data.gainedCharacters
+                self.notGainedCharacters = result?.data.notGainedCharacters
+                self.representativeCharacterId = result?.data.representativeCharacterId
                 
                 //gainedCharacter와 notGainedCharacter 통합한 업데이트된 배열
                 //isGained로 획득 여부 표현
                 var newCombinedList: [(isGained: Bool, character: Any)] = []
-                self.gainedCharacter?.forEach { gainedCharacter in
+                self.gainedCharacters?.forEach { gainedCharacter in
                     newCombinedList.append((isGained: true, character: gainedCharacter))
-                    self.characterImageList.append(self.convertSvgURLToUIImage(svgUrlString: gainedCharacter.characterThumbnailImageUrl))
                 }
-                self.notGainedCharacter?.forEach { notGainedCharacter in
+                self.notGainedCharacters?.forEach { notGainedCharacter in
                     newCombinedList.append((isGained: false, character: notGainedCharacter))
-                    self.characterImageList.append(self.convertSvgURLToUIImage(svgUrlString: notGainedCharacter.characterThumbnailImageUrl))
                 }
                 self.combinedCharacterList = newCombinedList
             default:
@@ -87,9 +82,7 @@ final class CharacterListViewController: UIViewController {
     
     private func convertSvgURLToUIImage(svgUrlString: String) -> UIImage {
         guard let svgURL = URL(string: svgUrlString) else { return UIImage() }
-        
         guard let svgImage = SVGKImage(contentsOf: svgURL) else { return UIImage() }
-        
         return svgImage.renderedUIImage ?? UIImage()
     }
     
@@ -106,9 +99,6 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CharacterListCell", for: indexPath) as! CharacterListCell
         let characterData = combinedCharacterList[indexPath.item]
-        
-        let image = characterImageList[indexPath.item] ?? UIImage(named: "placeholderImage")
-        cell.configureCellImage(image: image)
         
         if characterData.isGained, let gainedCharacter = characterData.character as? CharacterListData {
             cell.configureCharacterCell(data: gainedCharacter, gained: characterData.isGained, representiveCharacterId: self.representativeCharacterId ?? 0)

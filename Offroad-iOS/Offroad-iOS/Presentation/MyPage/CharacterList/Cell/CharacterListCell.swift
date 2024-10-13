@@ -140,8 +140,4 @@ class CharacterListCell: UICollectionViewCell {
         }
     }
     
-    func configureCellImage(image: UIImage?) {
-        characterListCellImageView.image = image
-    }
-    
 }
