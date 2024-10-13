@@ -45,8 +45,6 @@ final class CharacterDetailViewController: UIViewController {
         if characterId == representativeCharacterId {
             rootView.selectButton.isEnabled = false
             rootView.crownBadgeImageView.isHidden = false
-//            rootView.selectButton.setTitle("이미 선택된 캐릭터예요", for: .normal)
-//            rootView.selectButton.backgroundColor = UIColor.blackOpacity(.black25)
         }
     }
     
@@ -76,21 +74,15 @@ extension CharacterDetailViewController {
     }
     
     private func getCharacterDetailInfo() {
-        NetworkService.shared.characterDetailService.getAcquiredCharacterInfo(characterId: characterId) { response in
+        NetworkService.shared.characterDetailService.getAcquiredCharacterInfo(characterId: characterId) { [weak self] response in
+            guard let self else { return }
             switch response {
             case .success(let characterDetailResponse):
                 guard let characterDetailInfo = characterDetailResponse?.data else { return }
-                
                 self.characterMainColorCode = characterDetailInfo.characterMainColorCode
                 self.characterSubColorCode = characterDetailInfo.characterSubColorCode
                 self.view.backgroundColor = UIColor(hex: characterDetailInfo.characterSubColorCode)
-                self.rootView.characterImage.fetchSvgURLToImageView(svgUrlString: characterDetailInfo.characterBaseImageUrl)
-                self.rootView.characterLogoImage.fetchSvgURLToImageView(svgUrlString: characterDetailInfo.characterIconImageUrl)
-                self.rootView.nameLabel.text = characterDetailInfo.characterName
-                self.rootView.titleLabel.text = characterDetailInfo.characterSummaryDescription
-                self.rootView.detailLabel.text = characterDetailInfo.characterDescription
-                self.rootView.detailLabel.setLineSpacing(spacing: 5)
-                self.rootView.mainCharacterToastMessageView.setMessage(characterName: characterDetailInfo.characterName)
+                self.rootView.configurerCharacterDetailView(using: characterDetailInfo)
                 
             default:
                 break
@@ -122,8 +114,7 @@ extension CharacterDetailViewController {
         NetworkService.shared.characterService.postChoosingCharacter(parameter: characterId) { [weak self] response in
             guard let self else { return }
             switch response {
-            case .success(let response):
-                print("=======대표 캐릭터 설정: " + "\(response?.data.characterImageUrl)========")
+            case .success:
                 self.rootView.crownBadgeImageView.isHidden = false
                 self.rootView.selectButton.isEnabled = false
                 self.rootView.showToastMessage()
@@ -141,16 +132,7 @@ extension CharacterDetailViewController {
     }
     
     @objc private func selectButtonTapped() {
-        // 토스트 메세지가 떠 있는 동안엔 버튼 비활성화
-//        rootView.selectButton.isEnabled = false
-//        rootView.showToastMessage { [weak self] in
-//            self?.rootView.selectButton.setTitle("이미 선택된 캐릭터예요", for: .normal)
-//            self?.rootView.selectButton.backgroundColor = UIColor.blackOpacity(.black25)
-//            self?.rootView.crownBadgeImageView.isHidden = false
-//        }
         postCharacterID()
-        //CharacterListViewController에 대표 캐릭터 Id 전달
-//        delegate?.didSelectMainCharacter(characterId: characterId)
     }
 }
 
