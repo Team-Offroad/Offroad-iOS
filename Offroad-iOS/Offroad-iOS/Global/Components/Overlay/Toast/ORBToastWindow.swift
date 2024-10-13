@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ORBToastWindow: ORBOverlayWindow {
+final class ORBToastWindow: UIWindow {
     
     //MARK: - Properties
     
@@ -123,6 +123,10 @@ extension ORBToastWindow {
     }
     
     //MARK: - Func
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        return nil
+    }
     
     func showToast() {
         makeKeyAndVisible()
