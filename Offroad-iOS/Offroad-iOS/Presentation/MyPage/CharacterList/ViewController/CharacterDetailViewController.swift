@@ -17,8 +17,20 @@ final class CharacterDetailViewController: UIViewController {
     
     private var characterMainColorCode: String?
     private var characterSubColorCode: String?
+    private var characterMotionListDataSource: [CharacterMotionInfoData] = []
     
-    private var combinedCharacterMotionList: [(isGained: Bool, character: Any)] = []
+    private var didGetCharacterInfo: Bool = false {
+        didSet {
+            guard didGetCharacterInfo && didGetCharacterMotions else { return }
+            rootView.collectionView.reloadData()
+        }
+    }
+    private var didGetCharacterMotions: Bool = false {
+        didSet {
+            guard didGetCharacterInfo && didGetCharacterMotions else { return }
+            rootView.collectionView.reloadData()
+        }
+    }
     
     weak var delegate: SelectMainCharacterDelegate?
     
@@ -83,6 +95,7 @@ extension CharacterDetailViewController {
                 self.characterSubColorCode = characterDetailInfo.characterSubColorCode
                 self.view.backgroundColor = UIColor(hex: characterDetailInfo.characterSubColorCode)
                 self.rootView.configurerCharacterDetailView(using: characterDetailInfo)
+                self.didGetCharacterInfo = true
                 
             default:
                 break
@@ -91,18 +104,18 @@ extension CharacterDetailViewController {
     }
     
     private func characterMotionInfo() {
-        NetworkService.shared.characterMotionService.getCharacterMotionList(characterId: characterId) { [weak self] response in
+        NetworkService.shared.characterMotionService.getCharacterMotionList(characterId: characterId) { [weak self] result in
             guard let self else { return }
-            switch response {
-            case .success(let result):
-                guard let result else { return }
-                self.combinedCharacterMotionList.append(
-                    contentsOf: result.data.gainedCharacterMotions.map { (isGained: true, character: $0) }
-                )
-                self.combinedCharacterMotionList.append(
-                    contentsOf: result.data.notGainedCharacterMotions.map { (isGained: false, character: $0) }
-                )
-                self.rootView.collectionView.reloadData()
+            switch result {
+            case .success(let responseDTO):
+                guard let responseDTO else { return }
+                
+                let gainedData = responseDTO.data.gainedCharacterMotions.map { CharacterMotionInfoData(motion: $0, isGained: true) }
+                let notGainedData = responseDTO.data.notGainedCharacterMotions.map {
+                    CharacterMotionInfoData(motion: $0, isGained: false)
+                }
+                characterMotionListDataSource = gainedData + notGainedData
+                self.didGetCharacterMotions = true
                 
             default:
                 break
@@ -141,30 +154,18 @@ extension CharacterDetailViewController {
 extension CharacterDetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return combinedCharacterMotionList.count
+        return characterMotionListDataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterDetailCell.className, for: indexPath) as? CharacterDetailCell else {
-            fatalError("Could not dequeue CharacterDetailCell")
-        }
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: CharacterDetailCell.className,
+            for: indexPath
+        ) as? CharacterDetailCell else { fatalError("Could not dequeue CharacterDetailCell") }
         
-        let characterMotionData = combinedCharacterMotionList[indexPath.item]
-        
-        if characterMotionData.isGained, let gainedCharacterMotion = characterMotionData.character as? CharacterMotion {
-            cell.configureMotionCell(data: gainedCharacterMotion, isGained: true)
-        } else if let notGainedCharacterMotion = characterMotionData.character as? CharacterMotion {
-            cell.configureMotionCell(data: notGainedCharacterMotion, isGained: false)
-        }
-        
-        if let mainColor = self.characterMainColorCode, let subColor = self.characterSubColorCode {
-            cell.configureCellColor(mainColor: mainColor, subColor: subColor)
-        }
-        
-        DispatchQueue.main.async {
-            self.rootView.updateCollectionViewHeight()
-        }
-        
+        cell.configureContent(with: characterMotionListDataSource[indexPath.item])
+        cell.configureColor(mainColor: characterMainColorCode, subColor: characterSubColorCode)
+        rootView.updateCollectionViewHeight()
         return cell
     }
     

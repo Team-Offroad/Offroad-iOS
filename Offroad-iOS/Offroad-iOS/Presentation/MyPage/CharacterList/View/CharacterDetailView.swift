@@ -170,6 +170,35 @@ extension CharacterDetailView {
     
     // MARK: - Private Func
     
+    private func setupHierarchy() {
+        addSubviews(
+            scrollView,
+            customBackButton
+        )
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubviews(
+            characterImageView,
+            labelView,
+            detailLabelView,
+            dottedLineView,
+            selectButton,
+            characterMotionView
+        )
+        labelView.addSubviews(
+            nameLabel,
+            crownBadgeImageView,
+            titleLabel,
+            characterLogoImage
+        )
+        detailLabelView.addSubview(detailLabel)
+        characterMotionView.addSubviews(
+            mainLabel,
+            babyImage,
+            collectionView
+        )
+    }
+    
     private func setupStyle() {
         backgroundColor = UIColor.primary(.listBg)
         
@@ -256,35 +285,6 @@ extension CharacterDetailView {
             collectionView.isScrollEnabled = false
         }
         
-    }
-    
-    private func setupHierarchy() {
-        addSubviews(
-            scrollView,
-            customBackButton
-        )
-        scrollView.addSubview(contentView)
-        
-        contentView.addSubviews(
-            characterImageView,
-            labelView,
-            detailLabelView,
-            selectButton,
-            characterMotionView,
-            dottedLineView
-        )
-        labelView.addSubviews(
-            nameLabel,
-            crownBadgeImageView,
-            titleLabel,
-            characterLogoImage
-        )
-        detailLabelView.addSubview(detailLabel)
-        characterMotionView.addSubviews(
-            mainLabel,
-            babyImage,
-            collectionView
-        )
     }
     
     func updateCollectionViewHeight() {

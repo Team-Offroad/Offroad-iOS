@@ -19,7 +19,7 @@ final class CharacterListViewController: UIViewController {
     private var gainedCharacters: [CharacterListInfo]?
     private var notGainedCharacters: [CharacterListInfo]?
     
-    var characterListDataSource: [CharacterListInfoData] = []
+    private var characterListDataSource: [CharacterListInfoData] = []
     
     // MARK: - Life Cycle
     
