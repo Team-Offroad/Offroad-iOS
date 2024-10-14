@@ -52,6 +52,10 @@
 		4E3BB6842C4737030076105C /* PlaceInfoPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3BB6832C4737030076105C /* PlaceInfoPopupViewController.swift */; };
 		4E3F009E2C40D20800B9A31A /* OffroadTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */; };
 		4E416CE82C45DBE200CF6AB4 /* OffroadPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */; };
+		4E46E5F72CB997B4000A1EEE /* ORBToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5F62CB997B4000A1EEE /* ORBToastManager.swift */; };
+		4E46E5F92CB99944000A1EEE /* ORBToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5F82CB99944000A1EEE /* ORBToastWindow.swift */; };
+		4E46E5FB2CBA3F55000A1EEE /* UIWindowScene+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */; };
+		4E46E5FD2CBA483D000A1EEE /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */; };
 		4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4A8FD62C4A5752001FB498 /* UIImage+.swift */; };
 		4E56F53D2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */; };
 		4E56F53F2C987C5500EEE677 /* ZeroDurationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */; };
@@ -63,6 +67,7 @@
 		4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */; };
 		4E59A11C2C4228C500B548C6 /* AVCameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */; };
 		4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4E6A5BC22C2E8C290027FDF0 /* Then */; };
+		4E700C852CB3CA1E00C664C2 /* ORBOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4EA90AC62C4521C50046A6E1 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */; };
 		4EB32BE72C67A2B0003F98F2 /* QuestListViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */; };
@@ -294,6 +299,10 @@
 		4E3BB6832C4737030076105C /* PlaceInfoPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoPopupViewController.swift; sourceTree = "<group>"; };
 		4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarController.swift; sourceTree = "<group>"; };
 		4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadPlace.swift; sourceTree = "<group>"; };
+		4E46E5F62CB997B4000A1EEE /* ORBToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastManager.swift; sourceTree = "<group>"; };
+		4E46E5F82CB99944000A1EEE /* ORBToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastWindow.swift; sourceTree = "<group>"; };
+		4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindowScene+.swift"; sourceTree = "<group>"; };
+		4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		4E4A8FD62C4A5752001FB498 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationTransitionDelegate.swift; sourceTree = "<group>"; };
 		4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationAnimator.swift; sourceTree = "<group>"; };
@@ -302,6 +311,7 @@
 		4E58FC012C7DFE87002A951B /* QuestListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListService.swift; sourceTree = "<group>"; };
 		4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListResponseDTO.swift; sourceTree = "<group>"; };
 		4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCameraPreview.swift; sourceTree = "<group>"; };
+		4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBOverlayViewController.swift; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListViewControllers.swift; sourceTree = "<group>"; };
@@ -593,7 +603,9 @@
 				4E0394DC2C2ABEF2007F0517 /* UITextField+.swift */,
 				4E0394E02C2AC059007F0517 /* NSObject+.swift */,
 				4E0394E22C2AC0D7007F0517 /* UIWindow+.swift */,
+				4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */,
 				4E0394E52C2AC16A007F0517 /* UIScreen+.swift */,
+				4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */,
 				4E1E94122C398C4200A7B08A /* String+.swift */,
 				D06D26C02C3D6A2A00E79F25 /* UILabel+.swift */,
 				8792D0182C3E5E40002051AC /* UIButton+.swift */,
@@ -1088,6 +1100,28 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
+		4E700C802CB3C95E00C664C2 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				4EFCDFDC2C92BB27006DEBB6 /* OFRAlertController.swift */,
+				4E56F54B2C995BA800EEE677 /* OFRAlertViewModel.swift */,
+				4EFCDFDE2C92BD8A006DEBB6 /* OFRAlertBackgroundView.swift */,
+				4EFCDFE02C92BD93006DEBB6 /* OFRAlertView.swift */,
+				4EFCDFE22C92C1F1006DEBB6 /* OFRAlertButton.swift */,
+				4E38F0EE2C9EBAFA00C7B866 /* OFRAlertAction.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		4E700C812CB3C99900C664C2 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				4E46E5F62CB997B4000A1EEE /* ORBToastManager.swift */,
+				4E46E5F82CB99944000A1EEE /* ORBToastWindow.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 		4EA90AC42C4521AF0046A6E1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1199,19 +1233,16 @@
 			path = UIComponents;
 			sourceTree = "<group>";
 		};
-		4EFCDFDB2C92B647006DEBB6 /* PopupController */ = {
+		4EFCDFDB2C92B647006DEBB6 /* Overlay */ = {
 			isa = PBXGroup;
 			children = (
-				4EFCDFDC2C92BB27006DEBB6 /* OFRAlertController.swift */,
-				4E56F54B2C995BA800EEE677 /* OFRAlertViewModel.swift */,
-				4EFCDFDE2C92BD8A006DEBB6 /* OFRAlertBackgroundView.swift */,
-				4EFCDFE02C92BD93006DEBB6 /* OFRAlertView.swift */,
-				4EFCDFE22C92C1F1006DEBB6 /* OFRAlertButton.swift */,
+				4E700C812CB3C99900C664C2 /* Toast */,
+				4E700C802CB3C95E00C664C2 /* Alert */,
 				4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */,
 				4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */,
-				4E38F0EE2C9EBAFA00C7B866 /* OFRAlertAction.swift */,
+				4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */,
 			);
-			path = PopupController;
+			path = Overlay;
 			sourceTree = "<group>";
 		};
 		80700C167D3310A86AF0ADA5 /* Pods */ = {
@@ -1582,7 +1613,7 @@
 		D018BB0C2C401F5F0048B6DF /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				4EFCDFDB2C92B647006DEBB6 /* PopupController */,
+				4EFCDFDB2C92B647006DEBB6 /* Overlay */,
 				4E38B7D82C6471EC0011D997 /* SegmentedControl */,
 				D00A488A2C78306C008B286A /* CustomView */,
 				D018BB0D2C401F700048B6DF /* CustomButton */,
@@ -2315,6 +2346,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E09BF572C48A5B7009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */,
+				4E700C852CB3CA1E00C664C2 /* ORBOverlayViewController.swift in Sources */,
 				D06466942C86F68E00CF10FD /* LogoutViewController.swift in Sources */,
 				4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */,
 				4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */,
@@ -2354,6 +2386,7 @@
 				4E56F54C2C995BA800EEE677 /* OFRAlertViewModel.swift in Sources */,
 				D0E796632C4553F0005B47A5 /* RefreshTokenResponseDTO.swift in Sources */,
 				D00A48622C633947008B286A /* SettingView.swift in Sources */,
+				4E46E5FD2CBA483D000A1EEE /* UIViewController+.swift in Sources */,
 				D064669C2C86FCE800CF10FD /* DeleteAccountView.swift in Sources */,
 				D0E7960A2C4522CF005B47A5 /* NetworkService.swift in Sources */,
 				D00A48772C634530008B286A /* SettingBaseView.swift in Sources */,
@@ -2411,6 +2444,7 @@
 				D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */,
 				D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */,
 				4E0394312C2A9DCE007F0517 /* ViewController.swift in Sources */,
+				4E46E5F72CB997B4000A1EEE /* ORBToastManager.swift in Sources */,
 				87738CDC2C8E164200E107C7 /* CharacterMotionResponseDTO.swift in Sources */,
 				4E1E94172C3AC27000A7B08A /* QuestMapViewController.swift in Sources */,
 				8791EDF42C7E11E000E7F8B9 /* AcquiredCouponView.swift in Sources */,
@@ -2430,6 +2464,7 @@
 				4E0394DD2C2ABEF2007F0517 /* UITextField+.swift in Sources */,
 				D06466A52C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift in Sources */,
 				D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */,
+				4E46E5F92CB99944000A1EEE /* ORBToastWindow.swift in Sources */,
 				4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
 				D0E796502C453B47005B47A5 /* AdventureService.swift in Sources */,
@@ -2505,6 +2540,7 @@
 				D00A48962C783988008B286A /* TermsConsentViewController.swift in Sources */,
 				D0E796452C4538E6005B47A5 /* PlaceService.swift in Sources */,
 				4EFCDFDD2C92BB27006DEBB6 /* OFRAlertController.swift in Sources */,
+				4E46E5FB2CBA3F55000A1EEE /* UIWindowScene+.swift in Sources */,
 				D00A486A2C633EF2008B286A /* SettingBaseModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
