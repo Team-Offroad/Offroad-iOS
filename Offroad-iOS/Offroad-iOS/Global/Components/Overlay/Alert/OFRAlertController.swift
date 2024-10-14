@@ -10,14 +10,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class OFRAlertController: UIViewController {
+class OFRAlertController: ORBOverlayViewController {
     
     //MARK: - Properties
     
     private let viewModel = OFRAlertViewModel()
     private var disposeBag = DisposeBag()
     
-    private let transitionDelegate = ZeroDurationTransitionDelegate()
     private let presentationAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.7)
     private let dismissalAnimator = UIViewPropertyAnimator(duration: 0.2, dampingRatio: 1)
     
@@ -82,7 +81,6 @@ class OFRAlertController: UIViewController {
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
         
-        setupPresentationStyle()
         bindData()
     }
     
@@ -163,11 +161,6 @@ extension OFRAlertController {
     }
     
     //MARK: - Private Func
-    
-    private func setupPresentationStyle() {
-        self.transitioningDelegate = transitionDelegate
-        self.modalPresentationStyle = .custom
-    }
     
     private func setupTargets() {
         backgroundView.alertView.closeButton.addTarget(self, action: #selector(closeButtonDidTapped), for: .touchUpInside)
