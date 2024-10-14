@@ -55,7 +55,7 @@ class CharacterListView: UIView {
     }
 
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
-        $0.register(CharacterListCell.self, forCellWithReuseIdentifier: "CharacterListCell")
+        $0.register(CharacterListCell.self, forCellWithReuseIdentifier: CharacterListCell.className)
         $0.backgroundColor = .clear
         $0.showsVerticalScrollIndicator = false
     }

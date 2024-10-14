@@ -119,25 +119,16 @@ class CharacterListCell: UICollectionViewCell {
     
     //MARK: - Func
     
-    func configureCharacterCell(data: CharacterListData, gained: Bool, representiveCharacterId: Int) {
+    func configure(with data: CharacterListInfoData, representativeCharacterId: Int) {
         characterListCellImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
         characterLabel.text = data.characterName
         contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
         containerView.backgroundColor = UIColor(hex: data.characterSubColorCode)
         
-        if gained {
-            shadowView.isHidden = true
-            lockImageView.isHidden = true
-            newBadgeView.isHidden = !data.isNewGained
-            
-            mainCharacterBadgeView.isHidden = data.characterId != representiveCharacterId
-        } else {
-            shadowView.isHidden = false
-            lockImageView.isHidden = false
-            newBadgeView.isHidden = !data.isNewGained
-            
-            mainCharacterBadgeView.isHidden = true
-        }
+        shadowView.isHidden = data.isGained
+        lockImageView.isHidden = data.isGained
+        newBadgeView.isHidden = !data.isNewGained
+        mainCharacterBadgeView.isHidden = !((data.isGained) && (data.characterId == representativeCharacterId))
     }
     
 }
