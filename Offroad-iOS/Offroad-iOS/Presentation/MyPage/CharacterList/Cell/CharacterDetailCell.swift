@@ -119,7 +119,7 @@ class CharacterDetailCell: UICollectionViewCell {
     
     //MARK: - Func
     
-    func configureMotionCell(data: ORBCharacterMotion, isGained: Bool) {
+    func configureMotionCell(data: CharacterMotion, isGained: Bool) {
         motionImageView.fetchSvgURLToImageView(svgUrlString: data.characterMotionImageUrl)
         switch data.category {
         case "CAFFE":

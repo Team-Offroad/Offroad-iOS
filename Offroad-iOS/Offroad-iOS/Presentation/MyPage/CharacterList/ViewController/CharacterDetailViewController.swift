@@ -151,9 +151,9 @@ extension CharacterDetailViewController: UICollectionViewDataSource {
         
         let characterMotionData = combinedCharacterMotionList[indexPath.item]
         
-        if characterMotionData.isGained, let gainedCharacterMotion = characterMotionData.character as? ORBCharacterMotion {
+        if characterMotionData.isGained, let gainedCharacterMotion = characterMotionData.character as? CharacterMotion {
             cell.configureMotionCell(data: gainedCharacterMotion, isGained: true)
-        } else if let notGainedCharacterMotion = characterMotionData.character as? ORBCharacterMotion {
+        } else if let notGainedCharacterMotion = characterMotionData.character as? CharacterMotion {
             cell.configureMotionCell(data: notGainedCharacterMotion, isGained: false)
         }
         
