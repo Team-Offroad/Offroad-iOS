@@ -117,8 +117,8 @@ extension CharacterDetailViewController {
             case .success:
                 self.rootView.crownBadgeImageView.isHidden = false
                 self.rootView.selectButton.isEnabled = false
-                self.rootView.showToastMessage()
                 self.delegate?.didSelectMainCharacter(characterId: self.characterId)
+                self.showToast(message: "'아루'로 대표 캐릭터가 변경되었어요!", inset: 66)
             default:
                 break
             }

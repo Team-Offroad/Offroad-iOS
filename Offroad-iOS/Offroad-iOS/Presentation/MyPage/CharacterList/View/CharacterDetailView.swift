@@ -15,10 +15,6 @@ class CharacterDetailView: UIView {
     // MARK: - Properties
     
     private var collectionViewHeightConstraint: Constraint? // 컬렉션 뷰의 동적 높이 조절을 위한 변수
-    var mainCharacterToastMessageView = MainCharacterToastMessageView().then {
-        //맨 처음에 투명하게
-        $0.alpha = 0.0
-    }
     
     // MARK: - UI Properties
     
@@ -74,12 +70,6 @@ extension CharacterDetailView {
     //MARK: - Layout Func
     
     private func setupLayout() {
-        mainCharacterToastMessageView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(113)
-            $0.horizontalEdges.equalToSuperview().inset(24)
-            $0.height.equalTo(45)
-        }
-        
         customBackButton.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(12)
             $0.leading.equalToSuperview().inset(12)
@@ -271,8 +261,7 @@ extension CharacterDetailView {
     private func setupHierarchy() {
         addSubviews(
             scrollView,
-            customBackButton,
-            mainCharacterToastMessageView
+            customBackButton
         )
         scrollView.addSubview(contentView)
         
@@ -298,21 +287,6 @@ extension CharacterDetailView {
         )
     }
     
-    func showToastMessage(duration: TimeInterval = 2.0, completion: (() -> Void)? = nil) {
-        //fade-in
-        UIView.animate(withDuration: 0.3, animations: {
-            self.mainCharacterToastMessageView.alpha = 1.0
-        }) { _ in
-            //fade-out
-            UIView.animate(withDuration: 0.3, delay: duration, options: [], animations: {
-                self.mainCharacterToastMessageView.alpha = 0.0
-            }) { _ in
-                self.mainCharacterToastMessageView.removeFromSuperview()
-                completion?()
-            }
-        }
-    }
-    
     func updateCollectionViewHeight() {
         let contentHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
         collectionViewHeightConstraint?.update(offset: contentHeight)
@@ -325,6 +299,5 @@ extension CharacterDetailView {
         titleLabel.text = characterInfo.characterSummaryDescription
         detailLabel.text = characterInfo.characterDescription
         detailLabel.setLineSpacing(spacing: 5)
-        mainCharacterToastMessageView.setMessage(characterName: characterInfo.characterName)
     }
 }
