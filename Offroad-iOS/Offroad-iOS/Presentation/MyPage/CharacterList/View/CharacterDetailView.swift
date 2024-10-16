@@ -247,7 +247,6 @@ extension CharacterDetailView {
         characterLogoImage.contentMode = .scaleAspectFit
         
         titleLabel.do { label in
-            //label.text = "호기심이 많은 탐험가"
             label.textAlignment = .left
             label.textColor = UIColor.grayscale(.gray300)
             label.font = UIFont.offroad(style: .iosTextContentsSmall)
