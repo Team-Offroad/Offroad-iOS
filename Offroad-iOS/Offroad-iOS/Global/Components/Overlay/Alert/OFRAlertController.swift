@@ -24,7 +24,7 @@ class OFRAlertController: ORBOverlayViewController {
      팝업의 제목
      */
     override var title: String? {
-        get { backgroundView.alertView.title }
+        get { rootView.alertView.title }
         set { viewModel.titleRelay.accept(newValue) }
     }
     
@@ -32,11 +32,13 @@ class OFRAlertController: ORBOverlayViewController {
      팝업의 메시지
      */
     var message: String? {
-        get { backgroundView.alertView.message }
+        get { rootView.alertView.message }
         set { viewModel.messageRelay.accept(newValue) }
     }
     
-    var actions: [OFRAlertAction] { backgroundView.alertView.actions }
+    var type: OFRAlertViewType
+    
+    var actions: [OFRAlertAction] { rootView.alertView.actions }
     
     /**
      해당 변수에 해당하는 텍스트필드는 alert가 present되면서 자동으로 `firstResponder`가 되고, 키보드가 같이 올라오게 된다.
@@ -62,49 +64,67 @@ class OFRAlertController: ORBOverlayViewController {
     
     //MARK: - UI Properties
     
-    private let backgroundView = OFRAlertBackgroundView()
+    private let rootView = OFRAlertBackgroundView(type: .normal)
     
     private var defaultTextField: UITextField {
-        backgroundView.alertView.defaultTextField
+        rootView.alertView.defaultTextField
     }
     
     var buttons: [OFRAlertButton] {
-        backgroundView.alertView.buttons
+        rootView.alertView.buttons
     }
     
     var xButton: UIButton {
-        backgroundView.alertView.closeButton
+        rootView.alertView.closeButton
     }
     
     //MARK: - Life Cycle
     
-    private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    
+    init(title: String? = nil, message: String? = nil, type: OFRAlertViewType) {
+        self.type = type
         super.init(nibName: nil, bundle: nil)
         
         bindData()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    convenience init(title: String? = nil, message: String? = nil, type: OFRAlertViewType) {
-        self.init(nibName: nil, bundle: nil)
-        
         viewModel.titleRelay.accept(title)
         viewModel.messageRelay.accept(message)
         
         viewModel.type = type
-        backgroundView.alertView.setFinalLayout(of: type)
-        backgroundView.alertView.layoutIfNeeded()
+        rootView.alertView.setFinalLayout(of: type)
+        rootView.alertView.layoutIfNeeded()
         
         if type == .textField {
             viewModel.textFieldToBeFirstResponder = defaultTextField
         }
     }
     
+//    private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+//        super.init(nibName: nil, bundle: nil)
+//        
+//        bindData()
+//    }
+//    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+//    
+//    convenience init(title: String? = nil, message: String? = nil, type: OFRAlertViewType) {
+//        self.init(nibName: nil, bundle: nil)
+//        
+//        viewModel.titleRelay.accept(title)
+//        viewModel.messageRelay.accept(message)
+//        
+//        viewModel.type = type
+//        rootView.alertView.setFinalLayout(of: type)
+//        rootView.alertView.layoutIfNeeded()
+//        
+//        if type == .textField {
+//            viewModel.textFieldToBeFirstResponder = defaultTextField
+//        }
+//    }
+    
     override func loadView() {
-        view = backgroundView
+        view = rootView
     }
 
     override func viewDidLoad() {
@@ -156,27 +176,27 @@ extension OFRAlertController {
     }
     
     @objc private func keyboardWillHide() {
-        backgroundView.setupLayout(of: .textField, keyboardRect: nil)
-        backgroundView.layoutIfNeeded()
+        rootView.setupLayout(of: .textField, keyboardRect: nil)
+        rootView.layoutIfNeeded()
     }
     
     //MARK: - Private Func
     
     private func setupTargets() {
-        backgroundView.alertView.closeButton.addTarget(self, action: #selector(closeButtonDidTapped), for: .touchUpInside)
+        rootView.alertView.closeButton.addTarget(self, action: #selector(closeButtonDidTapped), for: .touchUpInside)
         buttons.forEach { button in
             button.addTarget(self, action: #selector(alertButtonTapped(sender:)), for: .touchUpInside)
         }
     }
     
     private func showAlertView() {
-        backgroundView.alertView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-        backgroundView.layoutIfNeeded()
+        rootView.alertView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        rootView.layoutIfNeeded()
         
         presentationAnimator.addAnimations { [weak self] in
-            self?.backgroundView.backgroundColor = .blackOpacity(.black25)
-            self?.backgroundView.alertView.alpha = 1
-            self?.backgroundView.alertView.transform = .identity
+            self?.rootView.backgroundColor = .blackOpacity(.black25)
+            self?.rootView.alertView.alpha = 1
+            self?.rootView.alertView.transform = .identity
         }
         presentationAnimator.startAnimation()
         viewModel.animationStartedSubject.onNext(true)
@@ -184,9 +204,9 @@ extension OFRAlertController {
     
     private func hideAlertView(completion: (() -> Void)? = nil) {
         dismissalAnimator.addAnimations { [weak self] in
-            self?.backgroundView.backgroundColor = .clear
-            self?.backgroundView.alertView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-            self?.backgroundView.alertView.alpha = 0
+            self?.rootView.backgroundColor = .clear
+            self?.rootView.alertView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+            self?.rootView.alertView.alpha = 0
         }
         dismissalAnimator.addCompletion { _ in completion?() }
         dismissalAnimator.startAnimation()
@@ -204,16 +224,16 @@ extension OFRAlertController {
     }
     
     private func setupGestureRecognizer() {
-        backgroundView.addGestureRecognizer(viewModel.backgroundTapGesture)
+        rootView.addGestureRecognizer(viewModel.backgroundTapGesture)
     }
     
     private func bindData() {
-        viewModel.titleRelay.bind(to: backgroundView.alertView.titleLabel.rx.text).disposed(by: disposeBag)
-        viewModel.messageRelay.bind(to: backgroundView.alertView.messageLabel.rx.text).disposed(by: disposeBag)
+        viewModel.titleRelay.bind(to: rootView.alertView.titleLabel.rx.text).disposed(by: disposeBag)
+        viewModel.messageRelay.bind(to: rootView.alertView.messageLabel.rx.text).disposed(by: disposeBag)
         
         viewModel.keyboardFrameRelay
             .subscribe { [weak self] rect in
-                self?.backgroundView.setupLayout(of: .textField, keyboardRect: rect)
+                self?.rootView.setupLayout(of: .textField, keyboardRect: rect)
                 self?.view.layoutIfNeeded()
             }
             .disposed(by: disposeBag)
@@ -242,7 +262,7 @@ extension OFRAlertController {
             })
             .bind { [weak self] recognizer in
                 print("tapped in view")
-                self?.backgroundView.endEditing(true)
+                self?.rootView.endEditing(true)
             }.disposed(by: disposeBag)
         
     }
@@ -250,9 +270,9 @@ extension OFRAlertController {
     //MARK: - Func
     
     func addAction(_ action: OFRAlertAction) {
-        backgroundView.alertView.actions.append(action)
+        rootView.alertView.actions.append(action)
         setupTargets()
-        backgroundView.layoutIfNeeded()
+        rootView.layoutIfNeeded()
     }
     
     /**
@@ -265,7 +285,7 @@ extension OFRAlertController {
     }
     
     func configureMessageLabel(_ configure: (UILabel) -> Void) {
-        configure(self.backgroundView.alertView.messageLabel)
+        configure(self.rootView.alertView.messageLabel)
     }
     
 }

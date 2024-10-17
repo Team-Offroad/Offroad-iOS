@@ -20,16 +20,17 @@ internal class OFRAlertBackgroundView: UIView {
     
     //MARK: - UI Properties
     
-    let alertView = OFRAlertView()
+    let alertView: OFRAlertView
     
     //MARK: - Life Cycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(type: OFRAlertViewType) {
+        self.alertView = OFRAlertView(type: type)
+        super.init(frame: .zero)
         
         setupStyle()
         setupHierarchy()
-        setupDefaultLayout()
+        setupLayout()
         layoutIfNeeded()
         setupNotification()
     }
@@ -44,9 +45,10 @@ extension OFRAlertBackgroundView {
     
     //MARK: - Layout
     
-    private func setupDefaultLayout() {
+    private func setupLayout() {
         alertView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.horizontalEdges.equalToSuperview().inset(22.5)
+            make.height.equalTo(238)
         }
         alertViewCenterYCosntraint.isActive = true
     }

@@ -7,6 +7,8 @@
 
 import UIKit
 
+import Then
+
 /// 팝업 뷰의 화면비
 enum OFRAlertViewRatio {
     
@@ -25,12 +27,12 @@ enum OFRAlertViewRatio {
 enum OFRAlertViewType {
     
     /**
-     제목, 메시지, 버튼만 존재하는 가장 기본적인 형태의 팝업 타입
+     제목, 설명, 버튼만 갖는 기본적인 형태/  345\*238
      */
     case normal
     
     /**
-     팝업 내에 text field가 들어가는 타입.  
+     텍스트 입력 창이 들어가는 형태
      text field의 위치는 button 바로 상단에 위치하며,
      text field의 위치를 다른 곳에 배치하고 싶을 경우,
      ''custom' case를 선택한 후, 직접 설정
@@ -38,9 +40,21 @@ enum OFRAlertViewType {
     case textField
     
     /**
-     스크롤 가능한 컨텐츠를 포함하는 경우
+     팝업창 내 스크롤이 필요한 컨텐츠가 들어가는 형태/ 345\*544
      */
     case scrollableContent
+    
+    /**
+     탐험 후 성패를 알려주는 팝업
+     (피그마의 '성패 팝업')
+     */
+    case explorationResult
+    
+    /**
+     홈 화면에서 칭호를 바꿀 시에 뜨는 팝업
+     (피그마의 '내가 모은 칭호 팝업')
+     */
+    case acquiredEmblem
     
     /**
      메시지와 버튼 사이의 뷰를 커스텀 뷰로 채워넣는 경우.
@@ -52,7 +66,8 @@ class OFRAlertView: UIView {
     
     //MARK: - Properties
     
-    private var ratio: OFRAlertViewRatio = .horizontal
+//    private var ratio: OFRAlertViewRatio = .horizontal
+    private(set) var type: OFRAlertViewType
     
     private(set) var title: String? {
         didSet { self.titleLabel.text = title }
@@ -62,13 +77,41 @@ class OFRAlertView: UIView {
         didSet { self.messageLabel.text = message }
     }
     
-    private var horizontalInset: CGFloat = 46
-    private var verticalInset: CGFloat {
-        switch ratio {
-        case .vertical:
-            return 38
-        case .horizontal, .square:
-            return 28
+    private var topInset: CGFloat {
+        switch type {
+        case .normal, .textField, .custom:
+            28
+        case .scrollableContent, .explorationResult, .acquiredEmblem:
+            38
+        }
+    }
+    
+    private var leftInset: CGFloat {
+        switch type {
+        case .normal, .textField, .scrollableContent, .explorationResult, .custom:
+            46
+        case .acquiredEmblem:
+            24
+        }
+    }
+    
+    private var rightInset: CGFloat {
+        switch type {
+        case .normal, .textField, .scrollableContent, .explorationResult, .custom:
+            46
+        case .acquiredEmblem:
+            24
+        }
+    }
+    
+    private var bottomInset: CGFloat {
+        switch type {
+        case .normal, .textField, .custom:
+            28
+        case .scrollableContent, .explorationResult:
+            38
+        case .acquiredEmblem:
+            20
         }
     }
     
@@ -83,7 +126,33 @@ class OFRAlertView: UIView {
     
     //MARK: - UI Properties
     
-    private let contentView = UIView()
+    var upperSpacerView = UIView()
+    var lowerSpacerView = UIView()
+    
+    private lazy var contentView: UIView = {
+        switch type {
+        case .normal:
+            UIStackView(arrangedSubviews: [titleLabel, upperSpacerView, messageLabel, lowerSpacerView, buttonStackView]).then { stackView in
+                stackView.axis = .vertical
+                stackView.alignment = .fill
+                stackView.distribution = .fill
+            }
+        default:
+            UIView()
+        }
+    }()
+    
+//    private lazy var contentView = UIView().then { view in
+//        switch type {
+//        case .normal:
+//            UIStackView(arrangedSubviews: [titleLabel, messageLabel, buttonStackView]).then { stackView in
+//                stackView.axis = .vertical
+//                stackView.alignment = .fill
+//                stackView.distribution = .fillEqually
+//            }
+//        default:
+//            UIView()
+//    }
     
     let closeButton = UIButton()
     let titleLabel = UILabel()
@@ -104,19 +173,18 @@ class OFRAlertView: UIView {
     
     //MARK: - Life Cycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(type: OFRAlertViewType) {
+        self.type = type
+        super.init(frame: .zero)
         
-        setupDefaultStyle()
-        setupDefaultHierarchy()
-        setupDefaultLayout()
+        setupStyle()
+        setupHierarchy()
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
     
 }
 
@@ -124,32 +192,61 @@ extension OFRAlertView {
     
     //MARK: - Layout
     
-    private func setupDefaultLayout() {
-        closeButton.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview().inset(12)
-            make.size.equalTo(44)
-        }
-        
-        contentView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(horizontalInset)
-            make.verticalEdges.equalToSuperview().inset(verticalInset)
-            make.height.greaterThanOrEqualTo(184)
-        }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalToSuperview()
-        }
-        titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        
-        messageLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(24)
-            make.horizontalEdges.equalToSuperview()
-        }
-        
-        buttonStackView.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(messageLabel.snp.bottom).offset(18)
-            make.horizontalEdges.bottom.equalToSuperview()
-            make.height.equalTo(44)
+    private func setupLayout() {
+        switch type {
+        case .normal:
+            closeButton.snp.makeConstraints { make in
+                make.top.trailing.equalToSuperview().inset(12)
+                make.size.equalTo(44)
+            }
+            
+            contentView.snp.makeConstraints { make in
+                make.top.equalToSuperview().inset(topInset)
+                make.leading.equalToSuperview().inset(leftInset)
+                make.trailing.equalToSuperview().inset(rightInset)
+                make.bottom.equalToSuperview().inset(bottomInset)
+                make.height.greaterThanOrEqualTo(182)
+            }
+            
+            titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+            upperSpacerView.setContentHuggingPriority(.init(0), for: .vertical)
+            lowerSpacerView.setContentHuggingPriority(.init(0), for: .vertical)
+            upperSpacerView.setContentCompressionResistancePriority(.init(999), for: .vertical)
+            lowerSpacerView.setContentCompressionResistancePriority(.init(999), for: .vertical)
+            lowerSpacerView.snp.makeConstraints { make in
+                make.height.equalTo(upperSpacerView)
+            }
+            
+            
+        default:
+            closeButton.snp.makeConstraints { make in
+                make.top.trailing.equalToSuperview().inset(12)
+                make.size.equalTo(44)
+            }
+            
+            contentView.snp.makeConstraints { make in
+                make.top.equalToSuperview().inset(topInset)
+                make.leading.equalToSuperview().inset(leftInset)
+                make.trailing.equalToSuperview().inset(rightInset)
+                make.bottom.equalToSuperview().inset(bottomInset)
+                make.height.greaterThanOrEqualTo(182)
+            }
+            
+            titleLabel.snp.makeConstraints { make in
+                make.top.horizontalEdges.equalToSuperview()
+            }
+            titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+            
+            messageLabel.snp.makeConstraints { make in
+                make.top.equalTo(titleLabel.snp.bottom).offset(24)
+                make.horizontalEdges.equalToSuperview()
+            }
+            
+            buttonStackView.snp.makeConstraints { make in
+                make.top.greaterThanOrEqualTo(messageLabel.snp.bottom).offset(18)
+                make.horizontalEdges.bottom.equalToSuperview()
+                make.height.equalTo(44)
+            }
         }
     }
     
@@ -171,6 +268,10 @@ extension OFRAlertView {
             
         case .scrollableContent:
             return
+        case .explorationResult:
+            return
+        case .acquiredEmblem:
+            return
         case .custom:
             return
         }
@@ -179,7 +280,7 @@ extension OFRAlertView {
     
     //MARK: - Private Func
     
-    private func setupDefaultStyle() {
+    private func setupStyle() {
         /*
          AlertView 투명도의 초깃값을 0으로 설정.
          팝업 애니메이션이 젹용되면서 투명도를 1로 설정.
@@ -225,13 +326,19 @@ extension OFRAlertView {
         }
     }
     
-    private func setupDefaultHierarchy() {
-        addSubviews(contentView, closeButton)
-        contentView.addSubviews(
-            titleLabel,
-            messageLabel,
-            buttonStackView
-        )
+    private func setupHierarchy() {
+        switch type {
+        case .normal:
+            addSubview(contentView)
+            addSubview(closeButton)
+        default:
+            addSubviews(contentView, closeButton)
+            contentView.addSubviews(
+                titleLabel,
+                messageLabel,
+                buttonStackView
+            )
+        }
     }
     
     private func setupHierarchy(of type: OFRAlertViewType) {
@@ -241,6 +348,10 @@ extension OFRAlertView {
         case .textField:
             contentView.addSubview(defaultTextField)
         case .scrollableContent:
+            return
+        case .explorationResult:
+            return
+        case .acquiredEmblem:
             return
         case .custom:
             return
