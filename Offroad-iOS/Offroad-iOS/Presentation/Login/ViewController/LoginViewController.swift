@@ -39,6 +39,18 @@ extension LoginViewController {
     
     private func kakaoLoginButtonTapped() {
         print("kakaoLoginButtonTapped")
+        
+        KakaoAuthManager.shared.kakaoLogin()
+        
+        KakaoAuthManager.shared.loginSuccess = { token in
+            let userAccessToken = token ?? ""
+            
+            self.postTokenForSocialLogin(request: SocialLoginRequestDTO(socialPlatform: "KAKAO", name: nil, code: userAccessToken))
+        }
+        
+        KakaoAuthManager.shared.loginFailure = { error in
+            print("login failed - \(error.localizedDescription)")
+        }
     }
     
     private func appleLoginButtonTapped() {
@@ -73,7 +85,7 @@ extension LoginViewController {
                 userEmail = KeychainManager.shared.loadUserEmail() ?? ""
             }
             
-            self.postTokenForAppleLogin(request: SocialLoginRequestDTO(socialPlatform: "APPLE", name: userName, code: userIdentifyToken))
+            self.postTokenForSocialLogin(request: SocialLoginRequestDTO(socialPlatform: "APPLE", name: userName, code: userIdentifyToken))
         }
         
         AppleAuthManager.shared.loginFailure = { error in
@@ -81,7 +93,7 @@ extension LoginViewController {
         }
     }
     
-    private func postTokenForAppleLogin(request: SocialLoginRequestDTO) {
+    private func postTokenForSocialLogin(request: SocialLoginRequestDTO) {
         NetworkService.shared.authService.postSocialLogin(body: request) { response in
             switch response {
             case .success(let data):
