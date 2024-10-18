@@ -40,6 +40,11 @@ enum OFRAlertViewType {
     case textField
     
     /**
+     textField가 있으며 메시지 아래에 서브 텍스트가 있는 경우
+     */
+    case textFieldWithSubMessage
+    
+    /**
      팝업창 내 스크롤이 필요한 컨텐츠가 들어가는 형태/ 345\*544
      */
     case scrollableContent
@@ -77,9 +82,13 @@ class OFRAlertView: UIView {
         didSet { self.messageLabel.text = message }
     }
     
+    private var subMessage: String? {
+        didSet { self.subMessageLabel.text = subMessage }
+    }
+    
     private var topInset: CGFloat {
         switch type {
-        case .normal, .textField, .custom:
+        case .normal, .textField, .textFieldWithSubMessage, .custom:
             28
         case .scrollableContent, .explorationResult, .acquiredEmblem:
             38
@@ -88,7 +97,7 @@ class OFRAlertView: UIView {
     
     private var leftInset: CGFloat {
         switch type {
-        case .normal, .textField, .scrollableContent, .explorationResult, .custom:
+        case .normal, .textField, .textFieldWithSubMessage, .scrollableContent, .explorationResult, .custom:
             46
         case .acquiredEmblem:
             24
@@ -97,7 +106,7 @@ class OFRAlertView: UIView {
     
     private var rightInset: CGFloat {
         switch type {
-        case .normal, .textField, .scrollableContent, .explorationResult, .custom:
+        case .normal, .textField, .textFieldWithSubMessage, .scrollableContent, .explorationResult, .custom:
             46
         case .acquiredEmblem:
             24
@@ -106,7 +115,7 @@ class OFRAlertView: UIView {
     
     private var bottomInset: CGFloat {
         switch type {
-        case .normal, .textField, .custom:
+        case .normal, .textField, .textFieldWithSubMessage, .custom:
             28
         case .scrollableContent, .explorationResult:
             38
@@ -126,37 +135,35 @@ class OFRAlertView: UIView {
     
     //MARK: - UI Properties
     
-    var upperSpacerView = UIView()
-    var lowerSpacerView = UIView()
+    private var spacerView1 = UIView()
+    private var spacerView2 = UIView()
+    private var spacerView3 = UIView()
+    private var spacerView4 = UIView()
     
     private lazy var contentView: UIView = {
         switch type {
         case .normal:
-            UIStackView(arrangedSubviews: [titleLabel, upperSpacerView, messageLabel, lowerSpacerView, buttonStackView]).then { stackView in
+            UIStackView(arrangedSubviews: [titleLabel,
+                                           spacerView1,
+                                           messageLabel,
+                                           spacerView2,
+                                           buttonStackView])
+            .then { stackView in
                 stackView.axis = .vertical
                 stackView.alignment = .fill
                 stackView.distribution = .fill
             }
+        case .textField:
+            UIView()
         default:
             UIView()
         }
     }()
     
-//    private lazy var contentView = UIView().then { view in
-//        switch type {
-//        case .normal:
-//            UIStackView(arrangedSubviews: [titleLabel, messageLabel, buttonStackView]).then { stackView in
-//                stackView.axis = .vertical
-//                stackView.alignment = .fill
-//                stackView.distribution = .fillEqually
-//            }
-//        default:
-//            UIView()
-//    }
-    
     let closeButton = UIButton()
     let titleLabel = UILabel()
     let messageLabel = UILabel()
+    let subMessageLabel = UILabel()
     
     private(set) var defaultTextField = UITextField()
     
@@ -209,14 +216,49 @@ extension OFRAlertView {
             }
             
             titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
-            upperSpacerView.setContentHuggingPriority(.init(0), for: .vertical)
-            lowerSpacerView.setContentHuggingPriority(.init(0), for: .vertical)
-            upperSpacerView.setContentCompressionResistancePriority(.init(999), for: .vertical)
-            lowerSpacerView.setContentCompressionResistancePriority(.init(999), for: .vertical)
-            lowerSpacerView.snp.makeConstraints { make in
-                make.height.equalTo(upperSpacerView)
+            spacerView1.setContentHuggingPriority(.init(0), for: .vertical)
+            spacerView2.setContentHuggingPriority(.init(0), for: .vertical)
+            spacerView1.setContentCompressionResistancePriority(.init(999), for: .vertical)
+            spacerView2.setContentCompressionResistancePriority(.init(999), for: .vertical)
+            spacerView2.snp.makeConstraints { make in
+                make.height.equalTo(spacerView1)
+            }
+        case .textField:
+            closeButton.snp.makeConstraints { make in
+                make.top.trailing.equalToSuperview().inset(12)
+                make.size.equalTo(44)
             }
             
+            contentView.snp.makeConstraints { make in
+                make.top.equalToSuperview().inset(topInset)
+                make.leading.equalToSuperview().inset(leftInset)
+                make.trailing.equalToSuperview().inset(rightInset)
+                make.bottom.equalToSuperview().inset(bottomInset)
+                make.height.greaterThanOrEqualTo(182)
+            }
+            
+            titleLabel.snp.makeConstraints { make in
+                make.top.horizontalEdges.equalToSuperview()
+                make.horizontalEdges.equalToSuperview()
+            }
+            titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+            
+            messageLabel.snp.makeConstraints { make in
+                make.top.equalTo(titleLabel.snp.bottom).offset(18)
+                make.horizontalEdges.equalToSuperview()
+            }
+            
+            defaultTextField.snp.makeConstraints { make in
+                make.top.equalTo(messageLabel.snp.bottom).offset(10)
+                make.horizontalEdges.equalToSuperview()
+                make.height.equalTo(43)
+            }
+            
+            buttonStackView.snp.makeConstraints { make in
+                make.top.equalTo(defaultTextField.snp.bottom).offset(18)
+                make.horizontalEdges.equalToSuperview()
+                make.bottom.equalToSuperview()
+            }
             
         default:
             closeButton.snp.makeConstraints { make in
@@ -250,33 +292,33 @@ extension OFRAlertView {
         }
     }
     
-    private func setupLayout(of type: OFRAlertViewType) {
-        
-        switch type {
-        case .normal:
-            messageLabel.snp.makeConstraints { make in
-                make.bottom.equalTo(buttonStackView.snp.top).offset(-24)
-            }
-            
-        case .textField:
-            defaultTextField.snp.makeConstraints { make in
-                make.top.equalTo(messageLabel.snp.bottom).offset(10)
-                make.horizontalEdges.equalToSuperview()
-                make.bottom.equalTo(buttonStackView.snp.top).offset(-18)
-                make.height.equalTo(43)
-            }
-            
-        case .scrollableContent:
-            return
-        case .explorationResult:
-            return
-        case .acquiredEmblem:
-            return
-        case .custom:
-            return
-        }
-        
-    }
+//    private func setupLayout(of type: OFRAlertViewType) {
+//        
+//        switch type {
+//        case .normal:
+//            messageLabel.snp.makeConstraints { make in
+//                make.bottom.equalTo(buttonStackView.snp.top).offset(-24)
+//            }
+//            
+//        case .textField, .textFieldWithSubMessage:
+//            defaultTextField.snp.makeConstraints { make in
+//                make.top.equalTo(messageLabel.snp.bottom).offset(10)
+//                make.horizontalEdges.equalToSuperview()
+//                make.bottom.equalTo(buttonStackView.snp.top).offset(-18)
+//                make.height.equalTo(43)
+//            }
+//            
+//        case .scrollableContent:
+//            return
+//        case .explorationResult:
+//            return
+//        case .acquiredEmblem:
+//            return
+//        case .custom:
+//            return
+//        }
+//        
+//    }
     
     //MARK: - Private Func
     
@@ -329,8 +371,15 @@ extension OFRAlertView {
     private func setupHierarchy() {
         switch type {
         case .normal:
-            addSubview(contentView)
-            addSubview(closeButton)
+            addSubviews(contentView, closeButton)
+        case .textField:
+            addSubviews(contentView, closeButton)
+            contentView.addSubviews(
+                titleLabel,
+                messageLabel,
+                defaultTextField,
+                buttonStackView
+            )
         default:
             addSubviews(contentView, closeButton)
             contentView.addSubviews(
@@ -341,29 +390,29 @@ extension OFRAlertView {
         }
     }
     
-    private func setupHierarchy(of type: OFRAlertViewType) {
-        switch type {
-        case .normal:
-            return
-        case .textField:
-            contentView.addSubview(defaultTextField)
-        case .scrollableContent:
-            return
-        case .explorationResult:
-            return
-        case .acquiredEmblem:
-            return
-        case .custom:
-            return
-        }
-    }
+//    private func setupHierarchy(of type: OFRAlertViewType) {
+//        switch type {
+//        case .normal:
+//            return
+//        case .textField, .textFieldWithSubMessage:
+//            contentView.addSubview(defaultTextField)
+//        case .scrollableContent:
+//            return
+//        case .explorationResult:
+//            return
+//        case .acquiredEmblem:
+//            return
+//        case .custom:
+//            return
+//        }
+//    }
     
     //MARK: - Func
     
-    func setFinalLayout(of type: OFRAlertViewType) {
-        // 순서 조심! view hierarchy -> constraint 순서로
-        setupHierarchy(of: type)
-        setupLayout(of: type)
-    }
+//    func setFinalLayout(of type: OFRAlertViewType) {
+//        // 순서 조심! view hierarchy -> constraint 순서로
+//        setupHierarchy(of: type)
+//        setupLayout(of: type)
+//    }
     
 }

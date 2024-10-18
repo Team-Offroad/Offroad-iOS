@@ -48,7 +48,7 @@ extension OFRAlertBackgroundView {
     private func setupLayout() {
         alertView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(22.5)
-            make.height.equalTo(238)
+            make.height.greaterThanOrEqualTo(238)
         }
         alertViewCenterYCosntraint.isActive = true
     }

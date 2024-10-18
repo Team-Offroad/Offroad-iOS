@@ -64,7 +64,7 @@ class OFRAlertController: ORBOverlayViewController {
     
     //MARK: - UI Properties
     
-    private let rootView = OFRAlertBackgroundView(type: .normal)
+    private let rootView: OFRAlertBackgroundView
     
     private var defaultTextField: UITextField {
         rootView.alertView.defaultTextField
@@ -83,6 +83,7 @@ class OFRAlertController: ORBOverlayViewController {
     
     init(title: String? = nil, message: String? = nil, type: OFRAlertViewType) {
         self.type = type
+        self.rootView = OFRAlertBackgroundView(type: type)
         super.init(nibName: nil, bundle: nil)
         
         bindData()
@@ -90,7 +91,7 @@ class OFRAlertController: ORBOverlayViewController {
         viewModel.messageRelay.accept(message)
         
         viewModel.type = type
-        rootView.alertView.setFinalLayout(of: type)
+//        rootView.alertView.setFinalLayout(of: type)
         rootView.alertView.layoutIfNeeded()
         
         if type == .textField {
