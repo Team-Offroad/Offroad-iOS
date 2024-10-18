@@ -276,6 +276,10 @@ extension OFRAlertController {
         rootView.layoutIfNeeded()
     }
     
+    func configureTitleLabel(_ configure: (UILabel) -> Void) {
+        configure(self.rootView.alertView.titleLabel)
+    }
+    
     /**
      alert controller의 type이 `.textField`인 경우 `defaultTextField`의 속성을 변경하는 함수.
      alert controller의 type이 `.textField`가 아닌 경우, 이 함수는 아무런 동작도 하지 않는다.
@@ -291,6 +295,10 @@ extension OFRAlertController {
     
     func configureSubMessagelabel(_ configure: (UILabel) -> Void) {
         configure(self.rootView.alertView.subMessageLabel)
+    }
+    
+    func configureScrollableContentView(_ configure: (UIView) -> Void) {
+        configure(self.rootView.alertView.scrollableContentView)
     }
     
 }
