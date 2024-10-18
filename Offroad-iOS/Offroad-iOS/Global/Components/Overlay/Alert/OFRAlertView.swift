@@ -135,11 +135,6 @@ class OFRAlertView: UIView {
     
     //MARK: - UI Properties
     
-    private var spacerView1 = UIView()
-    private var spacerView2 = UIView()
-    private var spacerView3 = UIView()
-    private var spacerView4 = UIView()
-    
     private lazy var contentView: UIView = {
         switch type {
         case .normal:
@@ -167,6 +162,8 @@ class OFRAlertView: UIView {
     
     private(set) var defaultTextField = UITextField()
     
+    private var scrollableContents = UIScrollView()
+    
     private(set) var buttons: [OFRAlertButton] = [] {
         didSet {
             print("현재 버튼의 수: \(buttons.count)")
@@ -175,6 +172,9 @@ class OFRAlertView: UIView {
             buttonStackView.addArrangedSubview(addedButton)
         }
     }
+    
+    private var spacerView1 = UIView()
+    private var spacerView2 = UIView()
     
     private lazy var buttonStackView: UIStackView = UIStackView(arrangedSubviews: buttons)
     
@@ -250,6 +250,48 @@ extension OFRAlertView {
             
             defaultTextField.snp.makeConstraints { make in
                 make.top.equalTo(messageLabel.snp.bottom).offset(10)
+                make.horizontalEdges.equalToSuperview()
+                make.height.equalTo(43)
+            }
+            
+            buttonStackView.snp.makeConstraints { make in
+                make.top.equalTo(defaultTextField.snp.bottom).offset(18)
+                make.horizontalEdges.equalToSuperview()
+                make.bottom.equalToSuperview()
+            }
+            
+        case .textFieldWithSubMessage:
+            closeButton.snp.makeConstraints { make in
+                make.top.trailing.equalToSuperview().inset(12)
+                make.size.equalTo(44)
+            }
+            
+            contentView.snp.makeConstraints { make in
+                make.top.equalToSuperview().inset(topInset)
+                make.leading.equalToSuperview().inset(leftInset)
+                make.trailing.equalToSuperview().inset(rightInset)
+                make.bottom.equalToSuperview().inset(bottomInset)
+                make.height.greaterThanOrEqualTo(182)
+            }
+            
+            titleLabel.snp.makeConstraints { make in
+                make.top.horizontalEdges.equalToSuperview()
+                make.horizontalEdges.equalToSuperview()
+            }
+            titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+            
+            messageLabel.snp.makeConstraints { make in
+                make.top.equalTo(titleLabel.snp.bottom).offset(18)
+                make.horizontalEdges.equalToSuperview()
+            }
+            
+            subMessageLabel.snp.makeConstraints { make in
+                make.top.equalTo(messageLabel.snp.bottom).offset(18)
+                make.horizontalEdges.equalToSuperview()
+            }
+            
+            defaultTextField.snp.makeConstraints { make in
+                make.top.equalTo(subMessageLabel.snp.bottom).offset(10)
                 make.horizontalEdges.equalToSuperview()
                 make.height.equalTo(43)
             }
@@ -377,6 +419,15 @@ extension OFRAlertView {
             contentView.addSubviews(
                 titleLabel,
                 messageLabel,
+                defaultTextField,
+                buttonStackView
+            )
+        case .textFieldWithSubMessage:
+            addSubviews(contentView, closeButton)
+            contentView.addSubviews(
+                titleLabel,
+                messageLabel,
+                subMessageLabel,
                 defaultTextField,
                 buttonStackView
             )

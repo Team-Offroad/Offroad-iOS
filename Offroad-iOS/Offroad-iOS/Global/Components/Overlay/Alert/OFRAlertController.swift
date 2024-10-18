@@ -94,7 +94,7 @@ class OFRAlertController: ORBOverlayViewController {
 //        rootView.alertView.setFinalLayout(of: type)
         rootView.alertView.layoutIfNeeded()
         
-        if type == .textField {
+        if type == .textField || type == .textFieldWithSubMessage {
             viewModel.textFieldToBeFirstResponder = defaultTextField
         }
     }
@@ -281,12 +281,16 @@ extension OFRAlertController {
      alert controller의 type이 `.textField`가 아닌 경우, 이 함수는 아무런 동작도 하지 않는다.
      */
     func configureDefaultTextField(_ configure: (UITextField) -> Void) {
-        guard viewModel.type == .textField else { return }
+        guard viewModel.type == .textField || viewModel.type == .textFieldWithSubMessage else { return }
         configure(defaultTextField)
     }
     
     func configureMessageLabel(_ configure: (UILabel) -> Void) {
         configure(self.rootView.alertView.messageLabel)
+    }
+    
+    func configureSubMessagelabel(_ configure: (UILabel) -> Void) {
+        configure(self.rootView.alertView.subMessageLabel)
     }
     
 }
