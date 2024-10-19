@@ -166,6 +166,8 @@ class OFRAlertView: UIView {
         scrollView.backgroundColor = .clear
     }
     
+    var explorationResultImageView = UIImageView()
+    
     private(set) var buttons: [OFRAlertButton] = [] {
         didSet {
             print("현재 버튼의 수: \(buttons.count)")
@@ -321,11 +323,42 @@ extension OFRAlertView {
             scrollableContentView.snp.makeConstraints { make in
                 make.top.equalTo(titleLabel.snp.bottom).offset(24)
                 make.horizontalEdges.equalToSuperview()
-                make.height.equalTo(400)
+                make.height.equalTo(350)
             }
             
             buttonStackView.snp.makeConstraints { make in
                 make.top.equalTo(scrollableContentView.snp.bottom).offset(24)
+                make.horizontalEdges.equalToSuperview()
+                make.bottom.equalToSuperview()
+            }
+        case .explorationResult:
+            contentView.snp.makeConstraints { make in
+                make.top.equalToSuperview().inset(topInset)
+                make.leading.equalToSuperview().inset(leftInset)
+                make.trailing.equalToSuperview().inset(rightInset)
+                make.bottom.equalToSuperview().inset(bottomInset)
+                make.height.greaterThanOrEqualTo(182)
+            }
+            
+            titleLabel.snp.makeConstraints { make in
+                make.top.horizontalEdges.equalToSuperview()
+                make.horizontalEdges.equalToSuperview()
+            }
+            titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+            
+            messageLabel.snp.makeConstraints { make in
+                make.top.equalTo(titleLabel.snp.bottom).offset(10)
+                make.horizontalEdges.equalToSuperview()
+            }
+            
+            explorationResultImageView.snp.makeConstraints { make in
+                make.top.equalTo(messageLabel.snp.bottom)
+                make.horizontalEdges.equalToSuperview()
+                make.height.equalTo(182)
+            }
+            
+            buttonStackView.snp.makeConstraints { make in
+                make.top.equalTo(explorationResultImageView.snp.bottom)
                 make.horizontalEdges.equalToSuperview()
                 make.bottom.equalToSuperview()
             }
@@ -462,6 +495,9 @@ extension OFRAlertView {
         case .scrollableContent:
             addSubviews(contentView, closeButton)
             contentView.addSubviews(titleLabel, scrollableContentView, buttonStackView)
+        case .explorationResult:
+            addSubviews(contentView)
+            contentView.addSubviews(titleLabel, messageLabel, explorationResultImageView, buttonStackView)
         default:
             addSubviews(contentView, closeButton)
             contentView.addSubviews(

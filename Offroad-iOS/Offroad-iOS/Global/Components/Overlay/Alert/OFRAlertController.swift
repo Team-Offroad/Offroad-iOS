@@ -301,4 +301,8 @@ extension OFRAlertController {
         configure(self.rootView.alertView.scrollableContentView)
     }
     
+    func configureExplorationResultImage(_ configure: (UIImageView) -> Void) {
+        configure(self.rootView.alertView.explorationResultImageView)
+    }
+    
 }
