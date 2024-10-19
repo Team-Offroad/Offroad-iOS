@@ -11,9 +11,6 @@ class ORBAlertBaseView: UIView {
     
     //MARK: - Properties
     
-//    private var ratio: OFRAlertViewRatio = .horizontal
-//    var type: OFRAlertType
-    
     var title: String? {
         didSet { self.titleLabel.text = title }
     }
@@ -21,48 +18,6 @@ class ORBAlertBaseView: UIView {
     var message: String? {
         didSet { self.messageLabel.text = message }
     }
-    
-//    var subMessage: String? {
-//        didSet { self.subMessageLabel.text = subMessage }
-//    }
-    
-//    private var topInset: CGFloat {
-//        switch type {
-//        case .normal, .textField, .textFieldWithSubMessage, .custom:
-//            28
-//        case .scrollableContent, .explorationResult, .acquiredEmblem:
-//            38
-//        }
-//    }
-//
-//    private var leftInset: CGFloat {
-//        switch type {
-//        case .normal, .textField, .textFieldWithSubMessage, .scrollableContent, .explorationResult, .custom:
-//            46
-//        case .acquiredEmblem:
-//            24
-//        }
-//    }
-//
-//    private var rightInset: CGFloat {
-//        switch type {
-//        case .normal, .textField, .textFieldWithSubMessage, .scrollableContent, .explorationResult, .custom:
-//            46
-//        case .acquiredEmblem:
-//            24
-//        }
-//    }
-//
-//    private var bottomInset: CGFloat {
-//        switch type {
-//        case .normal, .textField, .textFieldWithSubMessage, .custom:
-//            28
-//        case .scrollableContent, .explorationResult:
-//            38
-//        case .acquiredEmblem:
-//            20
-//        }
-//    }
     
     var actions: [OFRAlertAction] = [] {
         didSet {
@@ -74,24 +29,6 @@ class ORBAlertBaseView: UIView {
     }
     
     //MARK: - UI Properties
-    
-//    lazy var contentView: UIView = {
-//        switch type {
-//        case .normal:
-//            UIStackView(arrangedSubviews: [titleLabel,
-//                                           spacerView1,
-//                                           messageLabel,
-//                                           spacerView2,
-//                                           buttonStackView])
-//            .then { stackView in
-//                stackView.axis = .vertical
-//                stackView.alignment = .fill
-//                stackView.distribution = .fill
-//            }
-//        default:
-//            UIView()
-//        }
-//    }()
     
     let closeButton = UIButton()
     let titleLabel = UILabel()
@@ -110,15 +47,6 @@ class ORBAlertBaseView: UIView {
     
     //MARK: - Life Cycle
     
-//    init(type: OFRAlertType) {
-//        self.type = type
-//        super.init(frame: .zero)
-//        
-//        setupStyle()
-//        setupHierarchy()
-//        setupLayout()
-//    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -130,10 +58,6 @@ class ORBAlertBaseView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//}
-//
-//extension ORBAlertBaseView {
     
     func setupStyle() {
         /*
@@ -162,17 +86,6 @@ class ORBAlertBaseView: UIView {
             label.setLineHeight(percentage: 150)
         }
         
-//        defaultTextField.do { textField in
-//            textField.font = .offroad(style: .iosHint)
-//            textField.textColor = .primary(.black)
-//            textField.backgroundColor = .main(.main3)
-//            textField.layer.borderColor = UIColor.grayscale(.gray200).cgColor
-//            textField.layer.borderWidth = 1
-//            textField.clipsToBounds = true
-//            textField.roundCorners(cornerRadius: 5)
-//            textField.addPadding(left: 12, right: 12)
-//        }
-        
         buttonStackView.do { stackView in
             stackView.axis = buttons.count <= 2 ? .horizontal : .vertical
             stackView.spacing = 14
@@ -186,7 +99,8 @@ class ORBAlertBaseView: UIView {
         closeButton.snp.makeConstraints { make in
             make.top.trailing.equalToSuperview().inset(12)
             make.size.equalTo(44)
-        }        
+        }
+        
     }
     
 }

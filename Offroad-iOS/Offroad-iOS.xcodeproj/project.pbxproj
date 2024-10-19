@@ -103,6 +103,7 @@
 		4EF6B0412CC3F1B900066640 /* ORBAlertViewTextFieldWithSubMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6B0402CC3F1B900066640 /* ORBAlertViewTextFieldWithSubMessage.swift */; };
 		4EF6B0432CC3F45000066640 /* ORBAlertViewScrollableContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6B0422CC3F45000066640 /* ORBAlertViewScrollableContent.swift */; };
 		4EF6B0452CC3F50900066640 /* ORBAlertViewExplorationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6B0442CC3F50900066640 /* ORBAlertViewExplorationResult.swift */; };
+		4EF833EC2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */; };
 		4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */; };
 		4EFCDFDD2C92BB27006DEBB6 /* OFRAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDC2C92BB27006DEBB6 /* OFRAlertController.swift */; };
 		4EFCDFDF2C92BD8A006DEBB6 /* OFRAlertBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDE2C92BD8A006DEBB6 /* OFRAlertBackgroundView.swift */; };
@@ -354,6 +355,7 @@
 		4EF6B0402CC3F1B900066640 /* ORBAlertViewTextFieldWithSubMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewTextFieldWithSubMessage.swift; sourceTree = "<group>"; };
 		4EF6B0422CC3F45000066640 /* ORBAlertViewScrollableContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewScrollableContent.swift; sourceTree = "<group>"; };
 		4EF6B0442CC3F50900066640 /* ORBAlertViewExplorationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewExplorationResult.swift; sourceTree = "<group>"; };
+		4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewAcquiredEmblem.swift; sourceTree = "<group>"; };
 		4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapListButton.swift; sourceTree = "<group>"; };
 		4EFCDFDC2C92BB27006DEBB6 /* OFRAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRAlertController.swift; sourceTree = "<group>"; };
 		4EFCDFDE2C92BD8A006DEBB6 /* OFRAlertBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRAlertBackgroundView.swift; sourceTree = "<group>"; };
@@ -1258,6 +1260,7 @@
 				4EF6B0402CC3F1B900066640 /* ORBAlertViewTextFieldWithSubMessage.swift */,
 				4EF6B0422CC3F45000066640 /* ORBAlertViewScrollableContent.swift */,
 				4EF6B0442CC3F50900066640 /* ORBAlertViewExplorationResult.swift */,
+				4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */,
 			);
 			path = AlertView;
 			sourceTree = "<group>";
@@ -2493,6 +2496,7 @@
 				D0E796332C453615005B47A5 /* NicknameCheckResponseDTO.swift in Sources */,
 				D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */,
 				4EFCDFE12C92BD93006DEBB6 /* OFRAlertType.swift in Sources */,
+				4EF833EC2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift in Sources */,
 				4EE049912CA14E6500754488 /* UsedCouponCell.swift in Sources */,
 				D0E796352C4536E8005B47A5 /* CharacterAPI.swift in Sources */,
 				D0E796292C4533CE005B47A5 /* ProfileUpdateRequestDTO.swift in Sources */,

@@ -36,8 +36,6 @@ class OFRAlertController: ORBOverlayViewController {
         set { viewModel.messageRelay.accept(newValue) }
     }
     
-    var type: OFRAlertType
-    
     var actions: [OFRAlertAction] { rootView.alertView.actions }
     
     /**
@@ -88,18 +86,13 @@ class OFRAlertController: ORBOverlayViewController {
     
     
     init(title: String? = nil, message: String? = nil, type: OFRAlertType) {
-        self.type = type
         self.rootView = OFRAlertBackgroundView(type: type)
         super.init(nibName: nil, bundle: nil)
         
         bindData()
+        viewModel.alertTypeSubject.onNext(type)
         viewModel.titleRelay.accept(title)
         viewModel.messageRelay.accept(message)
-        viewModel.type = type
-        
-        if type == .textField || type == .textFieldWithSubMessage {
-            viewModel.textFieldToBeFirstResponder = defaultTextField
-        }
     }
     
     required init?(coder: NSCoder) {
@@ -121,7 +114,6 @@ class OFRAlertController: ORBOverlayViewController {
         super.viewDidAppear(animated)
         
         showAlertView()
-        showKeyboardIfNeeded()
     }
     
     override func dismiss(animated: Bool, completion: (() -> Void)? = nil) {
@@ -195,12 +187,6 @@ extension OFRAlertController {
         dismissalAnimator.startAnimation()
     }
     
-    private func showKeyboardIfNeeded() {
-        if (viewModel.type == .textField || viewModel.type == .textFieldWithSubMessage) && showsKeyboardWhenPresented {
-            viewModel.textFieldToBeFirstResponder?.becomeFirstResponder()
-        }
-    }
-    
     private func setupNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -213,6 +199,19 @@ extension OFRAlertController {
     private func bindData() {
         viewModel.titleRelay.bind(to: rootView.alertView.titleLabel.rx.text).disposed(by: disposeBag)
         viewModel.messageRelay.bind(to: rootView.alertView.messageLabel.rx.text).disposed(by: disposeBag)
+        viewModel.alertTypeSubject
+            .filter({ $0 == .textField || $0 == .textFieldWithSubMessage })
+            .subscribe(onNext: { [weak self] type in
+                guard let self else { return }
+                self.viewModel.textFieldToBeFirstResponderSubject.onNext(self.defaultTextField)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.textFieldToBeFirstResponderSubject
+            .subscribe { textField in
+                textField?.becomeFirstResponder()
+            }
+            .disposed(by: disposeBag)
         
         viewModel.keyboardFrameRelay
             .subscribe { [weak self] rect in
@@ -232,7 +231,7 @@ extension OFRAlertController {
             defaultTextField.rx.text.orEmpty
                 .do(onNext: { print($0) })
                 .subscribe(onNext: { [weak self] string in
-                    self?.viewModel.textInput.accept(string)
+                    self?.viewModel.defaultTextInput.accept(string)
                 })
                 .disposed(by: disposeBag)
         }

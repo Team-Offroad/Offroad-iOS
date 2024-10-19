@@ -37,7 +37,7 @@ internal class OFRAlertBackgroundView: UIView {
         case .explorationResult:
             self.alertView = ORBAlertViewExplorationResult()
         case .acquiredEmblem:
-            self.alertView = ORBAlertViewNormal()
+            self.alertView = ORBAlertViewAcquiredEmblem()
         case .custom:
             self.alertView = ORBAlertViewNormal()
         }

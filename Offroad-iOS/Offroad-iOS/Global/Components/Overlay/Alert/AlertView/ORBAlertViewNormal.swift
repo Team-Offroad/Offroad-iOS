@@ -10,7 +10,8 @@ import UIKit
 final class ORBAlertViewNormal: ORBAlertBaseView, ORBAlertViewBaseUI {
     
     let type: OFRAlertType = .normal
-    lazy var contentView: UIView = UIStackView(
+    let contentView = UIView()
+    lazy var contentStackView: UIView = UIStackView(
         arrangedSubviews: [titleLabel, spacerView1, messageLabel, spacerView2, buttonStackView]
     ).then { stackView in
         stackView.axis = .vertical
@@ -22,7 +23,9 @@ final class ORBAlertViewNormal: ORBAlertBaseView, ORBAlertViewBaseUI {
     private var spacerView2 = UIView()
     
     override func setupHierarchy() {
+        super.setupHierarchy()
         addSubviews(contentView, closeButton)
+        contentView.addSubview(contentStackView)
     }
     
     override func setupLayout() {
@@ -39,6 +42,10 @@ final class ORBAlertViewNormal: ORBAlertBaseView, ORBAlertViewBaseUI {
             make.trailing.equalToSuperview().inset(rightInset)
             make.bottom.equalToSuperview().inset(bottomInset)
             make.height.greaterThanOrEqualTo(182)
+        }
+        
+        contentStackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
         titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)

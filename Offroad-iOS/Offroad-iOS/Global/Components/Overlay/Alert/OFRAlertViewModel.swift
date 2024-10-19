@@ -16,29 +16,32 @@ class OFRAlertViewModel {
     
     var titleRelay = PublishRelay<String?>()
     var messageRelay = PublishRelay<String?>()
-    private var alertTypeRelay = PublishSubject<OFRAlertType>()
+    var alertTypeSubject = PublishSubject<OFRAlertType>()
+    var textFieldToBeFirstResponderSubject: BehaviorSubject<UITextField?> = BehaviorSubject(value: nil)
+    
     var type: OFRAlertType = .normal
     
     var animationStartedSubject = BehaviorSubject(value: false)
     
     var backgroundTapGesture = UITapGestureRecognizer()
     
-    var textFieldToBeFirstResponderSubject: BehaviorSubject<UITextField?> = BehaviorSubject(value: nil)
+    
     var textFieldToBeFirstResponder: UITextField? = nil
     
     var keyboardFrameRelay = PublishRelay<CGRect>()
     
-    var textInput = PublishRelay<String>()
+    var defaultTextInput = PublishRelay<String>()
     
     var isInputEmptyObservable: Observable<Bool>
     
     init() {
-        self.isInputEmptyObservable = textInput.map( { $0 == "" })
+        self.isInputEmptyObservable = defaultTextInput.map( { $0 == "" })
         
-        alertTypeRelay.subscribe { [weak self] type in
-            self?.type = type
-        }.disposed(by: disposeBag)
-        
+        alertTypeSubject
+            .subscribe { [weak self] type in
+                guard let self else { return }
+                self.type = type
+            }.disposed(by: disposeBag)
         
         textFieldToBeFirstResponderSubject
             .subscribe(onNext: { [weak self] textField in
