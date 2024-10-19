@@ -106,7 +106,7 @@
 		4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */; };
 		4EFCDFDD2C92BB27006DEBB6 /* OFRAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDC2C92BB27006DEBB6 /* OFRAlertController.swift */; };
 		4EFCDFDF2C92BD8A006DEBB6 /* OFRAlertBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDE2C92BD8A006DEBB6 /* OFRAlertBackgroundView.swift */; };
-		4EFCDFE12C92BD93006DEBB6 /* OFRAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE02C92BD93006DEBB6 /* OFRAlertView.swift */; };
+		4EFCDFE12C92BD93006DEBB6 /* OFRAlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE02C92BD93006DEBB6 /* OFRAlertType.swift */; };
 		4EFCDFE32C92C1F1006DEBB6 /* OFRAlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE22C92C1F1006DEBB6 /* OFRAlertButton.swift */; };
 		872F4BAE2C68C1F600284DE0 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */; };
 		872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB02C68C43800284DE0 /* CharacterListCell.swift */; };
@@ -357,7 +357,7 @@
 		4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapListButton.swift; sourceTree = "<group>"; };
 		4EFCDFDC2C92BB27006DEBB6 /* OFRAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRAlertController.swift; sourceTree = "<group>"; };
 		4EFCDFDE2C92BD8A006DEBB6 /* OFRAlertBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRAlertBackgroundView.swift; sourceTree = "<group>"; };
-		4EFCDFE02C92BD93006DEBB6 /* OFRAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRAlertView.swift; sourceTree = "<group>"; };
+		4EFCDFE02C92BD93006DEBB6 /* OFRAlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRAlertType.swift; sourceTree = "<group>"; };
 		4EFCDFE22C92C1F1006DEBB6 /* OFRAlertButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFRAlertButton.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
@@ -1122,7 +1122,7 @@
 				4EFCDFDC2C92BB27006DEBB6 /* OFRAlertController.swift */,
 				4E56F54B2C995BA800EEE677 /* OFRAlertViewModel.swift */,
 				4EFCDFDE2C92BD8A006DEBB6 /* OFRAlertBackgroundView.swift */,
-				4EFCDFE02C92BD93006DEBB6 /* OFRAlertView.swift */,
+				4EFCDFE02C92BD93006DEBB6 /* OFRAlertType.swift */,
 				4EF6B03C2CC3EA9800066640 /* ORBAlertBaseView.swift */,
 				4EFCDFE22C92C1F1006DEBB6 /* OFRAlertButton.swift */,
 				4E38F0EE2C9EBAFA00C7B866 /* OFRAlertAction.swift */,
@@ -2492,7 +2492,7 @@
 				D0E796202C4532A6005B47A5 /* ErrorResponseDTO.swift in Sources */,
 				D0E796332C453615005B47A5 /* NicknameCheckResponseDTO.swift in Sources */,
 				D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */,
-				4EFCDFE12C92BD93006DEBB6 /* OFRAlertView.swift in Sources */,
+				4EFCDFE12C92BD93006DEBB6 /* OFRAlertType.swift in Sources */,
 				4EE049912CA14E6500754488 /* UsedCouponCell.swift in Sources */,
 				D0E796352C4536E8005B47A5 /* CharacterAPI.swift in Sources */,
 				D0E796292C4533CE005B47A5 /* ProfileUpdateRequestDTO.swift in Sources */,
