@@ -1123,7 +1123,6 @@
 				4E56F54B2C995BA800EEE677 /* OFRAlertViewModel.swift */,
 				4EFCDFDE2C92BD8A006DEBB6 /* OFRAlertBackgroundView.swift */,
 				4EFCDFE02C92BD93006DEBB6 /* OFRAlertType.swift */,
-				4EF6B03C2CC3EA9800066640 /* ORBAlertBaseView.swift */,
 				4EFCDFE22C92C1F1006DEBB6 /* OFRAlertButton.swift */,
 				4E38F0EE2C9EBAFA00C7B866 /* OFRAlertAction.swift */,
 			);
@@ -1253,6 +1252,7 @@
 		4EF6B0362CC3E2B800066640 /* AlertView */ = {
 			isa = PBXGroup;
 			children = (
+				4EF6B03C2CC3EA9800066640 /* ORBAlertBaseView.swift */,
 				4EF6B0372CC3E7A900066640 /* ORBAlertViewNormal.swift */,
 				4EF6B03E2CC3EEFE00066640 /* ORBAlertViewTextField.swift */,
 				4EF6B0402CC3F1B900066640 /* ORBAlertViewTextFieldWithSubMessage.swift */,
