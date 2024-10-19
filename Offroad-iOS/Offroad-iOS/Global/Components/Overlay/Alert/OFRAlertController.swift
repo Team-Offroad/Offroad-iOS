@@ -95,40 +95,16 @@ class OFRAlertController: ORBOverlayViewController {
         bindData()
         viewModel.titleRelay.accept(title)
         viewModel.messageRelay.accept(message)
-        
         viewModel.type = type
-//        rootView.alertView.setFinalLayout(of: type)
-        rootView.alertView.layoutIfNeeded()
         
         if type == .textField || type == .textFieldWithSubMessage {
             viewModel.textFieldToBeFirstResponder = defaultTextField
         }
     }
     
-//    private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-//        super.init(nibName: nil, bundle: nil)
-//        
-//        bindData()
-//    }
-//    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-//    
-//    convenience init(title: String? = nil, message: String? = nil, type: OFRAlertViewType) {
-//        self.init(nibName: nil, bundle: nil)
-//        
-//        viewModel.titleRelay.accept(title)
-//        viewModel.messageRelay.accept(message)
-//        
-//        viewModel.type = type
-//        rootView.alertView.setFinalLayout(of: type)
-//        rootView.alertView.layoutIfNeeded()
-//        
-//        if type == .textField {
-//            viewModel.textFieldToBeFirstResponder = defaultTextField
-//        }
-//    }
     
     override func loadView() {
         view = rootView
@@ -220,7 +196,7 @@ extension OFRAlertController {
     }
     
     private func showKeyboardIfNeeded() {
-        if viewModel.type == .textField && showsKeyboardWhenPresented {
+        if (viewModel.type == .textField || viewModel.type == .textFieldWithSubMessage) && showsKeyboardWhenPresented {
             viewModel.textFieldToBeFirstResponder?.becomeFirstResponder()
         }
     }

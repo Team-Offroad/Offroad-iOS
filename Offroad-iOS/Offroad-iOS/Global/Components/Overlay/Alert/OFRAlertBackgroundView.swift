@@ -25,7 +25,6 @@ internal class OFRAlertBackgroundView: UIView {
     //MARK: - Life Cycle
     
     init(type: OFRAlertType) {
-//        self.alertView = OFRAlertView(type: type)
         switch type {
         case .normal:
             self.alertView = ORBAlertViewNormal()

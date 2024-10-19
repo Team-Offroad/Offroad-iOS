@@ -9,15 +9,14 @@ import UIKit
 
 protocol ORBAlertViewBaseUI: ORBAlertViewType {
     
-//    var buttons: [OFRAlertButton] { get }
-//    
-//    var closeButton: UIButton { get }
-//    var contentView: UIView { get set }
-//    
-//    var titleLabel: UILabel { get }
-//    var messageLabel: UILabel { get }
-//    var defaultTextField: UITextField { get }
-//    var buttonStackView: UIStackView { get }
+    var buttons: [OFRAlertButton] { get }
+    
+    var closeButton: UIButton { get }
+    var contentView: UIView { get }
+    
+    var titleLabel: UILabel { get }
+    var messageLabel: UILabel { get }
+    var buttonStackView: UIStackView { get }
     
     var topInset: CGFloat { get }
     var leftInset: CGFloat { get }

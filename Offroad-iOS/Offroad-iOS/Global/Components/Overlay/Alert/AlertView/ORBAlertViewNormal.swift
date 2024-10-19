@@ -7,59 +7,6 @@
 
 import UIKit
 
-//final class ORBAlertViewNormal: UIView, ORBAlertViewCustomUI {
-//    
-//    
-//    
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        
-//        setupStyle()
-//        setupHierarchy()
-//        setupLayout()
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
-//    var title: String? {
-//        didSet { self.titleLabel.text = title }
-//    }
-//    
-//    var message: String? {
-//        didSet { self.messageLabel.text = message }
-//    }
-//    
-//    var type: OFRAlertType = .normal
-//    var buttons: [OFRAlertButton]
-//    
-//    var closeButton: UIButton
-//    var contentView: UIView
-//    var titleLabel: UILabel
-//    var messageLabel: UILabel
-//    var defaultTextField: UITextField
-//    var buttonStackView: UIStackView
-//    
-//}
-//
-//extension ORBAlertViewNormal {
-//    
-//    //MARK: - Layout Func
-//    
-//    func setupLayout() {
-//        <#code#>
-//    }
-//    
-//    //MARK: - Private Func
-//    
-//    func setupHierarchy() {
-//        <#code#>
-//    }
-//    
-//}
-
-
 final class ORBAlertViewNormal: ORBAlertBaseView, ORBAlertViewBaseUI {
     
     let type: OFRAlertType = .normal
