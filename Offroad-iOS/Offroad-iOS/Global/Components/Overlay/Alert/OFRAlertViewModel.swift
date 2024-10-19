@@ -21,8 +21,6 @@ class OFRAlertViewModel {
     
     var type: OFRAlertType = .normal
     
-    var animationStartedSubject = BehaviorSubject(value: false)
-    
     var backgroundTapGesture = UITapGestureRecognizer()
     
     

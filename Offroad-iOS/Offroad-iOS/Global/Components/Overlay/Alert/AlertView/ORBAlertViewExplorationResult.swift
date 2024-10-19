@@ -14,7 +14,7 @@ final class ORBAlertViewExplorationResult: ORBAlertBaseView, ORBAlertViewBaseUI 
     let explorationResultImageView = UIImageView()
     
     override func setupHierarchy() {
-        addSubviews(contentView)
+        addSubviews(contentView, closeButton)
         contentView.addSubviews(titleLabel, messageLabel, explorationResultImageView, buttonStackView)
     }
     

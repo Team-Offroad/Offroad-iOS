@@ -10,15 +10,15 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class OFRAlertController: ORBOverlayViewController {
+class OFRAlertController: ORBOverlayViewController, ORBPopup {
     
     //MARK: - Properties
     
     private let viewModel = OFRAlertViewModel()
     private var disposeBag = DisposeBag()
     
-    private let presentationAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.7)
-    private let dismissalAnimator = UIViewPropertyAnimator(duration: 0.2, dampingRatio: 1)
+    let presentationAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.7)
+    let dismissalAnimator = UIViewPropertyAnimator(duration: 0.2, dampingRatio: 1)
     
     /**
      팝업의 제목
@@ -62,7 +62,7 @@ class OFRAlertController: ORBOverlayViewController {
     
     //MARK: - UI Properties
     
-    private let rootView: OFRAlertBackgroundView
+    let rootView: OFRAlertBackgroundView
     
     private var defaultTextField: UITextField? {
         if let alertViewTextField = rootView.alertView as? ORBAlertViewTextField {
@@ -164,29 +164,6 @@ extension OFRAlertController {
         }
     }
     
-    private func showAlertView() {
-        rootView.alertView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-        rootView.layoutIfNeeded()
-        
-        presentationAnimator.addAnimations { [weak self] in
-            self?.rootView.backgroundColor = .blackOpacity(.black25)
-            self?.rootView.alertView.alpha = 1
-            self?.rootView.alertView.transform = .identity
-        }
-        presentationAnimator.startAnimation()
-        viewModel.animationStartedSubject.onNext(true)
-    }
-    
-    private func hideAlertView(completion: (() -> Void)? = nil) {
-        dismissalAnimator.addAnimations { [weak self] in
-            self?.rootView.backgroundColor = .clear
-            self?.rootView.alertView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-            self?.rootView.alertView.alpha = 0
-        }
-        dismissalAnimator.addCompletion { _ in completion?() }
-        dismissalAnimator.startAnimation()
-    }
-    
     private func setupNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -206,6 +183,15 @@ extension OFRAlertController {
                 self.viewModel.textFieldToBeFirstResponderSubject.onNext(self.defaultTextField)
             })
             .disposed(by: disposeBag)
+        
+        viewModel.alertTypeSubject
+            .filter({ $0 == .acquiredEmblem })
+            .subscribe(onNext: { _ in
+                // 획득 칭호 뷰 설정하기
+                // 획득 칭호 모델 설정
+                // delegate 설정 등
+                // 획득 칭호 모델 팝업은 그냥 별도의 팝업 뷰 컨트롤러로 구현하는 것 고려
+            })
         
         viewModel.textFieldToBeFirstResponderSubject
             .subscribe { textField in
