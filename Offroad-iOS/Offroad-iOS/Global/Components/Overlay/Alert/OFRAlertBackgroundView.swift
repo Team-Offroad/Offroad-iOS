@@ -24,7 +24,7 @@ internal class OFRAlertBackgroundView: UIView {
     
     //MARK: - Life Cycle
     
-    init(type: OFRAlertViewType) {
+    init(type: OFRAlertType) {
         self.alertView = OFRAlertView(type: type)
         super.init(frame: .zero)
         
@@ -85,7 +85,7 @@ extension OFRAlertBackgroundView {
     
     //MARK: - Func
     
-    func setupLayout(of type: OFRAlertViewType, keyboardRect: CGRect? = nil) {
+    func setupLayout(of type: OFRAlertType, keyboardRect: CGRect? = nil) {
         alertViewCenterYCosntraint.isActive = true
         alertViewBottomConstraint.constant = keyboardRect == nil ? 0 : -(keyboardRect!.height + 24)
         alertViewBottomConstraint.isActive = true

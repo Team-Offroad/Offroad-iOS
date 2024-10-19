@@ -36,7 +36,7 @@ class OFRAlertController: ORBOverlayViewController {
         set { viewModel.messageRelay.accept(newValue) }
     }
     
-    var type: OFRAlertViewType
+    var type: OFRAlertType
     
     var actions: [OFRAlertAction] { rootView.alertView.actions }
     
@@ -81,7 +81,7 @@ class OFRAlertController: ORBOverlayViewController {
     //MARK: - Life Cycle
     
     
-    init(title: String? = nil, message: String? = nil, type: OFRAlertViewType) {
+    init(title: String? = nil, message: String? = nil, type: OFRAlertType) {
         self.type = type
         self.rootView = OFRAlertBackgroundView(type: type)
         super.init(nibName: nil, bundle: nil)

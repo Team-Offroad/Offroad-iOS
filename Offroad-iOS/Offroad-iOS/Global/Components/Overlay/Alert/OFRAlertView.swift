@@ -24,7 +24,7 @@ enum OFRAlertViewRatio {
 
 
 /// 팝업 뷰의 종류
-enum OFRAlertViewType {
+enum OFRAlertType {
     
     /**
      제목, 설명, 버튼만 갖는 기본적인 형태/  345\*238
@@ -72,7 +72,7 @@ class OFRAlertView: UIView {
     //MARK: - Properties
     
 //    private var ratio: OFRAlertViewRatio = .horizontal
-    private(set) var type: OFRAlertViewType
+    private(set) var type: OFRAlertType
     
     private(set) var title: String? {
         didSet { self.titleLabel.text = title }
@@ -184,7 +184,7 @@ class OFRAlertView: UIView {
     
     //MARK: - Life Cycle
     
-    init(type: OFRAlertViewType) {
+    init(type: OFRAlertType) {
         self.type = type
         super.init(frame: .zero)
         

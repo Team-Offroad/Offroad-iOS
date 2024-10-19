@@ -16,8 +16,8 @@ class OFRAlertViewModel {
     
     var titleRelay = PublishRelay<String?>()
     var messageRelay = PublishRelay<String?>()
-    private var alertTypeRelay = PublishSubject<OFRAlertViewType>()
-    var type: OFRAlertViewType = .normal
+    private var alertTypeRelay = PublishSubject<OFRAlertType>()
+    var type: OFRAlertType = .normal
     
     var animationStartedSubject = BehaviorSubject(value: false)
     
