@@ -66,8 +66,14 @@ class OFRAlertController: ORBOverlayViewController {
     
     private let rootView: OFRAlertBackgroundView
     
-    private var defaultTextField: UITextField {
-        rootView.alertView.defaultTextField
+    private var defaultTextField: UITextField? {
+        if let alertViewTextField = rootView.alertView as? ORBAlertViewTextField {
+            alertViewTextField.defaultTextField
+        } else if let alertViewTextFieldWithSubMessage = rootView.alertView as? ORBAlertViewTextFieldWithSubMessage {
+            alertViewTextFieldWithSubMessage.defaultTextField
+        } else {
+            nil
+        }
     }
     
     var buttons: [OFRAlertButton] {
@@ -246,12 +252,14 @@ extension OFRAlertController {
             })
             .disposed(by: disposeBag)
         
-        defaultTextField.rx.text.orEmpty
-            .do(onNext: { print($0) })
-            .subscribe(onNext: { [weak self] string in
-                self?.viewModel.textInput.accept(string)
-            })
-            .disposed(by: disposeBag)
+        if let defaultTextField {
+            defaultTextField.rx.text.orEmpty
+                .do(onNext: { print($0) })
+                .subscribe(onNext: { [weak self] string in
+                    self?.viewModel.textInput.accept(string)
+                })
+                .disposed(by: disposeBag)
+        }
         
         viewModel.backgroundTapGesture.rx.event
             .filter({ $0.numberOfTouches < 2 })
@@ -286,7 +294,7 @@ extension OFRAlertController {
      */
     func configureDefaultTextField(_ configure: (UITextField) -> Void) {
         guard viewModel.type == .textField || viewModel.type == .textFieldWithSubMessage else { return }
-        configure(defaultTextField)
+        configure(defaultTextField!)
     }
     
     func configureMessageLabel(_ configure: (UILabel) -> Void) {
@@ -294,15 +302,18 @@ extension OFRAlertController {
     }
     
     func configureSubMessagelabel(_ configure: (UILabel) -> Void) {
-        configure(self.rootView.alertView.subMessageLabel)
+        guard let alertViewTextFieldWithSubMessage = rootView.alertView as? ORBAlertViewTextFieldWithSubMessage else { return }
+        configure(alertViewTextFieldWithSubMessage.subMessageLabel)
     }
     
     func configureScrollableContentView(_ configure: (UIView) -> Void) {
-        configure(self.rootView.alertView.scrollableContentView)
+        guard let alertViewScrollableContent = rootView.alertView as? ORBAlertViewScrollableContent else { return }
+        configure(alertViewScrollableContent.scrollableContentView)
     }
     
     func configureExplorationResultImage(_ configure: (UIImageView) -> Void) {
-        configure(self.rootView.alertView.explorationResultImageView)
+        guard let alertViewExplorationResult = rootView.alertView as? ORBAlertViewExplorationResult else { return }
+        configure(alertViewExplorationResult.explorationResultImageView)
     }
     
 }

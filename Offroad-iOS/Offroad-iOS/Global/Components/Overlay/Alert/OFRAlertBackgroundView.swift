@@ -20,12 +20,29 @@ internal class OFRAlertBackgroundView: UIView {
     
     //MARK: - UI Properties
     
-    let alertView: OFRAlertView
+    let alertView: ORBAlertBaseView
     
     //MARK: - Life Cycle
     
     init(type: OFRAlertType) {
-        self.alertView = OFRAlertView(type: type)
+//        self.alertView = OFRAlertView(type: type)
+        switch type {
+        case .normal:
+            self.alertView = ORBAlertViewNormal()
+        case .textField:
+            self.alertView = ORBAlertViewTextField()
+        case .textFieldWithSubMessage:
+            self.alertView = ORBAlertViewTextFieldWithSubMessage()
+        case .scrollableContent:
+            self.alertView = ORBAlertViewScrollableContent()
+        case .explorationResult:
+            self.alertView = ORBAlertViewExplorationResult()
+        case .acquiredEmblem:
+            self.alertView = ORBAlertViewNormal()
+        case .custom:
+            self.alertView = ORBAlertViewNormal()
+        }
+        
         super.init(frame: .zero)
         
         setupStyle()
