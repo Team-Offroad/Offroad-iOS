@@ -12,9 +12,14 @@ final class ORBAlertViewAcquiredEmblem: ORBAlertBaseView, ORBAlertViewBaseUI {
     let contentView = UIView()
     var type = OFRAlertType.acquiredEmblem
     
-    let collectionView: UICollectionView = {
+    let changeEmblemButton = StateToggleButton(state: .isDisabled, title: "바꾸기")
+    
+    lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.estimatedItemSize = CGSize(
+            width: UIScreen.currentScreenSize.width - (22.5 * 2) - leftInset - rightInset,
+            height: 48)
         layout.minimumLineSpacing = 12
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -26,12 +31,12 @@ final class ORBAlertViewAcquiredEmblem: ORBAlertBaseView, ORBAlertViewBaseUI {
     override func setupStyle() {
         super.setupStyle()
         
-        collectionView.backgroundColor = .blue
+        collectionView.backgroundColor = .clear
     }
     
     override func setupHierarchy() {
         addSubviews(contentView, closeButton)
-        contentView.addSubviews(titleLabel, collectionView, buttonStackView)
+        contentView.addSubviews(titleLabel, collectionView, changeEmblemButton)
     }
     
     override func setupLayout() {
@@ -56,9 +61,10 @@ final class ORBAlertViewAcquiredEmblem: ORBAlertBaseView, ORBAlertViewBaseUI {
             make.height.equalTo(254)
         }
         
-        buttonStackView.snp.makeConstraints { make in
+        changeEmblemButton.snp.makeConstraints { make in
             make.top.equalTo(collectionView.snp.bottom).offset(12)
             make.horizontalEdges.bottom.equalToSuperview()
+            make.height.equalTo(54)
         }
     }
     
