@@ -28,12 +28,12 @@ class OFRAlertViewModel {
     
     var keyboardFrameRelay = PublishRelay<CGRect>()
     
-    var defaultTextInput = PublishRelay<String>()
+    var defaultTextInputRelay = PublishRelay<String>()
     
     var isInputEmptyObservable: Observable<Bool>
     
     init() {
-        self.isInputEmptyObservable = defaultTextInput.map( { $0 == "" })
+        self.isInputEmptyObservable = defaultTextInputRelay.map( { $0 == "" })
         
         alertTypeSubject
             .subscribe { [weak self] type in

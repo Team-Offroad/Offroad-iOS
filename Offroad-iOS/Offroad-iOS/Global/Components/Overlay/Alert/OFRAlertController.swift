@@ -217,7 +217,7 @@ extension OFRAlertController {
             defaultTextField.rx.text.orEmpty
                 .do(onNext: { print($0) })
                 .subscribe(onNext: { [weak self] string in
-                    self?.viewModel.defaultTextInput.accept(string)
+                    self?.viewModel.defaultTextInputRelay.accept(string)
                 })
                 .disposed(by: disposeBag)
         }
