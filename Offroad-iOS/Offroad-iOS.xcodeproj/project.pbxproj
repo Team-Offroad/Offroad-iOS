@@ -146,6 +146,7 @@
 		D004F8562CA12A7A00D5A2CD /* NoticeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8552CA12A7A00D5A2CD /* NoticeResponseDTO.swift */; };
 		D004F8582CA12B1500D5A2CD /* NoticeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8572CA12B1000D5A2CD /* NoticeAPI.swift */; };
 		D004F85A2CA12B2200D5A2CD /* NoticeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8592CA12B1C00D5A2CD /* NoticeService.swift */; };
+		D004F8CF2CB4DDE600D5A2CD /* KakaoAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8CE2CB4DDD800D5A2CD /* KakaoAuthManager.swift */; };
 		D00A485B2C628054008B286A /* MyPageMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A485A2C628054008B286A /* MyPageMenuCollectionViewCell.swift */; };
 		D00A485D2C62847A008B286A /* MyPageMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A485C2C62847A008B286A /* MyPageMenuModel.swift */; };
 		D00A48622C633947008B286A /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48612C633947008B286A /* SettingView.swift */; };
@@ -400,6 +401,7 @@
 		D004F8552CA12A7A00D5A2CD /* NoticeResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeResponseDTO.swift; sourceTree = "<group>"; };
 		D004F8572CA12B1000D5A2CD /* NoticeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeAPI.swift; sourceTree = "<group>"; };
 		D004F8592CA12B1C00D5A2CD /* NoticeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeService.swift; sourceTree = "<group>"; };
+		D004F8CE2CB4DDD800D5A2CD /* KakaoAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthManager.swift; sourceTree = "<group>"; };
 		D00A485A2C628054008B286A /* MyPageMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		D00A485C2C62847A008B286A /* MyPageMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMenuModel.swift; sourceTree = "<group>"; };
 		D00A48612C633947008B286A /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -1832,6 +1834,7 @@
 		D0E795FA2C4474F6005B47A5 /* AuthManager */ = {
 			isa = PBXGroup;
 			children = (
+				D004F8CE2CB4DDD800D5A2CD /* KakaoAuthManager.swift */,
 				D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */,
 				D063E9912C57FE7400434A09 /* KeychainManager.swift */,
 				D03C835D2C61E44700F3094D /* TokenIntercepter.swift */,
@@ -2407,6 +2410,7 @@
 				D0E796572C453BCB005B47A5 /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
 				4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */,
+				D004F8CF2CB4DDE600D5A2CD /* KakaoAuthManager.swift in Sources */,
 				D06466AC2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift in Sources */,
 				D06466962C86F69F00CF10FD /* LogoutView.swift in Sources */,
 				4EE0497B2CA0FD1300754488 /* CouponListResponseDTO.swift in Sources */,
@@ -2774,6 +2778,10 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Offroad-iOS/Global/Resources/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "식당과 카페를 탐험하려면 QR 코드 인증이 필요해요.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -2810,6 +2818,10 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Offroad-iOS/Global/Resources/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "식당과 카페를 탐험하려면 QR 코드 인증이 필요해요.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

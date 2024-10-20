@@ -9,6 +9,6 @@ import Foundation
 
 struct SocialLoginRequestDTO: Codable {
     let socialPlatform: String
-    let name: String
+    let name: String?
     let code: String
 }
