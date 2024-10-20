@@ -198,8 +198,6 @@
 		D06D26DA2C3FE1C700E79F25 /* TitlePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */; };
 		D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */; };
 		D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */; };
-		D0B81AA02C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B81A9F2C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift */; };
-		D0B81AA22C47180800C44ED9 /* ChoosingCharacterPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B81AA12C47180800C44ED9 /* ChoosingCharacterPopupView.swift */; };
 		D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */; };
 		D0E795FC2C447511005B47A5 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */; };
 		D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FE2C44FC2C005B47A5 /* UserModel.swift */; };
@@ -453,8 +451,6 @@
 		D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupViewController.swift; sourceTree = "<group>"; };
 		D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupView.swift; sourceTree = "<group>"; };
 		D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionViewCell.swift; sourceTree = "<group>"; };
-		D0B81A9F2C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingCharacterPopupViewController.swift; sourceTree = "<group>"; };
-		D0B81AA12C47180800C44ED9 /* ChoosingCharacterPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingCharacterPopupView.swift; sourceTree = "<group>"; };
 		D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChoosingResponseDTO.swift; sourceTree = "<group>"; };
 		D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		D0E795FE2C44FC2C005B47A5 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -1435,7 +1431,6 @@
 			isa = PBXGroup;
 			children = (
 				8792D01D2C3E872D002051AC /* ChoosingCharacterView.swift */,
-				D0B81AA12C47180800C44ED9 /* ChoosingCharacterPopupView.swift */,
 				8792D0232C3F0843002051AC /* ChoosingCharacterCell.swift */,
 			);
 			path = View;
@@ -1444,7 +1439,6 @@
 		8792D01C2C3E870E002051AC /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				D0B81A9F2C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift */,
 				8792D01F2C3E873C002051AC /* ChoosingCharacterViewController.swift */,
 			);
 			path = ViewController;
@@ -2429,7 +2423,6 @@
 				D0E796082C45229B005B47A5 /* MoyaPlugin.swift in Sources */,
 				4EF6B0452CC3F50900066640 /* ORBAlertViewExplorationResult.swift in Sources */,
 				D00A48712C63443F008B286A /* NoticeView.swift in Sources */,
-				D0B81AA22C47180800C44ED9 /* ChoosingCharacterPopupView.swift in Sources */,
 				D063E98E2C49483000434A09 /* UIImageView+.swift in Sources */,
 				4E56F54C2C995BA800EEE677 /* OFRAlertViewModel.swift in Sources */,
 				D0E796632C4553F0005B47A5 /* RefreshTokenResponseDTO.swift in Sources */,
@@ -2545,7 +2538,6 @@
 				D06D26CD2C3E6EA200E79F25 /* CustomRecentProgressView.swift in Sources */,
 				D064669A2C86FCDB00CF10FD /* DeleteAccountViewController.swift in Sources */,
 				D06466902C83A18400CF10FD /* TermsConsentPopupViewController.swift in Sources */,
-				D0B81AA02C4717E600C44ED9 /* ChoosingCharacterPopupViewController.swift in Sources */,
 				D004F8562CA12A7A00D5A2CD /* NoticeResponseDTO.swift in Sources */,
 				4E1E94132C398C4200A7B08A /* String+.swift in Sources */,
 				D063E99F2C61071100434A09 /* CollectedTitlesView.swift in Sources */,
