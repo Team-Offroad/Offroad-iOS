@@ -136,14 +136,6 @@ extension PlaceInfoPopupViewController {
                         marker.hidden = false
                         self.dismiss(animated: false)
                     } else {
-//                        let questResultViewController = QuestResultViewController(
-//                            result: .success,
-//                            superViewController: tabBarController,
-//                            placeInfo: placeInformation,
-//                            imageURL: characterImageURL
-//                        )
-//                        questResultViewController.modalPresentationStyle = .formSheet
-                        
                         guard let tabBarController = self.presentingViewController as? UITabBarController else {
                             return
                         }
@@ -162,14 +154,6 @@ extension PlaceInfoPopupViewController {
                     }
                     return
                 }
-                
-//                let questResultViewController = QuestResultViewController(
-//                    result: .wrongLocation,
-//                    superViewController: tabBarController,
-//                    placeInfo: placeInformation,
-//                    imageURL: characterImageURL
-//                )
-//                questResultViewController.modalPresentationStyle = .formSheet
                 
                 guard let tabBarController = self.presentingViewController as? UITabBarController else {
                     return

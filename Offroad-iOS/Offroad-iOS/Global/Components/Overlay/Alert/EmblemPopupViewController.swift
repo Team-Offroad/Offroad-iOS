@@ -96,7 +96,6 @@ extension EmblemPopupViewController {
 extension EmblemPopupViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        guard let titleModelList else { return 0 }
         return emblemsDataSource.count
     }
     
