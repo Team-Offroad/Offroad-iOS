@@ -13,10 +13,10 @@ struct CharacterInfoResponseDTO: Codable {
 }
 
 struct CharacterInfo: Codable {
-    let characters: [CharacterList]
+    let characters: [ORBCharacter]
 }
 
-struct CharacterList: Codable {
+struct ORBCharacter: Codable, Hashable {
     let id: Int
     let description: String
     let characterBaseImageUrl: String

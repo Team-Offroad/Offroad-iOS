@@ -119,7 +119,7 @@ class CharacterDetailCell: UICollectionViewCell {
     
     //MARK: - Func
     
-    func configureMotionCell(data: CharacterMotionList, isGained: Bool) {
+    func configureContent(with data: CharacterMotionInfoData) {
         motionImageView.fetchSvgURLToImageView(svgUrlString: data.characterMotionImageUrl)
         switch data.category {
         case "CAFFE":
@@ -135,16 +135,13 @@ class CharacterDetailCell: UICollectionViewCell {
         default:
             motionTitleLabel.text = ""
         }
-        
-        shadowView.isHidden = isGained
-        lockImageView.isHidden = isGained
-        
+        shadowView.isHidden = data.isGained
+        lockImageView.isHidden = data.isGained
         newBadgeView.isHidden = !data.isNewGained
     }
     
-    
-    func configureCellColor(mainColor: String, subColor: String){
-        contentView.backgroundColor = UIColor(hex: mainColor)
-        containerView.backgroundColor = UIColor(hex: subColor)
+    func configureColor(mainColor: String?, subColor: String?){
+        contentView.backgroundColor = UIColor(hex: mainColor ?? "000000")
+        containerView.backgroundColor = UIColor(hex: subColor ?? "000000")
     }
 }

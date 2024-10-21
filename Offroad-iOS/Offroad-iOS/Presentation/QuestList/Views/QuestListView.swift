@@ -11,6 +11,18 @@ import Then
 import SnapKit
 
 class QuestListView: UIView {
+    
+    //MARK: - Properties
+    
+    private var layoutMaker: UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.sectionInset = .init(top: 20, left: 24, bottom: 0, right: 24)
+        layout.minimumLineSpacing = 16
+        layout.minimumInteritemSpacing = 100
+        layout.estimatedItemSize.width = UIScreen.current.bounds.width - 32
+        return layout
+    }
 
     //MARK: - UI Properties
 
@@ -23,7 +35,7 @@ class QuestListView: UIView {
     let customBackButton = UIButton()
     let ongoingQuestToggle = UISwitch()
     
-    var questListCollectionView: UICollectionView!
+    lazy var questListCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
     var activityIndicatorView = UIActivityIndicatorView(style: .large)
 
     //MARK: - Life Cycle
@@ -53,14 +65,15 @@ extension QuestListView {
             view.backgroundColor = .main(.main1)
         }
 
-        let transformer = UIConfigurationTextAttributesTransformer { incoming in
-            var outgoing = incoming
-            outgoing.font = UIFont.offroad(style: .iosTextAuto)
-            outgoing.foregroundColor = UIColor.main(.main2)
-            return outgoing
-        }
-
         customBackButton.do { button in
+            
+            let transformer = UIConfigurationTextAttributesTransformer { incoming in
+                var outgoing = incoming
+                outgoing.font = UIFont.offroad(style: .iosTextAuto)
+                outgoing.foregroundColor = UIColor.main(.main2)
+                return outgoing
+            }
+            
             var configuration = UIButton.Configuration.plain()
             configuration.titleTextAttributesTransformer = transformer
             // 지금은 SFSymbol 사용, 추후 변경 예정
@@ -95,26 +108,12 @@ extension QuestListView {
         separator.do { view in
             view.backgroundColor = .grayscale(.gray100)
         }
-
-        let layoutForPlaceNeverVisited = UICollectionViewFlowLayout()
-        layoutForPlaceNeverVisited.scrollDirection = .vertical
-        layoutForPlaceNeverVisited.sectionInset = .init(top: 20, left: 24, bottom: 0, right: 24)
-        layoutForPlaceNeverVisited.minimumLineSpacing = 16
-        layoutForPlaceNeverVisited.minimumInteritemSpacing = 100
-        layoutForPlaceNeverVisited.estimatedItemSize.width = UIScreen.current.bounds.width - 32
-
-        let layoutForAllPlace = UICollectionViewFlowLayout()
-        layoutForAllPlace.scrollDirection = .vertical
-        layoutForAllPlace.sectionInset = .init(top: 20, left: 24, bottom: 0, right: 24)
-        layoutForAllPlace.minimumLineSpacing = 16
-        layoutForAllPlace.minimumInteritemSpacing = 100
-        layoutForAllPlace.estimatedItemSize.width = UIScreen.current.bounds.width - 32
-
-        questListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForPlaceNeverVisited)
+        
         questListCollectionView.do { collectionView in
             collectionView.backgroundColor = .primary(.listBg)
             collectionView.refreshControl = UIRefreshControl()
             collectionView.refreshControl?.tintColor = .sub(.sub)
+            collectionView.indicatorStyle = .black
         }
         
         activityIndicatorView.do { indicatorView in

@@ -103,9 +103,11 @@ extension PlaceListView {
         
         placeNeverVisitedListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
         placeNeverVisitedListCollectionView.backgroundColor = .primary(.listBg)
+        placeNeverVisitedListCollectionView.indicatorStyle = .black
         
         allPlaceListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
         allPlaceListCollectionView.backgroundColor = .primary(.listBg)
+        allPlaceListCollectionView.indicatorStyle = .black
         
         activityIndicator.do { indicator in
             indicator.color = .sub(.sub)

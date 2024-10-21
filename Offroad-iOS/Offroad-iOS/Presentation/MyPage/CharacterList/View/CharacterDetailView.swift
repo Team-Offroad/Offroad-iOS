@@ -15,119 +15,39 @@ class CharacterDetailView: UIView {
     // MARK: - Properties
     
     private var collectionViewHeightConstraint: Constraint? // 컬렉션 뷰의 동적 높이 조절을 위한 변수
-    var mainCharacterToastMessageView = MainCharacterToastMessageView().then {
-        //맨 처음에 투명하게
-        $0.alpha = 0.0
-    }
     
     // MARK: - UI Properties
     
-    let customBackButton = NavigationPopButton().then {
-        $0.configureButtonTitle(titleString: "획득 캐릭터")
-    }
-    
-    private let scrollView = UIScrollView().then {
-        $0.showsVerticalScrollIndicator = false
-    }
-    
+    let customBackButton = NavigationPopButton()
+    private let scrollView = UIScrollView()
     private let contentView = UIView()
-    
-    var characterImage = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
-    }
-    
-    private let labelView = UIView().then {
-        $0.backgroundColor = UIColor.main(.main1)
-        $0.roundCorners(cornerRadius: 10)
-    }
-    
-    private let dottedLineView = UIView().then {
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.strokeColor = UIColor.home(.homeContents2).cgColor
-        shapeLayer.lineWidth = 0.5
-        shapeLayer.lineDashPattern = [3, 3]
-        
-        let viewWidth = UIScreen.main.bounds.width
-        
-        let path = CGMutablePath()
-        path.addLines(between: [CGPoint(x: 0, y: 0),
-                                CGPoint(x: viewWidth - 50, y: 0)])
-        shapeLayer.path = path
-        
-        $0.layer.addSublayer(shapeLayer)
-    }
-    
-    private let detailLabelView = UIView().then {
-        $0.backgroundColor = UIColor.main(.main1)
-        $0.roundCorners(cornerRadius: 10)
-    }
-    
-    let nameLabel = UILabel().then {
-        $0.textColor = UIColor.sub(.sub4)
-        $0.font = UIFont.offroad(style: .iosSubtitle2Bold)
-    }
-    
-    private let mainLabel = UILabel().then {
-        $0.text = "캐릭터 모션"
-        $0.textAlignment = .left
-        $0.textColor = UIColor.main(.main2)
-        $0.font = UIFont.offroad(style: .iosSubtitle2Bold)
-    }
-    
+    private var characterImageView = UIImageView()
+    private let labelView = UIView()
+    private let dottedLineView = UIView()
+    private let detailLabelView = UIView()
+    private let nameLabel = UILabel()
+    private let mainLabel = UILabel()
     private let babyImage = UIImageView(image: UIImage(resource: .baby))
+    private var characterLogoImage = UIImageView()
+    private let titleLabel = UILabel()
+    let crownBadgeImageView = UIImageView(image: .imgCrownTag)
+    private let detailLabel = UILabel()
+    let selectButton = UIButton()
+    private let characterMotionView = UIView()
     
-    var characterLogoImage = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
-    }
-    
-    let titleLabel = UILabel().then {
-        $0.text = "호기심이 많은 탐험가"
-        $0.textAlignment = .left
-        $0.textColor = UIColor.grayscale(.gray300)
-        $0.font = UIFont.offroad(style: .iosTextContentsSmall)
-    }
-    
-    let mainCharacterBadgeView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(resource: .imgCrownTag)
-        $0.isHidden = true
-    }
-    
-    let detailLabel = UILabel().then {
-        $0.textAlignment = .left
-        $0.numberOfLines = 3
-        $0.textColor = UIColor.grayscale(.gray400)
-        $0.font = UIFont.offroad(style: .iosBoxMedi)
-    }
-    
-    let selectButton = UIButton().then {
-        $0.setTitle("대표 캐릭터로 선택하기", for: .normal)
-        $0.backgroundColor = UIColor.home(.homeBg)
-        $0.setTitleColor(UIColor.main(.main1), for: .normal)
-        $0.titleLabel?.font = UIFont.offroad(style: .iosTextContents)
-        $0.roundCorners(cornerRadius: 20)
-    }
-    
-    private let characterMotionView = UIView().then {
-        $0.backgroundColor = UIColor.main(.main1)
-        $0.roundCorners(cornerRadius: 16)
-    }
-    
-    private lazy var layout = UICollectionViewFlowLayout().then {
+    private var layoutMaker: UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
         let padding: CGFloat = 20
         let itemWidth = (UIScreen.main.bounds.width - 2*24.5 - padding)/2
         let itemHeight: CGFloat = itemWidth * (214 / 162)
-        $0.itemSize = CGSize(width: itemWidth, height: itemHeight)
-        $0.minimumLineSpacing = padding
-        $0.minimumInteritemSpacing = padding
-        $0.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        layout.minimumLineSpacing = padding
+        layout.minimumInteritemSpacing = padding
+        layout.scrollDirection = .vertical
+        return layout
     }
     
-    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
-        $0.register(CharacterDetailCell.self, forCellWithReuseIdentifier: "CharacterDetailCell")
-        $0.backgroundColor = .clear
-        $0.isScrollEnabled = false
-    }
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
     
     // MARK: - Life Cycle
     
@@ -143,49 +63,13 @@ class CharacterDetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Private Functions
+}
+
+extension CharacterDetailView {
     
-    private func setupStyle() {
-        backgroundColor = UIColor.primary(.listBg)
-    }
-    
-    private func setupHierarchy() {
-        addSubviews(
-            scrollView,
-            customBackButton,
-            mainCharacterToastMessageView
-        )
-        scrollView.addSubview(contentView)
-        
-        contentView.addSubviews(
-            characterImage,
-            labelView,
-            dottedLineView,
-            detailLabelView,
-            selectButton,
-            characterMotionView
-        )
-        labelView.addSubviews(
-            nameLabel,
-            mainCharacterBadgeView,
-            titleLabel,
-            characterLogoImage
-        )
-        detailLabelView.addSubview(detailLabel)
-        characterMotionView.addSubviews(
-            mainLabel,
-            babyImage,
-            collectionView
-        )
-    }
+    //MARK: - Layout Func
     
     private func setupLayout() {
-        mainCharacterToastMessageView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(113)
-            $0.horizontalEdges.equalToSuperview().inset(24)
-            $0.height.equalTo(45)
-        }
-        
         customBackButton.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(12)
             $0.leading.equalToSuperview().inset(12)
@@ -200,7 +84,7 @@ class CharacterDetailView: UIView {
             make.width.equalToSuperview()
         }
         
-        characterImage.snp.makeConstraints { make in
+        characterImageView.snp.makeConstraints { make in
             make.top.equalTo(contentView.safeAreaLayoutGuide).inset(119)
             make.centerX.equalToSuperview()
             make.width.equalTo(155)
@@ -208,7 +92,7 @@ class CharacterDetailView: UIView {
         }
         
         labelView.snp.makeConstraints { make in
-            make.top.equalTo(characterImage.snp.bottom).offset(24)
+            make.top.equalTo(characterImageView.snp.bottom).offset(24)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.equalTo(84)
         }
@@ -225,7 +109,7 @@ class CharacterDetailView: UIView {
             make.width.equalTo(35)
         }
         
-        mainCharacterBadgeView.snp.makeConstraints { make in
+        crownBadgeImageView.snp.makeConstraints { make in
             make.leading.equalTo(nameLabel.snp.trailing).offset(6)
             make.centerY.equalTo(nameLabel)
             make.size.equalTo(21)
@@ -238,7 +122,7 @@ class CharacterDetailView: UIView {
         
         dottedLineView.snp.makeConstraints { make in
             make.top.equalTo(labelView.snp.bottom)
-            make.height.equalTo(0.5)
+            make.height.equalTo(1)
             make.horizontalEdges.equalToSuperview().inset(48)
         }
         
@@ -284,23 +168,135 @@ class CharacterDetailView: UIView {
         }
     }
     
-    func showToastMessage(duration: TimeInterval = 2.0, completion: (() -> Void)? = nil) {
-        //fade-in
-        UIView.animate(withDuration: 0.3, animations: {
-            self.mainCharacterToastMessageView.alpha = 1.0
-        }) { _ in
-            //fade-out
-            UIView.animate(withDuration: 0.3, delay: duration, options: [], animations: {
-                self.mainCharacterToastMessageView.alpha = 0.0
-            }) { _ in
-                self.mainCharacterToastMessageView.removeFromSuperview()
-                completion?()
-            }
+    // MARK: - Private Func
+    
+    private func setupHierarchy() {
+        addSubviews(
+            scrollView,
+            customBackButton
+        )
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubviews(
+            characterImageView,
+            labelView,
+            detailLabelView,
+            dottedLineView,
+            selectButton,
+            characterMotionView
+        )
+        labelView.addSubviews(
+            nameLabel,
+            crownBadgeImageView,
+            titleLabel,
+            characterLogoImage
+        )
+        detailLabelView.addSubview(detailLabel)
+        characterMotionView.addSubviews(
+            mainLabel,
+            babyImage,
+            collectionView
+        )
+    }
+    
+    private func setupStyle() {
+        backgroundColor = UIColor.primary(.listBg)
+        
+        customBackButton.configureButtonTitle(titleString: "획득 캐릭터")
+        scrollView.showsVerticalScrollIndicator = false
+        characterImageView.contentMode = .scaleAspectFit
+        
+        labelView.do { view in
+            view.backgroundColor = UIColor.main(.main1)
+            view.roundCorners(cornerRadius: 10)
         }
+        
+        dottedLineView.do { view in
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.strokeColor = UIColor.home(.homeContents2).cgColor
+            shapeLayer.lineWidth = 2
+            shapeLayer.lineDashPattern = [4, 4]
+            
+            let viewWidth = UIScreen.current.bounds.width
+            
+            let path = CGMutablePath()
+            path.addLines(between: [CGPoint(x: 0, y: 0),
+                                    CGPoint(x: viewWidth - 50, y: 0)])
+            shapeLayer.path = path
+            view.layer.masksToBounds = true
+            view.layer.addSublayer(shapeLayer)
+        }
+        
+        detailLabelView.do { label in
+            label.backgroundColor = UIColor.main(.main1)
+            label.roundCorners(cornerRadius: 10)
+        }
+        
+        nameLabel.do { label in
+            label.textColor = UIColor.sub(.sub4)
+            label.font = UIFont.offroad(style: .iosSubtitle2Bold)
+        }
+        
+        mainLabel.do { label in
+            label.text = "캐릭터 모션"
+            label.textAlignment = .left
+            label.textColor = UIColor.main(.main2)
+            label.font = UIFont.offroad(style: .iosSubtitle2Bold)
+        }
+        
+        characterLogoImage.contentMode = .scaleAspectFit
+        
+        titleLabel.do { label in
+            label.textAlignment = .left
+            label.textColor = UIColor.grayscale(.gray300)
+            label.font = UIFont.offroad(style: .iosTextContentsSmall)
+        }
+        
+        crownBadgeImageView.do { imageView in
+            imageView.contentMode = .scaleAspectFit
+            imageView.isHidden = true
+        }
+        
+        detailLabel.do { label in
+            label.textAlignment = .left
+            label.numberOfLines = 3
+            label.textColor = UIColor.grayscale(.gray400)
+            label.font = UIFont.offroad(style: .iosBoxMedi)
+        }
+        
+        selectButton.do { button in
+            button.configureBackgroundColorWhen(normal: .home(.homeBg), highlighted: .blackOpacity(.black55), disabled: .blackOpacity(.black25))
+            button.configureTitleFontWhen(normal: .offroad(style: .iosTextContents))
+            button.setTitleColor(.primary(.white), for: .normal)
+            button.setTitleColor(.primary(.white), for: .disabled)
+            button.setTitle("대표 캐릭터로 선택하기", for: .normal)
+            button.setTitle("이미 선택된 캐릭터에요", for: .disabled)
+        }
+        
+        characterMotionView.do { view in
+            view.backgroundColor = UIColor.main(.main1)
+            view.roundCorners(cornerRadius: 16)
+        }
+        
+        collectionView.do { collectionView in
+            collectionView.register(CharacterDetailCell.self, forCellWithReuseIdentifier: "CharacterDetailCell")
+            collectionView.backgroundColor = .clear
+            collectionView.isScrollEnabled = false
+        }
+        
     }
     
     func updateCollectionViewHeight() {
         let contentHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
         collectionViewHeightConstraint?.update(offset: contentHeight)
+    }
+    
+    func configurerCharacterDetailView(using characterInfo: CharacterDetailInfo) {
+        characterImageView.fetchSvgURLToImageView(svgUrlString: characterInfo.characterBaseImageUrl)
+        characterLogoImage.fetchSvgURLToImageView(svgUrlString: characterInfo.characterIconImageUrl)
+        nameLabel.text = characterInfo.characterName
+        titleLabel.text = characterInfo.characterSummaryDescription
+        detailLabel.text = characterInfo.characterDescription
+        detailLabel.setLineSpacing(spacing: 5)
     }
 }

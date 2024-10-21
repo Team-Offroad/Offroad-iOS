@@ -217,16 +217,18 @@ extension QuestQRViewController: AVCaptureMetadataOutputObjectsDelegate {
                     }
                     let notiTitle = data.isQRMatched ? "탐험 성공" : "탐험 실패"
                     let imageURL = data.characterImageUrl
-                    let questResultViewController: QuestResultViewController
+                    let alertController: OFRAlertController
                     if data.isQRMatched {
-                        questResultViewController = QuestResultViewController(result: .success, placeInfo: placeInformation, imageURL: imageURL)
+                        alertController = OFRAlertController(title: "탐험 실패", message: "탐험에 실패했어요. \nQR코드를 다시 한 번 확인해 주세요.", type: .explorationResult)
                     } else {
-                        questResultViewController = QuestResultViewController(result: .wrongQR, placeInfo: placeInformation, imageURL: imageURL)
+                        alertController = OFRAlertController(title: "탐험 성공", message: "탐험에 성공했어요!\n이곳에 무엇이 있는지 천천히 살펴볼까요?", type: .explorationResult)
                     }
-                    
-                    questResultViewController.modalPresentationStyle = .overCurrentContext
-                    self.navigationController?.popViewController(animated: true)
-                    self.tabBarController?.present(questResultViewController, animated: false)
+                    let okAction = OFRAlertAction(title: "홈으로", style: .default, handler: { _ in return })
+                    alertController.addAction(okAction)
+                    alertController.configureExplorationResultImage { imageView in
+                        imageView.fetchSvgURLToImageView(svgUrlString: imageURL)
+                    }
+                    self.tabBarController?.present(alertController, animated: false)
                 default:
                     self.showAlert(title: "서버에서 응답이 안왔어여", stringValue: stringValue)
                     return

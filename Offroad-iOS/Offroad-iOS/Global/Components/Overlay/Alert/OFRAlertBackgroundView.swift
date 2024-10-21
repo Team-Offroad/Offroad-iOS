@@ -20,16 +20,33 @@ internal class OFRAlertBackgroundView: UIView {
     
     //MARK: - UI Properties
     
-    let alertView = OFRAlertView()
+    let alertView: ORBAlertBaseView
     
     //MARK: - Life Cycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(type: OFRAlertType) {
+        switch type {
+        case .normal:
+            self.alertView = ORBAlertViewNormal()
+        case .textField:
+            self.alertView = ORBAlertViewTextField()
+        case .textFieldWithSubMessage:
+            self.alertView = ORBAlertViewTextFieldWithSubMessage()
+        case .scrollableContent:
+            self.alertView = ORBAlertViewScrollableContent()
+        case .explorationResult:
+            self.alertView = ORBAlertViewExplorationResult()
+        case .acquiredEmblem:
+            self.alertView = ORBAlertViewAcquiredEmblem()
+        case .custom:
+            self.alertView = ORBAlertViewNormal()
+        }
+        
+        super.init(frame: .zero)
         
         setupStyle()
         setupHierarchy()
-        setupDefaultLayout()
+        setupLayout()
         layoutIfNeeded()
         setupNotification()
     }
@@ -44,9 +61,10 @@ extension OFRAlertBackgroundView {
     
     //MARK: - Layout
     
-    private func setupDefaultLayout() {
+    private func setupLayout() {
         alertView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.horizontalEdges.equalToSuperview().inset(22.5)
+            make.height.greaterThanOrEqualTo(238)
         }
         alertViewCenterYCosntraint.isActive = true
     }
@@ -83,7 +101,7 @@ extension OFRAlertBackgroundView {
     
     //MARK: - Func
     
-    func setupLayout(of type: OFRAlertViewType, keyboardRect: CGRect? = nil) {
+    func setupLayout(of type: OFRAlertType, keyboardRect: CGRect? = nil) {
         alertViewCenterYCosntraint.isActive = true
         alertViewBottomConstraint.constant = keyboardRect == nil ? 0 : -(keyboardRect!.height + 24)
         alertViewBottomConstraint.isActive = true

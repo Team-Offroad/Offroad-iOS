@@ -16,8 +16,8 @@ class OffroadTabBarViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
-        additionalSafeAreaInsets.bottom = 96 - offroadTabBarController.originalTabBarHeight
+        guard let orbTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+        additionalSafeAreaInsets.bottom = orbTabBarController.tabBarHeight - orbTabBarController.originalTabBarHeight
     }
     
 }

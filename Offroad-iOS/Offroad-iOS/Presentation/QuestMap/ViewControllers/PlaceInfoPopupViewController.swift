@@ -136,37 +136,39 @@ extension PlaceInfoPopupViewController {
                         marker.hidden = false
                         self.dismiss(animated: false)
                     } else {
-                        let questResultViewController = QuestResultViewController(
-                            result: .success,
-                            superViewController: tabBarController,
-                            placeInfo: placeInformation,
-                            imageURL: characterImageURL
-                        )
-                        questResultViewController.modalPresentationStyle = .formSheet
                         guard let tabBarController = self.presentingViewController as? UITabBarController else {
                             return
                         }
+                        
+                        let alertController = OFRAlertController(title: "탐험 성공", message: "탐험에 성공했어요!", type: .explorationResult)
+                        let okAction = OFRAlertAction(title: "홈으로", style: .default) { _ in return }
+                        alertController.addAction(okAction)
+                        alertController.configureExplorationResultImage { imageView in
+                            imageView.fetchSvgURLToImageView(svgUrlString: characterImageURL)
+                        }
+                        
                         marker.hidden = false
                         self.dismiss(animated: false) {
-                            tabBarController.present(questResultViewController, animated: true)
+                            tabBarController.present(alertController, animated: true)
                         }
                     }
                     return
                 }
                 
-                let questResultViewController = QuestResultViewController(
-                    result: .wrongLocation,
-                    superViewController: tabBarController,
-                    placeInfo: placeInformation,
-                    imageURL: characterImageURL
-                )
-                questResultViewController.modalPresentationStyle = .formSheet
                 guard let tabBarController = self.presentingViewController as? UITabBarController else {
                     return
                 }
+                
+                let alertController = OFRAlertController(title: "탐험 실패", message: "탐험에 실패했어요.\n위치를 다시 한 번 확인해주세요", type: .explorationResult)
+                let okAction = OFRAlertAction(title: "홈으로", style: .default) { _ in return }
+                alertController.addAction(okAction)
+                alertController.configureExplorationResultImage { imageView in
+                    imageView.fetchSvgURLToImageView(svgUrlString: characterImageURL)
+                }
+                
                 marker.hidden = false
                 self.dismiss(animated: false) {
-                    tabBarController.present(questResultViewController, animated: true)
+                    tabBarController.present(alertController, animated: true)
                 }
                 
             default:
