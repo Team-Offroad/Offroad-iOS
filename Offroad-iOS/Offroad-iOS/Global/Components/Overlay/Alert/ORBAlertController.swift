@@ -1,5 +1,5 @@
 //
-//  OFRAlertController.swift
+//  ORBAlertController.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 9/12/24.
@@ -10,11 +10,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class OFRAlertController: ORBOverlayViewController, ORBPopup {
+class ORBAlertController: ORBOverlayViewController, ORBPopup {
     
     //MARK: - Properties
     
-    private let viewModel = OFRAlertViewModel()
+    private let viewModel = ORBAlertViewModel()
     private var disposeBag = DisposeBag()
     
     let presentationAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.7)
@@ -36,7 +36,7 @@ class OFRAlertController: ORBOverlayViewController, ORBPopup {
         set { viewModel.messageRelay.accept(newValue) }
     }
     
-    var actions: [OFRAlertAction] { rootView.alertView.actions }
+    var actions: [ORBAlertAction] { rootView.alertView.actions }
     
     /**
      해당 변수에 해당하는 텍스트필드는 alert가 present되면서 자동으로 `firstResponder`가 되고, 키보드가 같이 올라오게 된다.
@@ -62,7 +62,7 @@ class OFRAlertController: ORBOverlayViewController, ORBPopup {
     
     //MARK: - UI Properties
     
-    let rootView: OFRAlertBackgroundView
+    let rootView: ORBAlertBackgroundView
     
     private var defaultTextField: UITextField? {
         if let alertViewTextField = rootView.alertView as? ORBAlertViewTextField {
@@ -74,7 +74,7 @@ class OFRAlertController: ORBOverlayViewController, ORBPopup {
         }
     }
     
-    var buttons: [OFRAlertButton] {
+    var buttons: [ORBAlertButton] {
         rootView.alertView.buttons
     }
     
@@ -85,8 +85,8 @@ class OFRAlertController: ORBOverlayViewController, ORBPopup {
     //MARK: - Life Cycle
     
     
-    init(title: String? = nil, message: String? = nil, type: OFRAlertType) {
-        self.rootView = OFRAlertBackgroundView(type: type)
+    init(title: String? = nil, message: String? = nil, type: ORBAlertType) {
+        self.rootView = ORBAlertBackgroundView(type: type)
         super.init(nibName: nil, bundle: nil)
         
         bindData()
@@ -128,7 +128,7 @@ class OFRAlertController: ORBOverlayViewController, ORBPopup {
 }
 
 
-extension OFRAlertController {
+extension ORBAlertController {
     
     //MARK: - @objc Func
     
@@ -136,7 +136,7 @@ extension OFRAlertController {
         dismiss(animated: true)
     }
     
-    @objc private func alertButtonTapped(sender: OFRAlertButton) {
+    @objc private func alertButtonTapped(sender: ORBAlertButton) {
         print(#function)
         self.dismiss(animated: true) {
             sender.action.handler(sender.action)
@@ -239,7 +239,7 @@ extension OFRAlertController {
     
     //MARK: - Func
     
-    func addAction(_ action: OFRAlertAction) {
+    func addAction(_ action: ORBAlertAction) {
         rootView.alertView.actions.append(action)
         setupTargets()
         rootView.layoutIfNeeded()

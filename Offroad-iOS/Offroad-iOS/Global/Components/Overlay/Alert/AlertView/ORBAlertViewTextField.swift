@@ -9,7 +9,7 @@ import UIKit
 
 final class ORBAlertViewTextField: ORBAlertBaseView, ORBAlertViewBaseUI {
     
-    let type: OFRAlertType = .textField
+    let type: ORBAlertType = .textField
     let contentView = UIView()
     let defaultTextField = UITextField()
     

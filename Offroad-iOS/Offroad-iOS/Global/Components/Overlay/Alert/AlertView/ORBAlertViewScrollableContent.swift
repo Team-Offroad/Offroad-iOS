@@ -9,7 +9,7 @@ import UIKit
 
 final class ORBAlertViewScrollableContent: ORBAlertBaseView, ORBAlertViewBaseUI {
     
-    let type: OFRAlertType = .scrollableContent
+    let type: ORBAlertType = .scrollableContent
     let contentView = UIView()
     let scrollableContentView = UIView()
     

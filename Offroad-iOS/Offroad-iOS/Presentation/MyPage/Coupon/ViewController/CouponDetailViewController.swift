@@ -79,18 +79,18 @@ class CouponDetailViewController: UIViewController {
             .subscribe { [weak self] isSuccess in
             guard let self else { return }
             
-            let alertController: OFRAlertController
+            let alertController: ORBAlertController
             if isSuccess {
-                alertController = OFRAlertController(title: "사용 완료", message: "쿠폰 사용이 완료되었어요!", type: .normal)
+                alertController = ORBAlertController(title: "사용 완료", message: "쿠폰 사용이 완료되었어요!", type: .normal)
             } else {
-                alertController = OFRAlertController(title: "사용 실패", message: "다시 한 번 확인해 주세요.", type: .normal)
+                alertController = ORBAlertController(title: "사용 실패", message: "다시 한 번 확인해 주세요.", type: .normal)
                 alertController.configureMessageLabel { label in
                     label.textColor = .primary(.error)
                     label.font = .offroad(style: .iosSubtitle2Semibold)
                 }
             }
             
-            let action = OFRAlertAction(title: "확인", style: .default) { _ in return }
+            let action = ORBAlertAction(title: "확인", style: .default) { _ in return }
             alertController.addAction(action)
             self.present(alertController, animated: true)
         }.disposed(by: disposeBag)
@@ -137,8 +137,8 @@ extension CouponDetailViewController {
     
     @objc private func didTapUseButton() {
         
-        let alertController = OFRAlertController(title: "쿠폰 사용", message: "코드를 입력 후 사장님에게 보여주세요", type: .textField)
-        let okAction = OFRAlertAction(title: "확인", style: .default) { [weak self] action in
+        let alertController = ORBAlertController(title: "쿠폰 사용", message: "코드를 입력 후 사장님에게 보여주세요", type: .textField)
+        let okAction = ORBAlertAction(title: "확인", style: .default) { [weak self] action in
             guard let self else { return }
             
             // 여기서 쿠폰 사용 API 호출하기

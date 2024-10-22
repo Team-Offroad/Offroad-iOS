@@ -217,13 +217,13 @@ extension QuestQRViewController: AVCaptureMetadataOutputObjectsDelegate {
                     }
                     let notiTitle = data.isQRMatched ? "탐험 성공" : "탐험 실패"
                     let imageURL = data.characterImageUrl
-                    let alertController: OFRAlertController
+                    let alertController: ORBAlertController
                     if data.isQRMatched {
-                        alertController = OFRAlertController(title: "탐험 실패", message: "탐험에 실패했어요. \nQR코드를 다시 한 번 확인해 주세요.", type: .explorationResult)
+                        alertController = ORBAlertController(title: "탐험 실패", message: "탐험에 실패했어요. \nQR코드를 다시 한 번 확인해 주세요.", type: .explorationResult)
                     } else {
-                        alertController = OFRAlertController(title: "탐험 성공", message: "탐험에 성공했어요!\n이곳에 무엇이 있는지 천천히 살펴볼까요?", type: .explorationResult)
+                        alertController = ORBAlertController(title: "탐험 성공", message: "탐험에 성공했어요!\n이곳에 무엇이 있는지 천천히 살펴볼까요?", type: .explorationResult)
                     }
-                    let okAction = OFRAlertAction(title: "홈으로", style: .default, handler: { _ in return })
+                    let okAction = ORBAlertAction(title: "홈으로", style: .default, handler: { _ in return })
                     alertController.addAction(okAction)
                     alertController.configureExplorationResultImage { imageView in
                         imageView.fetchSvgURLToImageView(svgUrlString: imageURL)

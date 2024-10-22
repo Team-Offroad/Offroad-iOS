@@ -19,10 +19,10 @@ class ORBAlertBaseView: UIView {
         didSet { self.messageLabel.text = message }
     }
     
-    var actions: [OFRAlertAction] = [] {
+    var actions: [ORBAlertAction] = [] {
         didSet {
             buttons = actions.map({ action in
-                let button = OFRAlertButton(alertAction: action)
+                let button = ORBAlertButton(alertAction: action)
                 return button
             })
         }
@@ -34,7 +34,7 @@ class ORBAlertBaseView: UIView {
     let titleLabel = UILabel()
     let messageLabel = UILabel()
     
-    private(set) var buttons: [OFRAlertButton] = [] {
+    private(set) var buttons: [ORBAlertButton] = [] {
         didSet {
             print("현재 버튼의 수: \(buttons.count)")
             guard let addedButton = buttons.last else { return }
