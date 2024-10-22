@@ -1308,7 +1308,7 @@
 			children = (
 				4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */,
 			);
-			name = ViewController;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		871CF58A2C44F7B0001026AA /* View */ = {
@@ -1316,7 +1316,7 @@
 			children = (
 				4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */,
 			);
-			name = View;
+			path = View;
 			sourceTree = "<group>";
 		};
 		872F4BA92C68C1AA00284DE0 /* View */ = {
