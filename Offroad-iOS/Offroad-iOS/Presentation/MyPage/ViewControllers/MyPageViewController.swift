@@ -25,7 +25,6 @@ final class MyPageViewController: OffroadTabBarViewController {
         super.viewDidLoad()
         
         setupDelegate()
-        getUserInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +32,8 @@ final class MyPageViewController: OffroadTabBarViewController {
         
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.showTabBarAnimation()
+        
+        getUserInfo()
     }
 }
 
