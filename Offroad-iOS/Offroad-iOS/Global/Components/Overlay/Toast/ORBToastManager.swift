@@ -21,8 +21,8 @@ final class ORBToastManager {
     
     private init() { }
     
-    func showToast(message: String, inset: CGFloat) {
-        toastWindow = ORBToastWindow(message: message, inset: inset)
+    func showToast(message: String, inset: CGFloat, withImage image: UIImage? = nil) {
+        toastWindow = ORBToastWindow(message: message, inset: inset, withImage: image)
         toastWindow?.hideAnimator.addCompletion({ [weak self] _ in
             guard let self else { return }
             toastWindow = nil
