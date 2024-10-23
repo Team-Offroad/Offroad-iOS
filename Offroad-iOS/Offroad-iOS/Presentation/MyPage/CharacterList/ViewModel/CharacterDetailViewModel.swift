@@ -38,7 +38,7 @@ final class CharacterDetailViewModel {
         
     }
 }
-    
+
 extension CharacterDetailViewModel {
     
     func postCharacterID() {
@@ -48,10 +48,6 @@ extension CharacterDetailViewModel {
             case .success:
                 representativeCharacterId = characterId
                 representativeCharacterChanged.onNext(())
-//                self.rootView.crownBadgeImageView.isHidden = false
-//                self.rootView.selectButton.isEnabled = false
-//                self.delegate?.didSelectMainCharacter(characterId: self.characterId)
-//                self.showToast(message: "'아루'로 대표 캐릭터가 변경되었어요!", inset: 66, withImage: .btnChecked)
             default:
                 break
             }
@@ -66,12 +62,6 @@ extension CharacterDetailViewModel {
                 guard let characterDetailInfo = characterDetailResponse?.data else { return }
                 self.characterDetailInfo = characterDetailInfo
                 self.characterDetailInfoSubject.onNext(characterDetailInfo)
-//                self.characterMainColorCode = characterDetailInfo.characterMainColorCode
-//                self.characterSubColorCode = characterDetailInfo.characterSubColorCode
-//                self.view.backgroundColor = UIColor(hex: characterDetailInfo.characterSubColorCode)
-//                self.rootView.configurerCharacterDetailView(using: characterDetailInfo)
-//                self.didGetCharacterInfo = true
-                
             default:
                 break
             }
@@ -91,8 +81,6 @@ extension CharacterDetailViewModel {
                 }
                 characterMotionListDataSource = gainedData + notGainedData
                 characterMotionListDataSourceSubject.onNext(characterMotionListDataSource)
-//                self.didGetCharacterMotions = true
-                
             default:
                 break
             }
