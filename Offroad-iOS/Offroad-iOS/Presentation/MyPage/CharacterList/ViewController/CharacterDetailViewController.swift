@@ -7,39 +7,54 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
+
 final class CharacterDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let characterId: Int
-    private let representativeCharacterId: Int
+    var disposeBag = DisposeBag()
+    
+    let characterInfoUpdated = PublishRelay<Void>()
+    
+    let netWorkdDidFail = PublishRelay<Void>()
+    let viewDidAppear = PublishRelay<Void>()
+    
+    let viewModel: CharacterDetailViewModel
+    
+//    private let characterId: Int
+//    private let representativeCharacterId: Int
     private let rootView = CharacterDetailView()
     
-    private var characterMainColorCode: String?
-    private var characterSubColorCode: String?
-    private var characterMotionListDataSource: [CharacterMotionInfoData] = []
+//    private var characterMainColorCode: String?
+//    private var characterSubColorCode: String?
+//    private var characterMotionListDataSource: [CharacterMotionInfoData] = []
     
-    private var didGetCharacterInfo: Bool = false {
-        didSet {
-            guard didGetCharacterInfo && didGetCharacterMotions else { return }
-            rootView.collectionView.reloadData()
-        }
-    }
-    private var didGetCharacterMotions: Bool = false {
-        didSet {
-            guard didGetCharacterInfo && didGetCharacterMotions else { return }
-            rootView.collectionView.reloadData()
-        }
-    }
+//    private var didGetCharacterInfo: Bool = false {
+//        didSet {
+//            guard didGetCharacterInfo && didGetCharacterMotions else { return }
+//            rootView.collectionView.reloadData()
+//        }
+//    }
+//    private var didGetCharacterMotions: Bool = false {
+//        didSet {
+//            guard didGetCharacterInfo && didGetCharacterMotions else { return }
+//            rootView.collectionView.reloadData()
+//        }
+//    }
     
     weak var delegate: SelectMainCharacterDelegate?
     
     // MARK: - Life Cycle
     
     init(characterId: Int, representativeCharacterId: Int) {
-        self.characterId = characterId
-        self.representativeCharacterId = representativeCharacterId
-        
+//        self.characterId = characterId
+//        self.representativeCharacterId = representativeCharacterId
+        viewModel = CharacterDetailViewModel(
+            characterId: characterId,
+            representativeCharacterId: representativeCharacterId
+        )
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -51,22 +66,30 @@ final class CharacterDetailViewController: UIViewController {
         self.view = rootView
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+//        setupTarget()
+        setupDelegate()
+        bindData()
+        viewModel.characterMotionInfo()
+        viewModel.getCharacterDetailInfo()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if characterId == representativeCharacterId {
+//        if characterId == representativeCharacterId {
+        if viewModel.isCurrentCharacterRepresentative {
             rootView.selectButton.isEnabled = false
             rootView.crownBadgeImageView.isHidden = false
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        setupTarget()
-        setupDelegate()
-        characterMotionInfo()
-        getCharacterDetailInfo()
+        viewDidAppear.accept(())
     }
     
 }
@@ -75,78 +98,120 @@ extension CharacterDetailViewController {
     
     // MARK: - Private Func
     
-    private func setupTarget() {
-        rootView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        rootView.selectButton.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
-    }
+//    private func setupTarget() {
+//        rootView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+//        rootView.selectButton.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
+//    }
     
     private func setupDelegate() {
         rootView.collectionView.delegate = self
         rootView.collectionView.dataSource = self
     }
     
-    private func getCharacterDetailInfo() {
-        NetworkService.shared.characterDetailService.getAcquiredCharacterInfo(characterId: characterId) { [weak self] response in
-            guard let self else { return }
-            switch response {
-            case .success(let characterDetailResponse):
-                guard let characterDetailInfo = characterDetailResponse?.data else { return }
-                self.characterMainColorCode = characterDetailInfo.characterMainColorCode
-                self.characterSubColorCode = characterDetailInfo.characterSubColorCode
-                self.view.backgroundColor = UIColor(hex: characterDetailInfo.characterSubColorCode)
-                self.rootView.configurerCharacterDetailView(using: characterDetailInfo)
-                self.didGetCharacterInfo = true
-                
-            default:
-                break
-            }
-        }
-    }
-    
-    private func characterMotionInfo() {
-        NetworkService.shared.characterMotionService.getCharacterMotionList(characterId: characterId) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let responseDTO):
-                guard let responseDTO else { return }
-                
-                let gainedData = responseDTO.data.gainedCharacterMotions.map { CharacterMotionInfoData(motion: $0, isGained: true) }
-                let notGainedData = responseDTO.data.notGainedCharacterMotions.map {
-                    CharacterMotionInfoData(motion: $0, isGained: false)
-                }
-                characterMotionListDataSource = gainedData + notGainedData
-                self.didGetCharacterMotions = true
-                
-            default:
-                break
-            }
-        }
-    }
-    
-    private func postCharacterID() {
-        NetworkService.shared.characterService.postChoosingCharacter(parameter: characterId) { [weak self] response in
-            guard let self else { return }
-            switch response {
-            case .success:
+    private func bindData() {
+        viewModel.representativeCharacterChanged
+            .subscribe(onNext: { [weak self] _ in
+                guard let self else { return }
                 self.rootView.crownBadgeImageView.isHidden = false
                 self.rootView.selectButton.isEnabled = false
-                self.delegate?.didSelectMainCharacter(characterId: self.characterId)
+                self.delegate?.didSelectMainCharacter(characterId: self.viewModel.characterId)
                 self.showToast(message: "'아루'로 대표 캐릭터가 변경되었어요!", inset: 66, withImage: .btnChecked)
-            default:
-                break
-            }
-        }
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.characterDetailInfoSubject
+            .subscribe(onNext: { [weak self] characterDetailInfo in
+                guard let self else { return }
+                self.view.backgroundColor = UIColor(hex: characterDetailInfo.characterSubColorCode)
+                self.rootView.configurerCharacterDetailView(using: characterDetailInfo)
+            })
+            .disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            viewModel.characterDetailInfoSubject,
+            viewModel.characterMotionListDataSourceSubject
+        )
+        .subscribe(onNext: { [weak self] _ in
+            guard let self else { return }
+            self.rootView.collectionView.reloadData()
+        })
+        .disposed(by: disposeBag)
+        
+        rootView.customBackButton.rx.tap.bind(onNext: { [weak self] in
+            guard let self else { return }
+            self.navigationController?.popViewController(animated: true)
+        })
+        .disposed(by: disposeBag)
+        
+        rootView.selectButton.rx.tap.bind(onNext: { [weak self] in
+            guard let self else { return }
+            self.viewModel.postCharacterID()
+        })
+        .disposed(by: disposeBag)
     }
+    
+//    private func getCharacterDetailInfo() {
+//        NetworkService.shared.characterDetailService.getAcquiredCharacterInfo(characterId: characterId) { [weak self] response in
+//            guard let self else { return }
+//            switch response {
+//            case .success(let characterDetailResponse):
+//                guard let characterDetailInfo = characterDetailResponse?.data else { return }
+//                self.characterMainColorCode = characterDetailInfo.characterMainColorCode
+//                self.characterSubColorCode = characterDetailInfo.characterSubColorCode
+//                self.view.backgroundColor = UIColor(hex: characterDetailInfo.characterSubColorCode)
+//                self.rootView.configurerCharacterDetailView(using: characterDetailInfo)
+//                self.didGetCharacterInfo = true
+//                
+//            default:
+//                break
+//            }
+//        }
+//    }
+    
+//    private func characterMotionInfo() {
+//        NetworkService.shared.characterMotionService.getCharacterMotionList(characterId: characterId) { [weak self] result in
+//            guard let self else { return }
+//            switch result {
+//            case .success(let responseDTO):
+//                guard let responseDTO else { return }
+//                
+//                let gainedData = responseDTO.data.gainedCharacterMotions.map { CharacterMotionInfoData(motion: $0, isGained: true) }
+//                let notGainedData = responseDTO.data.notGainedCharacterMotions.map {
+//                    CharacterMotionInfoData(motion: $0, isGained: false)
+//                }
+//                characterMotionListDataSource = gainedData + notGainedData
+//                self.didGetCharacterMotions = true
+//                
+//            default:
+//                break
+//            }
+//        }
+//    }
+    
+//    private func postCharacterID() {
+//        NetworkService.shared.characterService.postChoosingCharacter(parameter: characterId) { [weak self] response in
+//            guard let self else { return }
+//            switch response {
+//            case .success:
+//                self.rootView.crownBadgeImageView.isHidden = false
+//                self.rootView.selectButton.isEnabled = false
+//                self.delegate?.didSelectMainCharacter(characterId: self.characterId)
+//                self.showToast(message: "'아루'로 대표 캐릭터가 변경되었어요!", inset: 66, withImage: .btnChecked)
+//            default:
+//                break
+//            }
+//        }
+//    }
     
     // MARK: - @objc Func
     
-    @objc private func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
-    }
+//    @objc private func backButtonTapped() {
+//        navigationController?.popViewController(animated: true)
+//    }
     
-    @objc private func selectButtonTapped() {
-        postCharacterID()
-    }
+//    @objc private func selectButtonTapped() {
+//        viewModel.postCharacterID()
+//    }
 }
 
 //MARK: - UICollectionViewDataSource
@@ -154,7 +219,7 @@ extension CharacterDetailViewController {
 extension CharacterDetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return characterMotionListDataSource.count
+        return viewModel.characterMotionListDataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -163,8 +228,11 @@ extension CharacterDetailViewController: UICollectionViewDataSource {
             for: indexPath
         ) as? CharacterDetailCell else { fatalError("Could not dequeue CharacterDetailCell") }
         
-        cell.configureContent(with: characterMotionListDataSource[indexPath.item])
-        cell.configureColor(mainColor: characterMainColorCode, subColor: characterSubColorCode)
+        cell.configureContent(with: viewModel.characterMotionListDataSource[indexPath.item])
+        cell.configureColor(
+            mainColor: viewModel.characterMainColorCode,
+            subColor: viewModel.characterSubColorCode
+        )
         rootView.updateCollectionViewHeight()
         return cell
     }

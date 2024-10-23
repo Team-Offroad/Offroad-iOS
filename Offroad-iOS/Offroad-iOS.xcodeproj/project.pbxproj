@@ -72,6 +72,7 @@
 		4E700C852CB3CA1E00C664C2 /* ORBOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4EA90AC62C4521C50046A6E1 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */; };
+		4EADB9712CC9518000930140 /* CharacterDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EADB9702CC9518000930140 /* CharacterDetailViewModel.swift */; };
 		4EB32BE72C67A2B0003F98F2 /* QuestListViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */; };
 		4EB32BE92C67A2DD003F98F2 /* QuestListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BE82C67A2DD003F98F2 /* QuestListView.swift */; };
 		4EB32BEC2C67A39B003F98F2 /* QuestListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */; };
@@ -328,6 +329,7 @@
 		4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBOverlayViewController.swift; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		4EADB9702CC9518000930140 /* CharacterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewModel.swift; sourceTree = "<group>"; };
 		4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListViewControllers.swift; sourceTree = "<group>"; };
 		4EB32BE82C67A2DD003F98F2 /* QuestListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListView.swift; sourceTree = "<group>"; };
 		4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -857,6 +859,7 @@
 		4E0394782C2AA767007F0517 /* CharacterList */ = {
 			isa = PBXGroup;
 			children = (
+				4EADB96F2CC9516B00930140 /* ViewModel */,
 				872F4BAF2C68C42500284DE0 /* Cell */,
 				872F4BAA2C68C1B400284DE0 /* ViewController */,
 				872F4BA92C68C1AA00284DE0 /* View */,
@@ -1158,6 +1161,14 @@
 				4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4EADB96F2CC9516B00930140 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4EADB9702CC9518000930140 /* CharacterDetailViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		4EB32BE42C67A21C003F98F2 /* ViewControllers */ = {
@@ -2544,6 +2555,7 @@
 				4E08B9652C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift in Sources */,
 				4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */,
 				D0E796242C453360005B47A5 /* ProfileService.swift in Sources */,
+				4EADB9712CC9518000930140 /* CharacterDetailViewModel.swift in Sources */,
 				D06D26CB2C3DAA5300E79F25 /* CustomQuestView.swift in Sources */,
 				D03C83622C620AF100F3094D /* MyPageView.swift in Sources */,
 				D063E9A42C6108DB00434A09 /* CollectedTitleModel.swift in Sources */,
