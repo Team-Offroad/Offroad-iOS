@@ -85,8 +85,8 @@ extension AcquiredCouponViewController{
         NetworkService.shared.couponService.getAcquiredCouponList { [weak self] result in
             guard let self else { return }
             
-            let alertController: OFRAlertController
-            let action = OFRAlertAction(title: "확인", style: .default) { _ in return }
+            let alertController: ORBAlertController
+            let action = ORBAlertAction(title: "확인", style: .default) { _ in return }
             switch result {
             case .success(let response):
                 guard let response else {
@@ -99,7 +99,7 @@ extension AcquiredCouponViewController{
                 self.acquiredCouponView.segmentedControl.isUserInteractionEnabled = true
                 self.acquiredCouponView.pageViewController.view.isUserInteractionEnabled = true
             default:
-                alertController = OFRAlertController(title: "에러", message: "\(result)", type: .normal)
+                alertController = ORBAlertController(title: "에러", message: "\(result)", type: .normal)
                 alertController.addAction(action)
                 alertController.xButton.isHidden = true
                 self.present(alertController, animated: true)
@@ -193,11 +193,11 @@ extension AcquiredCouponViewController: UICollectionViewDelegate {
     
 }
 
-//MARK: - OFRSegmentedControlDelegate
+//MARK: - ORBSegmentedControlDelegate
 
-extension AcquiredCouponViewController: OFRSegmentedControlDelegate {
+extension AcquiredCouponViewController: ORBSegmentedControlDelegate {
     
-    func segmentedControlDidSelect(segmentedControl: OFRSegmentedControl, selectedIndex: Int) {
+    func segmentedControlDidSelect(segmentedControl: ORBSegmentedControl, selectedIndex: Int) {
         setPageViewControllerPage(to: selectedIndex)
     }
     

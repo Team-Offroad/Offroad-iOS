@@ -20,7 +20,7 @@ final class EmblemPopupViewController: ORBOverlayViewController, ORBPopup {
     private var userTitleString = ""
     private var userTitleIndex = Int()
     
-    var rootView = OFRAlertBackgroundView(type: .acquiredEmblem)
+    var rootView = ORBAlertBackgroundView(type: .acquiredEmblem)
     
     init(title: String? = nil, emblemList: [EmblemList], currentEmblemName: String) {
         rootView.alertView.titleLabel.text = title

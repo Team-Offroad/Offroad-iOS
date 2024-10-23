@@ -9,7 +9,7 @@ import UIKit
 
 protocol ORBAlertViewBaseUI: ORBAlertViewType {
     
-    var buttons: [OFRAlertButton] { get }
+    var buttons: [ORBAlertButton] { get }
     
     var closeButton: UIButton { get }
     var contentView: UIView { get }

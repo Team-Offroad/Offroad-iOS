@@ -199,11 +199,11 @@ extension PlaceListViewController {
     
 }
 
-//MARK: - OFRSegmentedControlDelegate
+//MARK: - ORBSegmentedControlDelegate
 
-extension PlaceListViewController: OFRSegmentedControlDelegate {
+extension PlaceListViewController: ORBSegmentedControlDelegate {
     
-    func segmentedControlDidSelect(segmentedControl: OFRSegmentedControl, selectedIndex: Int) {
+    func segmentedControlDidSelect(segmentedControl: ORBSegmentedControl, selectedIndex: Int) {
         setPageViewControllerPage(to: selectedIndex)
     }
     

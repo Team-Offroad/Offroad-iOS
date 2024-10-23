@@ -149,9 +149,9 @@ final class ChoosingCharacterViewController: UIViewController {
     }
     
     @objc private func selectButtonTapped() {
-        let alertController = OFRAlertController(title: "\(selectedCharacterName)와 함께하시겠어요?", message: "지금 캐릭터를 선택하시면 \(selectedCharacterName)과 모험을 시작하게 돼요.", type: .normal)
-        let cancelAction = OFRAlertAction(title: "아니요", style: .cancel) { _ in return }
-        let okAction = OFRAlertAction(title: "네,좋아요!", style: .default) { _ in
+        let alertController = ORBAlertController(title: "\(selectedCharacterName)와 함께하시겠어요?", message: "지금 캐릭터를 선택하시면 \(selectedCharacterName)과 모험을 시작하게 돼요.", type: .normal)
+        let cancelAction = ORBAlertAction(title: "아니요", style: .cancel) { _ in return }
+        let okAction = ORBAlertAction(title: "네,좋아요!", style: .default) { _ in
             self.postCharacterID(characterID: self.selectedCharacterID)
         }
         alertController.addAction(cancelAction)

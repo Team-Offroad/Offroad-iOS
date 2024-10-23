@@ -1,5 +1,5 @@
 //
-//  OFRAlertBaseView.swift
+//  ORBAlertBaseView.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 9/12/24.
@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-internal class OFRAlertBackgroundView: UIView {
+internal class ORBAlertBackgroundView: UIView {
     
     //MARK: - Properties
     
@@ -24,7 +24,7 @@ internal class OFRAlertBackgroundView: UIView {
     
     //MARK: - Life Cycle
     
-    init(type: OFRAlertType) {
+    init(type: ORBAlertType) {
         switch type {
         case .normal:
             self.alertView = ORBAlertViewNormal()
@@ -57,7 +57,7 @@ internal class OFRAlertBackgroundView: UIView {
     
 }
 
-extension OFRAlertBackgroundView {
+extension ORBAlertBackgroundView {
     
     //MARK: - Layout
     
@@ -101,7 +101,7 @@ extension OFRAlertBackgroundView {
     
     //MARK: - Func
     
-    func setupLayout(of type: OFRAlertType, keyboardRect: CGRect? = nil) {
+    func setupLayout(of type: ORBAlertType, keyboardRect: CGRect? = nil) {
         alertViewCenterYCosntraint.isActive = true
         alertViewBottomConstraint.constant = keyboardRect == nil ? 0 : -(keyboardRect!.height + 24)
         alertViewBottomConstraint.isActive = true
