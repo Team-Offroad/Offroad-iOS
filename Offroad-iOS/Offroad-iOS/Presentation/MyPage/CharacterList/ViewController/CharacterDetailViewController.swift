@@ -78,7 +78,9 @@ extension CharacterDetailViewController {
     }
     
     private func bindData() {
-        viewModel.representativeCharacterChanged.subscribe(onNext: { [weak self] _ in
+        viewModel.representativeCharacterChanged
+        .compactMap({ $0 })
+        .subscribe(onNext: { [weak self] _ in
             guard let self else { return }
             self.rootView.crownBadgeImageView.isHidden = false
             self.rootView.selectButton.isEnabled = false
@@ -86,19 +88,36 @@ extension CharacterDetailViewController {
             self.showToast(message: "'아루'로 대표 캐릭터가 변경되었어요!", inset: 66, withImage: .btnChecked)
         }).disposed(by: disposeBag)
         
-        viewModel.characterDetailInfoSubject.subscribe(onNext: { [weak self] characterDetailInfo in
+        viewModel.characterDetailInfoSubject.compactMap({ $0 }).subscribe(onNext: { [weak self] characterDetailInfo in
             guard let self else { return }
             self.view.backgroundColor = UIColor(hex: characterDetailInfo.characterSubColorCode)
             self.rootView.configurerCharacterDetailView(using: characterDetailInfo)
         }).disposed(by: disposeBag)
         
-        Observable.combineLatest(
-            viewModel.characterDetailInfoSubject,
-            viewModel.characterMotionListDataSourceSubject
-        ).subscribe(onNext: { [weak self] _ in
+        viewModel.networkingSuccess.subscribe(onNext: { [weak self] in
             guard let self else { return }
             self.rootView.collectionView.reloadData()
         }).disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            viewModel.networkingFailure,
+            viewDidAppear
+        ).subscribe(onNext: { [weak self] _, _ in
+            guard let self else { return }
+            self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+        }).disposed(by: disposeBag)
+        
+//        Observable.combineLatest(
+//            viewModel.characterDetailInfoSubject,
+//            viewModel.characterMotionListDataSourceSubject
+//        ).do(onNext: { [weak self] in
+//            guard let self else { return }
+//            if (($0 == nil) || ($1 == nil)) { self.netWorkdDidFail.accept(()) }
+//        }).filter({ $0 != nil && $1 != nil })
+//        .subscribe(onNext: { [weak self] _ in
+//            guard let self else { return }
+//            self.rootView.collectionView.reloadData()
+//        }).disposed(by: disposeBag)
         
         rootView.customBackButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }

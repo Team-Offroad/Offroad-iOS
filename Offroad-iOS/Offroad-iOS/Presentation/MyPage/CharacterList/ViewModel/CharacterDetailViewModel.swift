@@ -28,14 +28,33 @@ final class CharacterDetailViewModel {
     
     //MARK: - Rx Properties
     
+    var disposeBag = DisposeBag()
+    
     var representativeCharacterChanged = PublishSubject<Void>()
-    var characterDetailInfoSubject = PublishSubject<CharacterDetailInfo>()
-    var characterMotionListDataSourceSubject = PublishSubject<[CharacterMotionInfoData]>()
+    var characterDetailInfoSubject = PublishSubject<CharacterDetailInfo?>()
+    var characterMotionListDataSourceSubject = PublishSubject<[CharacterMotionInfoData]?>()
+    
+    var networkingSuccess = PublishSubject<Void>()
+    var networkingFailure = PublishSubject<Void>()
     
     init(characterId: Int, representativeCharacterId: Int) {
         self.characterId = characterId
         self.representativeCharacterId = representativeCharacterId
         
+        Observable.combineLatest(
+            self.characterDetailInfoSubject,
+            self.characterMotionListDataSourceSubject
+        ).do(onNext: { [weak self] in
+            guard let self else { return }
+            if (($0 == nil) || ($1 == nil)) {
+                self.networkingFailure.onNext(())
+            }
+        }).filter({ $0 != nil && $1 != nil })
+        .subscribe(onNext: { [weak self] _ in
+            guard let self else { return }
+            self.networkingSuccess.onNext(())
+//            self.rootView.collectionView.reloadData()
+        }).disposed(by: disposeBag)
     }
 }
 
@@ -48,6 +67,8 @@ extension CharacterDetailViewModel {
             case .success:
                 representativeCharacterId = characterId
                 representativeCharacterChanged.onNext(())
+            case .networkFail:
+                self.networkingFailure.onNext(())
             default:
                 break
             }
@@ -62,6 +83,8 @@ extension CharacterDetailViewModel {
                 guard let characterDetailInfo = characterDetailResponse?.data else { return }
                 self.characterDetailInfo = characterDetailInfo
                 self.characterDetailInfoSubject.onNext(characterDetailInfo)
+            case .networkFail:
+                self.characterDetailInfoSubject.onNext(nil)
             default:
                 break
             }
@@ -81,6 +104,8 @@ extension CharacterDetailViewModel {
                 }
                 characterMotionListDataSource = gainedData + notGainedData
                 characterMotionListDataSourceSubject.onNext(characterMotionListDataSource)
+            case .networkFail:
+                characterMotionListDataSourceSubject.onNext(nil)
             default:
                 break
             }
