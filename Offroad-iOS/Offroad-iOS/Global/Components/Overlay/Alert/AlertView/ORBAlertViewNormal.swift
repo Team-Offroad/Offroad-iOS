@@ -9,7 +9,7 @@ import UIKit
 
 final class ORBAlertViewNormal: ORBAlertBaseView, ORBAlertViewBaseUI {
     
-    let type: OFRAlertType = .normal
+    let type: ORBAlertType = .normal
     let contentView = UIView()
     lazy var contentStackView: UIView = UIStackView(
         arrangedSubviews: [titleLabel, spacerView1, messageLabel, spacerView2, buttonStackView]

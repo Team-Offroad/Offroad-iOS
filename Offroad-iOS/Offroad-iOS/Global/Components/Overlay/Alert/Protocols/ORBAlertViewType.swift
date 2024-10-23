@@ -9,7 +9,7 @@ import Foundation
 
 protocol ORBAlertViewType {
     
-    var type: OFRAlertType { get }
+    var type: ORBAlertType { get }
     var title: String? { get set }
     var message: String? {get set }
     

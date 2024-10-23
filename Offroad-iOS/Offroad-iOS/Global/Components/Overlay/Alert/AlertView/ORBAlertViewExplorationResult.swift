@@ -9,7 +9,7 @@ import UIKit
 
 final class ORBAlertViewExplorationResult: ORBAlertBaseView, ORBAlertViewBaseUI {
     
-    let type: OFRAlertType = .explorationResult
+    let type: ORBAlertType = .explorationResult
     let contentView = UIView()
     let explorationResultImageView = UIImageView()
     

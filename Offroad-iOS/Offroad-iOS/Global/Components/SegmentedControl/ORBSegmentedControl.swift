@@ -1,5 +1,5 @@
 //
-//  OFRSegmentedControl.swift
+//  ORBSegmentedControl.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 8/3/24.
@@ -9,17 +9,17 @@ import UIKit
 
 import SnapKit
 
-@objc protocol OFRSegmentedControlDelegate: AnyObject {
-    @objc optional func segmentedControlDidSelect(segmentedControl: OFRSegmentedControl, selectedIndex: Int)
-    @objc optional func segmentedControlWillSelect(segmentedControl: OFRSegmentedControl, selectedIndex: Int)
+@objc protocol ORBSegmentedControlDelegate: AnyObject {
+    @objc optional func segmentedControlDidSelect(segmentedControl: ORBSegmentedControl, selectedIndex: Int)
+    @objc optional func segmentedControlWillSelect(segmentedControl: ORBSegmentedControl, selectedIndex: Int)
 }
 
-final class OFRSegmentedControl: UIView {
+final class ORBSegmentedControl: UIView {
     
     //MARK: - Properties
     
     let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    weak var delegate: OFRSegmentedControlDelegate? = nil
+    weak var delegate: ORBSegmentedControlDelegate? = nil
     var titles: [String]
     var isLayoutDone: Bool = false
     
@@ -39,7 +39,7 @@ final class OFRSegmentedControl: UIView {
     init(titles: [String]) {
         self.titles = titles
         let buttonsArray = titles.enumerated().map { (index, title) in
-            OFRSegmentedControlButton(title: title, tag: index)
+            ORBSegmentedControlButton(title: title, tag: index)
         }
         self.stackView = UIStackView(arrangedSubviews: buttonsArray)
         super.init(frame: .zero)
@@ -64,7 +64,7 @@ final class OFRSegmentedControl: UIView {
     
 }
 
-extension OFRSegmentedControl {
+extension ORBSegmentedControl {
     
     //MARK: @objc Func
     
@@ -105,7 +105,7 @@ extension OFRSegmentedControl {
     
     private func setButtonsTarget() {
         stackView.arrangedSubviews.forEach { view in
-            guard let button = view as? OFRSegmentedControlButton else { return }
+            guard let button = view as? ORBSegmentedControlButton else { return }
             button.addTarget(self, action: #selector(segmentDidSelected(sender:)), for: .touchUpInside)
         }
     }
@@ -143,7 +143,7 @@ extension OFRSegmentedControl {
     }
     
     func changeSegmentTitle(at index: Int, to newTitle: String) {
-        guard let button = stackView.arrangedSubviews[index] as? OFRSegmentedControlButton else { return }
+        guard let button = stackView.arrangedSubviews[index] as? ORBSegmentedControlButton else { return }
         button.setTitle(newTitle, for: .normal)
     }
     

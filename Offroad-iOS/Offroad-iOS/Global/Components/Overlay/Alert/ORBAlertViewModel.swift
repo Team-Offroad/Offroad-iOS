@@ -1,5 +1,5 @@
 //
-//  OFRAlertViewModel.swift
+//  ORBAlertViewModel.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 9/17/24.
@@ -10,16 +10,16 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class OFRAlertViewModel {
+class ORBAlertViewModel {
     
     private var disposeBag = DisposeBag()
     
     var titleRelay = PublishRelay<String?>()
     var messageRelay = PublishRelay<String?>()
-    var alertTypeSubject = PublishSubject<OFRAlertType>()
+    var alertTypeSubject = PublishSubject<ORBAlertType>()
     var textFieldToBeFirstResponderSubject: BehaviorSubject<UITextField?> = BehaviorSubject(value: nil)
     
-    var type: OFRAlertType = .normal
+    var type: ORBAlertType = .normal
     
     var backgroundTapGesture = UITapGestureRecognizer()
     

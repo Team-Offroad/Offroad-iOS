@@ -9,7 +9,7 @@ import UIKit
 
 final class ORBAlertViewTextFieldWithSubMessage: ORBAlertBaseView, ORBAlertViewBaseUI {
     
-    let type: OFRAlertType = .textFieldWithSubMessage
+    let type: ORBAlertType = .textFieldWithSubMessage
     let contentView = UIView()
     let subMessageLabel = UILabel()
     let defaultTextField = UITextField()

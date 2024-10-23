@@ -1,5 +1,5 @@
 //
-//  OFRAlertButton.swift
+//  ORBAlertButton.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 9/12/24.
@@ -7,15 +7,15 @@
 
 import UIKit
 
-class OFRAlertButton: UIButton {
+class ORBAlertButton: UIButton {
     
     //MARK: - Properties
     
-    var action: OFRAlertAction
+    var action: ORBAlertAction
     
     //MARK: - Life Cycle
     
-    init(alertAction: OFRAlertAction) {
+    init(alertAction: ORBAlertAction) {
         self.action = alertAction
         super.init(frame: .zero)
         
@@ -30,7 +30,7 @@ class OFRAlertButton: UIButton {
     
 }
 
-extension OFRAlertButton {
+extension ORBAlertButton {
     
     //MARK: - Layout
     
@@ -46,7 +46,7 @@ extension OFRAlertButton {
         setupStyle(of: .default)
     }
     
-    private func setupStyle(of style: OFRAlertAction.Style) {
+    private func setupStyle(of style: ORBAlertAction.Style) {
         
         roundCorners(cornerRadius: 5)
         
@@ -100,7 +100,7 @@ extension OFRAlertButton {
         self.configuration = configuration
     }
     
-    private func setupButtonAction(_ action: OFRAlertAction) {
+    private func setupButtonAction(_ action: ORBAlertAction) {
         setTitle(action.title, for: .normal)
         setupStyle(of: action.style)
     }
