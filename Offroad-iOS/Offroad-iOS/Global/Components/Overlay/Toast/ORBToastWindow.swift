@@ -11,8 +11,8 @@ final class ORBToastWindow: UIWindow {
     
     //MARK: - Properties
     
-    private let showAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
-    let hideAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
+    private let showAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
+    let hideAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private var inset: CGFloat
     
     private lazy var toastViewTopConstraint = toastView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: inset)
