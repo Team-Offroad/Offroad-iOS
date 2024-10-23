@@ -53,7 +53,6 @@ final class CharacterDetailViewModel {
         .subscribe(onNext: { [weak self] _ in
             guard let self else { return }
             self.networkingSuccess.onNext(())
-//            self.rootView.collectionView.reloadData()
         }).disposed(by: disposeBag)
     }
 }
