@@ -37,6 +37,9 @@ final class CharacterDetailViewModel {
     var networkingSuccess = PublishSubject<Void>()
     var networkingFailure = PublishSubject<Void>()
     
+    var selectButtonTapped = PublishRelay<Void>()
+    var representativeCharacterSelected = PublishRelay<CharacterDetailInfo>()
+    
     init(characterId: Int, representativeCharacterId: Int) {
         self.characterId = characterId
         self.representativeCharacterId = representativeCharacterId
@@ -54,12 +57,30 @@ final class CharacterDetailViewModel {
             guard let self else { return }
             self.networkingSuccess.onNext(())
         }).disposed(by: disposeBag)
+        
+        selectButtonTapped
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.postCharacterID()
+            })
+            .disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            characterDetailInfoSubject,
+            representativeCharacterChanged
+        )
+        .filter({ $0.0 != nil })
+        .map({ ($0.0!, $0.1) })
+        .subscribe(onNext: { [weak self] in
+            guard let self else { return }
+            self.representativeCharacterSelected.accept($0.0)
+        }).disposed(by: disposeBag)
     }
 }
 
 extension CharacterDetailViewModel {
     
-    func postCharacterID() {
+    private func postCharacterID() {
         NetworkService.shared.characterService.postChoosingCharacter(parameter: characterId) { [weak self] response in
             guard let self else { return }
             switch response {

@@ -78,18 +78,12 @@ extension CharacterDetailViewController {
     }
     
     private func bindData() {
-        Observable.combineLatest(
-            viewModel.characterDetailInfoSubject,
-            viewModel.representativeCharacterChanged
-        )
-        .filter({ $0.0 != nil })
-        .map({ ($0.0!, $0.1) })
-        .subscribe(onNext: { [weak self] in
+        viewModel.representativeCharacterSelected.subscribe(onNext: { [weak self] in
             guard let self else { return }
             self.rootView.crownBadgeImageView.isHidden = false
             self.rootView.selectButton.isEnabled = false
             self.delegate?.didSelectMainCharacter(characterId: self.viewModel.characterId)
-            self.showToast(message: "'\($0.0.characterName)'로 대표 캐릭터가 변경되었어요!", inset: 66, withImage: .btnChecked)
+            self.showToast(message: "'\($0.characterName)'로 대표 캐릭터가 변경되었어요!", inset: 66, withImage: .btnChecked)
         }).disposed(by: disposeBag)
         
         viewModel.characterDetailInfoSubject.compactMap({ $0 }).subscribe(onNext: { [weak self] characterDetailInfo in
@@ -116,10 +110,7 @@ extension CharacterDetailViewController {
             self.navigationController?.popViewController(animated: true)
         }).disposed(by: disposeBag)
         
-        rootView.selectButton.rx.tap.bind(onNext: { [weak self] in
-            guard let self else { return }
-            self.viewModel.postCharacterID()
-        }).disposed(by: disposeBag)
+        rootView.selectButton.rx.tap.bind(to: viewModel.selectButtonTapped).disposed(by: disposeBag)
     }
     
 }
