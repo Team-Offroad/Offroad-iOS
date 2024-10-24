@@ -115,6 +115,7 @@
 		4EFCDFDF2C92BD8A006DEBB6 /* ORBAlertBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDE2C92BD8A006DEBB6 /* ORBAlertBackgroundView.swift */; };
 		4EFCDFE12C92BD93006DEBB6 /* ORBAlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE02C92BD93006DEBB6 /* ORBAlertType.swift */; };
 		4EFCDFE32C92C1F1006DEBB6 /* ORBAlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE22C92C1F1006DEBB6 /* ORBAlertButton.swift */; };
+		4EFD004E2CCA50AB005C294D /* CharacterListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD004D2CCA50AB005C294D /* CharacterListViewModel.swift */; };
 		872F4BAE2C68C1F600284DE0 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */; };
 		872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB02C68C43800284DE0 /* CharacterListCell.swift */; };
 		872F4BB52C68D66200284DE0 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB42C68D66200284DE0 /* CharacterListViewController.swift */; };
@@ -372,6 +373,7 @@
 		4EFCDFDE2C92BD8A006DEBB6 /* ORBAlertBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertBackgroundView.swift; sourceTree = "<group>"; };
 		4EFCDFE02C92BD93006DEBB6 /* ORBAlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertType.swift; sourceTree = "<group>"; };
 		4EFCDFE22C92C1F1006DEBB6 /* ORBAlertButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertButton.swift; sourceTree = "<group>"; };
+		4EFD004D2CCA50AB005C294D /* CharacterListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewModel.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
 		872F4BB02C68C43800284DE0 /* CharacterListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListCell.swift; sourceTree = "<group>"; };
@@ -1167,6 +1169,7 @@
 			isa = PBXGroup;
 			children = (
 				4EADB9702CC9518000930140 /* CharacterDetailViewModel.swift */,
+				4EFD004D2CCA50AB005C294D /* CharacterListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2615,6 +2618,7 @@
 				D00A48962C783988008B286A /* TermsConsentViewController.swift in Sources */,
 				4EF833F02CC486EE00D94314 /* EmblemPopupViewController.swift in Sources */,
 				D0E796452C4538E6005B47A5 /* PlaceService.swift in Sources */,
+				4EFD004E2CCA50AB005C294D /* CharacterListViewModel.swift in Sources */,
 				4EFCDFDD2C92BB27006DEBB6 /* ORBAlertController.swift in Sources */,
 				4E46E5FB2CBA3F55000A1EEE /* UIWindowScene+.swift in Sources */,
 				D00A486A2C633EF2008B286A /* SettingBaseModel.swift in Sources */,

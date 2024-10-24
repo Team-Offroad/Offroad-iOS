@@ -15,7 +15,7 @@ struct CharacterListResponseDTO: Codable {
 struct CharacterListData: Codable {
     let gainedCharacters: [CharacterListInfo]
     let notGainedCharacters: [CharacterListInfo]
-    let representativeCharacterId: Int?
+    let representativeCharacterId: Int
 }
 
 struct CharacterListInfo: Codable {

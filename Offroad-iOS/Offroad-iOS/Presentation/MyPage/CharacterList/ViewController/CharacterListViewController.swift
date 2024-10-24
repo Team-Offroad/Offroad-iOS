@@ -7,19 +7,26 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
 import SVGKit
 
 final class CharacterListViewController: UIViewController {
     
     // MARK: - Properties
     
+    private let viewModel = CharacterListViewModel()
     private let rootView = CharacterListView()
     
-    private var representativeCharacterId: Int?
-    private var gainedCharacters: [CharacterListInfo]?
-    private var notGainedCharacters: [CharacterListInfo]?
+    private var disposeBag = DisposeBag()
+    let viewDidAppear = PublishRelay<Void>()
     
-    private var characterListDataSource: [CharacterListInfoData] = []
+    
+//    private var representativeCharacterId: Int?
+//    private var gainedCharacters: [CharacterListInfo]?
+//    private var notGainedCharacters: [CharacterListInfo]?
+    
+//    private var characterListDataSource: [CharacterListInfoData] = []
     
     // MARK: - Life Cycle
     
@@ -32,7 +39,8 @@ final class CharacterListViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
-        getCharacterListInfo()
+        viewModel.getCharacterListInfo()
+        bindData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,6 +48,12 @@ final class CharacterListViewController: UIViewController {
         
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewDidAppear.accept(())
     }
     
     // MARK: - Private Func
@@ -53,22 +67,28 @@ final class CharacterListViewController: UIViewController {
         rootView.collectionView.dataSource = self
     }
     
-    private func getCharacterListInfo() {
-        NetworkService.shared.characterListService.getCharacterListInfo { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let responseDTO):
-                guard let responseDTO else { return }
-
-                let gainedData = responseDTO.data.gainedCharacters.map({ CharacterListInfoData(info: $0, isGained: true) })
-                let notGainedData = responseDTO.data.notGainedCharacters.map({ CharacterListInfoData(info: $0, isGained: false) })
-                self.representativeCharacterId = responseDTO.data.representativeCharacterId
-                self.characterListDataSource = gainedData + notGainedData
+    private func bindData() {
+        viewModel.characterListDataSourceSubject
+            .subscribe(onNext: { [weak self] _ in
+                guard let self else { return }
                 self.rootView.collectionView.reloadData()
-            default:
-                break
-            }
-        }
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.reloadCollectionView
+            .subscribe(onNext: { [weak self] _ in
+                guard let self else { return }
+                self.rootView.collectionView.reloadData()
+            }).disposed(by: disposeBag)
+        
+        Observable.combineLatest(
+            viewDidAppear,
+            viewModel.networkingFailure
+        ).take(1)
+        .subscribe(onNext: { [weak self] _ in
+            guard let self else { return }
+            self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+        }).disposed(by: disposeBag)
     }
     
     private func convertSvgURLToUIImage(svgUrlString: String) -> UIImage {
@@ -84,13 +104,13 @@ final class CharacterListViewController: UIViewController {
 extension CharacterListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        characterListDataSource.count
+        viewModel.characterListDataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterListCell.className, for: indexPath) as? CharacterListCell else { fatalError() }
-        guard let representativeCharacterId else { return cell }
-        cell.configure(with: characterListDataSource[indexPath.item], representativeCharacterId: representativeCharacterId)
+        guard let representativeCharacterId = viewModel.representativeCharacterId else { return cell }
+        cell.configure(with: viewModel.characterListDataSource[indexPath.item], representativeCharacterId: representativeCharacterId)
         return cell
     }
     
@@ -101,9 +121,9 @@ extension CharacterListViewController: UICollectionViewDelegate {
 extension CharacterListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let representativeCharacterId else { return }
+        guard let representativeCharacterId = viewModel.representativeCharacterId else { return }
         let characterDetailViewController = CharacterDetailViewController(
-            characterId: characterListDataSource[indexPath.item].characterId,
+            characterId: viewModel.characterListDataSource[indexPath.item].characterId,
             representativeCharacterId: representativeCharacterId
         )
         characterDetailViewController.delegate = self
@@ -122,11 +142,14 @@ extension CharacterListViewController {
     
 }
 
+//MARK: - SelectMainCharacterDelegate
+
 extension CharacterListViewController: SelectMainCharacterDelegate {
     
     func didSelectMainCharacter(characterId: Int) {
-        representativeCharacterId = characterId
-        rootView.collectionView.reloadData()
+        viewModel.updateRepresentativeCharacter(id: characterId)
+//        representativeCharacterId = characterId
+//        rootView.collectionView.reloadData()
     }
     
 }
