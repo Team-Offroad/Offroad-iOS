@@ -22,6 +22,7 @@ extension NetworkMonitoring where Self: UIViewController {
     
     func subscribeNetworkChange() {
         NetworkMonitoringManager.shared.isNetworkConnectionChanged
+            .distinctUntilChanged()
             .subscribe(onNext: { [weak self] isConnected in
                 guard let self else { return }
                 

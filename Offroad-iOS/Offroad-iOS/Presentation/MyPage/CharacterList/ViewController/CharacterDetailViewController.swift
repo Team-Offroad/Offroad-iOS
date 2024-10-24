@@ -10,7 +10,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class CharacterDetailViewController: UIViewController {
+final class CharacterDetailViewController: UIViewController, NetworkMonitoring {
+    
+    var disposeBagForNetworkConnection = DisposeBag()
+    var networkConnectionSubject = BehaviorSubject<Bool>(value: true)
     
     // MARK: - Properties
     
@@ -45,6 +48,7 @@ final class CharacterDetailViewController: UIViewController {
         bindData()
         viewModel.characterMotionInfo()
         viewModel.getCharacterDetailInfo()
+        subscribeNetworkChange()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,7 +99,7 @@ extension CharacterDetailViewController {
         
         Observable.combineLatest(
             viewModel.networkingFailure,
-            viewDidAppear
+            viewDidAppear.take(1)
         ).subscribe(onNext: { [weak self] _, _ in
             guard let self else { return }
             self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
@@ -107,6 +111,18 @@ extension CharacterDetailViewController {
         }).disposed(by: disposeBag)
         
         rootView.selectButton.rx.tap.bind(to: viewModel.selectButtonTapped).disposed(by: disposeBag)
+        
+        /// 네트워크 끊어진 상태에서 CharacterDetailView로 진입 후(현재 빈 화면인 상태)
+        /// 네트워크 연결하면 아래 구독이 실행됨.
+        /// 근데 이때, 캐릭터 정보와 모션 둘 다 이전에 nil인 상태에서 둘 중 하나만 업데이트돼도 네트워크 연결을 확인하라는 문구가 뜸
+        /// (combine'Latest'이기 때문)
+        /// 그래서 네트워크 재진입 시 flow를 따로 만들어야 하나? 하는 고민중
+        networkConnectionSubject.subscribe(onNext: { [weak self] isConnected in
+            guard let self else { return }
+            guard isConnected else { return }
+            self.viewModel.getCharacterDetailInfo()
+            self.viewModel.characterMotionInfo()
+        }).disposed(by: disposeBag)
     }
     
 }

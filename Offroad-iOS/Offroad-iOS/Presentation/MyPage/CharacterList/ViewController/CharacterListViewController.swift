@@ -11,22 +11,17 @@ import RxSwift
 import RxCocoa
 import SVGKit
 
-final class CharacterListViewController: UIViewController {
+final class CharacterListViewController: UIViewController, NetworkMonitoring {
+    
+    var disposeBagForNetworkConnection = DisposeBag()
+    var networkConnectionSubject = BehaviorSubject<Bool>(value: false)
     
     // MARK: - Properties
     
     private let viewModel = CharacterListViewModel()
     private let rootView = CharacterListView()
-    
     private var disposeBag = DisposeBag()
     let viewDidAppear = PublishRelay<Void>()
-    
-    
-//    private var representativeCharacterId: Int?
-//    private var gainedCharacters: [CharacterListInfo]?
-//    private var notGainedCharacters: [CharacterListInfo]?
-    
-//    private var characterListDataSource: [CharacterListInfoData] = []
     
     // MARK: - Life Cycle
     
@@ -41,6 +36,7 @@ final class CharacterListViewController: UIViewController {
         setupDelegate()
         viewModel.getCharacterListInfo()
         bindData()
+        subscribeNetworkChange()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,26 +64,25 @@ final class CharacterListViewController: UIViewController {
     }
     
     private func bindData() {
-        viewModel.characterListDataSourceSubject
-            .subscribe(onNext: { [weak self] _ in
-                guard let self else { return }
-                self.rootView.collectionView.reloadData()
-            })
-            .disposed(by: disposeBag)
-        
         viewModel.reloadCollectionView
+            .subscribe(on: ConcurrentMainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
                 self.rootView.collectionView.reloadData()
             }).disposed(by: disposeBag)
         
         Observable.combineLatest(
-            viewDidAppear,
+            viewDidAppear.take(1),
             viewModel.networkingFailure
-        ).take(1)
-        .subscribe(onNext: { [weak self] _ in
+        ).subscribe(onNext: { [weak self] _ in
             guard let self else { return }
             self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+        }).disposed(by: disposeBag)
+        
+        networkConnectionSubject.subscribe(onNext: { [weak self] isConnected in
+            guard let self else { return }
+            guard isConnected else { return }
+            self.viewModel.getCharacterListInfo()
         }).disposed(by: disposeBag)
     }
     

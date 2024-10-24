@@ -65,7 +65,17 @@ class CharacterListCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Setup Functions
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        characterListCellImageView.image = nil
+    }
+    
+}
+
+extension CharacterListCell {
+    
+    // MARK: - Private Func
     
     private func setupHierarchy() {
         contentView.addSubviews(containerView, characterLabel, shadowView, newBadgeView, mainCharacterBadgeView)
