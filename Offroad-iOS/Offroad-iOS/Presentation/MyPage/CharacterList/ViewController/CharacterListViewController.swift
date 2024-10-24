@@ -79,9 +79,9 @@ final class CharacterListViewController: UIViewController {
     
 }
 
-extension CharacterListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    // MARK: - CollectionView Func
+//MARK: - UICollectionViewDataSource
+
+extension CharacterListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         characterListDataSource.count
@@ -93,6 +93,12 @@ extension CharacterListViewController: UICollectionViewDelegate, UICollectionVie
         cell.configure(with: characterListDataSource[indexPath.item], representativeCharacterId: representativeCharacterId)
         return cell
     }
+    
+}
+
+//MARK: - UICollectionViewDelegate
+
+extension CharacterListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let representativeCharacterId else { return }
