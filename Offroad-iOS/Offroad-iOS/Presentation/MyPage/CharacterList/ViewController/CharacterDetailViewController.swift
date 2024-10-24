@@ -14,14 +14,10 @@ final class CharacterDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    var disposeBag = DisposeBag()
-    
-    let netWorkdDidFail = PublishRelay<Void>()
-    let viewDidAppear = PublishRelay<Void>()
-    
-    let viewModel: CharacterDetailViewModel
-    
     private let rootView = CharacterDetailView()
+    let viewModel: CharacterDetailViewModel
+    let viewDidAppear = PublishRelay<Void>()
+    var disposeBag = DisposeBag()
     weak var delegate: SelectMainCharacterDelegate?
     
     // MARK: - Life Cycle
