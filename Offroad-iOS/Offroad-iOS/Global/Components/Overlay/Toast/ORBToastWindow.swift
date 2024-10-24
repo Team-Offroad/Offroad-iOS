@@ -20,9 +20,6 @@ final class ORBToastWindow: UIWindow {
     
     //MARK: - UI Properties
     
-//    let toastView: UIView = UIView()
-//    let imageView: UIImageView = .init(image: .btnChecked)
-//    let messageLabel: UILabel = UILabel()
     let toastView: ORBToastView
     
     //MARK: Life Cycle
@@ -35,7 +32,6 @@ final class ORBToastWindow: UIWindow {
         
         setupHierarchy()
         setupLayout()
-        setupStyle()
         setupAnimator()
     }
     
@@ -59,18 +55,6 @@ extension ORBToastWindow {
             make.centerX.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(24)
         }
-        
-//        imageView.snp.makeConstraints { make in
-//            make.centerY.equalToSuperview()
-//            make.leading.equalToSuperview().inset(21)
-//            make.size.equalTo(22)
-//        }
-//        
-//        messageLabel.snp.makeConstraints { make in
-//            make.leading.equalTo(imageView.snp.trailing).offset(11)
-//            make.trailing.equalToSuperview().inset(20)
-//            make.verticalEdges.equalToSuperview().inset(10.5)
-//        }
     }
     
     //MARK: - Private Func
@@ -78,26 +62,6 @@ extension ORBToastWindow {
     private func setupHierarchy() {
         windowLevel = UIWindow.Level.alert + 1
         addSubview(toastView)
-//        toastView.addSubviews(imageView, messageLabel)
-    }
-    
-    private func setupStyle() {
-//        windowLevel = UIWindow.Level.alert + 1
-        
-//        toastView.do({ view in
-//            view.backgroundColor = .blackOpacity(.black55)
-//            view.roundCorners(cornerRadius: 10)
-//        })
-        
-//        imageView.do { imageView in
-//            imageView.contentMode = .scaleAspectFit
-//        }
-//        
-//        messageLabel.do { label in
-//            label.font = .offroad(style: .iosTextAuto)
-//            label.textColor = .primary(.white)
-//            label.numberOfLines = 0
-//        }
     }
     
     private func setupAnimator() {
