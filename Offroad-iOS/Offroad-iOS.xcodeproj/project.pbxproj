@@ -615,14 +615,13 @@
 		4E0394602C2AA0C1007F0517 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				4EFD00512CCBD5F7005C294D /* NetworkMonitoring */,
 				D018BB0C2C401F5F0048B6DF /* Components */,
 				4E0394612C2AA0C5007F0517 /* Extensions */,
 				4E0394652C2AA0E7007F0517 /* Literals */,
 				4E0394642C2AA0E4007F0517 /* Protocols */,
 				4E0394632C2AA0DE007F0517 /* Resources */,
 				4E0394D62C2ABAA9007F0517 /* SupportingFiles */,
-				4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */,
-				4E37956F2CC8C27300CB7E97 /* NetworkMonitoring.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -1314,6 +1313,15 @@
 				4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */,
 			);
 			path = Overlay;
+			sourceTree = "<group>";
+		};
+		4EFD00512CCBD5F7005C294D /* NetworkMonitoring */ = {
+			isa = PBXGroup;
+			children = (
+				4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */,
+				4E37956F2CC8C27300CB7E97 /* NetworkMonitoring.swift */,
+			);
+			path = NetworkMonitoring;
 			sourceTree = "<group>";
 		};
 		80700C167D3310A86AF0ADA5 /* Pods */ = {
