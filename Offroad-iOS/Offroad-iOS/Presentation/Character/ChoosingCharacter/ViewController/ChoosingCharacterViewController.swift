@@ -55,7 +55,7 @@ final class ChoosingCharacterViewController: UIViewController {
             style.lineBreakStrategy = .hangulWordPriority
         }
         
-        getCharacterInfo()
+        getStartingCharacterList()
     }
     
     //MARK: - Private Method
@@ -73,8 +73,8 @@ final class ChoosingCharacterViewController: UIViewController {
         choosingCharacterView.rightButton.addTarget(self, action: #selector(rightArrowTapped), for: .touchUpInside)
     }
     
-    private func getCharacterInfo() {
-        NetworkService.shared.characterService.getCharacterInfo { response in
+    private func getStartingCharacterList() {
+        NetworkService.shared.characterService.getStartingCharacterList { response in
             switch response {
             case .success(let data):
                 let count = data?.data.characters.count ?? 0

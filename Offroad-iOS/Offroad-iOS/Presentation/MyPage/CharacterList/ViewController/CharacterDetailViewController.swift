@@ -86,7 +86,7 @@ extension CharacterDetailViewController {
     }
     
     private func getCharacterDetailInfo() {
-        NetworkService.shared.characterDetailService.getAcquiredCharacterInfo(characterId: characterId) { [weak self] response in
+        NetworkService.shared.characterService.getCharacterDetail(characterId: characterId) { [weak self] response in
             guard let self else { return }
             switch response {
             case .success(let characterDetailResponse):
@@ -104,7 +104,7 @@ extension CharacterDetailViewController {
     }
     
     private func characterMotionInfo() {
-        NetworkService.shared.characterMotionService.getCharacterMotionList(characterId: characterId) { [weak self] result in
+        NetworkService.shared.characterService.getCharacterMotionList(characterId: characterId) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let responseDTO):
