@@ -12,7 +12,7 @@ import RxSwift
 protocol NetworkMonitoring: UIViewController {
     
     var disposeBagForNetworkConnection: DisposeBag { get set }
-    var networkConnectionSubject: BehaviorSubject<Bool> { get }
+    var networkConnectionSubject: PublishSubject<Bool> { get }
     
     func subscribeNetworkChange()
     

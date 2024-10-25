@@ -12,8 +12,10 @@ import RxCocoa
 
 final class CharacterListViewController: UIViewController, NetworkMonitoring {
     
+    //MARK: - NetworkMonitoring Properties
+    
     var disposeBagForNetworkConnection = DisposeBag()
-    var networkConnectionSubject = BehaviorSubject<Bool>(value: false)
+    var networkConnectionSubject = PublishSubject<Bool>()
     
     // MARK: - Properties
     
@@ -31,7 +33,6 @@ final class CharacterListViewController: UIViewController, NetworkMonitoring {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTarget()
         setupDelegate()
         viewModel.getCharacterListInfo()
         bindData()
@@ -52,10 +53,6 @@ final class CharacterListViewController: UIViewController, NetworkMonitoring {
     }
     
     // MARK: - Private Func
-    
-    private func setupTarget() {
-        rootView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-    }
     
     private func setupDelegate() {
         rootView.collectionView.delegate = self
@@ -82,13 +79,18 @@ final class CharacterListViewController: UIViewController, NetworkMonitoring {
             guard isConnected else { return }
             self.viewModel.getCharacterListInfo()
         }).disposed(by: disposeBag)
+        
+        rootView.customBackButton.rx.tap.bind(onNext: { [weak self] in
+            guard let self else { return }
+            self.navigationController?.popViewController(animated: true)
+        }).disposed(by: disposeBag)
     }
     
 }
 
 //MARK: - UICollectionViewDataSource
 
-extension CharacterListViewController: UICollectionViewDelegate {
+extension CharacterListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.characterListDataSource.count
@@ -105,7 +107,7 @@ extension CharacterListViewController: UICollectionViewDelegate {
 
 //MARK: - UICollectionViewDelegate
 
-extension CharacterListViewController: UICollectionViewDataSource {
+extension CharacterListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let representativeCharacterId = viewModel.representativeCharacterId else { return }
@@ -115,16 +117,6 @@ extension CharacterListViewController: UICollectionViewDataSource {
         )
         characterDetailViewController.delegate = self
         navigationController?.pushViewController(characterDetailViewController, animated: true)
-    }
-    
-}
-
-extension CharacterListViewController {
-    
-    // MARK: - @Objc Func
-    
-    @objc private func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
     }
     
 }

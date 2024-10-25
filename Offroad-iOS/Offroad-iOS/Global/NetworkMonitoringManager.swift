@@ -38,6 +38,4 @@ final class NetworkMonitoringManager {
         networkMonitor.start(queue: DispatchQueue.global())
     }
     
-    
-    
 }

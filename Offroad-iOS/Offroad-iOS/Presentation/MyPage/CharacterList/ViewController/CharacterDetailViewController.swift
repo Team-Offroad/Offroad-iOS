@@ -13,7 +13,7 @@ import RxCocoa
 final class CharacterDetailViewController: UIViewController, NetworkMonitoring {
     
     var disposeBagForNetworkConnection = DisposeBag()
-    var networkConnectionSubject = BehaviorSubject<Bool>(value: true)
+    var networkConnectionSubject = PublishSubject<Bool>()
     
     // MARK: - Properties
     
