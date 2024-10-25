@@ -10,12 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class CharacterListViewController: UIViewController, NetworkMonitoring {
-    
-    //MARK: - NetworkMonitoring Properties
-    
-    var disposeBagForNetworkConnection = DisposeBag()
-    var networkConnectionSubject = PublishSubject<Bool>()
+final class CharacterListViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -36,7 +31,6 @@ final class CharacterListViewController: UIViewController, NetworkMonitoring {
         setupDelegate()
         viewModel.getCharacterListInfo()
         bindData()
-        subscribeNetworkChange()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,11 +68,12 @@ final class CharacterListViewController: UIViewController, NetworkMonitoring {
             self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
         }).disposed(by: disposeBag)
         
-        networkConnectionSubject.subscribe(onNext: { [weak self] isConnected in
-            guard let self else { return }
-            guard isConnected else { return }
-            self.viewModel.getCharacterListInfo()
-        }).disposed(by: disposeBag)
+        NetworkMonitoringManager.shared.networkConnectionChanged
+            .subscribe(onNext: { [weak self] isConnected in
+                guard let self else { return }
+                guard isConnected else { return }
+                self.viewModel.getCharacterListInfo()
+            }).disposed(by: disposeBag)
         
         rootView.customBackButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }

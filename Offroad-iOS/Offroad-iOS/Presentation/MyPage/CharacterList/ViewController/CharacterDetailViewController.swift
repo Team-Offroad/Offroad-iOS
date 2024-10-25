@@ -10,10 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class CharacterDetailViewController: UIViewController, NetworkMonitoring {
-    
-    var disposeBagForNetworkConnection = DisposeBag()
-    var networkConnectionSubject = PublishSubject<Bool>()
+final class CharacterDetailViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -48,7 +45,6 @@ final class CharacterDetailViewController: UIViewController, NetworkMonitoring {
         bindData()
         viewModel.characterMotionInfo()
         viewModel.getCharacterDetailInfo()
-        subscribeNetworkChange()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,12 +116,13 @@ extension CharacterDetailViewController {
         /// -> 해결 필요
         /// (combine'Latest'이기 때문)
         /// 네트워크 재연결시 flow를 별도로 만들어야 할 수도
-        networkConnectionSubject.subscribe(onNext: { [weak self] isConnected in
-            guard let self else { return }
-            guard isConnected else { return }
-            self.viewModel.getCharacterDetailInfo()
-            self.viewModel.characterMotionInfo()
-        }).disposed(by: disposeBag)
+        NetworkMonitoringManager.shared.networkConnectionChanged
+            .subscribe(onNext: { [weak self] isConnected in
+                guard let self else { return }
+                guard isConnected else { return }
+                self.viewModel.getCharacterDetailInfo()
+                self.viewModel.characterMotionInfo()
+            }).disposed(by: disposeBag)
     }
     
 }

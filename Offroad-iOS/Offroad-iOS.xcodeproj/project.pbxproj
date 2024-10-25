@@ -44,7 +44,6 @@
 		4E1E94172C3AC27000A7B08A /* QuestMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94162C3AC27000A7B08A /* QuestMapViewController.swift */; };
 		4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* QuestMapView.swift */; };
 		4E23776E2CC81B2000716AFF /* NetworkMonitoringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */; };
-		4E3795702CC8C27300CB7E97 /* NetworkMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37956F2CC8C27300CB7E97 /* NetworkMonitoring.swift */; };
 		4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6CE2C456FBF007358DA /* UITabBar+.swift */; };
 		4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */; };
 		4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */; };
@@ -306,7 +305,6 @@
 		4E1E94162C3AC27000A7B08A /* QuestMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapViewController.swift; sourceTree = "<group>"; };
 		4E1E94182C3AC27C00A7B08A /* QuestMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapView.swift; sourceTree = "<group>"; };
 		4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitoringManager.swift; sourceTree = "<group>"; };
-		4E37956F2CC8C27300CB7E97 /* NetworkMonitoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitoring.swift; sourceTree = "<group>"; };
 		4E37B6CE2C456FBF007358DA /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterView.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/View/CompleteChoosingCharacterView.swift"; sourceTree = SOURCE_ROOT; };
 		4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterViewController.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/ViewController/CompleteChoosingCharacterViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -1319,7 +1317,6 @@
 			isa = PBXGroup;
 			children = (
 				4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */,
-				4E37956F2CC8C27300CB7E97 /* NetworkMonitoring.swift */,
 			);
 			path = NetworkMonitoring;
 			sourceTree = "<group>";
@@ -2482,7 +2479,6 @@
 				4E56F53F2C987C5500EEE677 /* ZeroDurationAnimator.swift in Sources */,
 				D0E7961C2C4527FE005B47A5 /* SocialLoginRequestDTO.swift in Sources */,
 				87738CD52C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift in Sources */,
-				4E3795702CC8C27300CB7E97 /* NetworkMonitoring.swift in Sources */,
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
 				872F4BB92C6B80A600284DE0 /* CharacterDetailView.swift in Sources */,
 				87738CE02C8E176700E107C7 /* CharacterMotionService.swift in Sources */,

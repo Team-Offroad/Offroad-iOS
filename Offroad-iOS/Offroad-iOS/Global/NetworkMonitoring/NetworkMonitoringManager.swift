@@ -18,8 +18,11 @@ final class NetworkMonitoringManager {
     
     //MARK: - Properties
     
+    var disposeBag = DisposeBag()
+    
     let networkMonitor = NWPathMonitor()
-    var isNetworkConnectionChanged = PublishSubject<Bool>()
+    var pathInterfaceChanged = PublishSubject<Bool>()
+    var networkConnectionChanged = PublishSubject<Bool>()
     
     //MARK: - Life Cycle
     
@@ -27,15 +30,23 @@ final class NetworkMonitoringManager {
         networkMonitor.pathUpdateHandler = { path in
             if path.status == .satisfied {
                 if path.usesInterfaceType(.wifi) || path.usesInterfaceType(.cellular) || path.usesInterfaceType(.wiredEthernet) {
-                    self.isNetworkConnectionChanged.onNext(true)
+                    self.pathInterfaceChanged.onNext(true)
                 } else {
-                    self.isNetworkConnectionChanged.onNext(false)
+                    self.pathInterfaceChanged.onNext(false)
                 }
             } else {
-                self.isNetworkConnectionChanged.onNext(false)
+                self.pathInterfaceChanged.onNext(false)
             }
         }
+        
+        pathInterfaceChanged.distinctUntilChanged()
+            .subscribe(onNext: { [weak self] isConnected in
+                guard let self else { return }
+                self.networkConnectionChanged.onNext(isConnected)
+            }).disposed(by: disposeBag)
+        
         networkMonitor.start(queue: DispatchQueue.global())
+        
     }
     
 }
