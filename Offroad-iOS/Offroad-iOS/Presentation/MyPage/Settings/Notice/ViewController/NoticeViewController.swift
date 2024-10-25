@@ -76,12 +76,20 @@ extension NoticeViewController {
     }
     
     private func bindData() {
-        Observable.combineLatest(viewDidAppear, netWorkdDidFail)
+        Observable.combineLatest(viewDidAppear.take(1), netWorkdDidFail)
             .subscribe { [weak self] _ in
                 guard let self else { return }
                 self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
             }
             .disposed(by: disposeBag)
+        
+        NetworkMonitoringManager.shared.networkConnectionChanged
+            .subscribe(on: ConcurrentMainScheduler.instance)
+            .subscribe(onNext: { [weak self] isConnected in
+                guard let self else { return }
+                guard isConnected else { return }
+                getNoticeList()
+            }).disposed(by: disposeBag)
     }
     
     // MARK: - @objc Method
