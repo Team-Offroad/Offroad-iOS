@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 protocol CharacterServiceProtocol {
-    func getStartingCharacterList(completion: @escaping (NetworkResult<CharacterInfoResponseDTO>) -> ())
+    func getStartingCharacterList(completion: @escaping (NetworkResult<StartingCharacterResponseDTO>) -> ())
     func postChoosingCharacter(parameter: Int, completion: @escaping (NetworkResult<CharacterChoosingResponseDTO>) -> ())
     func getCharacterListInfo(completion: @escaping (NetworkResult<CharacterListResponseDTO>) -> ())
     func getCharacterDetail(characterId: Int, completion: @escaping (NetworkResult<CharacterDetailResponseDTO>) -> ())
@@ -20,11 +20,11 @@ protocol CharacterServiceProtocol {
 final class CharacterService: BaseService, CharacterServiceProtocol {
     let provider = MoyaProvider<CharacterAPI>.init(session: Session(interceptor: TokenInterceptor.shared), plugins: [MoyaPlugin()])
 
-    func getStartingCharacterList(completion: @escaping (NetworkResult<CharacterInfoResponseDTO>) -> ()) {
+    func getStartingCharacterList(completion: @escaping (NetworkResult<StartingCharacterResponseDTO>) -> ()) {
         provider.request(.getStartingCharacterList) { result in
             switch result {
             case .success(let response):
-                let networkResult: NetworkResult<CharacterInfoResponseDTO> = self.fetchNetworkResult(
+                let networkResult: NetworkResult<StartingCharacterResponseDTO> = self.fetchNetworkResult(
                     statusCode: response.statusCode,
                     data: response.data
                 )
