@@ -19,6 +19,7 @@ class CharacterDetailView: UIView, SVGFetchable {
     
     // MARK: - UI Properties
     
+    let customNavigationBar = UIView()
     let customBackButton = NavigationPopButton()
     private let scrollView = UIScrollView()
     private let contentView = UIView()
@@ -71,6 +72,12 @@ extension CharacterDetailView {
     //MARK: - Layout Func
     
     private func setupLayout() {
+        customNavigationBar.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.top).offset(76)
+        }
+        
         customBackButton.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(12)
             $0.leading.equalToSuperview().inset(12)
@@ -174,6 +181,7 @@ extension CharacterDetailView {
     private func setupHierarchy() {
         addSubviews(
             scrollView,
+            customNavigationBar,
             customBackButton
         )
         scrollView.addSubview(contentView)
@@ -201,7 +209,8 @@ extension CharacterDetailView {
     }
     
     private func setupStyle() {
-        backgroundColor = UIColor.primary(.listBg)
+        backgroundColor = .primary(.listBg)
+        customNavigationBar.backgroundColor = .primary(.listBg)
         
         customBackButton.configureButtonTitle(titleString: "획득 캐릭터")
         scrollView.showsVerticalScrollIndicator = false
@@ -309,6 +318,8 @@ extension CharacterDetailView {
             }
         }
         
+        customNavigationBar.backgroundColor = UIColor(hex: characterInfo.characterSubColorCode)
+        backgroundColor = UIColor(hex: characterInfo.characterSubColorCode)
         nameLabel.text = characterInfo.characterName
         titleLabel.text = characterInfo.characterSummaryDescription
         detailLabel.text = characterInfo.characterDescription

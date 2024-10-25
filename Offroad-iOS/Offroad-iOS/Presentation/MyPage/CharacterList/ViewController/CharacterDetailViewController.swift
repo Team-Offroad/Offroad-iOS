@@ -90,7 +90,6 @@ extension CharacterDetailViewController {
         viewModel.characterDetailInfoSubject.compactMap({ $0 })
             .subscribe(onNext: { [weak self] characterDetailInfo in
                 guard let self else { return }
-                self.view.backgroundColor = UIColor(hex: characterDetailInfo.characterSubColorCode)
                 self.rootView.configurerCharacterDetailView(using: characterDetailInfo)
             }).disposed(by: disposeBag)
         

@@ -44,7 +44,6 @@ extension CharacterListViewModel {
             switch result {
             case .success(let responseDTO):
                 guard let responseDTO else { return }
-
                 let gainedData = responseDTO.data.gainedCharacters.map({ CharacterListInfoData(info: $0, isGained: true) })
                 let notGainedData = responseDTO.data.notGainedCharacters.map({ CharacterListInfoData(info: $0, isGained: false) })
                 self.representativeCharacterId = responseDTO.data.representativeCharacterId
@@ -52,8 +51,6 @@ extension CharacterListViewModel {
                 
                 self.characterListDataSource = gainedData + notGainedData
                 self.characterListDataSourceSubject.onNext(self.characterListDataSource)
-                
-                //self.rootView.collectionView.reloadData()
             case .networkFail:
                 networkingFailure.onNext(())
             default:
