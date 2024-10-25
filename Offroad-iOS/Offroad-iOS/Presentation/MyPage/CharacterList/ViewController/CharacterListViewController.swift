@@ -9,7 +9,6 @@ import UIKit
 
 import RxSwift
 import RxCocoa
-import SVGKit
 
 final class CharacterListViewController: UIViewController, NetworkMonitoring {
     
@@ -65,7 +64,6 @@ final class CharacterListViewController: UIViewController, NetworkMonitoring {
     
     private func bindData() {
         viewModel.reloadCollectionView
-            .subscribe(on: ConcurrentMainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
                 self.rootView.collectionView.reloadData()
@@ -84,12 +82,6 @@ final class CharacterListViewController: UIViewController, NetworkMonitoring {
             guard isConnected else { return }
             self.viewModel.getCharacterListInfo()
         }).disposed(by: disposeBag)
-    }
-    
-    private func convertSvgURLToUIImage(svgUrlString: String) -> UIImage {
-        guard let svgURL = URL(string: svgUrlString) else { return UIImage() }
-        guard let svgImage = SVGKImage(contentsOf: svgURL) else { return UIImage() }
-        return svgImage.renderedUIImage ?? UIImage()
     }
     
 }
@@ -143,8 +135,6 @@ extension CharacterListViewController: SelectMainCharacterDelegate {
     
     func didSelectMainCharacter(characterId: Int) {
         viewModel.updateRepresentativeCharacter(id: characterId)
-//        representativeCharacterId = characterId
-//        rootView.collectionView.reloadData()
     }
     
 }

@@ -78,21 +78,24 @@ extension CharacterDetailViewController {
     }
     
     private func bindData() {
-        viewModel.representativeCharacterSelected.subscribe(onNext: { [weak self] in
-            guard let self else { return }
-            self.rootView.crownBadgeImageView.isHidden = false
-            self.rootView.selectButton.isEnabled = false
-            self.delegate?.didSelectMainCharacter(characterId: self.viewModel.characterId)
-            self.showToast(message: "'\($0.characterName)'로 대표 캐릭터가 변경되었어요!", inset: 66, withImage: .btnChecked)
-        }).disposed(by: disposeBag)
+        viewModel.representativeCharacterSelected
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.rootView.crownBadgeImageView.isHidden = false
+                self.rootView.selectButton.isEnabled = false
+                self.delegate?.didSelectMainCharacter(characterId: self.viewModel.characterId)
+                self.showToast(message: "'\($0.characterName)'로 대표 캐릭터가 변경되었어요!", inset: 66, withImage: .btnChecked)
+            }).disposed(by: disposeBag)
         
-        viewModel.characterDetailInfoSubject.compactMap({ $0 }).subscribe(onNext: { [weak self] characterDetailInfo in
-            guard let self else { return }
-            self.view.backgroundColor = UIColor(hex: characterDetailInfo.characterSubColorCode)
-            self.rootView.configurerCharacterDetailView(using: characterDetailInfo)
-        }).disposed(by: disposeBag)
+        viewModel.characterDetailInfoSubject.compactMap({ $0 })
+            .subscribe(onNext: { [weak self] characterDetailInfo in
+                guard let self else { return }
+                self.view.backgroundColor = UIColor(hex: characterDetailInfo.characterSubColorCode)
+                self.rootView.configurerCharacterDetailView(using: characterDetailInfo)
+            }).disposed(by: disposeBag)
         
-        viewModel.networkingSuccess.subscribe(onNext: { [weak self] in
+        viewModel.networkingSuccess
+            .subscribe(onNext: { [weak self] in
             guard let self else { return }
             self.rootView.collectionView.reloadData()
         }).disposed(by: disposeBag)
@@ -114,9 +117,10 @@ extension CharacterDetailViewController {
         
         /// 네트워크 끊어진 상태에서 CharacterDetailView로 진입 후(현재 빈 화면인 상태)
         /// 네트워크 연결하면 아래 구독이 실행됨.
-        /// 근데 이때, 캐릭터 정보와 모션 둘 다 이전에 nil인 상태에서 둘 중 하나만 업데이트돼도 네트워크 연결을 확인하라는 문구가 뜸
+        /// 근데 이때, 캐릭터 정보와 모션 둘 다 이전에 nil인 상태에서 둘 중 하나만 업데이트된 상태에서는 네트워크 연결을 확인하라는 문구가 뜸
+        /// -> 해결 필요
         /// (combine'Latest'이기 때문)
-        /// 그래서 네트워크 재진입 시 flow를 따로 만들어야 하나? 하는 고민중
+        /// 네트워크 재연결시 flow를 별도로 만들어야 할 수도
         networkConnectionSubject.subscribe(onNext: { [weak self] isConnected in
             guard let self else { return }
             guard isConnected else { return }

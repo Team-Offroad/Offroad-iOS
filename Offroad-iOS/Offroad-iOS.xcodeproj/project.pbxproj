@@ -116,6 +116,7 @@
 		4EFCDFE12C92BD93006DEBB6 /* ORBAlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE02C92BD93006DEBB6 /* ORBAlertType.swift */; };
 		4EFCDFE32C92C1F1006DEBB6 /* ORBAlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE22C92C1F1006DEBB6 /* ORBAlertButton.swift */; };
 		4EFD004E2CCA50AB005C294D /* CharacterListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD004D2CCA50AB005C294D /* CharacterListViewModel.swift */; };
+		4EFD00502CCB4C25005C294D /* SVGFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD004F2CCB4C25005C294D /* SVGFetchable.swift */; };
 		872F4BAE2C68C1F600284DE0 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */; };
 		872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB02C68C43800284DE0 /* CharacterListCell.swift */; };
 		872F4BB52C68D66200284DE0 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB42C68D66200284DE0 /* CharacterListViewController.swift */; };
@@ -374,6 +375,7 @@
 		4EFCDFE02C92BD93006DEBB6 /* ORBAlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertType.swift; sourceTree = "<group>"; };
 		4EFCDFE22C92C1F1006DEBB6 /* ORBAlertButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertButton.swift; sourceTree = "<group>"; };
 		4EFD004D2CCA50AB005C294D /* CharacterListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewModel.swift; sourceTree = "<group>"; };
+		4EFD004F2CCB4C25005C294D /* SVGFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGFetchable.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
 		872F4BB02C68C43800284DE0 /* CharacterListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListCell.swift; sourceTree = "<group>"; };
@@ -662,6 +664,7 @@
 		4E0394642C2AA0E4007F0517 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				4EFD004F2CCB4C25005C294D /* SVGFetchable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2586,6 +2589,7 @@
 				8792D01E2C3E872D002051AC /* ChoosingCharacterView.swift in Sources */,
 				8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */,
 				87738CBA2C8C1B0500E107C7 /* CharacterListResponseDTO.swift in Sources */,
+				4EFD00502CCB4C25005C294D /* SVGFetchable.swift in Sources */,
 				4E56F53D2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift in Sources */,
 				D0E796412C4537DE005B47A5 /* QuestInfoResponseDTO.swift in Sources */,
 				D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */,

@@ -8,9 +8,10 @@
 import UIKit
 
 import SnapKit
+import SVGKit
 import Then
 
-class CharacterDetailView: UIView {
+class CharacterDetailView: UIView, SVGFetchable {
     
     // MARK: - Properties
     
@@ -28,7 +29,7 @@ class CharacterDetailView: UIView {
     private let nameLabel = UILabel()
     private let mainLabel = UILabel()
     private let babyImage = UIImageView(image: UIImage(resource: .baby))
-    private var characterLogoImage = UIImageView()
+    private var characterLogoImageView = UIImageView()
     private let titleLabel = UILabel()
     let crownBadgeImageView = UIImageView(image: .imgCrownTag)
     private let detailLabel = UILabel()
@@ -97,14 +98,14 @@ extension CharacterDetailView {
             make.height.equalTo(84)
         }
         
-        characterLogoImage.snp.makeConstraints { make in
+        characterLogoImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().inset(22)
             make.size.equalTo(50)
         }
         
         nameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(characterLogoImage.snp.trailing).offset(17)
+            make.leading.equalTo(characterLogoImageView.snp.trailing).offset(17)
             make.top.equalToSuperview().inset(21)
             make.width.equalTo(35)
         }
@@ -189,7 +190,7 @@ extension CharacterDetailView {
             nameLabel,
             crownBadgeImageView,
             titleLabel,
-            characterLogoImage
+            characterLogoImageView
         )
         detailLabelView.addSubview(detailLabel)
         characterMotionView.addSubviews(
@@ -244,7 +245,7 @@ extension CharacterDetailView {
             label.font = UIFont.offroad(style: .iosSubtitle2Bold)
         }
         
-        characterLogoImage.contentMode = .scaleAspectFit
+        characterLogoImageView.contentMode = .scaleAspectFit
         
         titleLabel.do { label in
             label.textAlignment = .left
@@ -286,17 +287,32 @@ extension CharacterDetailView {
         
     }
     
+    //MARK: - Func
+    
     func updateCollectionViewHeight() {
         let contentHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
         collectionViewHeightConstraint?.update(offset: contentHeight)
     }
     
     func configurerCharacterDetailView(using characterInfo: CharacterDetailInfo) {
-        characterImageView.fetchSvgURLToImageView(svgUrlString: characterInfo.characterBaseImageUrl)
-        characterLogoImage.fetchSvgURLToImageView(svgUrlString: characterInfo.characterIconImageUrl)
+        fetchSVG(svgURLString: characterInfo.characterBaseImageUrl) { image in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.characterImageView.image = image
+            }
+        }
+        
+        fetchSVG(svgURLString: characterInfo.characterIconImageUrl) { image in
+            DispatchQueue.main.async {[weak self] in
+                guard let self else { return }
+                self.characterLogoImageView.image = image
+            }
+        }
+        
         nameLabel.text = characterInfo.characterName
         titleLabel.text = characterInfo.characterSummaryDescription
         detailLabel.text = characterInfo.characterDescription
         detailLabel.setLineSpacing(spacing: 5)
     }
+    
 }
