@@ -68,8 +68,17 @@ final class CharacterService: BaseService, CharacterServiceProtocol {
                     data: response.data
                 )
                 completion(networkResult)
-            case .failure(let err):
-                print(err)
+            case .failure(let error):
+                print(error.localizedDescription)
+                switch error {
+                case .underlying(let error, let response):
+                    print(error.localizedDescription)
+                    if response == nil {
+                        completion(.networkFail)
+                    }
+                default:
+                    print(error.localizedDescription)
+                }
             }
         }
     }
@@ -84,8 +93,17 @@ final class CharacterService: BaseService, CharacterServiceProtocol {
                     data: response.data
                 )
                 completion(networkResult)
-            case .failure(let err):
-                print(err)
+            case .failure(let error):
+                print(error.localizedDescription)
+                switch error {
+                case .underlying(let error, let response):
+                    print(error.localizedDescription)
+                    if response == nil {
+                        completion(.networkFail)
+                    }
+                default:
+                    print(error.localizedDescription)
+                }
             }
         }
     }
@@ -100,8 +118,17 @@ final class CharacterService: BaseService, CharacterServiceProtocol {
                     data: response.data
                 )
                 completion(networkResult)
-            case .failure(let err):
-                print(err)
+            case .failure(let error):
+                print(error.localizedDescription)
+                switch error {
+                case .underlying(let error, let response):
+                    print(error.localizedDescription)
+                    if response == nil {
+                        completion(.networkFail)
+                    }
+                default:
+                    print(error.localizedDescription)
+                }
             }
         }
     }
