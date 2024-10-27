@@ -17,7 +17,7 @@ final class ChoosingCharacterViewController: UIViewController {
     
     private let choosingCharacterView = ChoosingCharacterView()
     
-    private var characterInfoModelList: [ORBCharacter]? {
+    private var characterInfoModelList: [StartingCharacter]? {
         didSet {
             choosingCharacterView.setPageControlPageNumbers(pageNumber: characterInfoModelList?.count ?? 0)
         }
@@ -55,7 +55,7 @@ final class ChoosingCharacterViewController: UIViewController {
             style.lineBreakStrategy = .hangulWordPriority
         }
         
-        getCharacterInfo()
+        getStartingCharacterList()
     }
     
     //MARK: - Private Method
@@ -73,8 +73,8 @@ final class ChoosingCharacterViewController: UIViewController {
         choosingCharacterView.rightButton.addTarget(self, action: #selector(rightArrowTapped), for: .touchUpInside)
     }
     
-    private func getCharacterInfo() {
-        NetworkService.shared.characterService.getCharacterInfo { response in
+    private func getStartingCharacterList() {
+        NetworkService.shared.characterService.getStartingCharacterList { response in
             switch response {
             case .success(let data):
                 let count = data?.data.characters.count ?? 0
@@ -84,7 +84,7 @@ final class ChoosingCharacterViewController: UIViewController {
                 self.characterInfoModelList = data?.data.characters
                 
                 self.extendedCharacterImageList.insert(self.convertSvgURLToUIImage(svgUrlString: lastCharacterImageURL), at: 0)
-                for character in data?.data.characters ?? [ORBCharacter]() {
+                for character in data?.data.characters ?? [StartingCharacter]() {
                     let characterImageURL = character.characterBaseImageUrl
                     
                     self.extendedCharacterImageList.append(self.convertSvgURLToUIImage(svgUrlString: characterImageURL))

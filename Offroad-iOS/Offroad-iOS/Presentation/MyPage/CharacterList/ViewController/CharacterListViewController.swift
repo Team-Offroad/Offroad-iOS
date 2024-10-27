@@ -54,7 +54,7 @@ final class CharacterListViewController: UIViewController {
     }
     
     private func getCharacterListInfo() {
-        NetworkService.shared.characterListService.getCharacterListInfo { [weak self] result in
+        NetworkService.shared.characterService.getCharacterListInfo { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let responseDTO):
