@@ -59,7 +59,8 @@
 		4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4A8FD62C4A5752001FB498 /* UIImage+.swift */; };
 		4E4E2BFE2CCE2414000A634D /* PlaceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2BFD2CCE2414000A634D /* PlaceInfoViewController.swift */; };
 		4E4E2C002CCE241D000A634D /* PlaceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2BFF2CCE241D000A634D /* PlaceInfoView.swift */; };
-		4E4E2C022CCE2841000A634D /* PlaceInfoTooptip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C012CCE2841000A634D /* PlaceInfoTooptip.swift */; };
+		4E4E2C022CCE2841000A634D /* PlaceInfoTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */; };
+		4E4E2C062CCE6F04000A634D /* PlaceInfoTooltipWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C052CCE6F03000A634D /* PlaceInfoTooltipWindow.swift */; };
 		4E56F53D2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */; };
 		4E56F53F2C987C5500EEE677 /* ZeroDurationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */; };
 		4E56F54C2C995BA800EEE677 /* ORBAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F54B2C995BA800EEE677 /* ORBAlertViewModel.swift */; };
@@ -312,7 +313,8 @@
 		4E4A8FD62C4A5752001FB498 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		4E4E2BFD2CCE2414000A634D /* PlaceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoViewController.swift; sourceTree = "<group>"; };
 		4E4E2BFF2CCE241D000A634D /* PlaceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoView.swift; sourceTree = "<group>"; };
-		4E4E2C012CCE2841000A634D /* PlaceInfoTooptip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTooptip.swift; sourceTree = "<group>"; };
+		4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTooltip.swift; sourceTree = "<group>"; };
+		4E4E2C052CCE6F03000A634D /* PlaceInfoTooltipWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTooltipWindow.swift; sourceTree = "<group>"; };
 		4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationTransitionDelegate.swift; sourceTree = "<group>"; };
 		4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationAnimator.swift; sourceTree = "<group>"; };
 		4E56F54B2C995BA800EEE677 /* ORBAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewModel.swift; sourceTree = "<group>"; };
@@ -1022,7 +1024,8 @@
 				4E1E94182C3AC27C00A7B08A /* QuestMapView.swift */,
 				4E0C69662C471A4B00B6453E /* PlaceInfoPopupView.swift */,
 				4E4E2BFF2CCE241D000A634D /* PlaceInfoView.swift */,
-				4E4E2C012CCE2841000A634D /* PlaceInfoTooptip.swift */,
+				4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */,
+				4E4E2C052CCE6F03000A634D /* PlaceInfoTooltipWindow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2332,7 +2335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E09BF572C48A5B7009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */,
-				4E4E2C022CCE2841000A634D /* PlaceInfoTooptip.swift in Sources */,
+				4E4E2C022CCE2841000A634D /* PlaceInfoTooltip.swift in Sources */,
 				4E700C852CB3CA1E00C664C2 /* ORBOverlayViewController.swift in Sources */,
 				D06466942C86F68E00CF10FD /* LogoutViewController.swift in Sources */,
 				4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */,
@@ -2389,6 +2392,7 @@
 				D0E7964E2C453B38005B47A5 /* AdventureAPI.swift in Sources */,
 				4E56F53F2C987C5500EEE677 /* ZeroDurationAnimator.swift in Sources */,
 				D0E7961C2C4527FE005B47A5 /* SocialLoginRequestDTO.swift in Sources */,
+				4E4E2C062CCE6F04000A634D /* PlaceInfoTooltipWindow.swift in Sources */,
 				87738CD52C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift in Sources */,
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
 				872F4BB92C6B80A600284DE0 /* CharacterDetailView.swift in Sources */,

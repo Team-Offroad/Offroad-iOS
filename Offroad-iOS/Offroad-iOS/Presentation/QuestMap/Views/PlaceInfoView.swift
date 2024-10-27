@@ -13,14 +13,16 @@ class PlaceInfoView: UIView {
     let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 0.8)
     let tooltipHidingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 0.8)
     
-    var isTooptipShown: Bool = false
+    lazy var tooltipBottonConstraint = tooltip.bottomAnchor.constraint(equalTo: self.topAnchor, constant: 0)
+    lazy var tooltipCenterXConstraint = tooltip.centerXAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
+    
     var tooltipAnchorPoint: CGPoint = .zero {
         didSet {
-            layoutIfNeeded()
+            updateTooltipPosition()
         }
     }
     
-    var tooltip = PlaceInfoTooptip()
+    var tooltip = PlaceInfoTooltip()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,13 +37,12 @@ class PlaceInfoView: UIView {
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        super.hitTest(point, with: event)
-        
-        if !isTooptipShown {
+        let hitView = super.hitTest(point, with: event)
+        if hitView == self {
+            print("placeInfoView hitTest")
             return nil
         }
-        
-        return self
+        return hitView
     }
     
 }
@@ -51,26 +52,28 @@ extension PlaceInfoView {
     //MARK: - Layout Func
     
     private func setupLayout() {
-        tooltip.snp.makeConstraints { make in
-            make.bottom.equalTo(self.snp.top).offset(tooltipAnchorPoint.y)
-            make.centerX.equalTo(self.snp.leading).offset(tooltipAnchorPoint.x)
-        }
+        tooltipBottonConstraint.isActive = true
+        tooltipCenterXConstraint.isActive = true
     }
     
     //MARK: - Priavet Func
     
     private func setupStyle() {
-        
+        backgroundColor = .blue.withAlphaComponent(0.1)
     }
     
     private func setupHierarchy() {
         addSubview(tooltip)
     }
     
+    private func updateTooltipPosition() {
+        tooltipBottonConstraint.constant = tooltipAnchorPoint.y
+        tooltipCenterXConstraint.constant = tooltipAnchorPoint.x
+    }
+    
     //MARK: - Func
     
-    func showToolTip(placeInfo: RegisteredPlaceInfo) {
-        tooltip.configure(with: placeInfo)
+    func showToolTip() {
         tooltip.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         tooltip.alpha = 0
         tooltipHidingAnimator.stopAnimation(true)

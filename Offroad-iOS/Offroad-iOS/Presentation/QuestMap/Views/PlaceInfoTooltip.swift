@@ -1,5 +1,5 @@
 //
-//  PlaceInfoTooptip.swift
+//  PlaceInfoTooltip.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 10/27/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PlaceInfoTooptip: UIView {
+final class PlaceInfoTooltip: UIView {
     
     //MARK: - UI Properties
     
@@ -41,7 +41,7 @@ final class PlaceInfoTooptip: UIView {
     
 }
 
-extension PlaceInfoTooptip  {
+extension PlaceInfoTooltip  {
     
     //MARK: - Layout Func
     
@@ -54,6 +54,11 @@ extension PlaceInfoTooptip  {
         rectView.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview().inset(15)
+        }
+        
+        offroadLogoImageView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview()
         }
         
         nameAndImageStackView.snp.makeConstraints { make in
@@ -100,21 +105,11 @@ extension PlaceInfoTooptip  {
     //MARK: - Private Func
     
     private func setupStyle() {
-        backgroundColor = .clear
         layer.anchorPoint = .init(x: 0.5, y: 1)
-        
-        self.do { view in
-            view.backgroundColor = .clear
-        }
         
         rectView.do { view in
             view.backgroundColor = .main(.main3)
             view.roundCorners(cornerRadius: 10)
-        }
-        
-        offroadLogoImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview()
         }
         
         nameLabel.setContentCompressionResistancePriority(UILayoutPriority(1000), for: .horizontal)

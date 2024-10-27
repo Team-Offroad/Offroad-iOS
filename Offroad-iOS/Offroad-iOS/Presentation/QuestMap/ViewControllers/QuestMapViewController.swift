@@ -21,6 +21,8 @@ class QuestMapViewController: OffroadTabBarViewController {
     private let dummpyPlace = dummyPlaces
     private let locationService = RegisteredPlaceService()
     private var currentZoomLevel: Double = 14
+    private var searchedPlaceArray: [RegisteredPlaceInfo] = []
+    private var selectedMarker: NMFMarker? = nil
     
     private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
     private var shownMarkersArray: [NMFMarker] = [] {
@@ -30,11 +32,15 @@ class QuestMapViewController: OffroadTabBarViewController {
         }
     }
     
+    private var selectedMarkerPosition: CGPoint? {
+        guard let selectedMarker else { return nil }
+        return rootView.naverMapView.mapView.projection.point(from: selectedMarker.position)
+    }
+    
     //MARK: - UI Properties
     
     let customOverlayImage = NMFOverlayImage(image: .icnPlaceMarkerOrange)
-    
-    var searchedPlaceArray: [RegisteredPlaceInfo] = []
+    var tooltipWindow: PlaceInfoTooltipWindow? = nil
     
     //MARK: - Life Cycle
     
@@ -202,16 +208,20 @@ extension QuestMapViewController {
     
     private func setupMarkerTouchHandler(marker: OffroadNMFMarker) {
         marker.touchHandler = { [weak self] markerOverlay in
-            print("marker tapped")
+            guard let self else { return false }
             
-            guard let locationManager = self?.locationManager else { return true }
-            self?.focusToMarker(marker)
-            let popupViewController = PlaceInfoPopupViewController(placeInfo: marker.placeInfo, locationManager: locationManager, marker: marker)
-            popupViewController.modalPresentationStyle = .overFullScreen
-            popupViewController.configurePopupView()
-            popupViewController.superViewControlller = self?.navigationController
-            popupViewController.marker.hidden = true
-            self?.tabBarController?.present(popupViewController, animated: false)
+            let naverMapViewFrame = self.rootView.naverMapView.frame
+            
+            self.selectedMarker = marker
+            self.tooltipWindow = PlaceInfoTooltipWindow(contentFrame: naverMapViewFrame)
+            self.tooltipWindow?.makeKeyAndVisible()
+            
+            print("marker tapped")
+            let convertedSelectedMarkerPosition = self.rootView.naverMapView.mapView.convert(selectedMarkerPosition!, to: nil)
+            print(selectedMarkerPosition)
+            print(convertedSelectedMarkerPosition)
+            self.tooltipWindow?.placeInfoViewController.rootView.tooltip.configure(with: marker.placeInfo)
+            self.tooltipWindow?.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition
             
             return true
         }
@@ -261,6 +271,13 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
     }
     
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
+//        print(#function)
+        if let selectedMarker {
+            let selectedMarkerPosition = rootView.naverMapView.mapView.projection.point(from: selectedMarker.position)
+            let convertedSelectedMarkerPosition = rootView.naverMapView.convert(selectedMarkerPosition, to: nil)
+//            print(selectedMarkerPosition)
+            self.tooltipWindow?.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition
+        }
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
         if reason == -1 {

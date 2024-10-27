@@ -11,11 +11,8 @@ class PlaceInfoViewController: UIViewController {
     
     let rootView = PlaceInfoView()
     
-    
-    
-    var isTooptipShown: Bool {
-        get { rootView.isTooptipShown }
-        set { rootView.isTooptipShown = newValue }
+    override func loadView() {
+        view = rootView
     }
     
     override func viewDidLoad() {
@@ -23,13 +20,5 @@ class PlaceInfoViewController: UIViewController {
         
         
     }
-    
-}
-
-extension PlaceInfoViewController {
-    
-    //MARK: - Func
-    
-    
     
 }

@@ -25,6 +25,7 @@ class OffroadNMFMarker: NMFMarker {
             lng: placeInfo.longitude
         )
         self.iconImage = iconImage
+        self.anchor = .init(x: 0.5, y: 1)
     }
     
 }

@@ -82,8 +82,8 @@ extension QuestMapView {
         
         naverMapView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            //make.verticalEdges.equalTo(safeAreaLayoutGuide)
-            make.verticalEdges.equalToSuperview()
+            make.top.equalToSuperview().inset(123)
+            make.bottom.equalToSuperview()
         }
         
         switchTrackingModeButton.snp.makeConstraints { make in
