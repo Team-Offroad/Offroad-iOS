@@ -10,15 +10,18 @@ import Foundation
 import Moya
 
 enum CharacterAPI {
-    case getCharacterInfo
+    case getStartingCharacterList
     case postChoosingCharacter(characterID: Int)
+    case getCharacterList
+    case getCharacterDetail(characterId: Int)
+    case getCharacterMotionList(characterId: Int)
 }
 
 extension CharacterAPI: BaseTargetType {
 
     var headerType: HeaderType {
         switch self {
-        case .getCharacterInfo:
+        case .getStartingCharacterList, .getCharacterList, .getCharacterDetail, .getCharacterMotionList:
             return .accessTokenHeaderForGet
         case .postChoosingCharacter:
             return .accessTokenHeaderForGeneral
@@ -27,23 +30,30 @@ extension CharacterAPI: BaseTargetType {
     
     var parameter: [String : Any]? {
         switch self {
-        case .getCharacterInfo, .postChoosingCharacter:
-            return [:]
+        case .getStartingCharacterList, .postChoosingCharacter, .getCharacterList, .getCharacterDetail, .getCharacterMotionList:
+            //return [:]
+            return .none
         }
     }
     
     var path: String {
         switch self {
-        case .getCharacterInfo:
+        case .getStartingCharacterList:
             return "/characters"
         case .postChoosingCharacter(let characterId):
             return "/users/characters/\(characterId)"
+        case .getCharacterList:
+            return "/users/characters"
+        case .getCharacterDetail(let characterId):
+            return "/characters/\(characterId)"
+        case .getCharacterMotionList(let characterId):
+            return "/motions/\(characterId)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getCharacterInfo:
+        case .getStartingCharacterList, .getCharacterList, .getCharacterDetail, .getCharacterMotionList:
             return .get
         case .postChoosingCharacter:
             return .post
@@ -52,9 +62,9 @@ extension CharacterAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getCharacterInfo:
+        case .getStartingCharacterList:
             return .requestParameters(parameters: parameter ?? [:], encoding: URLEncoding.queryString)
-        case .postChoosingCharacter:
+        case .postChoosingCharacter, .getCharacterList, .getCharacterDetail, .getCharacterMotionList:
             return .requestPlain
         }
     }
