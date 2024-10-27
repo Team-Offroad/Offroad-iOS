@@ -789,6 +789,7 @@
 		4E0394732C2AA6DB007F0517 /* QuestMap */ = {
 			isa = PBXGroup;
 			children = (
+				4E4E2C082CCE7B52000A634D /* PlaceInfoTooltip */,
 				4E416CE62C45DBD400CF6AB4 /* Models */,
 				4EFA80892C3E79B800876D05 /* UIComponents */,
 				4E1E94152C3AC25500A7B08A /* Views */,
@@ -1023,9 +1024,6 @@
 			children = (
 				4E1E94182C3AC27C00A7B08A /* QuestMapView.swift */,
 				4E0C69662C471A4B00B6453E /* PlaceInfoPopupView.swift */,
-				4E4E2BFF2CCE241D000A634D /* PlaceInfoView.swift */,
-				4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */,
-				4E4E2C052CCE6F03000A634D /* PlaceInfoTooltipWindow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1088,6 +1086,16 @@
 				4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4E4E2C082CCE7B52000A634D /* PlaceInfoTooltip */ = {
+			isa = PBXGroup;
+			children = (
+				4E4E2C052CCE6F03000A634D /* PlaceInfoTooltipWindow.swift */,
+				4E4E2BFF2CCE241D000A634D /* PlaceInfoView.swift */,
+				4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */,
+			);
+			path = PlaceInfoTooltip;
 			sourceTree = "<group>";
 		};
 		4E58FBFD2C7DFE40002A951B /* QuestList */ = {
