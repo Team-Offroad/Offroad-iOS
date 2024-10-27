@@ -7,9 +7,17 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
+
 final class NoticeViewController: UIViewController {
     
     //MARK: - Properties
+    
+    var disposeBag = DisposeBag()
+    
+    let netWorkdDidFail = PublishRelay<Void>()
+    let viewDidAppear = PublishRelay<Void>()
     
     private let rootView = NoticeView()
     
@@ -31,6 +39,13 @@ final class NoticeViewController: UIViewController {
         setupTarget()
         setupDelegate()
         getNoticeList()
+        bindData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewDidAppear.accept(())
     }
 }
 
@@ -52,10 +67,29 @@ extension NoticeViewController {
             switch response {
             case .success(let data):
                 self.noticeModelList = data?.data.announcements ?? [NoticeInfo]()
+            case .networkFail:
+                self.netWorkdDidFail.accept(())
             default:
                 break
             }
         }
+    }
+    
+    private func bindData() {
+        Observable.combineLatest(viewDidAppear.take(1), netWorkdDidFail)
+            .subscribe { [weak self] _ in
+                guard let self else { return }
+                self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+            }
+            .disposed(by: disposeBag)
+        
+        NetworkMonitoringManager.shared.networkConnectionChanged
+            .subscribe(on: ConcurrentMainScheduler.instance)
+            .subscribe(onNext: { [weak self] isConnected in
+                guard let self else { return }
+                guard isConnected else { return }
+                getNoticeList()
+            }).disposed(by: disposeBag)
     }
     
     // MARK: - @objc Method

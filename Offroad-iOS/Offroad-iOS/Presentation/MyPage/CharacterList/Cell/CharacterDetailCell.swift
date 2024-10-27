@@ -8,7 +8,7 @@ import UIKit
 
 import SnapKit
 
-class CharacterDetailCell: UICollectionViewCell {
+class CharacterDetailCell: UICollectionViewCell, SVGFetchable {
     
     // MARK: - Properties
     
@@ -58,6 +58,16 @@ class CharacterDetailCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        motionImageView.image = nil
+    }
+    
+}
+
+extension CharacterDetailCell {
     
     // MARK: - Private Functions
     
@@ -120,7 +130,13 @@ class CharacterDetailCell: UICollectionViewCell {
     //MARK: - Func
     
     func configureContent(with data: CharacterMotionInfoData) {
-        motionImageView.fetchSvgURLToImageView(svgUrlString: data.characterMotionImageUrl)
+        fetchSVG(svgURLString: data.characterMotionImageUrl) { image in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.motionImageView.image = image
+            }
+        }
+        
         switch data.category {
         case "CAFFE":
             motionTitleLabel.text = "카페 방문 시"
@@ -144,4 +160,5 @@ class CharacterDetailCell: UICollectionViewCell {
         contentView.backgroundColor = UIColor(hex: mainColor ?? "000000")
         containerView.backgroundColor = UIColor(hex: subColor ?? "000000")
     }
+    
 }
