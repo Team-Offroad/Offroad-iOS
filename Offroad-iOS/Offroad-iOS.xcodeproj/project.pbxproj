@@ -1014,7 +1014,6 @@
 			children = (
 				4E1E94162C3AC27000A7B08A /* QuestMapViewController.swift */,
 				4E3BB6832C4737030076105C /* PlaceInfoPopupViewController.swift */,
-				4E4E2BFD2CCE2414000A634D /* PlaceInfoViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1092,6 +1091,7 @@
 			isa = PBXGroup;
 			children = (
 				4E4E2C052CCE6F03000A634D /* PlaceInfoTooltipWindow.swift */,
+				4E4E2BFD2CCE2414000A634D /* PlaceInfoViewController.swift */,
 				4E4E2BFF2CCE241D000A634D /* PlaceInfoView.swift */,
 				4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */,
 			);
