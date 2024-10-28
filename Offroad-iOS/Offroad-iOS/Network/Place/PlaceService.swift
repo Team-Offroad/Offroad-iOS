@@ -33,6 +33,15 @@ final class RegisteredPlaceService: BaseService, RegisteredPlaceServiceProtocol 
                 completion(networkResult)
             case .failure(let error):
                 print(error.localizedDescription)
+                switch error {
+                case .underlying(let error, let response):
+                    print(error.localizedDescription)
+                    if response == nil {
+                        completion(.networkFail)
+                    }
+                default:
+                    print(error.localizedDescription)
+                }
             }
         }
     }

@@ -10,18 +10,21 @@ import Foundation
 import Moya
 
 protocol CharacterServiceProtocol {
-    func getCharacterInfo(completion: @escaping (NetworkResult<CharacterInfoResponseDTO>) -> ())
+    func getStartingCharacterList(completion: @escaping (NetworkResult<StartingCharacterResponseDTO>) -> ())
     func postChoosingCharacter(parameter: Int, completion: @escaping (NetworkResult<CharacterChoosingResponseDTO>) -> ())
+    func getCharacterListInfo(completion: @escaping (NetworkResult<CharacterListResponseDTO>) -> ())
+    func getCharacterDetail(characterId: Int, completion: @escaping (NetworkResult<CharacterDetailResponseDTO>) -> ())
+    func getCharacterMotionList(characterId: Int, completion: @escaping (NetworkResult<CharacterMotionResponseDTO>) -> ())
 }
 
 final class CharacterService: BaseService, CharacterServiceProtocol {
     let provider = MoyaProvider<CharacterAPI>.init(session: Session(interceptor: TokenInterceptor.shared), plugins: [MoyaPlugin()])
 
-    func getCharacterInfo(completion: @escaping (NetworkResult<CharacterInfoResponseDTO>) -> ()) {
-        provider.request(.getCharacterInfo) { result in
+    func getStartingCharacterList(completion: @escaping (NetworkResult<StartingCharacterResponseDTO>) -> ()) {
+        provider.request(.getStartingCharacterList) { result in
             switch result {
             case .success(let response):
-                let networkResult: NetworkResult<CharacterInfoResponseDTO> = self.fetchNetworkResult(
+                let networkResult: NetworkResult<StartingCharacterResponseDTO> = self.fetchNetworkResult(
                     statusCode: response.statusCode,
                     data: response.data
                 )
@@ -41,8 +44,91 @@ final class CharacterService: BaseService, CharacterServiceProtocol {
                     data: response.data
                 )
                 completion(networkResult)
-            case .failure(let err):
-                print(err)
+            case .failure(let error):
+                print(error.localizedDescription)
+                switch error {
+                case .underlying(let error, let response):
+                    print(error.localizedDescription)
+                    if response == nil {
+                        completion(.networkFail)
+                    }
+                default:
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func getCharacterListInfo(completion: @escaping (NetworkResult<CharacterListResponseDTO>) -> ()) {
+        provider.request(.getCharacterList) { result in
+            switch result {
+            case .success(let response):
+                let networkResult: NetworkResult<CharacterListResponseDTO> = self.fetchNetworkResult(
+                    statusCode: response.statusCode,
+                    data: response.data
+                )
+                completion(networkResult)
+            case .failure(let error):
+                print(error.localizedDescription)
+                switch error {
+                case .underlying(let error, let response):
+                    print(error.localizedDescription)
+                    if response == nil {
+                        completion(.networkFail)
+                    }
+                default:
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func getCharacterDetail(characterId: Int, completion: @escaping (NetworkResult<CharacterDetailResponseDTO>) -> ()) {
+        provider.request(.getCharacterDetail(characterId: characterId)) { result in
+            switch result {
+            case .success(let response):
+                print("===[\(response.statusCode)] \(response.data)===")
+                let networkResult: NetworkResult<CharacterDetailResponseDTO> = self.fetchNetworkResult(
+                    statusCode: response.statusCode,
+                    data: response.data
+                )
+                completion(networkResult)
+            case .failure(let error):
+                print(error.localizedDescription)
+                switch error {
+                case .underlying(let error, let response):
+                    print(error.localizedDescription)
+                    if response == nil {
+                        completion(.networkFail)
+                    }
+                default:
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func getCharacterMotionList(characterId: Int, completion: @escaping (NetworkResult<CharacterMotionResponseDTO>) -> ()) {
+        provider.request(.getCharacterMotionList(characterId: characterId)) { result in
+            switch result {
+            case .success(let response):
+                print("===[\(response.statusCode)] \(response.data)===")
+                let networkResult: NetworkResult<CharacterMotionResponseDTO> = self.fetchNetworkResult(
+                    statusCode: response.statusCode,
+                    data: response.data
+                )
+                completion(networkResult)
+            case .failure(let error):
+                print(error.localizedDescription)
+                switch error {
+                case .underlying(let error, let response):
+                    print(error.localizedDescription)
+                    if response == nil {
+                        completion(.networkFail)
+                    }
+                default:
+                    print(error.localizedDescription)
+                }
             }
         }
     }

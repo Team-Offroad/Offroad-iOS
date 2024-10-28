@@ -17,7 +17,7 @@ final class ChoosingCharacterViewController: UIViewController {
     
     private let choosingCharacterView = ChoosingCharacterView()
     
-    private var characterInfoModelList: [ORBCharacter]? {
+    private var characterInfoModelList: [StartingCharacter]? {
         didSet {
             choosingCharacterView.setPageControlPageNumbers(pageNumber: characterInfoModelList?.count ?? 0)
         }
@@ -55,7 +55,7 @@ final class ChoosingCharacterViewController: UIViewController {
             style.lineBreakStrategy = .hangulWordPriority
         }
         
-        getCharacterInfo()
+        getStartingCharacterList()
     }
     
     //MARK: - Private Method
@@ -73,8 +73,8 @@ final class ChoosingCharacterViewController: UIViewController {
         choosingCharacterView.rightButton.addTarget(self, action: #selector(rightArrowTapped), for: .touchUpInside)
     }
     
-    private func getCharacterInfo() {
-        NetworkService.shared.characterService.getCharacterInfo { response in
+    private func getStartingCharacterList() {
+        NetworkService.shared.characterService.getStartingCharacterList { response in
             switch response {
             case .success(let data):
                 let count = data?.data.characters.count ?? 0
@@ -84,7 +84,7 @@ final class ChoosingCharacterViewController: UIViewController {
                 self.characterInfoModelList = data?.data.characters
                 
                 self.extendedCharacterImageList.insert(self.convertSvgURLToUIImage(svgUrlString: lastCharacterImageURL), at: 0)
-                for character in data?.data.characters ?? [ORBCharacter]() {
+                for character in data?.data.characters ?? [StartingCharacter]() {
                     let characterImageURL = character.characterBaseImageUrl
                     
                     self.extendedCharacterImageList.append(self.convertSvgURLToUIImage(svgUrlString: characterImageURL))
@@ -149,9 +149,9 @@ final class ChoosingCharacterViewController: UIViewController {
     }
     
     @objc private func selectButtonTapped() {
-        let alertController = OFRAlertController(title: "\(selectedCharacterName)와 함께하시겠어요?", message: "지금 캐릭터를 선택하시면 \(selectedCharacterName)과 모험을 시작하게 돼요.", type: .normal)
-        let cancelAction = OFRAlertAction(title: "아니요", style: .cancel) { _ in return }
-        let okAction = OFRAlertAction(title: "네,좋아요!", style: .default) { _ in
+        let alertController = ORBAlertController(title: "\(selectedCharacterName)와 함께하시겠어요?", message: "지금 캐릭터를 선택하시면 \(selectedCharacterName)과 모험을 시작하게 돼요.", type: .normal)
+        let cancelAction = ORBAlertAction(title: "아니요", style: .cancel) { _ in return }
+        let okAction = ORBAlertAction(title: "네,좋아요!", style: .default) { _ in
             self.postCharacterID(characterID: self.selectedCharacterID)
         }
         alertController.addAction(cancelAction)

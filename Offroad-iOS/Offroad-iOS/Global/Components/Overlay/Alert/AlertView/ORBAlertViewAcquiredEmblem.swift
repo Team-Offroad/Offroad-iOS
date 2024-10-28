@@ -10,7 +10,7 @@ import UIKit
 final class ORBAlertViewAcquiredEmblem: ORBAlertBaseView, ORBAlertViewBaseUI {
     
     let contentView = UIView()
-    var type = OFRAlertType.acquiredEmblem
+    var type = ORBAlertType.acquiredEmblem
     
     let changeEmblemButton = StateToggleButton(state: .isDisabled, title: "바꾸기")
     

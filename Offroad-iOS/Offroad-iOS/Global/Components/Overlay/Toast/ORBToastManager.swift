@@ -21,17 +21,19 @@ final class ORBToastManager {
     
     private init() { }
     
-    func showToast(message: String, inset: CGFloat) {
-        toastWindow = ORBToastWindow(message: message, inset: inset)
-        toastWindow?.hideAnimator.addCompletion({ [weak self] _ in
-            guard let self else { return }
-            toastWindow = nil
-        })
-        toastWindow?.showToast()
+    func showToast(message: String, inset: CGFloat, withImage image: UIImage? = nil) {
+        DispatchQueue.main.async {
+            self.toastWindow = ORBToastWindow(message: message, inset: inset, withImage: image)
+            self.toastWindow?.hideAnimator.addCompletion({ [weak self] _ in
+                guard let self else { return }
+                self.toastWindow = nil
+            })
+            self.toastWindow?.showToast()
+        }
     }
     
     func hideToast() {
-        toastWindow?.hideToast()
+        self.toastWindow?.hideToast()
     }
     
 }

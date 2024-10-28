@@ -140,8 +140,8 @@ extension PlaceInfoPopupViewController {
                             return
                         }
                         
-                        let alertController = OFRAlertController(title: "탐험 성공", message: "탐험에 성공했어요!", type: .explorationResult)
-                        let okAction = OFRAlertAction(title: "홈으로", style: .default) { _ in return }
+                        let alertController = ORBAlertController(title: "탐험 성공", message: "탐험에 성공했어요!", type: .explorationResult)
+                        let okAction = ORBAlertAction(title: "홈으로", style: .default) { _ in return }
                         alertController.addAction(okAction)
                         alertController.configureExplorationResultImage { imageView in
                             imageView.fetchSvgURLToImageView(svgUrlString: characterImageURL)
@@ -159,8 +159,8 @@ extension PlaceInfoPopupViewController {
                     return
                 }
                 
-                let alertController = OFRAlertController(title: "탐험 실패", message: "탐험에 실패했어요.\n위치를 다시 한 번 확인해주세요", type: .explorationResult)
-                let okAction = OFRAlertAction(title: "홈으로", style: .default) { _ in return }
+                let alertController = ORBAlertController(title: "탐험 실패", message: "탐험에 실패했어요.\n위치를 다시 한 번 확인해주세요", type: .explorationResult)
+                let okAction = ORBAlertAction(title: "홈으로", style: .default) { _ in return }
                 alertController.addAction(okAction)
                 alertController.configureExplorationResultImage { imageView in
                     imageView.fetchSvgURLToImageView(svgUrlString: characterImageURL)

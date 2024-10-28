@@ -12,7 +12,7 @@ protocol ORBPopup: ORBOverlayViewController {
     var presentationAnimator: UIViewPropertyAnimator { get }
     var dismissalAnimator: UIViewPropertyAnimator { get }
     
-    var rootView: OFRAlertBackgroundView { get }
+    var rootView: ORBAlertBackgroundView { get }
     
     func showAlertView()
     func hideAlertView(completion: (() -> Void)?)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class OFRSegmentedControlButton: UIButton {
+final class ORBSegmentedControlButton: UIButton {
     
     //MARK: - Properties
     

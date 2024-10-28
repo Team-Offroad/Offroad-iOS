@@ -18,7 +18,7 @@ class PlaceListView: UIView {
     let customBackButton = UIButton()
     let titleLabel = UILabel()
     let titleIcon = UIImageView()
-    let segmentedControl = OFRSegmentedControl(titles: ["안 가본 곳", "전체"])
+    let segmentedControl = ORBSegmentedControl(titles: ["안 가본 곳", "전체"])
     let separator = UIView()
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     

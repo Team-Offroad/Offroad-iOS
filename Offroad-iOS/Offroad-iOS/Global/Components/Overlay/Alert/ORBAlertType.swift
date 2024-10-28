@@ -1,12 +1,12 @@
 //
-//  OFRAlertType.swift
+//  ORBAlertType.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 9/12/24.
 //
 
 /// 팝업 뷰의 종류
-enum OFRAlertType {
+enum ORBAlertType {
     
     /**
      제목, 설명, 버튼만 갖는 기본적인 형태/  345\*238
