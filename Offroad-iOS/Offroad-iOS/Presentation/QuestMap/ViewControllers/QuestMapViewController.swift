@@ -173,16 +173,19 @@ extension QuestMapViewController {
                 marker.mapView = self.rootView.naverMapView.mapView
             }).disposed(by: disposeBag)
         
-        Observable.combineLatest(
+        Observable.zip(
             viewModel.isLocationAdventureAuthenticated,
             viewModel.successCharacterImage,
             viewModel.completeQuestList
         )
-        .filter({ success, image, completeQuests in image != nil })
+//        .filter({ success, image, completeQuests in image != nil })
         .observe(on: MainScheduler.instance)
         .subscribe(onNext: { [weak self] success, image, completeQuests in
             guard let self else { return }
-            self.popupAdventureResult(isSuccess: success, image: image!)
+            if success {
+                self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
+            }
+            self.popupAdventureResult(isSuccess: success, image: image)
         }).disposed(by: disposeBag)
         
         rootView.reloadPlaceButton.rx.tap.bind { [weak self] _ in
@@ -239,15 +242,16 @@ extension QuestMapViewController {
         return true
     }
     
-    private func popupAdventureResult(isSuccess: Bool, image: UIImage) {
+    private func popupAdventureResult(isSuccess: Bool, image: UIImage?) {
         let title: String = isSuccess ? "탐험 성공" : "탐험 실패"
         let message: String = isSuccess ? "탐험에 성공했어요!\n이곳에 무엇이 있는지 천천히 살펴볼까요?" : "탐험에 실패했어요.\n위치를 다시 한 번 확인해주세요."
         let buttonTitle: String = isSuccess ? "홈으로" : "확인"
         let alertController = ORBAlertController(title: title, message: message, type: .explorationResult)
         alertController.configureExplorationResultImage { $0.image = image }
-        alertController.configureMessageLabel { $0.highlightText(targetText: "위치") }
-        let okAction = ORBAlertAction(title: buttonTitle, style: .default) { _ in
-            self.tabBarController?.selectedIndex = 0
+        alertController.configureMessageLabel { $0.highlightText(targetText: "위치", font: .offroad(style: .iosTextBold)) }
+        let okAction = ORBAlertAction(title: buttonTitle, style: .default) { [weak self] _ in
+            guard let self else { return }
+            if isSuccess { self.tabBarController?.selectedIndex = 0 }
         }
         alertController.addAction(okAction)
         present(alertController, animated: true)

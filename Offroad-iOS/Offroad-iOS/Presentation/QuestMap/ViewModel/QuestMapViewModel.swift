@@ -28,8 +28,8 @@ final class QuestMapViewModel: SVGFetchable {
     
     let isLocationAdventureAuthenticated = PublishSubject<Bool>()
     let successCharacterImageUrl = PublishSubject<String>()
-    let successCharacterImage = BehaviorSubject<UIImage?>(value: nil)
-    let completeQuestList = BehaviorSubject<[CompleteQuest]?>(value: [])
+    let successCharacterImage = PublishSubject<UIImage?>()
+    let completeQuestList = PublishSubject<[CompleteQuest]?>()
     let adventureResultSubject = PublishSubject<AdventuresPlaceAuthenticationResultData>()
     
     let networkFailureSubject = PublishSubject<Void>()
