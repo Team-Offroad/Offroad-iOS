@@ -27,7 +27,7 @@ class PlaceInfoTooltipWindow: UIWindow {
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if contentFrame.contains(point) {
-            if placeInfoViewController.rootView.tooltip.frame.contains(placeInfoViewController.rootView.contentView.convert(point, to: nil)) {
+            if placeInfoViewController.rootView.tooltip.frame.contains(self.convert(point, to: placeInfoViewController.rootView.contentView)) {
                 return super.hitTest(point, with: event)
             }
             return nil
