@@ -148,7 +148,7 @@ extension PlaceListViewController {
             limit: limit,
             isBounded: isBounded
         )
-        placeService.getRegisteredLocation(requestDTO: placeRequestDTO) { [weak self] result in
+        placeService.getRegisteredPlace(requestDTO: placeRequestDTO) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let response):
