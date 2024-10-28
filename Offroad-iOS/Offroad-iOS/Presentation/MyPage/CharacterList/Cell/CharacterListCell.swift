@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-class CharacterListCell: UICollectionViewCell {
+class CharacterListCell: UICollectionViewCell, SVGFetchable {
     
     // MARK: - UI Properties
     
@@ -65,7 +65,17 @@ class CharacterListCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Setup Functions
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        characterListCellImageView.image = nil
+    }
+    
+}
+
+extension CharacterListCell {
+    
+    // MARK: - Private Func
     
     private func setupHierarchy() {
         contentView.addSubviews(containerView, characterLabel, shadowView, newBadgeView, mainCharacterBadgeView)
@@ -120,7 +130,13 @@ class CharacterListCell: UICollectionViewCell {
     //MARK: - Func
     
     func configure(with data: CharacterListInfoData, representativeCharacterId: Int) {
-        characterListCellImageView.fetchSvgURLToImageView(svgUrlString: data.characterThumbnailImageUrl)
+        fetchSVG(svgURLString: data.characterThumbnailImageUrl) { image in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.characterListCellImageView.image = image
+            }
+        }
+        
         characterLabel.text = data.characterName
         contentView.backgroundColor = UIColor(hex: data.characterMainColorCode)
         containerView.backgroundColor = UIColor(hex: data.characterSubColorCode)

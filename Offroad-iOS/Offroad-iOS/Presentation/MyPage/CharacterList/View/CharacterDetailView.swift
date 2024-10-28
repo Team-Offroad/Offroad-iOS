@@ -8,9 +8,10 @@
 import UIKit
 
 import SnapKit
+import SVGKit
 import Then
 
-class CharacterDetailView: UIView {
+class CharacterDetailView: UIView, SVGFetchable {
     
     // MARK: - Properties
     
@@ -18,6 +19,7 @@ class CharacterDetailView: UIView {
     
     // MARK: - UI Properties
     
+    let customNavigationBar = UIView()
     let customBackButton = NavigationPopButton()
     private let scrollView = UIScrollView()
     private let contentView = UIView()
@@ -28,7 +30,7 @@ class CharacterDetailView: UIView {
     private let nameLabel = UILabel()
     private let mainLabel = UILabel()
     private let babyImage = UIImageView(image: UIImage(resource: .baby))
-    private var characterLogoImage = UIImageView()
+    private var characterLogoImageView = UIImageView()
     private let titleLabel = UILabel()
     let crownBadgeImageView = UIImageView(image: .imgCrownTag)
     private let detailLabel = UILabel()
@@ -70,6 +72,12 @@ extension CharacterDetailView {
     //MARK: - Layout Func
     
     private func setupLayout() {
+        customNavigationBar.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.top).offset(76)
+        }
+        
         customBackButton.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(12)
             $0.leading.equalToSuperview().inset(12)
@@ -97,14 +105,14 @@ extension CharacterDetailView {
             make.height.equalTo(84)
         }
         
-        characterLogoImage.snp.makeConstraints { make in
+        characterLogoImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview().inset(22)
             make.size.equalTo(50)
         }
         
         nameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(characterLogoImage.snp.trailing).offset(17)
+            make.leading.equalTo(characterLogoImageView.snp.trailing).offset(17)
             make.top.equalToSuperview().inset(21)
             make.width.equalTo(35)
         }
@@ -173,6 +181,7 @@ extension CharacterDetailView {
     private func setupHierarchy() {
         addSubviews(
             scrollView,
+            customNavigationBar,
             customBackButton
         )
         scrollView.addSubview(contentView)
@@ -189,7 +198,7 @@ extension CharacterDetailView {
             nameLabel,
             crownBadgeImageView,
             titleLabel,
-            characterLogoImage
+            characterLogoImageView
         )
         detailLabelView.addSubview(detailLabel)
         characterMotionView.addSubviews(
@@ -200,7 +209,8 @@ extension CharacterDetailView {
     }
     
     private func setupStyle() {
-        backgroundColor = UIColor.primary(.listBg)
+        backgroundColor = .primary(.listBg)
+        customNavigationBar.backgroundColor = .primary(.listBg)
         
         customBackButton.configureButtonTitle(titleString: "획득 캐릭터")
         scrollView.showsVerticalScrollIndicator = false
@@ -244,7 +254,7 @@ extension CharacterDetailView {
             label.font = UIFont.offroad(style: .iosSubtitle2Bold)
         }
         
-        characterLogoImage.contentMode = .scaleAspectFit
+        characterLogoImageView.contentMode = .scaleAspectFit
         
         titleLabel.do { label in
             label.textAlignment = .left
@@ -286,17 +296,34 @@ extension CharacterDetailView {
         
     }
     
+    //MARK: - Func
+    
     func updateCollectionViewHeight() {
         let contentHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
         collectionViewHeightConstraint?.update(offset: contentHeight)
     }
     
     func configurerCharacterDetailView(using characterInfo: CharacterDetailInfo) {
-        characterImageView.fetchSvgURLToImageView(svgUrlString: characterInfo.characterBaseImageUrl)
-        characterLogoImage.fetchSvgURLToImageView(svgUrlString: characterInfo.characterIconImageUrl)
+        fetchSVG(svgURLString: characterInfo.characterBaseImageUrl) { image in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.characterImageView.image = image
+            }
+        }
+        
+        fetchSVG(svgURLString: characterInfo.characterIconImageUrl) { image in
+            DispatchQueue.main.async {[weak self] in
+                guard let self else { return }
+                self.characterLogoImageView.image = image
+            }
+        }
+        
+        customNavigationBar.backgroundColor = UIColor(hex: characterInfo.characterSubColorCode)
+        backgroundColor = UIColor(hex: characterInfo.characterSubColorCode)
         nameLabel.text = characterInfo.characterName
         titleLabel.text = characterInfo.characterSummaryDescription
         detailLabel.text = characterInfo.characterDescription
         detailLabel.setLineSpacing(spacing: 5)
     }
+    
 }
