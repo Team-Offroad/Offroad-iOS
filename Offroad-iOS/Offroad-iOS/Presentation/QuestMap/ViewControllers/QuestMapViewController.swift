@@ -9,6 +9,8 @@ import CoreLocation
 import UIKit
 
 import NMapsMap
+import RxSwift
+import RxCocoa
 import SnapKit
 import Then
 
@@ -23,7 +25,7 @@ class QuestMapViewController: OffroadTabBarViewController {
     private var currentZoomLevel: Double = 14
     private var searchedPlaceArray: [RegisteredPlaceInfo] = []
     private var selectedMarker: NMFMarker? = nil
-    
+    private var isFocused: Bool = false
     private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
     private var shownMarkersArray: [NMFMarker] = [] {
         didSet {
@@ -31,6 +33,8 @@ class QuestMapViewController: OffroadTabBarViewController {
             showMarkersOnMap()
         }
     }
+    
+    private var disposeBag = DisposeBag()
     
     private var selectedMarkerPosition: CGPoint? {
         guard let selectedMarker else { return nil }
@@ -40,6 +44,7 @@ class QuestMapViewController: OffroadTabBarViewController {
         guard let selectedMarker else { return nil }
         return self.rootView.naverMapView.mapView.convert(selectedMarkerPosition!, to: self.rootView)
     }
+    
     
     //MARK: - UI Properties
     
@@ -224,11 +229,15 @@ extension QuestMapViewController {
             )
             self.selectedMarker = marker
             self.tooltipWindow = PlaceInfoTooltipWindow(contentFrame: contentFrame)
+            self.tooltipWindow?.placeInfoViewController.rootView.tooltip.closeButton.rx.tap
+                .subscribe(onNext: { [weak self] _ in
+                    guard let self else { return }
+                    self.tooltipWindow?.placeInfoViewController.rootView.hideTooltip {
+                        self.tooltipWindow = nil
+                    }
+                }).disposed(by: disposeBag)
             self.tooltipWindow?.makeKeyAndVisible()
-            
-            print("marker tapped")
-            print("selectedMarkerPosition: ", selectedMarkerPosition!)
-            print("convertedSelectedMarkerPosition: ", convertedSelectedMarkerPosition!)
+            self.focusToMarker(marker)
             self.tooltipWindow?.placeInfoViewController.rootView.tooltip.configure(with: marker.placeInfo)
             self.tooltipWindow?.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition!
             self.tooltipWindow?.placeInfoViewController.rootView.showToolTip()
@@ -279,13 +288,13 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
             rootView.naverMapView.mapView.locationOverlay.subIcon = nil
         }
         
-        if let selectedMarker, let tooltipWindow {
-            tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition!
-            tooltipWindow.placeInfoViewController.rootView.hideTooltip { [weak self] in
-                guard let self else { return }
-                self.tooltipWindow = nil
-            }
-        }
+//        if let selectedMarker, let tooltipWindow {
+//            tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition!
+//            tooltipWindow.placeInfoViewController.rootView.hideTooltip { [weak self] in
+//                guard let self else { return }
+//                self.tooltipWindow = nil
+//            }
+//        }
     }
     
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
@@ -308,10 +317,12 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
         
         if let selectedMarker, let tooltipWindow {
             tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition!
-//            tooltipWindow.placeInfoViewController.rootView.hideTooltip { [weak self] in
-//                guard let self else { return }
-//                self.tooltipWindow = nil
-//            }
+            // 사용자 제스처로 움직였을 시
+            guard reason == -1 else { return }
+            tooltipWindow.placeInfoViewController.rootView.hideTooltip { [weak self] in
+                guard let self else { return }
+                self.tooltipWindow = nil
+            }
         }
     }
     

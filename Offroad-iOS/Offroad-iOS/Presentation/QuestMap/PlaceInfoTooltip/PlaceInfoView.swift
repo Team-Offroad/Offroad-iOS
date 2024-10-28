@@ -12,10 +12,11 @@ class PlaceInfoView: UIView {
     let contentView = UIView()
     let contentFrame: CGRect
     
-    let backgroundColorAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    let backgroundColorAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.8)
     let tooltipHidingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     
+    // tooltip의 centerYAnchor인 이유는 tooltip.layer.anchorPoint가 (0.5, 1)이기 때문
     lazy var tooltipCenterYConstraint = tooltip.centerYAnchor.constraint(equalTo: self.topAnchor, constant: 0)
     lazy var tooltipCenterXConstraint = tooltip.centerXAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
     
@@ -85,6 +86,11 @@ extension PlaceInfoView {
         tooltip.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         tooltip.alpha = 0
         layoutIfNeeded()
+        
+        backgroundColorAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.backgroundColor = .blackOpacity(.black25)
+        }
         tooltipHidingAnimator.stopAnimation(true)
         tooltipShowingAnimator.addAnimations { [weak self] in
             guard let self else { return }
@@ -96,10 +102,15 @@ extension PlaceInfoView {
             guard let self else { return }
             print("tooltip's frame:", self.tooltip.frame)
         }
+        backgroundColorAnimator.startAnimation()
         tooltipShowingAnimator.startAnimation()
     }
     
     func hideTooltip(completion: @escaping () -> Void) {
+        backgroundColorAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.backgroundColor = .clear
+        }
         tooltipShowingAnimator.stopAnimation(true)
         tooltipHidingAnimator.addAnimations { [weak self] in
             guard let self else { return }
@@ -111,6 +122,7 @@ extension PlaceInfoView {
             self.tooltip.configure(with: nil)
             completion()
         }
+        backgroundColorAnimator.startAnimation()
         tooltipHidingAnimator.startAnimation()
     }
     

@@ -24,29 +24,4 @@ class PlaceInfoViewController: UIViewController {
         view = rootView
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupTargets()
-    }
-    
-}
-
-extension PlaceInfoViewController {
-    
-    
-    //MARK: - @objc Private Func
-    
-    @objc private func closeButtonTapped() {
-        rootView.hideTooltip {
-            return
-        }
-    }
-    
-    //MARK: - Private Func
-    
-    private func setupTargets() {
-        rootView.tooltip.closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
-    }
-    
 }
