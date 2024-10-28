@@ -9,15 +9,16 @@ import UIKit
 
 class PlaceInfoTooltipWindow: UIWindow {
     
-    let placeInfoViewController = PlaceInfoViewController()
+    let placeInfoViewController: PlaceInfoViewController
     let contentFrame: CGRect
     
     init(contentFrame: CGRect) {
+        self.placeInfoViewController = PlaceInfoViewController(contentFrame: contentFrame)
         self.contentFrame = contentFrame
         super.init(windowScene: UIWindowScene.current)
         
         rootViewController = placeInfoViewController
-        placeInfoViewController.view.frame = contentFrame
+//        placeInfoViewController.view.frame = contentFrame
     }
     
     required init?(coder: NSCoder) {
@@ -26,6 +27,9 @@ class PlaceInfoTooltipWindow: UIWindow {
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if contentFrame.contains(point) {
+            if placeInfoViewController.rootView.tooltip.frame.contains(placeInfoViewController.rootView.contentView.convert(point, to: nil)) {
+                return super.hitTest(point, with: event)
+            }
             return nil
         } else {
             return super.hitTest(point, with: event)

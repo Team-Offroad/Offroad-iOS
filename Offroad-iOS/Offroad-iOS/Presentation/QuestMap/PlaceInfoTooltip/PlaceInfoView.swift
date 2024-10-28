@@ -9,11 +9,14 @@ import UIKit
 
 class PlaceInfoView: UIView {
     
-    let backgroundColorAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 0.8)
-    let tooltipHidingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 0.8)
+    let contentView = UIView()
+    let contentFrame: CGRect
     
-    lazy var tooltipBottonConstraint = tooltip.bottomAnchor.constraint(equalTo: self.topAnchor, constant: 0)
+    let backgroundColorAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.8)
+    let tooltipHidingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
+    
+    lazy var tooltipCenterYConstraint = tooltip.centerYAnchor.constraint(equalTo: self.topAnchor, constant: 0)
     lazy var tooltipCenterXConstraint = tooltip.centerXAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
     
     var tooltipAnchorPoint: CGPoint = .zero {
@@ -24,13 +27,15 @@ class PlaceInfoView: UIView {
     
     var tooltip = PlaceInfoTooltip()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(contentFrame: CGRect) {
+        self.contentFrame = contentFrame
+        super.init(frame: .zero)
         
         setupStyle()
         setupHierarchy()
         setupLayout()
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -38,8 +43,7 @@ class PlaceInfoView: UIView {
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let hitView = super.hitTest(point, with: event)
-        if hitView == self {
-            print("placeInfoView hitTest")
+        if hitView == contentView {
             return nil
         }
         return hitView
@@ -52,23 +56,27 @@ extension PlaceInfoView {
     //MARK: - Layout Func
     
     private func setupLayout() {
-        tooltipBottonConstraint.isActive = true
+        contentView.frame = contentFrame
+        tooltipCenterYConstraint.isActive = true
         tooltipCenterXConstraint.isActive = true
     }
     
     //MARK: - Priavet Func
     
     private func setupStyle() {
-        backgroundColor = .blue.withAlphaComponent(0.1)
+        contentView.backgroundColor = .blue.withAlphaComponent(0.1)
+        contentView.clipsToBounds = true
     }
     
     private func setupHierarchy() {
-        addSubview(tooltip)
+        addSubviews(contentView)
+        contentView.addSubview(tooltip)
     }
     
     private func updateTooltipPosition() {
-        tooltipBottonConstraint.constant = tooltipAnchorPoint.y
+        tooltipCenterYConstraint.constant = tooltipAnchorPoint.y// + tooltip.bounds.height * 0.5
         tooltipCenterXConstraint.constant = tooltipAnchorPoint.x
+        layoutIfNeeded()
     }
     
     //MARK: - Func
@@ -76,6 +84,7 @@ extension PlaceInfoView {
     func showToolTip() {
         tooltip.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         tooltip.alpha = 0
+        layoutIfNeeded()
         tooltipHidingAnimator.stopAnimation(true)
         tooltipShowingAnimator.addAnimations { [weak self] in
             guard let self else { return }
@@ -83,16 +92,24 @@ extension PlaceInfoView {
             self.tooltip.alpha = 1
             self.layoutIfNeeded()
         }
+        tooltipShowingAnimator.addCompletion { [weak self] _ in
+            guard let self else { return }
+            print("tooltip's frame:", self.tooltip.frame)
+        }
         tooltipShowingAnimator.startAnimation()
     }
     
-    func hideTooltip() {
-        tooltip.configure(with: nil)
+    func hideTooltip(completion: @escaping () -> Void) {
         tooltipShowingAnimator.stopAnimation(true)
         tooltipHidingAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.tooltip.alpha = 0
             self.tooltip.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        }
+        tooltipHidingAnimator.addCompletion { [weak self] _ in
+            guard let self else { return }
+            self.tooltip.configure(with: nil)
+            completion()
         }
         tooltipHidingAnimator.startAnimation()
     }

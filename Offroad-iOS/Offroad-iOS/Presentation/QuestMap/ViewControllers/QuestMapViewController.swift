@@ -36,10 +36,15 @@ class QuestMapViewController: OffroadTabBarViewController {
         guard let selectedMarker else { return nil }
         return rootView.naverMapView.mapView.projection.point(from: selectedMarker.position)
     }
+    private var convertedSelectedMarkerPosition: CGPoint? {
+        guard let selectedMarker else { return nil }
+        return self.rootView.naverMapView.mapView.convert(selectedMarkerPosition!, to: self.rootView)
+    }
     
     //MARK: - UI Properties
     
-    let customOverlayImage = NMFOverlayImage(image: .icnPlaceMarkerOrange)
+    //let customOverlayImage = NMFOverlayImage(image: .icnPlaceMarkerOrange)
+    let customOverlayImage = NMFOverlayImage(image: .icnQuestMapPlaceMarker)
     var tooltipWindow: PlaceInfoTooltipWindow? = nil
     
     //MARK: - Life Cycle
@@ -198,8 +203,8 @@ extension QuestMapViewController {
                 placeInfo: $0,
                 iconImage: customOverlayImage
             )
-            marker.width = 48
-            marker.height = 48
+            marker.width = 26
+            marker.height = 32
             setupMarkerTouchHandler(marker: marker)
             return marker
         }
@@ -211,17 +216,22 @@ extension QuestMapViewController {
             guard let self else { return false }
             
             let naverMapViewFrame = self.rootView.naverMapView.frame
-            
+            let contentFrame = CGRect(
+                origin: naverMapViewFrame.origin,
+                size: .init(width: naverMapViewFrame.width,
+                            height: naverMapViewFrame.height - (view.safeAreaInsets.bottom + 107)
+                           )
+            )
             self.selectedMarker = marker
-            self.tooltipWindow = PlaceInfoTooltipWindow(contentFrame: naverMapViewFrame)
+            self.tooltipWindow = PlaceInfoTooltipWindow(contentFrame: contentFrame)
             self.tooltipWindow?.makeKeyAndVisible()
             
             print("marker tapped")
-            let convertedSelectedMarkerPosition = self.rootView.naverMapView.mapView.convert(selectedMarkerPosition!, to: nil)
-            print(selectedMarkerPosition)
-            print(convertedSelectedMarkerPosition)
+            print("selectedMarkerPosition: ", selectedMarkerPosition!)
+            print("convertedSelectedMarkerPosition: ", convertedSelectedMarkerPosition!)
             self.tooltipWindow?.placeInfoViewController.rootView.tooltip.configure(with: marker.placeInfo)
-            self.tooltipWindow?.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition
+            self.tooltipWindow?.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition!
+            self.tooltipWindow?.placeInfoViewController.rootView.showToolTip()
             
             return true
         }
@@ -268,16 +278,18 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
             rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
             rootView.naverMapView.mapView.locationOverlay.subIcon = nil
         }
+        
+        if let selectedMarker, let tooltipWindow {
+            tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition!
+            tooltipWindow.placeInfoViewController.rootView.hideTooltip { [weak self] in
+                guard let self else { return }
+                self.tooltipWindow = nil
+            }
+        }
     }
     
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
-//        print(#function)
-        if let selectedMarker {
-            let selectedMarkerPosition = rootView.naverMapView.mapView.projection.point(from: selectedMarker.position)
-            let convertedSelectedMarkerPosition = rootView.naverMapView.convert(selectedMarkerPosition, to: nil)
-//            print(selectedMarkerPosition)
-            self.tooltipWindow?.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition
-        }
+        
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
         if reason == -1 {
