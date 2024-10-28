@@ -15,15 +15,13 @@ class PlaceInfoViewController: UIViewController {
     let shouldHideTooltip = PublishSubject<Void>()
     let shouldShowTooltip = PublishSubject<Void>()
     
-    let backgroundColorAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
+    let backgroundColorAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.8)
-    let tooltipHidingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
+    let tooltipHidingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     
     var disposeBag = DisposeBag()
     
-    var isTooltipShown: Bool = false {
-        didSet { print("isTooltipShown didSet: \(isTooltipShown)") }
-    }
+    var isTooltipShown: Bool = false
     
     //MARK: - Life Cycle
     
@@ -88,7 +86,6 @@ class PlaceInfoViewController: UIViewController {
     
     func hideTooltip(completion: (() -> Void)? = nil) {
         guard isTooltipShown else { return }
-        print(#function)
         tooltipShowingAnimator.stopAnimation(true)
         
         backgroundColorAnimator.addAnimations { [weak self] in
@@ -98,8 +95,11 @@ class PlaceInfoViewController: UIViewController {
         tooltipHidingAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.tooltip.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
-            self.rootView.tooltip.alpha = 0
         }
+        tooltipHidingAnimator.addAnimations({ [weak self] in
+            guard let self else { return }
+            self.rootView.tooltip.alpha = 0
+        }, delayFactor: 0.2)
         tooltipHidingAnimator.addCompletion { [weak self] _ in
             guard let self else { return }
             self.rootView.tooltip.configure(with: nil)

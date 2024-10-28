@@ -25,7 +25,6 @@ class QuestMapViewController: OffroadTabBarViewController {
     private let locationService = RegisteredPlaceService()
     private var currentZoomLevel: Double = 14
     private var searchedPlaceArray: [RegisteredPlaceInfo] = []
-//    private var viewModel.selectedMarker: NMFMarker? = nil
     private var isFocused: Bool = false
     private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
     
@@ -41,7 +40,6 @@ class QuestMapViewController: OffroadTabBarViewController {
         rootView.naverMapView.mapView.cameraPosition.target
     }
     
-    
     //MARK: - UI Properties
     
     var tooltipWindow: PlaceInfoTooltipWindow!
@@ -56,7 +54,6 @@ class QuestMapViewController: OffroadTabBarViewController {
         super.viewDidLoad()
         
         bindData()
-//        setupButtonsAction()
         setupDelegates()
         rootView.naverMapView.mapView.positionMode = .direction
     }
@@ -106,7 +103,7 @@ class QuestMapViewController: OffroadTabBarViewController {
 
 extension QuestMapViewController {
     
-    //MARK: - @objc
+    //MARK: - @objc Func
     
     @objc private func switchTrackingMode() {
         
@@ -145,7 +142,6 @@ extension QuestMapViewController {
         
         self.tooltipWindow.placeInfoViewController.rootView.tooltip.exploreButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
-            print("explore!!")
             self.viewModel.authenticatePlaceAdventure(placeInfo: viewModel.selectedMarker!.placeInfo)
             self.tooltipWindow.placeInfoViewController.hideTooltip()
         }.disposed(by: disposeBag)
@@ -185,7 +181,6 @@ extension QuestMapViewController {
             viewModel.successCharacterImage,
             viewModel.completeQuestList
         )
-//        .filter({ success, image, completeQuests in image != nil })
         .observe(on: MainScheduler.instance)
         .subscribe(onNext: { [weak self] success, image, completeQuests in
             guard let self else { return }
@@ -310,7 +305,6 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
 extension QuestMapViewController: NMFMapViewTouchDelegate {
     
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
-        print(#function)
         if viewModel.selectedMarker != nil {
             tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = markerPoint!
             tooltipWindow.placeInfoViewController.hideTooltip { [weak self] in
