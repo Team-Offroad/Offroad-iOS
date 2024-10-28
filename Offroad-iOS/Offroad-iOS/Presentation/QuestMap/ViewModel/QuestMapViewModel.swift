@@ -14,7 +14,7 @@ import RxCocoa
 import SnapKit
 import Then
 
-final class QuestMapViewModel {
+final class QuestMapViewModel: SVGFetchable {
     
     //MARK: - Properties
     
@@ -23,13 +23,40 @@ final class QuestMapViewModel {
     private let locationManager = CLLocationManager()
     private var currentZoomLevel: Double = 14
     private var searchedPlaceArray: [RegisteredPlaceInfo] = []
-    var selectedMarker: NMFMarker? = nil
+    var selectedMarker: OffroadNMFMarker? = nil
     private var isFocused: Bool = false
+    
+    let isLocationAdventureAuthenticated = PublishSubject<Bool>()
+    let successCharacterImageUrl = PublishSubject<String>()
+    let successCharacterImage = BehaviorSubject<UIImage?>(value: nil)
+    let completeQuestList = BehaviorSubject<[CompleteQuest]?>(value: [])
+    let adventureResultSubject = PublishSubject<AdventuresPlaceAuthenticationResultData>()
     
     let networkFailureSubject = PublishSubject<Void>()
     let markersSubject = BehaviorSubject<[OffroadNMFMarker]>(value: [])
     let customOverlayImage = NMFOverlayImage(image: .icnQuestMapPlaceMarker)
     let shouldRequestLocationAuthorization = PublishSubject<Void>()
+    
+    var currentLocation: NMGLatLng? {
+        guard let coordinate = locationManager.location?.coordinate else { return nil }
+        return NMGLatLng(lat: coordinate.latitude, lng: coordinate.longitude)
+    }
+    
+    //MARK: - Life Cycle
+    
+    init() {
+        successCharacterImageUrl
+            .subscribe(onNext: { [weak self] imageUrl in
+                guard let self else { return }
+                self.fetchSVG(svgURLString: imageUrl) { image in
+                    self.successCharacterImage.onNext(image)
+                }
+            }).disposed(by: disposeBag)
+        
+        
+        
+    }
+    
     
 }
 
@@ -75,11 +102,39 @@ extension QuestMapViewModel {
                 markersSubject.onNext(markers)
             case .networkFail:
                 self.networkFailureSubject.onNext(())
-                
             default:
                 return
             }
         }
+    }
+    
+    func authenticatePlaceAdventure(placeInfo: RegisteredPlaceInfo) {
+        guard let currentLocation else {
+            shouldRequestLocationAuthorization.onNext(())
+            return
+        }
+        let dto = AdventuresPlaceAuthenticationRequestDTO(
+            placeId: placeInfo.id,
+            latitude: currentLocation.lat,
+            longitude: currentLocation.lng
+        )
+        
+        NetworkService.shared.adventureService.authenticatePlaceAdventure(
+            adventureAuthDTO: dto,
+            completion: { [weak self] result in
+                guard let self else { return }
+                switch result {
+                case .success(let data):
+                    guard let data else { return }
+                    self.isLocationAdventureAuthenticated.onNext(data.data.isValidPosition)
+                    self.successCharacterImageUrl.onNext(data.data.successCharacterImageUrl)
+                    self.completeQuestList.onNext(data.data.completeQuestList)
+                case .networkFail:
+                    self.networkFailureSubject.onNext(())
+                default:
+                    return
+                }
+            })
     }
     
 }
