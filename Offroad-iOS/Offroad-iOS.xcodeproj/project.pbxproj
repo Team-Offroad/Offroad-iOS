@@ -146,8 +146,6 @@
 		D004F8582CA12B1500D5A2CD /* NoticeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8572CA12B1000D5A2CD /* NoticeAPI.swift */; };
 		D004F85A2CA12B2200D5A2CD /* NoticeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8592CA12B1C00D5A2CD /* NoticeService.swift */; };
 		D004F8CF2CB4DDE600D5A2CD /* KakaoAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8CE2CB4DDD800D5A2CD /* KakaoAuthManager.swift */; };
-		D00A485B2C628054008B286A /* MyPageMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A485A2C628054008B286A /* MyPageMenuCollectionViewCell.swift */; };
-		D00A485D2C62847A008B286A /* MyPageMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A485C2C62847A008B286A /* MyPageMenuModel.swift */; };
 		D00A48622C633947008B286A /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48612C633947008B286A /* SettingView.swift */; };
 		D00A48642C633959008B286A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48632C633959008B286A /* SettingViewController.swift */; };
 		D00A486A2C633EF2008B286A /* SettingBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48692C633EF2008B286A /* SettingBaseModel.swift */; };
@@ -401,8 +399,6 @@
 		D004F8572CA12B1000D5A2CD /* NoticeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeAPI.swift; sourceTree = "<group>"; };
 		D004F8592CA12B1C00D5A2CD /* NoticeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeService.swift; sourceTree = "<group>"; };
 		D004F8CE2CB4DDD800D5A2CD /* KakaoAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthManager.swift; sourceTree = "<group>"; };
-		D00A485A2C628054008B286A /* MyPageMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMenuCollectionViewCell.swift; sourceTree = "<group>"; };
-		D00A485C2C62847A008B286A /* MyPageMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageMenuModel.swift; sourceTree = "<group>"; };
 		D00A48612C633947008B286A /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		D00A48632C633959008B286A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		D00A48692C633EF2008B286A /* SettingBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingBaseModel.swift; sourceTree = "<group>"; };
@@ -1475,14 +1471,6 @@
 			path = DTO;
 			sourceTree = "<group>";
 		};
-		D00A48592C627EC8008B286A /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				D00A485A2C628054008B286A /* MyPageMenuCollectionViewCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
 		D00A485F2C63391F008B286A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1639,18 +1627,9 @@
 		D03C835F2C620AC800F3094D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D00A48592C627EC8008B286A /* Cell */,
 				D03C83612C620AF100F3094D /* MyPageView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		D03C83602C620AE300F3094D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				D00A485C2C62847A008B286A /* MyPageMenuModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		D063E99B2C6106EB00434A09 /* ViewController */ = {
@@ -2390,7 +2369,6 @@
 				D0BD451F2CC77C3200128E74 /* MyPageCustomButton.swift in Sources */,
 				4EE0497B2CA0FD1300754488 /* CouponListResponseDTO.swift in Sources */,
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
-				D00A485D2C62847A008B286A /* MyPageMenuModel.swift in Sources */,
 				4EF6B0332CC3E22800066640 /* ORBAlertViewBaseUI.swift in Sources */,
 				8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */,
 				D004F8582CA12B1500D5A2CD /* NoticeAPI.swift in Sources */,
@@ -2494,7 +2472,6 @@
 				D063E9922C57FE7400434A09 /* KeychainManager.swift in Sources */,
 				D004F85A2CA12B2200D5A2CD /* NoticeService.swift in Sources */,
 				4EF833EE2CC4268200D94314 /* ORBPopup.swift in Sources */,
-				D00A485B2C628054008B286A /* MyPageMenuCollectionViewCell.swift in Sources */,
 				D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */,
 				4EF6B0382CC3E7A900066640 /* ORBAlertViewNormal.swift in Sources */,
 				872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */,
