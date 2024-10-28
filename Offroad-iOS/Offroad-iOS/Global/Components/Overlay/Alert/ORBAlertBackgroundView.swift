@@ -47,7 +47,6 @@ internal class ORBAlertBackgroundView: UIView {
         setupStyle()
         setupHierarchy()
         setupLayout()
-        layoutIfNeeded()
         setupNotification()
     }
     
