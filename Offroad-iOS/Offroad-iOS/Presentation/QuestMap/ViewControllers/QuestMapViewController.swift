@@ -136,12 +136,20 @@ extension QuestMapViewController {
                 }
             }).disposed(by: disposeBag)
         
-        self.tooltipWindow.placeInfoViewController.rootView.tooltip.exploreButton.rx.tap.bind { _ in
+        self.tooltipWindow.placeInfoViewController.rootView.tooltip.exploreButton.rx.tap.bind { [weak self] _ in
+            guard let self else { return }
             print("explore!!")
+            self.tooltipWindow.placeInfoViewController.hideTooltip()
         }.disposed(by: disposeBag)
     }
     
     private func bindData() {
+        viewModel.networkFailureSubject
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+            }).disposed(by: disposeBag)
+        
         viewModel.shouldRequestLocationAuthorization
             .subscribe { _ in
                 let alertController = ORBAlertController(

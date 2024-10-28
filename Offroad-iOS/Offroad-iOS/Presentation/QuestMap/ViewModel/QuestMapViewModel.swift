@@ -26,6 +26,7 @@ final class QuestMapViewModel {
     var selectedMarker: NMFMarker? = nil
     private var isFocused: Bool = false
     
+    let networkFailureSubject = PublishSubject<Void>()
     let markersSubject = BehaviorSubject<[OffroadNMFMarker]>(value: [])
     let customOverlayImage = NMFOverlayImage(image: .icnQuestMapPlaceMarker)
     let shouldRequestLocationAuthorization = PublishSubject<Void>()
@@ -72,7 +73,9 @@ extension QuestMapViewModel {
                 }
                 
                 markersSubject.onNext(markers)
-            // 에러별 분기처리 필요
+            case .networkFail:
+                self.networkFailureSubject.onNext(())
+                
             default:
                 return
             }
