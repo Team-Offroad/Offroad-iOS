@@ -288,6 +288,16 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
         }
     }
     
+    func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
+        if let selectedMarker, let tooltipWindow {
+            tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition!
+//            tooltipWindow.placeInfoViewController.rootView.hideTooltip { [weak self] in
+//                guard let self else { return }
+//                self.tooltipWindow = nil
+//            }
+        }
+    }
+    
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
         
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
@@ -295,6 +305,16 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
         if reason == -1 {
             rootView.naverMapView.mapView.locationOverlay.subIcon = nil
         }
+        
+        if let selectedMarker, let tooltipWindow {
+            tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition!
+//            tooltipWindow.placeInfoViewController.rootView.hideTooltip { [weak self] in
+//                guard let self else { return }
+//                self.tooltipWindow = nil
+//            }
+        }
     }
+    
+    
     
 }
