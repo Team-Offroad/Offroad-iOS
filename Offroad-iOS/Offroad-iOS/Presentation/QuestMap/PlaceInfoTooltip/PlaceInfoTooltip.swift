@@ -64,6 +64,7 @@ extension PlaceInfoTooltip  {
         nameAndImageStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(17)
             make.leading.equalToSuperview().inset(15)
+            make.trailing.lessThanOrEqualToSuperview().inset(44)
         }
         
         placeCategoryImageView.snp.makeConstraints { make in
@@ -116,6 +117,7 @@ extension PlaceInfoTooltip  {
         nameLabel.do { label in
             label.font = .offroad(style: .iosTooltipTitle)
             label.textColor = .main(.main2)
+            label.numberOfLines = 0
             label.textAlignment = .left
         }
         
@@ -123,7 +125,7 @@ extension PlaceInfoTooltip  {
             stackView.axis = .horizontal
             stackView.spacing = 5
             stackView.alignment = .center
-            stackView.distribution = .fillProportionally
+            stackView.distribution = .fill
         }
         
         shortDescriptionLabel.do { label in
