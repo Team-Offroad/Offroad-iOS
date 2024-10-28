@@ -147,26 +147,6 @@ extension MyPageView {
             $0.backgroundColor = .home(.homeContents2)
         }
         
-//        characterButton.do {
-//            $0.setBackgroundImage(.btnCharacter, for: .normal)
-//            $0.setTitle("획득 캐릭터", for: .normal)
-//        }
-//        
-//        couponButton.do {
-//            $0.setBackgroundImage(.btnCoupon, for: .normal)
-//            $0.setTitle("획득 쿠폰", for: .normal)
-//        }
-//        
-//        titleButton.do {
-//            $0.setBackgroundImage(.btnTitle, for: .normal)
-//            $0.setTitle("획득 칭호", for: .normal)
-//        }
-//        
-//        settingButton.do {
-//            $0.setBackgroundImage(.btnSetting, for: .normal)
-//            $0.setTitle("설정", for: .normal)
-//        }
-        
         [characterButton, couponButton, titleButton, settingButton].forEach {
             $0.roundCorners(cornerRadius: 10)
         }
@@ -290,7 +270,6 @@ extension MyPageView {
         [characterButton, couponButton, titleButton, settingButton].forEach {
             $0.snp.makeConstraints {
                 $0.height.equalTo(138)
-                $0.width.equalTo(166)
             }
         }
         
