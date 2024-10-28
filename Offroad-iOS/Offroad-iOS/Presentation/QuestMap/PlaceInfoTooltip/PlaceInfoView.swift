@@ -12,10 +12,10 @@ class PlaceInfoView: UIView {
     let contentView = UIView()
     let contentFrame: CGRect
     
-    let backgroundColorAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    let tooltipTransparencyAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 0.8)
-    let tooltipHidingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    let backgroundColorAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
+    let tooltipTransparencyAnimator = UIViewPropertyAnimator(duration: 0.4, curve: .easeOut)
+    let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.8)
+    let tooltipHidingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     
     // tooltip의 centerYAnchor인 이유는 tooltip.layer.anchorPoint가 (0.5, 1)이기 때문
     lazy var tooltipCenterYConstraint = tooltip.centerYAnchor.constraint(equalTo: self.topAnchor, constant: 0)
@@ -66,7 +66,7 @@ extension PlaceInfoView {
     //MARK: - Priavet Func
     
     private func setupStyle() {
-        contentView.backgroundColor = .blue.withAlphaComponent(0.1)
+        contentView.backgroundColor = .blue.withAlphaComponent(0.05)
         contentView.clipsToBounds = true
     }
     
@@ -83,16 +83,16 @@ extension PlaceInfoView {
     
     //MARK: - Func
     
-    func showToolTip() {
+    func showToolTip(completion: (() -> Void)? = nil) {
         tooltip.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         tooltip.alpha = 0
         layoutIfNeeded()
+        tooltipHidingAnimator.stopAnimation(true)
         
         backgroundColorAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.backgroundColor = .blackOpacity(.black25)
         }
-        tooltipHidingAnimator.stopAnimation(true)
         tooltipShowingAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.tooltip.transform = .identity
@@ -103,11 +103,16 @@ extension PlaceInfoView {
             guard let self else { return }
             print("tooltip's frame:", self.tooltip.frame)
         }
+        tooltipShowingAnimator.addCompletion { _ in
+            completion?()
+        }
         backgroundColorAnimator.startAnimation()
         tooltipShowingAnimator.startAnimation()
     }
     
-    func hideTooltip(completion: @escaping () -> Void) {
+    func hideTooltip(completion: (() -> Void)? = nil) {
+        tooltipShowingAnimator.stopAnimation(true)
+        
         backgroundColorAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.backgroundColor = .clear
@@ -115,8 +120,8 @@ extension PlaceInfoView {
         tooltipTransparencyAnimator.addAnimations({ [weak self] in
             guard let self else { return }
             self.tooltip.alpha = 0
-        }, delayFactor: 0.2)
-        tooltipShowingAnimator.stopAnimation(true)
+            layoutIfNeeded()
+        }, delayFactor: 0.5)
         tooltipHidingAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.tooltip.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
@@ -124,10 +129,11 @@ extension PlaceInfoView {
         tooltipHidingAnimator.addCompletion { [weak self] _ in
             guard let self else { return }
             self.tooltip.configure(with: nil)
-            completion()
+            completion?()
         }
-        backgroundColorAnimator.startAnimation()
+        
         tooltipTransparencyAnimator.startAnimation()
+        backgroundColorAnimator.startAnimation()
         tooltipHidingAnimator.startAnimation()
     }
     

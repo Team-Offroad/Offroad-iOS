@@ -50,7 +50,7 @@ class QuestMapViewController: OffroadTabBarViewController {
     
     //let customOverlayImage = NMFOverlayImage(image: .icnPlaceMarkerOrange)
     let customOverlayImage = NMFOverlayImage(image: .icnQuestMapPlaceMarker)
-    var tooltipWindow: PlaceInfoTooltipWindow? = nil
+    var tooltipWindow: PlaceInfoTooltipWindow!
     
     //MARK: - Life Cycle
     
@@ -82,6 +82,23 @@ class QuestMapViewController: OffroadTabBarViewController {
         rootView.naverMapView.mapView.positionMode = .disabled
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        guard tooltipWindow == nil else { return }
+        let naverMapViewFrame = self.rootView.naverMapView.frame
+        let contentFrame = CGRect(
+            origin: naverMapViewFrame.origin,
+            size: .init(
+                width: naverMapViewFrame.width,
+                height: naverMapViewFrame.height - (view.safeAreaInsets.bottom + 107)
+            )
+        )
+        tooltipWindow = PlaceInfoTooltipWindow(contentFrame: contentFrame)
+        bindData()
+        tooltipWindow.makeKeyAndVisible()
     }
     
 }
@@ -230,27 +247,22 @@ extension QuestMapViewController {
         marker.touchHandler = { [weak self] markerOverlay in
             guard let self else { return false }
             
-            let naverMapViewFrame = self.rootView.naverMapView.frame
-            let contentFrame = CGRect(
-                origin: naverMapViewFrame.origin,
-                size: .init(width: naverMapViewFrame.width,
-                            height: naverMapViewFrame.height - (view.safeAreaInsets.bottom + 107)
-                           )
-            )
             self.selectedMarker = marker
-            self.tooltipWindow = PlaceInfoTooltipWindow(contentFrame: contentFrame)
-            self.tooltipWindow?.placeInfoViewController.rootView.tooltip.closeButton.rx.tap
-                .subscribe(onNext: { [weak self] _ in
-                    guard let self else { return }
-                    self.tooltipWindow?.placeInfoViewController.rootView.hideTooltip {
-                        self.tooltipWindow = nil
-                    }
-                }).disposed(by: disposeBag)
-            self.tooltipWindow?.makeKeyAndVisible()
+//            self.tooltipWindow = PlaceInfoTooltipWindow(contentFrame: contentFrame)
+//            self.tooltipWindow.placeInfoViewController.shouldHideTooltip
+//                .subscribe(onNext: { [weak self] in
+//                    guard let self else { return }
+//                    self.tooltipWindow?.placeInfoViewController.rootView.hideTooltip {
+//                        self.tooltipWindow = nil
+//                    }
+//                }).disposed(by: disposeBag)
             self.focusToMarker(marker)
-            self.tooltipWindow?.placeInfoViewController.rootView.tooltip.configure(with: marker.placeInfo)
-            self.tooltipWindow?.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition!
-            self.tooltipWindow?.placeInfoViewController.rootView.showToolTip()
+            self.tooltipWindow.placeInfoViewController.rootView.tooltip.configure(with: marker.placeInfo)
+            self.tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition!
+            self.tooltipWindow.placeInfoViewController.rootView.showToolTip(completion: { [weak self] in
+                guard let self else { return }
+                self.tooltipWindow.isTooltipShown = true
+            })
             
             return true
         }
@@ -285,6 +297,18 @@ extension QuestMapViewController {
         }
     }
     
+    private func bindData() {
+        self.tooltipWindow.placeInfoViewController.shouldHideTooltip
+            .debug()
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.tooltipWindow.placeInfoViewController.rootView.hideTooltip {
+                    self.tooltipWindow.isTooltipShown = false
+                    self.selectedMarker = nil
+                }
+            }).disposed(by: disposeBag)
+    }
+    
 }
 
 //MARK: - NMFMapViewCameraDelegate
@@ -292,6 +316,7 @@ extension QuestMapViewController {
 extension QuestMapViewController: NMFMapViewCameraDelegate {
     
     func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
+        print(#function)
         if reason == -2 {
             let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
             rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
@@ -300,7 +325,8 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
     }
     
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
-        if let selectedMarker, let tooltipWindow {
+        print(#function)
+        if selectedMarker != nil {
             tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition!
 //            tooltipWindow.placeInfoViewController.rootView.hideTooltip { [weak self] in
 //                guard let self else { return }
@@ -310,22 +336,27 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
     }
     
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
-        
+        print(#function)
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
         if reason == -1 {
             rootView.naverMapView.mapView.locationOverlay.subIcon = nil
         }
         
-        if let selectedMarker, let tooltipWindow {
+        if selectedMarker != nil {
             tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition!
             // 사용자 제스처로 움직였을 시
             guard reason == -1 else { return }
             tooltipWindow.placeInfoViewController.rootView.hideTooltip { [weak self] in
                 guard let self else { return }
-                self.tooltipWindow = nil
+                self.tooltipWindow.isTooltipShown = false
+                self.selectedMarker = nil
             }
         }
+    }
+    
+    func mapViewCameraIdle(_ mapView: NMFMapView) {
+        print(#function)
     }
     
     

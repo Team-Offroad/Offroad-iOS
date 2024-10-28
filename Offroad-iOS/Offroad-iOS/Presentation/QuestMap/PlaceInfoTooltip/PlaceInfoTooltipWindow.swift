@@ -12,13 +12,14 @@ class PlaceInfoTooltipWindow: UIWindow {
     let placeInfoViewController: PlaceInfoViewController
     let contentFrame: CGRect
     
+    var isTooltipShown: Bool = false { didSet { print("isTooltipShown didSet: \(isTooltipShown)")}}
+    
     init(contentFrame: CGRect) {
         self.placeInfoViewController = PlaceInfoViewController(contentFrame: contentFrame)
         self.contentFrame = contentFrame
         super.init(windowScene: UIWindowScene.current)
         
         rootViewController = placeInfoViewController
-//        placeInfoViewController.view.frame = contentFrame
     }
     
     required init?(coder: NSCoder) {
@@ -26,6 +27,7 @@ class PlaceInfoTooltipWindow: UIWindow {
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        guard isTooltipShown else { return nil }
         if contentFrame.contains(point) {
             if placeInfoViewController.rootView.tooltip.frame.contains(self.convert(point, to: placeInfoViewController.rootView.contentView)) {
                 return super.hitTest(point, with: event)
@@ -35,7 +37,7 @@ class PlaceInfoTooltipWindow: UIWindow {
             return super.hitTest(point, with: event)
         }
     }
-    
+
 }
 
 extension PlaceInfoTooltipWindow {
