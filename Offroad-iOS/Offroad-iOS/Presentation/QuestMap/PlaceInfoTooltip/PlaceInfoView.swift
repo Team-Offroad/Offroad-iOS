@@ -63,6 +63,7 @@ extension PlaceInfoView {
     private func setupStyle() {
         contentView.backgroundColor = .blue.withAlphaComponent(0.05)
         contentView.clipsToBounds = true
+        tooltip.alpha = 0
     }
     
     private func setupHierarchy() {
