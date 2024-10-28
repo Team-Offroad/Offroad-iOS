@@ -799,9 +799,9 @@
 		4E0394732C2AA6DB007F0517 /* QuestMap */ = {
 			isa = PBXGroup;
 			children = (
-				4E4E2C0A2CCF6503000A634D /* ViewModel */,
 				4E4E2C082CCE7B52000A634D /* PlaceInfoTooltip */,
 				4E416CE62C45DBD400CF6AB4 /* Models */,
+				4E4E2C0A2CCF6503000A634D /* ViewModel */,
 				4EFA80892C3E79B800876D05 /* UIComponents */,
 				4E1E94152C3AC25500A7B08A /* Views */,
 				4E1E94142C3AC25000A7B08A /* ViewControllers */,
