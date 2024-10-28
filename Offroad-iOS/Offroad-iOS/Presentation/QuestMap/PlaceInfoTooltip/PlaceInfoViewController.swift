@@ -12,12 +12,10 @@ import RxSwift
 class PlaceInfoViewController: UIViewController {
     
     let rootView: PlaceInfoView
-//    let isTooltipShown = PublishSubject<Bool>()
     let shouldHideTooltip = PublishSubject<Void>()
     let shouldShowTooltip = PublishSubject<Void>()
     
     let backgroundColorAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
-//    let tooltipTransparencyAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.8)
     let tooltipHidingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     
@@ -47,7 +45,6 @@ class PlaceInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         bindData()
     }
@@ -81,10 +78,6 @@ class PlaceInfoViewController: UIViewController {
             self.rootView.tooltip.alpha = 1
             self.rootView.layoutIfNeeded()
         }
-        tooltipShowingAnimator.addCompletion { [weak self] _ in
-            guard let self else { return }
-            print("tooltip's frame:", self.rootView.tooltip.frame)
-        }
         tooltipShowingAnimator.addCompletion { _ in
             completion?()
         }
@@ -102,11 +95,6 @@ class PlaceInfoViewController: UIViewController {
             guard let self else { return }
             self.rootView.backgroundColor = .clear
         }
-//        tooltipTransparencyAnimator.addAnimations({ [weak self] in
-//            guard let self else { return }
-//            self.rootView.tooltip.alpha = 0.1
-//            rootView.layoutIfNeeded()
-//        }, delayFactor: 0.2)
         tooltipHidingAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.tooltip.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
@@ -117,9 +105,7 @@ class PlaceInfoViewController: UIViewController {
             self.rootView.tooltip.configure(with: nil)
             completion?()
         }
-        
         isTooltipShown = false
-//        tooltipTransparencyAnimator.startAnimation()
         backgroundColorAnimator.startAnimation()
         tooltipHidingAnimator.startAnimation()
     }

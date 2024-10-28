@@ -69,16 +69,6 @@ class QuestMapViewController: OffroadTabBarViewController {
         offroadTabBarController.showTabBarAnimation()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        viewModel.requestAuthorization()
-        viewModel.updateRegisteredPlaces(at: currentPositionTarget)
-        rootView.naverMapView.mapView.positionMode = .disabled
-        let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
-        rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
-    }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -94,6 +84,22 @@ class QuestMapViewController: OffroadTabBarViewController {
         tooltipWindow = PlaceInfoTooltipWindow(contentFrame: contentFrame)
         bindTooltip()
         tooltipWindow.makeKeyAndVisible()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewModel.requestAuthorization()
+        viewModel.updateRegisteredPlaces(at: currentPositionTarget)
+        rootView.naverMapView.mapView.positionMode = .disabled
+        let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
+        rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tooltipWindow = nil
     }
     
 }
@@ -131,7 +137,8 @@ extension QuestMapViewController {
             .debug()
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
-                self.tooltipWindow.placeInfoViewController.hideTooltip {
+                self.tooltipWindow.placeInfoViewController.hideTooltip { [weak self] in
+                    guard let self else { return }
                     self.viewModel.selectedMarker = nil
                 }
             }).disposed(by: disposeBag)
@@ -212,6 +219,7 @@ extension QuestMapViewController {
     
     private func setupDelegates() {
         rootView.naverMapView.mapView.addCameraDelegate(delegate: self)
+        rootView.naverMapView.mapView.touchDelegate = self
     }
     
     private func focusToMarker(_ marker: NMFMarker) {
@@ -264,7 +272,6 @@ extension QuestMapViewController {
 extension QuestMapViewController: NMFMapViewCameraDelegate {
     
     func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
-        print(#function)
         if reason == -2 {
             let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
             rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
@@ -283,14 +290,12 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
     }
     
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
-        print(#function)
         if viewModel.selectedMarker != nil {
             tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = markerPoint!
         }
     }
     
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
-        print(#function)
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
         if reason == -1 {
@@ -298,10 +303,21 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
         }
     }
     
-    func mapViewCameraIdle(_ mapView: NMFMapView) {
+}
+
+//MARK: - NMFMapViewTouchDelegate
+
+extension QuestMapViewController: NMFMapViewTouchDelegate {
+    
+    func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         print(#function)
+        if viewModel.selectedMarker != nil {
+            tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = markerPoint!
+            tooltipWindow.placeInfoViewController.hideTooltip { [weak self] in
+                guard let self else { return }
+                self.viewModel.selectedMarker = nil
+            }
+        }
     }
-    
-    
     
 }
