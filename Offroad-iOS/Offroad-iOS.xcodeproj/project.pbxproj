@@ -199,6 +199,7 @@
 		D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */; };
 		D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */; };
 		D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */; };
+		D0BD451F2CC77C3200128E74 /* MyPageCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */; };
 		D0E795FC2C447511005B47A5 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */; };
 		D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FE2C44FC2C005B47A5 /* UserModel.swift */; };
 		D0E796012C45222D005B47A5 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796002C45222D005B47A5 /* BaseTargetType.swift */; };
@@ -452,6 +453,7 @@
 		D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupView.swift; sourceTree = "<group>"; };
 		D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChoosingResponseDTO.swift; sourceTree = "<group>"; };
+		D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCustomButton.swift; sourceTree = "<group>"; };
 		D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		D0E795FE2C44FC2C005B47A5 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		D0E796002C45222D005B47A5 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
@@ -833,7 +835,7 @@
 		4E0394772C2AA72C007F0517 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				D03C83602C620AE300F3094D /* Model */,
+				D0BD451D2CC77C2300128E74 /* Component */,
 				D03C835F2C620AC800F3094D /* View */,
 				4EA90AC42C4521AF0046A6E1 /* ViewControllers */,
 				4E0394782C2AA767007F0517 /* CharacterList */,
@@ -1793,6 +1795,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		D0BD451D2CC77C2300128E74 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		D0E795FA2C4474F6005B47A5 /* AuthManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2377,6 +2387,7 @@
 				D004F8CF2CB4DDE600D5A2CD /* KakaoAuthManager.swift in Sources */,
 				D06466AC2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift in Sources */,
 				D06466962C86F69F00CF10FD /* LogoutView.swift in Sources */,
+				D0BD451F2CC77C3200128E74 /* MyPageCustomButton.swift in Sources */,
 				4EE0497B2CA0FD1300754488 /* CouponListResponseDTO.swift in Sources */,
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
 				D00A485D2C62847A008B286A /* MyPageMenuModel.swift in Sources */,
