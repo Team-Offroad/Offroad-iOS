@@ -63,6 +63,7 @@ class QuestMapViewController: OffroadTabBarViewController {
         
         setupButtonsAction()
         setupDelegates()
+        rootView.naverMapView.mapView.positionMode = .direction
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,7 +79,7 @@ class QuestMapViewController: OffroadTabBarViewController {
         
         requestAuthorization()
         updateRegisteredLocation()
-        rootView.naverMapView.mapView.positionMode = .compass
+        rootView.naverMapView.mapView.positionMode = .disabled
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
     }
@@ -96,6 +97,15 @@ extension QuestMapViewController {
     }
     
     @objc private func switchTrackingMode() {
+        
+        if let selectedMarker, let tooltipWindow {
+            tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition!
+            tooltipWindow.placeInfoViewController.rootView.hideTooltip { [weak self] in
+                guard let self else { return }
+                self.tooltipWindow = nil
+            }
+        }
+        
         if rootView.naverMapView.mapView.positionMode == .normal {
             flyToMyPosition { [weak self] in
                 self?.rootView.naverMapView.mapView.positionMode = .compass
@@ -287,14 +297,6 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
             rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
             rootView.naverMapView.mapView.locationOverlay.subIcon = nil
         }
-        
-//        if let selectedMarker, let tooltipWindow {
-//            tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = convertedSelectedMarkerPosition!
-//            tooltipWindow.placeInfoViewController.rootView.hideTooltip { [weak self] in
-//                guard let self else { return }
-//                self.tooltipWindow = nil
-//            }
-//        }
     }
     
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {

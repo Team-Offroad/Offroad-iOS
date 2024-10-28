@@ -95,7 +95,7 @@ extension QuestMapView {
         listButtonStackView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(40)
-            make.bottom.equalTo(safeAreaLayoutGuide).inset(40)
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(59)
         }
         
         compass.snp.makeConstraints { make in
