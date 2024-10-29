@@ -11,11 +11,6 @@ import NMapsMap
 import SnapKit
 import Then
 
-enum TrackingMode {
-    case normal
-    case compass
-}
-
 class QuestMapView: UIView {
     
     //MARK: - UI Properties
@@ -30,7 +25,7 @@ class QuestMapView: UIView {
     let placeListButton = QuestMapListButton(image: .iconPlaceMarker, title: "장소 목록")
     
     let naverMapView = NMFNaverMapView()
-    let compass = NMFCompassView()
+    private let compass = NMFCompassView()
     private let orangeTriangleArrowOverlayImage = NMFOverlayImage(image: .icnOrangeTriangleArrow)
     let orangeLocationOverlayImage = NMFOverlayImage(image: .icnOrangeCircleInWhiteBorder)
     
@@ -172,14 +167,14 @@ extension QuestMapView {
         
         // 현재 위치 표시하는 마커 커스텀
         naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
-        customizeLocationOverlaySubIcon(state: .compass)
+        customizeLocationOverlaySubIcon(mode: .compass)
     }
     
-    func customizeLocationOverlaySubIcon(state: TrackingMode) {
-        switch state {
+    func customizeLocationOverlaySubIcon(mode: NMFMyPositionMode) {
+        switch mode {
         case .normal:
             naverMapView.mapView.locationOverlay.subIcon = nil
-        case .compass:
+        case .compass, .direction:
             // 현재 위치 표시하는 마커 커스텀
             naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
             naverMapView.mapView.locationOverlay.do { overlay in
@@ -189,6 +184,8 @@ extension QuestMapView {
                 overlay.subIconHeight = 16
                 overlay.circleColor = .sub(.sub).withAlphaComponent(0.07)
             }
+        default:
+            break
         }
     }
     
