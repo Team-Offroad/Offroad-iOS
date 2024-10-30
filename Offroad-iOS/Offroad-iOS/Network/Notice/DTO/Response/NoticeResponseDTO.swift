@@ -21,4 +21,6 @@ struct NoticeInfo: Codable {
     let content: String
     let isImportant: Bool
     let updateAt: String
+    let hasExternalLinks: Bool
+    let externalLinks: [String]
 }

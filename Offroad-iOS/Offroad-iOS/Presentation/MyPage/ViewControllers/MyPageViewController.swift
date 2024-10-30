@@ -13,8 +13,6 @@ final class MyPageViewController: OffroadTabBarViewController {
     
     private let rootView = MyPageView()
     
-    private var menuModelList = MyPageMenuModel.dummy()
-    
     // MARK: - Life Cycle
     
     override func loadView() {
@@ -24,8 +22,7 @@ final class MyPageViewController: OffroadTabBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupDelegate()
-        getUserInfo()
+        setupAddTarget()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +30,8 @@ final class MyPageViewController: OffroadTabBarViewController {
         
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.showTabBarAnimation()
+        
+        getUserInfo()
     }
 }
 
@@ -40,9 +39,11 @@ extension MyPageViewController {
     
     // MARK: - Private Method
     
-    private func setupDelegate() {
-        rootView.myPageMenuCollectionView.dataSource = self
-        rootView.myPageMenuCollectionView.delegate = self
+    private func setupAddTarget() {
+        rootView.characterButton.addTarget(self, action: #selector(myPageButtonTapped(_:)), for: .touchUpInside)
+        rootView.couponButton.addTarget(self, action: #selector(myPageButtonTapped(_:)), for: .touchUpInside)
+        rootView.titleButton.addTarget(self, action: #selector(myPageButtonTapped(_:)), for: .touchUpInside)
+        rootView.settingButton.addTarget(self, action: #selector(myPageButtonTapped(_:)), for: .touchUpInside)
     }
     
     private func getUserInfo() {
@@ -57,45 +58,26 @@ extension MyPageViewController {
             }
         }
     }
-}
-
-//MARK: - UICollectionViewDataSource
-
-extension MyPageViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return menuModelList.count
-    }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageMenuCollectionViewCell.className, for: indexPath) as? MyPageMenuCollectionViewCell else { return UICollectionViewCell() }
-        cell.configureCell(data: menuModelList[indexPath.item])
-        
-        return cell
-    }
-}
-
-//MARK: - UICollectionViewDelegateFlowLayout
-
-extension MyPageViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (rootView.backgroundViewWidth - 13) / 2, height: 138)
-    }
+    // MARK: - @objc Func
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch indexPath.item {
-        case 0:
+    @objc private func myPageButtonTapped(_ sender: UIButton) {
+        if sender == rootView.characterButton {
             let characterListViewController = CharacterListViewController()
             self.navigationController?.pushViewController(characterListViewController, animated: true)
-        case 1:
+        }
+        if sender == rootView.couponButton {
             let acquiredCouponViewController = AcquiredCouponViewController()
             self.navigationController?.pushViewController(acquiredCouponViewController, animated: true)
-        case 2:
+        }
+        if sender == rootView.titleButton {
             let collectedTitlesViewController = CollectedTitlesViewController()
             self.navigationController?.pushViewController(collectedTitlesViewController, animated: true)
-        case 3:
+        }
+        if sender == rootView.settingButton {
             let settingViewController = SettingViewController()
             self.navigationController?.pushViewController(settingViewController, animated: true)
-        default: break
+            
         }
     }
 }
