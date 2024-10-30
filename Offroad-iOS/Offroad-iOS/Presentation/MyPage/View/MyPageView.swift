@@ -18,6 +18,8 @@ final class MyPageView: UIView {
 
     //MARK: - UI Properties
     
+    private let myPageScrollView = UIScrollView()
+    private let myPageContentView = UIView()
     private let nicknameLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let flagImageView = UIImageView(image: UIImage(resource: .imgFlag))
@@ -33,7 +35,13 @@ final class MyPageView: UIView {
     private let completedQuestsCountLabel = UILabel()
     private let visitedPlacesCountLabel = UILabel()
     private let dividerView = UIView()
-    let myPageMenuCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    let characterButton = MyPageCustomButton(titleString: "획득 캐릭터", backgroundImage: .btnCharacter)
+    let couponButton = MyPageCustomButton(titleString: "획득 쿠폰", backgroundImage: .btnCoupon)
+    let titleButton = MyPageCustomButton(titleString: "획득 칭호", backgroundImage: .btnTitle)
+    let settingButton = MyPageCustomButton(titleString: "설정", backgroundImage: .btnSetting)
+    private let horizontalStackView1 = UIStackView()
+    private let horizontalStackView2 = UIStackView()
+    private let verticalStackView = UIStackView()
         
     // MARK: - Life Cycle
     
@@ -56,6 +64,15 @@ extension MyPageView {
     
     private func setupStyle() {
         backgroundColor = .primary(.listBg)
+        
+        myPageScrollView.do {
+            $0.backgroundColor = .clear
+            $0.showsVerticalScrollIndicator = false
+        }
+        
+        myPageContentView.do {
+            $0.backgroundColor = .clear
+        }
         
         nicknameLabel.do {
             $0.font = .offroad(style: .bothSubtitle3)
@@ -131,27 +148,32 @@ extension MyPageView {
             $0.backgroundColor = .home(.homeContents2)
         }
         
-        myPageMenuCollectionView.do {
-            let flowLayout = UICollectionViewFlowLayout()
-            flowLayout.minimumInteritemSpacing = 13
-            flowLayout.minimumLineSpacing = 15
-            
-            $0.collectionViewLayout = flowLayout
-            $0.register(MyPageMenuCollectionViewCell.self, forCellWithReuseIdentifier: MyPageMenuCollectionViewCell.className)
-            
-            $0.backgroundColor = .clear
-            $0.contentInset = UIEdgeInsets(top: 18, left: 0, bottom: 18, right: 0)
+        [characterButton, couponButton, titleButton, settingButton].forEach {
+            $0.roundCorners(cornerRadius: 10)
+        }
+        
+        [horizontalStackView1, horizontalStackView2].forEach {
+            $0.axis = .horizontal
+            $0.distribution = .fillEqually
+            $0.spacing = 13
+        }
+        
+        verticalStackView.do {
+            $0.axis = .vertical
+            $0.spacing = 15
         }
     }
     
     private func setupHierarchy() {
-        addSubviews(
+        addSubview(myPageScrollView)
+        myPageScrollView.addSubview(myPageContentView)
+        myPageContentView.addSubviews(
             labelStackView,
             flagImageView,
             profileBackgroundView,
             questPlaceBackgroundView,
             dottedLineView,
-            myPageMenuCollectionView
+            verticalStackView
         )
         
         labelStackView.addArrangedSubviews(nicknameLabel, descriptionLabel)
@@ -169,11 +191,25 @@ extension MyPageView {
             completedQuestsCountLabel,
             visitedPlacesCountLabel
         )
+        
+        horizontalStackView1.addArrangedSubviews(characterButton, couponButton)
+        horizontalStackView2.addArrangedSubviews(titleButton, settingButton)
+        verticalStackView.addArrangedSubviews(horizontalStackView1, horizontalStackView2)
     }
     
     private func setupLayout() {
+        myPageScrollView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        myPageContentView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.width.equalToSuperview()
+            $0.bottom.equalTo(verticalStackView.snp.bottom).offset(62)
+        }
+        
         labelStackView.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).inset(52)
+            $0.top.equalToSuperview().inset(52)
             $0.leading.equalToSuperview().inset(24)
         }
         
@@ -232,9 +268,14 @@ extension MyPageView {
             $0.centerX.equalToSuperview().offset(backgroundViewWidth / 4)
         }
         
-        myPageMenuCollectionView.snp.makeConstraints {
-            $0.top.equalTo(questPlaceBackgroundView.snp.bottom)
-            $0.bottom.equalTo(safeAreaLayoutGuide)
+        [characterButton, couponButton, titleButton, settingButton].forEach {
+            $0.snp.makeConstraints {
+                $0.height.equalTo(138)
+            }
+        }
+        
+        verticalStackView.snp.makeConstraints {
+            $0.top.equalTo(questPlaceBackgroundView.snp.bottom).offset(18)
             $0.horizontalEdges.equalToSuperview().inset(24)
         }
     }

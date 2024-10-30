@@ -88,8 +88,8 @@ extension SettingViewController: UICollectionViewDelegateFlowLayout {
             self.navigationController?.pushViewController(noticeViewController, animated: true)
         case 1, 2, 3:
             let redirectionURL = NSURL(string: redirectionURLStrings[indexPath.item - 1])
-            let safariView = SFSafariViewController(url: (redirectionURL ?? NSURL()) as URL)
-            self.present(safariView, animated: true, completion: nil)
+            let safariViewController = SFSafariViewController(url: (redirectionURL ?? NSURL()) as URL)
+            self.present(safariViewController, animated: true, completion: nil)
         case 4:
             let marketingConsentViewController = MarketingConsentViewController()
             marketingConsentViewController.modalPresentationStyle = .overCurrentContext

@@ -233,7 +233,7 @@ extension HomeView {
         }
         
         questStackView.snp.makeConstraints {
-            $0.bottom.equalTo(safeAreaLayoutGuide).inset(40)
+            $0.bottom.equalTo(safeAreaLayoutGuide).inset(55)
             $0.horizontalEdges.equalToSuperview().inset(24)
             $0.height.equalTo(195)
         }

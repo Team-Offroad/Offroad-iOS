@@ -63,11 +63,13 @@ extension SettingBaseView {
             flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width - 20, height: 56)
             flowLayout.minimumLineSpacing = 12
             flowLayout.sectionInset = UIEdgeInsets(top: 26, left: .zero, bottom: 26, right: .zero)
+            
             $0.collectionViewLayout = flowLayout
             $0.delaysContentTouches = false
             $0.register(SettingBaseCollectionViewCell.self, forCellWithReuseIdentifier: SettingBaseCollectionViewCell.className)
             
             $0.backgroundColor = .main(.main1)
+            $0.showsVerticalScrollIndicator = false
         }
     }
     
@@ -101,7 +103,7 @@ extension SettingBaseView {
         
         settingBaseCollectionView.snp.makeConstraints {
             $0.top.equalTo(borderView.snp.bottom)
-            $0.bottom.equalTo(safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(10)
         }
     }

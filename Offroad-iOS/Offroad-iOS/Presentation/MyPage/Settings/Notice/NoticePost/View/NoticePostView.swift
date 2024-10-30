@@ -26,7 +26,7 @@ final class NoticePostView: UIView {
     private let contentScrollView = UIScrollView()
     private let contentView = UIView()
     private let contentLabel = UILabel()
-    private let contentButton = UIButton()
+    lazy var contentButton = UIButton()
     private let contentStackView = UIStackView()
         
     // MARK: - Life Cycle
@@ -87,6 +87,7 @@ extension NoticePostView {
         }
         
         contentButton.do {
+            $0.isHidden = true
             $0.setTitleColor(.sub(.sub2), for: .normal)
             $0.titleLabel?.font = .offroad(style: .iosTextRegular)
         }
@@ -159,6 +160,10 @@ extension NoticePostView {
         
         dateLabel.text = dateFormatter.string(from: date ?? Date())
         contentLabel.text = data.content
-//        contentButton.setTitle(data.contentButtonString, for: .normal)
+        
+        if data.hasExternalLinks {
+            contentButton.isHidden = false
+            contentButton.setTitle("링크 열기", for: .normal)
+        }
     }
 }

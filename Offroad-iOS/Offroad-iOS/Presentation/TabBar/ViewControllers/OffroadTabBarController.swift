@@ -37,6 +37,10 @@ class OffroadTabBarController: UITabBarController {
         setupDelegates()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -91,6 +95,11 @@ extension OffroadTabBarController {
     }
     
     private func setupStyle() {
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithTransparentBackground()
+        tabBar.standardAppearance = tabBarAppearance
+        tabBar.scrollEdgeAppearance = tabBarAppearance
+        
         customTabBar.roundCorners(
             cornerRadius: 25,
             maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner]
