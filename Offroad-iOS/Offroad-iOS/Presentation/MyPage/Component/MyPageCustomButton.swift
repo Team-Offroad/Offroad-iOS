@@ -15,7 +15,6 @@ final class MyPageCustomButton: UIButton {
     //MARK: - UI Properties
     
     private let customTitleLabel = UILabel()
-    private let backgroundImageView = UIImageView()
     
     //MARK: - Life Cycle
     
