@@ -56,6 +56,7 @@ class QuestMapViewController: OffroadTabBarViewController {
         bindData()
         setupDelegates()
         rootView.naverMapView.mapView.positionMode = .direction
+        locationManager.startUpdatingHeading()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,6 +67,8 @@ class QuestMapViewController: OffroadTabBarViewController {
         offroadTabBarController.showTabBarAnimation()
         
         rootView.naverMapView.mapView.positionMode = .direction
+//        viewModel.isCompassMode.accept(false)
+        viewModel.isCompassMode = false
     }
     
     override func viewDidLayoutSubviews() {
@@ -107,27 +110,25 @@ extension QuestMapViewController {
     //MARK: - @objc Func
     
     @objc private func switchTrackingMode() {
-        switch rootView.naverMapView.mapView.positionMode {
-        case .normal:
-            rootView.customizeLocationOverlaySubIcon(mode: .compass)
-            flyToMyPosition(completion: { [weak self] in
+        tooltipWindow.placeInfoViewController.hideTooltip()
+        switch rootView.naverMapView.mapView.positionMode == .normal {
+        case true:
+            flyToMyPosition(completion: { [weak self] isCancelled in
                 guard let self else { return }
+                guard !isCancelled else { return }
                 self.rootView.naverMapView.mapView.positionMode = .direction
-                return
             })
-        case .direction:
-            let newValue = !viewModel.isCompassMode.value
-            viewModel.isCompassMode.accept(newValue)
+        case false:
+            viewModel.isCompassMode.toggle()
+            let currentHeading = locationManager.heading?.trueHeading ?? 0
+            rootView.naverMapView.mapView.locationOverlay.heading = currentHeading
+            guard viewModel.isCompassMode else { return }
+            let cameraUpdate = NMFCameraUpdate(heading: currentHeading)
+            cameraUpdate.reason = 10
+            cameraUpdate.animation = .easeOut
+            rootView.naverMapView.mapView.moveCamera(cameraUpdate)
             let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
             rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
-            rootView.customizeLocationOverlaySubIcon(mode: .compass)
-        case .compass:
-            rootView.naverMapView.mapView.positionMode = .direction
-            let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
-            rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
-            rootView.customizeLocationOverlaySubIcon(mode: .direction)
-        default:
-            break
         }
     }
     
@@ -183,16 +184,6 @@ extension QuestMapViewController {
                 marker.mapView = self.rootView.naverMapView.mapView
             }).disposed(by: disposeBag)
         
-        viewModel.isCompassMode
-            .subscribe(onNext: { [weak self] isCompassMode in
-                guard let self else { return }
-                if isCompassMode {
-                    self.locationManager.startUpdatingHeading()
-                } else {
-                    self.locationManager.stopUpdatingHeading()
-                }
-            }).disposed(by: disposeBag)
-        
         Observable.zip(
             viewModel.isLocationAdventureAuthenticated,
             viewModel.successCharacterImage,
@@ -242,16 +233,19 @@ extension QuestMapViewController {
         let markerLatLng = NMGLatLng(lat: marker.position.lat, lng: marker.position.lng)
         let cameraUpdate = NMFCameraUpdate(scrollTo: markerLatLng)
         cameraUpdate.animation = .easeOut
+        cameraUpdate.reason = 20
         rootView.naverMapView.mapView.moveCamera(cameraUpdate)
     }
     
-    private func flyToMyPosition(completion: @escaping () -> Void) {
+    private func flyToMyPosition(completion: ((Bool) -> Void)? = nil) {
         guard let currentCoord = locationManager.location?.coordinate else { return }
         let currentLatLng = NMGLatLng(lat: currentCoord.latitude, lng: currentCoord.longitude)
         let cameraUpdate = NMFCameraUpdate(scrollTo: currentLatLng)
+        cameraUpdate.reason = 1
         cameraUpdate.animation = .easeOut
         rootView.naverMapView.mapView.moveCamera(cameraUpdate) { isCancelled in
-            completion()
+            print("호출호출")
+            completion?(isCancelled)
         }
     }
     
@@ -297,10 +291,13 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
      */
     func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
         switch reason {
+        // API 호출로 카메라 이동
         case 0:
-            return
+            viewModel.isCompassMode = false
+        // 제스처 사용으로 카메라 이동
         case -1:
-            print(rootView.naverMapView.mapView.positionMode.rawValue)
+//            viewModel.isCompassMode.accept(false)
+            
             if viewModel.selectedMarker != nil {
                 tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = markerPoint!
                 tooltipWindow.placeInfoViewController.hideTooltip { [weak self] in
@@ -308,13 +305,17 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
                     self.viewModel.selectedMarker = nil
                 }
             }
+        // 버튼 선택으로 카메라 이동
         case -2:
+//            viewModel.isCompassMode.accept(false)
+            viewModel.isCompassMode = false
             let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
             rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
             rootView.customizeLocationOverlaySubIcon(mode: .compass)
             
             guard viewModel.selectedMarker != nil else { return }
-            tooltipWindow.placeInfoViewController.rootView.tooltip.isHidden = true
+            tooltipWindow.placeInfoViewController.hideTooltip()
+        // 위치 정보 갱신으로 카메라 이동
         case -3:
             return
         default:
@@ -331,8 +332,26 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
-        if reason == -1 {
-            rootView.naverMapView.mapView.locationOverlay.subIcon = nil
+        
+        switch reason {
+        // API 호출로 카메라 이동
+        case 0:
+            rootView.naverMapView.mapView.positionMode = .direction
+            return
+        // 제스처 사용으로 카메라 이동
+        case -1:
+            return
+            //rootView.naverMapView.mapView.locationOverlay.subIcon = nil
+        // 버튼 선택으로 카메라 이동
+        case -2:
+            return
+        // 위치 정보 갱신으로 카메라 이동
+        case -3:
+            return
+        case 10:
+            rootView.naverMapView.mapView.positionMode = .direction
+        default:
+            return
         }
     }
     
@@ -358,13 +377,17 @@ extension QuestMapViewController: NMFMapViewTouchDelegate {
 extension QuestMapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        print(#function)
         let currentHeading = newHeading.trueHeading
-        let cameraUpdate = NMFCameraUpdate(heading: currentHeading)
-        cameraUpdate.animation = .easeOut
-        rootView.naverMapView.mapView.moveCamera(cameraUpdate)
+        
         rootView.naverMapView.mapView.locationOverlay.heading = currentHeading
         let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
+        rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+        
+        guard viewModel.isCompassMode else { return }
+        let cameraUpdate = NMFCameraUpdate(heading: currentHeading)
+        cameraUpdate.reason = 10
+        cameraUpdate.animation = .easeOut
+        rootView.naverMapView.mapView.moveCamera(cameraUpdate)
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
     }
     
