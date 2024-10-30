@@ -58,7 +58,7 @@ extension NoticePostViewController {
     
     @objc private func contentButtonTapped() {
         let redirectionURL = NSURL(string: noticeDetailInfo.externalLinks[0])
-        let safariView = SFSafariViewController(url: (redirectionURL ?? NSURL()) as URL)
-        self.present(safariView, animated: true, completion: nil)
+        let safariViewController = SFSafariViewController(url: (redirectionURL ?? NSURL()) as URL)
+        self.present(safariViewController, animated: true, completion: nil)
     }
 }

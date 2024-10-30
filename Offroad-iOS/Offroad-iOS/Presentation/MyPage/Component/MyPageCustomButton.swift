@@ -23,7 +23,7 @@ final class MyPageCustomButton: UIButton {
         super.init(frame: .zero)
         
         setupHierarchy()
-        setupStyle(forString: titleString, forImage: backgroundImage)
+        setupStyle(titleText: titleString, image: backgroundImage)
         setupLayout()
     }
     
@@ -36,12 +36,12 @@ extension MyPageCustomButton {
     
     // MARK: - Layout
     
-    private func setupStyle(forString: String, forImage: UIImage) {
-        setImage(forImage, for: .normal)
+    private func setupStyle(titleText: String, image: UIImage) {
+        setImage(image, for: .normal)
         clipsToBounds = true
         
         customTitleLabel.do {
-            $0.text = forString
+            $0.text = titleText
             $0.textColor = .sub(.sub4)
             $0.textAlignment = .center
             $0.font = .offroad(style: .iosTextBold)
