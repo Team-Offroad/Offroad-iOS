@@ -67,7 +67,6 @@ class QuestMapViewController: OffroadTabBarViewController {
         offroadTabBarController.showTabBarAnimation()
         
         rootView.naverMapView.mapView.positionMode = .direction
-//        viewModel.isCompassMode.accept(false)
         viewModel.isCompassMode = false
     }
     
@@ -122,7 +121,10 @@ extension QuestMapViewController {
             viewModel.isCompassMode.toggle()
             let currentHeading = locationManager.heading?.trueHeading ?? 0
             rootView.naverMapView.mapView.locationOverlay.heading = currentHeading
-            guard viewModel.isCompassMode else { return }
+            guard viewModel.isCompassMode else {
+                rootView.naverMapView.mapView.positionMode = .direction
+                return
+            }
             let cameraUpdate = NMFCameraUpdate(heading: currentHeading)
             cameraUpdate.reason = 10
             cameraUpdate.animation = .easeOut
@@ -253,6 +255,8 @@ extension QuestMapViewController {
         guard let marker = overlay as? OffroadNMFMarker else { return false }
         self.viewModel.selectedMarker = marker
         self.focusToMarker(marker)
+        let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
+        self.rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
         self.tooltipWindow.placeInfoViewController.rootView.tooltip.configure(with: marker.placeInfo)
         self.tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = markerPoint!
         self.tooltipWindow.placeInfoViewController.showToolTip()
@@ -298,7 +302,7 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
         // 제스처 사용으로 카메라 이동
         case -1:
 //            viewModel.isCompassMode.accept(false)
-            
+            viewModel.isCompassMode = false
             if viewModel.selectedMarker != nil {
                 tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = markerPoint!
                 tooltipWindow.placeInfoViewController.hideTooltip { [weak self] in
@@ -308,7 +312,6 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
             }
         // 버튼 선택으로 카메라 이동
         case -2:
-//            viewModel.isCompassMode.accept(false)
             viewModel.isCompassMode = false
             let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
             rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
@@ -342,7 +345,6 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
         // 제스처 사용으로 카메라 이동
         case -1:
             return
-            //rootView.naverMapView.mapView.locationOverlay.subIcon = nil
         // 버튼 선택으로 카메라 이동
         case -2:
             return

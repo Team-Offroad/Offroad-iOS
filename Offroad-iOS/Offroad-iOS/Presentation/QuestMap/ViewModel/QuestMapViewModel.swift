@@ -36,7 +36,7 @@ final class QuestMapViewModel: SVGFetchable {
     let markersSubject = BehaviorSubject<[OffroadNMFMarker]>(value: [])
     let customOverlayImage = NMFOverlayImage(image: .icnQuestMapPlaceMarker)
     let shouldRequestLocationAuthorization = PublishSubject<Void>()
-//    let isCompassMode = BehaviorRelay<Bool>(value: false)
+    
     var isCompassMode = false {
         didSet {
             print("isCompassMode: \(isCompassMode)")

@@ -38,9 +38,3 @@ class PlaceInfoTooltipWindow: UIWindow {
     }
 
 }
-
-extension PlaceInfoTooltipWindow {
-    
-    
-    
-}
