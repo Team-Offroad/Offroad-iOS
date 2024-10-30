@@ -48,7 +48,8 @@ class PlaceInfoViewController: UIViewController {
         bindData()
     }
     
-    @objc private func tapped() {
+    @objc private func tapped(sender: UITapGestureRecognizer) {
+        guard !rootView.tooltip.frame.contains(sender.location(in: rootView.contentView)) else { return }
         shouldHideTooltip.onNext(())
     }
     

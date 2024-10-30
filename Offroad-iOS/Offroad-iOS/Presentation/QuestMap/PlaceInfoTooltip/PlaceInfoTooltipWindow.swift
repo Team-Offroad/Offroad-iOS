@@ -29,8 +29,9 @@ class PlaceInfoTooltipWindow: UIWindow {
         if contentFrame.contains(point) {
             if placeInfoViewController.rootView.tooltip.frame.contains(self.convert(point, to: placeInfoViewController.rootView.contentView)) {
                 return super.hitTest(point, with: event)
+            } else {
+                return nil
             }
-            return nil
         } else {
             return super.hitTest(point, with: event)
         }
