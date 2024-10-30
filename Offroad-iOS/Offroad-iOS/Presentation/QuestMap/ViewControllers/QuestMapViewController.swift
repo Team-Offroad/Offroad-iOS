@@ -266,6 +266,7 @@ extension QuestMapViewController {
         let alertController = ORBAlertController(title: title, message: message, type: .explorationResult)
         alertController.configureExplorationResultImage { $0.image = image }
         alertController.configureMessageLabel { $0.highlightText(targetText: "위치", font: .offroad(style: .iosTextBold)) }
+        alertController.xButton.isHidden = true
         let okAction = ORBAlertAction(title: buttonTitle, style: .default) { [weak self] _ in
             guard let self else { return }
             if isSuccess { self.tabBarController?.selectedIndex = 0 }
