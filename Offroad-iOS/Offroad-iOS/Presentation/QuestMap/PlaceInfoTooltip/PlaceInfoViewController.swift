@@ -11,6 +11,8 @@ import RxSwift
 
 class PlaceInfoViewController: UIViewController {
     
+    //MARK: - Properties
+    
     let rootView: PlaceInfoView
     let shouldHideTooltip = PublishSubject<Void>()
     let shouldShowTooltip = PublishSubject<Void>()
@@ -48,10 +50,18 @@ class PlaceInfoViewController: UIViewController {
         bindData()
     }
     
+}
+
+extension PlaceInfoViewController {
+    
+    //MARK: - @objc Func
+    
     @objc private func tapped(sender: UITapGestureRecognizer) {
         guard !rootView.tooltip.frame.contains(sender.location(in: rootView.contentView)) else { return }
         shouldHideTooltip.onNext(())
     }
+    
+    //MARK: - Private Func
     
     private func bindData() {
         rootView.tooltip.closeButton.rx.tap.bind(onNext: { [weak self] in
@@ -114,14 +124,6 @@ class PlaceInfoViewController: UIViewController {
         isTooltipShown = false
         backgroundColorAnimator.startAnimation()
         tooltipHidingAnimator.startAnimation()
-    }
-    
-}
-
-extension PlaceInfoViewController: UIGestureRecognizerDelegate {
-    
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
     }
     
 }

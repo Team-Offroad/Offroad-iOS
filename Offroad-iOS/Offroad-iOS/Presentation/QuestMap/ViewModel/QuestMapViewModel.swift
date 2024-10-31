@@ -37,12 +37,7 @@ final class QuestMapViewModel: SVGFetchable {
     let customOverlayImage = NMFOverlayImage(image: .icnQuestMapPlaceMarker)
     let shouldRequestLocationAuthorization = PublishSubject<Void>()
     
-    var isCompassMode = false {
-        didSet {
-            print("isCompassMode: \(isCompassMode)")
-        }
-    }
-    
+    var isCompassMode = false
     var currentLocation: NMGLatLng? {
         guard let coordinate = locationManager.location?.coordinate else { return nil }
         return NMGLatLng(lat: coordinate.latitude, lng: coordinate.longitude)
@@ -51,18 +46,13 @@ final class QuestMapViewModel: SVGFetchable {
     //MARK: - Life Cycle
     
     init() {
-        successCharacterImageUrl
-            .subscribe(onNext: { [weak self] imageUrl in
-                guard let self else { return }
-                self.fetchSVG(svgURLString: imageUrl) { image in
-                    self.successCharacterImage.onNext(image)
-                }
-            }).disposed(by: disposeBag)
-        
-        
-        
+        successCharacterImageUrl.subscribe(onNext: { [weak self] imageUrl in
+            guard let self else { return }
+            self.fetchSVG(svgURLString: imageUrl) { image in
+                self.successCharacterImage.onNext(image)
+            }
+        }).disposed(by: disposeBag)
     }
-    
     
 }
 

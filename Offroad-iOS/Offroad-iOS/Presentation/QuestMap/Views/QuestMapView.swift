@@ -46,10 +46,9 @@ class QuestMapView: UIView {
     
 }
 
-
 extension QuestMapView {
     
-    //MARK: - Layout
+    //MARK: - Layout Func
     
     private func setupLayout() {
         customNavigationBar.snp.makeConstraints { make in
@@ -169,6 +168,8 @@ extension QuestMapView {
         naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
         customizeLocationOverlaySubIcon(mode: .compass)
     }
+    
+    //MARK: - Func
     
     func customizeLocationOverlaySubIcon(mode: NMFMyPositionMode) {
         switch mode {

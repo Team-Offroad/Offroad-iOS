@@ -24,14 +24,12 @@ class QuestMapListButton: UIButton {
     
     convenience init(image: UIImage, title: String) {
         self.init(frame: .zero)
-        
         let transformer = UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming
             outgoing.font = UIFont.offroad(style: .iosBtnSmall)
             outgoing.foregroundColor = UIColor.primary(.white)
             return outgoing
         }
-        
         var filledConfiguration = UIButton.Configuration.filled()
         filledConfiguration.titleTextAttributesTransformer = transformer
         filledConfiguration.image = image

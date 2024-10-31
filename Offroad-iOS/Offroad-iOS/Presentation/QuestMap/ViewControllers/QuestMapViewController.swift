@@ -23,12 +23,12 @@ class QuestMapViewController: OffroadTabBarViewController {
     
     private let locationManager = CLLocationManager()
     private let locationService = RegisteredPlaceService()
+    
+    private var disposeBag = DisposeBag()
     private var currentZoomLevel: Double = 14
     private var searchedPlaceArray: [RegisteredPlaceInfo] = []
     private var isFocused: Bool = false
     private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
-    
-    private var disposeBag = DisposeBag()
     
     private var markerPoint: CGPoint? {
         guard let selectedMarker = viewModel.selectedMarker else { return nil }
@@ -299,7 +299,6 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
             viewModel.isCompassMode = false
         // 제스처 사용으로 카메라 이동
         case -1:
-//            viewModel.isCompassMode.accept(false)
             viewModel.isCompassMode = false
             if viewModel.selectedMarker != nil {
                 tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = markerPoint!
@@ -317,9 +316,6 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
             
             guard viewModel.selectedMarker != nil else { return }
             tooltipWindow.placeInfoViewController.hideTooltip()
-        // 위치 정보 갱신으로 카메라 이동
-        case -3:
-            return
         default:
             return
         }
@@ -339,16 +335,7 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
         // API 호출로 카메라 이동
         case 0:
             rootView.naverMapView.mapView.positionMode = .direction
-            return
-        // 제스처 사용으로 카메라 이동
-        case -1:
-            return
-        // 버튼 선택으로 카메라 이동
-        case -2:
-            return
-        // 위치 정보 갱신으로 카메라 이동
-        case -3:
-            return
+        // 핸드폰을 돌려서, 혹은 현재 위치 버튼 선택 후 위치 트래킹 활성화로 인해 카메라 방향이 회전한 경우
         case 10:
             rootView.naverMapView.mapView.positionMode = .direction
         default:
@@ -374,6 +361,7 @@ extension QuestMapViewController: NMFMapViewTouchDelegate {
     
 }
 
+//MARK: - CLLocationManagerDelegate
 
 extension QuestMapViewController: CLLocationManagerDelegate {
     

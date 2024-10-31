@@ -12,7 +12,11 @@ import Then
 
 class OffroadNMFMarker: NMFMarker {
     
+    //MARK: - Properties
+    
     let placeInfo: RegisteredPlaceInfo
+    
+    //MARK: - Life Cycle
     
     init(placeInfo: RegisteredPlaceInfo) {
         self.placeInfo = placeInfo

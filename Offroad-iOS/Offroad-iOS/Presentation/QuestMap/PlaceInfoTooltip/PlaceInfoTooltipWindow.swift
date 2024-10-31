@@ -9,8 +9,12 @@ import UIKit
 
 class PlaceInfoTooltipWindow: UIWindow {
     
+    //MARK: - Properties
+    
     let placeInfoViewController: PlaceInfoViewController
     let contentFrame: CGRect
+    
+    //MARK: - Life Cycle
     
     init(contentFrame: CGRect) {
         self.placeInfoViewController = PlaceInfoViewController(contentFrame: contentFrame)

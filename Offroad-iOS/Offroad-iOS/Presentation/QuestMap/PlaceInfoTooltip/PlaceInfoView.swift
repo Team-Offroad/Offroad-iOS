@@ -9,6 +9,8 @@ import UIKit
 
 class PlaceInfoView: UIView {
     
+    //MARK: - Properties
+    
     let contentView = UIView()
     let contentFrame: CGRect
     
@@ -22,7 +24,11 @@ class PlaceInfoView: UIView {
         }
     }
     
+    //MARK: - UI Properties
+    
     var tooltip = PlaceInfoTooltip()
+    
+    //MARK: - Life Cycle
     
     init(contentFrame: CGRect) {
         self.contentFrame = contentFrame
@@ -32,7 +38,6 @@ class PlaceInfoView: UIView {
         setupHierarchy()
         setupLayout()
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
