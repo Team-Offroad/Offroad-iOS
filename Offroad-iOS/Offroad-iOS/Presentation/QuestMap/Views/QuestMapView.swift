@@ -26,7 +26,7 @@ class QuestMapView: UIView {
     
     let naverMapView = NMFNaverMapView()
     private let compass = NMFCompassView()
-    private let orangeTriangleArrowOverlayImage = NMFOverlayImage(image: .icnOrangeTriangleArrow)
+    private let orangeTriangleArrowOverlayImage = NMFOverlayImage(image: .icnNavermapLocationOverlaySubIcon)
     let orangeLocationOverlayImage = NMFOverlayImage(image: .icnOrangeCircleInWhiteBorder)
     
     //MARK: - Life Cycle
@@ -180,9 +180,9 @@ extension QuestMapView {
             naverMapView.mapView.locationOverlay.do { overlay in
                 overlay.subIcon = orangeTriangleArrowOverlayImage
                 overlay.subAnchor = CGPoint(x: 0.5, y: 1) // 기본값임
-                overlay.subIconWidth = 16
-                overlay.subIconHeight = 16
-                overlay.circleColor = .sub(.sub).withAlphaComponent(0.07)
+                overlay.subIconWidth = 8
+                overlay.subIconHeight = 17.5
+                overlay.circleColor = .sub(.sub).withAlphaComponent(0.25)
             }
         default:
             break

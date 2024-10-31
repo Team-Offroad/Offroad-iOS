@@ -200,8 +200,6 @@ extension QuestMapViewController {
             self.popupAdventureResult(isSuccess: success, image: image)
         }).disposed(by: disposeBag)
         
-        
-        
         rootView.reloadPlaceButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
             try? self.viewModel.markersSubject.value().forEach({ marker in marker.mapView = nil })
