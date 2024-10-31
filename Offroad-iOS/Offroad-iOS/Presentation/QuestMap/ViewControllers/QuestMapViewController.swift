@@ -202,6 +202,7 @@ extension QuestMapViewController {
         
         rootView.reloadPlaceButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
+            self.rootView.reloadPlaceButton.isEnabled = false
             try? self.viewModel.markersSubject.value().forEach({ marker in marker.mapView = nil })
             self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
         }.disposed(by: disposeBag)
@@ -341,6 +342,10 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
         default:
             return
         }
+    }
+    
+    func mapViewCameraIdle(_ mapView: NMFMapView) {
+        rootView.reloadPlaceButton.isEnabled = true
     }
     
 }
