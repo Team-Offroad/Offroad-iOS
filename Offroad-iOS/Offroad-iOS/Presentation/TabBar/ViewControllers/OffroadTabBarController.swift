@@ -123,8 +123,6 @@ extension OffroadTabBarController {
     }
     
     private func setupAppearance() {
-        guard let itemsCount = tabBar.items?.count else { return }
-        let screenWidth = UIScreen.current.bounds.width
         let titleAttributes: [NSAttributedString.Key : Any] = [.font: UIFont.offroad(style: .bothBottomLabel)]
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithTransparentBackground()
