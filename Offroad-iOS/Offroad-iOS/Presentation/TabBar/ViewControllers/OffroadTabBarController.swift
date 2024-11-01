@@ -30,9 +30,9 @@ class OffroadTabBarController: UITabBarController {
         
         setupHierarchy()
         setupLayout()
-        setupStyle()
         setOffroadViewControllers()
-        setTabBarButtons()
+        setupStyle()
+        setTabBarButtonStyle()
         setupButtonsAction()
         setupDelegates()
     }
@@ -126,20 +126,24 @@ extension OffroadTabBarController {
         selectedIndex = 0
     }
     
-    private func setTabBarButtons() {
-        let titleAttributes: [NSAttributedString.Key : Any] = [.font: UIFont.offroad(style: .bothBottomLabel)]
-        
-        tabBar.items?[0].image = UIImage.icnHome
-        tabBar.items?[0].title = "Home"
-        tabBar.items?[0].setTitleTextAttributes(titleAttributes, for: .normal)
+    private func setTabBarButtonStyle() {
+        tabBar.items?[0].image = .icnTabBarHomeUnselected
+        tabBar.items?[0].selectedImage = .icnTabBarHomeSelected
+        tabBar.items?[0].title = "HOME"
         
         tabBar.items?[1].image = nil
         tabBar.items?[1].title = nil
         tabBar.items?[1].isEnabled = false
         
-        tabBar.items?[2].image = UIImage.icnPerson
-        tabBar.items?[2].title = "My"
-        tabBar.items?[2].setTitleTextAttributes(titleAttributes, for: .normal)
+        tabBar.items?[2].image = .icnTabBarMyUnselected
+        tabBar.items?[2].selectedImage = .icnTabBarMySelected
+        tabBar.items?[2].title = "MY"
+        
+        let titleAttributes: [NSAttributedString.Key : Any] = [.font: UIFont.offroad(style: .bothBottomLabel)]
+        tabBar.standardAppearance.stackedLayoutAppearance.normal.titleTextAttributes = titleAttributes
+        tabBar.standardAppearance.stackedLayoutAppearance.selected.titleTextAttributes = titleAttributes
+        tabBar.scrollEdgeAppearance?.stackedLayoutAppearance.normal.titleTextAttributes = titleAttributes
+        tabBar.scrollEdgeAppearance?.stackedLayoutAppearance.selected.titleTextAttributes = titleAttributes
     }
     
     private func setupButtonsAction() {
