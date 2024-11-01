@@ -11,8 +11,6 @@ class OffroadTabBarController: UITabBarController {
     
     // MARK: - Properties
     
-    let centerTabBarItemSideLength: CGFloat = 85
-    let tabBarItemWidth: CGFloat = 77
     var originalTabBarHeight: CGFloat = 0
     var tabBarHeight: CGFloat = UIScreen.current.isAspectRatioTall ? 92 : 60
     private var hideTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
@@ -33,24 +31,13 @@ class OffroadTabBarController: UITabBarController {
         setOffroadViewControllers()
         setupStyle()
         setTabBarButtonStyle()
+        setupAppearance()
         setupButtonsAction()
         setupDelegates()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        let screenWidth = UIScreen.current.bounds.width
-        guard let itemsCount = tabBar.items?.count else { return }
-        
-        self.tabBar.itemPositioning = .centered
-        self.tabBar.itemWidth = tabBarItemWidth
-        self.tabBar.itemSpacing
-        = (screenWidth - centerTabBarItemSideLength - (77 * (CGFloat(itemsCount) - 1))) / 4
     }
     
     override func viewDidLayoutSubviews() {
@@ -95,11 +82,6 @@ extension OffroadTabBarController {
     }
     
     private func setupStyle() {
-        let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.configureWithTransparentBackground()
-        tabBar.standardAppearance = tabBarAppearance
-        tabBar.scrollEdgeAppearance = tabBarAppearance
-        
         customTabBar.roundCorners(
             cornerRadius: 25,
             maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -138,12 +120,19 @@ extension OffroadTabBarController {
         tabBar.items?[2].image = .icnTabBarMyUnselected
         tabBar.items?[2].selectedImage = .icnTabBarMySelected
         tabBar.items?[2].title = "MY"
-        
+    }
+    
+    private func setupAppearance() {
+        guard let itemsCount = tabBar.items?.count else { return }
+        let screenWidth = UIScreen.current.bounds.width
         let titleAttributes: [NSAttributedString.Key : Any] = [.font: UIFont.offroad(style: .bothBottomLabel)]
-        tabBar.standardAppearance.stackedLayoutAppearance.normal.titleTextAttributes = titleAttributes
-        tabBar.standardAppearance.stackedLayoutAppearance.selected.titleTextAttributes = titleAttributes
-        tabBar.scrollEdgeAppearance?.stackedLayoutAppearance.normal.titleTextAttributes = titleAttributes
-        tabBar.scrollEdgeAppearance?.stackedLayoutAppearance.selected.titleTextAttributes = titleAttributes
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithTransparentBackground()
+        tabBarAppearance.stackedLayoutAppearance.normal.titleTextAttributes = titleAttributes
+        tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = titleAttributes
+        tabBarAppearance.stackedItemPositioning = .centered
+        tabBar.standardAppearance = tabBarAppearance
+        tabBar.scrollEdgeAppearance = tabBarAppearance
     }
     
     private func setupButtonsAction() {
