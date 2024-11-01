@@ -41,14 +41,22 @@ final class ORBAlertViewExplorationResult: ORBAlertBaseView, ORBAlertViewBaseUI 
         }
         
         explorationResultImageView.snp.makeConstraints { make in
-            make.top.equalTo(messageLabel.snp.bottom)
-            make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(182)
+            make.top.equalTo(messageLabel.snp.bottom).offset(17)
+            make.horizontalEdges.equalTo(self)
+            make.height.greaterThanOrEqualTo(140)
         }
         
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(explorationResultImageView.snp.bottom)
             make.horizontalEdges.bottom.equalToSuperview()
+        }
+    }
+    
+    override func setupStyle() {
+        super.setupStyle()
+        
+        explorationResultImageView.do { imageView in
+            imageView.contentMode = .scaleAspectFit
         }
     }
     

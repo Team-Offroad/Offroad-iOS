@@ -15,5 +15,10 @@ struct AdventuresPlaceAuthenticationResponseDTO: Codable {
 struct AdventuresPlaceAuthenticationResultData: Codable {
     let isValidPosition: Bool
     let successCharacterImageUrl: String
+    let completeQuestList: [CompleteQuest]?
+}
+
+struct CompleteQuest: Codable {
+    let name: String
 }
 
