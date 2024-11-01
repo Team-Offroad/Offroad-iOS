@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 protocol RegisteredPlaceServiceProtocol {
-    func getRegisteredLocation(
+    func getRegisteredPlace(
         requestDTO: RegisteredPlaceRequestDTO,
         completion: @escaping (NetworkResult<RegisteredPlaceResponseDTO>) -> ()
     )
@@ -19,7 +19,7 @@ protocol RegisteredPlaceServiceProtocol {
 final class RegisteredPlaceService: BaseService, RegisteredPlaceServiceProtocol {
     private let provider = MoyaProvider<PlaceAPI>.init(session: Session(interceptor: TokenInterceptor.shared), plugins: [MoyaPlugin()])
 
-    func getRegisteredLocation(
+    func getRegisteredPlace(
         requestDTO: RegisteredPlaceRequestDTO,
         completion: @escaping (NetworkResult<RegisteredPlaceResponseDTO>) -> ()
     ) {

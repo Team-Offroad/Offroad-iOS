@@ -12,7 +12,11 @@ import Then
 
 class OffroadNMFMarker: NMFMarker {
     
+    //MARK: - Properties
+    
     let placeInfo: RegisteredPlaceInfo
+    
+    //MARK: - Life Cycle
     
     init(placeInfo: RegisteredPlaceInfo) {
         self.placeInfo = placeInfo
@@ -25,6 +29,7 @@ class OffroadNMFMarker: NMFMarker {
             lng: placeInfo.longitude
         )
         self.iconImage = iconImage
+        self.anchor = .init(x: 0.5, y: 1)
     }
     
 }

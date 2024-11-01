@@ -75,6 +75,7 @@ class ORBAlertBaseView: UIView {
             label.font = .offroad(style: .iosTextTitle)
             label.textColor = .main(.main2)
             label.textAlignment = .center
+            label.numberOfLines = 0
         }
         
         messageLabel.do { label in
