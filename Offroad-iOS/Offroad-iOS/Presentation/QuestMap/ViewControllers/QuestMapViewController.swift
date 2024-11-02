@@ -316,7 +316,10 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
             rootView.customizeLocationOverlaySubIcon(mode: .compass)
             
             guard viewModel.selectedMarker != nil else { return }
-            tooltipWindow.placeInfoViewController.hideTooltip()
+            tooltipWindow.placeInfoViewController.hideTooltip() { [weak self] in
+                guard let self else { return }
+                self.viewModel.selectedMarker = nil
+            }
         default:
             return
         }
