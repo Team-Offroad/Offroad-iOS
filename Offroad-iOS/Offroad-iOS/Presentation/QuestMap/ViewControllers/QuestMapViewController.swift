@@ -252,13 +252,13 @@ extension QuestMapViewController {
     
     private func markerTouchHandler(overlay: NMFOverlay) -> Bool {
         guard let marker = overlay as? OffroadNMFMarker else { return false }
-        self.viewModel.selectedMarker = marker
-        self.focusToMarker(marker)
-        let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
-        self.rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
-        self.tooltipWindow.placeInfoViewController.rootView.tooltip.configure(with: marker.placeInfo)
-        self.tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = markerPoint!
-        self.tooltipWindow.placeInfoViewController.showToolTip()
+        viewModel.isCompassMode = false
+        viewModel.selectedMarker = marker
+        focusToMarker(marker)
+        rootView.naverMapView.mapView.locationOverlay.icon = rootView.orangeLocationOverlayImage
+        tooltipWindow.placeInfoViewController.rootView.tooltip.configure(with: marker.placeInfo)
+        tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = markerPoint!
+        tooltipWindow.placeInfoViewController.showToolTip()
         return true
     }
     
