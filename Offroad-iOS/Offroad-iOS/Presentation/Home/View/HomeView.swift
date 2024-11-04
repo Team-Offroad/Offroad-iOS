@@ -73,9 +73,9 @@ extension HomeView {
         }
         
         characterNameView.do {
-            $0.backgroundColor = .home(.homeCharacterName)
+            $0.backgroundColor = .sub(.sub55)
             $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.home(.homeNicknameStroke).cgColor
+            $0.layer.borderColor = UIColor.sub(.sub).cgColor
             $0.roundCorners(cornerRadius: 7)
         }
         

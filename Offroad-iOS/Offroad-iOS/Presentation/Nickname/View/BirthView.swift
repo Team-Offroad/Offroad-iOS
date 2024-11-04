@@ -103,7 +103,7 @@ final class BirthView: UIView {
     
     let notionLabel = UILabel().then {
         $0.text = ""
-        $0.textColor = UIColor.primary(.error)
+        $0.textColor = UIColor.primary(.errorNew)
         $0.font = UIFont.offroad(style: .iosHint)
     }
     
