@@ -64,7 +64,7 @@ extension HomeView {
     // MARK: - Layout
     
     private func setupStyle() {
-        backgroundColor = .blackOpacity(.black55)
+        backgroundColor = .darkGray
         
         nicknameLabel.do {
             $0.font = .offroad(style: .iosSubtitleReg)
