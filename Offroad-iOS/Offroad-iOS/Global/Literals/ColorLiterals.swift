@@ -42,7 +42,7 @@ enum Sub: String, OffroadColor {
     // sub, alpha = 0.55
     case sub55 = "#5E59FF8C"
     // 열거형의 원시값이 unique 해야 하는데, sub과 sub2의 값이 같아 sub2에 임시로 투명도 100%를 의미하는 FF를 뒤에 붙여놓은 상태.
-    case sub2 = "#E57A2CFF"
+    case sub2 = "#5E59FFFF"
 //    case sub3 = "#8B6546"
     case sub4 = "#282C75"
     case sub480 = "#282C75CC"
