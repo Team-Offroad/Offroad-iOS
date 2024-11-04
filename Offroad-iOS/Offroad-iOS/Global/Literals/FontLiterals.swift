@@ -20,32 +20,76 @@ enum PretendardFontWeight {
 }
 
 enum offroadFontStyle {
-    case iosSubtitle3
-    case iosTextTitle
-    case iosSubtitle2Bold
-    case iosSubtitleReg
-    case iosSubtitle2Semibold
-    case iosTooltipTitle
-    case iosTextBold
-    case iosTextRegular
-    case iosTextAuto
-    case iosBtnLogin
-    case iosBtnSmall
-    case iosTextContents
-    case iosHint
-    case iosTooltipNumber
-    case iosTextContentsSmall
-    case iosProfileTitle
-    case iosTabbarMedi
-    case iosBoxMedi
-    case iosMarketing
-    case bothLogin
-    case bothBottomLabel
-    case bothRecentNum
-    case bothUpcomingSmallNum
-    case bothUpcomingBigNum
+    // both
     case bothSubtitle3
-    case bothProfileTitle
+    /// 자간 4%
+    case bothBottomLabel
+    case bothLogin
+    
+    // both/homeView
+    /// 자간 14%
+    case bothRecentNumRegular
+    /// 자간 14%
+    case bothRecentNumBold
+    case bothUpcomingNumRegular
+    case bothUpcomingNumBold
+    
+    // ios
+    /// 행간 160%
+    case iosBoxMedi
+    case iosQuestComplete // 새로 추가
+    case iosHint
+    case iosTabbarMedi
+    
+    /// 행간 150%
+    case iosMarketing
+    
+    // ios/title
+    case iosProfileTitle
+    case iosTextTitle
+    
+    // ios/subtitle
+    case iosSubtitle2Semibold
+    case iosSubtitleReg
+    case iosSubtitle2Bold
+    
+    // 삭제
+//    case iosSubtitle3
+    
+    // ios/text
+    case iosTextContentsSmall
+    case iosTextContents
+    case iosTextAuto
+    /// 행간 150%
+    case iosText // iosTextRegular에서 바뀐 듯?
+    /// 행간 150%
+    case iosTextBold
+    
+    // ios/btn
+    case iosBtnSmall
+    
+    // ios/tooltip
+    case iosTooltipNumber
+    case iosTooltipTitle
+    
+    
+    
+    
+    // iosText로 바뀐 듯?
+//    case iosTextRegular
+    
+    // 삭제
+//    case iosBtnLogin
+    
+    
+    
+    
+    
+//    case bothRecentNum
+//    case bothUpcomingSmallNum
+//    case bothUpcomingBigNum
+//    
+//    case bothProfileTitle
 }
 
 extension UIFont {
@@ -80,32 +124,59 @@ extension UIFont {
     
     static func offroad(style: offroadFontStyle) -> UIFont {
         switch style {
-        case .iosSubtitle3: return UIFont.pretendardFont(ofSize: 24, weight: .medium)
-        case .iosTextTitle: return UIFont.pretendardFont(ofSize: 22, weight: .bold)
-        case .iosSubtitle2Bold: return UIFont.pretendardFont(ofSize: 20, weight: .bold)
-        case .iosSubtitleReg: return UIFont.pretendardFont(ofSize: 20, weight: .regular)
-        case .iosSubtitle2Semibold: return UIFont.pretendardFont(ofSize: 18, weight: .semiBold)
-        case .iosTooltipTitle:return UIFont.pretendardFont(ofSize: 18, weight: .bold)
-        case .iosTextBold: return UIFont.pretendardFont(ofSize: 16, weight: .bold) //lineHeight 150%
-        case .iosTextRegular: return UIFont.pretendardFont(ofSize: 16, weight: .regular) //lineHeight 150%
-        case .iosTextAuto: return UIFont.pretendardFont(ofSize: 16, weight: .regular)
-        case .iosBtnLogin: return UIFont.pretendardFont(ofSize: 15, weight: .semiBold)
-        case .iosBtnSmall: return UIFont.pretendardFont(ofSize: 15, weight: .medium)
-        case .iosTextContents: return UIFont.pretendardFont(ofSize: 14, weight: .semiBold)
-        case .iosHint: return UIFont.pretendardFont(ofSize: 14, weight: .medium)
-        case .iosTooltipNumber: return UIFont.pretendardFont(ofSize: 12, weight: .bold)
-        case .iosTextContentsSmall: return UIFont.pretendardFont(ofSize: 12, weight: .medium)
-        case .iosProfileTitle: return UIFont.pretendardFont(ofSize: 26, weight: .bold )
-        case .iosTabbarMedi: return UIFont.pretendardFont(ofSize: 18, weight: .medium)
-        case .iosBoxMedi: return UIFont.pretendardFont(ofSize: 14, weight: .medium)
-        case .iosMarketing: return UIFont.pretendardFont(ofSize: 13, weight: .regular)
-        case .bothLogin: return UIFont.pretendardFont(ofSize: 15, weight: .semiBold )
-        case .bothBottomLabel: return UIFont.opticianSansFont(ofSize: 14)
-        case .bothRecentNum: return UIFont.opticianSansFont(ofSize: 24)
-        case .bothUpcomingSmallNum: return UIFont.opticianSansFont(ofSize: 30)
-        case .bothUpcomingBigNum: return UIFont.opticianSansFont(ofSize: 62)
         case .bothSubtitle3: return UIFont.pretendardFont(ofSize: 24, weight: .medium)
-        case .bothProfileTitle: return UIFont.pretendardFont(ofSize: 24, weight: .bold)
+        case .bothBottomLabel: return UIFont.opticianSansFont(ofSize: 14)
+        case .bothLogin: return UIFont.pretendardFont(ofSize: 15, weight: .semiBold)
+        case .bothRecentNumRegular: return UIFont.pretendardFont(ofSize: 20, weight: .regular)
+        case .bothRecentNumBold: return UIFont.pretendardFont(ofSize: 20, weight: .bold)
+        case .bothUpcomingNumRegular: return UIFont.pretendardFont(ofSize: 28, weight: .regular)
+        case .bothUpcomingNumBold: return UIFont.pretendardFont(ofSize: 28, weight: .bold)
+        case .iosBoxMedi: return UIFont.pretendardFont(ofSize: 14, weight: .medium)
+        case .iosQuestComplete: return UIFont.pretendardFont(ofSize: 14, weight: .bold)
+        case .iosHint: return UIFont.pretendardFont(ofSize: 14, weight: .medium)
+        case .iosTabbarMedi: return UIFont.pretendardFont(ofSize: 18, weight: .medium)
+        case .iosMarketing: return UIFont.pretendardFont(ofSize: 13, weight: .regular)
+        case .iosProfileTitle: return UIFont.pretendardFont(ofSize: 26, weight: .bold)
+        case .iosTextTitle: return UIFont.pretendardFont(ofSize: 22, weight: .bold)
+        case .iosSubtitle2Semibold: return UIFont.pretendardFont(ofSize: 18, weight: .semiBold)
+        case .iosSubtitleReg: return UIFont.pretendardFont(ofSize: 20, weight: .regular)
+        case .iosSubtitle2Bold: return UIFont.pretendardFont(ofSize: 20, weight: .bold)
+        case .iosTextContentsSmall: return .pretendardFont(ofSize: 12, weight: .medium)
+        case .iosTextContents: return .pretendardFont(ofSize: 14, weight: .semiBold)
+        case .iosTextAuto: return .pretendardFont(ofSize: 16, weight: .regular)
+        case .iosText: return .pretendardFont(ofSize: 16, weight: .regular)
+        case .iosTextBold: return .pretendardFont(ofSize: 16, weight: .bold)
+        case .iosBtnSmall: return .pretendardFont(ofSize: 15, weight: .medium)
+        case .iosTooltipNumber: return .pretendardFont(ofSize: 12, weight: .bold)
+        case .iosTooltipTitle: return .pretendardFont(ofSize: 18, weight: .bold)
+            
+//        case .iosSubtitle3: return UIFont.pretendardFont(ofSize: 24, weight: .medium)
+//        case .iosTextTitle: return UIFont.pretendardFont(ofSize: 22, weight: .bold)
+//        case .iosSubtitle2Bold: return UIFont.pretendardFont(ofSize: 20, weight: .bold)
+//        case .iosSubtitleReg: return UIFont.pretendardFont(ofSize: 20, weight: .regular)
+//        case .iosSubtitle2Semibold: return UIFont.pretendardFont(ofSize: 18, weight: .semiBold)
+//        case .iosTooltipTitle:return UIFont.pretendardFont(ofSize: 18, weight: .bold)
+//        case .iosTextBold: return UIFont.pretendardFont(ofSize: 16, weight: .bold) //lineHeight 150%
+//        case .iosTextRegular: return UIFont.pretendardFont(ofSize: 16, weight: .regular) //lineHeight 150%
+//        case .iosTextAuto: return UIFont.pretendardFont(ofSize: 16, weight: .regular)
+//        case .iosBtnLogin: return UIFont.pretendardFont(ofSize: 15, weight: .semiBold)
+//        case .iosBtnSmall: return UIFont.pretendardFont(ofSize: 15, weight: .medium)
+//        case .iosTextContents: return UIFont.pretendardFont(ofSize: 14, weight: .semiBold)
+//        case .iosHint: return UIFont.pretendardFont(ofSize: 14, weight: .medium)
+//        case .iosTooltipNumber: return UIFont.pretendardFont(ofSize: 12, weight: .bold)
+//        case .iosTextContentsSmall: return UIFont.pretendardFont(ofSize: 12, weight: .medium)
+//        case .iosProfileTitle: return UIFont.pretendardFont(ofSize: 26, weight: .bold )
+//        case .iosTabbarMedi: return UIFont.pretendardFont(ofSize: 18, weight: .medium)
+//        case .iosBoxMedi: return UIFont.pretendardFont(ofSize: 14, weight: .medium)
+//        case .iosMarketing: return UIFont.pretendardFont(ofSize: 13, weight: .regular)
+//        case .bothLogin: return UIFont.pretendardFont(ofSize: 15, weight: .semiBold )
+//        case .bothBottomLabel: return UIFont.opticianSansFont(ofSize: 14)
+//        case .bothRecentNum: return UIFont.opticianSansFont(ofSize: 24)
+//        case .bothUpcomingSmallNum: return UIFont.opticianSansFont(ofSize: 30)
+//        case .bothUpcomingBigNum: return UIFont.opticianSansFont(ofSize: 62)
+//        case .bothSubtitle3: return UIFont.pretendardFont(ofSize: 24, weight: .medium)
+//        case .bothProfileTitle: return UIFont.pretendardFont(ofSize: 24, weight: .bold)
+        
         }
     }
     

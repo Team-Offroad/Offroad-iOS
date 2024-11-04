@@ -50,7 +50,7 @@ extension StateToggleButton {
         }
         roundCorners(cornerRadius: 5)
         setTitle(forTitle, for: .normal)
-        titleLabel?.font = .offroad(style: .iosTextRegular)
+        titleLabel?.font = .offroad(style: .iosText)
     }
     
     func changeState(forState: buttonState) {

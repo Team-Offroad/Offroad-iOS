@@ -142,7 +142,7 @@ extension HomeView {
         recentQuestProgressLabel.do {
             $0.textColor = .main(.main1)
             $0.textAlignment = .center
-            $0.font = .offroad(style: .bothRecentNum)
+            $0.font = .offroad(style: .bothRecentNumRegular)
             $0.adjustsFontSizeToFitWidth = true
             $0.minimumScaleFactor = 0.5
         }
@@ -150,7 +150,7 @@ extension HomeView {
         almostDoneQuestProgressLabel.do {
             $0.textColor = .blackOpacity(.black25)
             $0.textAlignment = .center
-            $0.font = .offroad(style: .bothUpcomingSmallNum)
+            $0.font = .offroad(style: .bothUpcomingNumRegular)
             $0.adjustsFontSizeToFitWidth = true
             $0.minimumScaleFactor = 0.5
         }
@@ -297,8 +297,9 @@ extension HomeView {
         almostDoneQuestView.setupDetailString(detailString: almostQuestName)
         
         recentQuestProgressLabel.text = "\(recentProgress)/\(recentCompleteCondition)"
+        recentQuestProgressLabel.highlightText(targetText: "\(recentProgress)", font: .offroad(style: .bothRecentNumBold))
         almostDoneQuestProgressLabel.text = "\(almostprogress) / \(almostCompleteCondition)"
-        almostDoneQuestProgressLabel.highlightText(targetText: "\(almostprogress)", font: .offroad(style: .bothUpcomingBigNum), color: .sub(.sub4))
+        almostDoneQuestProgressLabel.highlightText(targetText: "\(almostprogress)", font: .offroad(style: .bothUpcomingNumBold), color: .sub(.sub4))
         
         
         let recentProgressValue = CGFloat(recentProgress)/CGFloat(recentCompleteCondition)

@@ -110,7 +110,7 @@ extension QuestResultView {
         
         subTitleLabel.do { label in
             label.text = "탐험에 성공했어요!\n이곳에 무엇이 있는지 천천히 살펴볼까요?"
-            label.font = .offroad(style: .iosTextRegular)
+            label.font = .offroad(style: .iosText)
             label.numberOfLines = 2
             label.textColor = .main(.main2)
             label.textAlignment = .center

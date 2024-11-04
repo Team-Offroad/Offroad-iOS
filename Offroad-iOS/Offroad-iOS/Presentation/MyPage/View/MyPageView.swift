@@ -284,7 +284,7 @@ extension MyPageView {
     
     func bindData(data: UserInfoData) {
         nicknameLabel.text = "\(data.nickname)님"
-        nicknameLabel.highlightText(targetText: data.nickname, font: .offroad(style: .bothProfileTitle))
+        nicknameLabel.highlightText(targetText: data.nickname, font: .offroad(style: .iosProfileTitle))
 
         adventureDaysLabel.text = "\(String(data.elapsedDay))일 째 모험을 떠나는 중"
         adventureDaysLabel.highlightText(targetText: String(data.elapsedDay), font: .offroad(style: .iosTextContents), color: .sub(.sub2))
