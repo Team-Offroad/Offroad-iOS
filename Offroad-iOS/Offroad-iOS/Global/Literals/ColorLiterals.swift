@@ -164,7 +164,7 @@ extension UIColor {
 //        case .white25: alpha = 0.25
 //        }
         
-        guard let color = UIColor(hexCode: "#FFFFFF") else { fatalError("UIColor init failed") }
+        guard let color = UIColor(hexCode: style.rawValue) else { fatalError("UIColor init failed") }
         return color
     }
     

@@ -64,12 +64,12 @@ extension HomeView {
     // MARK: - Layout
     
     private func setupStyle() {
-        backgroundColor = .main(.main1)
+        backgroundColor = .blackOpacity(.black55)
         
         nicknameLabel.do {
             $0.font = .offroad(style: .iosSubtitleReg)
             $0.textAlignment = .center
-            $0.textColor = .main(.main2)
+            $0.textColor = .main(.main1)
         }
         
         characterNameView.do {
@@ -114,7 +114,9 @@ extension HomeView {
         }
         
         titleView.do {
-            $0.backgroundColor = .sub(.sub)
+            $0.backgroundColor = .whiteOpacity(.white25)
+            $0.layer.borderColor = UIColor.whiteOpacity(.white25).cgColor
+            $0.layer.borderWidth = 1
             $0.roundCorners(cornerRadius: 10)
         }
         
@@ -126,12 +128,14 @@ extension HomeView {
         
         changeTitleButton.do {
             $0.backgroundColor = .main(.main3)
+            $0.layer.borderColor = UIColor.whiteOpacity(.white25).cgColor
+            $0.layer.borderWidth = 0.68
             $0.setImage(.iconChangeTitle, for: .normal)
             $0.roundCorners(cornerRadius: 9)
         }
         
         recentQuestView.configureCustomView(mainColor: .home(.homeContents1), questString: "최근 진행한 퀘스트", textColor: .main(.main1), image: .imgCompass)
-        almostDoneQuestView.configureCustomView(mainColor: .home(.homeContents2), questString: "완료 임박 퀘스트", textColor: .sub(.sub4), image: .imgFire)
+        almostDoneQuestView.configureCustomView(mainColor: .home(.homeContents2), questString: "완료 임박 퀘스트", textColor: .main(.main1), image: .imgFire)
         
         questStackView.do {
             $0.axis = .horizontal
@@ -140,7 +144,7 @@ extension HomeView {
         }
         
         recentQuestProgressLabel.do {
-            $0.textColor = .main(.main1)
+            $0.textColor = .whiteOpacity(.white25)
             $0.textAlignment = .center
             $0.font = .offroad(style: .bothRecentNumRegular)
             $0.adjustsFontSizeToFitWidth = true
@@ -148,7 +152,7 @@ extension HomeView {
         }
         
         almostDoneQuestProgressLabel.do {
-            $0.textColor = .blackOpacity(.black25)
+            $0.textColor = .whiteOpacity(.white25)
             $0.textAlignment = .center
             $0.font = .offroad(style: .bothUpcomingNumRegular)
             $0.adjustsFontSizeToFitWidth = true
@@ -297,9 +301,9 @@ extension HomeView {
         almostDoneQuestView.setupDetailString(detailString: almostQuestName)
         
         recentQuestProgressLabel.text = "\(recentProgress)/\(recentCompleteCondition)"
-        recentQuestProgressLabel.highlightText(targetText: "\(recentProgress)", font: .offroad(style: .bothRecentNumBold))
+        recentQuestProgressLabel.highlightText(targetText: "\(recentProgress)", font: .offroad(style: .bothRecentNumBold), color: .main(.main1))
         almostDoneQuestProgressLabel.text = "\(almostprogress) / \(almostCompleteCondition)"
-        almostDoneQuestProgressLabel.highlightText(targetText: "\(almostprogress)", font: .offroad(style: .bothUpcomingNumBold), color: .sub(.sub4))
+        almostDoneQuestProgressLabel.highlightText(targetText: "\(almostprogress)", font: .offroad(style: .bothUpcomingNumBold), color: .main(.main1))
         
         
         let recentProgressValue = CGFloat(recentProgress)/CGFloat(recentCompleteCondition)
