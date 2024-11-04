@@ -7,16 +7,25 @@
 
 import AuthenticationServices
 
+enum AppleLoginType {
+    case initialLogin
+    case getAuthorizationCode
+}
+
 final class AppleAuthManager: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     
     static let shared = AppleAuthManager()
     
     private override init() {}
     
+    var loginType: AppleLoginType?
+    
     var loginSuccess: ((UserModel, String?) -> Void)?
     var loginFailure: ((Error) -> Void)?
     
     func appleLogin() {
+        loginType = .initialLogin
+        
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
