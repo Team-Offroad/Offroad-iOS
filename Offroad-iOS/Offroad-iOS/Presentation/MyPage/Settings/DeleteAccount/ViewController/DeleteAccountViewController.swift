@@ -100,8 +100,14 @@ extension DeleteAccountViewController {
     @objc private func deleteAccountButtonTapped() {
         rootView.endEditing(true)
         
-        self.postDeleteAccount(deleteAccountRequestDTO: DeleteAccountRequestDTO(deleteCode: self.rootView.deleteAccountMessageLabel.text ?? ""))
-
+        AppleAuthManager.shared.getAuthorizationCode()
+        
+        AppleAuthManager.shared.loadAuthorizationCode = { code in
+            let deleteCodeText = self.rootView.deleteAccountMessageLabel.text ?? ""
+            let userAuthorizationCode = code ?? String()
+            
+            self.postDeleteAccount(deleteAccountRequestDTO: DeleteAccountRequestDTO(deleteCode: deleteCodeText, code: userAuthorizationCode))
+        }
     }
     
     @objc func keyboardWillShow(_ sender: Notification) {
