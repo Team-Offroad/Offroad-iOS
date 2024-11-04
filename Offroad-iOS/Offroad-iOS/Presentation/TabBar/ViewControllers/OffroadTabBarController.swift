@@ -88,7 +88,7 @@ extension OffroadTabBarController {
         )
         
         customOffroadLogoButton.do { button in
-            button.setImage(.icnTabBarOffroadLogo, for: .normal)
+            button.setImage(.icnTabBarOrbLogo, for: .normal)
         }
         
         tabBar.tintColor = .main(.main1)

@@ -64,7 +64,7 @@ extension DeleteAccountView {
             $0.text = "정말 탈퇴하시겠어요?\n탈퇴하신다면 아래 문구를 입력창에\n그대로 입력해주세요."
             $0.setLineSpacing(spacing: 6)
             $0.numberOfLines = 3
-            $0.font = .offroad(style: .iosTextRegular)
+            $0.font = .offroad(style: .iosText)
             $0.textColor = .main(.main2)
             $0.textAlignment = .center
         }

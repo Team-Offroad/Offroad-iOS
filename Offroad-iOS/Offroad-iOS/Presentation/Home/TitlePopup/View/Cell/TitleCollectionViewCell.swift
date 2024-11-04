@@ -42,7 +42,7 @@ final class TitleCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         
         backgroundColor = .neutral(.nametagInactive)
-        layer.borderColor = UIColor.home(.homeNametagStroke).cgColor
+        layer.borderColor = UIColor.primary(.stroke).cgColor
         layer.borderWidth = 1
         titleLabel.textColor = .main(.main2)
     }
@@ -55,7 +55,7 @@ extension TitleCollectionViewCell {
     private func setupStyle() {
         backgroundColor = .neutral(.nametagInactive)
         roundCorners(cornerRadius: 5)
-        layer.borderColor = UIColor.home(.homeNametagStroke).cgColor
+        layer.borderColor = UIColor.primary(.stroke).cgColor
         layer.borderWidth = 1
         
         titleLabel.do {
@@ -88,7 +88,7 @@ extension TitleCollectionViewCell {
             titleLabel.textColor = .primary(.white)
         } else {
             backgroundColor = .neutral(.nametagInactive)
-            layer.borderColor = UIColor.home(.homeNametagStroke).cgColor
+            layer.borderColor = UIColor.primary(.stroke).cgColor
             layer.borderWidth = 1
             titleLabel.textColor = .main(.main2)
         }
