@@ -42,17 +42,7 @@ extension HomeViewController {
     // MARK: - Private Method
     
     private func setupTarget() {
-        rootView.setupChangeTitleButton(action: changeTitleButtonTapped)
-    }
-    
-    private func changeTitleButtonTapped() {
-        print("changeTitleButtonTapped")
-        
-        let titlePopupViewController = TitlePopupViewController(emblemString: userEmblemString)
-        titlePopupViewController.modalPresentationStyle = .overCurrentContext
-        titlePopupViewController.delegate = self
-        
-        present(titlePopupViewController, animated: false)
+        rootView.changeTitleButton.addTarget(self, action: #selector(changeTitleButtonTapped), for: .touchUpInside)
     }
     
     private func getUserAdventureInfo() {
@@ -101,6 +91,16 @@ extension HomeViewController {
     
     func fetchCategoryString(category: String) {
         categoryString = category
+    }
+    
+    //MARK: - @Objc Func
+    
+    @objc private func changeTitleButtonTapped() {        
+        let titlePopupViewController = TitlePopupViewController(emblemString: userEmblemString)
+        titlePopupViewController.modalPresentationStyle = .overCurrentContext
+        titlePopupViewController.delegate = self
+        
+        present(titlePopupViewController, animated: false)
     }
 }
 
