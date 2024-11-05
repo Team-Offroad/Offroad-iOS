@@ -85,7 +85,7 @@ class CouponDetailViewController: UIViewController {
             } else {
                 alertController = ORBAlertController(title: "사용 실패", message: "다시 한 번 확인해 주세요.", type: .normal)
                 alertController.configureMessageLabel { label in
-                    label.textColor = .primary(.error)
+                    label.textColor = .primary(.errorNew)
                     label.font = .offroad(style: .iosSubtitle2Semibold)
                 }
             }

@@ -108,8 +108,8 @@ extension NicknameViewController {
         
         if !formError(self.nicknameView.textField.text ?? "") && !isTextFieldEmpty {
             nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 작성해주세요."
-            nicknameView.notionLabel.textColor = UIColor.primary(.error)
-            nicknameView.textField.layer.borderColor = UIColor.primary(.error).cgColor
+            nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
+            nicknameView.textField.layer.borderColor = UIColor.primary(.errorNew).cgColor
             nicknameView.nextButton.changeState(forState: .isDisabled)
         }
         else if isTextFieldEmpty {
@@ -136,13 +136,13 @@ extension NicknameViewController {
                 if self.whetherDuplicate == true {
                     self.nicknameView.notionLabel.text = "중복된 닉네임이에요. 다른 멋진 이름이 있으신가요?"
                     self.configureButtonStyle(self.nicknameView.checkButton, isEnabled: false)
-                    self.nicknameView.notionLabel.textColor = UIColor.primary(.error)
+                    self.nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
                     self.nicknameView.nextButton.changeState(forState: .isDisabled)
                 }
                 else if self.whetherDuplicate == false && self.formError(self.nicknameView.textField.text ?? "") == false {
                     self.nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 말씀해주세요."
-                    self.nicknameView.notionLabel.textColor = UIColor.primary(.error)
-                    self.nicknameView.textField.layer.borderColor = UIColor.primary(.error).cgColor
+                    self.nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
+                    self.nicknameView.textField.layer.borderColor = UIColor.primary(.errorNew).cgColor
                 }
                 else {
                     self.nicknameView.textField.resignFirstResponder()

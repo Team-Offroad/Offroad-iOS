@@ -242,7 +242,6 @@ extension ORBAlertController {
     func addAction(_ action: ORBAlertAction) {
         rootView.alertView.actions.append(action)
         setupTargets()
-        rootView.layoutIfNeeded()
     }
     
     func configureTitleLabel(_ configure: (UILabel) -> Void) {

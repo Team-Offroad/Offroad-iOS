@@ -16,6 +16,19 @@ extension String {
         return resultLength == 6 ? true : false
     }
     
+    func getValidHexDigits() -> Int? {
+        guard let regex = try? NSRegularExpression(pattern: "^([0-9a-fA-F]{6}|[0-9a-fA-F]{8})$") else { return nil }
+        let range = NSRange(location: 0, length: self.count)
+        let resultLength = regex.rangeOfFirstMatch(in: self, range: range).length
+        if resultLength == 6 {
+            return 6
+        } else if resultLength == 8 {
+            return 8
+        } else {
+            return nil
+        }
+    }
+    
     //한글 2byte, 영어 1byte인 EUC-KR 계산
         var eucKrByteLength: Int {
             var count = 0

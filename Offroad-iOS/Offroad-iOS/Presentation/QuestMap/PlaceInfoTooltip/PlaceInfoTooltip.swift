@@ -1,19 +1,15 @@
 //
-//  placeInfoPopupView.swift
+//  PlaceInfoTooltip.swift
 //  Offroad-iOS
 //
-//  Created by 김민성 on 2024/07/17.
+//  Created by 김민성 on 10/27/24.
 //
 
 import UIKit
 
-class PlaceInfoPopupView: UIView {
-    
-    //MARK: - Properties
+final class PlaceInfoTooltip: UIView {
     
     //MARK: - UI Properties
-    
-    let popupView = UIView()
     
     private let tooptipImageView = UIImageView(image: .icnPlaceInfoPopupTooltip)
     private let rectView = UIView()
@@ -34,8 +30,8 @@ class PlaceInfoPopupView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupHierarchy()
         setupStyle()
+        setupHierarchy()
         setupLayout()
     }
     
@@ -45,28 +41,9 @@ class PlaceInfoPopupView: UIView {
     
 }
 
-extension PlaceInfoPopupView {
+extension PlaceInfoTooltip  {
     
-    //MARK: - Layout
-    
-    private func setupHierarchy() {
-        nameAndImageStackView.addArrangedSubviews(nameLabel, placeCategoryImageView)
-        rectView.addSubviews(
-            offroadLogoImageView,
-            nameAndImageStackView,
-            shortDescriptionLabel,
-            addresssLabel,
-            visitCountLabel,
-            exploreButton,
-            closeButton
-        )
-        popupView.addSubviews(
-            tooptipImageView,
-            rectView
-        )
-        
-        addSubview(popupView)
-    }
+    //MARK: - Layout Func
     
     private func setupLayout() {
         tooptipImageView.snp.makeConstraints { make in
@@ -79,9 +56,15 @@ extension PlaceInfoPopupView {
             make.bottom.equalToSuperview().inset(15)
         }
         
+        offroadLogoImageView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
+        
         nameAndImageStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(17)
             make.leading.equalToSuperview().inset(15)
+            make.trailing.lessThanOrEqualToSuperview().inset(44)
         }
         
         placeCategoryImageView.snp.makeConstraints { make in
@@ -115,8 +98,7 @@ extension PlaceInfoPopupView {
             make.width.height.equalTo(44)
         }
         
-        popupView.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
+        self.snp.makeConstraints { make in
             make.width.equalTo(245)
         }
     }
@@ -124,27 +106,18 @@ extension PlaceInfoPopupView {
     //MARK: - Private Func
     
     private func setupStyle() {
-        backgroundColor = .clear
-        
-        popupView.do { view in
-            view.backgroundColor = .clear
-            //view.roundCorners(cornerRadius: 10)
-        }
+        layer.anchorPoint = .init(x: 0.5, y: 1)
         
         rectView.do { view in
             view.backgroundColor = .main(.main3)
             view.roundCorners(cornerRadius: 10)
         }
         
-        offroadLogoImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview()
-        }
-        
         nameLabel.setContentCompressionResistancePriority(UILayoutPriority(1000), for: .horizontal)
         nameLabel.do { label in
             label.font = .offroad(style: .iosTooltipTitle)
             label.textColor = .main(.main2)
+            label.numberOfLines = 0
             label.textAlignment = .left
         }
         
@@ -152,7 +125,7 @@ extension PlaceInfoPopupView {
             stackView.axis = .horizontal
             stackView.spacing = 5
             stackView.alignment = .center
-            stackView.distribution = .fillProportionally
+            stackView.distribution = .fill
         }
         
         shortDescriptionLabel.do { label in
@@ -178,9 +151,9 @@ extension PlaceInfoPopupView {
         
         exploreButton.do { button in
             button.setTitle("탐험하기", for: .normal)
-            button.titleLabel?.font = .offroad(style: .iosBtnSmall)
             button.setTitleColor(.primary(.white), for: .normal)
-            button.backgroundColor = .sub(.sub)
+            button.configureBackgroundColorWhen(normal: .sub(.sub4), highlighted: .sub(.sub480))
+            button.configureTitleFontWhen(normal: .offroad(style: .iosBtnSmall))
             button.roundCorners(cornerRadius: 5)
         }
         
@@ -189,28 +162,50 @@ extension PlaceInfoPopupView {
         }
     }
     
+    private func setupHierarchy() {
+        addSubviews(
+            tooptipImageView,
+            rectView
+        )
+        rectView.addSubviews(
+            offroadLogoImageView,
+            nameAndImageStackView,
+            shortDescriptionLabel,
+            addresssLabel,
+            visitCountLabel,
+            exploreButton,
+            closeButton
+        )
+        nameAndImageStackView.addArrangedSubviews(nameLabel, placeCategoryImageView)
+    }
+    
     //MARK: - Func
     
-    func configurePopupView(with placeInfo: RegisteredPlaceInfo) {
-        self.nameLabel.text = placeInfo.name
-        self.shortDescriptionLabel.text = placeInfo.shortIntroduction
-        self.addresssLabel.text = placeInfo.address
-        self.visitCountLabel.text = "탐험횟수:\(placeInfo.visitCount)"
+    func configure(with placeInfo: RegisteredPlaceInfo?) {
+        self.nameLabel.text = placeInfo?.name ?? ""
+        self.shortDescriptionLabel.text = placeInfo?.shortIntroduction ?? ""
+        self.addresssLabel.text = placeInfo?.address ?? ""
+        self.visitCountLabel.text = "탐험횟수:\(placeInfo?.visitCount ?? 0)"
+        guard let placeInfo else {
+            placeCategoryImageView.image = nil
+            return
+        }
         guard let category = OffroadPlaceCategory(rawValue: placeInfo.placeCategory.lowercased()) else { return }
         switch category {
         case .caffe:
-            placeCategoryImageView.image = .imgCategoryCafe //= UIImageView(image: .imgCategoryCafe)
+            placeCategoryImageView.image = .imgCategoryCafe
         case .park:
-            placeCategoryImageView.image = .imgCategoryPark //= UIImageView(image: .imgCategoryPark)
+            placeCategoryImageView.image = .imgCategoryPark
         case .restaurant:
-            placeCategoryImageView.image = .imgCategoryRestaurant //= UIImageView(image: .imgCategoryRestaurant)
+            placeCategoryImageView.image = .imgCategoryRestaurant
         case .culture:
-            placeCategoryImageView.image = .imgCategoryCulture //= UIImageView(image: .imgCategoryCulture)
+            placeCategoryImageView.image = .imgCategoryCulture
         case .sport:
-            placeCategoryImageView.image = .imgCategorySports //= UIImageView(image: .imgCategorySports)
+            placeCategoryImageView.image = .imgCategorySports
         case .none:
-            placeCategoryImageView.image = nil //= UIImageView(image: .imgCategoryCafe)
+            placeCategoryImageView.image = nil
         }
     }
+    
 }
-
+        

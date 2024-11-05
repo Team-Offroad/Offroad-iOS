@@ -275,7 +275,7 @@ extension CharacterDetailView {
         }
         
         selectButton.do { button in
-            button.configureBackgroundColorWhen(normal: .home(.homeBg), highlighted: .blackOpacity(.black55), disabled: .blackOpacity(.black25))
+            button.configureBackgroundColorWhen(normal: .main(.main2), highlighted: .blackOpacity(.black55), disabled: .blackOpacity(.black25))
             button.configureTitleFontWhen(normal: .offroad(style: .iosTextContents))
             button.setTitleColor(.primary(.white), for: .normal)
             button.setTitleColor(.primary(.white), for: .disabled)

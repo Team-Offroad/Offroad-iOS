@@ -11,8 +11,6 @@ class OffroadTabBarController: UITabBarController {
     
     // MARK: - Properties
     
-    let centerTabBarItemSideLength: CGFloat = 85
-    let tabBarItemWidth: CGFloat = 77
     var originalTabBarHeight: CGFloat = 0
     var tabBarHeight: CGFloat = UIScreen.current.isAspectRatioTall ? 92 : 60
     private var hideTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
@@ -30,27 +28,16 @@ class OffroadTabBarController: UITabBarController {
         
         setupHierarchy()
         setupLayout()
-        setupStyle()
         setOffroadViewControllers()
-        setTabBarButtons()
+        setupStyle()
+        setTabBarButtonStyle()
+        setupAppearance()
         setupButtonsAction()
         setupDelegates()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        let screenWidth = UIScreen.current.bounds.width
-        guard let itemsCount = tabBar.items?.count else { return }
-        
-        self.tabBar.itemPositioning = .centered
-        self.tabBar.itemWidth = tabBarItemWidth
-        self.tabBar.itemSpacing
-        = (screenWidth - centerTabBarItemSideLength - (77 * (CGFloat(itemsCount) - 1))) / 4
     }
     
     override func viewDidLayoutSubviews() {
@@ -95,18 +82,13 @@ extension OffroadTabBarController {
     }
     
     private func setupStyle() {
-        let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.configureWithTransparentBackground()
-        tabBar.standardAppearance = tabBarAppearance
-        tabBar.scrollEdgeAppearance = tabBarAppearance
-        
         customTabBar.roundCorners(
             cornerRadius: 25,
             maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         )
         
         customOffroadLogoButton.do { button in
-            button.setImage(.icnTabBarOffroadLogo, for: .normal)
+            button.setImage(.icnTabBarOrbLogo, for: .normal)
         }
         
         tabBar.tintColor = .main(.main1)
@@ -126,20 +108,29 @@ extension OffroadTabBarController {
         selectedIndex = 0
     }
     
-    private func setTabBarButtons() {
-        let titleAttributes: [NSAttributedString.Key : Any] = [.font: UIFont.offroad(style: .bothBottomLabel)]
-        
-        tabBar.items?[0].image = UIImage.icnHome
-        tabBar.items?[0].title = "Home"
-        tabBar.items?[0].setTitleTextAttributes(titleAttributes, for: .normal)
+    private func setTabBarButtonStyle() {
+        tabBar.items?[0].image = .icnTabBarHomeUnselected
+        tabBar.items?[0].selectedImage = .icnTabBarHomeSelected
+        tabBar.items?[0].title = "HOME"
         
         tabBar.items?[1].image = nil
         tabBar.items?[1].title = nil
         tabBar.items?[1].isEnabled = false
         
-        tabBar.items?[2].image = UIImage.icnPerson
-        tabBar.items?[2].title = "My"
-        tabBar.items?[2].setTitleTextAttributes(titleAttributes, for: .normal)
+        tabBar.items?[2].image = .icnTabBarMyUnselected
+        tabBar.items?[2].selectedImage = .icnTabBarMySelected
+        tabBar.items?[2].title = "MY"
+    }
+    
+    private func setupAppearance() {
+        let titleAttributes: [NSAttributedString.Key : Any] = [.font: UIFont.offroad(style: .bothBottomLabel)]
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithTransparentBackground()
+        tabBarAppearance.stackedLayoutAppearance.normal.titleTextAttributes = titleAttributes
+        tabBarAppearance.stackedLayoutAppearance.selected.titleTextAttributes = titleAttributes
+        tabBarAppearance.stackedItemPositioning = .centered
+        tabBar.standardAppearance = tabBarAppearance
+        tabBar.scrollEdgeAppearance = tabBarAppearance
     }
     
     private func setupButtonsAction() {

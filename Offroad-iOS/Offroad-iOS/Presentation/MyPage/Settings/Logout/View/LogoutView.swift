@@ -59,7 +59,7 @@ extension LogoutView {
 
         descriptionLabel.do {
             $0.text = "정말 로그아웃 하시겠어요?"
-            $0.font = .offroad(style: .iosTextRegular)
+            $0.font = .offroad(style: .iosText)
             $0.textColor = .main(.main2)
             $0.textAlignment = .center
         }

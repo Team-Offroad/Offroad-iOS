@@ -58,8 +58,17 @@ final class AdventureService: BaseService, AdventureServiceProtocol {
                     data: response.data
                 )
                 completion(networkingResult)
-            default:
-                return
+            case .failure(let error):
+                print(error.localizedDescription)
+                switch error {
+                case .underlying(let error, let response):
+                    print(error.localizedDescription)
+                    if response == nil {
+                        completion(.networkFail)
+                    }
+                default:
+                    return
+                }
             }
         }
     }

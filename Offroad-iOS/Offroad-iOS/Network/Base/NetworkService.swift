@@ -22,4 +22,5 @@ final class NetworkService {
     let profileService: ProfileServiceProtocol = ProfileService()
     let noticeService: NoticeServiceProtocol = NoticeService()
     let couponService: CouponServiceProtocol = CouponService()
+    let placeService: RegisteredPlaceService = RegisteredPlaceService()
 }
