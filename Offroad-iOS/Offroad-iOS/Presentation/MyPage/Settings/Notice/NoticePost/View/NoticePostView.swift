@@ -78,7 +78,7 @@ extension NoticePostView {
         }
         
         contentLabel.do {
-            $0.font = .offroad(style: .iosTextRegular)
+            $0.font = .offroad(style: .iosText)
             $0.textColor = .main(.main2)
             $0.textAlignment = .left
             $0.numberOfLines = 0
@@ -89,7 +89,7 @@ extension NoticePostView {
         contentButton.do {
             $0.isHidden = true
             $0.setTitleColor(.sub(.sub2), for: .normal)
-            $0.titleLabel?.font = .offroad(style: .iosTextRegular)
+            $0.titleLabel?.font = .offroad(style: .iosText)
         }
         
         contentStackView.do {
