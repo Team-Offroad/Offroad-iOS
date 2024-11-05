@@ -66,8 +66,8 @@ extension DeleteAccountViewController {
             case .success:
                 KeychainManager.shared.deleteAccessToken()
                 KeychainManager.shared.deleteRefreshToken()
-                UserDefaults.standard.set(false, forKey: "isLoggedIn")
-                
+                UserDefaults.standard.removeObject(forKey: "isLoggedIn")
+
                 let splashViewController = SplashViewController()
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -99,14 +99,17 @@ extension DeleteAccountViewController {
     
     @objc private func deleteAccountButtonTapped() {
         rootView.endEditing(true)
-        
-        AppleAuthManager.shared.getAuthorizationCode()
-        
-        AppleAuthManager.shared.loadAuthorizationCode = { code in
-            let deleteCodeText = self.rootView.deleteAccountMessageLabel.text ?? ""
-            let userAuthorizationCode = code ?? String()
-            
-            self.postDeleteAccount(deleteAccountRequestDTO: DeleteAccountRequestDTO(deleteCode: deleteCodeText, code: userAuthorizationCode))
+        let deleteCodeText = self.rootView.deleteAccountMessageLabel.text ?? ""
+
+        if UserDefaults.standard.string(forKey: "isLoggedIn") == "APPLE" {
+            AppleAuthManager.shared.getAuthorizationCode()
+            AppleAuthManager.shared.loadAuthorizationCode = { code in
+                let userAuthorizationCode = code ?? String()
+                
+                self.postDeleteAccount(deleteAccountRequestDTO: DeleteAccountRequestDTO(deleteCode: deleteCodeText, code: userAuthorizationCode))
+            }
+        } else {
+            self.postDeleteAccount(deleteAccountRequestDTO: DeleteAccountRequestDTO(deleteCode: deleteCodeText, code: nil))
         }
     }
     
