@@ -163,7 +163,7 @@ extension BirthViewController {
     //텍스트 필드에 처음 입력을 시작할 때 호출
     @objc private func textFieldDidChange(_ sender: UITextField) {
         [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].forEach {
-            if $0.layer.borderColor != UIColor.primary(.error).cgColor {
+            if $0.layer.borderColor != UIColor.primary(.errorNew).cgColor {
                 $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
             }
             else {
@@ -173,7 +173,7 @@ extension BirthViewController {
         if sender.text?.isEmpty ?? true {
             sender.layer.borderColor = UIColor.main(.main2).cgColor
         }
-        else if sender.layer.borderColor != UIColor.primary(.error).cgColor {
+        else if sender.layer.borderColor != UIColor.primary(.errorNew).cgColor {
             sender.layer.borderColor = UIColor.main(.main2).cgColor
         }
     }
@@ -200,7 +200,7 @@ extension BirthViewController {
                 textField.layer.borderColor = UIColor.main(.main2).cgColor
             }
             else {
-                textField.layer.borderColor = UIColor.primary(.error).cgColor
+                textField.layer.borderColor = UIColor.primary(.errorNew).cgColor
             }
         }
         if textField == birthView.monthTextField {
@@ -217,7 +217,7 @@ extension BirthViewController {
                 textField.layer.borderColor = UIColor.main(.main2).cgColor
             }
             else {
-                textField.layer.borderColor = UIColor.primary(.error).cgColor
+                textField.layer.borderColor = UIColor.primary(.errorNew).cgColor
             }
         }
         if textField == birthView.dayTextField {
@@ -233,7 +233,7 @@ extension BirthViewController {
             }
             else {
                 birthView.nextButton.changeState(forState: .isDisabled)
-                textField.layer.borderColor = UIColor.primary(.error).cgColor
+                textField.layer.borderColor = UIColor.primary(.errorNew).cgColor
             }
         }
         
@@ -247,7 +247,7 @@ extension BirthViewController {
         }
         
         [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].forEach {
-            if $0.layer.borderColor == UIColor.primary(.error).cgColor {
+            if $0.layer.borderColor == UIColor.primary(.errorNew).cgColor {
                 birthView.notionLabel.text = "다시 한 번 확인해주세요."
             }
         }
@@ -269,7 +269,7 @@ extension BirthViewController {
         }
         
         [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].forEach {
-            if $0.layer.borderColor == UIColor.primary(.error).cgColor {
+            if $0.layer.borderColor == UIColor.primary(.errorNew).cgColor {
                 birthView.notionLabel.text = "다시 한 번 확인해주세요."
             }
         }
@@ -361,7 +361,7 @@ extension BirthViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
         [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].forEach {
-            if $0.layer.borderColor != UIColor.primary(.error).cgColor {
+            if $0.layer.borderColor != UIColor.primary(.errorNew).cgColor {
                 $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
             }
             else {

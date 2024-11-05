@@ -37,7 +37,7 @@ final class GenderView: UIView {
     let maleButton = UIButton().then {
         $0.setTitle("남성", for: .normal)
         $0.titleLabel?.textAlignment = .center
-        $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
+        $0.titleLabel?.font = UIFont.offroad(style: .iosText)
         $0.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
         $0.setTitleColor(UIColor.main(.main2), for: .selected)
         $0.backgroundColor = UIColor.main(.main3)
@@ -50,7 +50,7 @@ final class GenderView: UIView {
     let femaleButton = UIButton().then {
         $0.setTitle("여성", for: .normal)
         $0.titleLabel?.textAlignment = .center
-        $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
+        $0.titleLabel?.font = UIFont.offroad(style: .iosText)
         $0.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
         $0.setTitleColor(UIColor.main(.main2), for: .selected)
         $0.backgroundColor = UIColor.main(.main3)
@@ -63,7 +63,7 @@ final class GenderView: UIView {
     let etcButton = UIButton().then {
         $0.setTitle("기타", for: .normal)
         $0.titleLabel?.textAlignment = .center
-        $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
+        $0.titleLabel?.font = UIFont.offroad(style: .iosText)
         $0.setTitleColor(UIColor.grayscale(.gray300), for: .normal)
         $0.setTitleColor(UIColor.main(.main2), for: .selected)
         $0.backgroundColor = UIColor.main(.main3)

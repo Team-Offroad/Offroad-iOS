@@ -58,7 +58,7 @@ final class CouponDetailView: UIView {
     let couponDescriptionLabel = UILabel().then {
         $0.textColor = UIColor.main(.main2)
         $0.textAlignment = .center
-        $0.font = UIFont.offroad(style: .iosTextRegular)
+        $0.font = UIFont.offroad(style: .iosText)
         $0.setLineHeight(percentage: 150)
         $0.numberOfLines = 0
     }
@@ -85,7 +85,7 @@ final class CouponDetailView: UIView {
     let useButton = UIButton().then {
         $0.setTitle("사용하기", for: .normal)
         $0.titleLabel?.textAlignment = .center
-        $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
+        $0.titleLabel?.font = UIFont.offroad(style: .iosText)
         $0.backgroundColor = UIColor.main(.main2)
         $0.roundCorners(cornerRadius: 5)
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)

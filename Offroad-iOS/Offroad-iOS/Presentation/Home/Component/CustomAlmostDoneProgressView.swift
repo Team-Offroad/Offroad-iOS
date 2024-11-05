@@ -41,11 +41,11 @@ extension CustomAlmostDoneProgressView {
         lineLayer.path = linePath.cgPath
         lineLayer.lineCap = .round
         lineLayer.lineWidth = 9
-        lineLayer.strokeColor = UIColor.blackOpacity(.black25).cgColor
+        lineLayer.strokeColor = UIColor.whiteOpacity(.white25).cgColor
         layer.addSublayer(lineLayer)
         
         progressLayer.lineWidth = 9
-        progressLayer.strokeColor = UIColor.sub(.sub4).cgColor
+        progressLayer.strokeColor = UIColor.main(.main1).cgColor
         layer.addSublayer(progressLayer)
     }
     

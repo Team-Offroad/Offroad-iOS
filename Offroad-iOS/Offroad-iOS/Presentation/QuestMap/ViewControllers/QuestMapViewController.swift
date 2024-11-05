@@ -92,7 +92,7 @@ class QuestMapViewController: OffroadTabBarViewController {
         
         viewModel.requestAuthorization()
         viewModel.updateRegisteredPlaces(at: currentPositionTarget)
-        let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
+        let orangeLocationOverlayImage = rootView.locationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
     }
     
@@ -129,7 +129,7 @@ extension QuestMapViewController {
             cameraUpdate.reason = 10
             cameraUpdate.animation = .easeOut
             rootView.naverMapView.mapView.moveCamera(cameraUpdate)
-            let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
+            let orangeLocationOverlayImage = rootView.locationOverlayImage
             rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
         }
     }
@@ -255,7 +255,7 @@ extension QuestMapViewController {
         viewModel.isCompassMode = false
         viewModel.selectedMarker = marker
         focusToMarker(marker)
-        rootView.naverMapView.mapView.locationOverlay.icon = rootView.orangeLocationOverlayImage
+        rootView.naverMapView.mapView.locationOverlay.icon = rootView.locationOverlayImage
         tooltipWindow.placeInfoViewController.rootView.tooltip.configure(with: marker.placeInfo)
         tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = markerPoint!
         tooltipWindow.placeInfoViewController.showToolTip()
@@ -311,7 +311,7 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
         // 버튼 선택으로 카메라 이동
         case -2:
             viewModel.isCompassMode = false
-            let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
+            let orangeLocationOverlayImage = rootView.locationOverlayImage
             rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
             rootView.customizeLocationOverlaySubIcon(mode: .compass)
             
@@ -332,7 +332,7 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
     }
     
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
-        let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
+        let orangeLocationOverlayImage = rootView.locationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
         
         switch reason {
@@ -377,7 +377,7 @@ extension QuestMapViewController: CLLocationManagerDelegate {
         let currentHeading = newHeading.trueHeading
         
         rootView.naverMapView.mapView.locationOverlay.heading = currentHeading
-        let orangeLocationOverlayImage = rootView.orangeLocationOverlayImage
+        let orangeLocationOverlayImage = rootView.locationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
         
         guard viewModel.isCompassMode else { return }

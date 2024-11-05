@@ -26,8 +26,8 @@ class QuestMapView: UIView {
     
     let naverMapView = NMFNaverMapView()
     private let compass = NMFCompassView()
-    private let orangeTriangleArrowOverlayImage = NMFOverlayImage(image: .icnNavermapLocationOverlaySubIcon)
-    let orangeLocationOverlayImage = NMFOverlayImage(image: .icnOrangeCircleInWhiteBorder)
+    private let triangleArrowOverlayImage = NMFOverlayImage(image: .icnQuestMapNavermapLocationOverlaySubIcon1)
+    let locationOverlayImage = NMFOverlayImage(image: .icnQuestMapCircleInWhiteBorder)
     
     //MARK: - Life Cycle
     
@@ -167,7 +167,7 @@ extension QuestMapView {
         compass.mapView = naverMapView.mapView
         
         // 현재 위치 표시하는 마커 커스텀
-        naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+        naverMapView.mapView.locationOverlay.icon = locationOverlayImage
         customizeLocationOverlaySubIcon(mode: .compass)
     }
     
@@ -179,9 +179,9 @@ extension QuestMapView {
             naverMapView.mapView.locationOverlay.subIcon = nil
         case .compass, .direction:
             // 현재 위치 표시하는 마커 커스텀
-            naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+            naverMapView.mapView.locationOverlay.icon = locationOverlayImage
             naverMapView.mapView.locationOverlay.do { overlay in
-                overlay.subIcon = orangeTriangleArrowOverlayImage
+                overlay.subIcon = triangleArrowOverlayImage
                 overlay.subAnchor = CGPoint(x: 0.5, y: 1) // 기본값임
                 overlay.subIconWidth = 8
                 overlay.subIconHeight = 17.5

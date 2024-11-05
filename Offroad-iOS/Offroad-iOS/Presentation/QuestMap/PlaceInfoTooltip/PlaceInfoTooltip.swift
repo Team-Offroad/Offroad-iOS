@@ -152,7 +152,7 @@ extension PlaceInfoTooltip  {
         exploreButton.do { button in
             button.setTitle("탐험하기", for: .normal)
             button.setTitleColor(.primary(.white), for: .normal)
-            button.configureBackgroundColorWhen(normal: .sub(.sub), highlighted: .sub(.sub2))
+            button.configureBackgroundColorWhen(normal: .sub(.sub4), highlighted: .sub(.sub480))
             button.configureTitleFontWhen(normal: .offroad(style: .iosBtnSmall))
             button.roundCorners(cornerRadius: 5)
         }

@@ -73,14 +73,14 @@ final class ChoosingCharacterView: UIView {
         $0.numberOfLines = 3
         $0.lineBreakMode = .byWordWrapping
         $0.textColor = UIColor.sub(.sub4)
-        $0.font = UIFont.offroad(style: .iosTextRegular)
+        $0.font = UIFont.offroad(style: .iosText)
     }
     
     let selectButton = UIButton().then {
         $0.setTitle("선택", for: .normal)
         $0.setBackgroundColor(.main(.main2), for: .normal)
         $0.titleLabel?.textAlignment = .center
-        $0.titleLabel?.font = UIFont.offroad(style: .iosTextRegular)
+        $0.titleLabel?.font = UIFont.offroad(style: .iosText)
         $0.setTitleColor(UIColor.main(.main1), for: .normal)
         $0.roundCorners(cornerRadius: 5)
     }

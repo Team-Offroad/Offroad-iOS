@@ -40,7 +40,7 @@ extension NavigationPopButton {
         previousViewTitleLabel.do {
             $0.textColor = .main(.main2)
             $0.textAlignment = .center
-            $0.font = .offroad(style: .iosTextRegular)
+            $0.font = .offroad(style: .iosText)
         }
     }
     
