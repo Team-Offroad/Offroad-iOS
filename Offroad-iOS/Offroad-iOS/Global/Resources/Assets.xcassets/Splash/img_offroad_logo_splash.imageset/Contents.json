@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "offroad_logo_splash.svg",
-      "idiom" : "universal"
+      "filename" : "splach_logo1.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "splach_logo2.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "splach_logo.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
