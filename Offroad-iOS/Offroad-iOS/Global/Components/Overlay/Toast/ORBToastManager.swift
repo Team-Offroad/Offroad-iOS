@@ -22,6 +22,8 @@ final class ORBToastManager {
     private init() { }
     
     func showToast(message: String, inset: CGFloat, withImage image: UIImage? = nil) {
+        toastWindow?.hideAnimator.stopAnimation(true)
+        toastWindow = nil
         DispatchQueue.main.async {
             self.toastWindow = ORBToastWindow(message: message, inset: inset, withImage: image)
             self.toastWindow?.hideAnimator.addCompletion({ [weak self] _ in
