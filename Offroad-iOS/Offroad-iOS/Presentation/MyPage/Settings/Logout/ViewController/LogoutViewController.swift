@@ -44,7 +44,7 @@ extension LogoutViewController {
     @objc private func yesButtonTapped() {
         KeychainManager.shared.deleteAccessToken()
         KeychainManager.shared.deleteRefreshToken()
-        UserDefaults.standard.set(false, forKey: "isLoggedIn")
+        UserDefaults.standard.removeObject(forKey: "isLoggedIn")
         
         let splashViewController = SplashViewController()
         

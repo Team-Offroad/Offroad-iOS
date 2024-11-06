@@ -26,7 +26,7 @@ final class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if UserDefaults.standard.bool(forKey: "isLoggedIn") && KeychainManager.shared.loadAccessToken() != nil {
+        if ((UserDefaults.standard.string(forKey: "isLoggedIn")?.isEmpty) != nil) && KeychainManager.shared.loadAccessToken() != nil {
             checkUserChoosingInfo()
         } else {
             presentViewController(viewController: LoginViewController())
