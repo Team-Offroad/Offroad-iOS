@@ -7,6 +7,8 @@
 
 import UIKit
 
+import Photos
+
 final class HomeViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
@@ -14,6 +16,12 @@ final class HomeViewController: OffroadTabBarViewController {
     private let rootView = HomeView()
     
     private var userEmblemString = ""
+    private var characterImage: UIImage?
+    private var characterImageURLString: String? {
+        didSet {
+            loadCharacterImage(imageURL: characterImageURLString ?? "")
+        }
+    }
     
     var categoryString = "NONE"
     
@@ -43,6 +51,7 @@ extension HomeViewController {
     
     private func setupTarget() {
         rootView.changeTitleButton.addTarget(self, action: #selector(changeTitleButtonTapped), for: .touchUpInside)
+        rootView.shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
     }
     
     private func getUserAdventureInfo() {
@@ -54,6 +63,8 @@ extension HomeViewController {
                 let motionImageUrl = data?.data.motionImageUrl ?? ""
                 let characterName = data?.data.characterName ?? ""
                 let emblemName = data?.data.emblemName ?? ""
+                
+                self.characterImageURLString = baseImageUrl
                 
                 self.userEmblemString = emblemName
                 
@@ -102,11 +113,35 @@ extension HomeViewController {
         
         present(titlePopupViewController, animated: false)
     }
+    
+    @objc private func shareButtonTapped() {
+        PHPhotoLibrary.requestAuthorization { status in
+            print(status)
+        }
+        
+        let imageProvider = ShareableImageProvider(image: characterImage ?? UIImage())
+        
+        let activityViewController = UIActivityViewController(activityItems: [imageProvider], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .mail]
+        
+        self.present(activityViewController, animated: true)
+    }
 }
 
 extension HomeViewController: selectedTitleProtocol {
     func fetchTitleString(titleString: String) {
         rootView.changeMyTitleLabelText(text: titleString)
         userEmblemString = titleString
+    }
+}
+
+extension HomeViewController: SVGFetchable {
+    func loadCharacterImage(imageURL: String) {
+        fetchSVG(svgURLString: characterImageURLString ?? "") { image in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                characterImage = image ?? UIImage()
+            }
+        }
     }
 }

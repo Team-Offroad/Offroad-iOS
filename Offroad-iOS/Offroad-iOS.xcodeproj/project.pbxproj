@@ -167,6 +167,7 @@
 		D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB102C4054D20048B6DF /* TitleModel.swift */; };
 		D03C835E2C61E44700F3094D /* TokenIntercepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C835D2C61E44700F3094D /* TokenIntercepter.swift */; };
 		D03C83622C620AF100F3094D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C83612C620AF100F3094D /* MyPageView.swift */; };
+		D05C31DC2CDB4441004761A7 /* ShareableImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05C31DB2CDB4440004761A7 /* ShareableImageProvider.swift */; };
 		D063E9852C492D6700434A09 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = D063E9842C492D6700434A09 /* SVGKit */; };
 		D063E9872C492D6700434A09 /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D063E9862C492D6700434A09 /* SVGKitSwift */; };
 		D063E98C2C49328300434A09 /* SVGKImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E98B2C49328200434A09 /* SVGKImage+.swift */; };
@@ -424,6 +425,7 @@
 		D018BB1B2C43E4740048B6DF /* Offroad-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Offroad-iOS.entitlements"; sourceTree = "<group>"; };
 		D03C835D2C61E44700F3094D /* TokenIntercepter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenIntercepter.swift; sourceTree = "<group>"; };
 		D03C83612C620AF100F3094D /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		D05C31DB2CDB4440004761A7 /* ShareableImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareableImageProvider.swift; sourceTree = "<group>"; };
 		D063E98B2C49328200434A09 /* SVGKImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SVGKImage+.swift"; sourceTree = "<group>"; };
 		D063E98D2C49483000434A09 /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
 		D063E98F2C496EA500434A09 /* LottieAnimationView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LottieAnimationView+.swift"; sourceTree = "<group>"; };
@@ -1749,6 +1751,7 @@
 		D06D26C92C3DAA3200E79F25 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				D05C31DB2CDB4440004761A7 /* ShareableImageProvider.swift */,
 				D06D26CA2C3DAA5300E79F25 /* CustomQuestView.swift */,
 				D06D26CC2C3E6EA200E79F25 /* CustomRecentProgressView.swift */,
 				D06D26CE2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift */,
@@ -2481,6 +2484,7 @@
 				4EF833EC2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift in Sources */,
 				4EE049912CA14E6500754488 /* UsedCouponCell.swift in Sources */,
 				4E23776E2CC81B2000716AFF /* NetworkMonitoringManager.swift in Sources */,
+				D05C31DC2CDB4441004761A7 /* ShareableImageProvider.swift in Sources */,
 				D0E796352C4536E8005B47A5 /* CharacterAPI.swift in Sources */,
 				D0E796292C4533CE005B47A5 /* ProfileUpdateRequestDTO.swift in Sources */,
 				4E08B9592C5DF0B20082EFB8 /* PlaceListView.swift in Sources */,
@@ -2775,7 +2779,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = OFFROAD_Development;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ProvisioningProfile2024110501;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2815,7 +2819,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = OFFROAD_Development;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ProvisioningProfile2024110501;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
