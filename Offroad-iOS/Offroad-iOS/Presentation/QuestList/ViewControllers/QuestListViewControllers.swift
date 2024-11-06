@@ -14,7 +14,7 @@ class QuestListViewController: UIViewController {
     private var questListService = QuestListService()
     private var allQuestList: [Quest] = []
     private var activeQuestList: [Quest] = []
-    private var arraySize = 12
+    private var arraySize = 20
     private var lastCursorID = Int()
     
     private var isActive = false {
@@ -42,7 +42,7 @@ class QuestListViewController: UIViewController {
         setupControlsTarget()
         setupCollectionView()
         setupDelegates()
-        loadQuestList(isActive: isActive, size: 12)
+        loadQuestList(isActive: isActive, size: 20)
     }
 
     override func viewWillAppear(_ animated: Bool) {
