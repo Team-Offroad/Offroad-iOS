@@ -23,4 +23,5 @@ struct Quest: Codable {
     let totalCount: Int
     let requirement: String
     let reward: String
+    let cursorId: Int
 }
