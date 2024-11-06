@@ -15,6 +15,7 @@ class QuestListViewController: UIViewController {
     private var allQuestList: [Quest] = []
     private var activeQuestList: [Quest] = []
     private var arraySize = 12
+    private var lastCursorID = Int()
     
     private var isActive = false {
         didSet {
@@ -108,6 +109,7 @@ extension QuestListViewController {
                 self.rootView.questListCollectionView.refreshControl?.endRefreshing()
                 self.rootView.questListCollectionView.reloadData()
                 
+                lastCursorID = questListFromServer.last?.cursorId ?? Int()
             default:
                 return
             }
@@ -168,5 +170,17 @@ extension QuestListViewController: UICollectionViewDelegate {
         operationQueue.addOperation(animationOperation)
         return false
     }
-
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let frameHeight = scrollView.frame.size.height
+        
+        if offsetY >= contentHeight - frameHeight {
+            if arraySize < lastCursorID {
+                arraySize += 12
+                loadQuestList(isActive: isActive, size: arraySize)
+            }
+        }
+    }
 }
