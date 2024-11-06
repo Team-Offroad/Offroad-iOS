@@ -103,7 +103,7 @@ extension LoginViewController {
                 KeychainManager.shared.saveAccessToken(token: accessToken)
                 KeychainManager.shared.saveRefreshToken(token: refreshToken)
                 
-                UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                UserDefaults.standard.set("\(request.socialPlatform)", forKey: "isLoggedIn")
 
                 self.checkUserChoosingInfo()
             default:
