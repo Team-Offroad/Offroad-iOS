@@ -27,7 +27,7 @@ final class HomeView: UIView {
     private let characterNameView = UIView()
     private let characterNameLabel = UILabel()
     private let offroadStampImageView = UIImageView(image: UIImage(resource: .imgOffroadStamp))
-    private let downloadButton = UIButton()
+    private let chatButton = UIButton()
     private let shareButton = UIButton()
     private let changeCharacterButton = UIButton()
     private let buttonStackView = UIStackView()
@@ -67,7 +67,7 @@ extension HomeView {
         backgroundColor = .darkGray
         
         nicknameLabel.do {
-            $0.font = .offroad(style: .iosSubtitleReg)
+            $0.font = .offroad(style: .bothSubtitle3)
             $0.textAlignment = .center
             $0.textColor = .main(.main1)
         }
@@ -76,7 +76,7 @@ extension HomeView {
             $0.backgroundColor = .sub(.sub55)
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.sub(.sub).cgColor
-            $0.roundCorners(cornerRadius: 7)
+            $0.roundCorners(cornerRadius: 17)
         }
         
         characterNameLabel.do {
@@ -85,8 +85,8 @@ extension HomeView {
             $0.textColor = .primary(.white)
         }
         
-        downloadButton.do {
-            $0.setImage(.btnDownload, for: .normal)
+        chatButton.do {
+            $0.setImage(.btnChat, for: .normal)
         }
         
         shareButton.do {
@@ -97,7 +97,7 @@ extension HomeView {
             $0.setImage(.btnChangeCharacter, for: .normal)
         }
         
-        [downloadButton, shareButton, changeCharacterButton].forEach { button in
+        [chatButton, shareButton, changeCharacterButton].forEach { button in
             button.layer.shadowColor = UIColor.black.cgColor
             button.layer.shadowOffset = CGSize(width: 0, height: 1)
             button.layer.shadowOpacity = 0.1
@@ -128,9 +128,7 @@ extension HomeView {
         
         changeTitleButton.do {
             $0.backgroundColor = .main(.main3)
-            $0.layer.borderColor = UIColor.whiteOpacity(.white25).cgColor
-            $0.layer.borderWidth = 0.68
-            $0.setImage(.iconChangeTitle, for: .normal)
+            $0.setImage(.btnChangeTitle, for: .normal)
             $0.roundCorners(cornerRadius: 9)
         }
         
@@ -174,7 +172,7 @@ extension HomeView {
         
         characterNameView.addSubview(characterNameLabel)
         buttonStackView.addArrangedSubviews(
-            downloadButton,
+            chatButton,
             shareButton,
             changeCharacterButton
         )
@@ -193,7 +191,7 @@ extension HomeView {
         characterNameView.snp.makeConstraints {
             $0.top.equalTo(nicknameLabel.snp.bottom).offset(17)
             $0.leading.equalToSuperview().inset(24)
-            $0.height.equalTo(32)
+            $0.height.equalTo(35)
         }
         
         characterNameLabel.snp.makeConstraints {
@@ -260,7 +258,7 @@ extension HomeView {
         }
         
         almostDoneQuestProgressLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(58)
+            $0.bottom.equalTo(almostDoneQuestProgressView.snp.top).offset(-28)
             $0.width.equalTo(140)
             $0.centerX.equalToSuperview()
         }
@@ -283,7 +281,7 @@ extension HomeView {
         characterBaseImageView.isHidden = false
 
         nicknameLabel.text = "모험가 \(nickname)님"
-        nicknameLabel.highlightText(targetText: nickname, font: .offroad(style: .iosSubtitle2Bold))
+        nicknameLabel.highlightText(targetText: nickname, font: .offroad(style: .iosProfileTitle))
         characterBaseImageView.fetchSvgURLToImageView(svgUrlString: baseImageUrl)
         characterNameLabel.text = characterName
         titleLabel.text = emblemName
