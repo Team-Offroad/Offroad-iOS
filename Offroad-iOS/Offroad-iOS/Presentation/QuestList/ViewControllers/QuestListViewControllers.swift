@@ -14,12 +14,18 @@ class QuestListViewController: UIViewController {
     private var questListService = QuestListService()
     private var allQuestList: [Quest] = []
     private var activeQuestList: [Quest] = []
-    private var arraySize = 20
-    private var lastCursorID = Int()
+    private var extendedListSize = 20
+    private var lastCursorID = 0
     
     private var isActive = false {
         didSet {
-            loadQuestList(isActive: isActive, size: arraySize)
+            if isActive {
+                activeQuestList = []
+            } else {
+                allQuestList = []
+            }
+            extendedListSize = 20
+            getInitialQuestList(isActive: isActive)
             rootView.questListCollectionView.reloadData()
         }
     }
@@ -42,7 +48,7 @@ class QuestListViewController: UIViewController {
         setupControlsTarget()
         setupCollectionView()
         setupDelegates()
-        loadQuestList(isActive: isActive, size: 20)
+        getInitialQuestList(isActive: isActive)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -64,13 +70,14 @@ extension QuestListViewController {
     
     @objc private func ongoingQuestSwitchValueChanged(sender: UISwitch) {
         isActive = sender.isOn
+        rootView.activityIndicatorView.startAnimating()
         rootView.questListCollectionView.setContentOffset(.zero, animated: false)
         rootView.questListCollectionView.reloadData()
     }
     
     @objc private func refreshCollectionView() {
-        arraySize = 12
-        loadQuestList(isActive: isActive, size: arraySize)
+        extendedListSize = 20
+        getInitialQuestList(isActive: isActive)
         rootView.questListCollectionView.reloadData()
     }
 
@@ -94,7 +101,7 @@ extension QuestListViewController {
         rootView.questListCollectionView.delegate = self
     }
     
-    private func loadQuestList(isActive: Bool, cursor: Int = 1, size: Int) {
+    private func getInitialQuestList(isActive: Bool, cursor: Int = 0, size: Int = 20) {
         questListService.getQuestList(isActive: isActive, cursor: cursor, size: size) { [weak self] result in
             guard let self else { return }
             switch result {
@@ -104,6 +111,28 @@ extension QuestListViewController {
                     self.activeQuestList = questListFromServer
                 } else {
                     self.allQuestList = questListFromServer
+                }
+                self.rootView.activityIndicatorView.stopAnimating()
+                self.rootView.questListCollectionView.refreshControl?.endRefreshing()
+                self.rootView.questListCollectionView.reloadData()
+                
+                lastCursorID = questListFromServer.last?.cursorId ?? Int()
+            default:
+                return
+            }
+        }
+    }
+    
+    private func getExtendedQuestList(isActive: Bool, cursor: Int, size: Int) {
+        questListService.getQuestList(isActive: isActive, cursor: cursor, size: size) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let response):
+                guard let questListFromServer = response?.data.questList else { return }
+                if isActive {
+                    self.activeQuestList.append(contentsOf: questListFromServer)
+                } else {
+                    self.allQuestList.append(contentsOf: questListFromServer)
                 }
                 self.rootView.activityIndicatorView.stopAnimating()
                 self.rootView.questListCollectionView.refreshControl?.endRefreshing()
@@ -177,9 +206,11 @@ extension QuestListViewController: UICollectionViewDelegate {
         let frameHeight = scrollView.frame.size.height
         
         if offsetY >= contentHeight - frameHeight {
-            if arraySize < lastCursorID {
-                arraySize += 12
-                loadQuestList(isActive: isActive, size: arraySize)
+            if extendedListSize == lastCursorID {
+                extendedListSize += 12
+                getExtendedQuestList(isActive: isActive, cursor: lastCursorID, size: 12)
+                
+                //TODO: 로딩 케이스 추가
             }
         }
     }
