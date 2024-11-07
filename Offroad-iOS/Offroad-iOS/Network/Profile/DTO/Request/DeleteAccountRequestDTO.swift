@@ -9,4 +9,5 @@ import Foundation
 
 struct DeleteAccountRequestDTO: Codable {
     let deleteCode: String
+    let code: String?
 }
