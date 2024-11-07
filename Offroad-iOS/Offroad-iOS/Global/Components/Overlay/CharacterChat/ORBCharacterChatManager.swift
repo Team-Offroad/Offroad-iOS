@@ -29,11 +29,11 @@ final class ORBCharacterChatManager {
     
     func startChat() {
         chatWindow.makeKey()
-        self.chatViewController.rootView.inputTextView.becomeFirstResponder()
+        self.chatViewController.rootView.userChatTextView.becomeFirstResponder()
     }
     
     func endChat() {
-        chatViewController.rootView.inputTextView.resignFirstResponder()
+        chatViewController.rootView.userChatTextView.resignFirstResponder()
         chatViewController.hideCharacterChatBox()
     }
     

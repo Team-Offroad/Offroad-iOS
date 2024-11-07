@@ -21,7 +21,7 @@ final class ORBCharacterChatView: UIView {
     lazy var characterChatBoxTopConstraint = characterChatBox.topAnchor.constraint(equalTo: topAnchor, constant: 74)
     lazy var characterChatBoxBottomConstraint = characterChatBox.bottomAnchor.constraint(equalTo: topAnchor)
     lazy var userChatInputViewBottomConstraint = userChatInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 160)
-    lazy var inputTextViewHeightConstraint = inputTextView.heightAnchor.constraint(equalToConstant: 38)
+    lazy var inputTextViewHeightConstraint = userChatTextView.heightAnchor.constraint(equalToConstant: 38)
     
     //MARK: - UI Properties
     
@@ -29,8 +29,8 @@ final class ORBCharacterChatView: UIView {
     let userChatInputView = UIView()
     
     let meLabel = UILabel()
-    let inputTextLabel = UILabel()
-    let inputTextView = UITextView()
+    let userChatTextLabel = UILabel()
+    let userChatTextView = UITextView()
     let sendButton = UIButton()
     let endChatButton = UIButton()
     
@@ -75,22 +75,22 @@ extension ORBCharacterChatView {
             make.leading.equalToSuperview().inset(38)
         }
         
-        inputTextLabel.snp.makeConstraints { make in
+        userChatTextLabel.snp.makeConstraints { make in
             make.top.equalTo(meLabel)
             make.leading.equalTo(meLabel.snp.trailing)
             make.trailing.equalToSuperview().inset(24)
         }
         
         inputTextViewHeightConstraint.isActive = true
-        inputTextView.snp.makeConstraints { make in
+        userChatTextView.snp.makeConstraints { make in
             make.top.equalTo(meLabel.snp.bottom).offset(12)
             make.leading.equalToSuperview().inset(24)
             make.bottom.equalToSuperview().inset(16)
         }
         
         sendButton.snp.makeConstraints { make in
-            make.centerY.equalTo(inputTextView)
-            make.leading.equalTo(inputTextView.snp.trailing).offset(7)
+            make.centerY.equalTo(userChatTextView)
+            make.leading.equalTo(userChatTextView.snp.trailing).offset(7)
             make.trailing.equalToSuperview().inset(24)
             make.size.equalTo(40)
         }
@@ -118,11 +118,11 @@ extension ORBCharacterChatView {
             label.highlightText(targetText: "나", font: .pretendardFont(ofSize: 16, weight: .bold))
             label.setLineHeight(percentage: 150)
         }
-        inputTextLabel.do { label in
+        userChatTextLabel.do { label in
             label.textColor = .main(.main2)
             label.font = .offroad(style: .iosText)
         }
-        inputTextView.do { textView in
+        userChatTextView.do { textView in
             textView.textColor = .main(.main2)
             textView.font = .offroad(style: .iosText)
             textView.backgroundColor = .neutral(.btnInactive)
@@ -146,7 +146,7 @@ extension ORBCharacterChatView {
     }
     
     private func setupHierarchy() {
-        userChatInputView.addSubviews(meLabel, inputTextLabel, inputTextView, sendButton)
+        userChatInputView.addSubviews(meLabel, userChatTextLabel, userChatTextView, sendButton)
         addSubviews(characterChatBox, userChatInputView, endChatButton)
     }
     

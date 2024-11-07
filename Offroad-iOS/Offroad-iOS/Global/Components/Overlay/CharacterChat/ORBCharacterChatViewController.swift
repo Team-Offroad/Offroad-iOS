@@ -15,7 +15,8 @@ class ORBCharacterChatViewController: UIViewController {
     var disposeBag = DisposeBag()
     let rootView = ORBCharacterChatView()
     
-    let inputTextViewContentHeightRelay = PublishRelay<CGFloat>()
+    // userChatTextView의 textInputView의 height를 전달
+    let userChatTextViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
     
     override func loadView() {
         view = rootView
@@ -68,28 +69,28 @@ extension ORBCharacterChatViewController {
     private func bindData() {
         rootView.sendButton.rx.tap.bind { [weak self] in
             guard let self else { return }
-            print("메시지 전송: \(self.rootView.inputTextView.text!)")
+            print("메시지 전송: \(self.rootView.userChatTextView.text!)")
         }.disposed(by: disposeBag)
         
         rootView.endChatButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             print("채팅을 종료합니다.")
-            let isFR = self.rootView.inputTextView.resignFirstResponder()
+            let isFR = self.rootView.userChatTextView.resignFirstResponder()
             print("didResingFirstResponder: \(isFR)")
             hideCharacterChatBox()
         }.disposed(by: disposeBag)
         
-        rootView.inputTextView.rx.text.orEmpty.subscribe { [weak self] text in
+        rootView.userChatTextView.rx.text.orEmpty.subscribe { [weak self] text in
             guard let self else { return }
-            self.inputTextViewContentHeightRelay.accept(self.rootView.inputTextView.textInputView.bounds.height)
+            self.userChatTextViewTextInputViewHeightRelay.accept(self.rootView.userChatTextView.textInputView.bounds.height)
         }.disposed(by: disposeBag)
         
-        inputTextViewContentHeightRelay
+        userChatTextViewTextInputViewHeightRelay
             .subscribe(onNext: { textContentHeight in
                 if textContentHeight >= 30 {
-                    self.updateChatInputViewHeight(height: 58)
+                    self.updateChatInputViewHeight(height: (20*2) + (9*2))
                 } else {
-                    self.updateChatInputViewHeight(height: 38)
+                    self.updateChatInputViewHeight(height: 20 + (9*2))
                 }
                 self.rootView.updateConstraints()
                 self.rootView.layoutIfNeeded()
