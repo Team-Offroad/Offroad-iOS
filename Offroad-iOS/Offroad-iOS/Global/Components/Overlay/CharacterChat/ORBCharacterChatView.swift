@@ -12,7 +12,6 @@ final class ORBCharacterChatView: UIView {
     //MARK: - Properties
     
     let characterChatBoxAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
-//    let characterChatBoxAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     let userChatInputViewAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     
     lazy var characterChatBoxTopConstraint = characterChatBox.topAnchor.constraint(equalTo: topAnchor, constant: 74)
@@ -110,7 +109,7 @@ extension ORBCharacterChatView {
         meLabel.do { label in
             label.textColor = .main(.main2)
             label.font = .pretendardFont(ofSize: 16, weight: .regular)
-            label.text = "나:"
+            label.text = "나 :"
             label.highlightText(targetText: " ", font: .pretendardFont(ofSize: 16, weight: .medium))
             label.highlightText(targetText: "나", font: .pretendardFont(ofSize: 16, weight: .bold))
             label.setLineHeight(percentage: 150)
@@ -123,7 +122,6 @@ extension ORBCharacterChatView {
             textView.textColor = .main(.main2)
             textView.font = .offroad(style: .iosText)
             textView.backgroundColor = .neutral(.btnInactive)
-//            textView.contentInset = .init(top: 9, left: 20, bottom: 9, right: 20)
             textView.contentInset = .init(top: 9, left: 0, bottom: 9, right: 0)
             textView.textContainerInset = .init(top: 0, left: 0, bottom: 0, right: 0)
             textView.textInputView.backgroundColor = .orange
