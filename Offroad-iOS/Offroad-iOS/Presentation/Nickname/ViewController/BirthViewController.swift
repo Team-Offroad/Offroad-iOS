@@ -375,5 +375,11 @@ extension BirthViewController {
                 birthView.notionLabel.text = "다시 한 번 확인해주세요."
             }
         }
+        
+        let allFieldsFilled = [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].allSatisfy { $0.text?.isEmpty == false }
+        
+        if allFieldsFilled && !validateInputs() {
+            birthView.notionLabel.text = "다시 한 번 확인해주세요."
+        }
     }
 }
