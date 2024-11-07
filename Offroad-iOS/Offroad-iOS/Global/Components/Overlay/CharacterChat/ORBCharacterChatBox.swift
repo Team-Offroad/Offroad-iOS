@@ -9,21 +9,8 @@ import UIKit
 
 class ORBCharacterChatBox: UIView {
     
-//    let characterName: String
-//    let message: String
-    
     let characterNameLabel = UILabel()
     let messageLabel = UILabel()
-    
-//    init(characterName: String? = nil, message: String? = nil) {
-//        self.characterName = characterName ?? ""
-//        self.message = message ?? ""
-//        super.init(frame: .zero)
-//        
-//        setupStyle()
-//        setupHierarchy()
-//        setupLayout()
-//    }
     
     init() {
         super.init(frame: .zero)
@@ -53,7 +40,7 @@ extension ORBCharacterChatBox {
         
         messageLabel.snp.makeConstraints { make in
             make.top.equalTo(characterNameLabel)
-            make.leading.equalTo(characterNameLabel.snp.trailing)
+            make.leading.equalTo(characterNameLabel.snp.trailing).offset(4)
             make.trailing.equalToSuperview().inset(24)
             make.bottom.equalToSuperview().inset(17)
         }
@@ -69,15 +56,12 @@ extension ORBCharacterChatBox {
         
         characterNameLabel.do { label in
             label.font = .offroad(style: .iosTextBold)
-            //임시, 원래 캐릭터 색 들어가는 듯?
-            label.textColor = .blue
-//            label.text = characterName
+            label.textColor = UIColor.init(hex: "8B6546")
         }
         
         messageLabel.do { label in
             label.font = .offroad(style: .iosText)
             label.textColor = .main(.main2)
-//            label.text = message
             label.numberOfLines = 0
         }
     }
