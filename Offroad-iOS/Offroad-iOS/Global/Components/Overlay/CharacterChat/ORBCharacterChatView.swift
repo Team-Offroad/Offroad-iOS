@@ -11,8 +11,8 @@ final class ORBCharacterChatView: UIView {
     
     //MARK: - Properties
     
-    let characterChatBoxShowingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
-    let characterChatBoxHidingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
+    let characterChatBoxAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
+//    let characterChatBoxAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     let userChatInputViewAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     
     lazy var characterChatBoxTopConstraint = characterChatBox.topAnchor.constraint(equalTo: topAnchor, constant: 74)
@@ -29,6 +29,7 @@ final class ORBCharacterChatView: UIView {
     let inputTextLabel = UILabel()
     let inputTextView = UITextView()
     let sendButton = UIButton()
+    let endChatButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,7 +43,9 @@ final class ORBCharacterChatView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    override func endEditing(_ force: Bool) -> Bool {
+        super.endEditing(force)
+    }
     
 }
 
@@ -88,6 +91,13 @@ extension ORBCharacterChatView {
             make.trailing.equalToSuperview().inset(24)
             make.size.equalTo(40)
         }
+        
+        endChatButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(24)
+            make.bottom.equalTo(userChatInputView.snp.top).offset(-12)
+            make.width.equalTo(84)
+            make.height.equalTo(36)
+        }
     }
     
     //MARK: - Private Func
@@ -122,11 +132,20 @@ extension ORBCharacterChatView {
         sendButton.do { button in
             button.setImage(.icnChatViewSendButton, for: .normal)
         }
+        endChatButton.do { button in
+            button.backgroundColor = .sub(.sub55)
+            button.layer.borderColor = UIColor.sub(.sub).cgColor
+            button.layer.borderWidth = 1
+            button.setTitle("채팅 종료", for: .normal)
+            button.roundCorners(cornerRadius: 18)
+            button.configureTitleFontWhen(normal: .offroad(style: .iosTextContents))
+            button.configureBackgroundColorWhen(normal: .sub(.sub55), highlighted: .sub(.sub480))
+        }
     }
     
     private func setupHierarchy() {
         userChatInputView.addSubviews(meLabel, inputTextLabel, inputTextView, sendButton)
-        addSubviews(characterChatBox, userChatInputView)
+        addSubviews(characterChatBox, userChatInputView, endChatButton)
     }
     
     //MARK: - Func

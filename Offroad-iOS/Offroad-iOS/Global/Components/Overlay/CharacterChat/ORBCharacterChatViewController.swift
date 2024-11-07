@@ -43,7 +43,8 @@ extension ORBCharacterChatViewController {
     
     @objc private func keyboardWillHide(_ notification: Notification) {
         rootView.layoutIfNeeded()
-        updateChatInputViewPosition(bottomInset: 0)
+        let inputViewHeight = rootView.userChatInputView.frame.height
+        updateChatInputViewPosition(bottomInset: -(48 + inputViewHeight))
     }
     
     //MARK: - Private Func
@@ -68,31 +69,39 @@ extension ORBCharacterChatViewController {
             guard let self else { return }
             print("메시지 전송: \(self.rootView.inputTextView.text!)")
         }.disposed(by: disposeBag)
+        
+        rootView.endChatButton.rx.tap.bind { [weak self] in
+            guard let self else { return }
+            print("채팅을 종료합니다.")
+            let isFR = self.rootView.inputTextView.resignFirstResponder()
+            print("didResingFirstResponder: \(isFR)")
+            hideCharacterChatBox()
+        }.disposed(by: disposeBag)
     }
     
     //MARK: - Func
     
     func showCharacterChatBox() {
         rootView.layoutIfNeeded()
-        rootView.characterChatBoxHidingAnimator.stopAnimation(true)
-        rootView.characterChatBoxShowingAnimator.addAnimations { [weak self] in
+        rootView.characterChatBoxAnimator.stopAnimation(true)
+        rootView.characterChatBoxAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.characterChatBoxTopConstraint.isActive = true
             self.rootView.characterChatBoxBottomConstraint.isActive = false
             self.rootView.layoutIfNeeded()
         }
-        rootView.characterChatBoxShowingAnimator.startAnimation()
+        rootView.characterChatBoxAnimator.startAnimation()
     }
     
     func hideCharacterChatBox() {
-        rootView.characterChatBoxShowingAnimator.stopAnimation(true)
-        rootView.characterChatBoxHidingAnimator.addAnimations { [weak self] in
+        rootView.characterChatBoxAnimator.stopAnimation(true)
+        rootView.characterChatBoxAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.characterChatBoxTopConstraint.isActive = false
             self.rootView.characterChatBoxBottomConstraint.isActive = true
             self.rootView.layoutIfNeeded()
         }
-        rootView.characterChatBoxHidingAnimator.startAnimation()
+        rootView.characterChatBoxAnimator.startAnimation()
     }
     
     func updateChatInputViewPosition(bottomInset: CGFloat) {

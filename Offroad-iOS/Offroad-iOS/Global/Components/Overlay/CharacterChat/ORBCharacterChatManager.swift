@@ -24,11 +24,14 @@ final class ORBCharacterChatManager {
     }
     
     func startChat() {
-        chatViewController.rootView.inputTextView.becomeFirstResponder()
+        chatWindow.makeKey()
+        let isFR = self.chatViewController.rootView.inputTextView.becomeFirstResponder()
+        print("isFirstResponder?: \(isFR)")
     }
     
     func endChat() {
-        chatViewController.rootView.inputTextView.resignFirstResponder()
+        let isFR = chatViewController.rootView.inputTextView.resignFirstResponder()
+        print("isFirstResponder?: \(isFR)")
     }
     
 }
