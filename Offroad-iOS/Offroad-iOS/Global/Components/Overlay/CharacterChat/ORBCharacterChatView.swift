@@ -16,7 +16,7 @@ final class ORBCharacterChatView: UIView {
     
     lazy var characterChatBoxTopConstraint = characterChatBox.topAnchor.constraint(equalTo: topAnchor, constant: 74)
     lazy var characterChatBoxBottomConstraint = characterChatBox.bottomAnchor.constraint(equalTo: topAnchor)
-    lazy var userChatInputViewBottomConstraint = userChatInputView.bottomAnchor.constraint(equalTo: bottomAnchor)
+    lazy var userChatInputViewBottomConstraint = userChatInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 160)
     lazy var inputTextViewHeightConstraint = inputTextView.heightAnchor.constraint(equalToConstant: 40)
     
     //MARK: - UI Properties

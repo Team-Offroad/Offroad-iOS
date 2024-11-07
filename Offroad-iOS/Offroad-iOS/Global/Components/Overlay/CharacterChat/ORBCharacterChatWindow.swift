@@ -27,7 +27,9 @@ class ORBCharacterChatWindow: UIWindow {
             chatViewController.rootView.userChatInputView.frame.contains(point) ||
             chatViewController.rootView.endChatButton.frame.contains(point) {
             return super.hitTest(point, with: event)
-        } else { return nil }
+        } else {
+            return nil
+        }
     }
     
 }

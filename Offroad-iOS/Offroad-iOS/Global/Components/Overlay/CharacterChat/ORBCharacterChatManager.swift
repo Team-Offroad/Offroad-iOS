@@ -23,15 +23,18 @@ final class ORBCharacterChatManager {
         chatViewController.showCharacterChatBox()
     }
     
+    func hideCharacterChatBox() {
+        chatViewController.hideCharacterChatBox()
+    }
+    
     func startChat() {
         chatWindow.makeKey()
-        let isFR = self.chatViewController.rootView.inputTextView.becomeFirstResponder()
-        print("isFirstResponder?: \(isFR)")
+        self.chatViewController.rootView.inputTextView.becomeFirstResponder()
     }
     
     func endChat() {
-        let isFR = chatViewController.rootView.inputTextView.resignFirstResponder()
-        print("isFirstResponder?: \(isFR)")
+        chatViewController.rootView.inputTextView.resignFirstResponder()
+        chatViewController.hideCharacterChatBox()
     }
     
 }

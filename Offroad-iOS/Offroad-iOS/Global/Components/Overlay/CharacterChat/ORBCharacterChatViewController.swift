@@ -13,7 +13,6 @@ import RxCocoa
 class ORBCharacterChatViewController: UIViewController {
     
     var disposeBag = DisposeBag()
-    let inputViewFrameRelay = PublishRelay<CGRect>()
     let rootView = ORBCharacterChatView()
     
     override func loadView() {
@@ -25,12 +24,6 @@ class ORBCharacterChatViewController: UIViewController {
         
         setupNotifications()
         bindData()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        inputViewFrameRelay.accept(rootView.userChatInputView.frame)
     }
     
 }
@@ -71,15 +64,6 @@ extension ORBCharacterChatViewController {
     }
     
     private func bindData() {
-        inputViewFrameRelay.take(1)
-            .observe(on: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] inputViewFrame in
-                guard let self else { return }
-                print(inputViewFrame)
-                self.rootView.userChatInputViewBottomConstraint.constant = (48 + inputViewFrame.height)
-                self.rootView.layoutIfNeeded()
-            }).disposed(by: disposeBag)
-        
         rootView.sendButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             print("메시지 전송: \(self.rootView.inputTextView.text!)")
