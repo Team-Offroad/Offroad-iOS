@@ -18,6 +18,8 @@ class ORBCharacterChatViewController: UIViewController {
     // userChatTextView의 textInputView의 height를 전달
     let userChatTextViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
     
+    lazy var panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureHandler))
+    
     override func loadView() {
         view = rootView
     }
@@ -27,6 +29,7 @@ class ORBCharacterChatViewController: UIViewController {
         
         setupNotifications()
         bindData()
+        setupGestures()
     }
     
 }
@@ -47,6 +50,32 @@ extension ORBCharacterChatViewController {
         rootView.layoutIfNeeded()
         let inputViewHeight = rootView.userChatInputView.frame.height
         updateChatInputViewPosition(bottomInset: -(48 + inputViewHeight))
+    }
+    
+    @objc private func panGestureHandler(sender: UIPanGestureRecognizer) {
+        print(#function)
+        
+        switch sender.state {
+        case .possible, .began:
+            return
+        case .changed:
+            let verticalPosition = sender.translation(in: rootView).y
+            print(verticalPosition)
+            if verticalPosition < 0 {
+                let transform = CGAffineTransform(translationX: 0, y: verticalPosition)
+                rootView.characterChatBox.transform = transform
+            }
+        case .ended, .cancelled, .failed:
+            print("끝!", sender.velocity(in: rootView).y)
+            if sender.velocity(in: rootView).y < -100 {
+                hideCharacterChatBox()
+            } else {
+                showCharacterChatBox()
+            }
+        @unknown default:
+            rootView.characterChatBox.transform = CGAffineTransform.identity
+        }
+        
     }
     
     //MARK: - Private Func
@@ -97,6 +126,10 @@ extension ORBCharacterChatViewController {
             }).disposed(by: disposeBag)
     }
     
+    private func setupGestures() {
+        rootView.characterChatBox.addGestureRecognizer(panGesture)
+    }
+    
     //MARK: - Func
     
     func showCharacterChatBox() {
@@ -104,6 +137,7 @@ extension ORBCharacterChatViewController {
         rootView.characterChatBoxAnimator.stopAnimation(true)
         rootView.characterChatBoxAnimator.addAnimations { [weak self] in
             guard let self else { return }
+            self.rootView.characterChatBox.transform = CGAffineTransform.identity
             self.rootView.characterChatBoxTopConstraint.isActive = true
             self.rootView.characterChatBoxBottomConstraint.isActive = false
             self.rootView.layoutIfNeeded()
@@ -115,6 +149,7 @@ extension ORBCharacterChatViewController {
         rootView.characterChatBoxAnimator.stopAnimation(true)
         rootView.characterChatBoxAnimator.addAnimations { [weak self] in
             guard let self else { return }
+            self.rootView.characterChatBox.transform = CGAffineTransform.identity
             self.rootView.characterChatBoxTopConstraint.isActive = false
             self.rootView.characterChatBoxBottomConstraint.isActive = true
             self.rootView.layoutIfNeeded()
