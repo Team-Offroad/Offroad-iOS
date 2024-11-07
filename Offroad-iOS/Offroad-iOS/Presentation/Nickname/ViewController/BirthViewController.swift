@@ -59,7 +59,7 @@ final class BirthViewController: UIViewController {
         birthView.yearTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
         birthView.monthTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
-
+        
         birthView.yearTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.monthTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldEditingChanged(_:)), for: .editingChanged)
@@ -106,6 +106,13 @@ final class BirthViewController: UIViewController {
     }
     
     private func validateDay() -> Bool {
+        if birthView.yearTextField.text?.isEmpty == true || birthView.monthTextField.text?.isEmpty == true {
+            if let dayText = birthView.dayTextField.text, let day = Int(dayText) {
+                return day >= 1 && day <= 31
+            }
+            return false
+        }
+        
         guard let yearText = birthView.yearTextField.text, let year = Int(yearText),
               let monthText = birthView.monthTextField.text, let month = Int(monthText),
               let dayText = birthView.dayTextField.text, let day = Int(dayText) else {
