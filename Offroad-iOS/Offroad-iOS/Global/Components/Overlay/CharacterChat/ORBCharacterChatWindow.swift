@@ -20,5 +20,12 @@ class ORBCharacterChatWindow: UIWindow {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let chatViewController = rootViewController as! ORBCharacterChatViewController
+        if chatViewController.rootView.characterChatBox.frame.contains(point) ||
+            chatViewController.rootView.userChatInputView.frame.contains(point) {
+            return super.hitTest(point, with: event)
+        } else { return nil }
+    }
     
 }

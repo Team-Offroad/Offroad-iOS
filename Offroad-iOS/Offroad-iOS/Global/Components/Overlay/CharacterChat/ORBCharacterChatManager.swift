@@ -12,22 +12,23 @@ final class ORBCharacterChatManager {
     static let shared = ORBCharacterChatManager()
     
     var chatWindow = ORBCharacterChatWindow(windowScene: UIWindowScene.current)
-    
+    var chatViewController: ORBCharacterChatViewController {
+        chatWindow.rootViewController as! ORBCharacterChatViewController
+    }
     
     private init() { }
     
-    
-    func showCharacterChatBox() {
-        let chatViewController = chatWindow.rootViewController as! ORBCharacterChatViewController
-        
+    func showCharacterChatBox(character name: String, message: String) {
+        chatViewController.configureCharacterChatBox(character: name, message: message)
+        chatViewController.showCharacterChatBox()
     }
     
     func startChat() {
-        chatWindow = ORBCharacterChatWindow(windowScene: UIWindowScene.current)
+        chatViewController.rootView.inputTextView.becomeFirstResponder()
     }
     
     func endChat() {
-        
+        chatViewController.rootView.inputTextView.resignFirstResponder()
     }
     
 }

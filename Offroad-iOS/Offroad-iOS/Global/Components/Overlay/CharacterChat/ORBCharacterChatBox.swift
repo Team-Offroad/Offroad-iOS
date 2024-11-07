@@ -9,15 +9,23 @@ import UIKit
 
 class ORBCharacterChatBox: UIView {
     
-    let characterName: String
-    let message: String
+//    let characterName: String
+//    let message: String
     
     let characterNameLabel = UILabel()
     let messageLabel = UILabel()
     
-    init(characterName: String? = nil, message: String? = nil) {
-        self.characterName = characterName ?? ""
-        self.message = message ?? ""
+//    init(characterName: String? = nil, message: String? = nil) {
+//        self.characterName = characterName ?? ""
+//        self.message = message ?? ""
+//        super.init(frame: .zero)
+//        
+//        setupStyle()
+//        setupHierarchy()
+//        setupLayout()
+//    }
+    
+    init() {
         super.init(frame: .zero)
         
         setupStyle()
@@ -55,6 +63,7 @@ extension ORBCharacterChatBox {
     
     private func setupStyle() {
         backgroundColor = .main(.main3)
+        roundCorners(cornerRadius: 14)
         layer.borderColor = UIColor.neutral(.btnInactive).cgColor
         layer.borderWidth = 1
         
@@ -62,13 +71,13 @@ extension ORBCharacterChatBox {
             label.font = .offroad(style: .iosTextBold)
             //임시, 원래 캐릭터 색 들어가는 듯?
             label.textColor = .blue
-            label.text = characterName
+//            label.text = characterName
         }
         
         messageLabel.do { label in
             label.font = .offroad(style: .iosText)
             label.textColor = .main(.main2)
-            label.text = message
+//            label.text = message
             label.numberOfLines = 0
         }
     }
