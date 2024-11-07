@@ -9,7 +9,17 @@ import UIKit
 
 final class ORBCharacterChatView: UIView {
     
-    let chatBox = ORBCharacterChatBox()
+    //MARK: - Properties
+    
+    let characterChatBoxShowingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    let characterChatBoxHidingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    
+    lazy var characterChatBoxTopConstraint = characterChatBox.topAnchor.constraint(equalTo: topAnchor, constant: 74)
+    lazy var characterChatBoxBottomConstraint = characterChatBox.bottomAnchor.constraint(equalTo: topAnchor)
+    
+    //MARK: - UI Properties
+    
+    let characterChatBox = ORBCharacterChatBox()
     let userChatInputAccessoryView = UIView()
     
     let meLabel = UILabel()
@@ -39,7 +49,13 @@ extension ORBCharacterChatView {
     //MARK: - Layout Func
     
     private func setupLayout() {
+        characterChatBoxTopConstraint.isActive = false
+        characterChatBoxBottomConstraint.isActive = true
         
+        characterChatBox.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(24)
+            make.height.greaterThanOrEqualTo(58)
+        }
     }
     
     //MARK: - Private Func
@@ -71,8 +87,30 @@ extension ORBCharacterChatView {
     }
     
     private func setupHierarchy() {
-        
+        userChatInputAccessoryView.addSubviews(meLabel, inputTextLabel, inputTextView, sendButton)
+        addSubviews(characterChatBox, userChatInputAccessoryView)
     }
     
+    //MARK: - Func
+    
+    func showCharacterChatBox() {
+        characterChatBoxHidingAnimator.stopAnimation(true)
+        characterChatBoxShowingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.characterChatBoxTopConstraint.isActive = true
+            self.characterChatBoxBottomConstraint.isActive = false
+        }
+        characterChatBoxShowingAnimator.startAnimation()
+    }
+    
+    func hideCharacterChatBox() {
+        characterChatBoxShowingAnimator.stopAnimation(true)
+        characterChatBoxHidingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.characterChatBoxTopConstraint.isActive = false
+            self.characterChatBoxBottomConstraint.isActive = true
+        }
+        characterChatBoxHidingAnimator.startAnimation()
+    }
     
 }

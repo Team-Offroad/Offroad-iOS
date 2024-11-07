@@ -11,16 +11,14 @@ class ORBCharacterChatViewController: UIViewController {
     
     let rootView = ORBCharacterChatView()
     
-    
     override func loadView() {
         view = rootView
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        rootView.inputTextView.becomeFirstResponder()
     }
     
 }
@@ -43,6 +41,8 @@ extension ORBCharacterChatViewController {
     
     //MARK: - Func
     
-    
+    func showChatBox(characterName: String, message: String) {
+        rootView
+    }
     
 }
