@@ -45,6 +45,9 @@ extension ORBCharacterChatView {
     //MARK: - Private Func
     
     private func setupStyle() {
+        userChatInputAccessoryView.do { view in
+            view.roundCorners(cornerRadius: 20, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
+        }
         meLabel.do { label in
             label.textColor = .main(.main2)
             label.font = .pretendardFont(ofSize: 16, weight: .regular)
@@ -63,7 +66,7 @@ extension ORBCharacterChatView {
             textView.roundCorners(cornerRadius: 12)
         }
         sendButton.do { button in
-            
+            button.setImage(.icnChatViewSendButton, for: .normal)
         }
     }
     
