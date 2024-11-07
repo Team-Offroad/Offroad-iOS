@@ -13,6 +13,7 @@ class ORBCharacterChatWindow: UIWindow {
     override init(windowScene: UIWindowScene) {
         super.init(windowScene: windowScene)
         rootViewController = ORBCharacterChatViewController()
+        tintColor = .sub(.sub4)
         windowLevel = UIWindow.Level.alert + 1
         makeKeyAndVisible()
     }

@@ -15,6 +15,8 @@ class ORBCharacterChatViewController: UIViewController {
     var disposeBag = DisposeBag()
     let rootView = ORBCharacterChatView()
     
+    let inputTextViewContentHeightRelay = PublishRelay<CGFloat>()
+    
     override func loadView() {
         view = rootView
     }
@@ -76,6 +78,22 @@ extension ORBCharacterChatViewController {
             print("didResingFirstResponder: \(isFR)")
             hideCharacterChatBox()
         }.disposed(by: disposeBag)
+        
+        rootView.inputTextView.rx.text.orEmpty.subscribe { [weak self] text in
+            guard let self else { return }
+            self.inputTextViewContentHeightRelay.accept(self.rootView.inputTextView.textInputView.bounds.height)
+        }.disposed(by: disposeBag)
+        
+        inputTextViewContentHeightRelay
+            .subscribe(onNext: { textContentHeight in
+                if textContentHeight >= 30 {
+                    self.updateChatInputViewHeight(height: 58)
+                } else {
+                    self.updateChatInputViewHeight(height: 38)
+                }
+                self.rootView.updateConstraints()
+                self.rootView.layoutIfNeeded()
+            }).disposed(by: disposeBag)
     }
     
     //MARK: - Func
@@ -112,6 +130,16 @@ extension ORBCharacterChatViewController {
             self.rootView.layoutIfNeeded()
         }
         rootView.userChatInputViewAnimator.startAnimation()
+    }
+    
+    func updateChatInputViewHeight(height: CGFloat) {
+        rootView.userChatInputViewHeightAnimator.stopAnimation(true)
+        rootView.userChatInputViewHeightAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            rootView.inputTextViewHeightConstraint.constant = height
+            rootView.layoutIfNeeded()
+        }
+        rootView.userChatInputViewHeightAnimator.startAnimation()
     }
     
     func configureCharacterChatBox(character name: String, message: String) {

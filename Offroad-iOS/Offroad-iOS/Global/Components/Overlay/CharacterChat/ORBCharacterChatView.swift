@@ -7,17 +7,21 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
+
 final class ORBCharacterChatView: UIView {
     
     //MARK: - Properties
     
     let characterChatBoxAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     let userChatInputViewAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
+    let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     
     lazy var characterChatBoxTopConstraint = characterChatBox.topAnchor.constraint(equalTo: topAnchor, constant: 74)
     lazy var characterChatBoxBottomConstraint = characterChatBox.bottomAnchor.constraint(equalTo: topAnchor)
     lazy var userChatInputViewBottomConstraint = userChatInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 160)
-    lazy var inputTextViewHeightConstraint = inputTextView.heightAnchor.constraint(equalToConstant: 40)
+    lazy var inputTextViewHeightConstraint = inputTextView.heightAnchor.constraint(equalToConstant: 38)
     
     //MARK: - UI Properties
     
@@ -85,7 +89,7 @@ extension ORBCharacterChatView {
         }
         
         sendButton.snp.makeConstraints { make in
-            make.top.equalTo(inputTextView)
+            make.centerY.equalTo(inputTextView)
             make.leading.equalTo(inputTextView.snp.trailing).offset(7)
             make.trailing.equalToSuperview().inset(24)
             make.size.equalTo(40)
@@ -123,8 +127,8 @@ extension ORBCharacterChatView {
             textView.font = .offroad(style: .iosText)
             textView.backgroundColor = .neutral(.btnInactive)
             textView.contentInset = .init(top: 9, left: 0, bottom: 9, right: 0)
-            textView.textContainerInset = .init(top: 0, left: 0, bottom: 0, right: 0)
-            textView.textInputView.backgroundColor = .orange
+            textView.textContainerInset = .init(top: 0, left: 20, bottom: 0, right: 20)
+            textView.textContainer.lineFragmentPadding = 0
             textView.roundCorners(cornerRadius: 12)
         }
         sendButton.do { button in
