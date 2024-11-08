@@ -43,7 +43,11 @@ final class AuthService: BaseService, AuthServiceProtocol {
                 )
                 completion(networkResult)
             case .failure(let err):
-                print(err)
+                let networkResult: NetworkResult<RefreshTokenResponseDTO> = self.fetchNetworkResult(
+                    statusCode: err.response?.statusCode ?? Int(),
+                    data: err.response?.data ?? Data()
+                )
+                completion(networkResult)
             }
         }
     }
