@@ -5,7 +5,7 @@
 //  Created by 조혜린 on 8/6/24.
 //
 
-import Foundation
+import UIKit
 
 import Alamofire
 
@@ -51,6 +51,9 @@ final class TokenInterceptor: RequestInterceptor {
                 KeychainManager.shared.saveRefreshToken(token: refreshToken)
                 
                 completion(.retry)
+            case .unAuthentication:
+                let loginViewController = LoginViewController()
+                AppUtility.changeRootViewController(to: loginViewController)
             default:
                 completion(.doNotRetry)
             }
