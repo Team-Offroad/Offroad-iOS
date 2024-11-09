@@ -12,8 +12,24 @@ class QuestListViewController: UIViewController {
     //MARK: - Properties
     
     private var questListService = QuestListService()
-    private var questArray: [Quest] = []
-
+    private var allQuestList: [Quest] = []
+    private var activeQuestList: [Quest] = []
+    private var extendedListSize = 20
+    private var lastCursorID = 0
+    
+    private var isActive = false {
+        didSet {
+            if isActive {
+                activeQuestList = []
+            } else {
+                allQuestList = []
+            }
+            extendedListSize = 20
+            getInitialQuestList(isActive: isActive)
+            rootView.questListCollectionView.reloadData()
+        }
+    }
+    
     private let operationQueue = OperationQueue()
 
     //MARK: - UI Properties
@@ -32,7 +48,7 @@ class QuestListViewController: UIViewController {
         setupControlsTarget()
         setupCollectionView()
         setupDelegates()
-        reloadCollectionView()
+        getInitialQuestList(isActive: isActive)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -53,12 +69,16 @@ extension QuestListViewController {
     }
     
     @objc private func ongoingQuestSwitchValueChanged(sender: UISwitch) {
+        isActive = sender.isOn
+        rootView.activityIndicatorView.startAnimating()
         rootView.questListCollectionView.setContentOffset(.zero, animated: false)
         rootView.questListCollectionView.reloadData()
     }
     
     @objc private func refreshCollectionView() {
-        reloadCollectionView()
+        extendedListSize = 20
+        getInitialQuestList(isActive: isActive)
+        rootView.questListCollectionView.reloadData()
     }
 
     //MARK: - Private Func
@@ -74,8 +94,6 @@ extension QuestListViewController {
             QuestListCollectionViewCell.self,
             forCellWithReuseIdentifier: QuestListCollectionViewCell.className
         )
-        
-        rootView.questListCollectionView.reloadData()
     }
 
     private func setupDelegates() {
@@ -83,17 +101,44 @@ extension QuestListViewController {
         rootView.questListCollectionView.delegate = self
     }
     
-    private func reloadCollectionView(isActive: Bool = false) {
-        questListService.getQuestList(isActive: isActive) { [weak self] result in
+    private func getInitialQuestList(isActive: Bool, cursor: Int = 0, size: Int = 20) {
+        questListService.getQuestList(isActive: isActive, cursor: cursor, size: size) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let response):
                 guard let questListFromServer = response?.data.questList else { return }
-                self.questArray = questListFromServer
+                if isActive {
+                    self.activeQuestList = questListFromServer
+                } else {
+                    self.allQuestList = questListFromServer
+                }
                 self.rootView.activityIndicatorView.stopAnimating()
                 self.rootView.questListCollectionView.refreshControl?.endRefreshing()
                 self.rootView.questListCollectionView.reloadData()
                 
+                lastCursorID = questListFromServer.last?.cursorId ?? Int()
+            default:
+                return
+            }
+        }
+    }
+    
+    private func getExtendedQuestList(isActive: Bool, cursor: Int, size: Int) {
+        questListService.getQuestList(isActive: isActive, cursor: cursor, size: size) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let response):
+                guard let questListFromServer = response?.data.questList else { return }
+                if isActive {
+                    self.activeQuestList.append(contentsOf: questListFromServer)
+                } else {
+                    self.allQuestList.append(contentsOf: questListFromServer)
+                }
+                self.rootView.activityIndicatorView.stopAnimating()
+                self.rootView.questListCollectionView.refreshControl?.endRefreshing()
+                self.rootView.questListCollectionView.reloadData()
+                
+                lastCursorID = questListFromServer.last?.cursorId ?? Int()
             default:
                 return
             }
@@ -105,12 +150,12 @@ extension QuestListViewController {
 //MARK: - UICollectionViewDataSource
 
 extension QuestListViewController: UICollectionViewDataSource {
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if rootView.ongoingQuestToggle.isOn {
-            return questArray.filter({ $0.currentCount > 0 && $0.currentCount < $0.totalCount }).count
+        if isActive {
+            return activeQuestList.count
         } else {
-            return questArray.count
+            return allQuestList.count
         }
     }
     
@@ -120,12 +165,11 @@ extension QuestListViewController: UICollectionViewDataSource {
             for: indexPath
         ) as? QuestListCollectionViewCell else { fatalError("cell dequeing Failed!") }
         
-        if rootView.ongoingQuestToggle.isOn {
-            cell.configureCell(
-                with: questArray.filter({ $0.currentCount > 0 && $0.currentCount < $0.totalCount })[indexPath.item]
+        if isActive {
+            cell.configureCell(with: activeQuestList[indexPath.item]
             )
         } else {
-            cell.configureCell(with: questArray[indexPath.item])
+            cell.configureCell(with: allQuestList[indexPath.item])
         }
         
         return cell
@@ -155,5 +199,19 @@ extension QuestListViewController: UICollectionViewDelegate {
         operationQueue.addOperation(animationOperation)
         return false
     }
-
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let frameHeight = scrollView.frame.size.height
+        
+        if offsetY >= contentHeight - frameHeight {
+            if extendedListSize == lastCursorID {
+                extendedListSize += 12
+                getExtendedQuestList(isActive: isActive, cursor: lastCursorID, size: 12)
+                
+                //TODO: 로딩 케이스 추가
+            }
+        }
+    }
 }
