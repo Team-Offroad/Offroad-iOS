@@ -71,11 +71,13 @@ extension ORBCharacterChatView {
             make.horizontalEdges.equalToSuperview()
         }
         
+        meLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         meLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(16)
             make.leading.equalToSuperview().inset(38)
         }
         
+        meLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         userChatTextLabel.snp.makeConstraints { make in
             make.top.equalTo(meLabel)
             make.leading.equalTo(meLabel.snp.trailing)

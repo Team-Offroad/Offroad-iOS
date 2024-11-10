@@ -99,6 +99,8 @@ extension ORBCharacterChatViewController {
         rootView.sendButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             print("메시지 전송: \(self.rootView.userChatTextView.text!)")
+            self.rootView.userChatTextLabel.text = self.rootView.userChatTextView.text
+            self.rootView.userChatTextView.text = ""
         }.disposed(by: disposeBag)
         
         rootView.endChatButton.rx.tap.bind { [weak self] in
