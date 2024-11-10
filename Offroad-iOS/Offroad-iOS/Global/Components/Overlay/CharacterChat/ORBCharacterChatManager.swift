@@ -9,14 +9,24 @@ import UIKit
 
 final class ORBCharacterChatManager {
     
+    //MARK: - Static Properties
+    
     static let shared = ORBCharacterChatManager()
+    
+    //MARK: - Properties
     
     var chatWindow = ORBCharacterChatWindow(windowScene: UIWindowScene.current)
     var chatViewController: ORBCharacterChatViewController {
         chatWindow.rootViewController as! ORBCharacterChatViewController
     }
     
+    //MARK: - Life Cycle
+    
     private init() { }
+    
+}
+    
+extension ORBCharacterChatManager {
     
     func showCharacterChatBox(character name: String, message: String) {
         chatWindow.makeKeyAndVisible()
@@ -31,11 +41,6 @@ final class ORBCharacterChatManager {
     func startChat() {
         chatWindow.makeKeyAndVisible()
         self.chatViewController.rootView.userChatInputView.becomeFirstResponder()
-    }
-    
-    func endChat() {
-        chatViewController.rootView.userChatInputView.resignFirstResponder()
-        chatViewController.hideCharacterChatBox()
     }
     
     func showKeyoardBackgroundView() {
