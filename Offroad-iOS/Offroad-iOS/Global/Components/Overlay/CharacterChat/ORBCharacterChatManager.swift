@@ -19,6 +19,7 @@ final class ORBCharacterChatManager {
     private init() { }
     
     func showCharacterChatBox(character name: String, message: String) {
+        chatWindow.makeKeyAndVisible()
         chatViewController.configureCharacterChatBox(character: name, message: message)
         chatViewController.showCharacterChatBox()
     }
@@ -28,13 +29,21 @@ final class ORBCharacterChatManager {
     }
     
     func startChat() {
-        chatWindow.makeKey()
+        chatWindow.makeKeyAndVisible()
         self.chatViewController.rootView.userChatTextView.becomeFirstResponder()
     }
     
     func endChat() {
         chatViewController.rootView.userChatTextView.resignFirstResponder()
         chatViewController.hideCharacterChatBox()
+    }
+    
+    func showKeyoardBackgroundView() {
+        chatViewController.rootView.keyboardBackgroundView.isHidden = false
+    }
+    
+    func hideKeyboardBackgroundView() {
+        chatViewController.rootView.keyboardBackgroundView.isHidden = true
     }
     
 }

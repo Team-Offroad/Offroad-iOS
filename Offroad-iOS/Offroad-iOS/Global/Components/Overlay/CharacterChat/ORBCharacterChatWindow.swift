@@ -15,7 +15,6 @@ class ORBCharacterChatWindow: UIWindow {
         rootViewController = ORBCharacterChatViewController()
         tintColor = .sub(.sub4)
         windowLevel = UIWindow.Level.alert + 1
-        makeKeyAndVisible()
     }
     
     required init?(coder: NSCoder) {

@@ -31,6 +31,7 @@ final class ORBCharacterChatView: UIView {
     let meLabel = UILabel()
     let userChatTextLabel = UILabel()
     let userChatTextView = UITextView()
+    let keyboardBackgroundView = UIView()
     let sendButton = UIButton()
     let endChatButton = UIButton()
     
@@ -88,6 +89,12 @@ extension ORBCharacterChatView {
             make.bottom.equalToSuperview().inset(16)
         }
         
+        keyboardBackgroundView.snp.makeConstraints { make in
+            make.top.equalTo(userChatInputView.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
         sendButton.snp.makeConstraints { make in
             make.centerY.equalTo(userChatTextView)
             make.leading.equalTo(userChatTextView.snp.trailing).offset(7)
@@ -131,6 +138,10 @@ extension ORBCharacterChatView {
             textView.textContainer.lineFragmentPadding = 0
             textView.roundCorners(cornerRadius: 12)
         }
+        keyboardBackgroundView.do { view in
+            view.backgroundColor = .primary(.white)
+            view.isHidden = true
+        }
         sendButton.do { button in
             button.setImage(.icnChatViewSendButton, for: .normal)
         }
@@ -147,7 +158,7 @@ extension ORBCharacterChatView {
     
     private func setupHierarchy() {
         userChatInputView.addSubviews(meLabel, userChatTextLabel, userChatTextView, sendButton)
-        addSubviews(characterChatBox, userChatInputView, endChatButton)
+        addSubviews(characterChatBox, userChatInputView, keyboardBackgroundView, endChatButton)
     }
     
     //MARK: - Func
