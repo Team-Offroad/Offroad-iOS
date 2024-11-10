@@ -80,6 +80,7 @@
 		4E9900842CDBD730007EEFF7 /* ORBCharacterChatBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9900832CDBD730007EEFF7 /* ORBCharacterChatBox.swift */; };
 		4E9900882CE0768B007EEFF7 /* loading1.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E9900862CE0768B007EEFF7 /* loading1.json */; };
 		4E9900892CE0768B007EEFF7 /* loading2.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E9900872CE0768B007EEFF7 /* loading2.json */; };
+		4E99008B2CE0CB61007EEFF7 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */; };
 		4EA90AC62C4521C50046A6E1 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */; };
 		4EADB9712CC9518000930140 /* CharacterDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EADB9702CC9518000930140 /* CharacterDetailViewModel.swift */; };
 		4EB32BE72C67A2B0003F98F2 /* QuestListViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */; };
@@ -342,6 +343,7 @@
 		4E9900832CDBD730007EEFF7 /* ORBCharacterChatBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatBox.swift; sourceTree = "<group>"; };
 		4E9900862CE0768B007EEFF7 /* loading1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = loading1.json; sourceTree = "<group>"; };
 		4E9900872CE0768B007EEFF7 /* loading2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = loading2.json; sourceTree = "<group>"; };
+		4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		4EADB9702CC9518000930140 /* CharacterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewModel.swift; sourceTree = "<group>"; };
 		4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListViewControllers.swift; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 				D063E98F2C496EA500434A09 /* LottieAnimationView+.swift */,
 				4E4A8FD62C4A5752001FB498 /* UIImage+.swift */,
 				87738CCF2C8DC15200E107C7 /* UIColor+.swift */,
+				4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1183,15 +1186,6 @@
 			path = Toast;
 			sourceTree = "<group>";
 		};
-		4E9900852CE07673007EEFF7 /* Lotties */ = {
-			isa = PBXGroup;
-			children = (
-				4E9900862CE0768B007EEFF7 /* loading1.json */,
-				4E9900872CE0768B007EEFF7 /* loading2.json */,
-			);
-			path = Lotties;
-			sourceTree = "<group>";
-		};
 		4E99007A2CDB9504007EEFF7 /* CharacterChat */ = {
 			isa = PBXGroup;
 			children = (
@@ -1202,6 +1196,15 @@
 				4E9900832CDBD730007EEFF7 /* ORBCharacterChatBox.swift */,
 			);
 			path = CharacterChat;
+			sourceTree = "<group>";
+		};
+		4E9900852CE07673007EEFF7 /* Lotties */ = {
+			isa = PBXGroup;
+			children = (
+				4E9900862CE0768B007EEFF7 /* loading1.json */,
+				4E9900872CE0768B007EEFF7 /* loading2.json */,
+			);
+			path = Lotties;
 			sourceTree = "<group>";
 		};
 		4EA90AC42C4521AF0046A6E1 /* ViewControllers */ = {
@@ -2586,6 +2589,7 @@
 				8792D01E2C3E872D002051AC /* ChoosingCharacterView.swift in Sources */,
 				8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */,
 				87738CBA2C8C1B0500E107C7 /* CharacterListResponseDTO.swift in Sources */,
+				4E99008B2CE0CB61007EEFF7 /* UITextView+.swift in Sources */,
 				4EFD00502CCB4C25005C294D /* SVGFetchable.swift in Sources */,
 				4E56F53D2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift in Sources */,
 				D0E796412C4537DE005B47A5 /* QuestInfoResponseDTO.swift in Sources */,
