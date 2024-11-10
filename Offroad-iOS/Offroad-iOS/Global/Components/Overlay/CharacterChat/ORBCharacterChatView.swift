@@ -24,9 +24,6 @@ final class ORBCharacterChatView: UIView {
     lazy var characterChatBoxBottomConstraint = characterChatBox.bottomAnchor.constraint(equalTo: topAnchor)
     lazy var userChatViewBottomConstraint = userChatView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 160)
     lazy var userChatInputViewHeightConstraint = userChatInputView.heightAnchor.constraint(equalToConstant: 37)
-//    lazy var userChatInputViewHeightConstraint = userChatInputView.heightAnchor.constraint(
-//        equalToConstant: (23.0*2 + 3.76) + (9.0*2)
-//    )
     lazy var userChatDisplayViewHeightConstraint = userChatDisplayView.heightAnchor.constraint(equalToConstant: 24)
     
     //MARK: - UI Properties
@@ -150,24 +147,19 @@ extension ORBCharacterChatView {
         userChatDisplayView.do { textView in
             textView.isSelectable = false
             textView.backgroundColor = .clear
-//            textView.backgroundColor = .orange
-//            textView.textInputView.backgroundColor = .systemTeal
             textView.textContainerInset = .zero
+            textView.textContainer.lineFragmentPadding = 0
             textView.textColor = .main(.main2)
             textView.font = .offroad(style: .iosText)
-//            textView.setLineHeight(percentage: 150)
         }
         userChatInputView.do { textView in
             textView.textColor = .main(.main2)
             textView.font = .offroad(style: .iosText)
             textView.backgroundColor = .neutral(.btnInactive)
-//            textView.backgroundColor = .orange
-//            textView.textInputView.backgroundColor = .systemTeal
             textView.contentInset = .init(top: 9, left: 0, bottom: 9, right: 0)
             textView.textContainerInset = .init(top: 0, left: 20, bottom: 0, right: 20)
             textView.textContainer.lineFragmentPadding = 0
             textView.roundCorners(cornerRadius: 12)
-//            textView.setLineHeight(percentage: 150)
         }
         keyboardBackgroundView.do { view in
             view.backgroundColor = .primary(.white)
@@ -191,9 +183,5 @@ extension ORBCharacterChatView {
         userChatView.addSubviews(meLabel, userChatDisplayView, loadingAnimationView, userChatInputView, sendButton)
         addSubviews(characterChatBox, userChatView, keyboardBackgroundView, endChatButton)
     }
-    
-    //MARK: - Func
-    
-    
     
 }

@@ -68,7 +68,6 @@ extension ORBCharacterChatViewController {
                 rootView.characterChatBox.transform = transform
             }
         case .ended, .cancelled, .failed:
-            print("끝!", sender.velocity(in: rootView).y)
             if sender.velocity(in: rootView).y < -100 {
                 hideCharacterChatBox()
             } else {
@@ -135,9 +134,6 @@ extension ORBCharacterChatViewController {
                     self.rootView.sendButton.isEnabled = false
                 }
             }).disposed(by: disposeBag)
-        
-        
-        
         
         userChatInputViewTextInputViewHeightRelay.subscribe(onNext: { [weak self] textContentHeight in
             guard let self else { return }
