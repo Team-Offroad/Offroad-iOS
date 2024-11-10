@@ -32,7 +32,7 @@ extension UITextView {
         // (.font 키에 값 할당 안하면 강제언래핑 충돌) -> 나중에 공부하기
         attributedString.addAttribute(.font, value: self.font!, range: NSRange(location: 0, length: attributedString.length))
         self.attributedText = attributedString
-        self.layoutManager.ensureLayout(for: self.textContainer)
+//        self.layoutManager.ensureLayout(for: self.textContainer)
     }
     
     /// 피그마에서 폰트를 표현할 때 Line Height가 설정된 경우 행간을 구현
@@ -40,6 +40,8 @@ extension UITextView {
     ///
     /// 피그마상에서 라벨의 높이를 지정한 경우, UILabel에서도 높이를 명시적으로 설정해야 함.
     func setLineHeight(percentage: CGFloat) {
+        print(#function)
+        let currentOffset = contentOffset
         let currentText = self.attributedText ?? NSAttributedString(string: self.text ?? "")
         let attributedString = NSMutableAttributedString(attributedString: currentText)
         let style = NSMutableParagraphStyle()
@@ -54,10 +56,23 @@ extension UITextView {
            .font: self.font!,
            .foregroundColor: self.textColor ?? .primary(.black)]
         typingAttributes = attributes
-        attributedString.addAttribute(.paragraphStyle,
-                                     value: style,
-                                     range: NSRange(location: 0, length: attributedString.length))
+        
+        attributedString.addAttribute(
+            .paragraphStyle,
+            value: style,
+            range: NSRange(location: 0, length: attributedString.length))
+        attributedString.addAttribute(
+            .font,
+            value: self.font!,
+            range: NSRange(location: 0, length: attributedString.length)
+        )
+        attributedString.addAttribute(
+            .foregroundColor,
+            value: self.textColor ?? .primary(.black),
+            range: NSRange(location: 0, length: attributedString.length)
+        )
         self.attributedText = attributedString
+        self.contentOffset = currentOffset
     }
     
 }

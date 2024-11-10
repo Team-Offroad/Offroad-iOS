@@ -15,8 +15,10 @@ class ORBCharacterChatViewController: UIViewController {
     var disposeBag = DisposeBag()
     let rootView = ORBCharacterChatView()
     
-    // userChatTextView의 textInputView의 height를 전달
-    let userChatTextViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
+    // userChatInputView의 textInputView의 height를 전달
+    let userChatInputViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
+    // userChatDisplayView의 textInputVie의 height를 전달
+    let userChatDisplayViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
     
     lazy var panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureHandler))
     
@@ -99,45 +101,70 @@ extension ORBCharacterChatViewController {
         rootView.sendButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             print("메시지 전송: \(self.rootView.userChatInputView.text!)")
-            self.rootView.userChatDisplayView.text = self.rootView.userChatInputView.text
+            self.rootView.userChatDisplayView.text = self.rootView.userChatInputView.text.trimmingCharacters(in: .whitespacesAndNewlines)
             self.rootView.userChatInputView.text = ""
         }.disposed(by: disposeBag)
         
         rootView.endChatButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             print("채팅을 종료합니다.")
-            let isFR = self.rootView.userChatInputView.resignFirstResponder()
-            print("didResingFirstResponder: \(isFR)")
+            self.rootView.userChatInputView.resignFirstResponder()
+            rootView.userChatInputView.text = ""
+            rootView.userChatDisplayView.text = ""
             hideCharacterChatBox()
         }.disposed(by: disposeBag)
         
-        rootView.userChatInputView.rx.text.orEmpty.subscribe { [weak self] text in
-            guard let self else { return }
-            self.userChatTextViewTextInputViewHeightRelay.accept(self.rootView.userChatInputView.textInputView.bounds.height)
-            if text.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
-                print("입력된 텍스트: \(text)")
-                self.rootView.userChatDisplayView.text = ""
-                self.rootView.loadingAnimationView.isHidden = false
-                self.rootView.loadingAnimationView.play()
-                self.rootView.sendButton.isEnabled = true
-            } else {
-                print("입력된 텍스트 없음")
-                self.rootView.loadingAnimationView.pause()
-                self.rootView.loadingAnimationView.isHidden = true
-                self.rootView.sendButton.isEnabled = false
-            }
-        }.disposed(by: disposeBag)
-        
-        userChatTextViewTextInputViewHeightRelay
-            .subscribe(onNext: { textContentHeight in
-                if textContentHeight >= 30 {
-                    self.updateChatInputViewHeight(height: (20*2) + (9*2))
+        rootView.userChatInputView.rx.text.orEmpty
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .default))
+            .subscribe(onNext: { [weak self] text in
+                guard let self else { return }
+                self.userChatInputViewTextInputViewHeightRelay.accept(self.rootView.userChatInputView.textInputView.bounds.height)
+                if text.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                    print("입력된 텍스트: \(text)")
+                    self.rootView.userChatDisplayView.isHidden = true
+                    self.rootView.loadingAnimationView.isHidden = false
+                    self.rootView.loadingAnimationView.play()
+                    self.rootView.sendButton.isEnabled = true
+                    self.updateChatDisplayViewHeight(height: 20)
                 } else {
-                    self.updateChatInputViewHeight(height: 20 + (9*2))
+                    print("입력된 텍스트 없음")
+                    userChatDisplayViewTextInputViewHeightRelay.accept(rootView.userChatDisplayView.textInputView.frame.height)
+                    self.rootView.userChatDisplayView.isHidden = false
+                    self.rootView.loadingAnimationView.pause()
+                    self.rootView.loadingAnimationView.isHidden = true
+                    self.rootView.sendButton.isEnabled = false
                 }
-                self.rootView.updateConstraints()
-                self.rootView.layoutIfNeeded()
             }).disposed(by: disposeBag)
+        
+        
+        
+        
+        userChatInputViewTextInputViewHeightRelay.subscribe(onNext: { [weak self] textContentHeight in
+            guard let self else { return }
+            if textContentHeight >= 30 {
+                self.updateChatInputViewHeight(height: (19.0*2) + (9.0*2))
+            } else {
+                self.updateChatInputViewHeight(height: 19.0 + (9*2))
+            }
+            self.rootView.updateConstraints()
+            self.rootView.layoutIfNeeded()
+        }).disposed(by: disposeBag)
+        
+        rootView.userChatDisplayView.rx.text.orEmpty.subscribe(onNext: { [weak self] text in
+            guard let self else { return }
+            self.userChatDisplayViewTextInputViewHeightRelay.accept(self.rootView.userChatDisplayView.textInputView.frame.height)
+        }).disposed(by: disposeBag)
+        
+        userChatDisplayViewTextInputViewHeightRelay.subscribe(onNext: { [weak self] textContentHeight in
+            guard let self else { return }
+            if textContentHeight >= 30 {
+                self.updateChatDisplayViewHeight(height: 40)
+            } else {
+                self.updateChatDisplayViewHeight(height: 20)
+            }
+            self.rootView.updateConstraints()
+            self.rootView.layoutIfNeeded()
+        }).disposed(by: disposeBag)
     }
     
     private func setupGestures() {
@@ -183,6 +210,7 @@ extension ORBCharacterChatViewController {
     }
     
     func updateChatInputViewHeight(height: CGFloat) {
+        print(#function)
         rootView.userChatInputViewHeightAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.userChatInputViewHeightConstraint.constant = height
@@ -197,6 +225,7 @@ extension ORBCharacterChatViewController {
             self.rootView.userChatDisplayViewHeightConstraint.constant = height
             self.rootView.layoutIfNeeded()
         }
+        rootView.userChatDisplayViewHeightAnimator.startAnimation()
     }
     
     func configureCharacterChatBox(character name: String, message: String) {
