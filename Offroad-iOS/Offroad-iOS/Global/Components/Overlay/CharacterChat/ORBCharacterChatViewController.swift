@@ -112,6 +112,13 @@ extension ORBCharacterChatViewController {
         rootView.userChatTextView.rx.text.orEmpty.subscribe { [weak self] text in
             guard let self else { return }
             self.userChatTextViewTextInputViewHeightRelay.accept(self.rootView.userChatTextView.textInputView.bounds.height)
+            if text.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                print("입력된 텍스트: \(text)")
+                self.rootView.sendButton.isEnabled = true
+            } else {
+                print("입력된 텍스트 없음")
+                self.rootView.sendButton.isEnabled = false
+            }
         }.disposed(by: disposeBag)
         
         userChatTextViewTextInputViewHeightRelay
@@ -169,7 +176,6 @@ extension ORBCharacterChatViewController {
     }
     
     func updateChatInputViewHeight(height: CGFloat) {
-        rootView.userChatInputViewHeightAnimator.stopAnimation(true)
         rootView.userChatInputViewHeightAnimator.addAnimations { [weak self] in
             guard let self else { return }
             rootView.inputTextViewHeightConstraint.constant = height
