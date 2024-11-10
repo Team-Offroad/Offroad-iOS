@@ -27,7 +27,7 @@ final class HomeView: UIView {
     private let characterNameView = UIView()
     private let characterNameLabel = UILabel()
     private let offroadStampImageView = UIImageView(image: UIImage(resource: .imgOffroadStamp))
-    private let chatButton = UIButton()
+    let chatButton = UIButton()
     private let shareButton = UIButton()
     private let changeCharacterButton = UIButton()
     private let buttonStackView = UIStackView()
