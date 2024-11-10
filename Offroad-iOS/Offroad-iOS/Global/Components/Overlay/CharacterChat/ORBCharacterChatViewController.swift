@@ -48,7 +48,7 @@ extension ORBCharacterChatViewController {
     
     @objc private func keyboardWillHide(_ notification: Notification) {
         rootView.layoutIfNeeded()
-        let inputViewHeight = rootView.userChatInputView.frame.height
+        let inputViewHeight = rootView.userChatView.frame.height
         updateChatInputViewPosition(bottomInset: -(48 + inputViewHeight))
     }
     
@@ -98,25 +98,25 @@ extension ORBCharacterChatViewController {
     private func bindData() {
         rootView.sendButton.rx.tap.bind { [weak self] in
             guard let self else { return }
-            print("메시지 전송: \(self.rootView.userChatTextView.text!)")
-            self.rootView.userChatTextLabel.text = self.rootView.userChatTextView.text
-            self.rootView.userChatTextView.text = ""
+            print("메시지 전송: \(self.rootView.userChatInputView.text!)")
+            self.rootView.userChatDisplayView.text = self.rootView.userChatInputView.text
+            self.rootView.userChatInputView.text = ""
         }.disposed(by: disposeBag)
         
         rootView.endChatButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             print("채팅을 종료합니다.")
-            let isFR = self.rootView.userChatTextView.resignFirstResponder()
+            let isFR = self.rootView.userChatInputView.resignFirstResponder()
             print("didResingFirstResponder: \(isFR)")
             hideCharacterChatBox()
         }.disposed(by: disposeBag)
         
-        rootView.userChatTextView.rx.text.orEmpty.subscribe { [weak self] text in
+        rootView.userChatInputView.rx.text.orEmpty.subscribe { [weak self] text in
             guard let self else { return }
-            self.userChatTextViewTextInputViewHeightRelay.accept(self.rootView.userChatTextView.textInputView.bounds.height)
+            self.userChatTextViewTextInputViewHeightRelay.accept(self.rootView.userChatInputView.textInputView.bounds.height)
             if text.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
                 print("입력된 텍스트: \(text)")
-                self.rootView.userChatTextLabel.text = ""
+                self.rootView.userChatDisplayView.text = ""
                 self.rootView.loadingAnimationView.isHidden = false
                 self.rootView.loadingAnimationView.play()
                 self.rootView.sendButton.isEnabled = true
@@ -172,23 +172,31 @@ extension ORBCharacterChatViewController {
     }
     
     func updateChatInputViewPosition(bottomInset: CGFloat) {
-        rootView.userChatInputViewAnimator.stopAnimation(true)
+        rootView.userChatViewAnimator.stopAnimation(true)
         rootView.layoutIfNeeded()
-        rootView.userChatInputViewAnimator.addAnimations { [weak self] in
+        rootView.userChatViewAnimator.addAnimations { [weak self] in
             guard let self else { return }
-            self.rootView.userChatInputViewBottomConstraint.constant = -bottomInset
+            self.rootView.userChatViewBottomConstraint.constant = -bottomInset
             self.rootView.layoutIfNeeded()
         }
-        rootView.userChatInputViewAnimator.startAnimation()
+        rootView.userChatViewAnimator.startAnimation()
     }
     
     func updateChatInputViewHeight(height: CGFloat) {
         rootView.userChatInputViewHeightAnimator.addAnimations { [weak self] in
             guard let self else { return }
-            rootView.inputTextViewHeightConstraint.constant = height
-            rootView.layoutIfNeeded()
+            self.rootView.userChatInputViewHeightConstraint.constant = height
+            self.rootView.layoutIfNeeded()
         }
         rootView.userChatInputViewHeightAnimator.startAnimation()
+    }
+    
+    func updateChatDisplayViewHeight(height: CGFloat) {
+        rootView.userChatDisplayViewHeightAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.userChatDisplayViewHeightConstraint.constant = height
+            self.rootView.layoutIfNeeded()
+        }
     }
     
     func configureCharacterChatBox(character name: String, message: String) {

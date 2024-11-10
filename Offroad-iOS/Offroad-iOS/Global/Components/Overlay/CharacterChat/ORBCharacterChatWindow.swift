@@ -24,7 +24,7 @@ class ORBCharacterChatWindow: UIWindow {
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let chatViewController = rootViewController as! ORBCharacterChatViewController
         if chatViewController.rootView.characterChatBox.frame.contains(point) ||
-            chatViewController.rootView.userChatInputView.frame.contains(point) ||
+            chatViewController.rootView.userChatView.frame.contains(point) ||
             chatViewController.rootView.endChatButton.frame.contains(point) {
             return super.hitTest(point, with: event)
         } else {

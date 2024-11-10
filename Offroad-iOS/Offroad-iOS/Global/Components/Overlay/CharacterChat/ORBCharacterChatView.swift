@@ -16,23 +16,25 @@ final class ORBCharacterChatView: UIView {
     //MARK: - Properties
     
     let characterChatBoxAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
-    let userChatInputViewAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
+    let userChatViewAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    let userChatDisplayViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     
     lazy var characterChatBoxTopConstraint = characterChatBox.topAnchor.constraint(equalTo: topAnchor, constant: 74)
     lazy var characterChatBoxBottomConstraint = characterChatBox.bottomAnchor.constraint(equalTo: topAnchor)
-    lazy var userChatInputViewBottomConstraint = userChatInputView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 160)
-    lazy var inputTextViewHeightConstraint = userChatTextView.heightAnchor.constraint(equalToConstant: 38)
+    lazy var userChatViewBottomConstraint = userChatView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 160)
+    lazy var userChatInputViewHeightConstraint = userChatInputView.heightAnchor.constraint(equalToConstant: 38)
+    lazy var userChatDisplayViewHeightConstraint = userChatDisplayView.heightAnchor.constraint(equalToConstant: 38)
     
     //MARK: - UI Properties
     
     let characterChatBox = ORBCharacterChatBox()
-    let userChatInputView = UIView()
+    let userChatView = UIView()
     
     let meLabel = UILabel()
     let loadingAnimationView = LottieAnimationView(name: "loading2")
-    let userChatTextLabel = UILabel()
-    let userChatTextView = UITextView()
+    let userChatDisplayView = UITextView()
+    let userChatInputView = UITextView()
     let keyboardBackgroundView = UIView()
     let sendButton = UIButton()
     let endChatButton = UIButton()
@@ -68,8 +70,8 @@ extension ORBCharacterChatView {
             make.height.greaterThanOrEqualTo(58)
         }
         
-        userChatInputViewBottomConstraint.isActive = true
-        userChatInputView.snp.makeConstraints { make in
+        userChatViewBottomConstraint.isActive = true
+        userChatView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
         }
         
@@ -86,36 +88,37 @@ extension ORBCharacterChatView {
             make.width.equalTo(100)
         }
         
-        userChatTextLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        userChatTextLabel.snp.makeConstraints { make in
+        userChatDisplayView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        userChatDisplayViewHeightConstraint.isActive = true
+        userChatDisplayView.snp.makeConstraints { make in
             make.top.equalTo(meLabel)
             make.leading.equalTo(meLabel.snp.trailing).offset(10)
             make.trailing.equalToSuperview().inset(24)
         }
         
-        inputTextViewHeightConstraint.isActive = true
-        userChatTextView.snp.makeConstraints { make in
+        userChatInputViewHeightConstraint.isActive = true
+        userChatInputView.snp.makeConstraints { make in
             make.top.equalTo(meLabel.snp.bottom).offset(12)
             make.leading.equalToSuperview().inset(24)
             make.bottom.equalToSuperview().inset(16)
         }
         
         keyboardBackgroundView.snp.makeConstraints { make in
-            make.top.equalTo(userChatInputView.snp.bottom)
+            make.top.equalTo(userChatView.snp.bottom)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
         sendButton.snp.makeConstraints { make in
-            make.centerY.equalTo(userChatTextView)
-            make.leading.equalTo(userChatTextView.snp.trailing).offset(7)
+            make.centerY.equalTo(userChatInputView)
+            make.leading.equalTo(userChatInputView.snp.trailing).offset(7)
             make.trailing.equalToSuperview().inset(24)
             make.size.equalTo(40)
         }
         
         endChatButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(24)
-            make.bottom.equalTo(userChatInputView.snp.top).offset(-12)
+            make.bottom.equalTo(userChatView.snp.top).offset(-12)
             make.width.equalTo(84)
             make.height.equalTo(36)
         }
@@ -124,7 +127,7 @@ extension ORBCharacterChatView {
     //MARK: - Private Func
     
     private func setupStyle() {
-        userChatInputView.do { view in
+        userChatView.do { view in
             view.backgroundColor = .primary(.white)
             view.roundCorners(cornerRadius: 20, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         }
@@ -141,11 +144,15 @@ extension ORBCharacterChatView {
             animationView.contentMode = .scaleAspectFit
             animationView.loopMode = .loop
         }
-        userChatTextLabel.do { label in
-            label.textColor = .main(.main2)
-            label.font = .offroad(style: .iosText)
+        userChatDisplayView.do { textView in
+            textView.isUserInteractionEnabled = false
+            textView.backgroundColor = .orange
+            textView.textInputView.backgroundColor = .systemTeal
+            textView.textContainerInset = .zero
+            textView.textColor = .main(.main2)
+            textView.font = .offroad(style: .iosText)
         }
-        userChatTextView.do { textView in
+        userChatInputView.do { textView in
             textView.textColor = .main(.main2)
             textView.font = .offroad(style: .iosText)
             textView.backgroundColor = .neutral(.btnInactive)
@@ -173,8 +180,8 @@ extension ORBCharacterChatView {
     }
     
     private func setupHierarchy() {
-        userChatInputView.addSubviews(meLabel, loadingAnimationView, userChatTextLabel, userChatTextView, sendButton)
-        addSubviews(characterChatBox, userChatInputView, keyboardBackgroundView, endChatButton)
+        userChatView.addSubviews(meLabel, userChatDisplayView, loadingAnimationView, userChatInputView, sendButton)
+        addSubviews(characterChatBox, userChatView, keyboardBackgroundView, endChatButton)
     }
     
     //MARK: - Func
