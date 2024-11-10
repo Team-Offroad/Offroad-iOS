@@ -78,6 +78,8 @@
 		4E9900802CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */; };
 		4E9900822CDBCD9E007EEFF7 /* ORBCharacterChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9900812CDBCD9E007EEFF7 /* ORBCharacterChatView.swift */; };
 		4E9900842CDBD730007EEFF7 /* ORBCharacterChatBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9900832CDBD730007EEFF7 /* ORBCharacterChatBox.swift */; };
+		4E9900882CE0768B007EEFF7 /* loading1.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E9900862CE0768B007EEFF7 /* loading1.json */; };
+		4E9900892CE0768B007EEFF7 /* loading2.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E9900872CE0768B007EEFF7 /* loading2.json */; };
 		4EA90AC62C4521C50046A6E1 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */; };
 		4EADB9712CC9518000930140 /* CharacterDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EADB9702CC9518000930140 /* CharacterDetailViewModel.swift */; };
 		4EB32BE72C67A2B0003F98F2 /* QuestListViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */; };
@@ -338,6 +340,8 @@
 		4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatViewController.swift; sourceTree = "<group>"; };
 		4E9900812CDBCD9E007EEFF7 /* ORBCharacterChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatView.swift; sourceTree = "<group>"; };
 		4E9900832CDBD730007EEFF7 /* ORBCharacterChatBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatBox.swift; sourceTree = "<group>"; };
+		4E9900862CE0768B007EEFF7 /* loading1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = loading1.json; sourceTree = "<group>"; };
+		4E9900872CE0768B007EEFF7 /* loading2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = loading2.json; sourceTree = "<group>"; };
 		4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		4EADB9702CC9518000930140 /* CharacterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewModel.swift; sourceTree = "<group>"; };
 		4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListViewControllers.swift; sourceTree = "<group>"; };
@@ -655,6 +659,7 @@
 		4E0394632C2AA0DE007F0517 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4E9900852CE07673007EEFF7 /* Lotties */,
 				4E0394352C2A9DCF007F0517 /* Assets.xcassets */,
 				4EDC3D372C3126FC006A1493 /* Fonts */,
 				4E03943A2C2A9DCF007F0517 /* Info.plist */,
@@ -1176,6 +1181,15 @@
 				4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */,
 			);
 			path = Toast;
+			sourceTree = "<group>";
+		};
+		4E9900852CE07673007EEFF7 /* Lotties */ = {
+			isa = PBXGroup;
+			children = (
+				4E9900862CE0768B007EEFF7 /* loading1.json */,
+				4E9900872CE0768B007EEFF7 /* loading2.json */,
+			);
+			path = Lotties;
 			sourceTree = "<group>";
 		};
 		4E99007A2CDB9504007EEFF7 /* CharacterChat */ = {
@@ -2255,6 +2269,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E0394392C2A9DCF007F0517 /* LaunchScreen.storyboard in Resources */,
+				4E9900882CE0768B007EEFF7 /* loading1.json in Resources */,
+				4E9900892CE0768B007EEFF7 /* loading2.json in Resources */,
 				D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */,
 				4EDC3D422C31271F006A1493 /* Pretendard-Light.otf in Resources */,
 				4EDC3D442C31271F006A1493 /* Pretendard-ExtraBold.otf in Resources */,
