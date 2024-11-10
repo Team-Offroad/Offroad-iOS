@@ -225,7 +225,7 @@ extension ORBCharacterChatViewController {
     }
     
     func configureCharacterChatBox(character name: String, message: String) {
-        rootView.characterChatBox.characterNameLabel.text = name
+        rootView.characterChatBox.characterNameLabel.text = name + " :"
         rootView.characterChatBox.messageLabel.text = message
     }
     

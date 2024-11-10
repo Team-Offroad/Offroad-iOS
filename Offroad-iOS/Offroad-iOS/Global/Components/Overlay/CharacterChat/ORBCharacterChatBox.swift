@@ -56,7 +56,7 @@ extension ORBCharacterChatBox {
         
         characterNameLabel.do { label in
             label.font = .offroad(style: .iosTextBold)
-            label.textColor = UIColor.init(hex: "8B6546")
+            label.textColor = .sub(.sub4)
         }
         
         messageLabel.do { label in
