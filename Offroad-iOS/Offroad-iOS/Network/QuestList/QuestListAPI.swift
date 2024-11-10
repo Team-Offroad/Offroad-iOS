@@ -10,7 +10,7 @@ import Foundation
 import Moya
 
 enum QuestListAPI {
-    case getQuestList(isActive: Bool)
+    case getQuestList(isActive: Bool, cursor: Int, size: Int)
 }
 
 extension QuestListAPI: BaseTargetType {
@@ -35,8 +35,11 @@ extension QuestListAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getQuestList(let isActive):
-            return .requestParameters(parameters: ["isActive" : isActive], encoding: URLEncoding.queryString)
+        case .getQuestList(let isActive, let cursor, let size):
+            return .requestParameters(parameters: ["isActive" : isActive,
+                                                   "cursor" : cursor,
+                                                   "size" : size],
+                                      encoding: URLEncoding.queryString)
         }
     }
     
