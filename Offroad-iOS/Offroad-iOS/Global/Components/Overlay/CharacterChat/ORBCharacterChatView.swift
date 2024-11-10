@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Lottie
 import RxSwift
 import RxCocoa
 
@@ -29,6 +30,7 @@ final class ORBCharacterChatView: UIView {
     let userChatInputView = UIView()
     
     let meLabel = UILabel()
+    let loadingAnimationView = LottieAnimationView(name: "loading2")
     let userChatTextLabel = UILabel()
     let userChatTextView = UITextView()
     let keyboardBackgroundView = UIView()
@@ -77,10 +79,17 @@ extension ORBCharacterChatView {
             make.leading.equalToSuperview().inset(38)
         }
         
-        meLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        loadingAnimationView.snp.makeConstraints { make in
+            make.centerY.equalTo(meLabel)
+            make.leading.equalTo(meLabel).offset(4.2)
+            make.height.equalTo(50)
+            make.width.equalTo(100)
+        }
+        
+        userChatTextLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         userChatTextLabel.snp.makeConstraints { make in
             make.top.equalTo(meLabel)
-            make.leading.equalTo(meLabel.snp.trailing)
+            make.leading.equalTo(meLabel.snp.trailing).offset(10)
             make.trailing.equalToSuperview().inset(24)
         }
         
@@ -127,6 +136,11 @@ extension ORBCharacterChatView {
             label.highlightText(targetText: "나", font: .pretendardFont(ofSize: 16, weight: .bold))
             label.setLineHeight(percentage: 150)
         }
+        loadingAnimationView.do { animationView in
+            animationView.isHidden = true
+            animationView.contentMode = .scaleAspectFit
+            animationView.loopMode = .loop
+        }
         userChatTextLabel.do { label in
             label.textColor = .main(.main2)
             label.font = .offroad(style: .iosText)
@@ -159,7 +173,7 @@ extension ORBCharacterChatView {
     }
     
     private func setupHierarchy() {
-        userChatInputView.addSubviews(meLabel, userChatTextLabel, userChatTextView, sendButton)
+        userChatInputView.addSubviews(meLabel, loadingAnimationView, userChatTextLabel, userChatTextView, sendButton)
         addSubviews(characterChatBox, userChatInputView, keyboardBackgroundView, endChatButton)
     }
     

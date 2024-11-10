@@ -116,9 +116,14 @@ extension ORBCharacterChatViewController {
             self.userChatTextViewTextInputViewHeightRelay.accept(self.rootView.userChatTextView.textInputView.bounds.height)
             if text.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
                 print("입력된 텍스트: \(text)")
+                self.rootView.userChatTextLabel.text = ""
+                self.rootView.loadingAnimationView.isHidden = false
+                self.rootView.loadingAnimationView.play()
                 self.rootView.sendButton.isEnabled = true
             } else {
                 print("입력된 텍스트 없음")
+                self.rootView.loadingAnimationView.pause()
+                self.rootView.loadingAnimationView.isHidden = true
                 self.rootView.sendButton.isEnabled = false
             }
         }.disposed(by: disposeBag)
