@@ -163,7 +163,7 @@ extension NoticePostView {
         
         if data.hasExternalLinks {
             contentButton.isHidden = false
-            contentButton.setTitle("링크 열기", for: .normal)
+            contentButton.setTitle("\(data.externalLinksTitles.first ?? "")", for: .normal)
         }
     }
 }
