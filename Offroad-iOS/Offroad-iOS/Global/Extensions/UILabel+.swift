@@ -16,9 +16,9 @@ extension UILabel {
     /// > 사용 예시 : `label.highlightText(targetText: nicknameString, font: .offroad(style: .iosSubtitle2Bold))`
     func highlightText(targetText: String, font: UIFont? = nil, color: UIColor? = nil) {
         guard let labelText = self.text else { return }
+        guard let attributedText else { return }
         
-        let attributedString = NSMutableAttributedString(string: labelText)
-        
+        let attributedString = NSMutableAttributedString(attributedString: attributedText)
         let range = (labelText as NSString).range(of: targetText)
         
         if let font {
@@ -36,18 +36,19 @@ extension UILabel {
     /// - Parameter spacing: 행간의 픽셀 값
     /// > 사용 예시 : `label.setLineSpacing(spacing: 15.0)`
     func setLineSpacing(spacing: CGFloat) {
-        guard let text = text else { return }
+        guard let attributedText else { return }
         
-        let attributeString = NSMutableAttributedString(string: text)
+        let attributedString = NSMutableAttributedString(attributedString: attributedText)
         let style = NSMutableParagraphStyle()
+        
         style.lineSpacing = spacing
         style.alignment = textAlignment
         style.lineBreakMode = lineBreakMode
         style.lineBreakStrategy = lineBreakStrategy
-        attributeString.addAttribute(.paragraphStyle,
+        attributedString.addAttribute(.paragraphStyle,
                                      value: style,
-                                     range: NSRange(location: 0, length: attributeString.length))
-        attributedText = attributeString
+                                     range: NSRange(location: 0, length: attributedString.length))
+        self.attributedText = attributedString
     }
     
     /// 피그마에서 폰트를 표현할 때 Line Height가 설정된 경우 행간을 구현
@@ -55,19 +56,20 @@ extension UILabel {
     ///
     /// 피그마상에서 라벨의 높이를 지정한 경우, UILabel에서도 높이를 명시적으로 설정해야 함.
     func setLineHeight(percentage: CGFloat) {
-        guard let text = text else { return }
+        guard let attributedText else { return }
         
-        let attributeString = NSMutableAttributedString(string: text)
+        let attributedString = NSMutableAttributedString(attributedString: attributedText)
         let style = NSMutableParagraphStyle()
         let lineSpacing = font.ascender * ((percentage-100)/100) + font.descender
+        
         style.lineSpacing = lineSpacing
         style.alignment = textAlignment
         style.lineBreakMode = lineBreakMode
         style.lineBreakStrategy = lineBreakStrategy
-        attributeString.addAttribute(.paragraphStyle,
+        attributedString.addAttribute(.paragraphStyle,
                                      value: style,
-                                     range: NSRange(location: 0, length: attributeString.length))
-        attributedText = attributeString
+                                     range: NSRange(location: 0, length: attributedString.length))
+        self.attributedText = attributedString
     }
     
 }

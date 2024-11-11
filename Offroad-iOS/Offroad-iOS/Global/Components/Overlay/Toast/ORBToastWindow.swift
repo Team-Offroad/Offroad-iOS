@@ -60,7 +60,7 @@ extension ORBToastWindow {
     //MARK: - Private Func
     
     private func setupHierarchy() {
-        windowLevel = UIWindow.Level.alert + 1
+        windowLevel = UIWindow.Level.alert + 2
         addSubview(toastView)
     }
     
