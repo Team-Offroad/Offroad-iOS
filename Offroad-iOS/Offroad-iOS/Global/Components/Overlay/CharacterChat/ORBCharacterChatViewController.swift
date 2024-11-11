@@ -101,6 +101,11 @@ extension ORBCharacterChatViewController {
             guard let self else { return }
             print("메시지 전송: \(self.rootView.userChatInputView.text!)")
             self.rootView.userChatDisplayView.text = self.rootView.userChatInputView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+            self.rootView.userChatDisplayView.bounds.origin.y = -(self.rootView.userChatDisplayView.bounds.height)
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1) {
+                self.rootView.userChatDisplayView.bounds.origin.y = 0
+                self.rootView.layoutIfNeeded()
+            }
             self.rootView.userChatInputView.text = ""
         }.disposed(by: disposeBag)
         
@@ -129,6 +134,7 @@ extension ORBCharacterChatViewController {
                     print("입력된 텍스트 없음")
                     userChatDisplayViewTextInputViewHeightRelay.accept(rootView.userChatDisplayView.textInputView.frame.height)
                     self.rootView.userChatDisplayView.isHidden = false
+                    self.rootView.loadingAnimationView.currentProgress = 0
                     self.rootView.loadingAnimationView.pause()
                     self.rootView.loadingAnimationView.isHidden = true
                     self.rootView.sendButton.isEnabled = false

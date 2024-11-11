@@ -11,7 +11,7 @@ extension UITextView {
     
     /// UITextView에서의 줄 간 간격을 설정하는 함수
     /// - Parameter spacing: 행간의 픽셀 값
-    /// > 사용 예시 : `label.setLineSpacing(spacing: 15.0)`
+    /// > 사용 예시 : `textView.setLineSpacing(spacing: 15.0)`
     func setLineSpacing(spacing: CGFloat) {
         let currentText = self.attributedText ?? NSAttributedString(string: self.text ?? "")
         let attributedString = NSMutableAttributedString(attributedString: currentText)
@@ -28,17 +28,15 @@ extension UITextView {
         attributedString.addAttribute(.paragraphStyle,
                                      value: style,
                                      range: NSRange(location: 0, length: attributedString.length))
-        // 왜인진 모르겠는데, 상단 attributes 상수에서 딕셔너리의 .font 키에 값을 할당하면 아래 강제언래핑이 되어도 충돌이 없음.
-        // (.font 키에 값 할당 안하면 강제언래핑 충돌) -> 나중에 공부하기
+        // 바로 위 attributes 딕셔너리에서 .font 키에 값을 할당하지 않으면 강제언래핑 충돌
         attributedString.addAttribute(.font, value: self.font!, range: NSRange(location: 0, length: attributedString.length))
         self.attributedText = attributedString
-//        self.layoutManager.ensureLayout(for: self.textContainer)
     }
     
     /// 피그마에서 폰트를 표현할 때 Line Height가 설정된 경우 행간을 구현
     /// - Parameter percentage: 피그마상에서 폰트의 Line Height 값. 백분율로 표시된다.
     ///
-    /// 피그마상에서 라벨의 높이를 지정한 경우, UILabel에서도 높이를 명시적으로 설정해야 함.
+    /// 피그마상에서 텍스트뷰의 높이를 지정한 경우, UITextView에서도 높이를 명시적으로 설정해야 함.
     func setLineHeight(percentage: CGFloat) {
         print(#function)
         let currentOffset = contentOffset
