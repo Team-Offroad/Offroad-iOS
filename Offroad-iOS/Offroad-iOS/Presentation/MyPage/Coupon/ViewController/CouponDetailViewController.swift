@@ -17,7 +17,7 @@ class CouponDetailViewController: UIViewController {
     
     var disposeBag = DisposeBag()
     
-    let coupon: AvailableCoupon
+    let coupon: CouponInfo
     let couponCodeInputSubject = PublishSubject<String>()
     let afterCouponRedemptionSubject = PublishSubject<Bool>()
     
@@ -45,7 +45,7 @@ class CouponDetailViewController: UIViewController {
         offroadTabBarController.hideTabBarAnimation()
     }
     
-    init(coupon: AvailableCoupon) {
+    init(coupon: CouponInfo) {
         self.coupon = coupon
         super.init(nibName: nil, bundle: nil)
         

@@ -11,8 +11,18 @@ class AcquiredCouponViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var availableCoupons: [AvailableCoupon] = []
-    private var usedCoupons: [UsedCoupon] = []
+    private var availableCouponList: [CouponInfo]? {
+        didSet {
+            reloadCollectionViews()
+        }
+    }
+    private var usedCouponList: [CouponInfo]? {
+        didSet {
+            reloadCollectionViews()
+        }
+    }
+    private var availableCouponsCount = 0
+    private var usedCouponsCount = 0
     private var pageViewController: UIPageViewController {
         acquiredCouponView.pageViewController
     }
@@ -36,7 +46,8 @@ class AcquiredCouponViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
-        fetchAcquiredCouponsData()
+        fetchAcquiredCouponsData(isUsed: false)
+        fetchAcquiredCouponsData(isUsed: true)
         acquiredCouponView.segmentedControl.selectSegment(index: 0)
         setPageViewControllerPage(to: 0)
     }
@@ -51,7 +62,7 @@ class AcquiredCouponViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        fetchAcquiredCouponsData()
+//        fetchAcquiredCouponsData()
     }
 }
 
@@ -79,30 +90,31 @@ extension AcquiredCouponViewController{
         pageViewController.delegate = self
     }
     
-    private func fetchAcquiredCouponsData() {
+    private func fetchAcquiredCouponsData(isUsed: Bool, cursor: Int = 0) {
         acquiredCouponView.segmentedControl.isUserInteractionEnabled = false
         acquiredCouponView.pageViewController.view.isUserInteractionEnabled = false
-        NetworkService.shared.couponService.getAcquiredCouponList { [weak self] result in
+        NetworkService.shared.couponService.getAcquiredCouponList(isUsed: false, size: 14, cursor: 0) { [weak self] result in
             guard let self else { return }
             
-            let alertController: ORBAlertController
-            let action = ORBAlertAction(title: "확인", style: .default) { _ in return }
             switch result {
             case .success(let response):
                 guard let response else {
                     return
                 }
-                self.availableCoupons = response.data.availableCoupons
-                self.usedCoupons = response.data.usedCoupons
-                self.reloadCollectionViews()
+                
+                self.availableCouponsCount = response.data.availableCouponsCount
+                self.usedCouponsCount = response.data.usedCouponsCount
+                
+                if isUsed {
+                    self.usedCouponList = response.data.coupons
+                } else {
+                    self.availableCouponList = response.data.coupons
+                }
                 
                 self.acquiredCouponView.segmentedControl.isUserInteractionEnabled = true
                 self.acquiredCouponView.pageViewController.view.isUserInteractionEnabled = true
             default:
-                alertController = ORBAlertController(title: "에러", message: "\(result)", type: .normal)
-                alertController.addAction(action)
-                alertController.xButton.isHidden = true
-                self.present(alertController, animated: true)
+                return
             }
         }
     }
@@ -110,8 +122,8 @@ extension AcquiredCouponViewController{
     private func reloadCollectionViews() {
         acquiredCouponView.collectionViewForAvailableCoupons.reloadData()
         acquiredCouponView.collectionViewForUsedCoupons.reloadData()
-        acquiredCouponView.segmentedControl.changeSegmentTitle(at: 0, to: "사용 가능 \(availableCoupons.count)")
-        acquiredCouponView.segmentedControl.changeSegmentTitle(at: 1, to: "사용 완료 \(usedCoupons.count)")
+        acquiredCouponView.segmentedControl.changeSegmentTitle(at: 0, to: "사용 가능 \(availableCouponsCount)")
+        acquiredCouponView.segmentedControl.changeSegmentTitle(at: 1, to: "사용 완료 \(usedCouponsCount)")
     }
     
     private func setPageViewControllerPage(to targetIndex: Int) {
@@ -146,31 +158,40 @@ extension AcquiredCouponViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == acquiredCouponView.collectionViewForAvailableCoupons {
-            return availableCoupons.count
+            if let availableCouponList {
+                return availableCouponList.count
+            }
         } else if collectionView == acquiredCouponView.collectionViewForUsedCoupons {
-            return usedCoupons.count
+            if let usedCouponList {
+                return usedCouponList.count
+            }
         } else {
             fatalError()
         }
+        return Int()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == acquiredCouponView.collectionViewForAvailableCoupons {
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "AvailableCouponCell",
+                withReuseIdentifier: AvailableCouponCell.className,
                 for: indexPath
             ) as? AvailableCouponCell else { fatalError() }
             
-            cell.configure(with: availableCoupons[indexPath.item])
+            if let availableCouponList {
+                cell.configure(with: availableCouponList[indexPath.item])
+            }
             return cell
             
         } else if collectionView == acquiredCouponView.collectionViewForUsedCoupons {
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "UsedCouponCell",
+                withReuseIdentifier: UsedCouponCell.className,
                 for: indexPath
             ) as? UsedCouponCell else { fatalError() }
             
-            cell.configure(with: usedCoupons[indexPath.item])
+            if let usedCouponList {
+                cell.configure(with: usedCouponList[indexPath.item])
+            }
             return cell
             
         } else {
@@ -187,8 +208,10 @@ extension AcquiredCouponViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard collectionView.cellForItem(at: indexPath) is AvailableCouponCell else { return }
-        let couponDetailViewController = CouponDetailViewController(coupon: availableCoupons[indexPath.item])
-        navigationController?.pushViewController(couponDetailViewController, animated: true)
+        if let availableCouponList {
+            let couponDetailViewController = CouponDetailViewController(coupon: availableCouponList[indexPath.item])
+            navigationController?.pushViewController(couponDetailViewController, animated: true)
+        }
     }
     
 }

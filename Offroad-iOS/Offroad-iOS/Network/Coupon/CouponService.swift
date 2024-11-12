@@ -11,7 +11,7 @@ import Moya
 
 protocol CouponServiceProtocol {
     
-    func getAcquiredCouponList(completion: @escaping (NetworkResult<CouponListResponseDTO>) -> Void)
+    func getAcquiredCouponList(isUsed: Bool, size: Int, cursor: Int, completion: @escaping (NetworkResult<CouponListResponseDTO>) -> Void)
     func postCouponRedemption(body: CouponRedemptionRequestDTO, completion: @escaping (NetworkResult<CouponRedemptionResponseDTO>) -> Void)
     
 }
@@ -19,8 +19,8 @@ protocol CouponServiceProtocol {
 final class CouponService: BaseService, CouponServiceProtocol {
     let provider = MoyaProvider<CouponAPI>.init(session: Session(interceptor: TokenInterceptor.shared), plugins: [MoyaPlugin()])
     
-    func getAcquiredCouponList(completion: @escaping (NetworkResult<CouponListResponseDTO>) -> Void) {
-        provider.request(.getCoupons, completion: { result in
+    func getAcquiredCouponList(isUsed: Bool, size: Int, cursor: Int, completion: @escaping (NetworkResult<CouponListResponseDTO>) -> Void) {
+        provider.request(.getCoupons(isUsed: isUsed, size: size, cursor: cursor), completion: { result in
             switch result {
             case .success(let response):
                 let networkResult: NetworkResult<CouponListResponseDTO> = self.fetchNetworkResult(
