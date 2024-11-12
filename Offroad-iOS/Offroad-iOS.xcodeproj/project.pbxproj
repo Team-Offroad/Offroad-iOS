@@ -108,6 +108,8 @@
 		4EE0498B2CA10DFC00754488 /* CouponAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0498A2CA10DFC00754488 /* CouponAPI.swift */; };
 		4EE0498D2CA10E2A00754488 /* CouponService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0498C2CA10E2A00754488 /* CouponService.swift */; };
 		4EE049912CA14E6500754488 /* UsedCouponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE049902CA14E6500754488 /* UsedCouponCell.swift */; };
+		4EEA82FC2CE3907C0062F0DE /* CharacterChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA82FB2CE3907C0062F0DE /* CharacterChatLogView.swift */; };
+		4EEA82FE2CE3908C0062F0DE /* CharacterChatLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
 		4EF6B0332CC3E22800066640 /* ORBAlertViewBaseUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6B0322CC3E22800066640 /* ORBAlertViewBaseUI.swift */; };
 		4EF6B0382CC3E7A900066640 /* ORBAlertViewNormal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6B0372CC3E7A900066640 /* ORBAlertViewNormal.swift */; };
@@ -371,6 +373,8 @@
 		4EE0498A2CA10DFC00754488 /* CouponAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponAPI.swift; sourceTree = "<group>"; };
 		4EE0498C2CA10E2A00754488 /* CouponService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponService.swift; sourceTree = "<group>"; };
 		4EE049902CA14E6500754488 /* UsedCouponCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsedCouponCell.swift; sourceTree = "<group>"; };
+		4EEA82FB2CE3907C0062F0DE /* CharacterChatLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatLogView.swift; sourceTree = "<group>"; };
+		4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatLogViewController.swift; sourceTree = "<group>"; };
 		4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarViewController.swift; sourceTree = "<group>"; };
 		4EF6B0322CC3E22800066640 /* ORBAlertViewBaseUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewBaseUI.swift; sourceTree = "<group>"; };
 		4EF6B0372CC3E7A900066640 /* ORBAlertViewNormal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewNormal.swift; sourceTree = "<group>"; };
@@ -756,6 +760,7 @@
 				4E0394752C2AA711007F0517 /* QuestList */,
 				4E0394762C2AA721007F0517 /* PlaceList */,
 				4E0394772C2AA72C007F0517 /* MyPage */,
+				4EEA82F92CE390540062F0DE /* Chat */,
 				4E0394302C2A9DCE007F0517 /* ViewController.swift */,
 			);
 			path = Presentation;
@@ -1318,6 +1323,24 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
+		4EEA82F92CE390540062F0DE /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				4EEA82FA2CE3906A0062F0DE /* ChatLog */,
+				4E99007A2CDB9504007EEFF7 /* CharacterChat */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		4EEA82FA2CE3906A0062F0DE /* ChatLog */ = {
+			isa = PBXGroup;
+			children = (
+				4EEA82FB2CE3907C0062F0DE /* CharacterChatLogView.swift */,
+				4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */,
+			);
+			path = ChatLog;
+			sourceTree = "<group>";
+		};
 		4EF6B0312CC3E21200066640 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -1354,7 +1377,6 @@
 		4EFCDFDB2C92B647006DEBB6 /* Overlay */ = {
 			isa = PBXGroup;
 			children = (
-				4E99007A2CDB9504007EEFF7 /* CharacterChat */,
 				4E700C812CB3C99900C664C2 /* Toast */,
 				4E700C802CB3C95E00C664C2 /* Alert */,
 				4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */,
@@ -2521,6 +2543,7 @@
 				4E1E94172C3AC27000A7B08A /* QuestMapViewController.swift in Sources */,
 				8791EDF42C7E11E000E7F8B9 /* AcquiredCouponView.swift in Sources */,
 				4E393C9C2C48C9B2003403EC /* QuestResultView.swift in Sources */,
+				4EEA82FE2CE3908C0062F0DE /* CharacterChatLogViewController.swift in Sources */,
 				D0E7962F2C4535B1005B47A5 /* NicknameService.swift in Sources */,
 				4EF6B0432CC3F45000066640 /* ORBAlertViewScrollableContent.swift in Sources */,
 				D0E796202C4532A6005B47A5 /* ErrorResponseDTO.swift in Sources */,
@@ -2542,6 +2565,7 @@
 				4EF6B03F2CC3EEFE00066640 /* ORBAlertViewTextField.swift in Sources */,
 				D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */,
 				4E46E5F92CB99944000A1EEE /* ORBToastWindow.swift in Sources */,
+				4EEA82FC2CE3907C0062F0DE /* CharacterChatLogView.swift in Sources */,
 				4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
 				D0E796502C453B47005B47A5 /* AdventureService.swift in Sources */,
