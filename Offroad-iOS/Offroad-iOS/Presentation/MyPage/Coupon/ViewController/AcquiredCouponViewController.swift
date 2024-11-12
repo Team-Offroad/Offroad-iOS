@@ -44,6 +44,12 @@ final class AcquiredCouponViewController: UIViewController {
     private var pageViewController: UIPageViewController {
         acquiredCouponView.pageViewController
     }
+    private var selectedState: SelectedState = .available {
+        didSet {
+            fetchAcquiredCouponsData(isUsed: selectedState.state)
+            reloadCollectionViews()
+        }
+    }
     
     // MARK: - UI Properties
     
@@ -64,8 +70,6 @@ final class AcquiredCouponViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
-        fetchAcquiredCouponsData(isUsed: false)
-        fetchAcquiredCouponsData(isUsed: true)
         acquiredCouponView.segmentedControl.selectSegment(index: 0)
         setPageViewControllerPage(to: 0)
     }
@@ -75,12 +79,15 @@ final class AcquiredCouponViewController: UIViewController {
         
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
+
+        fetchAcquiredCouponsData(isUsed: false)
+        fetchAcquiredCouponsData(isUsed: true)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-//        fetchAcquiredCouponsData()
+//        fetchAcquiredCouponsData(isUsed: selectedState.state)
     }
 }
 
@@ -190,32 +197,18 @@ extension AcquiredCouponViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == acquiredCouponView.collectionViewForAvailableCoupons {
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: AvailableCouponCell.className,
-                for: indexPath
-            ) as? AvailableCouponCell else { fatalError() }
-            
-            if let availableCouponList {
-                cell.configure(with: availableCouponList[indexPath.item])
-            }
-            return cell
-            
-        } else if collectionView == acquiredCouponView.collectionViewForUsedCoupons {
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: UsedCouponCell.className,
-                for: indexPath
-            ) as? UsedCouponCell else { fatalError() }
-            
-            if let usedCouponList {
-                cell.configure(with: usedCouponList[indexPath.item])
-            }
-            return cell
-            
-        } else {
-            fatalError()
-        }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CouponCell.className, for: indexPath) as? CouponCell else { fatalError() }
         
+        if collectionView == acquiredCouponView.collectionViewForAvailableCoupons {
+            if let availableCouponList {
+                cell.configureAvailableCell(with: availableCouponList[indexPath.item])
+            }
+        } else if collectionView == acquiredCouponView.collectionViewForUsedCoupons {
+            if let usedCouponList {
+                cell.configureUsedCell(with: usedCouponList[indexPath.item])
+            }
+        }
+        return cell
     }
     
 }
@@ -223,12 +216,14 @@ extension AcquiredCouponViewController: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegate
 
 extension AcquiredCouponViewController: UICollectionViewDelegate {
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard collectionView.cellForItem(at: indexPath) is AvailableCouponCell else { return }
-        if let availableCouponList {
-            let couponDetailViewController = CouponDetailViewController(coupon: availableCouponList[indexPath.item])
-            navigationController?.pushViewController(couponDetailViewController, animated: true)
+        if collectionView == acquiredCouponView.collectionViewForAvailableCoupons {
+            guard collectionView.cellForItem(at: indexPath) is CouponCell else { return }
+            if let availableCouponList {
+                let couponDetailViewController = CouponDetailViewController(coupon: availableCouponList[indexPath.item])
+                navigationController?.pushViewController(couponDetailViewController, animated: true)
+            }
         }
     }
     
@@ -240,6 +235,7 @@ extension AcquiredCouponViewController: ORBSegmentedControlDelegate {
     
     func segmentedControlDidSelect(segmentedControl: ORBSegmentedControl, selectedIndex: Int) {
         setPageViewControllerPage(to: selectedIndex)
+        selectedState.toggle()
     }
     
 }
@@ -277,6 +273,7 @@ extension AcquiredCouponViewController: UIPageViewControllerDelegate {
         guard pageViewController.viewControllers?.first != nil else { return }
         if let index = viewControllerList.firstIndex(of: pageViewController.viewControllers!.first!) {
             acquiredCouponView.segmentedControl.selectSegment(index: index)
+            selectedState.toggle()
         }
     }
     
