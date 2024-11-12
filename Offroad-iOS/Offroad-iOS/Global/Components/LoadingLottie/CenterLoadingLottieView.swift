@@ -14,6 +14,8 @@ import Then
 
 class CenterLoadingLottieView: UIView {
     
+    //MARK: - Properties
+    
     private let backgroundView = UIView().then {
         $0.backgroundColor = .blackOpacity(.black55)
         $0.alpha = 0.0
@@ -25,6 +27,8 @@ class CenterLoadingLottieView: UIView {
         $0.alpha = 0.0
     }
     
+    // MARK: - Life Cycle
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -33,10 +37,7 @@ class CenterLoadingLottieView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        setupHierarchy()
-        setupLayout()
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Private Func
@@ -61,7 +62,7 @@ class CenterLoadingLottieView: UIView {
         self.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
+        //임의로 확인하기 위해 애니메이션 넣은 상태이고 추후 적용 시 수정 예정
         UIView.animate(withDuration: 0.3, animations: {
             self.backgroundView.alpha = 1.0
             self.lottieView.alpha = 1.0
@@ -71,6 +72,7 @@ class CenterLoadingLottieView: UIView {
     }
     
     func hideCenterLottieView() {
+        //임의로 확인하기 위해 애니메이션 넣은 상태이고 추후 적용 시 수정 예정
         UIView.animate(withDuration: 0.3, animations: {
             self.backgroundView.alpha = 0.0
             self.lottieView.alpha = 0.0
