@@ -7,7 +7,25 @@
 
 import UIKit
 
-class AcquiredCouponViewController: UIViewController {
+enum SelectedState {
+    case available
+    case used
+    
+    var state: Bool {
+        switch self {
+        case .available:
+            return false
+        case .used:
+            return true
+        }
+    }
+    
+    mutating func toggle() {
+        self = (self == .available) ? .used : .available
+    }
+}
+
+final class AcquiredCouponViewController: UIViewController {
     
     // MARK: - Properties
     
