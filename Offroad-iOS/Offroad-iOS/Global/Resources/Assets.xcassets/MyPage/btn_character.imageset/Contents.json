@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "Frame 1261160897.svg",
-      "idiom" : "universal"
+      "filename" : "btn_character.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "btn_character@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "btn_character@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

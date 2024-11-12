@@ -28,7 +28,7 @@ class QuestListView: UIView {
 
     private let customNavigationBar = UIView()
     private let titleLabel = UILabel()
-    private let titleIcon = UIImageView()
+    private let titleIcon = UIImageView(image: UIImage(resource: .imgQuest))
     private let ongoingQuestLabel = UILabel()
     private let separator = UIView()
     
@@ -99,9 +99,6 @@ extension QuestListView {
         
         ongoingQuestToggle.do {
             $0.isOn = false
-            // (이슈 해결 후 주석 삭제 예정)
-            // $0.tintColor = .sub(.sub)
-            // UISwitch 의 tintColor에 대해 공부하기! (onSwitch와의 차이점?)
             $0.onTintColor = .sub(.sub)
         }
         
@@ -127,6 +124,7 @@ extension QuestListView {
             customNavigationBar,
             customBackButton,
             titleLabel,
+            titleIcon,
             ongoingQuestLabel,
             ongoingQuestToggle,
             separator,
@@ -149,6 +147,12 @@ extension QuestListView {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(customBackButton.snp.bottom).offset(39)
             make.leading.equalToSuperview().inset(23)
+        }
+        
+        titleIcon.snp.makeConstraints{ make in
+            make.leading.equalTo(titleLabel.snp.trailing).offset(8)
+            make.centerY.equalTo(titleLabel.snp.centerY)
+            make.size.equalTo(24)
         }
         
         ongoingQuestLabel.snp.makeConstraints { make in

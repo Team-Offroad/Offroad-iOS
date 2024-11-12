@@ -47,11 +47,18 @@ final class HomeViewController: OffroadTabBarViewController {
 
 extension HomeViewController {
     
+    //MARK: - @objc Func
+    
+    @objc private func chatButtonTapped() {
+        ORBCharacterChatManager.shared.startChat()
+    }
+    
     // MARK: - Private Method
     
     private func setupTarget() {
         rootView.changeTitleButton.addTarget(self, action: #selector(changeTitleButtonTapped), for: .touchUpInside)
         rootView.shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+        rootView.chatButton.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
     }
     
     private func getUserAdventureInfo() {

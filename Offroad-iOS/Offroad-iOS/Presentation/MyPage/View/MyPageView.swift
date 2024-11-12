@@ -120,7 +120,7 @@ extension MyPageView {
         
         dottedLineView.do {
             let shapeLayer = CAShapeLayer()
-            shapeLayer.strokeColor = UIColor.home(.homeContents2).cgColor
+            shapeLayer.strokeColor = UIColor.primary(.stroke).cgColor
             shapeLayer.lineWidth = 0.5
             shapeLayer.lineDashPattern = [3, 3]
             
@@ -145,7 +145,7 @@ extension MyPageView {
         }
         
         dividerView.do {
-            $0.backgroundColor = .home(.homeContents2)
+            $0.backgroundColor = .primary(.stroke)
         }
         
         [characterButton, couponButton, titleButton, settingButton].forEach {
@@ -225,8 +225,8 @@ extension MyPageView {
         }
         
         characterProfileImageView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview().inset(16)
-            $0.leading.equalToSuperview().inset(21)
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().inset(20)
         }
         
         adventureStackView.snp.makeConstraints {

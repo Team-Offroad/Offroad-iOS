@@ -15,6 +15,7 @@ class OffroadTabBarController: UITabBarController {
     var tabBarHeight: CGFloat = UIScreen.current.isAspectRatioTall ? 92 : 60
     private var hideTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     private var showTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
+    private var isTabBarShown: Bool = false
     
     //MARK: - UI Properties
     
@@ -162,6 +163,8 @@ extension OffroadTabBarController {
     // MARK: - Func
     
     func hideTabBarAnimation(delayFactor: CGFloat = 0) {
+        isTabBarShown = false
+        disableTabBarInteraction()
         view.layoutIfNeeded()
         showTabBarAnimator.stopAnimation(true)
         hideTabBarAnimator.addAnimations({ [weak self] in
@@ -174,6 +177,8 @@ extension OffroadTabBarController {
     }
     
     func showTabBarAnimation(delayFactor: CGFloat = 0) {
+        guard !isTabBarShown else { return }
+        disableTabBarInteraction()
         if tabBar.isHidden {
             tabBar.frame.origin.y = UIScreen.current.bounds.height + 30
             tabBar.isHidden = false
@@ -183,6 +188,10 @@ extension OffroadTabBarController {
             guard let self else { return }
             self.tabBar.frame.origin.y = UIScreen.current.bounds.height - self.tabBarHeight
         }, delayFactor: delayFactor)
+        showTabBarAnimator.addCompletion { [weak self] _ in
+            guard let self else { return }
+            self.isTabBarShown = true
+        }
         showTabBarAnimator.startAnimation()
     }
 }
@@ -192,6 +201,7 @@ extension OffroadTabBarController {
 extension OffroadTabBarController: UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        guard !isTabBarShown else { return }
         disableTabBarInteraction()
     }
     
