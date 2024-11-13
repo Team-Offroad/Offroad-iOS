@@ -41,11 +41,11 @@ extension ORBNavigationController {
             customPopTransition?.update(progress)
 //            customPopTransition?.updateInteractiveTransition(progress)
         case .ended, .cancelled:
-            let shouldCancel = progress > 0.5 || gesture.velocity(in: view).x > 0
-            if shouldCancel {
-                customPopTransition?.cancel()
-            } else {
+            let shouldFinish = progress > 0.5 || gesture.velocity(in: view).x > 0
+            if shouldFinish {
                 customPopTransition?.finish()
+            } else {
+                customPopTransition?.cancel()
             }
             customPopTransition = nil
 //            customPopTransition?.finishInteractiveTransition(isFinished: shouldCancel)

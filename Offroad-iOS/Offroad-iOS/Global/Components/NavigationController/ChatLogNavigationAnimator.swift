@@ -34,6 +34,7 @@ class ChatLogPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 }
 
 class ChatLogPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+    var isInteractive = false
     
     func transitionDuration(using transitionContext: (any UIViewControllerContextTransitioning)?) -> TimeInterval {
         return 0.5
@@ -49,11 +50,21 @@ class ChatLogPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let containerView = transitionContext.containerView
         let finalFrame = fromView.frame.offsetBy(dx: fromView.frame.width, dy: 0)
         containerView.insertSubview(toView, belowSubview: fromView)
-        UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: {
-            fromView.frame = finalFrame
-        }, completion: { finished in
-            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        })
+        
+        if transitionContext.isInteractive {
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveLinear, animations: {
+                fromView.frame = finalFrame
+            }, completion: { finished in
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            })
+        } else {
+            UIView.animate(withDuration: transitionDuration(using: transitionContext), delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: {
+                fromView.frame = finalFrame
+            }, completion: { finished in
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+            })
+        }
+        
     }
     
 }
