@@ -149,7 +149,12 @@ final class ChoosingCharacterViewController: UIViewController {
     }
     
     @objc private func selectButtonTapped() {
-        let alertController = ORBAlertController(title: "\(selectedCharacterName)와 함께하시겠어요?", message: "지금 캐릭터를 선택하시면 \(selectedCharacterName)과 모험을 시작하게 돼요.", type: .normal)
+        let alertController = ORBAlertController(title: "\(selectedCharacterName)와 함께하시겠어요?", message: "지금 캐릭터를 선택하시면\n\(selectedCharacterName)와 모험을 시작하게 돼요.", type: .normal)
+        alertController.configureMessageLabel{ label in
+            label.setLineHeight(percentage: 150)
+            label.highlightText(targetText: selectedCharacterName, font: .offroad(style: .iosTextBold))
+        }
+        alertController.xButton.isHidden = true
         let cancelAction = ORBAlertAction(title: "아니요", style: .cancel) { _ in return }
         let okAction = ORBAlertAction(title: "네,좋아요!", style: .default) { _ in
             self.postCharacterID(characterID: self.selectedCharacterID)
