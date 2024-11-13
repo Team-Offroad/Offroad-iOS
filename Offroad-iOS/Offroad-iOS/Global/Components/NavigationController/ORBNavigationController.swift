@@ -19,17 +19,6 @@ class ORBNavigationController: UINavigationController {
         setupDelegates()
     }
     
-    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        super.pushViewController(viewController, animated: animated)
-        if viewController is CharacterChatLogViewController {
-            screenEdgePanGesture.isEnabled = true
-            interactivePopGestureRecognizer?.isEnabled = false
-        } else {
-            screenEdgePanGesture.isEnabled = false
-            interactivePopGestureRecognizer?.isEnabled = true
-        }
-    }
-    
 }
 
 
@@ -86,6 +75,15 @@ extension ORBNavigationController: UINavigationControllerDelegate {
     }
     
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        
+        if topViewController is CharacterChatLogViewController {
+            screenEdgePanGesture.isEnabled = true
+            interactivePopGestureRecognizer?.isEnabled = false
+        } else {
+            screenEdgePanGesture.isEnabled = false
+            interactivePopGestureRecognizer?.isEnabled = true
+        }
+        
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         tabBarController.enableTabBarInteraction()
     }
