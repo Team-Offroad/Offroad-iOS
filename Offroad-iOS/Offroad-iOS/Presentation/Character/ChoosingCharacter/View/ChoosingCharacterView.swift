@@ -122,7 +122,7 @@ extension ChoosingCharacterView {
     }
     
     private func setupStyle() {
-        backgroundColor = .primary(.characterSelectBg1)
+        backgroundColor = .setting(.settingCharacter)
     }
     
     private func setupLayout() {
@@ -194,11 +194,11 @@ extension ChoosingCharacterView {
     func setBackgroundColorForID(id: Int) {
         switch id {
         case 1:
-            backgroundColor = .primary(.characterSelectBg1)
+            backgroundColor = .setting(.settingCharacter)
         case 2:
-            backgroundColor = .primary(.characterSelectBg2)
+            backgroundColor = .setting(.settingSetting)
         case 3:
-            backgroundColor = .primary(.characterSelectBg3)
+            backgroundColor = .setting(.settingCoupon)
         default:
             break
         }
