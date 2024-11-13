@@ -93,8 +93,7 @@ final class AcquiredCouponViewController: UIViewController {
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
 
-        getInitialCouponList(isUsed: false)
-        getInitialCouponList(isUsed: true)
+        getInitialCouponList(isUsed: selectedState.state)
     }
 }
 
@@ -125,7 +124,7 @@ extension AcquiredCouponViewController{
     private func getInitialCouponList(isUsed: Bool, cursor: Int = 0, size: Int = 14) {
         rootView.segmentedControl.isUserInteractionEnabled = false
         rootView.pageViewController.view.isUserInteractionEnabled = false
-        NetworkService.shared.couponService.getAcquiredCouponList(isUsed: false, size: size, cursor: cursor) { [weak self] result in
+        NetworkService.shared.couponService.getAcquiredCouponList(isUsed: isUsed, size: size, cursor: cursor) { [weak self] result in
             guard let self else { return }
             
             switch result {
@@ -156,7 +155,7 @@ extension AcquiredCouponViewController{
     private func getExtendedCouponList(isUsed: Bool, cursor: Int, size: Int) {
         rootView.segmentedControl.isUserInteractionEnabled = false
         rootView.pageViewController.view.isUserInteractionEnabled = false
-        NetworkService.shared.couponService.getAcquiredCouponList(isUsed: false, size: size, cursor: cursor) { [weak self] result in
+        NetworkService.shared.couponService.getAcquiredCouponList(isUsed: isUsed, size: size, cursor: cursor) { [weak self] result in
             guard let self else { return }
             
             switch result {

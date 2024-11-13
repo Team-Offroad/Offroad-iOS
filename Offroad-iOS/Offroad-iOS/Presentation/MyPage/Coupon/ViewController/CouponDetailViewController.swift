@@ -97,7 +97,7 @@ class CouponDetailViewController: UIViewController {
     }
     
     private func redeemCoupon(code: String) {
-        let requestDTO = CouponRedemptionRequestDTO(code: code, couponId: coupon.id)
+        let requestDTO = CouponRedemptionRequestDTO(code: code, couponId: coupon.id ?? Int())
         NetworkService.shared.couponService.postCouponRedemption(body: requestDTO) { [weak self] result in
             guard let self else { return }
             

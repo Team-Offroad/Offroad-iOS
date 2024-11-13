@@ -111,7 +111,7 @@ final class CouponCell: UICollectionViewCell {
     func configureAvailableCell(with coupon: CouponInfo) {
         couponNameLabel.text = coupon.name
         couponNameLabel.text = coupon.name
-        newTagImageView.isHidden = !coupon.isNewGained
+        newTagImageView.isHidden = !(coupon.isNewGained ?? false)
         couponimageView.fetchSvgURLToImageView(svgUrlString: coupon.couponImageUrl)
         isUsedView.isHidden = true
     }

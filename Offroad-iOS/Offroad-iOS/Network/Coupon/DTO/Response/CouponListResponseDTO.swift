@@ -19,11 +19,11 @@ struct CouponData: Codable {
 }
 
 struct CouponInfo: Codable {
-    let id: Int
+    let id: Int?
     let name: String
     let couponImageUrl: String
-    let description: String
-    let isNewGained: Bool
+    let description: String?
+    let isNewGained: Bool?
     let cursorId: Int
 }
 
