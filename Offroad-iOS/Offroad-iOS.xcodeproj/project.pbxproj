@@ -129,6 +129,7 @@
 		4EFCDFE32C92C1F1006DEBB6 /* ORBAlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE22C92C1F1006DEBB6 /* ORBAlertButton.swift */; };
 		4EFD004E2CCA50AB005C294D /* CharacterListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD004D2CCA50AB005C294D /* CharacterListViewModel.swift */; };
 		4EFD00502CCB4C25005C294D /* SVGFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD004F2CCB4C25005C294D /* SVGFetchable.swift */; };
+		4EFFAFAE2CE442E900EFA714 /* ChatLogNavigationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFFAFAD2CE442E900EFA714 /* ChatLogNavigationAnimator.swift */; };
 		872F4BAE2C68C1F600284DE0 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */; };
 		872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB02C68C43800284DE0 /* CharacterListCell.swift */; };
 		872F4BB52C68D66200284DE0 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB42C68D66200284DE0 /* CharacterListViewController.swift */; };
@@ -394,6 +395,7 @@
 		4EFCDFE22C92C1F1006DEBB6 /* ORBAlertButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertButton.swift; sourceTree = "<group>"; };
 		4EFD004D2CCA50AB005C294D /* CharacterListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewModel.swift; sourceTree = "<group>"; };
 		4EFD004F2CCB4C25005C294D /* SVGFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGFetchable.swift; sourceTree = "<group>"; };
+		4EFFAFAD2CE442E900EFA714 /* ChatLogNavigationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogNavigationAnimator.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
 		872F4BB02C68C43800284DE0 /* CharacterListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListCell.swift; sourceTree = "<group>"; };
@@ -1337,6 +1339,7 @@
 			children = (
 				4EEA82FB2CE3907C0062F0DE /* CharacterChatLogView.swift */,
 				4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */,
+				4EFFAFAD2CE442E900EFA714 /* ChatLogNavigationAnimator.swift */,
 			);
 			path = ChatLog;
 			sourceTree = "<group>";
@@ -2500,6 +2503,7 @@
 				87738CD52C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift in Sources */,
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
 				872F4BB92C6B80A600284DE0 /* CharacterDetailView.swift in Sources */,
+				4EFFAFAE2CE442E900EFA714 /* ChatLogNavigationAnimator.swift in Sources */,
 				D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */,
 				4EB32BEC2C67A39B003F98F2 /* QuestListCollectionViewCell.swift in Sources */,
 				4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */,
