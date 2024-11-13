@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct CharacterChatGetResponseDTO: Codable {
+    var message: String
+    var chatDataList: [ChatData]
+}
+
+
