@@ -1341,7 +1341,6 @@
 			children = (
 				4EEA82FB2CE3907C0062F0DE /* CharacterChatLogView.swift */,
 				4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */,
-				4EFFAFAD2CE442E900EFA714 /* ChatLogNavigationAnimator.swift */,
 			);
 			path = ChatLog;
 			sourceTree = "<group>";
@@ -1403,6 +1402,7 @@
 			isa = PBXGroup;
 			children = (
 				4EFFAFB02CE4576300EFA714 /* ORBNavigationController.swift */,
+				4EFFAFAD2CE442E900EFA714 /* ChatLogNavigationAnimator.swift */,
 			);
 			path = NavigationController;
 			sourceTree = "<group>";
