@@ -8,22 +8,49 @@
 import UIKit
 
 class CharacterChatLogViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    
+    let rootView = CharacterChatLogView()
+    
+    override func loadView() {
+        view = rootView
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupDelegates()
+        setupTargets()
+        navigationController?.navigationBar.isHidden = true
     }
-    */
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
+        tabBarController.showTabBarAnimation()
+    }
+    
+    
+}
 
+extension CharacterChatLogViewController {
+    
+    //MARK: - @objc Func
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: - Private Func
+    
+    private func setupDelegates() {
+        
+    }
+    
+    private func setupTargets() {
+        rootView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+    }
+    
+    
 }
