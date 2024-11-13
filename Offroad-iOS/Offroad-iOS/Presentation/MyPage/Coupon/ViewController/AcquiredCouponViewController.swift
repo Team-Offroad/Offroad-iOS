@@ -52,6 +52,12 @@ final class AcquiredCouponViewController: UIViewController {
     
     private var selectedState: SelectedState = .available {
         didSet {
+            if selectedState.state {
+                availableCouponList = []
+            } else {
+                usedCouponList = []
+            }
+            extendedListSize = 14
             getInitialCouponList(isUsed: selectedState.state)
             reloadCollectionViews()
         }
@@ -89,12 +95,6 @@ final class AcquiredCouponViewController: UIViewController {
 
         getInitialCouponList(isUsed: false)
         getInitialCouponList(isUsed: true)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-//        fetchAcquiredCouponsData(isUsed: selectedState.state)
     }
 }
 
@@ -142,6 +142,39 @@ extension AcquiredCouponViewController{
                 } else {
                     self.availableCouponList = response.data.coupons
                 }
+                
+                lastCursorID = response.data.coupons.last?.cursorId ?? Int()
+                
+                self.rootView.segmentedControl.isUserInteractionEnabled = true
+                self.rootView.pageViewController.view.isUserInteractionEnabled = true
+            default:
+                return
+            }
+        }
+    }
+    
+    private func getExtendedCouponList(isUsed: Bool, cursor: Int, size: Int) {
+        rootView.segmentedControl.isUserInteractionEnabled = false
+        rootView.pageViewController.view.isUserInteractionEnabled = false
+        NetworkService.shared.couponService.getAcquiredCouponList(isUsed: false, size: size, cursor: cursor) { [weak self] result in
+            guard let self else { return }
+            
+            switch result {
+            case .success(let response):
+                guard let response else {
+                    return
+                }
+                
+                self.availableCouponsCount = response.data.availableCouponsCount
+                self.usedCouponsCount = response.data.usedCouponsCount
+                
+                if isUsed {
+                    self.usedCouponList?.append(contentsOf: response.data.coupons)
+                } else {
+                    self.availableCouponList?.append(contentsOf: response.data.coupons)
+                }
+                
+                lastCursorID = response.data.coupons.last?.cursorId ?? Int()
                 
                 self.rootView.segmentedControl.isUserInteractionEnabled = true
                 self.rootView.pageViewController.view.isUserInteractionEnabled = true
@@ -234,6 +267,29 @@ extension AcquiredCouponViewController: UICollectionViewDelegate {
         }
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let frameHeight = scrollView.frame.size.height
+        
+        if offsetY >= contentHeight - frameHeight {
+            var dataCount = 0
+
+            if scrollView == rootView.collectionViewForAvailableCoupons {
+                dataCount = availableCouponList?.count ?? Int()
+            } else if scrollView == rootView.collectionViewForUsedCoupons {
+                dataCount = usedCouponList?.count ?? Int()
+            }
+            
+            if extendedListSize == dataCount {
+                extendedListSize += 14
+                getExtendedCouponList(isUsed: selectedState.state, cursor: lastCursorID, size: 14)
+                
+                //TODO: 로딩 케이스 추가
+            }
+        }
+        
+    }
 }
 
 //MARK: - ORBSegmentedControlDelegate
