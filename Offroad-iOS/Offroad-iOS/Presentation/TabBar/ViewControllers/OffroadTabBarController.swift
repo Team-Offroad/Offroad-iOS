@@ -97,10 +97,11 @@ extension OffroadTabBarController {
     }
     
     private func setOffroadViewControllers() {
+        let homeNavigationController = UINavigationController(rootViewController: HomeViewController())
         let mypageNavigationController = UINavigationController(rootViewController: MyPageViewController())
         
         let viewControllersArray: [UIViewController] = [
-            UINavigationController(rootViewController: HomeViewController()),
+            homeNavigationController,
             UINavigationController(rootViewController: QuestMapViewController()),
             mypageNavigationController
         ]
@@ -139,8 +140,10 @@ extension OffroadTabBarController {
     }
     
     private func setupDelegates() {
+        guard let homeNavigationController = viewControllers?[0] as? UINavigationController else { return }
         guard let questMapNavigationController = viewControllers?[1] as? UINavigationController else { return }
         guard let myPageNavigationController = viewControllers?[2] as? UINavigationController else { return }
+        homeNavigationController.delegate = self
         questMapNavigationController.delegate = self
         myPageNavigationController.delegate = self
     }
@@ -207,6 +210,20 @@ extension OffroadTabBarController: UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         enableTabBarInteraction()
+    }
+    
+    func navigationController(
+        _ navigationController: UINavigationController,
+        animationControllerFor operation: UINavigationController.Operation,
+        from fromVC: UIViewController,
+        to toVC: UIViewController
+    ) -> (any UIViewControllerAnimatedTransitioning)? {
+        if operation == .push && toVC is CharacterChatLogViewController {
+            return ChatLogPushAnimator()
+        } else if operation == .pop && fromVC is CharacterChatLogViewController {
+            return ChatLogPopAnimator()
+        }
+        return nil
     }
     
 }

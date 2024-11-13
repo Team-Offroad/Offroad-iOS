@@ -20,6 +20,7 @@ class CharacterChatLogView: UIView {
     
     //MARK: - UI Properties
     
+    let backgroundView: UIView
     let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     let customNavigationBar = UIView()
     let backButton = UIButton()
@@ -31,10 +32,9 @@ class CharacterChatLogView: UIView {
     let userChatInputView = UITextView()
     let sendButton = UIButton()
     
-    override init(frame: CGRect) {
-        
-        super.init(frame: frame)
-        
+    init(background: UIView) {
+        self.backgroundView = background
+        super.init(frame: .zero)
         setupStyle()
         setupHierarchy()
         setupLayout()
@@ -52,6 +52,10 @@ extension CharacterChatLogView {
     //MARK: - Layout Func
     
     func setupLayout() {
+        backgroundView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         blurEffectView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -119,7 +123,7 @@ extension CharacterChatLogView {
     }
     
     private func setupHierarchy() {
-        addSubviews(blurEffectView, customNavigationBar, chatLogCollectionView, chatButton)
+        addSubviews(backgroundView, blurEffectView, customNavigationBar, chatLogCollectionView, chatButton)
         customNavigationBar.addSubviews(backButton, customNavigationTitleLabel)
     }
     
