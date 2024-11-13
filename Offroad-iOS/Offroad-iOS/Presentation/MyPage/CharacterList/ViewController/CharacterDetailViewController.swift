@@ -54,6 +54,8 @@ final class CharacterDetailViewController: UIViewController {
             rootView.selectButton.isEnabled = false
             rootView.crownBadgeImageView.isHidden = false
         }
+        guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
+        tabBarController.hideTabBarAnimation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -109,6 +111,13 @@ extension CharacterDetailViewController {
         }).disposed(by: disposeBag)
         
         rootView.selectButton.rx.tap.bind(to: viewModel.selectButtonTapped).disposed(by: disposeBag)
+        rootView.chatLogButton.rx.tap.bind(onNext: { [weak self] in
+            guard let self else { return }
+            let snapshot = view.snapshotView(afterScreenUpdates: true)
+            let chatLogViewController = CharacterChatLogViewController(background: snapshot ?? UIView())
+            self.navigationController?.pushViewController(chatLogViewController, animated: true)
+        }).disposed(by: disposeBag)
+        
         
         /// 네트워크 끊어진 상태에서 CharacterDetailView로 진입 후(현재 빈 화면인 상태)
         /// 네트워크 연결하면 아래 구독이 실행됨.

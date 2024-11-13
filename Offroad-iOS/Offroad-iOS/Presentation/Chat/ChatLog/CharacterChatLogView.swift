@@ -108,7 +108,7 @@ extension CharacterChatLogView {
         }
         
         chatLogCollectionView.do { collectionView in
-            collectionView.backgroundColor = .blue.withAlphaComponent(0.2)
+            collectionView.backgroundColor = .clear
         }
         
         chatButton.do { button in
