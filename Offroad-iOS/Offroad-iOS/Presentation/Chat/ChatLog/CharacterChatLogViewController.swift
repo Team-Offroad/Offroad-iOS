@@ -10,7 +10,6 @@ import UIKit
 class CharacterChatLogViewController: UIViewController {
     
     let rootView: CharacterChatLogView
-    var interactionController: UIPercentDrivenInteractiveTransition?
     
     init(background: UIView) {
         rootView = CharacterChatLogView(background: background)
@@ -28,9 +27,9 @@ class CharacterChatLogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupDelegates()
+//        setupDelegates()
         setupTargets()
-        setupGestures()
+//        setupGestures()
         navigationController?.navigationBar.isHidden = true
     }
     
@@ -64,46 +63,45 @@ extension CharacterChatLogViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
-        guard let navigationController else { return }
-            let translation = gesture.translation(in: navigationController.view)
-            let progress = min(max(translation.x / navigationController.view.bounds.width, 0), 1)
-            
-            switch gesture.state {
-            case .began:
-                interactionController = UIPercentDrivenInteractiveTransition()
-                navigationController.popViewController(animated: true)
-            case .changed:
-                interactionController?.update(progress)
-            case .ended, .cancelled:
-                if progress > 0.5 {
-                    interactionController?.finish()
-                } else {
-                    interactionController?.cancel()
-                }
-                interactionController = nil
-            default:
-                break
-            }
-        }
-    
     //MARK: - Private Func
     
-    private func setupDelegates() {
-        
-    }
+//    private func setupDelegates() {
+//        navigationController?.delegate = self
+//    }
     
     private func setupTargets() {
         rootView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
-    private func setupGestures() {
-        
-        let edgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-        edgePanGesture.edges = .left
-        navigationController?.view.addGestureRecognizer(edgePanGesture)
-        
-    }
+//    private func setupGestures() {
+//        
+//        let edgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+//        edgePanGesture.edges = .left
+//        navigationController?.view.addGestureRecognizer(edgePanGesture)
+//        
+//    }
     
     
 }
+
+//extension CharacterChatLogViewController: UINavigationControllerDelegate {
+//    
+//    func navigationController(
+//        _ navigationController: UINavigationController,
+//        animationControllerFor operation: UINavigationController.Operation,
+//        from fromVC: UIViewController,
+//        to toVC: UIViewController
+//    ) -> (any UIViewControllerAnimatedTransitioning)? {
+//        if operation == .push && toVC is CharacterChatLogViewController {
+//            return ChatLogPushAnimator()
+//        } else if operation == .pop && fromVC is CharacterChatLogViewController {
+//            return ChatLogPopAnimator()
+//        }
+//        return nil
+//    }
+//    
+//    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: any UIViewControllerAnimatedTransitioning) -> (any UIViewControllerInteractiveTransitioning)? {
+//        return interactionController
+//    }
+//    
+//}

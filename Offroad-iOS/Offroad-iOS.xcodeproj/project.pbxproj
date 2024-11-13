@@ -130,6 +130,7 @@
 		4EFD004E2CCA50AB005C294D /* CharacterListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD004D2CCA50AB005C294D /* CharacterListViewModel.swift */; };
 		4EFD00502CCB4C25005C294D /* SVGFetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFD004F2CCB4C25005C294D /* SVGFetchable.swift */; };
 		4EFFAFAE2CE442E900EFA714 /* ChatLogNavigationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFFAFAD2CE442E900EFA714 /* ChatLogNavigationAnimator.swift */; };
+		4EFFAFB12CE4576300EFA714 /* ORBNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFFAFB02CE4576300EFA714 /* ORBNavigationController.swift */; };
 		872F4BAE2C68C1F600284DE0 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */; };
 		872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB02C68C43800284DE0 /* CharacterListCell.swift */; };
 		872F4BB52C68D66200284DE0 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872F4BB42C68D66200284DE0 /* CharacterListViewController.swift */; };
@@ -396,6 +397,7 @@
 		4EFD004D2CCA50AB005C294D /* CharacterListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewModel.swift; sourceTree = "<group>"; };
 		4EFD004F2CCB4C25005C294D /* SVGFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGFetchable.swift; sourceTree = "<group>"; };
 		4EFFAFAD2CE442E900EFA714 /* ChatLogNavigationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogNavigationAnimator.swift; sourceTree = "<group>"; };
+		4EFFAFB02CE4576300EFA714 /* ORBNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBNavigationController.swift; sourceTree = "<group>"; };
 		78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOS.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOS/Pods-Offroad-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
 		872F4BB02C68C43800284DE0 /* CharacterListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListCell.swift; sourceTree = "<group>"; };
@@ -1397,6 +1399,14 @@
 			path = NetworkMonitoring;
 			sourceTree = "<group>";
 		};
+		4EFFAFAF2CE4573D00EFA714 /* NavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				4EFFAFB02CE4576300EFA714 /* ORBNavigationController.swift */,
+			);
+			path = NavigationController;
+			sourceTree = "<group>";
+		};
 		80700C167D3310A86AF0ADA5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1699,6 +1709,7 @@
 		D018BB0C2C401F5F0048B6DF /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4EFFAFAF2CE4573D00EFA714 /* NavigationController */,
 				D05C31DE2CDEB55A004761A7 /* AppUtility.swift */,
 				4EFCDFDB2C92B647006DEBB6 /* Overlay */,
 				4E38B7D82C6471EC0011D997 /* SegmentedControl */,
@@ -2500,6 +2511,7 @@
 				4E56F53F2C987C5500EEE677 /* ZeroDurationAnimator.swift in Sources */,
 				D0E7961C2C4527FE005B47A5 /* SocialLoginRequestDTO.swift in Sources */,
 				4E4E2C062CCE6F04000A634D /* PlaceInfoTooltipWindow.swift in Sources */,
+				4EFFAFB12CE4576300EFA714 /* ORBNavigationController.swift in Sources */,
 				87738CD52C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift in Sources */,
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
 				872F4BB92C6B80A600284DE0 /* CharacterDetailView.swift in Sources */,

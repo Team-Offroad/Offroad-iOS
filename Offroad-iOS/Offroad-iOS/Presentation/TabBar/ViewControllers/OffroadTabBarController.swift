@@ -15,7 +15,7 @@ class OffroadTabBarController: UITabBarController {
     var tabBarHeight: CGFloat = UIScreen.current.isAspectRatioTall ? 92 : 60
     private var hideTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     private var showTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
-    private var isTabBarShown: Bool = false
+    var isTabBarShown: Bool = false
     
     //MARK: - UI Properties
     
@@ -34,7 +34,7 @@ class OffroadTabBarController: UITabBarController {
         setTabBarButtonStyle()
         setupAppearance()
         setupButtonsAction()
-        setupDelegates()
+//        setupDelegates()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,12 +97,12 @@ extension OffroadTabBarController {
     }
     
     private func setOffroadViewControllers() {
-        let homeNavigationController = UINavigationController(rootViewController: HomeViewController())
-        let mypageNavigationController = UINavigationController(rootViewController: MyPageViewController())
+        let homeNavigationController = ORBNavigationController(rootViewController: HomeViewController())
+        let mypageNavigationController = ORBNavigationController(rootViewController: MyPageViewController())
         
         let viewControllersArray: [UIViewController] = [
             homeNavigationController,
-            UINavigationController(rootViewController: QuestMapViewController()),
+            ORBNavigationController(rootViewController: QuestMapViewController()),
             mypageNavigationController
         ]
         
@@ -139,23 +139,23 @@ extension OffroadTabBarController {
         customOffroadLogoButton.addTarget(self, action: #selector(centerTabBarButtonItemTapped), for: .touchUpInside)
     }
     
-    private func setupDelegates() {
-        guard let homeNavigationController = viewControllers?[0] as? UINavigationController else { return }
-        guard let questMapNavigationController = viewControllers?[1] as? UINavigationController else { return }
-        guard let myPageNavigationController = viewControllers?[2] as? UINavigationController else { return }
-        homeNavigationController.delegate = self
-        questMapNavigationController.delegate = self
-        myPageNavigationController.delegate = self
-    }
+//    private func setupDelegates() {
+//        guard let homeNavigationController = viewControllers?[0] as? UINavigationController else { return }
+//        guard let questMapNavigationController = viewControllers?[1] as? UINavigationController else { return }
+//        guard let myPageNavigationController = viewControllers?[2] as? UINavigationController else { return }
+//        homeNavigationController.delegate = self
+//        questMapNavigationController.delegate = self
+//        myPageNavigationController.delegate = self
+//    }
     
-    private func disableTabBarInteraction() {
+    func disableTabBarInteraction() {
         tabBar.items?.forEach({ item in
             item.isEnabled = false
         })
         customOffroadLogoButton.isUserInteractionEnabled = false
     }
     
-    private func enableTabBarInteraction() {
+    func enableTabBarInteraction() {
         tabBar.items?.forEach({ item in
             guard item != tabBar.items?[1] else { return }
             item.isEnabled = true
@@ -201,29 +201,33 @@ extension OffroadTabBarController {
 
 //MARK: - UINavigationControllerDelegate
 
-extension OffroadTabBarController: UINavigationControllerDelegate {
-    
-    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        guard !isTabBarShown else { return }
-        disableTabBarInteraction()
-    }
-    
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        enableTabBarInteraction()
-    }
-    
-    func navigationController(
-        _ navigationController: UINavigationController,
-        animationControllerFor operation: UINavigationController.Operation,
-        from fromVC: UIViewController,
-        to toVC: UIViewController
-    ) -> (any UIViewControllerAnimatedTransitioning)? {
-        if operation == .push && toVC is CharacterChatLogViewController {
-            return ChatLogPushAnimator()
-        } else if operation == .pop && fromVC is CharacterChatLogViewController {
-            return ChatLogPopAnimator()
-        }
-        return nil
-    }
-    
-}
+//extension OffroadTabBarController: UINavigationControllerDelegate {
+//    
+//    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+//        guard !isTabBarShown else { return }
+//        disableTabBarInteraction()
+//    }
+//    
+//    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+//        enableTabBarInteraction()
+//    }
+//    
+//    func navigationController(
+//        _ navigationController: UINavigationController,
+//        animationControllerFor operation: UINavigationController.Operation,
+//        from fromVC: UIViewController,
+//        to toVC: UIViewController
+//    ) -> (any UIViewControllerAnimatedTransitioning)? {
+//        if operation == .push && toVC is CharacterChatLogViewController {
+//            return ChatLogPushAnimator()
+//        } else if operation == .pop && fromVC is CharacterChatLogViewController {
+//            return ChatLogPopAnimator()
+//        }
+//        return nil
+//    }
+//    
+//    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: any UIViewControllerAnimatedTransitioning) -> (any UIViewControllerInteractiveTransitioning)? {
+//        <#code#>
+//    }
+//    
+//}
