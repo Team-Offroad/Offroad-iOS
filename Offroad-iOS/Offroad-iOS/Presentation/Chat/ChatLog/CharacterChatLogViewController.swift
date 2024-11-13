@@ -35,7 +35,6 @@ class CharacterChatLogViewController: UIViewController {
         
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         tabBarController.showTabBarAnimation()
-        rootView.backgroundView.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
