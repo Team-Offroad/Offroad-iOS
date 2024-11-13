@@ -10,13 +10,24 @@ import UIKit
 class ORBNavigationController: UINavigationController {
     
     var customPopTransition: UIPercentDrivenInteractiveTransition?
-//    var customPopTransition: ChatLogInteractiveAnimatedTransitioning?
+    lazy var screenEdgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupGestures()
         setupDelegates()
+    }
+    
+    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
+        super.pushViewController(viewController, animated: animated)
+        if viewController is CharacterChatLogViewController {
+            screenEdgePanGesture.isEnabled = true
+            interactivePopGestureRecognizer?.isEnabled = false
+        } else {
+            screenEdgePanGesture.isEnabled = false
+            interactivePopGestureRecognizer?.isEnabled = true
+        }
     }
     
 }
@@ -33,13 +44,10 @@ extension ORBNavigationController {
         
         switch gesture.state {
         case .began:
-            guard topViewController is CharacterChatLogViewController else { return }
-//            customPopTransition = ChatLogInteractiveAnimatedTransitioning()
             customPopTransition = UIPercentDrivenInteractiveTransition()
             popViewController(animated: true)
         case .changed:
             customPopTransition?.update(progress)
-//            customPopTransition?.updateInteractiveTransition(progress)
         case .ended, .cancelled:
             let shouldFinish = progress > 0.5 || gesture.velocity(in: view).x > 0
             if shouldFinish {
@@ -48,15 +56,6 @@ extension ORBNavigationController {
                 customPopTransition?.cancel()
             }
             customPopTransition = nil
-//            customPopTransition?.finishInteractiveTransition(isFinished: shouldCancel)
-//            if progress > 0.5 || gesture.velocity(in: view).x > 0 {
-////                customPopTransition?.finish()
-//                customPopTransition?.finishInteractiveTransition(isFinished: true)
-//            } else {
-////                customPopTransition?.cancel()
-//                customPopTransition?.cancelInteractiveTransition()
-//            }
-////            customPopTransition = nil
         default:
             break
         }
@@ -65,16 +64,18 @@ extension ORBNavigationController {
     //MARK: - Private Func
     
     private func setupGestures() {
-        let edgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-        edgePanGesture.edges = .left
-        view.addGestureRecognizer(edgePanGesture)
+        screenEdgePanGesture.edges = .left
+        view.addGestureRecognizer(screenEdgePanGesture)
     }
     
     private func setupDelegates() {
         delegate = self
+        interactivePopGestureRecognizer?.delegate = self
     }
     
 }
+
+//MARK: - UINavigationControllerDelegate
 
 extension ORBNavigationController: UINavigationControllerDelegate {
     
@@ -104,6 +105,16 @@ extension ORBNavigationController: UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: any UIViewControllerAnimatedTransitioning) -> (any UIViewControllerInteractiveTransitioning)? {
         return customPopTransition
+    }
+    
+}
+
+//MARK: - UIGestureRecognizerDelegate
+
+extension ORBNavigationController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
 }
