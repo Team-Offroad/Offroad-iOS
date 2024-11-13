@@ -15,7 +15,7 @@ class OffroadTabBarController: UITabBarController {
     var tabBarHeight: CGFloat = UIScreen.current.isAspectRatioTall ? 92 : 60
     private var hideTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     private var showTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
-    var isTabBarShown: Bool = false
+    var isTabBarShown: Bool = true
     
     //MARK: - UI Properties
     
@@ -149,13 +149,16 @@ extension OffroadTabBarController {
 //    }
     
     func disableTabBarInteraction() {
-        tabBar.items?.forEach({ item in
+        tabBar.isUserInteractionEnabled = false
+        tabBar.items?.enumerated().forEach({ index, item in
+            guard index != selectedIndex else { return }
             item.isEnabled = false
         })
         customOffroadLogoButton.isUserInteractionEnabled = false
     }
     
     func enableTabBarInteraction() {
+        tabBar.isUserInteractionEnabled = true
         tabBar.items?.forEach({ item in
             guard item != tabBar.items?[1] else { return }
             item.isEnabled = true
