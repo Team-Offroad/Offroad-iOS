@@ -198,36 +198,3 @@ extension OffroadTabBarController {
         showTabBarAnimator.startAnimation()
     }
 }
-
-//MARK: - UINavigationControllerDelegate
-
-//extension OffroadTabBarController: UINavigationControllerDelegate {
-//    
-//    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-//        guard !isTabBarShown else { return }
-//        disableTabBarInteraction()
-//    }
-//    
-//    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-//        enableTabBarInteraction()
-//    }
-//    
-//    func navigationController(
-//        _ navigationController: UINavigationController,
-//        animationControllerFor operation: UINavigationController.Operation,
-//        from fromVC: UIViewController,
-//        to toVC: UIViewController
-//    ) -> (any UIViewControllerAnimatedTransitioning)? {
-//        if operation == .push && toVC is CharacterChatLogViewController {
-//            return ChatLogPushAnimator()
-//        } else if operation == .pop && fromVC is CharacterChatLogViewController {
-//            return ChatLogPopAnimator()
-//        }
-//        return nil
-//    }
-//    
-//    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: any UIViewControllerAnimatedTransitioning) -> (any UIViewControllerInteractiveTransitioning)? {
-//        <#code#>
-//    }
-//    
-//}

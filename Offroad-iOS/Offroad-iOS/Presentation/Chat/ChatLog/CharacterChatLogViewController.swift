@@ -27,10 +27,7 @@ class CharacterChatLogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        setupDelegates()
         setupTargets()
-//        setupGestures()
-        navigationController?.navigationBar.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,43 +62,8 @@ extension CharacterChatLogViewController {
     
     //MARK: - Private Func
     
-//    private func setupDelegates() {
-//        navigationController?.delegate = self
-//    }
-    
     private func setupTargets() {
         rootView.backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
-//    private func setupGestures() {
-//        
-//        let edgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-//        edgePanGesture.edges = .left
-//        navigationController?.view.addGestureRecognizer(edgePanGesture)
-//        
-//    }
-    
-    
 }
-
-//extension CharacterChatLogViewController: UINavigationControllerDelegate {
-//    
-//    func navigationController(
-//        _ navigationController: UINavigationController,
-//        animationControllerFor operation: UINavigationController.Operation,
-//        from fromVC: UIViewController,
-//        to toVC: UIViewController
-//    ) -> (any UIViewControllerAnimatedTransitioning)? {
-//        if operation == .push && toVC is CharacterChatLogViewController {
-//            return ChatLogPushAnimator()
-//        } else if operation == .pop && fromVC is CharacterChatLogViewController {
-//            return ChatLogPopAnimator()
-//        }
-//        return nil
-//    }
-//    
-//    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: any UIViewControllerAnimatedTransitioning) -> (any UIViewControllerInteractiveTransitioning)? {
-//        return interactionController
-//    }
-//    
-//}
