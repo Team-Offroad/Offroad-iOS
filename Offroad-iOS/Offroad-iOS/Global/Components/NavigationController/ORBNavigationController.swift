@@ -26,10 +26,9 @@ extension ORBNavigationController {
     
     //MARK: - @objc Func
     
-    @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+    @objc func handlePanGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
         let translation = gesture.translation(in: view)
         let progress = min(max(translation.x / view.bounds.width, 0), 1)
-        print("progress: \(progress)")
         
         switch gesture.state {
         case .began:
@@ -121,6 +120,10 @@ extension ORBNavigationController: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return gestureRecognizer == interactivePopGestureRecognizer
     }
     
 }
