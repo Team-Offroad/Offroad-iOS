@@ -9,7 +9,11 @@ import UIKit
 
 class CharacterChatLogViewController: UIViewController {
     
-    let rootView: CharacterChatLogView
+    //MARK: - Properties
+    
+    private let rootView: CharacterChatLogView
+    
+    //MARK: - Life Cycle
     
     init(background: UIView) {
         rootView = CharacterChatLogView(background: background)

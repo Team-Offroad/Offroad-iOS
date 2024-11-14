@@ -11,7 +11,7 @@ class CharacterChatLogView: UIView {
     
     //MARK: - Properties
     
-    var layout: UICollectionViewLayout {
+    private var layout: UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 16
@@ -21,16 +21,18 @@ class CharacterChatLogView: UIView {
     //MARK: - UI Properties
     
     let backgroundView: UIView
-    let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-    let customNavigationBar = UIView()
+    private let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    private let customNavigationBar = UIView()
     let backButton = UIButton()
-    let customNavigationTitleLabel = UILabel()
+    private let customNavigationTitleLabel = UILabel()
     
-    lazy var chatLogCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    let chatButton = UIButton()
-    let userChatView = UIView()
-    let userChatInputView = UITextView()
-    let sendButton = UIButton()
+    private lazy var chatLogCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    private let chatButton = UIButton()
+    private let userChatView = UIView()
+    private let userChatInputView = UITextView()
+    private let sendButton = UIButton()
+    
+    //MARK: - Life Cycle
     
     init(background: UIView) {
         self.backgroundView = background
@@ -51,7 +53,7 @@ extension CharacterChatLogView {
     
     //MARK: - Layout Func
     
-    func setupLayout() {
+    private func setupLayout() {
         backgroundView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
