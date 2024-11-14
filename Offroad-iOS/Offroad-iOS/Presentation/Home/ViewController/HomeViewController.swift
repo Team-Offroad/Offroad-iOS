@@ -32,6 +32,7 @@ final class HomeViewController: OffroadTabBarViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.navigationController?.navigationBar.isHidden = true
         getUserAdventureInfo()
         getUserQuestInfo()
     }

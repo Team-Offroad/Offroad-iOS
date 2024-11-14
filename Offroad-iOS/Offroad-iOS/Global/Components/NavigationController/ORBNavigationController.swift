@@ -62,6 +62,14 @@ extension ORBNavigationController {
         interactivePopGestureRecognizer?.delegate = self
     }
     
+    //MARK: - Func
+    
+    func pushChatLogViewController() {
+        guard let snapshot = topViewController?.view.snapshotView(afterScreenUpdates: true) else { return }
+        let chatLogViewController = CharacterChatLogViewController(background: snapshot)
+        pushViewController(chatLogViewController, animated: true)
+    }
+    
 }
 
 //MARK: - UINavigationControllerDelegate

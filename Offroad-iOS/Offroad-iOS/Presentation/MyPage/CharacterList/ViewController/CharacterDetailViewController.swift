@@ -113,9 +113,8 @@ extension CharacterDetailViewController {
         rootView.selectButton.rx.tap.bind(to: viewModel.selectButtonTapped).disposed(by: disposeBag)
         rootView.chatLogButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
-            let snapshot = view.snapshotView(afterScreenUpdates: true)
-            let chatLogViewController = CharacterChatLogViewController(background: snapshot ?? UIView())
-            self.navigationController?.pushViewController(chatLogViewController, animated: true)
+            guard let orbNavigationController = navigationController as? ORBNavigationController else { return }
+            orbNavigationController.pushChatLogViewController()
         }).disposed(by: disposeBag)
         
         
