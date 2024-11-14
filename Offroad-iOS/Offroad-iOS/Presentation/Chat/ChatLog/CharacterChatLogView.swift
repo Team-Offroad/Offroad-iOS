@@ -15,12 +15,14 @@ class CharacterChatLogView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 16
+        layout.estimatedItemSize = .init(width: UIScreen.currentScreenSize.width, height: 44)
         return layout
     }
     
     //MARK: - UI Properties
     
     let backgroundView: UIView
+    private let blurShadeView = UIView().then { $0.backgroundColor = .black.withAlphaComponent(0.2) }
     private let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     private let customNavigationBar = UIView()
     let backButton = UIButton()
@@ -55,6 +57,10 @@ extension CharacterChatLogView {
     
     private func setupLayout() {
         backgroundView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        blurShadeView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
@@ -112,7 +118,7 @@ extension CharacterChatLogView {
         chatLogCollectionView.do { collectionView in
             collectionView.backgroundColor = .clear
             collectionView.register(CharacterChatLogCell.self, forCellWithReuseIdentifier: CharacterChatLogCell.className)
-            collectionView.register(CharacterChatLogHeader.self, forCellWithReuseIdentifier: CharacterChatLogHeader.className)
+            collectionView.register(CharacterChatLogHeader.self, forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: UICollectionView.elementKindSectionHeader)
         }
         
         chatButton.do { button in
@@ -127,7 +133,7 @@ extension CharacterChatLogView {
     }
     
     private func setupHierarchy() {
-        addSubviews(backgroundView, blurEffectView, customNavigationBar, chatLogCollectionView, chatButton)
+        addSubviews(backgroundView, blurShadeView, blurEffectView, customNavigationBar, chatLogCollectionView, chatButton)
         customNavigationBar.addSubviews(backButton, customNavigationTitleLabel)
     }
     

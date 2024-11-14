@@ -21,7 +21,8 @@ class CharacterChatLogViewController: UIViewController {
     //MARK: - Properties
     
     private let rootView: CharacterChatLogView
-    private var chatLogDataSource: [ChatData] = []
+    private var chatLogDataList: [ChatData] = []
+    private var chatLogDataSource: [[ChatData]] = [[]]
     
     //MARK: - Life Cycle
     
@@ -60,14 +61,23 @@ class CharacterChatLogViewController: UIViewController {
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         tabBarController.enableTabBarInteraction()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [weak self] in
-            guard let self else { return }
-            self.chatLogDataSource = [
-                ChatData(role: "USER", content: "안녕!", createdAt: "2024-11-14T00:36:21.057055"),
-                ChatData(role: "ORB_CHARACTER", content: "오랜만이네! 그동안 뭐 했어?", createdAt: "2024-11-14T00:36:21.060499"),
-                ChatData(role: "USER", content: "안녕!", createdAt: "2024-11-14T15:17:56.081005"),
-                ChatData(role: "ORB_CHARACTER", content: "오랜만이네! 그동안 뭐 했어?", createdAt: "2024-11-14T15:17:56.181871")
-            ]
+        DispatchQueue.main.asyncAfter(
+            deadline: .now() + 0.3,
+            execute: { [weak self] in
+                guard let self else { return }
+                self.chatLogDataList = [
+                    ChatData(role: "USER", content: "안녕!", createdAt: "2024-11-14T00:36:21.057055"),
+                    ChatData(role: "ORB_CHARACTER", content: "오랜만이네! 그동안 뭐 했어?", createdAt: "2024-11-14T00:36:21.060499"),
+                    ChatData(role: "USER", content: "안녕!", createdAt: "2024-11-14T15:17:56.081005"),
+                    ChatData(role: "ORB_CHARACTER", content: "오랜만이네! 그동안 뭐 했어?", createdAt: "2024-11-14T22:20:53.193968"),
+                    ChatData(role: "USER", content: "만나서 반가워", createdAt: "2024-11-14T15:17:56.081005"),
+                    ChatData(role: "ORB_CHARACTER", content: "난 루미야! 만나서 진짜 반갑다", createdAt: "2024-11-14T22:20:53.20989"),
+                    ChatData(role: "USER", content: "너 이름이 루미야?", createdAt: "2024-11-14T22:28:56.40375"),
+                    ChatData(role: "ORB_CHARACTER", content: "응 맞아! 나는 루미라고 해", createdAt: "2024-11-14T22:28:56.40531"),
+                    ChatData(role: "USER", content: "오늘 저녁으로 뭐 먹었어?", createdAt: "2024-11-14T23:15:42.845442"),
+                    ChatData(role: "ORB_CHARACTER", content: "나는 먹을 수 없어! 나는 별이라서 음식을 먹지는 못하지만 네가 먹은 건 정말 맛있었을 것 같아!", createdAt: "2024-11-14T23:15:43.264053")
+                ]
+                self.rootView.chatLogCollectionView.reloadData()
         })
     }
     
@@ -97,19 +107,24 @@ extension CharacterChatLogViewController {
         rootView.chatLogCollectionView.dataSource = self
         rootView.chatLogCollectionView.delegate = self
     }
+    
+    
 }
 
 //MARK: - UICollectionViewDataSource
 
 extension CharacterChatLogViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+        chatLogDataList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterChatLogCell.className, for: indexPath) as? CharacterChatLogCell else {
+            return UICollectionViewCell()
+        }
+        cell.configure(with: chatLogDataList[indexPath.item])
+        return cell
     }
-    
     
 }
 
