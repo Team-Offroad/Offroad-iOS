@@ -700,7 +700,6 @@
 		4E0394662C2AA0F9007F0517 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				4E3A32662CE510B6007228D0 /* CharacterChat */,
 				4E0394672C2AA132007F0517 /* Base */,
 				D004F84E2CA129FC00D5A2CD /* Notice */,
 				4EE0497A2CA0FD1300754488 /* Coupon */,
@@ -713,6 +712,7 @@
 				D0E796102C4526C1005B47A5 /* Place */,
 				D0E796112C4526C6005B47A5 /* Adventure */,
 				D0E796122C4526D0005B47A5 /* Emblem */,
+				4E3A32662CE510B6007228D0 /* CharacterChat */,
 			);
 			path = Network;
 			sourceTree = "<group>";
