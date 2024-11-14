@@ -7,6 +7,6 @@
 
 import UIKit
 
-class CharacterChatLogReusableView: UICollectionReusableView {
+class CharacterChatLogHeader: UICollectionReusableView {
         
 }

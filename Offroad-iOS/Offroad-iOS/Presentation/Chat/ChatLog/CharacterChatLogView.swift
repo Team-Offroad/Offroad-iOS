@@ -26,7 +26,7 @@ class CharacterChatLogView: UIView {
     let backButton = UIButton()
     private let customNavigationTitleLabel = UILabel()
     
-    private lazy var chatLogCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    lazy var chatLogCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     private let chatButton = UIButton()
     private let userChatView = UIView()
     private let userChatInputView = UITextView()
@@ -111,6 +111,8 @@ extension CharacterChatLogView {
         
         chatLogCollectionView.do { collectionView in
             collectionView.backgroundColor = .clear
+            collectionView.register(CharacterChatLogCell.self, forCellWithReuseIdentifier: CharacterChatLogCell.className)
+            collectionView.register(CharacterChatLogHeader.self, forCellWithReuseIdentifier: CharacterChatLogHeader.className)
         }
         
         chatButton.do { button in
