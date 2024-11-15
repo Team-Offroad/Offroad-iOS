@@ -7,6 +7,8 @@
 
 import UIKit
 
+import Lottie
+
 class CharacterChatLogView: UIView {
     
     //MARK: - Properties
@@ -20,6 +22,8 @@ class CharacterChatLogView: UIView {
     }
     
     lazy var chatButtonBottomConstraint = chatButton.bottomAnchor.constraint(equalTo: bottomAnchor)
+    lazy var userChatInputViewHeightConstraint = userChatInputView.heightAnchor.constraint(equalToConstant: 40)
+    lazy var userChatViewBottomConstraint = userChatView.bottomAnchor.constraint(equalTo: keyboardLayoutGuide.topAnchor)
     
     //MARK: - UI Properties
     
@@ -31,10 +35,12 @@ class CharacterChatLogView: UIView {
     private let customNavigationTitleLabel = UILabel()
     
     lazy var chatLogCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    private let chatButton = UIButton()
+    let chatButton = UIButton()
+    
     private let userChatView = UIView()
-    private let userChatInputView = UITextView()
+    let userChatInputView = UITextView()
     private let sendButton = UIButton()
+    let loadingAnimationView = LottieAnimationView(name: "loading2")
     
     //MARK: - Life Cycle
     
@@ -100,6 +106,25 @@ extension CharacterChatLogView {
             make.width.equalTo(94)
             make.height.equalTo(40)
         }
+        
+//        userChatViewBottomConstraint.isActive = true
+        userChatView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(keyboardLayoutGuide.snp.top)
+        }
+        
+        userChatInputViewHeightConstraint.isActive = true
+        userChatInputView.snp.makeConstraints { make in
+            make.verticalEdges.equalToSuperview().inset(16)
+            make.leading.equalToSuperview().inset(24)
+        }
+        
+        sendButton.snp.makeConstraints { make in
+            make.centerY.equalTo(userChatInputView)
+            make.leading.equalTo(userChatInputView.snp.trailing).offset(7)
+            make.trailing.equalToSuperview().inset(24)
+            make.size.equalTo(40)
+        }
     }
     
     //MARK: - Private Func
@@ -123,6 +148,7 @@ extension CharacterChatLogView {
             collectionView.contentInsetAdjustmentBehavior = .automatic
             collectionView.contentInset.bottom += 135
             collectionView.showsVerticalScrollIndicator = false
+            collectionView.keyboardDismissMode = .onDrag
         }
         
         chatButton.do { button in
@@ -134,11 +160,39 @@ extension CharacterChatLogView {
             )
         }
         
+        userChatView.do { view in
+            view.backgroundColor = .primary(.white)
+            view.roundCorners(cornerRadius: 18, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
+        }
+        
+        userChatInputView.do { textView in
+            textView.textColor = .main(.main2)
+            textView.font = .offroad(style: .iosTextAuto)
+            textView.backgroundColor = .neutral(.btnInactive)
+            textView.contentInset = .init(top: 9, left: 0, bottom: 9, right: 0)
+            textView.textContainerInset = .init(top: 0, left: 20, bottom: 0, right: 20)
+            textView.textContainer.lineFragmentPadding = 0
+            textView.showsVerticalScrollIndicator = false
+            textView.roundCorners(cornerRadius: 12)
+        }
+        
+        sendButton.do { button in
+            button.setImage(.icnChatViewSendButton, for: .normal)
+        }
     }
     
     private func setupHierarchy() {
-        addSubviews(backgroundView, blurShadeView, blurEffectView, customNavigationBar, chatLogCollectionView, chatButton)
+        addSubviews(
+            backgroundView,
+            blurShadeView,
+            blurEffectView,
+            customNavigationBar,
+            chatLogCollectionView,
+            chatButton,
+            userChatView
+        )
         customNavigationBar.addSubviews(backButton, customNavigationTitleLabel)
+        userChatView.addSubviews(userChatInputView, sendButton)
     }
     
 }

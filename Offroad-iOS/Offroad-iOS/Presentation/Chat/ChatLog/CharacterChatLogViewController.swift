@@ -7,10 +7,14 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
+
 class CharacterChatLogViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
     
+    var disposeBag = DisposeBag()
     private let chatButtonHidingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private let rootView: CharacterChatLogView
     private var chatLogDataList: [ChatData] = []
@@ -38,6 +42,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         setupTargets()
         setupDelegates()
         requestChatLogDataSource()
+        bindData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,6 +130,13 @@ extension CharacterChatLogViewController {
                 self.showToast(message: "Something went wrong", inset: 60)
             }
         })
+    }
+    
+    private func bindData() {
+        rootView.chatButton.rx.tap.bind(onNext: { [weak self] in
+            guard let self else { return }
+            self.rootView.userChatInputView.becomeFirstResponder()
+        }).disposed(by: disposeBag)
     }
     
 }
