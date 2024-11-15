@@ -32,6 +32,8 @@ final class QuestMapViewModel: SVGFetchable {
     let completeQuestList = PublishSubject<[CompleteQuest]?>()
     let adventureResultSubject = PublishSubject<AdventuresPlaceAuthenticationResultData>()
     
+    let startLoading = PublishRelay<Void>()
+    let stopLoading = PublishRelay<Void>()
     let networkFailureSubject = PublishSubject<Void>()
     let markersSubject = BehaviorSubject<[OffroadNMFMarker]>(value: [])
     let customOverlayImage = NMFOverlayImage(image: .icnQuestMapPlaceMarker)
@@ -79,6 +81,7 @@ extension QuestMapViewModel {
     }
     
     func updateRegisteredPlaces(at target: NMGLatLng) {
+        startLoading.accept(())
         let requestPlaceDTO = RegisteredPlaceRequestDTO(
             currentLatitude: target.lat,
             currentLongitude: target.lng,
@@ -88,6 +91,7 @@ extension QuestMapViewModel {
         
         NetworkService.shared.placeService.getRegisteredPlace(requestDTO: requestPlaceDTO) { [weak self] response in
             guard let self else { return }
+            self.stopLoading.accept(())
             switch response {
             case .success(let data):
                 let markers = data!.data.places.map {
@@ -115,6 +119,7 @@ extension QuestMapViewModel {
             longitude: currentLocation.lng
         )
         
+        startLoading.accept(())
         NetworkService.shared.adventureService.authenticatePlaceAdventure(
             adventureAuthDTO: dto,
             completion: { [weak self] result in
