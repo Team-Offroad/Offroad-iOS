@@ -120,6 +120,7 @@ extension CharacterChatLogView {
             collectionView.backgroundColor = .clear
             collectionView.register(CharacterChatLogCell.self, forCellWithReuseIdentifier: CharacterChatLogCell.className)
             collectionView.register(CharacterChatLogHeader.self, forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: UICollectionView.elementKindSectionHeader)
+            collectionView.contentInsetAdjustmentBehavior = .automatic
             collectionView.contentInset.bottom += 135
             collectionView.showsVerticalScrollIndicator = false
         }
