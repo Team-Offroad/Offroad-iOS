@@ -17,7 +17,7 @@ class CouponDetailViewController: UIViewController {
     
     var disposeBag = DisposeBag()
     
-    let coupon: AvailableCoupon
+    let coupon: CouponInfo
     let couponCodeInputSubject = PublishSubject<String>()
     let afterCouponRedemptionSubject = PublishSubject<Bool>()
     
@@ -45,7 +45,7 @@ class CouponDetailViewController: UIViewController {
         offroadTabBarController.hideTabBarAnimation()
     }
     
-    init(coupon: AvailableCoupon) {
+    init(coupon: CouponInfo) {
         self.coupon = coupon
         super.init(nibName: nil, bundle: nil)
         
@@ -97,7 +97,7 @@ class CouponDetailViewController: UIViewController {
     }
     
     private func redeemCoupon(code: String) {
-        let requestDTO = CouponRedemptionRequestDTO(code: code, couponId: coupon.id)
+        let requestDTO = CouponRedemptionRequestDTO(code: code, couponId: coupon.id ?? Int())
         NetworkService.shared.couponService.postCouponRedemption(body: requestDTO) { [weak self] result in
             guard let self else { return }
             

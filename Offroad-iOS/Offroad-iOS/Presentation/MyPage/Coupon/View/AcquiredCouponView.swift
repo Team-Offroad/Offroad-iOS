@@ -70,13 +70,13 @@ class AcquiredCouponView: UIView {
         }
         
         collectionViewForAvailableCoupons.do { collectionView in
-            collectionView.register(AvailableCouponCell.self, forCellWithReuseIdentifier: AvailableCouponCell.className)
+            collectionView.register(CouponCell.self, forCellWithReuseIdentifier: CouponCell.className)
             collectionView.backgroundColor = .clear
             collectionView.indicatorStyle = .black
         }
         
         collectionViewForUsedCoupons.do { collectionView in
-            collectionView.register(UsedCouponCell.self, forCellWithReuseIdentifier: UsedCouponCell.className)
+            collectionView.register(CouponCell.self, forCellWithReuseIdentifier: CouponCell.className)
             collectionView.backgroundColor = .clear
             collectionView.indicatorStyle = .black
         }
