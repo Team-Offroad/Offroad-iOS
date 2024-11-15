@@ -20,7 +20,7 @@ final class QuestMapViewModel: SVGFetchable {
     
     var disposeBag = DisposeBag()
     
-    private let locationManager = CLLocationManager()
+    let locationManager = CLLocationManager()
     private var currentZoomLevel: Double = 14
     private var searchedPlaceArray: [RegisteredPlaceInfo] = []
     var selectedMarker: OffroadNMFMarker? = nil

@@ -68,7 +68,6 @@ class QuestMapViewController: OffroadTabBarViewController {
         guard let offroadTabBarController = tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.showTabBarAnimation()
         
-//        rootView.naverMapView.mapView.positionMode = .direction
         viewModel.isCompassMode = false
     }
     
@@ -219,7 +218,13 @@ extension QuestMapViewController {
         
         rootView.switchTrackingModeButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
-            self.switchTrackingMode()
+            switch self.viewModel.locationManager.authorizationStatus {
+            case .authorizedAlways, .authorizedWhenInUse:
+                self.switchTrackingMode()
+            default:
+                self.viewModel.requestAuthorization()
+                return
+            }
         }.disposed(by: disposeBag)
         
         rootView.questListButton.rx.tap.bind { [weak self] _ in
@@ -396,6 +401,19 @@ extension QuestMapViewController: CLLocationManagerDelegate {
         cameraUpdate.animation = .easeOut
         rootView.naverMapView.mapView.moveCamera(cameraUpdate)
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedAlways:
+            flyToMyPosition()
+            rootView.naverMapView.mapView.positionMode = .direction
+        case .authorizedWhenInUse:
+            flyToMyPosition()
+            rootView.naverMapView.mapView.positionMode = .direction
+        default:
+            return
+        }
     }
     
 }
