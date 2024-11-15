@@ -156,6 +156,7 @@
 		8792D0242C3F0843002051AC /* ChoosingCharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0232C3F0843002051AC /* ChoosingCharacterCell.swift */; };
 		879F62E82C89A56200FEC5BE /* CouponDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879F62E72C89A56200FEC5BE /* CouponDetailView.swift */; };
 		87D9A7092CE3A6D000F1CECD /* CenterLoadingLottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9A7082CE3A6D000F1CECD /* CenterLoadingLottieView.swift */; };
+		87D9A70B2CE7090900F1CECD /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9A70A2CE7090900F1CECD /* TestViewController.swift */; };
 		87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046932C3D2B38002D12C2 /* BirthViewController.swift */; };
 		87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046972C3D5E3D002D12C2 /* NicknameView.swift */; };
 		AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */; };
@@ -427,6 +428,7 @@
 		8792D0232C3F0843002051AC /* ChoosingCharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingCharacterCell.swift; sourceTree = "<group>"; };
 		879F62E72C89A56200FEC5BE /* CouponDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponDetailView.swift; sourceTree = "<group>"; };
 		87D9A7082CE3A6D000F1CECD /* CenterLoadingLottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterLoadingLottieView.swift; sourceTree = "<group>"; };
+		87D9A70A2CE7090900F1CECD /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		87E046932C3D2B38002D12C2 /* BirthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewController.swift; sourceTree = "<group>"; };
 		87E046972C3D5E3D002D12C2 /* NicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameView.swift; sourceTree = "<group>"; };
 		C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOS_Offroad_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -770,6 +772,7 @@
 				4E0394762C2AA721007F0517 /* PlaceList */,
 				4E0394772C2AA72C007F0517 /* MyPage */,
 				4E0394302C2A9DCE007F0517 /* ViewController.swift */,
+				87D9A70A2CE7090900F1CECD /* TestViewController.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -2652,6 +2655,7 @@
 				8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */,
 				87738CBA2C8C1B0500E107C7 /* CharacterListResponseDTO.swift in Sources */,
 				4E99008B2CE0CB61007EEFF7 /* UITextView+.swift in Sources */,
+				87D9A70B2CE7090900F1CECD /* TestViewController.swift in Sources */,
 				4EFD00502CCB4C25005C294D /* SVGFetchable.swift in Sources */,
 				4E56F53D2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift in Sources */,
 				D0E796412C4537DE005B47A5 /* QuestInfoResponseDTO.swift in Sources */,

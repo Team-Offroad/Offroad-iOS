@@ -40,6 +40,8 @@ class QuestMapViewController: OffroadTabBarViewController {
         rootView.naverMapView.mapView.cameraPosition.target
     }
     
+    private var loadingView = CenterLoadingLottieView()
+    
     //MARK: - UI Properties
     
     var tooltipWindow: PlaceInfoTooltipWindow!
@@ -53,6 +55,7 @@ class QuestMapViewController: OffroadTabBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        showLoadingView()
         bindData()
         setupDelegates()
         rootView.naverMapView.mapView.positionMode = .direction
@@ -90,6 +93,7 @@ class QuestMapViewController: OffroadTabBarViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        hideLoadingView()
         viewModel.requestAuthorization()
         viewModel.updateRegisteredPlaces(at: currentPositionTarget)
         let orangeLocationOverlayImage = rootView.locationOverlayImage
@@ -388,4 +392,16 @@ extension QuestMapViewController: CLLocationManagerDelegate {
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
     }
     
+}
+
+extension QuestMapViewController {
+    private func showLoadingView() {
+        loadingView.showCenterLottieView(in: view)
+        print("로딩 뷰 뜸")
+    }
+    
+    private func hideLoadingView() {
+        loadingView.hideCenterLottieView()
+        print("로딩 뷰 없어짐")
+    }
 }
