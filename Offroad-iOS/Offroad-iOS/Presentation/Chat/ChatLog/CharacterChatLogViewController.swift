@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CharacterChatLogViewController: UIViewController {
+class CharacterChatLogViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
     

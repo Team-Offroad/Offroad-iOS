@@ -14,12 +14,6 @@ class CharacterChatLogCell: UICollectionViewCell {
         case character
     }
     
-//    lazy var translation = contentView.translatesAutoresizingMaskIntoConstraints {
-//        didSet {
-//            print("translatesAUtoresizingMaskIntoConstraints: \(contentView.translatesAutoresizingMaskIntoConstraints)")
-//        }
-//    }
-    
     //MARK: - UI Properties
     
     private let chatBubbleView = UIView()
@@ -50,11 +44,6 @@ extension CharacterChatLogCell {
     //MARK: - Layout Func
     
     private func setupLayout() {
-//        contentView.translatesAutoresizingMaskIntoConstraints = false
-//        contentView.snp.makeConstraints { make in
-//            make.width.equalTo(UIScreen.currentScreenSize.width)
-//        } 
-        
         characternameLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
         timeLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
     }
@@ -127,7 +116,7 @@ extension CharacterChatLogCell {
             }
             timeLabel.snp.remakeConstraints { make in
                 make.leading.equalTo(chatBubbleView.snp.trailing).offset(6)
-                make.trailing.lessThanOrEqualToSuperview()
+                make.trailing.lessThanOrEqualToSuperview().inset(20)
                 make.bottom.equalToSuperview()
             }
         }

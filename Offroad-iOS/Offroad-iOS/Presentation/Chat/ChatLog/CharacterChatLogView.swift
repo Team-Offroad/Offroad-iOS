@@ -89,12 +89,11 @@ extension CharacterChatLogView {
         
         chatLogCollectionView.snp.makeConstraints { make in
             make.top.equalTo(customNavigationBar.snp.bottom)
-            make.horizontalEdges.equalToSuperview()
+            make.horizontalEdges.bottom.equalToSuperview()
         }
         
         chatButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(chatLogCollectionView.snp.bottom).offset(27.7)
             make.bottom.equalTo(safeAreaLayoutGuide).inset(67.3)
             make.width.equalTo(94)
             make.height.equalTo(40)
@@ -119,6 +118,7 @@ extension CharacterChatLogView {
             collectionView.backgroundColor = .clear
             collectionView.register(CharacterChatLogCell.self, forCellWithReuseIdentifier: CharacterChatLogCell.className)
             collectionView.register(CharacterChatLogHeader.self, forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: UICollectionView.elementKindSectionHeader)
+            collectionView.contentInset.bottom += 135
         }
         
         chatButton.do { button in
