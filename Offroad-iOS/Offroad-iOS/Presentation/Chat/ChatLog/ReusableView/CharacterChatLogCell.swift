@@ -9,10 +9,14 @@ import UIKit
 
 class CharacterChatLogCell: UICollectionViewCell {
     
-    enum CellType {
-        case user
-        case character
+    enum CellType: String {
+        case user =  "USER"
+        case character = "ORB_CHARACTER"
     }
+    
+    //MARK: - Properties
+    
+    private var role: CellType = .user
     
     //MARK: - UI Properties
     
@@ -35,7 +39,11 @@ class CharacterChatLogCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        NSLayoutConstraint.deactivate(contentView.constraints)
+    }
     
 }
 
@@ -80,8 +88,8 @@ extension CharacterChatLogCell {
     
     //MARK: - Func
     
-    func configure(with data: ChatData) {
-        if data.role == "USER" {
+    func configure(with model: ChatDataModel) {
+        if model.role == "USER" {
             characternameLabel.text = ""
             characternameLabel.isHidden = true
             messageLabel.snp.remakeConstraints { make in
@@ -121,8 +129,11 @@ extension CharacterChatLogCell {
             }
         }
         
-        messageLabel.text = data.content
-        timeLabel.text = String(data.createdAt.prefix(7))
+        messageLabel.text = model.content
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "a hh:mm"
+        timeLabel.text = dateFormatter.string(from: model.createdDate)
         
         updateConstraints()
         layoutIfNeeded()

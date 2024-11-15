@@ -17,3 +17,20 @@ struct ChatData: Codable {
     var content: String
     var createdAt: String
 }
+
+struct ChatDataModel {
+    var role: String
+    var content: String
+    var createdDate: Date
+    
+    init(data: ChatData) {
+        let formatter = ISO8601DateFormatter()
+        
+        self.role = data.role
+        self.content = data.content
+        formatter.formatOptions = [.withFullDate, .withTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
+        guard let date = formatter.date(from: data.createdAt) else { fatalError() }
+        self.createdDate = date
+    }
+    
+}
