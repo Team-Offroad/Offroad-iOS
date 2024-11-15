@@ -37,7 +37,8 @@ class CharacterChatLogView: UIView {
     lazy var chatLogCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     let chatButton = UIButton()
     
-    private let userChatView = UIView()
+    let userChatContentView = UIView()
+    let userChatView = UIView()
     let userChatInputView = UITextView()
     private let sendButton = UIButton()
     let loadingAnimationView = LottieAnimationView(name: "loading2")
@@ -107,10 +108,13 @@ extension CharacterChatLogView {
             make.height.equalTo(40)
         }
         
-//        userChatViewBottomConstraint.isActive = true
-        userChatView.snp.makeConstraints { make in
+        userChatContentView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalTo(keyboardLayoutGuide.snp.top)
+        }
+        
+        userChatView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
         userChatInputViewHeightConstraint.isActive = true
@@ -160,6 +164,10 @@ extension CharacterChatLogView {
             )
         }
         
+        userChatContentView.do { view in
+            view.bounds.origin.y = -150
+        }
+        
         userChatView.do { view in
             view.backgroundColor = .primary(.white)
             view.roundCorners(cornerRadius: 18, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
@@ -189,9 +197,10 @@ extension CharacterChatLogView {
             customNavigationBar,
             chatLogCollectionView,
             chatButton,
-            userChatView
+            userChatContentView
         )
         customNavigationBar.addSubviews(backButton, customNavigationTitleLabel)
+        userChatContentView.addSubview(userChatView)
         userChatView.addSubviews(userChatInputView, sendButton)
     }
     

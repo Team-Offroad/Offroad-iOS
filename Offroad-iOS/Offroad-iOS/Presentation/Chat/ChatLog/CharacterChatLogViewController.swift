@@ -43,6 +43,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         setupDelegates()
         requestChatLogDataSource()
         bindData()
+        setupNotifications()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,6 +76,20 @@ extension CharacterChatLogViewController {
     
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func keyboardWillShow(notification: Notification) {
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            guard let self else { return }
+            rootView.userChatContentView.bounds.origin.y = 0
+        }
+    }
+    
+    @objc private func keyboardWillHide(notification: Notification) {
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            guard let self else { return }
+            rootView.userChatContentView.bounds.origin.y = -150
+        }
     }
     
     //MARK: - Private Func
@@ -139,6 +154,20 @@ extension CharacterChatLogViewController {
         }).disposed(by: disposeBag)
     }
     
+    private func setupNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
 }
 
 //MARK: - UICollectionViewDataSource
