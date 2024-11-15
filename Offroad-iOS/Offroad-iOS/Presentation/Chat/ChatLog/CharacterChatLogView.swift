@@ -15,7 +15,7 @@ class CharacterChatLogView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 16
-        layout.estimatedItemSize = .init(width: UIScreen.currentScreenSize.width, height: 44)
+        layout.estimatedItemSize = .init(width: UIScreen.currentScreenSize.width, height: 50)
         return layout
     }
     

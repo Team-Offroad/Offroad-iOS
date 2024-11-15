@@ -14,6 +14,12 @@ class CharacterChatLogCell: UICollectionViewCell {
         case character
     }
     
+//    lazy var translation = contentView.translatesAutoresizingMaskIntoConstraints {
+//        didSet {
+//            print("translatesAUtoresizingMaskIntoConstraints: \(contentView.translatesAutoresizingMaskIntoConstraints)")
+//        }
+//    }
+    
     //MARK: - UI Properties
     
     private let chatBubbleView = UIView()
@@ -44,9 +50,10 @@ extension CharacterChatLogCell {
     //MARK: - Layout Func
     
     private func setupLayout() {
-        contentView.snp.makeConstraints { make in
-            make.width.equalTo(UIScreen.currentScreenSize.width)
-        } 
+//        contentView.translatesAutoresizingMaskIntoConstraints = false
+//        contentView.snp.makeConstraints { make in
+//            make.width.equalTo(UIScreen.currentScreenSize.width)
+//        } 
         
         characternameLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
         timeLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
