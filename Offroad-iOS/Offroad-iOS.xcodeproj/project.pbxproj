@@ -54,6 +54,7 @@
 		4E3A326F2CE5114C007228D0 /* CharacterChatPostRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A326E2CE5114C007228D0 /* CharacterChatPostRequestDTO.swift */; };
 		4E3A32712CE51176007228D0 /* CharacterChatPostResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32702CE51176007228D0 /* CharacterChatPostResponseDTO.swift */; };
 		4E3A32732CE51185007228D0 /* CharacterChatGetResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32722CE51185007228D0 /* CharacterChatGetResponseDTO.swift */; };
+		4E3A32892CE733F2007228D0 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32882CE733F2007228D0 /* LoadingView.swift */; };
 		4E3F009E2C40D20800B9A31A /* OffroadTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */; };
 		4E416CE82C45DBE200CF6AB4 /* OffroadPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */; };
 		4E46E5F72CB997B4000A1EEE /* ORBToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5F62CB997B4000A1EEE /* ORBToastManager.swift */; };
@@ -324,6 +325,7 @@
 		4E3A326E2CE5114C007228D0 /* CharacterChatPostRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatPostRequestDTO.swift; sourceTree = "<group>"; };
 		4E3A32702CE51176007228D0 /* CharacterChatPostResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatPostResponseDTO.swift; sourceTree = "<group>"; };
 		4E3A32722CE51185007228D0 /* CharacterChatGetResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatGetResponseDTO.swift; sourceTree = "<group>"; };
+		4E3A32882CE733F2007228D0 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarController.swift; sourceTree = "<group>"; };
 		4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadPlace.swift; sourceTree = "<group>"; };
 		4E46E5F62CB997B4000A1EEE /* ORBToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastManager.swift; sourceTree = "<group>"; };
@@ -1134,6 +1136,14 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
+		4E3A32872CE733D4007228D0 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				4E3A32882CE733F2007228D0 /* LoadingView.swift */,
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
 		4E3F00992C40D1C000B9A31A /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1399,6 +1409,7 @@
 		4EFCDFDB2C92B647006DEBB6 /* Overlay */ = {
 			isa = PBXGroup;
 			children = (
+				4E3A32872CE733D4007228D0 /* Loading */,
 				4E99007A2CDB9504007EEFF7 /* CharacterChat */,
 				4E700C812CB3C99900C664C2 /* Toast */,
 				4E700C802CB3C95E00C664C2 /* Alert */,
@@ -2593,6 +2604,7 @@
 				4E08B95B2C5E4F860082EFB8 /* ORBSegmentedControl.swift in Sources */,
 				87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */,
 				4EF6B0412CC3F1B900066640 /* ORBAlertViewTextFieldWithSubMessage.swift in Sources */,
+				4E3A32892CE733F2007228D0 /* LoadingView.swift in Sources */,
 				D063E9922C57FE7400434A09 /* KeychainManager.swift in Sources */,
 				D004F85A2CA12B2200D5A2CD /* NoticeService.swift in Sources */,
 				4EF833EE2CC4268200D94314 /* ORBPopup.swift in Sources */,
