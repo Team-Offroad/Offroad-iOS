@@ -7,15 +7,6 @@
 
 import UIKit
 
-
-// 채팅 API 연결 브랜치가 완성되지 않아서 DataSource로 사용할 타입을 임시로 미리 정의.
-// 채팅 API 연결 브랜치 main에 머지되면 여기에 있는 코드는 삭제할 예정입니다.
-struct ChatData: Codable {
-    var role: String // "USER" 또는 "ORB_CHARACTER"
-    var content: String
-    var createdAt: String
-}
-
 class CharacterChatLogViewController: UIViewController {
     
     //MARK: - Properties
