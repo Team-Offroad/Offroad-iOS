@@ -75,6 +75,7 @@ extension MyPageView {
         }
         
         nicknameLabel.do {
+            $0.text = " "
             $0.font = .offroad(style: .bothSubtitle3)
             $0.textColor = .main(.main2)
             $0.textAlignment = .center

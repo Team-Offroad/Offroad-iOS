@@ -19,6 +19,8 @@ class CharacterChatLogView: UIView {
         return layout
     }
     
+    lazy var chatButtonBottomConstraint = chatButton.bottomAnchor.constraint(equalTo: bottomAnchor)
+    
     //MARK: - UI Properties
     
     let backgroundView: UIView
@@ -92,9 +94,9 @@ extension CharacterChatLogView {
             make.horizontalEdges.bottom.equalToSuperview()
         }
         
+        chatButtonBottomConstraint.isActive = true
         chatButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(safeAreaLayoutGuide).inset(67.3)
             make.width.equalTo(94)
             make.height.equalTo(40)
         }
@@ -119,6 +121,7 @@ extension CharacterChatLogView {
             collectionView.register(CharacterChatLogCell.self, forCellWithReuseIdentifier: CharacterChatLogCell.className)
             collectionView.register(CharacterChatLogHeader.self, forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: UICollectionView.elementKindSectionHeader)
             collectionView.contentInset.bottom += 135
+            collectionView.showsVerticalScrollIndicator = false
         }
         
         chatButton.do { button in

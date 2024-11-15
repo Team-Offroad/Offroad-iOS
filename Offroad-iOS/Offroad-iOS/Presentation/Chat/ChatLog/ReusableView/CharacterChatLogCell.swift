@@ -94,7 +94,7 @@ extension CharacterChatLogCell {
                 make.trailing.equalToSuperview().inset(20)
             }
             timeLabel.snp.remakeConstraints { make in
-                make.leading.greaterThanOrEqualToSuperview()
+                make.leading.greaterThanOrEqualToSuperview().inset(20)
                 make.trailing.equalTo(chatBubbleView.snp.leading).offset(-6)
                 make.bottom.equalToSuperview()
             }

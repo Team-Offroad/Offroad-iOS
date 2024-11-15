@@ -11,9 +11,11 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
     
+    private let chatButtonHidingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private let rootView: CharacterChatLogView
     private var chatLogDataList: [ChatData] = []
     private var chatLogDataSource: [[ChatData]] = [[]]
+    private var isChatButtonHidden: Bool = false
     
     //MARK: - Life Cycle
     
@@ -118,6 +120,29 @@ extension CharacterChatLogViewController {
         rootView.chatLogCollectionView.delegate = self
     }
     
+    private func hideChatButton() {
+        guard !isChatButtonHidden else { return }
+        isChatButtonHidden = true
+        chatButtonHidingAnimator.stopAnimation(true)
+        chatButtonHidingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.chatButtonBottomConstraint.constant = 0
+            self.rootView.layoutIfNeeded()
+        }
+        chatButtonHidingAnimator.startAnimation()
+    }
+    
+    private func showChatButton() {
+        guard isChatButtonHidden else { return }
+        isChatButtonHidden = false
+        chatButtonHidingAnimator.stopAnimation(true)
+        chatButtonHidingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.chatButtonBottomConstraint.constant = -(self.rootView.safeAreaInsets.bottom + 67.3)
+            self.rootView.layoutIfNeeded()
+        }
+        chatButtonHidingAnimator.startAnimation()
+    }
     
 }
 
@@ -141,5 +166,15 @@ extension CharacterChatLogViewController: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegate
 
 extension CharacterChatLogViewController: UICollectionViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let scrollOffsetAtBottom = max(scrollView.contentSize.height - (scrollView.bounds.height - rootView.safeAreaInsets.bottom - 135), 0)
+        
+        if scrollView.contentOffset.y > scrollOffsetAtBottom {
+            showChatButton()
+        } else {
+            hideChatButton()
+        }
+    }
     
 }
