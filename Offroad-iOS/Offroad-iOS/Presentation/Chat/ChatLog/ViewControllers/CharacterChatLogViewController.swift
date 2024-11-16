@@ -16,8 +16,8 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     
     private let chatButtonHidingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private let rootView: CharacterChatLogView
-    private var chatLogDataList: [ChatData] = []
-    private var chatLogDataSource: [ChatDataModel] = []
+    private var chatLogDataList: [ChatDataModel] = []
+    private var chatLogDataSource: [[ChatDataModel]] = [[]]
     private var isChatButtonHidden: Bool = true
     
     // userChatInputView의 textInputView의 height를 전달
@@ -159,7 +159,7 @@ extension CharacterChatLogViewController {
                     showToast(message: "responseDTO가 없습니다.", inset: 66)
                     return
                 }
-                chatLogDataSource = responseDTO.data.map({ ChatDataModel(data: $0) })
+                chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
                 rootView.chatLogCollectionView.reloadData()
                 self.scrollToBottom(animated: false)
                 rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
@@ -288,14 +288,14 @@ extension CharacterChatLogViewController {
 
 extension CharacterChatLogViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        chatLogDataSource.count
+        chatLogDataList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterChatLogCell.className, for: indexPath) as? CharacterChatLogCell else {
             return UICollectionViewCell()
         }
-        cell.configure(with: chatLogDataSource[indexPath.item], characterName: self.characterName)
+        cell.configure(with: chatLogDataList[indexPath.item], characterName: self.characterName)
         return cell
     }
     
@@ -309,11 +309,6 @@ extension CharacterChatLogViewController: UICollectionViewDelegate {
         guard scrollView.contentSize.height > 0 else { return }
         let scrollOffsetAtBottomEdge =
         max(scrollView.contentSize.height - (scrollView.bounds.height - rootView.safeAreaInsets.bottom - 135), 0)
-        
-//        print("contentSize: \(scrollView.contentSize)")
-//        print("bottomInset: \(scrollView.contentInset.bottom)")
-        print("contentOffset: \(scrollView.contentOffset)")
-        print("contentOffsetAtBottomEdge: \(scrollOffsetAtBottomEdge)")
         
         if scrollView.contentOffset.y >= scrollOffsetAtBottomEdge {
             showChatButton()
@@ -336,10 +331,10 @@ extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let characterNameLabelSize: CGSize = calculateTextSize(text: characterName, font: .offroad(style: .iosTextBold), maxSize: .init(width: 200, height: 24))
-        let timeLabelSize: CGSize = calculateTextSize(text: chatLogDataSource[indexPath.item].formattedDateString, font: .offroad(style: .iosTextContentsSmall), maxSize: .init(width: 100, height: 14))
+        let timeLabelSize: CGSize = calculateTextSize(text: chatLogDataList[indexPath.item].formattedDateString, font: .offroad(style: .iosTextContentsSmall), maxSize: .init(width: 100, height: 14))
         let maxMessageLabelWidth: CGFloat
         
-        if chatLogDataSource[indexPath.item].role == "USER" {
+        if chatLogDataList[indexPath.item].role == "USER" {
             maxMessageLabelWidth =
             UIScreen.currentScreenSize.width
             // timeLabelSize의 너비 및 chatBubble과의 offset
@@ -361,7 +356,7 @@ extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
             // 캐릭터 이름 라벨 너비 및 메시지 라벨과의 offset
             - (characterNameLabelSize.width + 4.0)
         }
-        let messageLabelSize = calculateTextSize(text: chatLogDataSource[indexPath.item].content, font: .offroad(style: .iosText), maxSize: .init(width: maxMessageLabelWidth, height: 400))
+        let messageLabelSize = calculateTextSize(text: chatLogDataList[indexPath.item].content, font: .offroad(style: .iosText), maxSize: .init(width: maxMessageLabelWidth, height: 400))
         return CGSize(width: UIScreen.currentScreenSize.width, height: messageLabelSize.height + (14*2))
     }
     

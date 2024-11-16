@@ -115,9 +115,9 @@
 		4EE049892CA10DC300754488 /* CouponRedemptionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE049882CA10DC300754488 /* CouponRedemptionResponseDTO.swift */; };
 		4EE0498B2CA10DFC00754488 /* CouponAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0498A2CA10DFC00754488 /* CouponAPI.swift */; };
 		4EE0498D2CA10E2A00754488 /* CouponService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0498C2CA10E2A00754488 /* CouponService.swift */; };
+		4EE049912CA14E6500754488 /* CouponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE049902CA14E6500754488 /* CouponCell.swift */; };
 		4EEA82FC2CE3907C0062F0DE /* CharacterChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA82FB2CE3907C0062F0DE /* CharacterChatLogView.swift */; };
 		4EEA82FE2CE3908C0062F0DE /* CharacterChatLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */; };
-		4EE049912CA14E6500754488 /* CouponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE049902CA14E6500754488 /* CouponCell.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
 		4EF6B0332CC3E22800066640 /* ORBAlertViewBaseUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6B0322CC3E22800066640 /* ORBAlertViewBaseUI.swift */; };
 		4EF6B0382CC3E7A900066640 /* ORBAlertViewNormal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6B0372CC3E7A900066640 /* ORBAlertViewNormal.swift */; };
@@ -1113,6 +1113,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		4E3A32632CE4EDD4007228D0 /* ReusableView */ = {
+			isa = PBXGroup;
+			children = (
+				4E3A32612CE4EDD0007228D0 /* CharacterChatLogCell.swift */,
+				4E3A32642CE4EE48007228D0 /* CharacterChatLogHeader.swift */,
+			);
+			path = ReusableView;
+			sourceTree = "<group>";
+		};
 		4E3A32662CE510B6007228D0 /* CharacterChat */ = {
 			isa = PBXGroup;
 			children = (
@@ -1149,21 +1158,36 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
-		4E3A32632CE4EDD4007228D0 /* ReusableView */ = {
-			isa = PBXGroup;
-			children = (
-				4E3A32612CE4EDD0007228D0 /* CharacterChatLogCell.swift */,
-				4E3A32642CE4EE48007228D0 /* CharacterChatLogHeader.swift */,
-			);
-			path = ReusableView;
-			sourceTree = "<group>";
-		};
 		4E3A32872CE733D4007228D0 /* Loading */ = {
 			isa = PBXGroup;
 			children = (
 				4E3A32882CE733F2007228D0 /* LoadingView.swift */,
 			);
 			path = Loading;
+			sourceTree = "<group>";
+		};
+		4E3A329C2CE8E121007228D0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4E3A32632CE4EDD4007228D0 /* ReusableView */,
+				4EEA82FB2CE3907C0062F0DE /* CharacterChatLogView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4E3A329D2CE8E126007228D0 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4E3A329E2CE8E136007228D0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		4E3F00992C40D1C000B9A31A /* TabBar */ = {
@@ -1407,9 +1431,9 @@
 		4EEA82FA2CE3906A0062F0DE /* ChatLog */ = {
 			isa = PBXGroup;
 			children = (
-				4E3A32632CE4EDD4007228D0 /* ReusableView */,
-				4EEA82FB2CE3907C0062F0DE /* CharacterChatLogView.swift */,
-				4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */,
+				4E3A329E2CE8E136007228D0 /* ViewModel */,
+				4E3A329D2CE8E126007228D0 /* ViewControllers */,
+				4E3A329C2CE8E121007228D0 /* Views */,
 			);
 			path = ChatLog;
 			sourceTree = "<group>";

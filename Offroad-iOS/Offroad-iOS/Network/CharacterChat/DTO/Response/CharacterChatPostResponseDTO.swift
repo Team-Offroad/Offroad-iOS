@@ -21,8 +21,9 @@ struct ChatData: Codable {
 struct ChatDataModel {
     var role: String
     var content: String
-    var createdDate: Date
+    var createdDate: Date?
     var formattedDateString: String {
+        guard let createdDate else { return "" }
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "a hh:mm"
@@ -35,8 +36,12 @@ struct ChatDataModel {
         self.role = data.role
         self.content = data.content
         formatter.formatOptions = [.withFullDate, .withTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
-        guard let date = formatter.date(from: data.createdAt) else { fatalError() }
-        self.createdDate = date
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+        if let date = formatter.date(from: data.createdAt) {
+            self.createdDate = date
+        } else {
+            self.createdDate = nil
+        }
     }
     
 }
