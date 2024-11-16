@@ -24,4 +24,5 @@ final class NetworkService {
     let couponService: CouponServiceProtocol = CouponService()
     let placeService: RegisteredPlaceService = RegisteredPlaceService()
     let pushNotificationService: PushNotificationServiceProtocol = PushNotificationService()
+    let characterChatService: CharacterChatService = CharacterChatService()
 }

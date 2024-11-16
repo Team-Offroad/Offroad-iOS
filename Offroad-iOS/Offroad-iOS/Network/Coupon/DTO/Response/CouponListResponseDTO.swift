@@ -9,24 +9,21 @@ import Foundation
 
 struct CouponListResponseDTO: Codable {
     let message: String
-    let data: CouponListInfo
+    let data: CouponData
 }
 
-struct CouponListInfo: Codable {
-    let availableCoupons: [AvailableCoupon]
-    let usedCoupons: [UsedCoupon]
+struct CouponData: Codable {
+    let coupons: [CouponInfo]
+    let availableCouponsCount: Int
+    let usedCouponsCount: Int
 }
 
-struct AvailableCoupon: Codable {
-    let id: Int
+struct CouponInfo: Codable {
+    let id: Int?
     let name: String
     let couponImageUrl: String
-    let description: String
-    let isNewGained: Bool
-}
-
-struct UsedCoupon: Codable {
-    let name: String
-    let couponImageUrl: String
+    let description: String?
+    let isNewGained: Bool?
+    let cursorId: Int
 }
 
