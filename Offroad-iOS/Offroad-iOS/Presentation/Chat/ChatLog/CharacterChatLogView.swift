@@ -41,7 +41,7 @@ class CharacterChatLogView: UIView {
     let userChatBoundsView = UIView()
     let userChatView = UIView()
     let userChatInputView = UITextView()
-    private let sendButton = UIButton()
+    let sendButton = UIButton()
     let loadingAnimationView = LottieAnimationView(name: "loading2")
     
     //MARK: - Life Cycle

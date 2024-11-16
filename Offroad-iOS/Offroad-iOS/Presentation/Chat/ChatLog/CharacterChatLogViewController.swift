@@ -19,6 +19,11 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private var chatLogDataList: [ChatData] = []
     private var chatLogDataSource: [ChatDataModel] = []
     private var isChatButtonHidden: Bool = true
+    
+    // userChatInputView의 textInputView의 height를 전달
+    let userChatInputViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
+    let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    
     var disposeBag = DisposeBag()
     var characterName: String
     
@@ -175,9 +180,36 @@ extension CharacterChatLogViewController {
             self.rootView.userChatInputView.becomeFirstResponder()
         }).disposed(by: disposeBag)
         
-        rootView.userChatInputView.rx.text.orEmpty.subscribe { inputText in
-            print("inputText: \(inputText)")
-        }.disposed(by: disposeBag)
+        
+        rootView.userChatInputView.rx.text.orEmpty
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .default))
+            .subscribe(onNext: { [weak self] text in
+                guard let self else { return }
+                self.userChatInputViewTextInputViewHeightRelay.accept(self.rootView.userChatInputView.textInputView.bounds.height)
+                if text.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                    print("입력된 텍스트: \(text)")
+                    self.rootView.loadingAnimationView.isHidden = false
+                    self.rootView.loadingAnimationView.play()
+                    self.rootView.sendButton.isEnabled = true
+                } else {
+                    print("입력된 텍스트 없음")
+                    self.rootView.loadingAnimationView.currentProgress = 0
+                    self.rootView.loadingAnimationView.pause()
+                    self.rootView.loadingAnimationView.isHidden = true
+                    self.rootView.sendButton.isEnabled = false
+                }
+            }).disposed(by: disposeBag)
+        
+        userChatInputViewTextInputViewHeightRelay.subscribe(onNext: { [weak self] textContentHeight in
+            guard let self else { return }
+            if textContentHeight >= 30 {
+                self.updateChatInputViewHeight(height: (19.0*2) + (9.0*2))
+            } else {
+                self.updateChatInputViewHeight(height: 19.0 + (9*2))
+            }
+            self.rootView.updateConstraints()
+            self.rootView.layoutIfNeeded()
+        }).disposed(by: disposeBag)
     }
     
     private func setupNotifications() {
@@ -218,6 +250,16 @@ extension CharacterChatLogViewController {
             context: nil
         )
         return CGSize(width: ceil(boundingBox.width), height: ceil(boundingBox.height))
+    }
+    
+    private func updateChatInputViewHeight(height: CGFloat) {
+        print(#function)
+        userChatInputViewHeightAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.userChatInputViewHeightConstraint.constant = height
+            self.rootView.layoutIfNeeded()
+        }
+        userChatInputViewHeightAnimator.startAnimation()
     }
 }
 
