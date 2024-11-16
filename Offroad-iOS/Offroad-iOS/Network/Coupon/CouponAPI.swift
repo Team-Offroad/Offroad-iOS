@@ -10,8 +10,8 @@ import Foundation
 import Moya
 
 enum CouponAPI {
-    case getCoupons
-    case redeemCoupon (CouponRedemptionRequestDTO)
+    case getCoupons(isUsed: Bool, size: Int, cursor: Int)
+    case redeemCoupon(CouponRedemptionRequestDTO)
 }
 
 extension CouponAPI: BaseTargetType {
@@ -34,8 +34,11 @@ extension CouponAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getCoupons:
-            return .requestPlain
+        case .getCoupons(let isUsed, let size, let cursor):
+            return .requestParameters(parameters: ["isUsed" : isUsed,
+                                                   "size" : size,
+                                                   "cursor" : cursor],
+                                      encoding: URLEncoding.queryString)
         case .redeemCoupon(let dto):
             return .requestJSONEncodable(dto)
         }
