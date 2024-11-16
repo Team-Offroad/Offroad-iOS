@@ -17,7 +17,8 @@ class CharacterChatLogView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 16
-//        layout.estimatedItemSize = .init(width: UIScreen.currentScreenSize.width, height: 50)
+        layout.headerReferenceSize = .init(width: UIScreen.currentScreenSize.width, height: 25)
+        layout.sectionInset = .init(top: 16, left: 0, bottom: 16, right: 0)
         return layout
     }
     
@@ -157,8 +158,8 @@ extension CharacterChatLogView {
             collectionView.register(CharacterChatLogCell.self, forCellWithReuseIdentifier: CharacterChatLogCell.className)
             collectionView.register(
                 CharacterChatLogHeader.self,
-                forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader",
-                withReuseIdentifier: UICollectionView.elementKindSectionHeader
+                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                withReuseIdentifier: CharacterChatLogHeader.className
             )
             collectionView.contentInsetAdjustmentBehavior = .automatic
             collectionView.contentInset.bottom += 135

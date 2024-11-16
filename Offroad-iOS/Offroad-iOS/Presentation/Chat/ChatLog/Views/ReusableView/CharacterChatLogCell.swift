@@ -131,7 +131,7 @@ extension CharacterChatLogCell {
         }
         
         messageLabel.text = model.content
-        timeLabel.text = model.formattedDateString
+        timeLabel.text = model.formattedTimeString
         
         updateConstraints()
         layoutIfNeeded()

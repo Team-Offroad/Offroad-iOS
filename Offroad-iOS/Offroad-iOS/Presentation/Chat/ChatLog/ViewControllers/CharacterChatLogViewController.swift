@@ -14,6 +14,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
     
+    private let viewModel = CharacterChatLogViewModel()
     private let chatButtonHidingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private let rootView: CharacterChatLogView
     private var chatLogDataList: [ChatDataModel] = []
@@ -160,9 +161,10 @@ extension CharacterChatLogViewController {
                     return
                 }
                 chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
+                chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList)
                 rootView.chatLogCollectionView.reloadData()
                 self.scrollToBottom(animated: false)
-                rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
+//                rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
                 showChatButton()
             case .networkFail:
                 showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
@@ -255,24 +257,6 @@ extension CharacterChatLogViewController {
         rootView.chatLogCollectionView.scrollToItem(at: lastIndexPath, at: .top, animated: animated)
     }
     
-    // UILabel 안에 특정 텍스트가 들어갔을 때, label의 사이즈를 미리 계산하는 식
-    // (셀을 직접 그리기 전에 셀의 높이를 동적으로 계산하여 flowLayout에서 이를 바탕으로 layout계산해야 하기 때문.)
-    // 채팅 내용에 따라 텍스트의 높이가 달라지기 때문에 특정 텍스트일 때 채팅 버블의 높이를 미리 계산하기 위함.
-    private func calculateTextSize(text: String, font: UIFont, maxSize: CGSize) -> CGSize {
-        // 텍스트 속성 설정
-        let attributes: [NSAttributedString.Key: Any] = [.font: font]
-        // 제한된 너비를 설정한 CGRect
-        let maxSize = maxSize
-        // boundingRect 계산
-        let boundingBox = text.boundingRect(
-            with: maxSize,
-            options: [.usesLineFragmentOrigin, .usesFontLeading],
-            attributes: attributes,
-            context: nil
-        )
-        return CGSize(width: ceil(boundingBox.width), height: ceil(boundingBox.height))
-    }
-    
     private func updateChatInputViewHeight(height: CGFloat) {
         print(#function)
         userChatInputViewHeightAnimator.addAnimations { [weak self] in
@@ -287,16 +271,34 @@ extension CharacterChatLogViewController {
 //MARK: - UICollectionViewDataSource
 
 extension CharacterChatLogViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        chatLogDataSource.count
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        chatLogDataList.count
+//        chatLogDataList.count
+        chatLogDataSource[section].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterChatLogCell.className, for: indexPath) as? CharacterChatLogCell else {
             return UICollectionViewCell()
         }
-        cell.configure(with: chatLogDataList[indexPath.item], characterName: self.characterName)
+//        cell.configure(with: chatLogDataList[indexPath.item], characterName: self.characterName)
+        cell.configure(with: chatLogDataSource[indexPath.section][indexPath.item], characterName: self.characterName)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader, let header = collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: CharacterChatLogHeader.className,
+            for: indexPath
+        ) as? CharacterChatLogHeader else { return UICollectionReusableView() }
+        let dateString = chatLogDataSource[indexPath.section].first?.formattedDateString ?? ""
+        header.dateLabel.text = dateString
+        return header
     }
     
 }
@@ -330,11 +332,19 @@ extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let characterNameLabelSize: CGSize = calculateTextSize(text: characterName, font: .offroad(style: .iosTextBold), maxSize: .init(width: 200, height: 24))
-        let timeLabelSize: CGSize = calculateTextSize(text: chatLogDataList[indexPath.item].formattedDateString, font: .offroad(style: .iosTextContentsSmall), maxSize: .init(width: 100, height: 14))
+        let characterNameLabelSize: CGSize = viewModel.calculateTextSize(
+            text: characterName,
+            font: .offroad(style: .iosTextBold),
+            maxSize: .init(width: 200, height: 24)
+        )
+        let timeLabelSize: CGSize = viewModel.calculateTextSize(
+            text: chatLogDataSource[indexPath.section][indexPath.item].formattedTimeString,
+            font: .offroad(style: .iosTextContentsSmall),
+            maxSize: .init(width: 100, height: 14)
+        )
         let maxMessageLabelWidth: CGFloat
         
-        if chatLogDataList[indexPath.item].role == "USER" {
+        if chatLogDataSource[indexPath.section][indexPath.item].role == "USER" {
             maxMessageLabelWidth =
             UIScreen.currentScreenSize.width
             // timeLabelSize의 너비 및 chatBubble과의 offset
@@ -356,8 +366,12 @@ extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
             // 캐릭터 이름 라벨 너비 및 메시지 라벨과의 offset
             - (characterNameLabelSize.width + 4.0)
         }
-        let messageLabelSize = calculateTextSize(text: chatLogDataList[indexPath.item].content, font: .offroad(style: .iosText), maxSize: .init(width: maxMessageLabelWidth, height: 400))
+        let messageLabelSize = viewModel.calculateTextSize(text: chatLogDataSource[indexPath.section][indexPath.item].content, font: .offroad(style: .iosText), maxSize: .init(width: maxMessageLabelWidth, height: 400))
         return CGSize(width: UIScreen.currentScreenSize.width, height: messageLabelSize.height + (14*2))
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        .init(width: UIScreen.currentScreenSize.width, height: 50)
+//    }
     
 }

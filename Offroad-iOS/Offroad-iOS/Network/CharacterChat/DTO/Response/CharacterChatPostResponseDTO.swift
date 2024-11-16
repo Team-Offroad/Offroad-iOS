@@ -22,11 +22,18 @@ struct ChatDataModel {
     var role: String
     var content: String
     var createdDate: Date?
-    var formattedDateString: String {
+    var formattedTimeString: String {
         guard let createdDate else { return "" }
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "a hh:mm"
+        return dateFormatter.string(from: createdDate)
+    }
+    var formattedDateString: String {
+        guard let createdDate else { return "" }
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "M월 d일 EEEE"
         return dateFormatter.string(from: createdDate)
     }
     
