@@ -7,14 +7,15 @@
 
 import UIKit
 
-class UsedCouponCell: UICollectionViewCell {
+final class CouponCell: UICollectionViewCell {
     
     // MARK: - UI Properties
     
     private var couponimageView = UIImageView()
     private let couponNameLabel = UILabel()
-    private let dimmedView = UIView()
-    private let checkMark = UIImageView(image: .icnCouponListCheckmark)
+    private let newTagImageView = UIImageView()
+    private let isUsedView = UIView()
+    private let isUsedImageView = UIImageView(image: .icnCouponListCheckmark)
     
     // MARK: - Life Cycle
     
@@ -30,29 +31,24 @@ class UsedCouponCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Setup Functions
-    
-    private func setupHierarchy() {
-        contentView.addSubviews(
-            couponimageView,
-            couponNameLabel,
-            dimmedView,
-            checkMark
-        )
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        newTagImageView.isHidden = true
     }
+    
+    // MARK: - Setup Functions
     
     private func setupStyle() {
         contentView.roundCorners(cornerRadius: 12)
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.home(.homeContents2).cgColor
-        contentView.clipsToBounds = true
         contentView.backgroundColor = UIColor.main(.main1)
         
         couponimageView.do { imageView in
             imageView.backgroundColor = .primary(.white)
             imageView.roundCorners(cornerRadius: 10)
             imageView.contentMode = .scaleAspectFit
-            imageView.clipsToBounds = true
         }
         
         couponNameLabel.do { label in
@@ -61,9 +57,24 @@ class UsedCouponCell: UICollectionViewCell {
             label.font = UIFont.offroad(style: .iosTextContentsSmall)
         }
         
-        dimmedView.do { view in
+        newTagImageView.do {
+            $0.image = UIImage(resource: .imgNewTag)
+            $0.isHidden = true
+        }
+        
+        isUsedView.do { view in
             view.backgroundColor = .blackOpacity(.black25)
         }
+    }
+    
+    private func setupHierarchy() {
+        contentView.addSubviews(
+            couponimageView,
+            couponNameLabel,
+            isUsedView,
+            newTagImageView
+        )
+        isUsedView.addSubview(isUsedImageView)
     }
     
     private func setupLayout() {
@@ -82,18 +93,34 @@ class UsedCouponCell: UICollectionViewCell {
             make.horizontalEdges.equalToSuperview().inset(10)
         }
         
-        dimmedView.snp.makeConstraints { make in
+        newTagImageView.snp.makeConstraints { make in
+            make.top.trailing.equalTo(couponimageView).inset(8)
+            make.size.equalTo(24)
+        }
+        
+        isUsedView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
-        checkMark.snp.makeConstraints { make in
+        isUsedImageView.snp.makeConstraints { make in
             make.center.equalTo(couponimageView)
             make.size.equalTo(32)
         }
     }
     
-    func configure(with coupon: UsedCoupon) {
+    func configureAvailableCell(with coupon: CouponInfo) {
         couponNameLabel.text = coupon.name
+        couponNameLabel.text = coupon.name
+        newTagImageView.isHidden = !(coupon.isNewGained ?? false)
+        couponimageView.fetchSvgURLToImageView(svgUrlString: coupon.couponImageUrl)
+        isUsedView.isHidden = true
     }
     
+    func configureUsedCell(with coupon: CouponInfo) {
+        couponNameLabel.text = coupon.name
+        couponNameLabel.text = coupon.name
+        couponimageView.fetchSvgURLToImageView(svgUrlString: coupon.couponImageUrl)
+        isUsedView.isHidden = false
+    }
 }
+
