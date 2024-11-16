@@ -21,7 +21,7 @@ class CharacterChatLogCell: UICollectionViewCell {
     //MARK: - UI Properties
     
     private let chatBubbleView = UIView()
-    private let messageLabel = UILabel()
+    let messageLabel = UILabel()
     private let characternameLabel = UILabel()
     private let timeLabel = UILabel()
     
@@ -88,7 +88,7 @@ extension CharacterChatLogCell {
     
     //MARK: - Func
     
-    func configure(with model: ChatDataModel) {
+    func configure(with model: ChatDataModel, characterName: String) {
         if model.role == "USER" {
             characternameLabel.text = ""
             characternameLabel.isHidden = true
@@ -107,7 +107,7 @@ extension CharacterChatLogCell {
                 make.bottom.equalToSuperview()
             }
         } else { // data.role = "ORB_CHARACTER"
-            characternameLabel.text = "캐릭터 :"
+            characternameLabel.text = "\(characterName) :"
             characternameLabel.isHidden = false
             characternameLabel.snp.remakeConstraints { make in
                 make.top.equalToSuperview().inset(14)
@@ -130,10 +130,7 @@ extension CharacterChatLogCell {
         }
         
         messageLabel.text = model.content
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ko_KR")
-        dateFormatter.dateFormat = "a hh:mm"
-        timeLabel.text = dateFormatter.string(from: model.createdDate)
+        timeLabel.text = model.formattedDateString
         
         updateConstraints()
         layoutIfNeeded()

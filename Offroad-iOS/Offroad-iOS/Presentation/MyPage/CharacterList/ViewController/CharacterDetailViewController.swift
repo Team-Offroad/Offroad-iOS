@@ -114,7 +114,7 @@ extension CharacterDetailViewController {
         rootView.chatLogButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
             guard let orbNavigationController = navigationController as? ORBNavigationController else { return }
-            orbNavigationController.pushChatLogViewController()
+            orbNavigationController.pushChatLogViewController(characterName: rootView.nameLabel.text!)
         }).disposed(by: disposeBag)
         
         

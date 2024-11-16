@@ -28,7 +28,7 @@ class CharacterDetailView: UIView, SVGFetchable {
     private let labelView = UIView()
     private let dottedLineView = UIView()
     private let detailLabelView = UIView()
-    private let nameLabel = UILabel()
+    let nameLabel = UILabel()
     private let mainLabel = UILabel()
     private let babyImage = UIImageView(image: UIImage(resource: .baby))
     private var characterLogoImageView = UIImageView()

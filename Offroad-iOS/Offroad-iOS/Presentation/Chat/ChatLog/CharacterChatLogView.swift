@@ -17,10 +17,11 @@ class CharacterChatLogView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 16
-        layout.estimatedItemSize = .init(width: UIScreen.currentScreenSize.width, height: 50)
+//        layout.estimatedItemSize = .init(width: UIScreen.currentScreenSize.width, height: 50)
         return layout
     }
     
+    lazy var chatLogCollectionViewBottomConstraint = chatLogCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
     lazy var chatButtonBottomConstraint = chatButton.bottomAnchor.constraint(equalTo: bottomAnchor)
     lazy var userChatInputViewHeightConstraint = userChatInputView.heightAnchor.constraint(equalToConstant: 40)
     lazy var userChatViewBottomConstraint = userChatView.bottomAnchor.constraint(equalTo: keyboardLayoutGuide.topAnchor)
@@ -57,6 +58,11 @@ class CharacterChatLogView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        
+        endEditing(true)
+    }
     
 }
 
@@ -96,9 +102,10 @@ extension CharacterChatLogView {
             make.trailing.lessThanOrEqualToSuperview().inset(8)
         }
         
+        chatLogCollectionViewBottomConstraint.isActive = true
         chatLogCollectionView.snp.makeConstraints { make in
             make.top.equalTo(customNavigationBar.snp.bottom)
-            make.horizontalEdges.bottom.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
         }
         
         chatButtonBottomConstraint.isActive = true
@@ -148,7 +155,11 @@ extension CharacterChatLogView {
         chatLogCollectionView.do { collectionView in
             collectionView.backgroundColor = .clear
             collectionView.register(CharacterChatLogCell.self, forCellWithReuseIdentifier: CharacterChatLogCell.className)
-            collectionView.register(CharacterChatLogHeader.self, forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader", withReuseIdentifier: UICollectionView.elementKindSectionHeader)
+            collectionView.register(
+                CharacterChatLogHeader.self,
+                forSupplementaryViewOfKind: "UICollectionElementKindSectionHeader",
+                withReuseIdentifier: UICollectionView.elementKindSectionHeader
+            )
             collectionView.contentInsetAdjustmentBehavior = .automatic
             collectionView.contentInset.bottom += 135
             collectionView.showsVerticalScrollIndicator = false
