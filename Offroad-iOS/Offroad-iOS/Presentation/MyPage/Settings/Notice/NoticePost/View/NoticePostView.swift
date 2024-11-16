@@ -152,18 +152,21 @@ extension NoticePostView {
         
         titleLabel.text = data.isImportant ? "\(importantText) \(data.title)" : data.title
         titleLabel.highlightText(targetText: importantText, color: .sub(.sub2))
-        
-        let date = ISO8601DateFormatter().date(from: data.updateAt)
-        
+                
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy / MM / dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         
-        dateLabel.text = dateFormatter.string(from: date ?? Date())
+        if let date = dateFormatter.date(from: data.updateAt) {
+            dateFormatter.dateFormat = "yyyy / MM / dd"
+            dateLabel.text = dateFormatter.string(from: date)
+        }
+        
         contentLabel.text = data.content
         
         if data.hasExternalLinks {
             contentButton.isHidden = false
-            contentButton.setTitle("링크 열기", for: .normal)
+            contentButton.setTitle("\(data.externalLinksTitles.first ?? "")", for: .normal)
         }
     }
 }

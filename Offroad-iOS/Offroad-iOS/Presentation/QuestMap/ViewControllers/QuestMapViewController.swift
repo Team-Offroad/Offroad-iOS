@@ -57,6 +57,8 @@ class QuestMapViewController: OffroadTabBarViewController {
         setupDelegates()
         rootView.naverMapView.mapView.positionMode = .direction
         locationManager.startUpdatingHeading()
+        viewModel.requestAuthorization()
+        viewModel.updateRegisteredPlaces(at: currentPositionTarget)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,7 +68,6 @@ class QuestMapViewController: OffroadTabBarViewController {
         guard let offroadTabBarController = tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.showTabBarAnimation()
         
-        rootView.naverMapView.mapView.positionMode = .direction
         viewModel.isCompassMode = false
     }
     
@@ -90,8 +91,7 @@ class QuestMapViewController: OffroadTabBarViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.requestAuthorization()
-        viewModel.updateRegisteredPlaces(at: currentPositionTarget)
+        
         let orangeLocationOverlayImage = rootView.locationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
     }
@@ -158,6 +158,14 @@ extension QuestMapViewController {
     }
     
     private func bindData() {
+        viewModel.startLoading.subscribe(onNext: {
+            self.tabBarController?.view.startLoading()
+        }).disposed(by: disposeBag)
+        
+        viewModel.stopLoading.subscribe(onNext: {
+            self.tabBarController?.view.stopLoading()
+        }).disposed(by: disposeBag)
+        
         viewModel.networkFailureSubject
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
@@ -197,6 +205,7 @@ extension QuestMapViewController {
             if success {
                 self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
             }
+            self.tabBarController?.view.stopLoading()
             self.popupAdventureResult(isSuccess: success, image: image)
         }).disposed(by: disposeBag)
         
@@ -209,7 +218,13 @@ extension QuestMapViewController {
         
         rootView.switchTrackingModeButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
-            self.switchTrackingMode()
+            switch self.viewModel.locationManager.authorizationStatus {
+            case .authorizedAlways, .authorizedWhenInUse:
+                self.switchTrackingMode()
+            default:
+                self.viewModel.requestAuthorization()
+                return
+            }
         }.disposed(by: disposeBag)
         
         rootView.questListButton.rx.tap.bind { [weak self] _ in
@@ -386,6 +401,19 @@ extension QuestMapViewController: CLLocationManagerDelegate {
         cameraUpdate.animation = .easeOut
         rootView.naverMapView.mapView.moveCamera(cameraUpdate)
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedAlways:
+            flyToMyPosition()
+            rootView.naverMapView.mapView.positionMode = .direction
+        case .authorizedWhenInUse:
+            flyToMyPosition()
+            rootView.naverMapView.mapView.positionMode = .direction
+        default:
+            return
+        }
     }
     
 }
