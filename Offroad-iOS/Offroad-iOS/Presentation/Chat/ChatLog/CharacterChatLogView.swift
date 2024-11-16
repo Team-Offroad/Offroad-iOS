@@ -29,7 +29,7 @@ class CharacterChatLogView: UIView {
     //MARK: - UI Properties
     
     let backgroundView: UIView
-    private let blurShadeView = UIView().then { $0.backgroundColor = .black.withAlphaComponent(0.2) }
+    let blurShadeView = UIView().then { $0.backgroundColor = .black.withAlphaComponent(0.2) }
     private let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     private let customNavigationBar = UIView()
     let backButton = UIButton()
@@ -38,7 +38,7 @@ class CharacterChatLogView: UIView {
     lazy var chatLogCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     let chatButton = UIButton()
     
-    let userChatContentView = UIView()
+    let userChatBoundsView = UIView()
     let userChatView = UIView()
     let userChatInputView = UITextView()
     private let sendButton = UIButton()
@@ -115,7 +115,7 @@ extension CharacterChatLogView {
             make.height.equalTo(40)
         }
         
-        userChatContentView.snp.makeConstraints { make in
+        userChatBoundsView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalTo(keyboardLayoutGuide.snp.top)
         }
@@ -168,6 +168,7 @@ extension CharacterChatLogView {
         
         chatButton.do { button in
             button.setTitle("채팅하기", for: .normal)
+            button.isUserInteractionEnabled = false
             button.roundCorners(cornerRadius: 12)
             button.configureBackgroundColorWhen(
                 normal: .primary(.white).withAlphaComponent(0.33),
@@ -175,7 +176,8 @@ extension CharacterChatLogView {
             )
         }
         
-        userChatContentView.do { view in
+        userChatBoundsView.do { view in
+            view.isUserInteractionEnabled = false
             view.bounds.origin.y = -150
         }
         
@@ -208,10 +210,10 @@ extension CharacterChatLogView {
             customNavigationBar,
             chatLogCollectionView,
             chatButton,
-            userChatContentView
+            userChatBoundsView
         )
         customNavigationBar.addSubviews(backButton, customNavigationTitleLabel)
-        userChatContentView.addSubview(userChatView)
+        userChatBoundsView.addSubview(userChatView)
         userChatView.addSubviews(userChatInputView, sendButton)
     }
     

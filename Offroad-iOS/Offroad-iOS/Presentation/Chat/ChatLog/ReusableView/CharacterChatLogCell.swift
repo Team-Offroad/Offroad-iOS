@@ -106,7 +106,8 @@ extension CharacterChatLogCell {
                 make.trailing.equalTo(chatBubbleView.snp.leading).offset(-6)
                 make.bottom.equalToSuperview()
             }
-        } else { // data.role = "ORB_CHARACTER"
+        // data.role = "ORB_CHARACTER"
+        } else {
             characternameLabel.text = "\(characterName) :"
             characternameLabel.isHidden = false
             characternameLabel.snp.remakeConstraints { make in

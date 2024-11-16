@@ -85,9 +85,10 @@ extension CharacterChatLogViewController {
     
     @objc private func keyboardWillShow(notification: Notification) {
         guard rootView.userChatInputView.isFirstResponder else { return }
+        rootView.userChatBoundsView.isUserInteractionEnabled = true
         UIView.animate(withDuration: 0.5) { [weak self] in
             guard let self else { return }
-            rootView.userChatContentView.bounds.origin.y = 0
+            rootView.userChatBoundsView.bounds.origin.y = 0
             rootView.chatLogCollectionView.contentInsetAdjustmentBehavior = .never
             rootView.chatLogCollectionView.contentInset.bottom = rootView.keyboardLayoutGuide.layoutFrame.height + rootView.userChatView.frame.height + 16
             self.scrollToBottom(animated: false)
@@ -96,9 +97,10 @@ extension CharacterChatLogViewController {
     }
     
     @objc private func keyboardWillHide(notification: Notification) {
+        rootView.userChatBoundsView.isUserInteractionEnabled = false
         UIView.animate(withDuration: 0.5) { [weak self] in
             guard let self else { return }
-            rootView.userChatContentView.bounds.origin.y = -(rootView.safeAreaInsets.bottom + rootView.userChatView.frame.height)
+            rootView.userChatBoundsView.bounds.origin.y = -(rootView.safeAreaInsets.bottom + rootView.userChatView.frame.height)
             rootView.chatLogCollectionViewBottomConstraint.constant = 0
             rootView.chatLogCollectionView.contentInsetAdjustmentBehavior = .automatic
             rootView.chatLogCollectionView.contentInset.bottom = 135
@@ -120,6 +122,7 @@ extension CharacterChatLogViewController {
     private func hideChatButton() {
         guard !isChatButtonHidden else { return }
         isChatButtonHidden = true
+        rootView.chatButton.isUserInteractionEnabled = false
         chatButtonHidingAnimator.stopAnimation(true)
         chatButtonHidingAnimator.addAnimations { [weak self] in
             guard let self else { return }
@@ -132,6 +135,7 @@ extension CharacterChatLogViewController {
     private func showChatButton() {
         guard isChatButtonHidden else { return }
         isChatButtonHidden = false
+        rootView.chatButton.isUserInteractionEnabled = true
         chatButtonHidingAnimator.stopAnimation(true)
         chatButtonHidingAnimator.addAnimations { [weak self] in
             guard let self else { return }
@@ -255,7 +259,14 @@ extension CharacterChatLogViewController: UICollectionViewDelegate {
         }
     }
     
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        rootView.endEditing(true)
+        return true
+    }
+    
 }
+
+//MARK: - UICollectionViewDelegateFlowLayout
 
 extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
     
@@ -263,18 +274,31 @@ extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
         
         let characterNameLabelSize: CGSize = calculateTextSize(text: characterName, font: .offroad(style: .iosTextBold), maxSize: .init(width: 200, height: 24))
         let timeLabelSize: CGSize = calculateTextSize(text: chatLogDataSource[indexPath.item].formattedDateString, font: .offroad(style: .iosTextContentsSmall), maxSize: .init(width: 100, height: 14))
-        let maxMessageLabelWidth: CGFloat =
-        UIScreen.currentScreenSize.width
-        // timeLabelSize의 너비 및 chatBubble과의 offset
-        - (timeLabelSize.width + 6.0)
-        // cell 안의 콘텐츠에 적용되는 수평 inset(collectionView의 수평 contentInset 별도로 안 설정함)
-        - (24.0 * 2)
-        // chatBubble 안의 콘텐츠 inset
-        - (20.0 * 2)
-        // 캐릭터 이름 라벨 너비 및 메시지 라벨과의 offset
-        - (characterNameLabelSize.width + 4.0)
-        let messageLabelSize = calculateTextSize(text: chatLogDataSource[indexPath.item].content, font: .offroad(style: .iosText), maxSize: .init(width: maxMessageLabelWidth, height: 400))
+        let maxMessageLabelWidth: CGFloat
         
+        if chatLogDataSource[indexPath.item].role == "USER" {
+            maxMessageLabelWidth =
+            UIScreen.currentScreenSize.width
+            // timeLabelSize의 너비 및 chatBubble과의 offset
+            - (timeLabelSize.width + 6.0)
+            // cell 안의 콘텐츠에 적용되는 수평 inset(collectionView의 수평 contentInset 별도로 안 설정함)
+            - (24.0 * 2)
+            // chatBubble 안의 콘텐츠 inset
+            - (20.0 * 2)
+        // role == "ORB_CHARACTER"
+        } else {
+            maxMessageLabelWidth =
+            UIScreen.currentScreenSize.width
+            // timeLabelSize의 너비 및 chatBubble과의 offset
+            - (timeLabelSize.width + 6.0)
+            // cell 안의 콘텐츠에 적용되는 수평 inset(collectionView의 수평 contentInset 별도로 안 설정함)
+            - (24.0 * 2)
+            // chatBubble 안의 콘텐츠 inset
+            - (20.0 * 2)
+            // 캐릭터 이름 라벨 너비 및 메시지 라벨과의 offset
+            - (characterNameLabelSize.width + 4.0)
+        }
+        let messageLabelSize = calculateTextSize(text: chatLogDataSource[indexPath.item].content, font: .offroad(style: .iosText), maxSize: .init(width: maxMessageLabelWidth, height: 400))
         return CGSize(width: UIScreen.currentScreenSize.width, height: messageLabelSize.height + (14*2))
     }
     
