@@ -200,12 +200,33 @@ extension CharacterChatLogViewController {
                 }
             }).disposed(by: disposeBag)
         
-        userChatInputViewTextInputViewHeightRelay.subscribe(onNext: { [weak self] textContentHeight in
-            guard let self else { return }
-            if textContentHeight >= 30 {
-                self.updateChatInputViewHeight(height: (19.0*2) + (9.0*2))
+        userChatInputViewTextInputViewHeightRelay.subscribe(
+            onNext: { [weak self] textContentHeight in
+                guard let self else { return }
+                if textContentHeight >= 30 {
+                    self.updateChatInputViewHeight(height: (19.0*2) + (9.0*2))
+                    UIView.animate(
+                        withDuration: 0.3,
+                        delay: 0,
+                        usingSpringWithDamping: 1,
+                        initialSpringVelocity: 1
+                    ) { [weak self] in
+                    guard let self else { return }
+                    self.rootView.chatLogCollectionView.contentInset.bottom = self.rootView.keyboardLayoutGuide.layoutFrame.height + self.rootView.userChatView.frame.height + 16.0
+                    self.scrollToBottom(animated: false)
+                }
             } else {
                 self.updateChatInputViewHeight(height: 19.0 + (9*2))
+                UIView.animate(
+                    withDuration: 0.3,
+                    delay: 0,
+                    usingSpringWithDamping: 1,
+                    initialSpringVelocity: 1
+                ) { [weak self] in
+                    guard let self else { return }
+                    self.rootView.chatLogCollectionView.contentInset.bottom = self.rootView.keyboardLayoutGuide.layoutFrame.height + self.rootView.userChatView.frame.height + 16.0
+                    self.scrollToBottom(animated: false)
+                }
             }
             self.rootView.updateConstraints()
             self.rootView.layoutIfNeeded()
