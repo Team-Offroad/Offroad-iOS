@@ -40,6 +40,9 @@ final class HomeViewController: OffroadTabBarViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+        offroadTabBarController.showTabBarAnimation()
+        
         self.navigationController?.navigationBar.isHidden = true
         getUserAdventureInfo()
         getUserQuestInfo()
@@ -48,18 +51,13 @@ final class HomeViewController: OffroadTabBarViewController {
 
 extension HomeViewController {
     
-    //MARK: - @objc Func
-    
-    @objc private func chatButtonTapped() {
-        ORBCharacterChatManager.shared.startChat()
-    }
-    
     // MARK: - Private Method
     
     private func setupTarget() {
         rootView.changeTitleButton.addTarget(self, action: #selector(changeTitleButtonTapped), for: .touchUpInside)
         rootView.shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         rootView.chatButton.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
+        rootView.changeCharacterButton.addTarget(self, action: #selector(changeCharacterButtonTapped), for: .touchUpInside)
     }
     
     private func getUserAdventureInfo() {
@@ -114,12 +112,8 @@ extension HomeViewController {
     
     //MARK: - @Objc Func
     
-    @objc private func changeTitleButtonTapped() {        
-        let titlePopupViewController = TitlePopupViewController(emblemString: userEmblemString)
-        titlePopupViewController.modalPresentationStyle = .overCurrentContext
-        titlePopupViewController.delegate = self
-        
-        present(titlePopupViewController, animated: false)
+    @objc private func chatButtonTapped() {
+        ORBCharacterChatManager.shared.startChat()
     }
     
     @objc private func shareButtonTapped() {
@@ -133,6 +127,20 @@ extension HomeViewController {
         activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .mail]
         
         self.present(activityViewController, animated: true)
+    }
+    
+    @objc private func changeCharacterButtonTapped() {
+        let characterListViewController = CharacterListViewController()
+        characterListViewController.setupCustomBackButton(buttonTitle: "홈")
+        self.navigationController?.pushViewController(characterListViewController, animated: true)
+    }
+    
+    @objc private func changeTitleButtonTapped() {        
+        let titlePopupViewController = TitlePopupViewController(emblemString: userEmblemString)
+        titlePopupViewController.modalPresentationStyle = .overCurrentContext
+        titlePopupViewController.delegate = self
+        
+        present(titlePopupViewController, animated: false)
     }
 }
 
