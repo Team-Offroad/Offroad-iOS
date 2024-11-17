@@ -45,6 +45,7 @@ final class CharacterDetailViewController: UIViewController {
         bindData()
         viewModel.characterMotionInfo()
         viewModel.getCharacterDetailInfo()
+        rootView.characterImageView.startLoading(withoutShading: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
