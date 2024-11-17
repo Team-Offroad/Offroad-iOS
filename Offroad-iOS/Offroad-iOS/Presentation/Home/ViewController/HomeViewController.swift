@@ -144,7 +144,7 @@ extension HomeViewController {
     }
 }
 
-extension HomeViewController: selectedTitleProtocol {
+extension HomeViewController: SelectedTitleProtocol {
     func fetchTitleString(titleString: String) {
         rootView.changeMyTitleLabelText(text: titleString)
         userEmblemString = titleString

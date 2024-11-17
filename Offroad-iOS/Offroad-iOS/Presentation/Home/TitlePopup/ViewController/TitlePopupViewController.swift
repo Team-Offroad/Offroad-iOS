@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol selectedTitleProtocol: AnyObject {
+protocol SelectedTitleProtocol: AnyObject {
     func fetchTitleString(titleString: String)
 }
 
@@ -17,7 +17,7 @@ final class TitlePopupViewController: UIViewController {
     
     private let rootView = TitlePopupView()
     
-    weak var delegate: selectedTitleProtocol?
+    weak var delegate: SelectedTitleProtocol?
     
     private var titleModelList: [EmblemList]? {
         didSet {
