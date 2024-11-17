@@ -34,9 +34,9 @@ final class ORBCharacterChatManager {
     
 extension ORBCharacterChatManager {
     
-    func showCharacterChatBox(character name: String, message: String, withReplyButton: Bool) {
+    func showCharacterChatBox(character name: String, message: String, mode: ChatBoxMode) {
         chatWindow.makeKeyAndVisible()
-        chatViewController.configureCharacterChatBox(character: name, message: message, withReplyButton: withReplyButton)
+        chatViewController.configureCharacterChatBox(character: name, message: message, mode: mode)
         chatViewController.showCharacterChatBox()
     }
     

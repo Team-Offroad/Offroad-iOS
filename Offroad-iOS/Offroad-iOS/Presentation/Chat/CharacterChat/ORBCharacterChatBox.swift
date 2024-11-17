@@ -8,8 +8,14 @@
 import UIKit
 
 enum ChatBoxMode {
-    case withReplyButton
-    case withoutReplyButton
+    // 답장하기 버튼이 있고, 접혀 있을 때 - 캐릭터 선톡 왔을 때
+    case withReplyButtonShrinked
+    // 답장하기 버튼이 있고, 펼쳐 있을 때 - 사용자가 chenvron 버튼 탭했을 때
+    case withReplyButtonExpanded
+    // 답장하기 버튼이 없고, 접혀 있을 때 - 로딩 로티 띄울 때
+    case withoutReplyButtonShrinked
+    // 답장하기 버튼이 없고, 펼쳐 있을 때 - 캐릭터와 채팅중일 때
+    case withoutReplyButtonExpanded
 }
 
 class ORBCharacterChatBox: UIView {
@@ -18,9 +24,18 @@ class ORBCharacterChatBox: UIView {
     
     let characterNameLabel = UILabel()
     let messageLabel = UILabel()
+    let chevronImageButton = UIButton()
     let replyButton = UIButton()
     
-    lazy var replyButtonTopConstraint = replyButton.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 10)
+    lazy var messageLabelTrailingConstraintToChevronImageButton = messageLabel.trailingAnchor.constraint(
+        equalTo: chevronImageButton.leadingAnchor,
+        constant: -2
+    )
+    lazy var messageLabelTrailingConstraintToSuperview = messageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24)
+    lazy var replyButtonTopConstraint = replyButton.topAnchor.constraint(
+        equalTo: messageLabel.bottomAnchor,
+        constant: 10
+    )
     lazy var replyButtonBottomConstraint = replyButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18)
     
     init(mode: ChatBoxMode) {
@@ -44,6 +59,7 @@ extension ORBCharacterChatBox {
     //MARK: - Layout Func
     
     private func setupLayout() {
+        characterNameLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
         characterNameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(18)
             make.leading.equalToSuperview().inset(24)
@@ -53,8 +69,15 @@ extension ORBCharacterChatBox {
         messageLabel.snp.makeConstraints { make in
             make.top.equalTo(characterNameLabel)
             make.leading.equalTo(characterNameLabel.snp.trailing).offset(4)
-            make.trailing.equalToSuperview().inset(24)
+//            make.trailing.equalToSuperview().inset(24)
             make.bottom.lessThanOrEqualToSuperview().inset(18)
+        }
+        
+        chevronImageButton.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(19)
+            make.trailing.equalToSuperview().inset(24)
+            make.width.equalTo(34)
+            make.height.equalTo(22)
         }
         
         replyButton.snp.makeConstraints { make in
@@ -63,8 +86,40 @@ extension ORBCharacterChatBox {
     }
     
     func setupAdditionalLayout() {
-        replyButtonTopConstraint.isActive = mode == .withReplyButton ? true : false
-        replyButtonBottomConstraint.isActive = mode == .withReplyButton ? true : false
+        switch mode {
+        case .withReplyButtonShrinked:
+            messageLabel.numberOfLines = 1
+            messageLabelTrailingConstraintToChevronImageButton.isActive = true
+            messageLabelTrailingConstraintToSuperview.isActive = false
+            replyButtonTopConstraint.isActive = true
+            replyButtonBottomConstraint.isActive = true
+        case .withReplyButtonExpanded:
+            messageLabel.numberOfLines = 0
+            messageLabelTrailingConstraintToChevronImageButton.isActive = true
+            messageLabelTrailingConstraintToSuperview.isActive = false
+            replyButtonTopConstraint.isActive = true
+            replyButtonBottomConstraint.isActive = true
+        case .withoutReplyButtonShrinked:
+            messageLabel.numberOfLines = 1
+            messageLabelTrailingConstraintToChevronImageButton.isActive = false
+            messageLabelTrailingConstraintToSuperview.isActive = true
+            replyButtonTopConstraint.isActive = false
+            replyButtonBottomConstraint.isActive = false
+        case .withoutReplyButtonExpanded:
+            messageLabel.numberOfLines = 0
+            messageLabelTrailingConstraintToChevronImageButton.isActive = false
+            messageLabelTrailingConstraintToSuperview.isActive = true
+            replyButtonTopConstraint.isActive = false
+            replyButtonBottomConstraint.isActive = false
+        }
+//        
+//        
+//        //messageLabel의 trailingAnchor관련 setupLayout 함수 안에 있는거 없에고 여기서 chevronImageButton이랑 엮어서 처리
+//        messageLabelTrailingConstraintToSuperview.isActive = mode == .withReplyButton ? false : true
+//        messageLabelTrailingConstraintToChevronImageButton.isActive = mode == .withReplyButton ? true : false
+//        replyButtonTopConstraint.isActive = mode == .withReplyButton ? true : false
+//        replyButtonBottomConstraint.isActive = mode == .withReplyButton ? true : false
+//        messageLabel.numberOfLines = mode == .withReplyButton ? 1 : 0
     }
     
     //MARK: - Private Func
@@ -83,7 +138,17 @@ extension ORBCharacterChatBox {
         messageLabel.do { label in
             label.font = .offroad(style: .iosText)
             label.textColor = .main(.main2)
-            label.numberOfLines = 0
+            label.contentMode = .topLeft
+            switch mode {
+            case .withReplyButtonShrinked, .withoutReplyButtonShrinked:
+                label.numberOfLines = 1
+            case .withReplyButtonExpanded, .withoutReplyButtonExpanded:
+                label.numberOfLines = 0
+            }
+        }
+        
+        chevronImageButton.do { button in
+            button.setImage(.icnPlaceListExpendableCellChevron, for: .normal)
         }
         
         replyButton.do { button in
@@ -93,14 +158,14 @@ extension ORBCharacterChatBox {
             button.configureTitleFontWhen(normal: .offroad(style: .iosTextContents))
             button.roundCorners(cornerRadius: 8)
             switch mode {
-            case .withReplyButton: button.isHidden = false
-            case .withoutReplyButton: button.isHidden = true
+            case .withReplyButtonShrinked, .withReplyButtonExpanded: button.isHidden = false
+            case .withoutReplyButtonShrinked, .withoutReplyButtonExpanded: button.isHidden = true
             }
         }
     }
     
     private func setupHierarchy() {
-        addSubviews(characterNameLabel, messageLabel, replyButton)
+        addSubviews(characterNameLabel, messageLabel, chevronImageButton, replyButton)
     }
     
 }

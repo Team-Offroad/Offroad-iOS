@@ -21,7 +21,7 @@ class ORBCharacterChatViewController: UIViewController {
     let userChatDisplayViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
     
     let characterChatBoxPositionAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
-    let characterChatBoxModeChangingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
+    let characterChatBoxModeChangingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     let userChatViewAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     let userChatDisplayViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
@@ -63,7 +63,8 @@ extension ORBCharacterChatViewController {
     }
     
     @objc private func panGestureHandler(sender: UIPanGestureRecognizer) {
-        guard rootView.characterChatBox.mode == .withReplyButton else { return }
+        guard rootView.characterChatBox.mode == .withReplyButtonShrinked
+                || rootView.characterChatBox.mode == .withReplyButtonExpanded else { return }
         switch sender.state {
         case .possible, .began:
             return
@@ -86,7 +87,8 @@ extension ORBCharacterChatViewController {
     }
     
     @objc private func tapGestureHandler(sender: UITapGestureRecognizer) {
-        guard rootView.characterChatBox.mode == .withReplyButton else { return }
+        guard rootView.characterChatBox.mode == .withReplyButtonShrinked
+                || rootView.characterChatBox.mode == .withReplyButtonExpanded else { return }
         ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController.onNext(rootView.characterChatBox.characterNameLabel.text!)
     }
     
@@ -108,10 +110,20 @@ extension ORBCharacterChatViewController {
     }
     
     private func bindData() {
+        rootView.characterChatBox.chevronImageButton.rx.tap.bind { [weak self] in
+            guard let self else { return }
+            if self.rootView.characterChatBox.mode == .withReplyButtonShrinked {
+                self.changeChatBoxMode(to: .withReplyButtonExpanded, animated: true)
+            } else if self.rootView.characterChatBox.mode == .withReplyButtonExpanded {
+                self.changeChatBoxMode(to: .withReplyButtonShrinked, animated: true)
+            }
+            
+        }.disposed(by: disposeBag)
+        
         rootView.characterChatBox.replyButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             self.rootView.userChatInputView.becomeFirstResponder()
-            self.changeMode(to: .withoutReplyButton, animated: true)
+            self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
         }.disposed(by: disposeBag)
         
         rootView.sendButton.rx.tap.bind { [weak self] in
@@ -252,24 +264,28 @@ extension ORBCharacterChatViewController {
         userChatDisplayViewHeightAnimator.startAnimation()
     }
     
-    func configureCharacterChatBox(character name: String, message: String, withReplyButton: Bool) {
+    func configureCharacterChatBox(character name: String, message: String, mode: ChatBoxMode) {
         rootView.characterChatBox.characterNameLabel.text = name + " :"
         rootView.characterChatBox.messageLabel.text = message
-        changeMode(to: withReplyButton ? .withReplyButton : .withoutReplyButton, animated: false)
+        changeChatBoxMode(to: mode, animated: false)
     }
     
-    func changeMode(to mode: ChatBoxMode, animated: Bool) {
+    func changeChatBoxMode(to mode: ChatBoxMode, animated: Bool) {
         rootView.characterChatBox.mode = mode
+        rootView.characterChatBox.chevronImageButton.isHidden =
+        (mode == .withoutReplyButtonShrinked || mode == .withoutReplyButtonExpanded) ? true : false
         if animated {
             characterChatBoxModeChangingAnimator.addAnimations { [weak self] in
                 guard let self else { return }
-                self.rootView.characterChatBox.replyButton.isHidden = mode == .withReplyButton ? false : true
+                self.rootView.characterChatBox.replyButton.isHidden =
+                (mode == .withoutReplyButtonShrinked || mode == .withoutReplyButtonExpanded) ? true : false
                 self.rootView.characterChatBox.setupAdditionalLayout()
                 self.rootView.layoutIfNeeded()
             }
             characterChatBoxModeChangingAnimator.startAnimation()
         } else {
-            rootView.characterChatBox.replyButton.isHidden = mode == .withReplyButton ? false : true
+            self.rootView.characterChatBox.replyButton.isHidden =
+            (mode == .withoutReplyButtonShrinked || mode == .withoutReplyButtonExpanded) ? true : false
             rootView.characterChatBox.setupAdditionalLayout()
             rootView.layoutIfNeeded()
         }

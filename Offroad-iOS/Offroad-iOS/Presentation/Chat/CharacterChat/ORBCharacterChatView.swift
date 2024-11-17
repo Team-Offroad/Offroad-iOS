@@ -22,7 +22,7 @@ final class ORBCharacterChatView: UIView {
     
     //MARK: - UI Properties
     
-    let characterChatBox = ORBCharacterChatBox(mode: .withReplyButton)
+    let characterChatBox = ORBCharacterChatBox(mode: .withReplyButtonShrinked)
     let userChatView = UIView()
     
     let meLabel = UILabel()
