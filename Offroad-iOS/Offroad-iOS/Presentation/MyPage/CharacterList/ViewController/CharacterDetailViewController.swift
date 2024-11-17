@@ -89,6 +89,7 @@ extension CharacterDetailViewController {
             .subscribe(onNext: { [weak self] characterDetailInfo in
                 guard let self else { return }
                 self.rootView.configurerCharacterDetailView(using: characterDetailInfo)
+                self.rootView.chatLogButton.isEnabled = true
             }).disposed(by: disposeBag)
         
         viewModel.networkingSuccess

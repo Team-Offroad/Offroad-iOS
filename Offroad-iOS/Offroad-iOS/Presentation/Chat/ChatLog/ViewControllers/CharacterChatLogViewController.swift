@@ -78,6 +78,12 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         rootView.endEditing(true)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        navigationController?.popViewController(animated: false)
+    }
+    
 }
 
 extension CharacterChatLogViewController {

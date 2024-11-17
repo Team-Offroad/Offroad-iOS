@@ -231,6 +231,7 @@ extension CharacterDetailView {
             button.layer.borderColor = UIColor.sub(.sub).cgColor
             button.layer.borderWidth = 1
             button.roundCorners(cornerRadius: 18)
+            button.isEnabled = false
         }
         
         scrollView.showsVerticalScrollIndicator = false
