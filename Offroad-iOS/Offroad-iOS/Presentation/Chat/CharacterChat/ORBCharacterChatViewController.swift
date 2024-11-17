@@ -194,8 +194,7 @@ extension ORBCharacterChatViewController {
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.characterChatBox.transform = CGAffineTransform.identity
-            self.rootView.characterChatBoxBottomConstraint.isActive = false
-            self.rootView.characterChatBoxTopConstraint.isActive = true
+            self.rootView.characterChatBoxTopConstraint.constant = 74
             self.rootView.layoutIfNeeded()
         }
         characterChatBoxPositionAnimator.startAnimation()
@@ -206,8 +205,7 @@ extension ORBCharacterChatViewController {
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.characterChatBox.transform = CGAffineTransform.identity
-            self.rootView.characterChatBoxTopConstraint.isActive = false
-            self.rootView.characterChatBoxBottomConstraint.isActive = true
+            self.rootView.characterChatBoxTopConstraint.constant = -self.rootView.characterChatBox.frame.height
             self.rootView.layoutIfNeeded()
         }
         characterChatBoxPositionAnimator.startAnimation()

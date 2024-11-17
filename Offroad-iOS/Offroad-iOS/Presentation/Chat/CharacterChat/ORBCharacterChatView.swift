@@ -15,8 +15,7 @@ final class ORBCharacterChatView: UIView {
     
     //MARK: - Properties
     
-    lazy var characterChatBoxTopConstraint = characterChatBox.topAnchor.constraint(equalTo: topAnchor, constant: 74)
-    lazy var characterChatBoxBottomConstraint = characterChatBox.bottomAnchor.constraint(equalTo: topAnchor)
+    lazy var characterChatBoxTopConstraint = characterChatBox.topAnchor.constraint(equalTo: topAnchor)
     lazy var userChatViewBottomConstraint = userChatView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 160)
     lazy var userChatInputViewHeightConstraint = userChatInputView.heightAnchor.constraint(equalToConstant: 37)
     lazy var userChatDisplayViewHeightConstraint = userChatDisplayView.heightAnchor.constraint(equalToConstant: 24)
@@ -58,8 +57,8 @@ extension ORBCharacterChatView {
     //MARK: - Layout Func
     
     private func setupLayout() {
-        characterChatBoxTopConstraint.isActive = false
-        characterChatBoxBottomConstraint.isActive = true
+        characterChatBoxTopConstraint.constant = -150
+        characterChatBoxTopConstraint.isActive = true
         characterChatBox.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.greaterThanOrEqualTo(58)
