@@ -21,13 +21,14 @@ class CharacterDetailView: UIView, SVGFetchable {
     
     let customNavigationBar = UIView()
     let customBackButton = NavigationPopButton()
+    let chatLogButton = UIButton()
     private let scrollView = UIScrollView()
     private let contentView = UIView()
-    private var characterImageView = UIImageView()
+    let characterImageView = UIImageView()
     private let labelView = UIView()
     private let dottedLineView = UIView()
     private let detailLabelView = UIView()
-    private let nameLabel = UILabel()
+    let nameLabel = UILabel()
     private let mainLabel = UILabel()
     private let babyImage = UIImageView(image: UIImage(resource: .baby))
     private var characterLogoImageView = UIImageView()
@@ -81,6 +82,14 @@ extension CharacterDetailView {
         customBackButton.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(12)
             $0.leading.equalToSuperview().inset(12)
+        }
+        
+        chatLogButton.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide).inset(16)
+            make.leading.greaterThanOrEqualTo(customBackButton.snp.trailing).offset(10)
+            make.trailing.equalTo(safeAreaLayoutGuide).inset(24)
+            make.width.equalTo(84)
+            make.height.equalTo(36)
         }
         
         scrollView.snp.makeConstraints { make in
@@ -182,7 +191,8 @@ extension CharacterDetailView {
         addSubviews(
             scrollView,
             customNavigationBar,
-            customBackButton
+            customBackButton,
+            chatLogButton
         )
         scrollView.addSubview(contentView)
         
@@ -213,6 +223,17 @@ extension CharacterDetailView {
         customNavigationBar.backgroundColor = .primary(.listBg)
         
         customBackButton.configureButtonTitle(titleString: "획득 캐릭터")
+        
+        chatLogButton.do { button in
+            button.setTitle("채팅 로그", for: .normal)
+            button.configureBackgroundColorWhen(normal: .sub(.sub55), highlighted: .sub(.sub480))
+            button.configureTitleFontWhen(normal: .offroad(style: .iosTextContents))
+            button.layer.borderColor = UIColor.sub(.sub).cgColor
+            button.layer.borderWidth = 1
+            button.roundCorners(cornerRadius: 18)
+            button.isEnabled = false
+        }
+        
         scrollView.showsVerticalScrollIndicator = false
         characterImageView.contentMode = .scaleAspectFit
         
@@ -307,6 +328,7 @@ extension CharacterDetailView {
         fetchSVG(svgURLString: characterInfo.characterBaseImageUrl) { image in
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
+                self.characterImageView.stopLoading()
                 self.characterImageView.image = image
             }
         }
