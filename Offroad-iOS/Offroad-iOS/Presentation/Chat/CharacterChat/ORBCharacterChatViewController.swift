@@ -27,6 +27,7 @@ class ORBCharacterChatViewController: UIViewController {
     let userChatDisplayViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     
     lazy var panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureHandler))
+    lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureHandler))
     
     override func loadView() {
         view = rootView
@@ -82,7 +83,11 @@ extension ORBCharacterChatViewController {
         @unknown default:
             rootView.characterChatBox.transform = CGAffineTransform.identity
         }
-        
+    }
+    
+    @objc private func tapGestureHandler(sender: UITapGestureRecognizer) {
+        guard rootView.characterChatBox.mode == .withReplyButton else { return }
+        ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController.onNext(rootView.characterChatBox.characterNameLabel.text!)
     }
     
     //MARK: - Private Func
@@ -183,6 +188,7 @@ extension ORBCharacterChatViewController {
     
     private func setupGestures() {
         rootView.characterChatBox.addGestureRecognizer(panGesture)
+        rootView.characterChatBox.addGestureRecognizer(tapGesture)
     }
     
     //MARK: - Func
@@ -193,7 +199,7 @@ extension ORBCharacterChatViewController {
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.characterChatBox.transform = CGAffineTransform.identity
-            self.rootView.characterChatBoxTopConstraint.constant = 74
+            self.rootView.characterChatBoxTopConstraint.constant = 27
             self.rootView.layoutIfNeeded()
         }
         characterChatBoxPositionAnimator.startAnimation()
@@ -204,8 +210,14 @@ extension ORBCharacterChatViewController {
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.characterChatBox.transform = CGAffineTransform.identity
-            self.rootView.characterChatBoxTopConstraint.constant = -self.rootView.characterChatBox.frame.height
+            self.rootView.characterChatBoxTopConstraint.constant
+            = -(rootView.safeAreaInsets.top +  self.rootView.characterChatBox.frame.height)
             self.rootView.layoutIfNeeded()
+        }
+        characterChatBoxPositionAnimator.addCompletion { [weak self] _ in
+            guard let self else { return }
+            self.rootView.characterChatBox.characterNameLabel.text = ""
+            self.rootView.characterChatBox.messageLabel.text = ""
         }
         characterChatBoxPositionAnimator.startAnimation()
     }

@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RxSwift
+
 final class ORBCharacterChatManager {
     
     //MARK: - Static Properties
@@ -14,6 +16,10 @@ final class ORBCharacterChatManager {
     static let shared = ORBCharacterChatManager()
     
     //MARK: - Properties
+    
+    let shouldPushCharacterChatLogViewController = PublishSubject<String>()
+    
+    //MARK: - UI Properties
     
     var chatWindow = ORBCharacterChatWindow(windowScene: UIWindowScene.current)
     var chatViewController: ORBCharacterChatViewController {
