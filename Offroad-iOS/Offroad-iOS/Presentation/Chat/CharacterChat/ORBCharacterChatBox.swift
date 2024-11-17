@@ -69,6 +69,7 @@ extension ORBCharacterChatBox {
             make.bottom.lessThanOrEqualToSuperview().inset(17)
         }
         
+        messageLabel.setContentHuggingPriority(.init(0), for: .horizontal)
         messageLabel.snp.makeConstraints { make in
             make.top.equalTo(characterNameLabel)
             make.leading.equalTo(characterNameLabel.snp.trailing).offset(4)
@@ -137,6 +138,7 @@ extension ORBCharacterChatBox {
         }
         
         messageLabel.do { label in
+            label.backgroundColor = .red
             label.font = .offroad(style: .iosText)
             label.textColor = .main(.main2)
             label.contentMode = .topLeft
