@@ -155,13 +155,13 @@ extension CharacterChatLogViewController {
         tabBarController?.view.startLoading()
         NetworkService.shared.characterChatService.getChatLog(completion: { [weak self] result in
             guard let self else { return }
+            self.tabBarController?.view.stopLoading()
             switch result {
             case .success(let responseDTO):
                 guard let responseDTO else {
                     showToast(message: "responseDTO가 없습니다.", inset: 66)
                     return
                 }
-                self.tabBarController?.view.stopLoading()
                 chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
                 chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList)
                 rootView.chatLogCollectionView.reloadData()
@@ -234,6 +234,16 @@ extension CharacterChatLogViewController {
             self.rootView.updateConstraints()
             self.rootView.layoutIfNeeded()
         }).disposed(by: disposeBag)
+        
+        NetworkMonitoringManager.shared.networkConnectionChanged
+            .subscribe(onNext: { [weak self] isConnected in
+                guard let self else { return }
+                if isConnected {
+                    self.requestChatLogDataSource()
+                } else {
+                    showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                }
+            }).disposed(by: disposeBag)
     }
     
     private func setupNotifications() {

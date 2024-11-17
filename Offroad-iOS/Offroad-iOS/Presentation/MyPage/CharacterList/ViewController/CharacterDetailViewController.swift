@@ -129,9 +129,12 @@ extension CharacterDetailViewController {
         NetworkMonitoringManager.shared.networkConnectionChanged
             .subscribe(onNext: { [weak self] isConnected in
                 guard let self else { return }
-                guard isConnected else { return }
-                self.viewModel.getCharacterDetailInfo()
-                self.viewModel.characterMotionInfo()
+                if isConnected {
+                    self.viewModel.getCharacterDetailInfo()
+                    self.viewModel.characterMotionInfo()
+                } else {
+                    self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                }
             }).disposed(by: disposeBag)
     }
     
