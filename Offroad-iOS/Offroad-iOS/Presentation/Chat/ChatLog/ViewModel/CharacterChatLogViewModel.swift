@@ -26,22 +26,20 @@ final class CharacterChatLogViewModel {
         return sortedKeys.compactMap { groupedChats[$0] }
     }
     
-    // UILabel 안에 특정 텍스트가 들어갔을 때, label의 사이즈를 미리 계산하는 식
+    // UILabel 안에 특정 텍스트가 들어갔을 때, label의 사이즈를 미리 계산하여 반환하는 함수.
     // (셀을 직접 그리기 전에 셀의 높이를 동적으로 계산하여 flowLayout에서 이를 바탕으로 layout계산해야 하기 때문.)
     // 채팅 내용에 따라 텍스트의 높이가 달라지기 때문에 특정 텍스트일 때 채팅 버블의 높이를 미리 계산하기 위함.
-    func calculateTextSize(text: String, font: UIFont, maxSize: CGSize) -> CGSize {
-        // 텍스트 속성 설정
-        let attributes: [NSAttributedString.Key: Any] = [.font: font]
-        // 제한된 너비를 설정한 CGRect
-        let maxSize = maxSize
-        // boundingRect 계산
-        let boundingBox = text.boundingRect(
-            with: maxSize,
-            options: [.usesLineFragmentOrigin, .usesFontLeading],
-            attributes: attributes,
-            context: nil
-        )
-        return CGSize(width: ceil(boundingBox.width), height: ceil(boundingBox.height))
+    func calculateLabelSize(text: String, font: UIFont, maxSize: CGSize) -> CGSize {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = font
+        label.text = text
+        
+        // 너비를 제한한 크기 계산
+        let fittingSize = label.sizeThatFits(CGSize(width: maxSize.width, height: maxSize.height))
+
+        // 결과 출력
+        return fittingSize
     }
     
 }

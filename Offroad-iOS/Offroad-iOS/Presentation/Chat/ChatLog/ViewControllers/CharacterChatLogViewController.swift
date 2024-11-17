@@ -34,8 +34,6 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         self.rootView = CharacterChatLogView(background: background)
         self.characterName = characterName
         super.init(nibName: nil, bundle: nil)
-        requestChatLogDataSource()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { }
     }
     
     required init?(coder: NSCoder) {
@@ -62,6 +60,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         tabBarController.showTabBarAnimation()
         rootView.backgroundView.isHidden = false
+        requestChatLogDataSource()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -152,6 +151,7 @@ extension CharacterChatLogViewController {
     }
     
     private func requestChatLogDataSource() {
+        tabBarController?.view.startLoading()
         NetworkService.shared.characterChatService.getChatLog(completion: { [weak self] result in
             guard let self else { return }
             switch result {
@@ -160,11 +160,11 @@ extension CharacterChatLogViewController {
                     showToast(message: "responseDTO가 없습니다.", inset: 66)
                     return
                 }
+                self.tabBarController?.view.stopLoading()
                 chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
                 chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList)
                 rootView.chatLogCollectionView.reloadData()
                 self.scrollToBottom(animated: false)
-//                rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
                 showChatButton()
             case .networkFail:
                 showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
@@ -332,12 +332,12 @@ extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let characterNameLabelSize: CGSize = viewModel.calculateTextSize(
+        let characterNameLabelSize: CGSize = viewModel.calculateLabelSize(
             text: characterName,
             font: .offroad(style: .iosTextBold),
             maxSize: .init(width: 200, height: 24)
         )
-        let timeLabelSize: CGSize = viewModel.calculateTextSize(
+        let timeLabelSize: CGSize = viewModel.calculateLabelSize(
             text: chatLogDataSource[indexPath.section][indexPath.item].formattedTimeString,
             font: .offroad(style: .iosTextContentsSmall),
             maxSize: .init(width: 100, height: 14)
@@ -366,7 +366,7 @@ extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
             // 캐릭터 이름 라벨 너비 및 메시지 라벨과의 offset
             - (characterNameLabelSize.width + 4.0)
         }
-        let messageLabelSize = viewModel.calculateTextSize(text: chatLogDataSource[indexPath.section][indexPath.item].content, font: .offroad(style: .iosText), maxSize: .init(width: maxMessageLabelWidth, height: 400))
+        let messageLabelSize = viewModel.calculateLabelSize(text: chatLogDataSource[indexPath.section][indexPath.item].content, font: .offroad(style: .iosText), maxSize: .init(width: maxMessageLabelWidth, height: 400))
         return CGSize(width: UIScreen.currentScreenSize.width, height: messageLabelSize.height + (14*2))
     }
     
