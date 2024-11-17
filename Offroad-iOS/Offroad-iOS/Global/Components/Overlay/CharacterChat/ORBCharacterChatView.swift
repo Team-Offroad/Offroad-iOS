@@ -15,11 +15,6 @@ final class ORBCharacterChatView: UIView {
     
     //MARK: - Properties
     
-    let characterChatBoxAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
-    let userChatViewAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
-    let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    let userChatDisplayViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    
     lazy var characterChatBoxTopConstraint = characterChatBox.topAnchor.constraint(equalTo: topAnchor, constant: 74)
     lazy var characterChatBoxBottomConstraint = characterChatBox.bottomAnchor.constraint(equalTo: topAnchor)
     lazy var userChatViewBottomConstraint = userChatView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 160)
@@ -28,7 +23,7 @@ final class ORBCharacterChatView: UIView {
     
     //MARK: - UI Properties
     
-    let characterChatBox = ORBCharacterChatBox()
+    let characterChatBox = ORBCharacterChatBox(mode: .withReplyButton)
     let userChatView = UIView()
     
     let meLabel = UILabel()
