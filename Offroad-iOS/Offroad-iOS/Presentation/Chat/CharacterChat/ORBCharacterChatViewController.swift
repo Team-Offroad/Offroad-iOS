@@ -62,8 +62,7 @@ extension ORBCharacterChatViewController {
     }
     
     @objc private func panGestureHandler(sender: UIPanGestureRecognizer) {
-        print(#function)
-        
+        guard rootView.characterChatBox.mode == .withReplyButton else { return }
         switch sender.state {
         case .possible, .began:
             return
