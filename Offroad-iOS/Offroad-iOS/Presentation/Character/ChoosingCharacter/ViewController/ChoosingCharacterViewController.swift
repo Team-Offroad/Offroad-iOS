@@ -23,6 +23,22 @@ final class ChoosingCharacterViewController: UIViewController {
         }
     }
     
+    private var characterImageList: [Int:UIImage] = [:] {
+        didSet {
+            let imageCount = characterImageList.count
+
+            if imageCount == characterInfoModelList?.count {
+                DispatchQueue.main.async {
+                    self.extendedCharacterImageList.append(self.characterImageList[imageCount] ?? UIImage())
+                    for i in 1...imageCount {
+                        self.extendedCharacterImageList.append(self.characterImageList[i] ?? UIImage())
+                    }
+                    self.extendedCharacterImageList.append(self.characterImageList[1] ?? UIImage())
+                }
+            }
+        }
+    }
+    
     private var extendedCharacterImageList = [UIImage]() {
         didSet {
             choosingCharacterView.collectionView.reloadData()
@@ -71,32 +87,6 @@ final class ChoosingCharacterViewController: UIViewController {
         
         choosingCharacterView.leftButton.addTarget(self, action: #selector(leftArrowTapped), for: .touchUpInside)
         choosingCharacterView.rightButton.addTarget(self, action: #selector(rightArrowTapped), for: .touchUpInside)
-    }
-    
-    private func getStartingCharacterList() {
-        NetworkService.shared.characterService.getStartingCharacterList { response in
-            switch response {
-            case .success(let data):
-                let count = data?.data.characters.count ?? 0
-                let firstCharacterImageURL = data?.data.characters[0].characterBaseImageUrl ?? ""
-                let lastCharacterImageURL = data?.data.characters[count - 1].characterBaseImageUrl ?? ""
-                
-                self.characterInfoModelList = data?.data.characters
-                
-                self.extendedCharacterImageList.insert(self.convertSvgURLToUIImage(svgUrlString: lastCharacterImageURL), at: 0)
-                for character in data?.data.characters ?? [StartingCharacter]() {
-                    let characterImageURL = character.characterBaseImageUrl
-                    
-                    self.extendedCharacterImageList.append(self.convertSvgURLToUIImage(svgUrlString: characterImageURL))
-                    self.characterNames.append(character.name)
-                    self.characterDiscriptions.append(character.description)
-                }
-                self.extendedCharacterImageList.append(self.convertSvgURLToUIImage(svgUrlString: firstCharacterImageURL))
-                
-            default:
-                break
-            }
-        }
     }
     
     private func convertSvgURLToUIImage(svgUrlString: String) -> UIImage {
@@ -149,7 +139,12 @@ final class ChoosingCharacterViewController: UIViewController {
     }
     
     @objc private func selectButtonTapped() {
-        let alertController = ORBAlertController(title: "\(selectedCharacterName)와 함께하시겠어요?", message: "지금 캐릭터를 선택하시면 \(selectedCharacterName)과 모험을 시작하게 돼요.", type: .normal)
+        let alertController = ORBAlertController(title: "\(selectedCharacterName)와 함께하시겠어요?", message: "지금 캐릭터를 선택하시면\n\(selectedCharacterName)와 모험을 시작하게 돼요.", type: .normal)
+        alertController.configureMessageLabel{ label in
+            label.setLineHeight(percentage: 150)
+            label.highlightText(targetText: selectedCharacterName, font: .offroad(style: .iosTextBold))
+        }
+        alertController.xButton.isHidden = true
         let cancelAction = ORBAlertAction(title: "아니요", style: .cancel) { _ in return }
         let okAction = ORBAlertAction(title: "네,좋아요!", style: .default) { _ in
             self.postCharacterID(characterID: self.selectedCharacterID)
@@ -157,6 +152,28 @@ final class ChoosingCharacterViewController: UIViewController {
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         present(alertController, animated: true)
+    }
+}
+
+extension ChoosingCharacterViewController: SVGFetchable {
+    private func getStartingCharacterList() {
+        NetworkService.shared.characterService.getStartingCharacterList { response in
+            switch response {
+            case .success(let data):
+                self.characterInfoModelList = data?.data.characters
+                
+                for character in data?.data.characters ?? [StartingCharacter]() {
+                    self.characterNames.append(character.name)
+                    self.characterDiscriptions.append(character.description)
+                    
+                    self.fetchSVG(svgURLString: character.characterBaseImageUrl) { image in
+                        self.characterImageList[character.id] = image ?? UIImage()
+                    }
+                }
+            default:
+                break
+            }
+        }
     }
 }
 

@@ -18,4 +18,5 @@ struct UserInfoData: Codable {
     let elapsedDay: Int
     let completeQuestCount: Int
     let visitedPlaceCount: Int
+    let characterImageUrl: String
 }
