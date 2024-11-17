@@ -20,7 +20,7 @@ final class HomeView: UIView {
     private let nicknameLabel = UILabel()
     private let characterNameView = UIView()
     private let characterNameLabel = UILabel()
-    private let offroadStampImageView = UIImageView(image: UIImage(resource: .imgOffroadStamp))
+    private let backgroundImageView = UIImageView(image: UIImage(resource: .imgHomeBackground))
     let chatButton = UIButton()
     let shareButton = UIButton()
     let changeCharacterButton = UIButton()
@@ -154,9 +154,9 @@ extension HomeView {
     
     private func setupHierarchy() {
         addSubviews(
+            backgroundImageView,
             nicknameLabel,
             characterNameView,
-            offroadStampImageView,
             buttonStackView,
             characterBaseImageView,
             characterMotionView,
@@ -177,6 +177,10 @@ extension HomeView {
     }
     
     private func setupLayout() {
+        backgroundImageView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+
         nicknameLabel.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(26)
             $0.leading.equalToSuperview().inset(24)
@@ -191,10 +195,6 @@ extension HomeView {
         characterNameLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(17)
-        }
-        
-        offroadStampImageView.snp.makeConstraints {
-            $0.top.trailing.equalTo(safeAreaLayoutGuide)
         }
         
         buttonStackView.snp.makeConstraints {

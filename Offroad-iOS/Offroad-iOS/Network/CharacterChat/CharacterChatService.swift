@@ -54,7 +54,7 @@ final class CharacterChatService: BaseService, CharacterChatServiceProtocol {
             case .failure(let error):
                 print(error.localizedDescription)
                 switch error {
-                case .underlying(let erorr, let response):
+                case .underlying(let error, let response):
                     print(error.localizedDescription)
                     if response == nil {
                         completion(.networkFail)

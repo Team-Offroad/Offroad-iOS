@@ -25,12 +25,12 @@ final class ChoosingCharacterView: UIView {
     }
     
     private let divideLabelView = UIView().then {
-        $0.backgroundColor = UIColor.sub(.sub4)
+        $0.backgroundColor = .home(.homeCharacterName)
         $0.layer.opacity = 0.25
     }
 
     private let choosingCharacterLabelView = UIView().then {
-        $0.backgroundColor = UIColor.main(.main1)
+        $0.backgroundColor = .primary(.white)
     }
     
     let collectionView: UICollectionView = {
@@ -64,7 +64,7 @@ final class ChoosingCharacterView: UIView {
     
     let nameLabel = UILabel().then {
         $0.textAlignment = .center
-        $0.textColor = UIColor.main(.main2)
+        $0.textColor = UIColor.sub(.sub4)
         $0.font = UIFont.offroad(style: .iosTextTitle)
     }
     
@@ -72,7 +72,7 @@ final class ChoosingCharacterView: UIView {
         $0.textAlignment = .center
         $0.numberOfLines = 3
         $0.lineBreakMode = .byWordWrapping
-        $0.textColor = UIColor.sub(.sub4)
+        $0.textColor = .main(.main2)
         $0.font = UIFont.offroad(style: .iosText)
     }
     
@@ -122,7 +122,7 @@ extension ChoosingCharacterView {
     }
     
     private func setupStyle() {
-        backgroundColor = .primary(.characterSelectBg1)
+        backgroundColor = .setting(.settingCharacter)
     }
     
     private func setupLayout() {
@@ -194,11 +194,11 @@ extension ChoosingCharacterView {
     func setBackgroundColorForID(id: Int) {
         switch id {
         case 1:
-            backgroundColor = .primary(.characterSelectBg1)
+            backgroundColor = .setting(.settingCharacter)
         case 2:
-            backgroundColor = .primary(.characterSelectBg2)
+            backgroundColor = .setting(.settingSetting)
         case 3:
-            backgroundColor = .primary(.characterSelectBg3)
+            backgroundColor = .setting(.settingCoupon)
         default:
             break
         }

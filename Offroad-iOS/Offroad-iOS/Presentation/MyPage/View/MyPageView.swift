@@ -25,7 +25,7 @@ final class MyPageView: UIView {
     private let flagImageView = UIImageView(image: UIImage(resource: .imgFlag))
     private let labelStackView = UIStackView()
     private let profileBackgroundView = UIView()
-    private let characterProfileImageView = UIImageView(image: UIImage(resource: .imgCharacterProfile))
+    private let characterProfileImageView = UIImageView()
     private let adventureDaysLabel = UILabel()
     private let adventureTitleImageView = UIImageView(image: UIImage(resource: .imgTitleFrame))
     private let adventureTitleLabel = UILabel()
@@ -75,6 +75,7 @@ extension MyPageView {
         }
         
         nicknameLabel.do {
+            $0.text = " "
             $0.font = .offroad(style: .bothSubtitle3)
             $0.textColor = .main(.main2)
             $0.textAlignment = .center
@@ -226,7 +227,8 @@ extension MyPageView {
         
         characterProfileImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().inset(20)
+            $0.leading.equalToSuperview().inset(25)
+            $0.size.equalTo(100)
         }
         
         adventureStackView.snp.makeConstraints {
@@ -285,6 +287,8 @@ extension MyPageView {
     func bindData(data: UserInfoData) {
         nicknameLabel.text = "\(data.nickname)님"
         nicknameLabel.highlightText(targetText: data.nickname, font: .offroad(style: .iosProfileTitle))
+        
+        characterProfileImageView.fetchSvgURLToImageView(svgUrlString: data.characterImageUrl)
 
         adventureDaysLabel.text = "\(String(data.elapsedDay))일 째 모험을 떠나는 중"
         adventureDaysLabel.highlightText(targetText: String(data.elapsedDay), font: .offroad(style: .iosTextContents), color: .sub(.sub2))
