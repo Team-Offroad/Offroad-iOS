@@ -69,20 +69,21 @@ extension UIView {
     }
     
     
-    func startLoading() {
+    func startLoading(withoutShading: Bool = false) {
         // 이미 로딩중인 경우, 추가 로딩 뷰 띄우는 것 방지
         for subView in subviews {
             if subView is LoadingView { return }
         }
         
-        let someView = LoadingView()
-        someView.isHidden = true
-        addSubview(someView)
-        someView.snp.makeConstraints { make in
+        let loadingView = LoadingView()
+        loadingView.shadeView.isHidden = withoutShading
+        loadingView.isHidden = true
+        addSubview(loadingView)
+        loadingView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         UIView.animate(withDuration: 0.2) {
-            someView.isHidden = false
+            loadingView.isHidden = false
         }
     }
     
