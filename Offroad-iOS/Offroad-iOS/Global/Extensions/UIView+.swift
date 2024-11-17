@@ -86,9 +86,37 @@ extension UIView {
         }
     }
     
+    func startScrollLoading() {
+        // 이미 로딩중인 경우, 추가 로딩 뷰 띄우는 것 방지
+        for subView in subviews {
+            if subView is ScrollLoadingView { return }
+        }
+        
+        let someView = ScrollLoadingView()
+        someView.isHidden = true
+        addSubview(someView)
+        someView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        UIView.animate(withDuration: 0.2) {
+            someView.isHidden = false
+        }
+    }
+    
     func stopLoading() {
         for subview in subviews {
             guard let loadingView = subview as? LoadingView else { continue }
+            UIView.animate(withDuration: 0.2, animations: {
+                loadingView.isHidden = true
+            }) { isFinished in
+                loadingView.removeFromSuperview()
+            }
+        }
+    }
+    
+    func stopScrollLoading() {
+        for subview in subviews {
+            guard let loadingView = subview as? ScrollLoadingView else { continue }
             UIView.animate(withDuration: 0.2, animations: {
                 loadingView.isHidden = true
             }) { isFinished in
