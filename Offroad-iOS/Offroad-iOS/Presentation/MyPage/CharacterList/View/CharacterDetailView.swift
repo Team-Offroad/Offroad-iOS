@@ -24,7 +24,7 @@ class CharacterDetailView: UIView, SVGFetchable {
     let chatLogButton = UIButton()
     private let scrollView = UIScrollView()
     private let contentView = UIView()
-    private var characterImageView = UIImageView()
+    let characterImageView = UIImageView()
     private let labelView = UIView()
     private let dottedLineView = UIView()
     private let detailLabelView = UIView()
@@ -328,6 +328,7 @@ extension CharacterDetailView {
         fetchSVG(svgURLString: characterInfo.characterBaseImageUrl) { image in
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
+                self.characterImageView.stopLoading()
                 self.characterImageView.image = image
             }
         }
