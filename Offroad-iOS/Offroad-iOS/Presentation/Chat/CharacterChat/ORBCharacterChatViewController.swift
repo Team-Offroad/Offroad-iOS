@@ -107,7 +107,7 @@ extension ORBCharacterChatViewController {
         rootView.characterChatBox.replyButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             self.rootView.userChatInputView.becomeFirstResponder()
-            self.changeCharacterChatBoxMode(to: .withoutReplyButton)
+            self.rootView.changeMode(to: .withoutReplyButton, animated: true)
         }.disposed(by: disposeBag)
         
         rootView.sendButton.rx.tap.bind { [weak self] in
@@ -186,28 +186,6 @@ extension ORBCharacterChatViewController {
         rootView.characterChatBox.addGestureRecognizer(panGesture)
     }
     
-    private func changeCharacterChatBoxMode(to mode: ChatBoxMode) {
-        self.rootView.characterChatBox.mode = mode
-        self.rootView.characterChatBox.replyButton.isHidden = mode == .withReplyButton ? false : true
-        characterChatBoxModeChangingAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-//            self.rootView.characterChatBox.replyButtonBottomConstraint.isActive = mode == .withReplyButton ? true : false
-            self.rootView.characterChatBox.messageLabelBottomConstraintToReplyButton.isActive = mode == .withReplyButton ? true : false
-            self.rootView.characterChatBox.messageLabelBottomConstraintToChatBox.isActive = mode == .withReplyButton ? false : true
-            self.rootView.characterChatBox.replyButtonBottomConstraint.isActive = mode == .withReplyButton ? true : false
-            self.rootView.characterChatBox.layoutIfNeeded()
-        }
-        characterChatBoxModeChangingAnimator.startAnimation()
-//        switch mode {
-//        case .withReplyButton:
-//            self.rootView.characterChatBox.replyButton.isHidden = false
-//            self.rootView.characterChatBox.replyButtonBottomConstraint.isActive = true
-//        case .withoutReplyButton:
-//            self.rootView.characterChatBox.replyButton.isHidden = true
-//            self.rootView.characterChatBox.replyButtonBottomConstraint.isActive = true
-//        }
-    }
-    
     //MARK: - Func
     
     func showCharacterChatBox() {
@@ -265,9 +243,10 @@ extension ORBCharacterChatViewController {
         userChatDisplayViewHeightAnimator.startAnimation()
     }
     
-    func configureCharacterChatBox(character name: String, message: String) {
+    func configureCharacterChatBox(character name: String, message: String, withReplyButton: Bool) {
         rootView.characterChatBox.characterNameLabel.text = name + " :"
         rootView.characterChatBox.messageLabel.text = message
+        rootView.changeMode(to: withReplyButton ? .withReplyButton : .withoutReplyButton, animated: false)
     }
     
 }

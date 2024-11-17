@@ -20,11 +20,7 @@ class ORBCharacterChatBox: UIView {
     let messageLabel = UILabel()
     let replyButton = UIButton()
     
-    lazy var messageLabelBottomConstraintToChatBox = messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18)
-    lazy var messageLabelBottomConstraintToReplyButton = messageLabel.bottomAnchor.constraint(
-        equalTo: replyButton.topAnchor,
-        constant: -10
-    )
+    lazy var replyButtonTopConstraint = replyButton.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 10)
     lazy var replyButtonBottomConstraint = replyButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18)
     
     init(mode: ChatBoxMode) {
@@ -34,6 +30,7 @@ class ORBCharacterChatBox: UIView {
         setupStyle()
         setupHierarchy()
         setupLayout()
+        setupAdditionalLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -46,7 +43,7 @@ extension ORBCharacterChatBox {
     
     //MARK: - Layout Func
     
-    func setupLayout() {
+    private func setupLayout() {
         characterNameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(18)
             make.leading.equalToSuperview().inset(24)
@@ -57,16 +54,17 @@ extension ORBCharacterChatBox {
             make.top.equalTo(characterNameLabel)
             make.leading.equalTo(characterNameLabel.snp.trailing).offset(4)
             make.trailing.equalToSuperview().inset(24)
+            make.bottom.lessThanOrEqualToSuperview().inset(18)
         }
         
         replyButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(20)
         }
-        
-        messageLabelBottomConstraintToReplyButton.isActive = mode == .withReplyButton ? true : false
-        messageLabelBottomConstraintToChatBox.isActive = mode == .withReplyButton ? false : true
+    }
+    
+    func setupAdditionalLayout() {
+        replyButtonTopConstraint.isActive = mode == .withReplyButton ? true : false
         replyButtonBottomConstraint.isActive = mode == .withReplyButton ? true : false
-        
     }
     
     //MARK: - Private Func
