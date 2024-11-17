@@ -18,7 +18,7 @@ class CharacterChatLogView: UIView {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 16
         layout.headerReferenceSize = .init(width: UIScreen.currentScreenSize.width, height: 25)
-        layout.sectionInset = .init(top: 16, left: 0, bottom: 16, right: 0)
+        layout.sectionInset = .init(top: 22, left: 0, bottom: 22, right: 0)
         return layout
     }
     
