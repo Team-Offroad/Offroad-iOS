@@ -75,25 +75,31 @@ extension UIView {
             if subView is LoadingView { return }
         }
         
-        let loadingView = LoadingView()
-        loadingView.shadeView.isHidden = withoutShading
-        loadingView.isHidden = true
-        addSubview(loadingView)
-        loadingView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        UIView.animate(withDuration: 0.2) {
-            loadingView.isHidden = false
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            let loadingView = LoadingView()
+            loadingView.shadeView.isHidden = withoutShading
+            loadingView.isHidden = true
+            self.addSubview(loadingView)
+            loadingView.snp.makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
+            UIView.animate(withDuration: 0.2) {
+                loadingView.isHidden = false
+            }
         }
     }
     
     func stopLoading() {
-        for subview in subviews {
-            guard let loadingView = subview as? LoadingView else { continue }
-            UIView.animate(withDuration: 0.2, animations: {
-                loadingView.isHidden = true
-            }) { isFinished in
-                loadingView.removeFromSuperview()
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            for subview in self.subviews {
+                guard let loadingView = subview as? LoadingView else { continue }
+                UIView.animate(withDuration: 0.2, animations: {
+                    loadingView.isHidden = true
+                }) { isFinished in
+                    loadingView.removeFromSuperview()
+                }
             }
         }
     }
