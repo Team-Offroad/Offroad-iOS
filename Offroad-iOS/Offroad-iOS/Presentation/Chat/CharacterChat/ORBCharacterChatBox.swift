@@ -7,6 +7,8 @@
 
 import UIKit
 
+import Lottie
+
 enum ChatBoxMode {
     // 답장하기 버튼이 있고, 접혀 있을 때 - 캐릭터 선톡 왔을 때
     case withReplyButtonShrinked
@@ -24,6 +26,7 @@ class ORBCharacterChatBox: UIView {
     
     let characterNameLabel = UILabel()
     let messageLabel = UILabel()
+    let loadingAnimationView = LottieAnimationView(name: "loading2")
     let chevronImageButton = UIButton()
     let replyButton = UIButton()
     
@@ -69,8 +72,14 @@ extension ORBCharacterChatBox {
         messageLabel.snp.makeConstraints { make in
             make.top.equalTo(characterNameLabel)
             make.leading.equalTo(characterNameLabel.snp.trailing).offset(4)
-//            make.trailing.equalToSuperview().inset(24)
             make.bottom.lessThanOrEqualToSuperview().inset(18)
+        }
+        
+        loadingAnimationView.snp.makeConstraints { make in
+            make.centerY.equalTo(characterNameLabel)
+            make.leading.equalTo(characterNameLabel.snp.trailing).offset(-10)
+            make.width.equalTo(80)
+            make.height.equalTo(40)
         }
         
         chevronImageButton.snp.makeConstraints { make in
@@ -139,6 +148,13 @@ extension ORBCharacterChatBox {
             }
         }
         
+        loadingAnimationView.do { animationView in
+            animationView.loopMode = .loop
+            animationView.contentMode = .scaleAspectFit
+            animationView.play()
+            animationView.isHidden = true
+        }
+        
         chevronImageButton.do { button in
             button.setImage(.icnChatViewChevronDown, for: .normal)
         }
@@ -157,7 +173,7 @@ extension ORBCharacterChatBox {
     }
     
     private func setupHierarchy() {
-        addSubviews(characterNameLabel, messageLabel, chevronImageButton, replyButton)
+        addSubviews(characterNameLabel, messageLabel, loadingAnimationView, chevronImageButton, replyButton)
     }
     
 }
