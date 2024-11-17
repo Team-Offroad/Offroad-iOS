@@ -70,13 +70,12 @@ extension UIView {
     
     
     func startLoading(withoutShading: Bool = false) {
-        // 이미 로딩중인 경우, 추가 로딩 뷰 띄우는 것 방지
-        for subView in subviews {
-            if subView is LoadingView { return }
-        }
-        
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
+        // 이미 로딩중인 경우, 추가 로딩 뷰 띄우는 것 방지
+            for subView in subviews {
+                if subView is LoadingView { return }
+            }
             let loadingView = LoadingView()
             loadingView.shadeView.isHidden = withoutShading
             loadingView.isHidden = true

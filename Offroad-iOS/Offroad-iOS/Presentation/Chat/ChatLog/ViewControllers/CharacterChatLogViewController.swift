@@ -152,7 +152,10 @@ extension CharacterChatLogViewController {
     }
     
     private func requestChatLogDataSource() {
-        tabBarController?.view.startLoading()
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.tabBarController?.view.startLoading()
+        }
         NetworkService.shared.characterChatService.getChatLog(completion: { [weak self] result in
             guard let self else { return }
             self.tabBarController?.view.stopLoading()
