@@ -15,8 +15,6 @@ final class ORBCharacterChatView: UIView {
     
     //MARK: - Properties
     
-    let chatBoxModeChangingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
-    
     lazy var characterChatBoxTopConstraint = characterChatBox.topAnchor.constraint(equalTo: topAnchor, constant: 74)
     lazy var characterChatBoxBottomConstraint = characterChatBox.bottomAnchor.constraint(equalTo: topAnchor)
     lazy var userChatViewBottomConstraint = userChatView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 160)
@@ -185,31 +183,6 @@ extension ORBCharacterChatView {
     
     //MARK: - Func
     
-    func changeMode(to mode: ChatBoxMode, animated: Bool) {
-        characterChatBox.mode = mode
-        if animated {
-            chatBoxModeChangingAnimator.addAnimations { [weak self] in
-                guard let self else { return }
-                self.characterChatBox.setupAdditionalLayout()
-                characterChatBox.replyButton.isHidden = mode == .withReplyButton ? false : true
-//                switch mode {
-//                case .withReplyButton:
-////                    self.characterChatBox.replyButtonTopConstraint.isActive = true
-////                    self.characterChatBox.replyButtonBottomConstraint.isActive = true
-//                    self.characterChatBox.replyButton.isHidden = false
-//                case .withoutReplyButton:
-////                    self.characterChatBox.replyButtonTopConstraint.isActive = false
-////                    self.characterChatBox.replyButtonBottomConstraint.isActive = false
-//                    self.characterChatBox.replyButton.isHidden = true
-//                }
-                layoutIfNeeded()
-            }
-            chatBoxModeChangingAnimator.startAnimation()
-        } else {
-            characterChatBox.setupAdditionalLayout()
-            characterChatBox.replyButton.isHidden = mode == .withReplyButton ? false : true
-            layoutIfNeeded()
-        }
-    }
+    
     
 }

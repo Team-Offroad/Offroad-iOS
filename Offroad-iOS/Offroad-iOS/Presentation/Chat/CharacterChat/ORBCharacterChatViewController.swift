@@ -21,10 +21,10 @@ class ORBCharacterChatViewController: UIViewController {
     let userChatDisplayViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
     
     let characterChatBoxPositionAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
+    let characterChatBoxModeChangingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     let userChatViewAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     let userChatDisplayViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    let characterChatBoxModeChangingAnimator = UIViewPropertyAnimator(duration: 1, dampingRatio: 1)
     
     lazy var panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureHandler))
     
@@ -107,7 +107,7 @@ extension ORBCharacterChatViewController {
         rootView.characterChatBox.replyButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             self.rootView.userChatInputView.becomeFirstResponder()
-            self.rootView.changeMode(to: .withoutReplyButton, animated: true)
+            self.changeMode(to: .withoutReplyButton, animated: true)
         }.disposed(by: disposeBag)
         
         rootView.sendButton.rx.tap.bind { [weak self] in
@@ -194,8 +194,8 @@ extension ORBCharacterChatViewController {
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.characterChatBox.transform = CGAffineTransform.identity
-            self.rootView.characterChatBoxTopConstraint.isActive = true
             self.rootView.characterChatBoxBottomConstraint.isActive = false
+            self.rootView.characterChatBoxTopConstraint.isActive = true
             self.rootView.layoutIfNeeded()
         }
         characterChatBoxPositionAnimator.startAnimation()
@@ -246,7 +246,24 @@ extension ORBCharacterChatViewController {
     func configureCharacterChatBox(character name: String, message: String, withReplyButton: Bool) {
         rootView.characterChatBox.characterNameLabel.text = name + " :"
         rootView.characterChatBox.messageLabel.text = message
-        rootView.changeMode(to: withReplyButton ? .withReplyButton : .withoutReplyButton, animated: false)
+        changeMode(to: withReplyButton ? .withReplyButton : .withoutReplyButton, animated: false)
+    }
+    
+    func changeMode(to mode: ChatBoxMode, animated: Bool) {
+        rootView.characterChatBox.mode = mode
+        if animated {
+            characterChatBoxModeChangingAnimator.addAnimations { [weak self] in
+                guard let self else { return }
+                self.rootView.characterChatBox.replyButton.isHidden = mode == .withReplyButton ? false : true
+                self.rootView.characterChatBox.setupAdditionalLayout()
+                self.rootView.layoutIfNeeded()
+            }
+            characterChatBoxModeChangingAnimator.startAnimation()
+        } else {
+            rootView.characterChatBox.replyButton.isHidden = mode == .withReplyButton ? false : true
+            rootView.characterChatBox.setupAdditionalLayout()
+            rootView.layoutIfNeeded()
+        }
     }
     
 }
