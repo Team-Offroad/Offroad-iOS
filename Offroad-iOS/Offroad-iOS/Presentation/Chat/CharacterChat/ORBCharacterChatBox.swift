@@ -112,14 +112,6 @@ extension ORBCharacterChatBox {
             replyButtonTopConstraint.isActive = false
             replyButtonBottomConstraint.isActive = false
         }
-//        
-//        
-//        //messageLabel의 trailingAnchor관련 setupLayout 함수 안에 있는거 없에고 여기서 chevronImageButton이랑 엮어서 처리
-//        messageLabelTrailingConstraintToSuperview.isActive = mode == .withReplyButton ? false : true
-//        messageLabelTrailingConstraintToChevronImageButton.isActive = mode == .withReplyButton ? true : false
-//        replyButtonTopConstraint.isActive = mode == .withReplyButton ? true : false
-//        replyButtonBottomConstraint.isActive = mode == .withReplyButton ? true : false
-//        messageLabel.numberOfLines = mode == .withReplyButton ? 1 : 0
     }
     
     //MARK: - Private Func
@@ -148,7 +140,7 @@ extension ORBCharacterChatBox {
         }
         
         chevronImageButton.do { button in
-            button.setImage(.icnPlaceListExpendableCellChevron, for: .normal)
+            button.setImage(.icnChatViewChevronDown, for: .normal)
         }
         
         replyButton.do { button in
