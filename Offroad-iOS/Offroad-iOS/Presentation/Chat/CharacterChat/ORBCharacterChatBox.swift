@@ -138,7 +138,6 @@ extension ORBCharacterChatBox {
         }
         
         messageLabel.do { label in
-            label.backgroundColor = .red
             label.font = .offroad(style: .iosText)
             label.textColor = .main(.main2)
             label.contentMode = .topLeft
