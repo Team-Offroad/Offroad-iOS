@@ -96,7 +96,6 @@ extension ORBToastWindow {
     }
     
     func showToast() {
-        makeKeyAndVisible()
         layoutIfNeeded()
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }

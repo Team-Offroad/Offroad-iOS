@@ -26,6 +26,7 @@ final class ORBToastManager {
         toastWindow = nil
         DispatchQueue.main.async {
             self.toastWindow = ORBToastWindow(message: message, inset: inset, withImage: image)
+            self.toastWindow?.isHidden = false
             self.toastWindow?.hideAnimator.addCompletion({ [weak self] _ in
                 guard let self else { return }
                 self.toastWindow = nil
