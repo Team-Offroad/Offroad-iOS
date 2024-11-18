@@ -141,40 +141,11 @@ extension ORBCharacterChatViewController {
         
         rootView.sendButton.rx.tap.bind { [weak self] in
             guard let self else { return }
-            print("메시지 전송: \(self.rootView.userChatInputView.text!)")
-            
-            //MARK: - TODO: - 캐릭터 채팅 보내는 기능 구현하기
-            let randomResponseList: [String] = [
-                "아직도 서버 API 완성이 안됐어...캐릭터 이미지도 아직 못 받았어...기한 내에 어떻게 완성하라는 거야?",
-                "개발 마감 당일까지 이미지도 못받고 서버 API도 완성 안된 상황이라 어쩔 수 없어..좀만 기다려줄래...?",
-                "나도 빨리 완성된 모습을 보고 싶다...언제쯤 완성이 될까??",
-                "이건 더미데이터야...",
-                "지금 대표캐릭터랑 이야기하는 거일껄?",
-                "서버에서 API 완성하는데 오래 걸리나봐. 일단은 그냥 이거 보여주고 있어.",
-                "좀만 기다려..."
-            ]
-            let randomResponseTimeList: [DispatchTime] = [
-                .now() + 0.5,
-                .now() + 1,
-                .now() + 1.5,
-                .now() + 2,
-                .now() + 2.5
-            ]
-//            rootView.characterChatBox.messageLabel.isHidden = true
-//            rootView.characterChatBox.loadingAnimationView.isHidden = false
-//            rootView.characterChatBox.loadingAnimationView.play()
-            
             self.postCharacterChat(message: self.rootView.userChatInputView.text)
-            
+            print("메시지 전송: \(self.rootView.userChatInputView.text!)")
             // 로티 뜨도록 구현
             self.configureCharacterChatBox(character: "노바", message: "", mode: .withoutReplyButtonShrinked, animated: true)
             self.showCharacterChatBox()
-            
-//            DispatchQueue.main.asyncAfter(deadline: randomResponseTimeList.randomElement()!) { [weak self] in
-//                guard let self else { return }
-//                self.configureCharacterChatBox(character: "노바", message: randomResponseList.randomElement()!, mode: .withoutReplyButtonExpanded, animated: true)
-//            }
-            
             self.rootView.userChatDisplayView.text = self.rootView.userChatInputView.text.trimmingCharacters(in: .whitespacesAndNewlines)
             self.rootView.userChatDisplayView.bounds.origin.y = -(self.rootView.userChatDisplayView.bounds.height)
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1) {
@@ -264,28 +235,36 @@ extension ORBCharacterChatViewController {
                 self.configureCharacterChatBox(character: "노바", message: characterChatResponse, mode: .withoutReplyButtonExpanded, animated: true)
             case .requestErr:
                 self.showToast(message: "requestError occurred", inset: 66)
-                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+                self.hideCharacterChatBox()
             case .unAuthentication:
                 self.showToast(message: "unAuthentication Error occurred", inset: 66)
-                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+                self.hideCharacterChatBox()
             case .unAuthorization:
                 self.showToast(message: "unAuthorized Error occurred", inset: 66)
-                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+                self.hideCharacterChatBox()
             case .apiArr:
                 self.showToast(message: "api Error occurred", inset: 66)
-                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+                self.hideCharacterChatBox()
             case .pathErr:
                 self.showToast(message: "path Error occurred", inset: 66)
-                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+                self.hideCharacterChatBox()
             case .registerErr:
                 self.showToast(message: "register Error occurred", inset: 66)
-                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+                self.hideCharacterChatBox()
             case .networkFail:
                 self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
-                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+                self.hideCharacterChatBox()
             case .decodeErr:
                 self.showToast(message: "decode Error occurred", inset: 66)
-                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+                self.hideCharacterChatBox()
             }
         }
     }
