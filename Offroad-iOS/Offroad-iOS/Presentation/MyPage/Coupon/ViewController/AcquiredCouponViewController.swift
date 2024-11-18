@@ -153,6 +153,8 @@ extension AcquiredCouponViewController{
     }
     
     private func getExtendedCouponList(isUsed: Bool, cursor: Int, size: Int) {
+            rootView.startScrollLoading()
+        
         rootView.segmentedControl.isUserInteractionEnabled = false
         rootView.pageViewController.view.isUserInteractionEnabled = false
         NetworkService.shared.couponService.getAcquiredCouponList(isUsed: isUsed, size: size, cursor: cursor) { [weak self] result in
@@ -169,8 +171,10 @@ extension AcquiredCouponViewController{
                 
                 if isUsed {
                     self.usedCouponList?.append(contentsOf: response.data.coupons)
+                    rootView.stopScrollLoading()
                 } else {
                     self.availableCouponList?.append(contentsOf: response.data.coupons)
+                    rootView.stopScrollLoading()
                 }
                 
                 lastCursorID = response.data.coupons.last?.cursorId ?? Int()

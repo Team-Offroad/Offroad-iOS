@@ -108,7 +108,7 @@ extension UIView {
         addSubview(someView)
         someView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(18)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
             make.height.equalTo(56)
         }
         
