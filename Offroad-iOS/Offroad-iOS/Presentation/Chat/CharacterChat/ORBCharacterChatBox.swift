@@ -132,6 +132,12 @@ extension ORBCharacterChatBox {
         layer.borderColor = UIColor.neutral(.btnInactive).cgColor
         layer.borderWidth = 1
         
+        layer.shadowColor = UIColor.primary(.black).cgColor
+        layer.shadowOffset = .zero
+        layer.shadowOpacity = 0.2
+        layer.shadowRadius = 10
+        layer.masksToBounds = false
+        
         characterNameLabel.do { label in
             label.font = .offroad(style: .iosTextBold)
             label.textColor = .sub(.sub4)
