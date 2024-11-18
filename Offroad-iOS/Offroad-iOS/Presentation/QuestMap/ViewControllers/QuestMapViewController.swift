@@ -207,7 +207,7 @@ extension QuestMapViewController {
                 self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
             }
             self.tabBarController?.view.stopLoading()
-            self.popupAdventureResult(isSuccess: success, image: image)
+            self.popupAdventureResult(isSuccess: success, image: image, completeQuests: completeQuests)
         }).disposed(by: disposeBag)
         
         rootView.reloadPlaceButton.rx.tap.bind { [weak self] _ in
@@ -278,7 +278,7 @@ extension QuestMapViewController {
         return true
     }
     
-    private func popupAdventureResult(isSuccess: Bool, image: UIImage?) {
+    private func popupAdventureResult(isSuccess: Bool, image: UIImage?, completeQuests: [CompleteQuest]?) {
         let title: String = isSuccess ? "탐험 성공" : "탐험 실패"
         let message: String = isSuccess ? "탐험에 성공했어요!\n이곳에 무엇이 있는지 천천히 살펴볼까요?" : "탐험에 실패했어요.\n위치를 다시 한 번 확인해주세요."
         let buttonTitle: String = isSuccess ? "홈으로" : "확인"
@@ -289,6 +289,21 @@ extension QuestMapViewController {
         let okAction = ORBAlertAction(title: buttonTitle, style: .default) { [weak self] _ in
             guard let self else { return }
             if isSuccess { self.tabBarController?.selectedIndex = 0 }
+            
+            guard let completeQuests, isSuccess else { return }
+            let message: String
+            if completeQuests.count <= 0 {
+                return
+            } else if completeQuests.count == 1 {
+                message = "퀘스트 '\(completeQuests.first!.name)'을(를) 클리어했어요! 마이페이지에서 보상을 확인해보세요."
+            } else { //if completeQuests.count > 1
+                message = "퀘스트 '\(completeQuests.first!.name)' 외 \(completeQuests.count-1)개를 클리어했어요! 마이페이지에서 보상을 확인해보세요."
+            }
+            let questCompleteAlertController = ORBAlertController(title: "퀘스트 성공 !", message: message, type: .normal)
+            questCompleteAlertController.xButton.isHidden = true
+            let action = ORBAlertAction(title: "확인", style: .default) { _ in return }
+            questCompleteAlertController.addAction(action)
+            present(questCompleteAlertController, animated: true)
         }
         alertController.addAction(okAction)
         present(alertController, animated: true)
