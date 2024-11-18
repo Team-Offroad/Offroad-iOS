@@ -64,6 +64,7 @@ extension MyPageViewController {
     @objc private func myPageButtonTapped(_ sender: UIButton) {
         if sender == rootView.characterButton {
             let characterListViewController = CharacterListViewController()
+            characterListViewController.setupCustomBackButton(buttonTitle: "마이페이지")
             self.navigationController?.pushViewController(characterListViewController, animated: true)
         }
         if sender == rootView.couponButton {
