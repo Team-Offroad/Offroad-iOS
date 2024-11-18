@@ -15,22 +15,9 @@ final class CompleteChoosingCharacterView: UIView {
     
     //MARK: - Properties
     
-    private let mainLabel = UILabel().then {
-        $0.text = "프로필 생성을 축하드려요!\n지금 바로 모험을 떠나볼까요?"
-        $0.setLineSpacing(spacing: 4.0)
-        $0.textAlignment = .center
-        $0.numberOfLines = 2
-        $0.textColor = .main(.main1)
-        $0.font = UIFont.offroad(style: .iosTextTitle)
-    }
-    
-    private let backgroundView = UIView().then {
-        $0.backgroundColor = .primary(.wall)
-    }
-    
-    private let characterView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
-    }
+    private let mainLabel = UILabel()
+    private let backgroundView = UIImageView(image: UIImage(resource: .imgCompleteChoosingBackground))
+    private let characterView = UIImageView()
     
     let startButton = StateToggleButton(state: .isEnabled, title: "모험 시작하기")
     
@@ -63,7 +50,18 @@ extension CompleteChoosingCharacterView {
     }
     
     private func setupStyle() {
-        backgroundColor = .primary(.ground)
+        mainLabel.do {
+            $0.text = "프로필 생성을 축하드려요!\n지금 바로 모험을 떠나볼까요?"
+            $0.setLineSpacing(spacing: 4.0)
+            $0.textAlignment = .center
+            $0.numberOfLines = 2
+            $0.textColor = .main(.main1)
+            $0.font = UIFont.offroad(style: .iosTextTitle)
+        }
+        
+        characterView.do {
+            $0.contentMode = .scaleAspectFit
+        }
     }
     
     private func setupLayout() {
@@ -73,8 +71,7 @@ extension CompleteChoosingCharacterView {
         }
         
         backgroundView.snp.makeConstraints { make in
-            make.top.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview().inset(262)
+            make.edges.horizontalEdges.equalToSuperview()
         }
         
         characterView.snp.makeConstraints { make in

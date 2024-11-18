@@ -41,6 +41,7 @@ extension ORBCharacterChatViewController {
     //MARK: - @objc Func
     
     @objc private func keyboardWillShow(_ notification: Notification) {
+        guard rootView.userChatInputView.isFirstResponder else { return }
         rootView.layoutIfNeeded()
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRect = keyboardFrame.cgRectValue

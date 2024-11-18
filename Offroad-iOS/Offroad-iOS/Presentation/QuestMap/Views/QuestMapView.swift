@@ -161,7 +161,7 @@ extension QuestMapView {
         naverMapView.mapView.logoAlign = .leftTop
         naverMapView.showCompass = false
         naverMapView.mapView.positionMode = .compass
-        naverMapView.mapView.logoInteractionEnabled = false
+        naverMapView.mapView.logoInteractionEnabled = true
         
         compass.contentMode = .scaleAspectFit
         compass.mapView = naverMapView.mapView
