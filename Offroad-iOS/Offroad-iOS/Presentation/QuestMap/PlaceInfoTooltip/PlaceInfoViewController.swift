@@ -78,7 +78,7 @@ extension PlaceInfoViewController {
                 "서버에서 API 완성하는데 오래 걸리나봐. 일단은 그냥 이거 보여주고 있어.",
                 "좀만 기다려..."
             ]
-            ORBCharacterChatManager.shared.showCharacterChatBox(character: "노바", message: randomResponseList.randomElement()!, mode: .withReplyButtonShrinked)
+            ORBCharacterChatManager.shared.showCharacterChatBox(character: MyInfoManager.shared.representativeCharacterName ?? "", message: randomResponseList.randomElement()!, mode: .withReplyButtonShrinked)
             // --- 더미데이터 끝 ---
         }).disposed(by: disposeBag)
     }

@@ -89,7 +89,7 @@ extension ORBCharacterChatViewController {
     @objc private func tapGestureHandler(sender: UITapGestureRecognizer) {
         guard rootView.characterChatBox.mode == .withReplyButtonShrinked
                 || rootView.characterChatBox.mode == .withReplyButtonExpanded else { return }
-        ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController.onNext(rootView.characterChatBox.characterNameLabel.text!)
+        ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController.onNext(MyInfoManager.shared.representativeCharacterName ?? "")
     }
     
     //MARK: - Private Func
@@ -150,7 +150,7 @@ extension ORBCharacterChatViewController {
             self.postCharacterChat(message: self.rootView.userChatInputView.text)
             print("메시지 전송: \(self.rootView.userChatInputView.text!)")
             // 로티 뜨도록 구현
-            self.configureCharacterChatBox(character: "노바", message: "", mode: .withoutReplyButtonShrinked, animated: true)
+            self.configureCharacterChatBox(character: MyInfoManager.shared.representativeCharacterName ?? "", message: "", mode: .withoutReplyButtonShrinked, animated: true)
             self.showCharacterChatBox()
             self.rootView.userChatDisplayView.text = self.rootView.userChatInputView.text.trimmingCharacters(in: .whitespacesAndNewlines)
             self.rootView.userChatDisplayView.bounds.origin.y = -(self.rootView.userChatDisplayView.bounds.height)

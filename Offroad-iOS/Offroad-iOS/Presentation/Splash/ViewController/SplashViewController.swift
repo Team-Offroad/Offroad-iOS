@@ -21,6 +21,7 @@ final class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getRepresentativeCharacterName()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -76,4 +77,18 @@ extension SplashViewController {
             }
         }
     }
+    
+    private func getRepresentativeCharacterName() {
+        view.startLoading()
+        NetworkService.shared.adventureService.getAdventureInfo(category: "NONE") { [weak self] response in
+            guard let self else { return }
+            switch response {
+            case .success(let data):
+                MyInfoManager.shared.representativeCharacterName = data?.data.characterName
+            default:
+                showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+            }
+        }
+    }
+    
 }

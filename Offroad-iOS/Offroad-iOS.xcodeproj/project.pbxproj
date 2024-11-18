@@ -79,6 +79,7 @@
 		4E58FC022C7DFE87002A951B /* QuestListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FC012C7DFE87002A951B /* QuestListService.swift */; };
 		4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */; };
 		4E59A11C2C4228C500B548C6 /* AVCameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */; };
+		4E6659382CEB96E70024ABEE /* MyInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6659372CEB96E70024ABEE /* MyInfoManager.swift */; };
 		4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4E6A5BC22C2E8C290027FDF0 /* Then */; };
 		4E700C852CB3CA1E00C664C2 /* ORBOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
@@ -355,6 +356,7 @@
 		4E58FC012C7DFE87002A951B /* QuestListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListService.swift; sourceTree = "<group>"; };
 		4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListResponseDTO.swift; sourceTree = "<group>"; };
 		4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCameraPreview.swift; sourceTree = "<group>"; };
+		4E6659372CEB96E70024ABEE /* MyInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoManager.swift; sourceTree = "<group>"; };
 		4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBOverlayViewController.swift; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatWindow.swift; sourceTree = "<group>"; };
@@ -647,6 +649,7 @@
 		4E0394602C2AA0C1007F0517 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				4E6659362CEB96D60024ABEE /* MyInfoManager */,
 				4EFD00512CCBD5F7005C294D /* NetworkMonitoring */,
 				D018BB0C2C401F5F0048B6DF /* Components */,
 				4E0394612C2AA0C5007F0517 /* Extensions */,
@@ -1262,6 +1265,14 @@
 				4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */,
 			);
 			path = Response;
+			sourceTree = "<group>";
+		};
+		4E6659362CEB96D60024ABEE /* MyInfoManager */ = {
+			isa = PBXGroup;
+			children = (
+				4E6659372CEB96E70024ABEE /* MyInfoManager.swift */,
+			);
+			path = MyInfoManager;
 			sourceTree = "<group>";
 		};
 		4E700C802CB3C95E00C664C2 /* Alert */ = {
@@ -2669,6 +2680,7 @@
 				4EE049912CA14E6500754488 /* CouponCell.swift in Sources */,
 				4E23776E2CC81B2000716AFF /* NetworkMonitoringManager.swift in Sources */,
 				D0E796352C4536E8005B47A5 /* CharacterAPI.swift in Sources */,
+				4E6659382CEB96E70024ABEE /* MyInfoManager.swift in Sources */,
 				D0E796292C4533CE005B47A5 /* ProfileUpdateRequestDTO.swift in Sources */,
 				4E08B9592C5DF0B20082EFB8 /* PlaceListView.swift in Sources */,
 				D0E7962D2C4535A5005B47A5 /* NicknameAPI.swift in Sources */,
