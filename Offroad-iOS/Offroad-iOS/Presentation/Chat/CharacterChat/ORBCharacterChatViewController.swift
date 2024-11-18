@@ -109,6 +109,19 @@ extension ORBCharacterChatViewController {
         )
     }
     
+    private func calculateLabelSize(text: String, font: UIFont, maxSize: CGSize) -> CGSize {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = font
+        label.text = text
+        
+        // 너비를 제한한 크기 계산
+        let fittingSize = label.sizeThatFits(CGSize(width: maxSize.width, height: maxSize.height))
+
+        // 결과 출력
+        return fittingSize
+    }
+    
     private func bindData() {
         rootView.characterChatBox.chevronImageButton.rx.tap.bind { [weak self] in
             guard let self else { return }
@@ -147,14 +160,16 @@ extension ORBCharacterChatViewController {
                 .now() + 2,
                 .now() + 2.5
             ]
-            self.configureCharacterChatBox(character: "노바", message: randomResponseList.randomElement()!, mode: .withoutReplyButtonShrinked, animated: true)
-            rootView.characterChatBox.messageLabel.isHidden = true
-            rootView.characterChatBox.loadingAnimationView.isHidden = false
-            rootView.characterChatBox.loadingAnimationView.play()
+//            rootView.characterChatBox.messageLabel.isHidden = true
+//            rootView.characterChatBox.loadingAnimationView.isHidden = false
+//            rootView.characterChatBox.loadingAnimationView.play()
+            self.configureCharacterChatBox(character: "노바", message: "", mode: .withoutReplyButtonShrinked, animated: true)
             self.showCharacterChatBox()
+            
             DispatchQueue.main.asyncAfter(deadline: randomResponseTimeList.randomElement()!) { [weak self] in
                 guard let self else { return }
-                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+                self.configureCharacterChatBox(character: "노바", message: randomResponseList.randomElement()!, mode: .withoutReplyButtonExpanded, animated: true)
+//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
             }
             
             self.rootView.userChatDisplayView.text = self.rootView.userChatInputView.text.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -299,6 +314,15 @@ extension ORBCharacterChatViewController {
         rootView.characterChatBox.characterNameLabel.text = name + " :"
         rootView.characterChatBox.messageLabel.text = message
         changeChatBoxMode(to: mode, animated: animated)
+        let labelFrameWidth = rootView.characterChatBox.messageLabel.frame.width
+        let labelFrameHeight = rootView.characterChatBox.messageLabel.frame.height
+        let calculatedLabelSize = calculateLabelSize(
+            text: message,
+            font: rootView.characterChatBox.messageLabel.font,
+            maxSize: .init(width: labelFrameWidth, height: CGFloat.greatestFiniteMagnitude)
+        )
+        rootView.characterChatBox.chevronImageButton.isHidden
+        = (calculatedLabelSize.height > labelFrameHeight) ? false : true
     }
     
     func changeChatBoxMode(to mode: ChatBoxMode, animated: Bool) {
