@@ -33,7 +33,7 @@ final class CharacterChatLogViewModel {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = font
-        label.text = text
+        label.text = text == "" ? " " : text
         
         // 너비를 제한한 크기 계산
         let fittingSize = label.sizeThatFits(CGSize(width: maxSize.width, height: maxSize.height))

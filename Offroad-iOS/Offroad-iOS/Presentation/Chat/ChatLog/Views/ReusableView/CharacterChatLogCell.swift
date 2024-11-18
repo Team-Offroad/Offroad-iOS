@@ -7,6 +7,8 @@
 
 import UIKit
 
+import Lottie
+
 class CharacterChatLogCell: UICollectionViewCell {
     
     enum CellType: String {
@@ -16,12 +18,22 @@ class CharacterChatLogCell: UICollectionViewCell {
     
     //MARK: - Properties
     
+    let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    
     private var role: CellType = .user
+    lazy var loadingAnimationViewTrailingConstraint = loadingAnimationView.trailingAnchor.constraint(
+        equalTo: chatBubbleView.trailingAnchor
+    )
+    lazy var messageLabelTrailingConstraint = messageLabel.trailingAnchor.constraint(
+        equalTo: chatBubbleView.trailingAnchor,
+        constant: -20
+    )
     
     //MARK: - UI Properties
     
     private let chatBubbleView = UIView()
     let messageLabel = UILabel()
+    private let loadingAnimationView = LottieAnimationView(name: "loading2")
     private let characternameLabel = UILabel()
     private let timeLabel = UILabel()
     
@@ -53,7 +65,18 @@ extension CharacterChatLogCell {
     
     private func setupLayout() {
         characternameLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
+        characternameLabel.snp.makeConstraints { make in
+            make.bottom.lessThanOrEqualToSuperview().offset(-14)
+        }
         timeLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
+        loadingAnimationView.setContentCompressionResistancePriority(.init(999), for: .horizontal)
+        loadingAnimationViewTrailingConstraint.isActive = false
+        loadingAnimationView.snp.makeConstraints { make in
+            make.centerY.equalTo(characternameLabel)
+            make.leading.equalTo(characternameLabel.snp.trailing).offset(-10)
+            make.width.equalTo(80)
+            make.height.equalTo(40)
+        }
     }
     
     //MARK: - Private Func
@@ -75,6 +98,12 @@ extension CharacterChatLogCell {
             label.textColor = .sub(.sub4)
         }
         
+        loadingAnimationView.do { animationView in
+            animationView.loopMode = .loop
+            animationView.contentMode = .scaleAspectFit
+            animationView.isHidden = true
+        }
+        
         timeLabel.do { label in
             label.font = .offroad(style: .iosTextContentsSmall)
             label.textColor = .primary(.white)
@@ -83,18 +112,20 @@ extension CharacterChatLogCell {
     
     private func setupHierarchy() {
         contentView.addSubviews(chatBubbleView, timeLabel)
-        chatBubbleView.addSubviews(characternameLabel, messageLabel)
+        chatBubbleView.addSubviews(characternameLabel, messageLabel, loadingAnimationView)
     }
     
     //MARK: - Func
     
     func configure(with model: ChatDataModel, characterName: String) {
         if model.role == "USER" {
+            role = .user
             characternameLabel.text = ""
             characternameLabel.isHidden = true
+            messageLabelTrailingConstraint.isActive = true
             messageLabel.snp.remakeConstraints { make in
                 make.top.bottom.equalToSuperview().inset(14)
-                make.trailing.equalToSuperview().inset(20)
+//                make.trailing.equalToSuperview().inset(20)
                 make.leading.equalToSuperview().inset(20)
             }
             chatBubbleView.snp.remakeConstraints { make in
@@ -108,6 +139,7 @@ extension CharacterChatLogCell {
             }
         // data.role = "ORB_CHARACTER"
         } else {
+            role = .character
             characternameLabel.text = "\(characterName) :"
             characternameLabel.isHidden = false
             characternameLabel.snp.remakeConstraints { make in
@@ -135,6 +167,38 @@ extension CharacterChatLogCell {
         
         updateConstraints()
         layoutIfNeeded()
+    }
+    
+    func startChatLoading() {
+        guard role == .character else { return }
+        animator.stopAnimation(true)
+        messageLabel.isHidden = true
+        loadingAnimationView.isHidden = false
+        loadingAnimationView.play()
+        animator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.messageLabelTrailingConstraint.isActive = false
+            self.loadingAnimationViewTrailingConstraint.isActive = true
+            self.contentView.layoutIfNeeded()
+        }
+        animator.startAnimation()
+    }
+    
+    func stopChatLoading(newMessage: String? = nil) {
+        guard role == .character else { return }
+        animator.stopAnimation(true)
+        messageLabel.isHidden = false
+        messageLabel.numberOfLines = 0
+        if let newMessage { messageLabel.text = newMessage }
+        loadingAnimationView.isHidden = true
+        loadingAnimationView.stop()
+        animator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.loadingAnimationViewTrailingConstraint.isActive = false
+            self.messageLabelTrailingConstraint.isActive = true
+            self.contentView.layoutIfNeeded()
+        }
+        animator.startAnimation()
     }
     
 }

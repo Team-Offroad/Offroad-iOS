@@ -18,6 +18,4 @@ final class MyInfoManager {
     
     private init() { }
     
-    
-    
 }
