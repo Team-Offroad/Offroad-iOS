@@ -47,7 +47,10 @@ extension MyPageViewController {
     }
     
     private func getUserInfo() {
-        NetworkService.shared.profileService.getUserInfo { response in
+        view.startLoading()
+        NetworkService.shared.profileService.getUserInfo { [weak self] response in
+            guard let self else { return }
+            self.view.stopLoading()
             switch response {
             case .success(let data):
                 if let userInfoModel = data?.data {
