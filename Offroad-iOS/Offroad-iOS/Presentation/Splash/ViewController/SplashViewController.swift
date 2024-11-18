@@ -79,7 +79,6 @@ extension SplashViewController {
     }
     
     private func getRepresentativeCharacterName() {
-        view.startLoading()
         NetworkService.shared.adventureService.getAdventureInfo(category: "NONE") { [weak self] response in
             guard let self else { return }
             switch response {
