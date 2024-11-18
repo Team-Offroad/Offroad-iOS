@@ -59,12 +59,6 @@ class CharacterChatLogView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        
-        endEditing(true)
-    }
-    
 }
 
 extension CharacterChatLogView {
