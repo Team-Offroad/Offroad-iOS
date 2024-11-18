@@ -169,6 +169,7 @@ extension QuestMapViewController {
         viewModel.networkFailureSubject
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
+                self.tabBarController?.view.stopLoading()
                 self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
             }).disposed(by: disposeBag)
         
