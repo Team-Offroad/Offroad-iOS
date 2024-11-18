@@ -107,7 +107,6 @@ extension CharacterChatLogViewController {
         UIView.animate(withDuration: 0.5) { [weak self] in
             guard let self else { return }
             rootView.userChatBoundsView.bounds.origin.y = -(rootView.safeAreaInsets.bottom + rootView.userChatView.frame.height)
-            rootView.chatLogCollectionViewBottomConstraint.constant = 0
             rootView.chatLogCollectionView.contentInsetAdjustmentBehavior = .automatic
             rootView.chatLogCollectionView.contentInset.bottom = 135
             rootView.layoutIfNeeded()
@@ -181,6 +180,12 @@ extension CharacterChatLogViewController {
     }
     
     private func bindData() {
+        ORBCharacterChatManager.shared.shouldMakeKeyboardBackgroundTransparent
+            .subscribe(onNext: { [weak self] isTransparent in
+                guard let self else { return }
+                self.rootView.keyboardBackgroundView.isHidden = isTransparent
+            }).disposed(by: disposeBag)
+        
         rootView.chatButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
             self.rootView.userChatInputView.becomeFirstResponder()
@@ -291,7 +296,6 @@ extension CharacterChatLogViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        chatLogDataList.count
         chatLogDataSource[section].count
     }
     
@@ -299,7 +303,6 @@ extension CharacterChatLogViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterChatLogCell.className, for: indexPath) as? CharacterChatLogCell else {
             return UICollectionViewCell()
         }
-//        cell.configure(with: chatLogDataList[indexPath.item], characterName: self.characterName)
         cell.configure(with: chatLogDataSource[indexPath.section][indexPath.item], characterName: self.characterName)
         return cell
     }
@@ -326,7 +329,7 @@ extension CharacterChatLogViewController: UICollectionViewDelegate {
         let scrollOffsetAtBottomEdge =
         max(scrollView.contentSize.height - (scrollView.bounds.height - rootView.safeAreaInsets.bottom - 135), 0)
         
-        if scrollView.contentOffset.y >= scrollOffsetAtBottomEdge {
+        if ceil(scrollView.contentOffset.y) >= scrollOffsetAtBottomEdge {
             showChatButton()
         } else {
             hideChatButton()
@@ -383,9 +386,5 @@ extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
         let messageLabelSize = viewModel.calculateLabelSize(text: chatLogDataSource[indexPath.section][indexPath.item].content, font: .offroad(style: .iosText), maxSize: .init(width: maxMessageLabelWidth, height: 400))
         return CGSize(width: UIScreen.currentScreenSize.width, height: messageLabelSize.height + (14*2))
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        .init(width: UIScreen.currentScreenSize.width, height: 50)
-//    }
     
 }

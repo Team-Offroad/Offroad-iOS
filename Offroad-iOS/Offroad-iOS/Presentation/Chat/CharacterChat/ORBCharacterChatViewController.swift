@@ -123,6 +123,12 @@ extension ORBCharacterChatViewController {
     }
     
     private func bindData() {
+        ORBCharacterChatManager.shared.shouldMakeKeyboardBackgroundTransparent
+            .subscribe(onNext: { [weak self] isTransparent in
+                guard let self else { return }
+                self.rootView.keyboardBackgroundView.isHidden = isTransparent
+            }).disposed(by: disposeBag)
+        
         rootView.characterChatBox.chevronImageButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             if self.rootView.characterChatBox.mode == .withReplyButtonShrinked {

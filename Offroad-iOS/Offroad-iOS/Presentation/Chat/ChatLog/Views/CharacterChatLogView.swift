@@ -22,7 +22,6 @@ class CharacterChatLogView: UIView {
         return layout
     }
     
-    lazy var chatLogCollectionViewBottomConstraint = chatLogCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
     lazy var chatButtonBottomConstraint = chatButton.bottomAnchor.constraint(equalTo: bottomAnchor)
     lazy var userChatInputViewHeightConstraint = userChatInputView.heightAnchor.constraint(equalToConstant: 40)
     lazy var userChatViewBottomConstraint = userChatView.bottomAnchor.constraint(equalTo: keyboardLayoutGuide.topAnchor)
@@ -44,6 +43,7 @@ class CharacterChatLogView: UIView {
     let userChatInputView = UITextView()
     let sendButton = UIButton()
     let loadingAnimationView = LottieAnimationView(name: "loading2")
+    let keyboardBackgroundView = UIView().then { $0.backgroundColor = .primary(.white) }
     
     //MARK: - Life Cycle
     
@@ -103,10 +103,9 @@ extension CharacterChatLogView {
             make.trailing.lessThanOrEqualToSuperview().inset(8)
         }
         
-        chatLogCollectionViewBottomConstraint.isActive = true
         chatLogCollectionView.snp.makeConstraints { make in
             make.top.equalTo(customNavigationBar.snp.bottom)
-            make.horizontalEdges.equalToSuperview()
+            make.horizontalEdges.bottom.equalToSuperview()
         }
         
         chatButtonBottomConstraint.isActive = true
@@ -137,6 +136,11 @@ extension CharacterChatLogView {
             make.trailing.equalToSuperview().inset(24)
             make.size.equalTo(40)
         }
+        
+        keyboardBackgroundView.snp.makeConstraints { make in
+            make.top.equalTo(userChatBoundsView.snp.bottom)
+            make.horizontalEdges.bottom.equalToSuperview()
+        }
     }
     
     //MARK: - Private Func
@@ -162,7 +166,7 @@ extension CharacterChatLogView {
                 withReuseIdentifier: CharacterChatLogHeader.className
             )
             collectionView.contentInsetAdjustmentBehavior = .automatic
-            collectionView.contentInset.bottom += 135
+            collectionView.contentInset.bottom = 135
             collectionView.showsVerticalScrollIndicator = false
             collectionView.keyboardDismissMode = .onDrag
         }
@@ -201,6 +205,8 @@ extension CharacterChatLogView {
         sendButton.do { button in
             button.setImage(.icnChatViewSendButton, for: .normal)
         }
+        
+        keyboardBackgroundView.isHidden = true
     }
     
     private func setupHierarchy() {
@@ -211,7 +217,8 @@ extension CharacterChatLogView {
             customNavigationBar,
             chatLogCollectionView,
             chatButton,
-            userChatBoundsView
+            userChatBoundsView,
+            keyboardBackgroundView
         )
         customNavigationBar.addSubviews(backButton, customNavigationTitleLabel)
         userChatBoundsView.addSubview(userChatView)

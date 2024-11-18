@@ -18,6 +18,7 @@ final class ORBCharacterChatManager {
     //MARK: - Properties
     
     let shouldPushCharacterChatLogViewController = PublishSubject<String>()
+    let shouldMakeKeyboardBackgroundTransparent = PublishSubject<Bool>()
     
     //MARK: - UI Properties
     
@@ -47,14 +48,6 @@ extension ORBCharacterChatManager {
     func startChat() {
         chatWindow.makeKeyAndVisible()
         self.chatViewController.rootView.userChatInputView.becomeFirstResponder()
-    }
-    
-    func showKeyoardBackgroundView() {
-        chatViewController.rootView.keyboardBackgroundView.isHidden = false
-    }
-    
-    func hideKeyboardBackgroundView() {
-        chatViewController.rootView.keyboardBackgroundView.isHidden = true
     }
     
 }
