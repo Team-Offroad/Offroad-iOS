@@ -92,7 +92,7 @@ final class AcquiredCouponViewController: UIViewController {
         
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
-
+        
         getInitialCouponList(isUsed: selectedState.state)
     }
 }
@@ -153,7 +153,7 @@ extension AcquiredCouponViewController{
     }
     
     private func getExtendedCouponList(isUsed: Bool, cursor: Int, size: Int) {
-            rootView.startScrollLoading()
+        rootView.startScrollLoading()
         
         rootView.segmentedControl.isUserInteractionEnabled = false
         rootView.pageViewController.view.isUserInteractionEnabled = false
@@ -259,7 +259,7 @@ extension AcquiredCouponViewController: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegate
 
 extension AcquiredCouponViewController: UICollectionViewDelegate {
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == rootView.collectionViewForAvailableCoupons {
             guard collectionView.cellForItem(at: indexPath) is CouponCell else { return }
@@ -277,7 +277,7 @@ extension AcquiredCouponViewController: UICollectionViewDelegate {
         
         if offsetY >= contentHeight - frameHeight {
             var dataCount = 0
-
+            
             if scrollView == rootView.collectionViewForAvailableCoupons {
                 dataCount = availableCouponList?.count ?? Int()
             } else if scrollView == rootView.collectionViewForUsedCoupons {
