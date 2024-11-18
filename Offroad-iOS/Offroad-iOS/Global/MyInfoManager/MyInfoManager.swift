@@ -9,10 +9,17 @@ import Foundation
 
 final class MyInfoManager {
     
-    var representativeCharacterName: String? = nil
     var representativeCharacterID: Int? = nil
     var completerQuestCount: Int? = nil
     var visitedPlacesCount: Int? = nil
+    
+    var characterInfo: [Int: String] = [:]
+    
+    var representativeCharacterName: String? {
+        guard let representativeCharacterID else { return nil }
+        return characterInfo[representativeCharacterID]
+    }
+    
     
     static let shared = MyInfoManager()
     

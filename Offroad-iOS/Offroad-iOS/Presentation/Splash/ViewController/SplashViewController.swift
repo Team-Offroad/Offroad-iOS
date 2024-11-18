@@ -21,7 +21,7 @@ final class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getRepresentativeCharacterName()
+        getCharacterListInfo()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -78,14 +78,38 @@ extension SplashViewController {
         }
     }
     
-    private func getRepresentativeCharacterName() {
-        NetworkService.shared.adventureService.getAdventureInfo(category: "NONE") { [weak self] response in
+//    private func getRepresentativeCharacterName() {
+//        NetworkService.shared.adventureService.getAdventureInfo(category: "NONE") { [weak self] response in
+//            guard let self else { return }
+//            switch response {
+//            case .success(let data):
+//                MyInfoManager.shared.representativeCharacterName = data?.data.characterName
+//            default:
+//                showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+//            }
+//        }
+//    }
+    
+    private func getCharacterListInfo() {
+        NetworkService.shared.characterService.getCharacterListInfo { [weak self] result in
             guard let self else { return }
-            switch response {
-            case .success(let data):
-                MyInfoManager.shared.representativeCharacterName = data?.data.characterName
-            default:
+            switch result {
+            case .success(let responseDTO):
+                guard let responseDTO else { return }
+                let gainedData = responseDTO.data.gainedCharacters.map({ CharacterListInfoData(info: $0, isGained: true) })
+                let notGainedData = responseDTO.data.notGainedCharacters.map({ CharacterListInfoData(info: $0, isGained: false) })
+                
+                
+                var characterListDataSource: [CharacterListInfoData] = []
+                characterListDataSource = gainedData + notGainedData
+                characterListDataSource.forEach { data in
+                    MyInfoManager.shared.characterInfo[data.characterId] = data.characterName
+                }
+                MyInfoManager.shared.representativeCharacterID = responseDTO.data.representativeCharacterId
+            case .networkFail:
                 showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+            default:
+                break
             }
         }
     }

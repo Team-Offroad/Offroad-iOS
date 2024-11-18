@@ -82,8 +82,6 @@ extension HomeViewController {
                 if self.categoryString != "NONE" && motionImageUrl != "" {
                     self.rootView.showMotionImage(motionImageUrl: motionImageUrl)
                 }
-                
-                MyInfoManager.shared.representativeCharacterName = data?.data.characterName
             default:
                 break
             }
