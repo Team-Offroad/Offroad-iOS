@@ -163,14 +163,17 @@ extension ORBCharacterChatViewController {
 //            rootView.characterChatBox.messageLabel.isHidden = true
 //            rootView.characterChatBox.loadingAnimationView.isHidden = false
 //            rootView.characterChatBox.loadingAnimationView.play()
+            
+            self.postCharacterChat(message: self.rootView.userChatInputView.text)
+            
+            // 로티 뜨도록 구현
             self.configureCharacterChatBox(character: "노바", message: "", mode: .withoutReplyButtonShrinked, animated: true)
             self.showCharacterChatBox()
             
-            DispatchQueue.main.asyncAfter(deadline: randomResponseTimeList.randomElement()!) { [weak self] in
-                guard let self else { return }
-                self.configureCharacterChatBox(character: "노바", message: randomResponseList.randomElement()!, mode: .withoutReplyButtonExpanded, animated: true)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
-            }
+//            DispatchQueue.main.asyncAfter(deadline: randomResponseTimeList.randomElement()!) { [weak self] in
+//                guard let self else { return }
+//                self.configureCharacterChatBox(character: "노바", message: randomResponseList.randomElement()!, mode: .withoutReplyButtonExpanded, animated: true)
+//            }
             
             self.rootView.userChatDisplayView.text = self.rootView.userChatInputView.text.trimmingCharacters(in: .whitespacesAndNewlines)
             self.rootView.userChatDisplayView.bounds.origin.y = -(self.rootView.userChatDisplayView.bounds.height)
@@ -244,6 +247,47 @@ extension ORBCharacterChatViewController {
     private func setupGestures() {
         rootView.characterChatBox.addGestureRecognizer(panGesture)
         rootView.characterChatBox.addGestureRecognizer(tapGesture)
+    }
+    
+    private func postCharacterChat(message: String) {
+        let dto = CharacterChatPostRequestDTO(content: message)
+        NetworkService.shared.characterChatService.postChat(body: dto) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let dto):
+                guard let dto else {
+                    self.showToast(message: "requestDTO is nil", inset: 66)
+                    self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+                    return
+                }
+                let characterChatResponse = dto.data.content
+                self.configureCharacterChatBox(character: "노바", message: characterChatResponse, mode: .withoutReplyButtonExpanded, animated: true)
+            case .requestErr:
+                self.showToast(message: "requestError occurred", inset: 66)
+                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+            case .unAuthentication:
+                self.showToast(message: "unAuthentication Error occurred", inset: 66)
+                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+            case .unAuthorization:
+                self.showToast(message: "unAuthorized Error occurred", inset: 66)
+                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+            case .apiArr:
+                self.showToast(message: "api Error occurred", inset: 66)
+                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+            case .pathErr:
+                self.showToast(message: "path Error occurred", inset: 66)
+                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+            case .registerErr:
+                self.showToast(message: "register Error occurred", inset: 66)
+                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+            case .networkFail:
+                self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+            case .decodeErr:
+                self.showToast(message: "decode Error occurred", inset: 66)
+                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+            }
+        }
     }
     
     //MARK: - Func
