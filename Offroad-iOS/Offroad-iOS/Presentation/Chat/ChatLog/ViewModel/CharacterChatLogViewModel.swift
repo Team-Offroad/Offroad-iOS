@@ -42,4 +42,11 @@ final class CharacterChatLogViewModel {
         return fittingSize
     }
     
+    func areDatesSameDay(_ date1: Date, _ date2: Date) -> Bool {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "Asia/Seoul")!
+        return calendar.isDate(date1, inSameDayAs: date2)
+    }
+    
+    
 }

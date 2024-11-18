@@ -92,6 +92,7 @@ extension CharacterChatLogViewController {
     @objc private func keyboardWillShow(notification: Notification) {
         guard rootView.userChatInputView.isFirstResponder else { return }
         rootView.userChatBoundsView.isUserInteractionEnabled = true
+        rootView.userChatView.isUserInteractionEnabled = true
         UIView.animate(withDuration: 0.5) { [weak self] in
             guard let self else { return }
             rootView.userChatBoundsView.bounds.origin.y = 0
@@ -104,6 +105,7 @@ extension CharacterChatLogViewController {
     
     @objc private func keyboardWillHide(notification: Notification) {
         rootView.userChatBoundsView.isUserInteractionEnabled = false
+        rootView.userChatView.isUserInteractionEnabled = false
         UIView.animate(withDuration: 0.5) { [weak self] in
             guard let self else { return }
             rootView.userChatBoundsView.bounds.origin.y = -(rootView.safeAreaInsets.bottom + rootView.userChatView.frame.height)
@@ -210,6 +212,66 @@ extension CharacterChatLogViewController {
                     self.rootView.sendButton.isEnabled = false
                 }
             }).disposed(by: disposeBag)
+        
+        rootView.sendButton.rx.tap.bind(
+            onNext: { [weak self] in
+                guard let self else { return }
+                
+                let indexPathToInsert: IndexPath
+                var collectionViewUpdateClosure: ( () -> Void )? = nil
+                
+                // 채팅 로그가 있는 경우
+                if let latestChatData = chatLogDataList.last {
+                    
+                    // 가장 마지막 채팅이 오늘인 경우 -> 기존 Section에 Item만 추가
+                    if viewModel.areDatesSameDay(latestChatData.createdDate!, Date()) {
+                        // 추가하는 IndexPath: 마지막 섹션에 추가하는 Item
+                        indexPathToInsert = IndexPath(
+                            item: self.chatLogDataSource.last!.count,
+                            section: self.chatLogDataSource.count-1
+                        )
+                        collectionViewUpdateClosure = { [weak self] in
+                            guard let self else { return }
+                            self.rootView.chatLogCollectionView.insertItems(at: [indexPathToInsert])
+                        }
+                        
+                    // 가장 마지막 채팅이 오늘이 아닌 경우 -> 새로운 Section 추가 및 추가된 Section에 Item 추가
+                    } else {
+                        // 추가하는 IndexPath: 새로 추가되는 Section의 첫 번째 Item
+                        indexPathToInsert = IndexPath(item: 0, section: self.chatLogDataSource.count)
+                        collectionViewUpdateClosure = { [weak self] in
+                            guard let self else { return }
+                            self.rootView.chatLogCollectionView.insertSections(.init(integer: self.chatLogDataSource.count-1))
+                            self.rootView.chatLogCollectionView.insertItems(at: [indexPathToInsert])
+                        }
+                    }
+                    
+                } else {
+                    
+                    // 채팅 로그가 없는 경우 -> 새로운 Section과 Item 추가(IndexPath는 (0, 0))
+                    indexPathToInsert = IndexPath(item: 0, section: 0)
+                    collectionViewUpdateClosure = { [weak self] in
+                        guard let self else { return }
+                        self.rootView.chatLogCollectionView.insertSections(.init(integer: 0))
+                        self.rootView.chatLogCollectionView.insertItems(at: [indexPathToInsert])
+                    }
+                }
+                
+                // performBatchUpdates 호출하기 전에 DataSource를 먼저 업데이트
+                self.chatLogDataList.append(
+                    ChatDataModel(role: "USER", content: self.rootView.userChatInputView.text, createdData: Date())
+                )
+                self.chatLogDataSource = self.viewModel.groupChatsByDate(chats: self.chatLogDataList)
+                
+                // DataSource 업데이트 후 performBatchUpdates 호출
+                self.rootView.chatLogCollectionView.performBatchUpdates(collectionViewUpdateClosure)
+                
+                // collection view가 업데이트될 때마다 가징 최신의 채팅(가장 아래의 채팅)이 보여지도록 구현
+                self.scrollToBottom(animated: true)
+                
+                self.rootView.userChatInputView.text = ""
+                
+        }).disposed(by: disposeBag)
         
         userChatInputViewTextInputViewHeightRelay.subscribe(
             onNext: { [weak self] textContentHeight in

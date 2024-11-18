@@ -37,6 +37,12 @@ struct ChatDataModel {
         return dateFormatter.string(from: createdDate)
     }
     
+    init(role: String, content: String, createdData: Date?) {
+        self.role = role
+        self.content = content
+        self.createdDate = createdData
+    }
+    
     init(data: ChatData) {
         let formatter = ISO8601DateFormatter()
         
