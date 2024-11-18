@@ -65,5 +65,6 @@ extension ScrollLoadingView {
     
     private func setupHierarchy() {
         addSubviews(backgroundView, loadingAnimationView)
+        bringSubviewToFront(loadingAnimationView)
     }
 }
