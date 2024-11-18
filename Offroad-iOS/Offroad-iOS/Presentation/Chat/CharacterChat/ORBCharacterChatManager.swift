@@ -8,6 +8,7 @@
 import UIKit
 
 import RxSwift
+import RxCocoa
 
 final class ORBCharacterChatManager {
     
@@ -18,7 +19,7 @@ final class ORBCharacterChatManager {
     //MARK: - Properties
     
     let shouldPushCharacterChatLogViewController = PublishSubject<String>()
-    let shouldMakeKeyboardBackgroundTransparent = PublishSubject<Bool>()
+    let shouldMakeKeyboardBackgroundTransparent = PublishRelay<Bool>()
     
     //MARK: - UI Properties
     

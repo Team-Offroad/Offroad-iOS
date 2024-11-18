@@ -183,6 +183,7 @@ extension CharacterChatLogViewController {
         ORBCharacterChatManager.shared.shouldMakeKeyboardBackgroundTransparent
             .subscribe(onNext: { [weak self] isTransparent in
                 guard let self else { return }
+                guard self.rootView.keyboardBackgroundView.frame.height > rootView.safeAreaInsets.bottom else { return }
                 self.rootView.keyboardBackgroundView.isHidden = isTransparent
             }).disposed(by: disposeBag)
         
@@ -190,7 +191,6 @@ extension CharacterChatLogViewController {
             guard let self else { return }
             self.rootView.userChatInputView.becomeFirstResponder()
         }).disposed(by: disposeBag)
-        
         
         rootView.userChatInputView.rx.text.orEmpty
             .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .default))
