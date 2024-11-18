@@ -216,20 +216,15 @@ extension CharacterChatLogViewController {
         rootView.sendButton.rx.tap.bind(
             onNext: { [weak self] in
                 guard let self else { return }
+                // 사용자 채팅 버블 추가
                 self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text) { [weak self] isFinished in
                     guard let self else { return }
+                    // 캐릭터 셀 추가
                     self.sendChatBubble(isUserChat: false, text: "")
-                    // 마지막 셀 로딩 시작
-                    let lastSection = self.chatLogDataSource.count - 1
-                    let lastSectionCount = self.chatLogDataSource[lastSection].count
-                    let lastIndexPath = IndexPath(
-                        item: lastSectionCount-1,
-                        section: lastSection
-                    )
-                    guard let lastCell = self.rootView.chatLogCollectionView.cellForItem(at: lastIndexPath) as? CharacterChatLogCell else { return }
-                    lastCell.startChatLoading()
+                    // 추가된 캐릭터 셀 로딩 시작
+                    makeLastCellLoading()
                 }
-                self.rootView.userChatInputView.text = ""
+                
                 
         }).disposed(by: disposeBag)
         
@@ -309,16 +304,6 @@ extension CharacterChatLogViewController {
     }
     
     private func sendChatBubble(isUserChat: Bool, text: String, completeion: ((Bool) -> Void)? = nil) {
-        
-        let lastSection = self.chatLogDataSource.count - 1
-        let lastSectionCount = self.chatLogDataSource[lastSection].count
-        let lastIndexPath = IndexPath(
-            item: lastSectionCount-1,
-            section: lastSection
-        )
-        guard let lastCell = self.rootView.chatLogCollectionView.cellForItem(at: lastIndexPath) as? CharacterChatLogCell else { return }
-        lastCell.stopChatLoading(newMessage: "안녕? 만나서 반가워! 내 이름은 김민성이라고 해!. 앞으로 잘 지내보자!!")
-        
         let currentDate = Date()
         let indexPathToInsert: IndexPath
         var collectionViewUpdateClosure: ( () -> Void )? = nil
@@ -335,6 +320,7 @@ extension CharacterChatLogViewController {
                 )
                 collectionViewUpdateClosure = { [weak self] in
                     guard let self else { return }
+                    self.rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
                     self.rootView.chatLogCollectionView.insertItems(at: [indexPathToInsert])
                 }
                 
@@ -344,6 +330,7 @@ extension CharacterChatLogViewController {
                 indexPathToInsert = IndexPath(item: 0, section: self.chatLogDataSource.count)
                 collectionViewUpdateClosure = { [weak self] in
                     guard let self else { return }
+                    self.rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
                     self.rootView.chatLogCollectionView.insertSections(.init(integer: self.chatLogDataSource.count-1))
                     self.rootView.chatLogCollectionView.insertItems(at: [indexPathToInsert])
                 }
@@ -372,6 +359,22 @@ extension CharacterChatLogViewController {
         // collection view가 업데이트될 때마다 가징 최신의 채팅(가장 아래의 채팅)이 보여지도록 구현
         self.scrollToBottom(animated: true)
     }
+    
+    private func makeLastCellLoading() {
+        let lastSection = chatLogDataSource.count - 1
+        let lastSectionCount = chatLogDataSource[lastSection].count
+        let lastIndexPath = IndexPath(
+            item: lastSectionCount-1,
+            section: lastSection
+        )
+        chatLogDataSource[lastIndexPath.section][lastIndexPath.item].isLoading = true
+        chatLogDataSource[lastIndexPath.section][lastIndexPath.item].content = " "
+        rootView.chatLogCollectionView.performBatchUpdates {
+            rootView.chatLogCollectionView.reloadItems(at: [lastIndexPath])
+            rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
+        }
+    }
+    
 }
 
 //MARK: - UICollectionViewDataSource

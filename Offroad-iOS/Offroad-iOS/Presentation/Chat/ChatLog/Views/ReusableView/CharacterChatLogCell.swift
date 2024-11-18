@@ -162,6 +162,22 @@ extension CharacterChatLogCell {
             }
         }
         
+        if model.isLoading {
+            messageLabel.isHidden = true
+            messageLabel.numberOfLines = 1
+            loadingAnimationView.isHidden = false
+            loadingAnimationView.play()
+            messageLabelTrailingConstraint.isActive = false
+            loadingAnimationViewTrailingConstraint.isActive = true
+        } else {
+            messageLabel.isHidden = false
+            messageLabel.numberOfLines = 0
+            loadingAnimationView.isHidden = true
+            loadingAnimationView.stop()
+            loadingAnimationViewTrailingConstraint.isActive = false
+            messageLabelTrailingConstraint.isActive = true
+        }
+        
         messageLabel.text = model.content
         timeLabel.text = model.formattedTimeString
         
@@ -169,36 +185,36 @@ extension CharacterChatLogCell {
         layoutIfNeeded()
     }
     
-    func startChatLoading() {
-        guard role == .character else { return }
-        animator.stopAnimation(true)
-        messageLabel.isHidden = true
-        loadingAnimationView.isHidden = false
-        loadingAnimationView.play()
-        animator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.messageLabelTrailingConstraint.isActive = false
-            self.loadingAnimationViewTrailingConstraint.isActive = true
-            self.contentView.layoutIfNeeded()
-        }
-        animator.startAnimation()
-    }
-    
-    func stopChatLoading(newMessage: String? = nil) {
-        guard role == .character else { return }
-        animator.stopAnimation(true)
-        messageLabel.isHidden = false
-        messageLabel.numberOfLines = 0
-        if let newMessage { messageLabel.text = newMessage }
-        loadingAnimationView.isHidden = true
-        loadingAnimationView.stop()
-        animator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.loadingAnimationViewTrailingConstraint.isActive = false
-            self.messageLabelTrailingConstraint.isActive = true
-            self.contentView.layoutIfNeeded()
-        }
-        animator.startAnimation()
-    }
+//    func startChatLoading() {
+//        guard role == .character else { return }
+//        animator.stopAnimation(true)
+//        messageLabel.isHidden = true
+//        loadingAnimationView.isHidden = false
+//        loadingAnimationView.play()
+//        animator.addAnimations { [weak self] in
+//            guard let self else { return }
+//            self.messageLabelTrailingConstraint.isActive = false
+//            self.loadingAnimationViewTrailingConstraint.isActive = true
+//            self.contentView.layoutIfNeeded()
+//        }
+//        animator.startAnimation()
+//    }
+//    
+//    func stopChatLoading(newMessage: String? = nil) {
+//        guard role == .character else { return }
+//        animator.stopAnimation(true)
+//        messageLabel.isHidden = false
+//        messageLabel.numberOfLines = 0
+//        if let newMessage { messageLabel.text = newMessage }
+//        loadingAnimationView.isHidden = true
+//        loadingAnimationView.stop()
+//        animator.addAnimations { [weak self] in
+//            guard let self else { return }
+//            self.loadingAnimationViewTrailingConstraint.isActive = false
+//            self.messageLabelTrailingConstraint.isActive = true
+//            self.contentView.layoutIfNeeded()
+//        }
+//        animator.startAnimation()
+//    }
     
 }
