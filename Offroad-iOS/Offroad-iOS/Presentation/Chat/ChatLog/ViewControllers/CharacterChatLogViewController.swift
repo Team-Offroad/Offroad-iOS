@@ -216,6 +216,9 @@ extension CharacterChatLogViewController {
         rootView.sendButton.rx.tap.bind(
             onNext: { [weak self] in
                 guard let self else { return }
+                
+                self.postCharacterChat(message: self.rootView.userChatInputView.text)
+                
                 // 사용자 채팅 버블 추가
                 self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text) { [weak self] isFinished in
                     guard let self else { return }
@@ -224,7 +227,7 @@ extension CharacterChatLogViewController {
                     // 추가된 캐릭터 셀 로딩 시작
                     makeLastCellLoading()
                 }
-                
+                self.rootView.userChatInputView.text = ""
                 
         }).disposed(by: disposeBag)
         
@@ -373,6 +376,77 @@ extension CharacterChatLogViewController {
             rootView.chatLogCollectionView.reloadItems(at: [lastIndexPath])
             rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
         }
+    }
+    
+    private func postCharacterChat(message: String) {
+        let dto = CharacterChatPostRequestDTO(content: message)
+        NetworkService.shared.characterChatService.postChat(body: dto) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let dto):
+                guard let dto else {
+                    self.showToast(message: "requestDTO is nil", inset: 66)
+                    return
+                }
+                let characterChatResponse = dto.data.content
+                
+                self.updateChatLog()
+                
+            case .requestErr:
+                self.showToast(message: "requestError occurred", inset: 66)
+            case .unAuthentication:
+                self.showToast(message: "unAuthentication Error occurred", inset: 66)
+            case .unAuthorization:
+                self.showToast(message: "unAuthorized Error occurred", inset: 66)
+            case .apiArr:
+                self.showToast(message: "api Error occurred", inset: 66)
+            case .pathErr:
+                self.showToast(message: "path Error occurred", inset: 66)
+            case .registerErr:
+                self.showToast(message: "register Error occurred", inset: 66)
+            case .networkFail:
+                self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+            case .decodeErr:
+                self.showToast(message: "decode Error occurred", inset: 66)
+            }
+        }
+    }
+    
+    private func updateChatLog() {
+        NetworkService.shared.characterChatService.getChatLog(completion: { [weak self] result in
+            guard let self else { return }
+            self.tabBarController?.view.stopLoading()
+            switch result {
+            case .success(let responseDTO):
+                guard let responseDTO else {
+                    showToast(message: "responseDTO가 없습니다.", inset: 66)
+                    return
+                }
+                self.chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
+                self.chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList)
+                
+                
+                let lastSection = chatLogDataSource.count - 1
+                let lastSectionCount = chatLogDataSource[lastSection].count
+                let lastIndexPath = IndexPath(
+                    item: lastSectionCount-1,
+                    section: lastSection
+                )
+                
+                self.rootView.chatLogCollectionView.performBatchUpdates {
+                    self.rootView.chatLogCollectionView.reloadItems(at: [lastIndexPath])
+                    self.rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
+                }
+                self.scrollToBottom(animated: false)
+                showChatButton()
+            case .networkFail:
+                showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+            case .decodeErr:
+                showToast(message: "디코딩 에러.", inset: 66)
+            default:
+                self.showToast(message: "Something went wrong", inset: 60)
+            }
+        })
     }
     
 }

@@ -238,7 +238,7 @@ extension ORBCharacterChatViewController {
                     return
                 }
                 let characterChatResponse = dto.data.content
-                self.configureCharacterChatBox(character: "노바", message: characterChatResponse, mode: .withoutReplyButtonExpanded, animated: true)
+                self.configureCharacterChatBox(character: MyInfoManager.shared.representativeCharacterName ?? "", message: characterChatResponse, mode: .withoutReplyButtonExpanded, animated: true)
             case .requestErr:
                 self.showToast(message: "requestError occurred", inset: 66)
 //                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
