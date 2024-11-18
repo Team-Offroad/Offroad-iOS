@@ -86,6 +86,11 @@ final class CharacterListViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
     
+    // MARK: - Func
+    
+    func setupCustomBackButton(buttonTitle: String) {
+        rootView.customBackButton.configureButtonTitle(titleString: buttonTitle)
+    }
 }
 
 //MARK: - UICollectionViewDataSource

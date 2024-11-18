@@ -14,9 +14,7 @@ class CharacterListView: UIView {
 
     // MARK: - UI Properties
     
-    let customBackButton = NavigationPopButton().then {
-            $0.configureButtonTitle(titleString: "마이페이지")
-    }
+    let customBackButton = NavigationPopButton()
     
     var characterImage = UIImageView().then {
         $0.contentMode = .scaleAspectFit

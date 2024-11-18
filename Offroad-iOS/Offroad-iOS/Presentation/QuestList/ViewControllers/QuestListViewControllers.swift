@@ -8,7 +8,7 @@
 import UIKit
 
 class QuestListViewController: UIViewController {
-
+    
     //MARK: - Properties
     
     private var questListService = QuestListService()
@@ -31,17 +31,17 @@ class QuestListViewController: UIViewController {
     }
     
     private let operationQueue = OperationQueue()
-
+    
     //MARK: - UI Properties
-
+    
     private let rootView = QuestListView()
-
+    
     //MARK: - Life Cycle
-
+    
     override func loadView() {
         view = rootView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,14 +50,14 @@ class QuestListViewController: UIViewController {
         setupDelegates()
         getInitialQuestList(isActive: isActive)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
     }
-
+    
 }
 
 extension QuestListViewController {
@@ -80,7 +80,7 @@ extension QuestListViewController {
         getInitialQuestList(isActive: isActive)
         rootView.questListCollectionView.reloadData()
     }
-
+    
     //MARK: - Private Func
     
     private func setupControlsTarget() {
@@ -95,7 +95,7 @@ extension QuestListViewController {
             forCellWithReuseIdentifier: QuestListCollectionViewCell.className
         )
     }
-
+    
     private func setupDelegates() {
         rootView.questListCollectionView.dataSource = self
         rootView.questListCollectionView.delegate = self
@@ -124,28 +124,44 @@ extension QuestListViewController {
     }
     
     private func getExtendedQuestList(isActive: Bool, cursor: Int, size: Int) {
+        rootView.startScrollLoading()
+        
         questListService.getQuestList(isActive: isActive, cursor: cursor, size: size) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let response):
                 guard let questListFromServer = response?.data.questList else { return }
-                if isActive {
-                    self.activeQuestList.append(contentsOf: questListFromServer)
-                } else {
-                    self.allQuestList.append(contentsOf: questListFromServer)
-                }
-                self.rootView.activityIndicatorView.stopAnimating()
-                self.rootView.questListCollectionView.refreshControl?.endRefreshing()
-                self.rootView.questListCollectionView.reloadData()
                 
-                lastCursorID = questListFromServer.last?.cursorId ?? Int()
+                let currentCount = isActive ? self.activeQuestList.count : self.allQuestList.count
+                let newItems = questListFromServer
+                
+                if isActive {
+                    self.activeQuestList.append(contentsOf: newItems)
+                } else {
+                    self.allQuestList.append(contentsOf: newItems)
+                }
+                
+                let newIndices = (currentCount..<(currentCount + newItems.count)).map { IndexPath(item: $0, section: 0) }
+                
+                DispatchQueue.main.async {
+                    self.rootView.questListCollectionView.performBatchUpdates({
+                        self.rootView.questListCollectionView.insertItems(at: newIndices)
+                    }, completion: { finished in
+                        print("===스크롤 로딩 완료===")
+                        self.rootView.stopScrollLoading()
+                    })
+                }
+                
+                self.lastCursorID = newItems.last?.cursorId ?? Int()
+                
             default:
-                return
+                self.rootView.stopScrollLoading()
             }
+            self.rootView.stopScrollLoading()
         }
     }
-
 }
+
 
 //MARK: - UICollectionViewDataSource
 
@@ -174,13 +190,13 @@ extension QuestListViewController: UICollectionViewDataSource {
         
         return cell
     }
-
+    
 }
 
 //MARK: - UICollectionViewDelegate
 
 extension QuestListViewController: UICollectionViewDelegate {
-
+    
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
         animator.addAnimations {
@@ -191,11 +207,11 @@ extension QuestListViewController: UICollectionViewDelegate {
             }
             collectionView.performBatchUpdates(nil)
         }
-
+        
         let animationOperation = BlockOperation {
             DispatchQueue.main.async { animator.startAnimation() }
         }
-
+        
         operationQueue.addOperation(animationOperation)
         return false
     }
@@ -209,9 +225,8 @@ extension QuestListViewController: UICollectionViewDelegate {
             if extendedListSize == lastCursorID {
                 extendedListSize += 12
                 getExtendedQuestList(isActive: isActive, cursor: lastCursorID, size: 12)
-                
-                //TODO: 로딩 케이스 추가
             }
+            //TODO: 로딩 케이스 추가
         }
     }
 }
