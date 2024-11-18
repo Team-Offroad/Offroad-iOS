@@ -39,12 +39,12 @@ extension ScrollLoadingView {
     
     private func setupLayout() {
         backgroundView.snp.makeConstraints { make in
-            make.height.equalTo(74)
-            make.horizontalEdges.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         
         loadingAnimationView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().inset(18)
             make.size.equalTo(38)
         }
     }
@@ -64,8 +64,6 @@ extension ScrollLoadingView {
     }
     
     private func setupHierarchy() {
-        addSubview(backgroundView)
-        backgroundView.addSubview(loadingAnimationView)
+        addSubviews(backgroundView, loadingAnimationView)
     }
-    
 }

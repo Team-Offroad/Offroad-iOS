@@ -86,23 +86,6 @@ extension UIView {
         }
     }
     
-    func startScrollLoading() {
-        // 이미 로딩중인 경우, 추가 로딩 뷰 띄우는 것 방지
-        for subView in subviews {
-            if subView is ScrollLoadingView { return }
-        }
-        
-        let someView = ScrollLoadingView()
-        someView.isHidden = true
-        addSubview(someView)
-        someView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        UIView.animate(withDuration: 0.2) {
-            someView.isHidden = false
-        }
-    }
-    
     func stopLoading() {
         for subview in subviews {
             guard let loadingView = subview as? LoadingView else { continue }
@@ -114,14 +97,39 @@ extension UIView {
         }
     }
     
+    func startScrollLoading() {
+        for subView in subviews {
+            if subView is ScrollLoadingView { return }
+        }
+        
+        let someView = ScrollLoadingView()
+        someView.isHidden = true
+        addSubview(someView)
+        someView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(18)
+            make.height.equalTo(56)
+        }
+        
+        UIView.animate(withDuration: 0.2) {
+            print("===스크롤 로딩 뷰 생김====")
+            someView.isHidden = false
+        }
+    }
+    
     func stopScrollLoading() {
         for subview in subviews {
             guard let loadingView = subview as? ScrollLoadingView else { continue }
             UIView.animate(withDuration: 0.2, animations: {
+                print("===스크롤 로딩 뷰 숨김====")
                 loadingView.isHidden = true
-            }) { isFinished in
                 loadingView.removeFromSuperview()
-            }
+            }, completion: { isFinished in
+                if isFinished {
+                    print("===스크롤 로딩 뷰 지움===")
+                    loadingView.removeFromSuperview()
+                }
+            })
         }
     }
 }
