@@ -67,6 +67,19 @@ extension PlaceInfoViewController {
         rootView.tooltip.closeButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
             self.shouldHideTooltip.onNext(())
+            
+            // --- 더미데이터 시작 ---
+            let randomResponseList: [String] = [
+                "아직도 서버 API 완성이 안됐어...캐릭터 이미지도 아직 못 받았어...기한 내에 어떻게 완성하라는 거야?",
+                "개발 마감 당일까지 이미지도 못받고 서버 API도 완성 안된 상황이라 어쩔 수 없어..좀만 기다려줄래...?",
+                "나도 빨리 완성된 모습을 보고 싶다...언제쯤 완성이 될까??",
+                "이건 더미데이터야...",
+                "지금 대표캐릭터랑 이야기하는 거일껄?",
+                "서버에서 API 완성하는데 오래 걸리나봐. 일단은 그냥 이거 보여주고 있어.",
+                "좀만 기다려..."
+            ]
+            ORBCharacterChatManager.shared.showCharacterChatBox(character: "노바", message: randomResponseList.randomElement()!, mode: .withReplyButtonShrinked)
+            // --- 더미데이터 끝 ---
         }).disposed(by: disposeBag)
     }
     

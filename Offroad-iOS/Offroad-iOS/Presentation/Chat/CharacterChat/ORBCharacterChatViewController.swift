@@ -147,7 +147,7 @@ extension ORBCharacterChatViewController {
                 .now() + 2,
                 .now() + 2.5
             ]
-            self.configureCharacterChatBox(character: "오푸", message: randomResponseList.randomElement()!, mode: .withoutReplyButtonShrinked, animated: true)
+            self.configureCharacterChatBox(character: "노바", message: randomResponseList.randomElement()!, mode: .withoutReplyButtonShrinked, animated: true)
             rootView.characterChatBox.messageLabel.isHidden = true
             rootView.characterChatBox.loadingAnimationView.isHidden = false
             rootView.characterChatBox.loadingAnimationView.play()
