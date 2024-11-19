@@ -105,7 +105,7 @@ extension CharacterDetailViewController {
             viewDidAppear.take(1)
         ).subscribe(onNext: { [weak self] _, _ in
             guard let self else { return }
-            self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+            self.showToast(message: ErrorMessages.networkError, inset: 66)
         }).disposed(by: disposeBag)
         
         rootView.customBackButton.rx.tap.bind(onNext: { [weak self] in
@@ -134,7 +134,7 @@ extension CharacterDetailViewController {
                     self.viewModel.getCharacterDetailInfo()
                     self.viewModel.characterMotionInfo()
                 } else {
-                    self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                    self.showToast(message: ErrorMessages.networkError, inset: 66)
                 }
             }).disposed(by: disposeBag)
     }

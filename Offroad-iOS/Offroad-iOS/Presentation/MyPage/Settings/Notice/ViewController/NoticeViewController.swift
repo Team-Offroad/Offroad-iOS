@@ -79,7 +79,7 @@ extension NoticeViewController {
         Observable.combineLatest(viewDidAppear.take(1), netWorkdDidFail)
             .subscribe { [weak self] _ in
                 guard let self else { return }
-                self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                self.showToast(message: ErrorMessages.networkError, inset: 66)
             }
             .disposed(by: disposeBag)
         

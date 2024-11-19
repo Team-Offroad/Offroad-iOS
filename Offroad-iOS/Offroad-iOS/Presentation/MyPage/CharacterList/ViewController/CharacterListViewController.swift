@@ -67,7 +67,7 @@ final class CharacterListViewController: UIViewController {
             viewModel.networkingFailure
         ).subscribe(onNext: { [weak self] _ in
             guard let self else { return }
-            self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+            self.showToast(message: ErrorMessages.networkError, inset: 66)
         }).disposed(by: disposeBag)
         
         NetworkMonitoringManager.shared.networkConnectionChanged
@@ -76,7 +76,7 @@ final class CharacterListViewController: UIViewController {
                 if isConnected {
                     self.viewModel.getCharacterListInfo()
                 } else {
-                    self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                    self.showToast(message: ErrorMessages.networkError, inset: 66)
                 }
             }).disposed(by: disposeBag)
         

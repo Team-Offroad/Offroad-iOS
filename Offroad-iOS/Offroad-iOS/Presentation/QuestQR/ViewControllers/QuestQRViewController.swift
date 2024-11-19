@@ -215,13 +215,13 @@ extension QuestQRViewController: AVCaptureMetadataOutputObjectsDelegate {
                         self.showAlert(title: "디코딩 실패한 듯", stringValue: "...")
                         return
                     }
-                    let notiTitle = data.isQRMatched ? "탐험 성공" : "탐험 실패"
+                    let notiTitle = data.isQRMatched ? AlertMessage.adventureSuccessTitle : AlertMessage.adventureFailureTitle
                     let imageURL = data.characterImageUrl
                     let alertController: ORBAlertController
                     if data.isQRMatched {
-                        alertController = ORBAlertController(title: "탐험 실패", message: "탐험에 실패했어요. \nQR코드를 다시 한 번 확인해 주세요.", type: .explorationResult)
+                        alertController = ORBAlertController(title: AlertMessage.adventureFailureTitle, message: AlertMessage.adventureFailureQRMessage, type: .explorationResult)
                     } else {
-                        alertController = ORBAlertController(title: "탐험 성공", message: "탐험에 성공했어요!\n이곳에 무엇이 있는지 천천히 살펴볼까요?", type: .explorationResult)
+                        alertController = ORBAlertController(title: AlertMessage.adventureSuccessTitle, message: AlertMessage.adventureSuccessMessage, type: .explorationResult)
                     }
                     let okAction = ORBAlertAction(title: "홈으로", style: .default, handler: { _ in return })
                     alertController.addAction(okAction)
@@ -230,7 +230,7 @@ extension QuestQRViewController: AVCaptureMetadataOutputObjectsDelegate {
                     }
                     self.tabBarController?.present(alertController, animated: false)
                 default:
-                    self.showAlert(title: "서버에서 응답이 안왔어여", stringValue: stringValue)
+                    self.showAlert(title: ErrorMessages.networkError, stringValue: stringValue)
                     return
                 }
             }
