@@ -26,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        UNUserNotificationCenter.current().delegate = self
+        application.registerForRemoteNotifications()
+        
         return true
     }
 
