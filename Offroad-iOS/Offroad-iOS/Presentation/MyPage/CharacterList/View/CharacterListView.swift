@@ -14,9 +14,7 @@ class CharacterListView: UIView {
 
     // MARK: - UI Properties
     
-    let customBackButton = NavigationPopButton().then {
-            $0.configureButtonTitle(titleString: "마이페이지")
-    }
+    let customBackButton = NavigationPopButton()
     
     var characterImage = UIImageView().then {
         $0.contentMode = .scaleAspectFit
@@ -52,6 +50,7 @@ class CharacterListView: UIView {
         $0.itemSize = CGSize(width: itemWidth, height: itemHeight)
         $0.minimumLineSpacing = padding
         $0.minimumInteritemSpacing = padding
+        $0.sectionInset = .init(top: 20, left: 24.5, bottom: 20, right: 24.5)
     }
 
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
@@ -130,9 +129,9 @@ class CharacterListView: UIView {
         }
 
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(labelView.snp.bottom).offset(20)
-            make.horizontalEdges.equalToSuperview().inset(24.5)
-            make.bottom.equalToSuperview().inset(20)
+            make.top.equalTo(labelView.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
     }
 }

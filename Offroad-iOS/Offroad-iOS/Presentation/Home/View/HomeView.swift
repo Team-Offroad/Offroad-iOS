@@ -15,27 +15,21 @@ import Lottie
 
 final class HomeView: UIView {
     
-    //MARK: - Properties
-    
-    typealias ChangeTitleButtonAction = () -> Void
-    
-    private var changeTitleButtonAction: ChangeTitleButtonAction?
-    
     //MARK: - UI Properties
     
     private let nicknameLabel = UILabel()
     private let characterNameView = UIView()
     private let characterNameLabel = UILabel()
-    private let offroadStampImageView = UIImageView(image: UIImage(resource: .imgOffroadStamp))
+    private let backgroundImageView = UIImageView(image: UIImage(resource: .imgHomeBackground))
     let chatButton = UIButton()
-    private let shareButton = UIButton()
-    private let changeCharacterButton = UIButton()
+    let shareButton = UIButton()
+    let changeCharacterButton = UIButton()
     private let buttonStackView = UIStackView()
     private let characterBaseImageView = UIImageView()
     private let characterMotionView = LottieAnimationView()
     private let titleView = UIView()
     private let titleLabel = UILabel()
-    private let changeTitleButton = UIButton()
+    let changeTitleButton = UIButton()
     private var recentQuestView = CustomQuestView()
     private var almostDoneQuestView = CustomQuestView()
     private let questStackView = UIStackView()
@@ -160,9 +154,9 @@ extension HomeView {
     
     private func setupHierarchy() {
         addSubviews(
+            backgroundImageView,
             nicknameLabel,
             characterNameView,
-            offroadStampImageView,
             buttonStackView,
             characterBaseImageView,
             characterMotionView,
@@ -183,6 +177,10 @@ extension HomeView {
     }
     
     private func setupLayout() {
+        backgroundImageView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+
         nicknameLabel.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(26)
             $0.leading.equalToSuperview().inset(24)
@@ -197,10 +195,6 @@ extension HomeView {
         characterNameLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(17)
-        }
-        
-        offroadStampImageView.snp.makeConstraints {
-            $0.top.trailing.equalTo(safeAreaLayoutGuide)
         }
         
         buttonStackView.snp.makeConstraints {
@@ -264,12 +258,6 @@ extension HomeView {
         }
     }
     
-    //MARK: - @Objc Method
-    
-    @objc private func changeTitleButtonTapped() {
-        changeTitleButtonAction?()
-    }
-    
     //MARK: - Func
     
     func changeMyTitleLabelText(text: String) {
@@ -309,12 +297,5 @@ extension HomeView {
         
         recentQuestProgressView.setProgressView(progressValue: recentProgressValue)
         almostDoneQuestProgressView.setProgressView(progressValue: almostProgressValue)
-    }
-    
-    //MARK: - targetView Method
-    
-    func setupChangeTitleButton(action: @escaping ChangeTitleButtonAction) {
-        changeTitleButtonAction = action
-        changeTitleButton.addTarget(self, action: #selector(changeTitleButtonTapped), for: .touchUpInside)
     }
 }

@@ -139,6 +139,11 @@ extension UIColor {
         return color
     }
     
+    static func setting(_ style: Setting) -> UIColor {
+        guard let color = UIColor(hexCode: style.rawValue) else { fatalError("UIColor init failed") }
+        return color
+    }
+    
     convenience init?(hexCode: String) {
         var hexFormatted: String = hexCode.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
         

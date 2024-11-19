@@ -45,6 +45,7 @@ final class CharacterDetailViewController: UIViewController {
         bindData()
         viewModel.characterMotionInfo()
         viewModel.getCharacterDetailInfo()
+        rootView.characterImageView.startLoading(withoutShading: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +55,8 @@ final class CharacterDetailViewController: UIViewController {
             rootView.selectButton.isEnabled = false
             rootView.crownBadgeImageView.isHidden = false
         }
+        guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
+        tabBarController.hideTabBarAnimation()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -87,6 +90,7 @@ extension CharacterDetailViewController {
             .subscribe(onNext: { [weak self] characterDetailInfo in
                 guard let self else { return }
                 self.rootView.configurerCharacterDetailView(using: characterDetailInfo)
+                self.rootView.chatLogButton.isEnabled = true
             }).disposed(by: disposeBag)
         
         viewModel.networkingSuccess
@@ -109,6 +113,12 @@ extension CharacterDetailViewController {
         }).disposed(by: disposeBag)
         
         rootView.selectButton.rx.tap.bind(to: viewModel.selectButtonTapped).disposed(by: disposeBag)
+        rootView.chatLogButton.rx.tap.bind(onNext: { [weak self] in
+            guard let self else { return }
+            guard let orbNavigationController = navigationController as? ORBNavigationController else { return }
+            orbNavigationController.pushChatLogViewController(characterName: rootView.nameLabel.text!)
+        }).disposed(by: disposeBag)
+        
         
         /// 네트워크 끊어진 상태에서 CharacterDetailView로 진입 후(현재 빈 화면인 상태)
         /// 네트워크 연결하면 아래 구독이 실행됨.

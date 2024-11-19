@@ -9,6 +9,7 @@ import UIKit
 
 import Firebase
 import FirebaseMessaging
+import Photos
 
 final class HomeViewController: OffroadTabBarViewController {
     
@@ -17,6 +18,12 @@ final class HomeViewController: OffroadTabBarViewController {
     private let rootView = HomeView()
     
     private var userEmblemString = ""
+    private var characterImage: UIImage?
+    private var characterImageURLString: String? {
+        didSet {
+            loadCharacterImage(imageURL: characterImageURLString ?? "")
+        }
+    }
     
     var categoryString = "NONE"
     
@@ -36,6 +43,10 @@ final class HomeViewController: OffroadTabBarViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+        offroadTabBarController.showTabBarAnimation()
+        
+        self.navigationController?.navigationBar.isHidden = true
         getUserAdventureInfo()
         getUserQuestInfo()
     }
@@ -49,12 +60,6 @@ final class HomeViewController: OffroadTabBarViewController {
 
 extension HomeViewController {
     
-    //MARK: - @objc Func
-    
-    @objc private func chatButtonTapped() {
-        ORBCharacterChatManager.shared.startChat()
-    }
-    
     // MARK: - Private Method
     
     private func setupDelegate() {
@@ -62,18 +67,10 @@ extension HomeViewController {
     }
     
     private func setupTarget() {
-        rootView.setupChangeTitleButton(action: changeTitleButtonTapped)
+        rootView.changeTitleButton.addTarget(self, action: #selector(changeTitleButtonTapped), for: .touchUpInside)
+        rootView.shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         rootView.chatButton.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
-    }
-    
-    private func changeTitleButtonTapped() {
-        print("changeTitleButtonTapped")
-        
-        let titlePopupViewController = TitlePopupViewController(emblemString: userEmblemString)
-        titlePopupViewController.modalPresentationStyle = .overCurrentContext
-        titlePopupViewController.delegate = self
-        
-        present(titlePopupViewController, animated: false)
+        rootView.changeCharacterButton.addTarget(self, action: #selector(changeCharacterButtonTapped), for: .touchUpInside)
     }
     
     private func getUserAdventureInfo() {
@@ -85,6 +82,8 @@ extension HomeViewController {
                 let motionImageUrl = data?.data.motionImageUrl ?? ""
                 let characterName = data?.data.characterName ?? ""
                 let emblemName = data?.data.emblemName ?? ""
+                
+                self.characterImageURLString = baseImageUrl
                 
                 self.userEmblemString = emblemName
                 
@@ -159,6 +158,39 @@ extension HomeViewController {
     func fetchCategoryString(category: String) {
         categoryString = category
     }
+    
+    //MARK: - @Objc Func
+    
+    @objc private func chatButtonTapped() {
+        ORBCharacterChatManager.shared.startChat()
+    }
+    
+    @objc private func shareButtonTapped() {
+        PHPhotoLibrary.requestAuthorization { status in
+            print(status)
+        }
+        
+        let imageProvider = ShareableImageProvider(image: characterImage ?? UIImage())
+        
+        let activityViewController = UIActivityViewController(activityItems: [imageProvider], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .mail]
+        
+        self.present(activityViewController, animated: true)
+    }
+    
+    @objc private func changeCharacterButtonTapped() {
+        let characterListViewController = CharacterListViewController()
+        characterListViewController.setupCustomBackButton(buttonTitle: "홈")
+        self.navigationController?.pushViewController(characterListViewController, animated: true)
+    }
+    
+    @objc private func changeTitleButtonTapped() {        
+        let titlePopupViewController = TitlePopupViewController(emblemString: userEmblemString)
+        titlePopupViewController.modalPresentationStyle = .overCurrentContext
+        titlePopupViewController.delegate = self
+        
+        present(titlePopupViewController, animated: false)
+    }
 }
 
 extension HomeViewController: MessagingDelegate {
@@ -179,9 +211,20 @@ extension HomeViewController: MessagingDelegate {
     }
 }
 
-extension HomeViewController: selectedTitleProtocol {
+extension HomeViewController: SelectedTitleProtocol {
     func fetchTitleString(titleString: String) {
         rootView.changeMyTitleLabelText(text: titleString)
         userEmblemString = titleString
+    }
+}
+
+extension HomeViewController: SVGFetchable {
+    func loadCharacterImage(imageURL: String) {
+        fetchSVG(svgURLString: characterImageURLString ?? "") { image in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                characterImage = image ?? UIImage()
+            }
+        }
     }
 }

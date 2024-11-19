@@ -130,9 +130,11 @@ extension CharacterListCell {
     //MARK: - Func
     
     func configure(with data: CharacterListInfoData, representativeCharacterId: Int) {
+        characterListCellImageView.startLoading(withoutShading: true)
         fetchSVG(svgURLString: data.characterThumbnailImageUrl) { image in
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
+                characterListCellImageView.stopLoading()
                 self.characterListCellImageView.image = image
             }
         }
