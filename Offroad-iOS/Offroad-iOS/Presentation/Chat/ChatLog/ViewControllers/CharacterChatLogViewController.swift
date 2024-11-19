@@ -58,6 +58,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.view.isUserInteractionEnabled = false
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         tabBarController.showTabBarAnimation()
         rootView.backgroundView.isHidden = false
@@ -67,6 +68,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        navigationController?.view.isUserInteractionEnabled = true
         rootView.backgroundView.isHidden = false
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         tabBarController.enableTabBarInteraction()
@@ -155,11 +157,11 @@ extension CharacterChatLogViewController {
     private func requestChatLogDataSource() {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            self.tabBarController?.view.startLoading()
+            self.view.startLoading()
         }
         NetworkService.shared.characterChatService.getChatLog(completion: { [weak self] result in
             guard let self else { return }
-            self.tabBarController?.view.stopLoading()
+            self.view.stopLoading()
             switch result {
             case .success(let responseDTO):
                 guard let responseDTO else {
