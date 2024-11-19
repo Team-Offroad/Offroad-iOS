@@ -86,6 +86,7 @@ extension CharacterDetailViewModel {
             switch response {
             case .success:
                 representativeCharacterId = characterId
+                MyInfoManager.shared.representativeCharacterID = characterId
                 representativeCharacterChanged.onNext(())
             case .networkFail:
                 self.networkingFailure.onNext(())

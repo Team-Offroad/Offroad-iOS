@@ -61,7 +61,10 @@ extension HomeViewController {
     }
     
     private func getUserAdventureInfo() {
-        NetworkService.shared.adventureService.getAdventureInfo(category: categoryString) { response in
+        view.startLoading()
+        NetworkService.shared.adventureService.getAdventureInfo(category: categoryString) { [weak self] response in
+            guard let self else { return }
+            self.view.stopLoading()
             switch response {
             case .success(let data):
                 let nickname = data?.data.nickname ?? ""

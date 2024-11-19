@@ -7,20 +7,34 @@
 
 import UIKit
 
+import RxSwift
+
 class ORBNavigationController: UINavigationController {
     
+    //MARK: - Properties
+    
+    var disposeBag = DisposeBag()
     var customPopTransition: UIPercentDrivenInteractiveTransition?
     lazy var screenEdgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+    
+    //MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupGestures()
         setupDelegates()
+        setupSubscription()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        guard viewControllers.last is CharacterChatLogViewController else { return }
+        popViewController(animated: false)
     }
     
 }
-
 
 extension ORBNavigationController {
     
@@ -61,9 +75,19 @@ extension ORBNavigationController {
         interactivePopGestureRecognizer?.delegate = self
     }
     
+    private func setupSubscription() {
+        ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController
+            .subscribe(onNext: { [weak self] characterName in
+                guard let self else { return }
+                self.pushChatLogViewController(characterName: characterName)
+            }).disposed(by: disposeBag)
+    }
+    
     //MARK: - Func
     
     func pushChatLogViewController(characterName: String) {
+        guard !(viewControllers.last is CharacterChatLogViewController) else { return }
+        guard view.window != nil else { return }
         guard let snapshot = topViewController?.view.snapshotView(afterScreenUpdates: true) else { return }
         let chatLogViewController = CharacterChatLogViewController(background: snapshot, characterName: characterName)
         pushViewController(chatLogViewController, animated: true)

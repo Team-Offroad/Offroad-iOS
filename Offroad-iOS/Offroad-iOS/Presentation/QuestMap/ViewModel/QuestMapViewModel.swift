@@ -99,7 +99,7 @@ extension QuestMapViewModel {
                         .then { $0.width = 26; $0.height = 32 }
                 }
                 
-                markersSubject.onNext(markers)
+                self.markersSubject.onNext(markers)
             case .networkFail:
                 self.networkFailureSubject.onNext(())
             default:

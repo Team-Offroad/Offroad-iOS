@@ -7,6 +7,9 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
+
 final class ORBCharacterChatManager {
     
     //MARK: - Static Properties
@@ -14,6 +17,11 @@ final class ORBCharacterChatManager {
     static let shared = ORBCharacterChatManager()
     
     //MARK: - Properties
+    
+    let shouldPushCharacterChatLogViewController = PublishSubject<String>()
+    let shouldMakeKeyboardBackgroundTransparent = PublishRelay<Bool>()
+    
+    //MARK: - UI Properties
     
     var chatWindow = ORBCharacterChatWindow(windowScene: UIWindowScene.current)
     var chatViewController: ORBCharacterChatViewController {
@@ -28,9 +36,9 @@ final class ORBCharacterChatManager {
     
 extension ORBCharacterChatManager {
     
-    func showCharacterChatBox(character name: String, message: String) {
+    func showCharacterChatBox(character name: String, message: String, mode: ChatBoxMode) {
         chatWindow.makeKeyAndVisible()
-        chatViewController.configureCharacterChatBox(character: name, message: message)
+        chatViewController.configureCharacterChatBox(character: name, message: message, mode: mode, animated: false)
         chatViewController.showCharacterChatBox()
     }
     
@@ -41,14 +49,6 @@ extension ORBCharacterChatManager {
     func startChat() {
         chatWindow.makeKeyAndVisible()
         self.chatViewController.rootView.userChatInputView.becomeFirstResponder()
-    }
-    
-    func showKeyoardBackgroundView() {
-        chatViewController.rootView.keyboardBackgroundView.isHidden = false
-    }
-    
-    func hideKeyboardBackgroundView() {
-        chatViewController.rootView.keyboardBackgroundView.isHidden = true
     }
     
 }

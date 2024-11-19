@@ -33,7 +33,7 @@ final class CharacterChatLogViewModel {
         let label = UILabel()
         label.numberOfLines = 0
         label.font = font
-        label.text = text
+        label.text = text == "" ? " " : text
         
         // 너비를 제한한 크기 계산
         let fittingSize = label.sizeThatFits(CGSize(width: maxSize.width, height: maxSize.height))
@@ -41,5 +41,12 @@ final class CharacterChatLogViewModel {
         // 결과 출력
         return fittingSize
     }
+    
+    func areDatesSameDay(_ date1: Date, _ date2: Date) -> Bool {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "Asia/Seoul")!
+        return calendar.isDate(date1, inSameDayAs: date2)
+    }
+    
     
 }

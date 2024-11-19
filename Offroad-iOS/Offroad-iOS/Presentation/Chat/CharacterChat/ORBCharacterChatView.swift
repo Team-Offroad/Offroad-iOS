@@ -15,20 +15,14 @@ final class ORBCharacterChatView: UIView {
     
     //MARK: - Properties
     
-    let characterChatBoxAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
-    let userChatViewAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
-    let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    let userChatDisplayViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    
-    lazy var characterChatBoxTopConstraint = characterChatBox.topAnchor.constraint(equalTo: topAnchor, constant: 74)
-    lazy var characterChatBoxBottomConstraint = characterChatBox.bottomAnchor.constraint(equalTo: topAnchor)
+    lazy var characterChatBoxTopConstraint = characterChatBox.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor)
     lazy var userChatViewBottomConstraint = userChatView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 160)
     lazy var userChatInputViewHeightConstraint = userChatInputView.heightAnchor.constraint(equalToConstant: 37)
     lazy var userChatDisplayViewHeightConstraint = userChatDisplayView.heightAnchor.constraint(equalToConstant: 24)
     
     //MARK: - UI Properties
     
-    let characterChatBox = ORBCharacterChatBox()
+    let characterChatBox = ORBCharacterChatBox(mode: .withReplyButtonShrinked)
     let userChatView = UIView()
     
     let meLabel = UILabel()
@@ -63,8 +57,8 @@ extension ORBCharacterChatView {
     //MARK: - Layout Func
     
     private func setupLayout() {
-        characterChatBoxTopConstraint.isActive = false
-        characterChatBoxBottomConstraint.isActive = true
+        characterChatBoxTopConstraint.constant = -(safeAreaInsets.top + 150)
+        characterChatBoxTopConstraint.isActive = true
         characterChatBox.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.greaterThanOrEqualTo(58)
@@ -185,5 +179,9 @@ extension ORBCharacterChatView {
         userChatView.addSubviews(meLabel, userChatDisplayView, loadingAnimationView, userChatInputView, sendButton)
         addSubviews(characterChatBox, userChatView, keyboardBackgroundView, endChatButton)
     }
+    
+    //MARK: - Func
+    
+    
     
 }
