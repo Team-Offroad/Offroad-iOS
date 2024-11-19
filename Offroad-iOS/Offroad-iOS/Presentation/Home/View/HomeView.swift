@@ -103,7 +103,12 @@ extension HomeView {
             $0.spacing = 9
         }
         
+        characterBaseImageView.do {
+            $0.contentMode = .scaleAspectFit
+        }
+        
         characterMotionView.do {
+            $0.contentMode = .scaleAspectFit
             $0.loopMode = .loop
         }
         
@@ -203,11 +208,13 @@ extension HomeView {
         }
         
         characterBaseImageView.snp.makeConstraints {
+            $0.top.greaterThanOrEqualTo(characterNameView.snp.bottom)
             $0.bottom.equalTo(titleView.snp.top).offset(-25)
             $0.centerX.equalToSuperview()
         }
         
         characterMotionView.snp.makeConstraints {
+            $0.top.greaterThanOrEqualTo(characterNameView.snp.bottom)
             $0.bottom.equalTo(titleView.snp.top).offset(-25)
             $0.centerX.equalToSuperview()
         }

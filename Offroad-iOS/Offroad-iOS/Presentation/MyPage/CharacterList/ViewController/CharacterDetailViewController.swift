@@ -82,6 +82,7 @@ extension CharacterDetailViewController {
                 guard let self else { return }
                 self.rootView.crownBadgeImageView.isHidden = false
                 self.rootView.selectButton.isEnabled = false
+                self.rootView.chatLogButton.isEnabled = self.viewModel.isCurrentCharacterRepresentative
                 self.delegate?.didSelectMainCharacter(characterId: self.viewModel.characterId)
                 self.showToast(message: "'\($0.characterName)'로 대표 캐릭터가 변경되었어요!", inset: 66, withImage: .btnChecked)
             }).disposed(by: disposeBag)
@@ -90,7 +91,7 @@ extension CharacterDetailViewController {
             .subscribe(onNext: { [weak self] characterDetailInfo in
                 guard let self else { return }
                 self.rootView.configurerCharacterDetailView(using: characterDetailInfo)
-                self.rootView.chatLogButton.isEnabled = true
+                self.rootView.chatLogButton.isEnabled = self.viewModel.isCurrentCharacterRepresentative
             }).disposed(by: disposeBag)
         
         viewModel.networkingSuccess
@@ -129,9 +130,12 @@ extension CharacterDetailViewController {
         NetworkMonitoringManager.shared.networkConnectionChanged
             .subscribe(onNext: { [weak self] isConnected in
                 guard let self else { return }
-                guard isConnected else { return }
-                self.viewModel.getCharacterDetailInfo()
-                self.viewModel.characterMotionInfo()
+                if isConnected {
+                    self.viewModel.getCharacterDetailInfo()
+                    self.viewModel.characterMotionInfo()
+                } else {
+                    self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                }
             }).disposed(by: disposeBag)
     }
     

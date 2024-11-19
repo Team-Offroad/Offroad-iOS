@@ -226,7 +226,8 @@ extension CharacterDetailView {
         
         chatLogButton.do { button in
             button.setTitle("채팅 로그", for: .normal)
-            button.configureBackgroundColorWhen(normal: .sub(.sub55), highlighted: .sub(.sub480))
+            button.setTitleColor(.grayscale(.gray100), for: .disabled)
+            button.configureBackgroundColorWhen(normal: .sub(.sub55), highlighted: .sub(.sub480), disabled: .sub(.sub55).withAlphaComponent(0.4))
             button.configureTitleFontWhen(normal: .offroad(style: .iosTextContents))
             button.layer.borderColor = UIColor.sub(.sub).cgColor
             button.layer.borderWidth = 1

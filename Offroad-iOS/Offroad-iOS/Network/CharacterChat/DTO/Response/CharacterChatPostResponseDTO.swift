@@ -22,6 +22,8 @@ struct ChatDataModel {
     var role: String
     var content: String
     var createdDate: Date?
+    var isLoading: Bool = false
+    
     var formattedTimeString: String {
         guard let createdDate else { return "" }
         let dateFormatter = DateFormatter()
@@ -35,6 +37,13 @@ struct ChatDataModel {
         dateFormatter.locale = Locale(identifier: "ko_KR")
         dateFormatter.dateFormat = "M월 d일 EEEE"
         return dateFormatter.string(from: createdDate)
+    }
+    
+    init(role: String, content: String, createdData: Date?, isLoading: Bool = false) {
+        self.role = role
+        self.content = content
+        self.createdDate = createdData
+        self.isLoading = isLoading
     }
     
     init(data: ChatData) {

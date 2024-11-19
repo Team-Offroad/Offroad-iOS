@@ -50,6 +50,10 @@ extension CharacterListViewModel {
                 self.representativeCharacterIdSubject.onNext(responseDTO.data.representativeCharacterId)
                 
                 self.characterListDataSource = gainedData + notGainedData
+                self.characterListDataSource.forEach { data in
+                    MyInfoManager.shared.characterInfo[data.characterId] = data.characterName
+                }
+                MyInfoManager.shared.representativeCharacterID = responseDTO.data.representativeCharacterId
                 self.characterListDataSourceSubject.onNext(self.characterListDataSource)
             case .networkFail:
                 networkingFailure.onNext(())

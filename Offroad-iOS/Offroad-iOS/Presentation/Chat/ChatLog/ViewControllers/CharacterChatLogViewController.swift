@@ -61,6 +61,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         tabBarController.showTabBarAnimation()
         rootView.backgroundView.isHidden = false
+        ORBCharacterChatManager.shared.hideCharacterChatBox()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -78,12 +79,6 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         rootView.endEditing(true)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        navigationController?.popViewController(animated: false)
-    }
-    
 }
 
 extension CharacterChatLogViewController {
@@ -97,6 +92,7 @@ extension CharacterChatLogViewController {
     @objc private func keyboardWillShow(notification: Notification) {
         guard rootView.userChatInputView.isFirstResponder else { return }
         rootView.userChatBoundsView.isUserInteractionEnabled = true
+        rootView.userChatView.isUserInteractionEnabled = true
         UIView.animate(withDuration: 0.5) { [weak self] in
             guard let self else { return }
             rootView.userChatBoundsView.bounds.origin.y = 0
@@ -109,10 +105,10 @@ extension CharacterChatLogViewController {
     
     @objc private func keyboardWillHide(notification: Notification) {
         rootView.userChatBoundsView.isUserInteractionEnabled = false
+        rootView.userChatView.isUserInteractionEnabled = false
         UIView.animate(withDuration: 0.5) { [weak self] in
             guard let self else { return }
             rootView.userChatBoundsView.bounds.origin.y = -(rootView.safeAreaInsets.bottom + rootView.userChatView.frame.height)
-            rootView.chatLogCollectionViewBottomConstraint.constant = 0
             rootView.chatLogCollectionView.contentInsetAdjustmentBehavior = .automatic
             rootView.chatLogCollectionView.contentInset.bottom = 135
             rootView.layoutIfNeeded()
@@ -157,16 +153,19 @@ extension CharacterChatLogViewController {
     }
     
     private func requestChatLogDataSource() {
-        tabBarController?.view.startLoading()
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.tabBarController?.view.startLoading()
+        }
         NetworkService.shared.characterChatService.getChatLog(completion: { [weak self] result in
             guard let self else { return }
+            self.tabBarController?.view.stopLoading()
             switch result {
             case .success(let responseDTO):
                 guard let responseDTO else {
                     showToast(message: "responseDTO가 없습니다.", inset: 66)
                     return
                 }
-                self.tabBarController?.view.stopLoading()
                 chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
                 chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList)
                 rootView.chatLogCollectionView.reloadData()
@@ -183,11 +182,17 @@ extension CharacterChatLogViewController {
     }
     
     private func bindData() {
+        ORBCharacterChatManager.shared.shouldMakeKeyboardBackgroundTransparent
+            .subscribe(onNext: { [weak self] isTransparent in
+                guard let self else { return }
+                guard self.rootView.keyboardBackgroundView.frame.height > rootView.safeAreaInsets.bottom else { return }
+                self.rootView.keyboardBackgroundView.isHidden = isTransparent
+            }).disposed(by: disposeBag)
+        
         rootView.chatButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
             self.rootView.userChatInputView.becomeFirstResponder()
         }).disposed(by: disposeBag)
-        
         
         rootView.userChatInputView.rx.text.orEmpty
             .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .default))
@@ -207,6 +212,24 @@ extension CharacterChatLogViewController {
                     self.rootView.sendButton.isEnabled = false
                 }
             }).disposed(by: disposeBag)
+        
+        rootView.sendButton.rx.tap.bind(
+            onNext: { [weak self] in
+                guard let self else { return }
+                
+                self.postCharacterChat(message: self.rootView.userChatInputView.text)
+                
+                // 사용자 채팅 버블 추가
+                self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text) { [weak self] isFinished in
+                    guard let self else { return }
+                    // 캐릭터 셀 추가
+                    self.sendChatBubble(isUserChat: false, text: "")
+                    // 추가된 캐릭터 셀 로딩 시작
+                    makeLastCellLoading()
+                }
+                self.rootView.userChatInputView.text = ""
+                
+        }).disposed(by: disposeBag)
         
         userChatInputViewTextInputViewHeightRelay.subscribe(
             onNext: { [weak self] textContentHeight in
@@ -239,6 +262,16 @@ extension CharacterChatLogViewController {
             self.rootView.updateConstraints()
             self.rootView.layoutIfNeeded()
         }).disposed(by: disposeBag)
+        
+        NetworkMonitoringManager.shared.networkConnectionChanged
+            .subscribe(onNext: { [weak self] isConnected in
+                guard let self else { return }
+                if isConnected {
+                    self.requestChatLogDataSource()
+                } else {
+                    showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                }
+            }).disposed(by: disposeBag)
     }
     
     private func setupNotifications() {
@@ -272,6 +305,150 @@ extension CharacterChatLogViewController {
         }
         userChatInputViewHeightAnimator.startAnimation()
     }
+    
+    private func sendChatBubble(isUserChat: Bool, text: String, completeion: ((Bool) -> Void)? = nil) {
+        let currentDate = Date()
+        let indexPathToInsert: IndexPath
+        var collectionViewUpdateClosure: ( () -> Void )? = nil
+        
+        // 채팅 로그가 있는 경우
+        if let latestChatData = chatLogDataList.last {
+            
+            // 가장 마지막 채팅이 오늘인 경우 -> 기존 Section에 Item만 추가
+            if viewModel.areDatesSameDay(latestChatData.createdDate!, currentDate) {
+                // 추가하는 IndexPath: 마지막 섹션에 추가하는 Item
+                indexPathToInsert = IndexPath(
+                    item: self.chatLogDataSource.last!.count,
+                    section: self.chatLogDataSource.count-1
+                )
+                collectionViewUpdateClosure = { [weak self] in
+                    guard let self else { return }
+                    self.rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
+                    self.rootView.chatLogCollectionView.insertItems(at: [indexPathToInsert])
+                }
+                
+            // 가장 마지막 채팅이 오늘이 아닌 경우 -> 새로운 Section 추가 및 추가된 Section에 Item 추가
+            } else {
+                // 추가하는 IndexPath: 새로 추가되는 Section의 첫 번째 Item
+                indexPathToInsert = IndexPath(item: 0, section: self.chatLogDataSource.count)
+                collectionViewUpdateClosure = { [weak self] in
+                    guard let self else { return }
+                    self.rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
+                    self.rootView.chatLogCollectionView.insertSections(.init(integer: self.chatLogDataSource.count-1))
+                    self.rootView.chatLogCollectionView.insertItems(at: [indexPathToInsert])
+                }
+            }
+            
+        } else {
+            
+            // 채팅 로그가 없는 경우 -> 새로운 Section과 Item 추가(IndexPath는 (0, 0))
+            indexPathToInsert = IndexPath(item: 0, section: 0)
+            collectionViewUpdateClosure = { [weak self] in
+                guard let self else { return }
+                self.rootView.chatLogCollectionView.insertSections(.init(integer: 0))
+                self.rootView.chatLogCollectionView.insertItems(at: [indexPathToInsert])
+            }
+        }
+        
+        // performBatchUpdates 호출하기 전에 DataSource를 먼저 업데이트
+        self.chatLogDataList.append(
+            ChatDataModel(role: isUserChat ? "USER" : "ORB_CHARACTER", content: text, createdData: currentDate)
+        )
+        self.chatLogDataSource = self.viewModel.groupChatsByDate(chats: self.chatLogDataList)
+        
+        // DataSource 업데이트 후 performBatchUpdates 호출
+        self.rootView.chatLogCollectionView.performBatchUpdates(collectionViewUpdateClosure, completion: completeion)
+        
+        // collection view가 업데이트될 때마다 가징 최신의 채팅(가장 아래의 채팅)이 보여지도록 구현
+        self.scrollToBottom(animated: true)
+    }
+    
+    private func makeLastCellLoading() {
+        let lastSection = chatLogDataSource.count - 1
+        let lastSectionCount = chatLogDataSource[lastSection].count
+        let lastIndexPath = IndexPath(
+            item: lastSectionCount-1,
+            section: lastSection
+        )
+        chatLogDataSource[lastIndexPath.section][lastIndexPath.item].isLoading = true
+        chatLogDataSource[lastIndexPath.section][lastIndexPath.item].content = " "
+        rootView.chatLogCollectionView.performBatchUpdates {
+            rootView.chatLogCollectionView.reloadItems(at: [lastIndexPath])
+            rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
+        }
+    }
+    
+    private func postCharacterChat(message: String) {
+        let dto = CharacterChatPostRequestDTO(content: message)
+        NetworkService.shared.characterChatService.postChat(body: dto) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let dto):
+                guard let dto else {
+                    self.showToast(message: "requestDTO is nil", inset: 66)
+                    return
+                }
+                let characterChatResponse = dto.data.content
+                
+                self.updateChatLog()
+                
+            case .requestErr:
+                self.showToast(message: "requestError occurred", inset: 66)
+            case .unAuthentication:
+                self.showToast(message: "unAuthentication Error occurred", inset: 66)
+            case .unAuthorization:
+                self.showToast(message: "unAuthorized Error occurred", inset: 66)
+            case .apiArr:
+                self.showToast(message: "api Error occurred", inset: 66)
+            case .pathErr:
+                self.showToast(message: "path Error occurred", inset: 66)
+            case .registerErr:
+                self.showToast(message: "register Error occurred", inset: 66)
+            case .networkFail:
+                self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+            case .decodeErr:
+                self.showToast(message: "decode Error occurred", inset: 66)
+            }
+        }
+    }
+    
+    private func updateChatLog() {
+        NetworkService.shared.characterChatService.getChatLog(completion: { [weak self] result in
+            guard let self else { return }
+            self.tabBarController?.view.stopLoading()
+            switch result {
+            case .success(let responseDTO):
+                guard let responseDTO else {
+                    showToast(message: "responseDTO가 없습니다.", inset: 66)
+                    return
+                }
+                self.chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
+                self.chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList)
+                
+                
+                let lastSection = chatLogDataSource.count - 1
+                let lastSectionCount = chatLogDataSource[lastSection].count
+                let lastIndexPath = IndexPath(
+                    item: lastSectionCount-1,
+                    section: lastSection
+                )
+                
+                self.rootView.chatLogCollectionView.performBatchUpdates {
+                    self.rootView.chatLogCollectionView.reloadItems(at: [lastIndexPath])
+                    self.rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
+                }
+                self.scrollToBottom(animated: false)
+                showChatButton()
+            case .networkFail:
+                showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+            case .decodeErr:
+                showToast(message: "디코딩 에러.", inset: 66)
+            default:
+                self.showToast(message: "Something went wrong", inset: 60)
+            }
+        })
+    }
+    
 }
 
 //MARK: - UICollectionViewDataSource
@@ -283,7 +460,6 @@ extension CharacterChatLogViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        chatLogDataList.count
         chatLogDataSource[section].count
     }
     
@@ -291,7 +467,6 @@ extension CharacterChatLogViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterChatLogCell.className, for: indexPath) as? CharacterChatLogCell else {
             return UICollectionViewCell()
         }
-//        cell.configure(with: chatLogDataList[indexPath.item], characterName: self.characterName)
         cell.configure(with: chatLogDataSource[indexPath.section][indexPath.item], characterName: self.characterName)
         return cell
     }
@@ -318,7 +493,7 @@ extension CharacterChatLogViewController: UICollectionViewDelegate {
         let scrollOffsetAtBottomEdge =
         max(scrollView.contentSize.height - (scrollView.bounds.height - rootView.safeAreaInsets.bottom - 135), 0)
         
-        if scrollView.contentOffset.y >= scrollOffsetAtBottomEdge {
+        if ceil(scrollView.contentOffset.y) >= scrollOffsetAtBottomEdge {
             showChatButton()
         } else {
             hideChatButton()
@@ -375,9 +550,5 @@ extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
         let messageLabelSize = viewModel.calculateLabelSize(text: chatLogDataSource[indexPath.section][indexPath.item].content, font: .offroad(style: .iosText), maxSize: .init(width: maxMessageLabelWidth, height: 400))
         return CGSize(width: UIScreen.currentScreenSize.width, height: messageLabelSize.height + (14*2))
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        .init(width: UIScreen.currentScreenSize.width, height: 50)
-//    }
     
 }

@@ -29,6 +29,7 @@ final class CharacterListViewController: UIViewController {
         super.viewDidLoad()
         
         setupDelegate()
+        rootView.viewForLoadingOverlay.startLoading(withoutShading: true)
         viewModel.getCharacterListInfo()
         bindData()
     }
@@ -57,6 +58,7 @@ final class CharacterListViewController: UIViewController {
         viewModel.reloadCollectionView
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
+                self.rootView.viewForLoadingOverlay.stopLoading()
                 self.rootView.collectionView.reloadData()
             }).disposed(by: disposeBag)
         
@@ -71,8 +73,11 @@ final class CharacterListViewController: UIViewController {
         NetworkMonitoringManager.shared.networkConnectionChanged
             .subscribe(onNext: { [weak self] isConnected in
                 guard let self else { return }
-                guard isConnected else { return }
-                self.viewModel.getCharacterListInfo()
+                if isConnected {
+                    self.viewModel.getCharacterListInfo()
+                } else {
+                    self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                }
             }).disposed(by: disposeBag)
         
         rootView.customBackButton.rx.tap.bind(onNext: { [weak self] in
