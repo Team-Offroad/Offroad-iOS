@@ -264,7 +264,7 @@ extension ORBCharacterChatViewController {
 //                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .networkFail:
-                self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                self.showToast(message: ErrorMessages.networkError, inset: 66)
 //                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .decodeErr:

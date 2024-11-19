@@ -25,10 +25,16 @@ extension UIImageView {
                 return
             }
             
-            guard let svgImage = SVGKImage(data: data) else { return }
-            
-            DispatchQueue.main.async {
-                self.image = svgImage.renderedUIImage
+            if let notSvgImage = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self.image = notSvgImage
+                }
+            } else if let svgImage = SVGKImage(data: data) {
+                DispatchQueue.main.async {
+                    self.image = svgImage.renderedUIImage
+                }
+            } else {
+                return
             }
         }
         

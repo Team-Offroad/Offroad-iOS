@@ -78,18 +78,6 @@ extension SplashViewController {
         }
     }
     
-//    private func getRepresentativeCharacterName() {
-//        NetworkService.shared.adventureService.getAdventureInfo(category: "NONE") { [weak self] response in
-//            guard let self else { return }
-//            switch response {
-//            case .success(let data):
-//                MyInfoManager.shared.representativeCharacterName = data?.data.characterName
-//            default:
-//                showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
-//            }
-//        }
-//    }
-    
     private func getCharacterListInfo() {
         NetworkService.shared.characterService.getCharacterListInfo { [weak self] result in
             guard let self else { return }
@@ -107,7 +95,7 @@ extension SplashViewController {
                 }
                 MyInfoManager.shared.representativeCharacterID = responseDTO.data.representativeCharacterId
             case .networkFail:
-                showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                showToast(message: ErrorMessages.networkError, inset: 66)
             default:
                 break
             }

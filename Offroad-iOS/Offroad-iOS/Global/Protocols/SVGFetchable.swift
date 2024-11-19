@@ -19,10 +19,16 @@ extension SVGFetchable {
     
     func fetchSVG(svgURLString: String, completion: @escaping (UIImage?) -> Void) {
         DispatchQueue.global().async {
-            guard let svgURL = URL(string: svgURLString) else { completion(nil); return }
-            guard let svgData = try? Data(contentsOf: svgURL) else { completion(nil); return }
-            guard let svgImage = SVGKImage(data: svgData) else { completion(nil); return }
-            completion(svgImage.renderedUIImage)
+            guard let imageURL = URL(string: svgURLString) else { completion(nil); return }
+            guard let imageData = try? Data(contentsOf: imageURL) else { completion(nil); return }
+            
+            if let image = UIImage(data: imageData) {
+                completion(image)
+            } else if let svgImage = SVGKImage(data: imageData) {
+                completion(svgImage.renderedUIImage)
+            } else {
+                completion(nil)
+            }
         }
     }
     

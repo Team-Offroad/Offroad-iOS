@@ -143,7 +143,7 @@ final class BirthViewController: UIViewController {
         let currentDay = Calendar.current.component(.day, from: Date())
         
         if year == currentYear && month == currentMonth && day > currentDay {
-            birthView.notionLabel.text = "다시 한 번 확인해주세요."
+            birthView.notionLabel.text = ErrorMessages.birthDateError
             return false
         }
         
@@ -174,7 +174,7 @@ extension BirthViewController {
                 $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
             }
             else {
-                birthView.notionLabel.text = "다시 한 번 확인해주세요."
+                birthView.notionLabel.text = ErrorMessages.birthDateError
             }
         }
         if sender.text?.isEmpty ?? true {
@@ -255,7 +255,7 @@ extension BirthViewController {
         
         [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].forEach {
             if $0.layer.borderColor == UIColor.primary(.errorNew).cgColor {
-                birthView.notionLabel.text = "다시 한 번 확인해주세요."
+                birthView.notionLabel.text = ErrorMessages.birthDateError
             }
         }
     }
@@ -277,7 +277,7 @@ extension BirthViewController {
         
         [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].forEach {
             if $0.layer.borderColor == UIColor.primary(.errorNew).cgColor {
-                birthView.notionLabel.text = "다시 한 번 확인해주세요."
+                birthView.notionLabel.text = ErrorMessages.birthDateError
             }
         }
         
@@ -311,7 +311,7 @@ extension BirthViewController {
             
             self.navigationController?.pushViewController(nextVC, animated: true)
         } else {
-            birthView.notionLabel.text = "다시 한 번 확인해주세요."
+            birthView.notionLabel.text = ErrorMessages.birthDateError
         }
     }
     
@@ -372,14 +372,14 @@ extension BirthViewController {
                 $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
             }
             else {
-                birthView.notionLabel.text = "다시 한 번 확인해주세요."
+                birthView.notionLabel.text = ErrorMessages.birthDateError
             }
         }
         
         let allFieldsFilled = [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].allSatisfy { $0.text?.isEmpty == false }
         
         if allFieldsFilled && !validateInputs() {
-            birthView.notionLabel.text = "다시 한 번 확인해주세요."
+            birthView.notionLabel.text = ErrorMessages.birthDateError
         }
     }
 }

@@ -58,6 +58,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.view.isUserInteractionEnabled = false
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         tabBarController.showTabBarAnimation()
         rootView.backgroundView.isHidden = false
@@ -67,6 +68,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        navigationController?.view.isUserInteractionEnabled = true
         rootView.backgroundView.isHidden = false
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         tabBarController.enableTabBarInteraction()
@@ -155,11 +157,11 @@ extension CharacterChatLogViewController {
     private func requestChatLogDataSource() {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            self.tabBarController?.view.startLoading()
+            self.view.startLoading()
         }
         NetworkService.shared.characterChatService.getChatLog(completion: { [weak self] result in
             guard let self else { return }
-            self.tabBarController?.view.stopLoading()
+            self.view.stopLoading()
             switch result {
             case .success(let responseDTO):
                 guard let responseDTO else {
@@ -172,7 +174,7 @@ extension CharacterChatLogViewController {
                 self.scrollToBottom(animated: false)
                 showChatButton()
             case .networkFail:
-                showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                showToast(message: ErrorMessages.networkError, inset: 66)
             case .decodeErr:
                 showToast(message: "디코딩 에러.", inset: 66)
             default:
@@ -269,7 +271,7 @@ extension CharacterChatLogViewController {
                 if isConnected {
                     self.requestChatLogDataSource()
                 } else {
-                    showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                    showToast(message: ErrorMessages.networkError, inset: 66)
                 }
             }).disposed(by: disposeBag)
     }
@@ -405,7 +407,7 @@ extension CharacterChatLogViewController {
             case .registerErr:
                 self.showToast(message: "register Error occurred", inset: 66)
             case .networkFail:
-                self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                self.showToast(message: ErrorMessages.networkError, inset: 66)
             case .decodeErr:
                 self.showToast(message: "decode Error occurred", inset: 66)
             }
@@ -440,7 +442,7 @@ extension CharacterChatLogViewController {
                 self.scrollToBottom(animated: false)
                 showChatButton()
             case .networkFail:
-                showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                showToast(message: ErrorMessages.networkError, inset: 66)
             case .decodeErr:
                 showToast(message: "디코딩 에러.", inset: 66)
             default:
