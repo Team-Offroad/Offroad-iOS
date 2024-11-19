@@ -7,6 +7,9 @@
 
 import UIKit
 
+import Firebase
+import FirebaseMessaging
+
 final class HomeViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
@@ -26,6 +29,7 @@ final class HomeViewController: OffroadTabBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupDelegate()
         setupTarget()
     }
     
@@ -34,6 +38,12 @@ final class HomeViewController: OffroadTabBarViewController {
         
         getUserAdventureInfo()
         getUserQuestInfo()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        requestPushNotificationPermission()
     }
 }
 
@@ -46,6 +56,10 @@ extension HomeViewController {
     }
     
     // MARK: - Private Method
+    
+    private func setupDelegate() {
+        Messaging.messaging().delegate = self
+    }
     
     private func setupTarget() {
         rootView.setupChangeTitleButton(action: changeTitleButtonTapped)
@@ -104,10 +118,64 @@ extension HomeViewController {
         }
     }
     
+    private func requestPushNotificationPermission() {
+        let center = UNUserNotificationCenter.current()
+        center.getNotificationSettings { [weak self] settings in
+            switch settings.authorizationStatus {
+            case .notDetermined:
+                center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                    if let error = error {
+                        print("권한 요청 중 오류 발생: \(error)")
+                        return
+                    }
+                    if granted {
+                        DispatchQueue.main.async {
+                            self?.registerForPushNotifications()
+                        }
+                    } else {
+                        print("사용자가 푸시 알림을 거부했습니다.")
+                    }
+                }
+            case .denied:
+                print("사용자가 이전에 푸시 알림을 거부했습니다.")
+            case .authorized, .provisional, .ephemeral:
+                DispatchQueue.main.async {
+                    self?.registerForPushNotifications()
+                }
+            @unknown default:
+                break
+            }
+        }
+    }
+    
+    private func registerForPushNotifications() {
+        DispatchQueue.main.async {
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+    }
+    
     //MARK: - Func
     
     func fetchCategoryString(category: String) {
         categoryString = category
+    }
+}
+
+extension HomeViewController: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("Firebase registration token: \(String(describing: fcmToken))")
+        
+        let dataDict: [String: String] = ["token": fcmToken ?? ""]
+        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+        
+        NetworkService.shared.pushNotificationService.postSocialLogin(body: FcmTokenRequestDTO(token: fcmToken ?? String())) { response in
+            switch response {
+            case .success:
+                print("fcm 토큰 갱신 성공!!!")
+            default:
+                break
+            }
+        }
     }
 }
 
