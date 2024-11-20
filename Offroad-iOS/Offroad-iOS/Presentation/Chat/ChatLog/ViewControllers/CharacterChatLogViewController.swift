@@ -31,7 +31,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     //MARK: - Life Cycle
     
     init(background: UIView, characterName: String) {
-        self.rootView = CharacterChatLogView(background: background)
+        self.rootView = CharacterChatLogView(background: background, characterName: characterName)
         self.characterName = characterName
         super.init(nibName: nil, bundle: nil)
     }

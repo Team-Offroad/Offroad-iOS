@@ -47,8 +47,9 @@ class CharacterChatLogView: UIView {
     
     //MARK: - Life Cycle
     
-    init(background: UIView) {
+    init(background: UIView, characterName: String) {
         self.backgroundView = background
+        self.customNavigationTitleLabel.text = characterName
         super.init(frame: .zero)
         setupStyle()
         setupHierarchy()
@@ -91,7 +92,7 @@ extension CharacterChatLogView {
         }
         
         customNavigationTitleLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview().offset(4)
+            make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
             make.leading.greaterThanOrEqualTo(backButton.snp.trailing).offset(8)
             make.trailing.lessThanOrEqualToSuperview().inset(8)
