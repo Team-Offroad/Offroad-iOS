@@ -52,6 +52,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         
         bindData()
         setupNotifications()
+        setupGestureRecognizers()
         requestChatLogDataSource()
     }
     
@@ -117,6 +118,10 @@ extension CharacterChatLogViewController {
         }
     }
     
+    @objc private func tapGestureHandler(_ sender: UITapGestureRecognizer) {
+        rootView.endEditing(true)
+    }
+    
     //MARK: - Private Func
     
     private func setupTargets() {
@@ -152,6 +157,11 @@ extension CharacterChatLogViewController {
             self.rootView.layoutIfNeeded()
         }
         chatButtonHidingAnimator.startAnimation()
+    }
+    
+    private func setupGestureRecognizers() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureHandler))
+        rootView.chatLogCollectionView.addGestureRecognizer(tapGesture)
     }
     
     private func requestChatLogDataSource() {
@@ -386,12 +396,10 @@ extension CharacterChatLogViewController {
             guard let self else { return }
             switch result {
             case .success(let dto):
-                guard let dto else {
+                guard dto != nil else {
                     self.showToast(message: "requestDTO is nil", inset: 66)
                     return
-                }
-                let characterChatResponse = dto.data.content
-                
+                }                
                 self.updateChatLog()
                 
             case .requestErr:

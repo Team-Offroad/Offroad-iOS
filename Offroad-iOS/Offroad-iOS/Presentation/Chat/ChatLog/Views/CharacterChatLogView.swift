@@ -176,7 +176,7 @@ extension CharacterChatLogView {
         }
         
         userChatBoundsView.do { view in
-            view.isUserInteractionEnabled = false
+            view.isUserInteractionEnabled = true
             view.bounds.origin.y = -(200)
         }
         
