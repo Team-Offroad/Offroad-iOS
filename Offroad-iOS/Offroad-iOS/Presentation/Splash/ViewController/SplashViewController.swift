@@ -13,7 +13,19 @@ final class SplashViewController: UIViewController {
     
     private let rootView = SplashView()
     
+    private let pushType: PushNotificationRedirectModel?
+    
     // MARK: - Life Cycle
+    
+    init(pushType: PushNotificationRedirectModel? = nil) {
+        self.pushType = pushType
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {        
         view = rootView
@@ -70,25 +82,13 @@ extension SplashViewController {
                 } else if characterName == "" {
                     self.presentViewController(viewController: ChoosingCharacterViewController())
                 } else {
-                    self.presentViewController(viewController: OffroadTabBarController())
+                    self.presentViewController(viewController: OffroadTabBarController(pushType: self.pushType))
                 }
             default:
                 break
             }
         }
     }
-    
-//    private func getRepresentativeCharacterName() {
-//        NetworkService.shared.adventureService.getAdventureInfo(category: "NONE") { [weak self] response in
-//            guard let self else { return }
-//            switch response {
-//            case .success(let data):
-//                MyInfoManager.shared.representativeCharacterName = data?.data.characterName
-//            default:
-//                showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
-//            }
-//        }
-//    }
     
     private func getCharacterListInfo() {
         NetworkService.shared.characterService.getCharacterListInfo { [weak self] result in
