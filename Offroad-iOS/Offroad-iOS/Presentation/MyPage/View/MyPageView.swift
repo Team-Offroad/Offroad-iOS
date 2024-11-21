@@ -99,6 +99,10 @@ extension MyPageView {
             $0.roundCorners(cornerRadius: 10)
         }
         
+        characterProfileImageView.do {
+            $0.contentMode = .scaleAspectFit
+        }
+        
         adventureDaysLabel.do {
             $0.textColor = .main(.main2)
             $0.textAlignment = .center

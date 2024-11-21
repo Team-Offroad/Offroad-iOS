@@ -186,6 +186,7 @@ extension HomeView {
             $0.edges.equalToSuperview()
         }
 
+        nicknameLabel.setContentHuggingPriority(.defaultHigh + 1, for: .vertical)
         nicknameLabel.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(26)
             $0.leading.equalToSuperview().inset(24)
@@ -208,15 +209,15 @@ extension HomeView {
         }
         
         characterBaseImageView.snp.makeConstraints {
-            $0.top.greaterThanOrEqualTo(characterNameView.snp.bottom)
+            $0.top.equalTo(characterNameView.snp.bottom).offset(25)
             $0.bottom.equalTo(titleView.snp.top).offset(-25)
-            $0.centerX.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
         }
         
         characterMotionView.snp.makeConstraints {
-            $0.top.greaterThanOrEqualTo(characterNameView.snp.bottom)
+            $0.top.equalTo(characterNameView.snp.bottom).offset(25)
             $0.bottom.equalTo(titleView.snp.top).offset(-25)
-            $0.centerX.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
         }
         
         titleView.snp.makeConstraints {

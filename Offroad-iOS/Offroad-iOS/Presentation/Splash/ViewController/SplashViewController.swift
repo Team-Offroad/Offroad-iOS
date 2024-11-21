@@ -107,7 +107,7 @@ extension SplashViewController {
                 }
                 MyInfoManager.shared.representativeCharacterID = responseDTO.data.representativeCharacterId
             case .networkFail:
-                showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                showToast(message: ErrorMessages.networkError, inset: 66)
             default:
                 break
             }

@@ -170,7 +170,7 @@ extension QuestMapViewController {
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
                 self.tabBarController?.view.stopLoading()
-                self.showToast(message: "네트워크 연결 상태를 확인해주세요.", inset: 66)
+                self.showToast(message: ErrorMessages.networkError, inset: 66)
             }).disposed(by: disposeBag)
         
         viewModel.shouldRequestLocationAuthorization
@@ -279,8 +279,8 @@ extension QuestMapViewController {
     }
     
     private func popupAdventureResult(isSuccess: Bool, image: UIImage?, completeQuests: [CompleteQuest]?) {
-        let title: String = isSuccess ? "탐험 성공" : "탐험 실패"
-        let message: String = isSuccess ? "탐험에 성공했어요!\n이곳에 무엇이 있는지 천천히 살펴볼까요?" : "탐험에 실패했어요.\n위치를 다시 한 번 확인해주세요."
+        let title: String = isSuccess ? AlertMessage.adventureSuccessTitle : AlertMessage.adventureFailureTitle
+        let message: String = isSuccess ? AlertMessage.adventureSuccessMessage : AlertMessage.adventureFailureLocationMessage
         let buttonTitle: String = isSuccess ? "홈으로" : "확인"
         let alertController = ORBAlertController(title: title, message: message, type: .explorationResult)
         alertController.configureExplorationResultImage { $0.image = image }
