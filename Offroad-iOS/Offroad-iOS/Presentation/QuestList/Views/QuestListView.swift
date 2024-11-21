@@ -89,9 +89,6 @@ extension QuestListView {
         
         questListCollectionView.do { collectionView in
             collectionView.backgroundColor = .primary(.listBg)
-            collectionView.refreshControl = UIRefreshControl()
-            collectionView.refreshControl?.tintColor = .sub(.sub)
-            collectionView.indicatorStyle = .black
         }
     }
 

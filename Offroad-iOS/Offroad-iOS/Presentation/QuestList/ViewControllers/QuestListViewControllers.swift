@@ -85,7 +85,6 @@ extension QuestListViewController {
     private func setupControlsTarget() {
         rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
         rootView.ongoingQuestToggle.addTarget(self, action: #selector(ongoingQuestSwitchValueChanged(sender:)), for: .valueChanged)
-        rootView.questListCollectionView.refreshControl?.addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
     }
     
     private func setupCollectionView() {
@@ -113,7 +112,6 @@ extension QuestListViewController {
                     self.allQuestList = questListFromServer
                 }
                 self.rootView.questListCollectionView.stopLoading()
-                self.rootView.questListCollectionView.refreshControl?.endRefreshing()
                 self.rootView.questListCollectionView.reloadData()
                 
                 lastCursorID = questListFromServer.last?.cursorId ?? Int()
