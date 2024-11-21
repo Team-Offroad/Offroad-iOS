@@ -80,9 +80,7 @@ extension UIView {
             loadingView.shadeView.isHidden = withoutShading
             loadingView.isHidden = true
             self.addSubview(loadingView)
-            loadingView.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
-            }
+            loadingView.frame = self.bounds
             UIView.animate(withDuration: 0.2) {
                 loadingView.isHidden = false
             }
