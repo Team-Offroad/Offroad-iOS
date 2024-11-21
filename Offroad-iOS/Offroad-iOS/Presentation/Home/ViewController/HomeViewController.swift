@@ -26,8 +26,20 @@ final class HomeViewController: OffroadTabBarViewController {
     }
     
     var categoryString = "NONE"
+    private let pushType: PushNotificationRedirectModel?
+    private var noticeModelList: [NoticeInfo] = []
     
     // MARK: - Life Cycle
+    
+    init(pushType: PushNotificationRedirectModel? = nil) {
+        self.pushType = pushType
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = rootView
@@ -38,6 +50,9 @@ final class HomeViewController: OffroadTabBarViewController {
         
         setupDelegate()
         setupTarget()
+        
+        requestPushNotificationPermission()
+        redirectViewControllerForPushNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,12 +64,6 @@ final class HomeViewController: OffroadTabBarViewController {
         self.navigationController?.navigationBar.isHidden = true
         getUserAdventureInfo()
         getUserQuestInfo()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        requestPushNotificationPermission()
     }
 }
 
@@ -120,6 +129,22 @@ extension HomeViewController {
         }
     }
     
+    private func redirectNoticePost() {
+        NetworkService.shared.noticeService.getNoticeList { response in
+            switch response {
+            case .success(let data):
+                self.noticeModelList = data?.data.announcements ?? [NoticeInfo]()
+                
+                guard let id = Int(self.pushType?.data?["noticeID"] as! String) else { return }
+                let noticePostViewController = NoticePostViewController(noticeInfo: self.noticeModelList[id - 1])
+                noticePostViewController.setupCustomBackButton(buttonTitle: "홈")
+                self.navigationController?.pushViewController(noticePostViewController, animated: true)
+            default:
+                break
+            }
+        }
+    }
+    
     private func requestPushNotificationPermission() {
         let center = UNUserNotificationCenter.current()
         center.getNotificationSettings { [weak self] settings in
@@ -153,6 +178,19 @@ extension HomeViewController {
     private func registerForPushNotifications() {
         DispatchQueue.main.async {
             UIApplication.shared.registerForRemoteNotifications()
+        }
+    }
+    
+    private func redirectViewControllerForPushNotification() {
+        if let pushType {
+            switch pushType.category {
+            case "ANNOUNCEMENT_REDIRECT":
+                redirectNoticePost()
+            case "CHARACTER_CHAT":
+                ORBCharacterChatManager.shared.startChat()
+            default:
+                break
+            }
         }
     }
     
