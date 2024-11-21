@@ -148,13 +148,16 @@ extension PlaceListViewController {
             limit: limit,
             isBounded: isBounded
         )
+        
+        rootView.pageViewController.view.startLoading(withoutShading: true)
         placeService.getRegisteredPlace(requestDTO: placeRequestDTO) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let response):
                 guard let responsePlaceArray = response?.data.places else { return }
                 places = responsePlaceArray
-                self.rootView.activityIndicator.stopAnimating()
+//                self.rootView.activityIndicator.stopAnimating()
+                rootView.pageViewController.view.stopLoading()
                 
                 self.rootView.allPlaceListCollectionView.refreshControl?.endRefreshing()
                 self.rootView.placeNeverVisitedListCollectionView.refreshControl?.endRefreshing()

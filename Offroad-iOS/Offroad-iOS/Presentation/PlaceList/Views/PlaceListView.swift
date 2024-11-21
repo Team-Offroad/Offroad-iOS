@@ -24,7 +24,7 @@ class PlaceListView: UIView {
     
     var placeNeverVisitedListCollectionView: UICollectionView!
     var allPlaceListCollectionView: UICollectionView!
-    var activityIndicator = UIActivityIndicatorView(style: .large)
+//    var activityIndicator = UIActivityIndicatorView(style: .large)
     
     private var layoutMaker: UICollectionViewFlowLayout {
         let collectionViewHorizontalInset: CGFloat = 24
@@ -109,11 +109,11 @@ extension PlaceListView {
         allPlaceListCollectionView.backgroundColor = .primary(.listBg)
         allPlaceListCollectionView.indicatorStyle = .black
         
-        activityIndicator.do { indicator in
-            indicator.color = .sub(.sub)
-            indicator.isHidden = false
-            indicator.startAnimating()
-        }
+//        activityIndicator.do { indicator in
+//            indicator.color = .sub(.sub)
+//            indicator.isHidden = false
+//            indicator.startAnimating()
+//        }
     }
     
     private func setupHierarchy() {
@@ -123,8 +123,8 @@ extension PlaceListView {
             titleLabel,
             segmentedControl,
             separator,
-            pageViewController.view,
-            activityIndicator
+            pageViewController.view
+//            activityIndicator
         )
     }
     
@@ -162,9 +162,9 @@ extension PlaceListView {
             make.bottom.equalToSuperview()
         }
         
-        activityIndicator.snp.makeConstraints { make in
-            make.center.equalTo(pageViewController.view)
-        }
+//        activityIndicator.snp.makeConstraints { make in
+//            make.center.equalTo(pageViewController.view)
+//        }
     }
     
 }
