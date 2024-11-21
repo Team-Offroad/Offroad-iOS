@@ -33,7 +33,7 @@ class QuestListView: UIView {
     private let separator = UIView()
     
     let customBackButton = NavigationPopButton()
-    let ongoingQuestToggle = UISwitch()
+    let ongoingQuestSwitch = UISwitch()
     
     lazy var questListCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
 
@@ -78,8 +78,8 @@ extension QuestListView {
             label.textColor = .grayscale(.gray400)
         }
         
-        ongoingQuestToggle.do {
-            $0.isOn = false
+        ongoingQuestSwitch.do {
+            $0.isOn = true
             $0.onTintColor = .sub(.sub)
         }
         
@@ -99,7 +99,7 @@ extension QuestListView {
             titleLabel,
             titleIcon,
             ongoingQuestLabel,
-            ongoingQuestToggle,
+            ongoingQuestSwitch,
             separator,
             questListCollectionView
         )
@@ -129,10 +129,10 @@ extension QuestListView {
         
         ongoingQuestLabel.snp.makeConstraints { make in
             make.centerY.equalTo(titleLabel)
-            make.trailing.equalTo(ongoingQuestToggle.snp.leading).offset(-6)
+            make.trailing.equalTo(ongoingQuestSwitch.snp.leading).offset(-6)
         }
         
-        ongoingQuestToggle.snp.makeConstraints { make in
+        ongoingQuestSwitch.snp.makeConstraints { make in
             make.centerY.equalTo(titleLabel)
             make.trailing.equalToSuperview().inset(24)
         }

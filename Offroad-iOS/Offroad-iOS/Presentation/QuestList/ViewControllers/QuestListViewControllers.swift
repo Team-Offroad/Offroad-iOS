@@ -17,7 +17,7 @@ class QuestListViewController: UIViewController {
     private var extendedListSize = 20
     private var lastCursorID = 0
     
-    private var isActive = false {
+    private var isActive = true {
         didSet {
             if isActive {
                 activeQuestList = []
@@ -84,7 +84,7 @@ extension QuestListViewController {
     
     private func setupControlsTarget() {
         rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
-        rootView.ongoingQuestToggle.addTarget(self, action: #selector(ongoingQuestSwitchValueChanged(sender:)), for: .valueChanged)
+        rootView.ongoingQuestSwitch.addTarget(self, action: #selector(ongoingQuestSwitchValueChanged(sender:)), for: .valueChanged)
     }
     
     private func setupCollectionView() {
