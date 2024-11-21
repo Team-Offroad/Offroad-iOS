@@ -36,7 +36,6 @@ class QuestListView: UIView {
     let ongoingQuestToggle = UISwitch()
     
     lazy var questListCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
-    var activityIndicatorView = UIActivityIndicatorView(style: .large)
 
     //MARK: - Life Cycle
 
@@ -112,11 +111,6 @@ extension QuestListView {
             collectionView.refreshControl?.tintColor = .sub(.sub)
             collectionView.indicatorStyle = .black
         }
-        
-        activityIndicatorView.do { indicatorView in
-            indicatorView.color = .sub(.sub2)
-            indicatorView.startAnimating()
-        }
     }
 
     private func setupHierarchy() {
@@ -130,7 +124,6 @@ extension QuestListView {
             separator,
             questListCollectionView
         )
-        questListCollectionView.addSubview(activityIndicatorView)
     }
 
     private func setupLayout() {
@@ -175,10 +168,6 @@ extension QuestListView {
             make.top.equalTo(separator.snp.bottom)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
-        }
-        
-        activityIndicatorView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
         }
     }
 
