@@ -74,6 +74,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         //앱이 꺼져있는 상태에서 푸쉬 알림을 눌렀을 때
         if application.applicationState == .inactive {
             print("푸쉬알림 탭(앱 꺼져있음)")
+            
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+            guard let window = windowScene.windows.first  else { return }
+            
+            let data = response.notification.request.content.userInfo["aps"] as? [String : Any]?
+            let category = response.notification.request.content.categoryIdentifier
+            
+            let pushType = PushNotificationRedirectModel(data: data ?? nil, category: category)
+            window.rootViewController = SplashViewController(pushType: pushType)
         }
 
         completionHandler()
