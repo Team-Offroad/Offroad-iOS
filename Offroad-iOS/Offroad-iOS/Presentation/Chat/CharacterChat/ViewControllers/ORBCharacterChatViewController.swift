@@ -12,6 +12,10 @@ import RxCocoa
 
 class ORBCharacterChatViewController: UIViewController {
     
+    //MARK: - Properties
+    
+    var isCharacterChatBoxShown: Bool = false
+    
     var disposeBag = DisposeBag()
     let rootView = ORBCharacterChatView()
     
@@ -70,7 +74,6 @@ extension ORBCharacterChatViewController {
             return
         case .changed:
             let verticalPosition = sender.translation(in: rootView).y
-            print(verticalPosition)
             if verticalPosition < 0 {
                 let transform = CGAffineTransform(translationX: 0, y: verticalPosition)
                 rootView.characterChatBox.transform = transform
@@ -243,35 +246,27 @@ extension ORBCharacterChatViewController {
                 self.configureCharacterChatBox(character: MyInfoManager.shared.representativeCharacterName ?? "", message: characterChatResponse, mode: .withoutReplyButtonShrinked, animated: true)
             case .requestErr:
                 self.showToast(message: "requestError occurred", inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .unAuthentication:
                 self.showToast(message: "unAuthentication Error occurred", inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .unAuthorization:
                 self.showToast(message: "unAuthorized Error occurred", inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .apiArr:
                 self.showToast(message: "api Error occurred", inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .pathErr:
                 self.showToast(message: "path Error occurred", inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .registerErr:
                 self.showToast(message: "register Error occurred", inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .networkFail:
                 self.showToast(message: ErrorMessages.networkError, inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .decodeErr:
                 self.showToast(message: "decode Error occurred", inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             }
         }
@@ -280,24 +275,26 @@ extension ORBCharacterChatViewController {
     //MARK: - Func
     
     func showCharacterChatBox() {
+        isCharacterChatBoxShown = true
         rootView.layoutIfNeeded()
         characterChatBoxPositionAnimator.stopAnimation(true)
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.characterChatBox.transform = CGAffineTransform.identity
-            self.rootView.characterChatBoxTopConstraint.constant = 27
+            self.rootView.characterChatBoxTopConstraint.constant = view.safeAreaInsets.top + 27
             self.rootView.layoutIfNeeded()
         }
         characterChatBoxPositionAnimator.startAnimation()
     }
     
     func hideCharacterChatBox() {
+        isCharacterChatBoxShown = false
         characterChatBoxPositionAnimator.stopAnimation(true)
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.characterChatBox.transform = CGAffineTransform.identity
             self.rootView.characterChatBoxTopConstraint.constant
-            = -(rootView.safeAreaInsets.top +  self.rootView.characterChatBox.frame.height)
+            = -self.rootView.characterChatBox.frame.height
             self.rootView.layoutIfNeeded()
         }
         characterChatBoxPositionAnimator.addCompletion { [weak self] _ in

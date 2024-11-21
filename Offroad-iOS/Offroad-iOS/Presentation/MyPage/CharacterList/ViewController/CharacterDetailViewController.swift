@@ -120,13 +120,6 @@ extension CharacterDetailViewController {
             orbNavigationController.pushChatLogViewController(characterName: rootView.nameLabel.text!)
         }).disposed(by: disposeBag)
         
-        
-        /// 네트워크 끊어진 상태에서 CharacterDetailView로 진입 후(현재 빈 화면인 상태)
-        /// 네트워크 연결하면 아래 구독이 실행됨.
-        /// 근데 이때, 캐릭터 정보와 모션 둘 다 이전에 nil인 상태에서 둘 중 하나만 업데이트된 상태에서는 네트워크 연결을 확인하라는 문구가 뜸
-        /// -> 해결 필요
-        /// (combine'Latest'이기 때문)
-        /// 네트워크 재연결시 flow를 별도로 만들어야 할 수도
         NetworkMonitoringManager.shared.networkConnectionChanged
             .subscribe(onNext: { [weak self] isConnected in
                 guard let self else { return }
