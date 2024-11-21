@@ -49,7 +49,10 @@ final class CharacterDetailViewModel {
             self.characterMotionListDataSourceSubject
         ).do(onNext: { [weak self] in
             guard let self else { return }
-            if (($0 == nil) || ($1 == nil)) {
+            /// 네트워크 종류를 구분하지 않아서, 로컬 네트워크(loopback 등)일 경우 문제 생길 수 있음.
+            /// 일반적인 상황에서는 큰 문제 없을 것으로 예상
+            let isNetworkConnected = NetworkMonitoringManager.shared.networkMonitor.currentPath.status == .satisfied
+            if !isNetworkConnected && ((($0 == nil) || ($1 == nil))) {
                 self.networkingFailure.onNext(())
             }
         }).filter({ $0 != nil && $1 != nil })

@@ -1204,6 +1204,24 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		4E3CA6312CEE23FF00E6E071 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4E3CA6322CEE240600E6E071 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */,
+				4E9900812CDBCD9E007EEFF7 /* ORBCharacterChatView.swift */,
+				4E9900832CDBD730007EEFF7 /* ORBCharacterChatBox.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		4E3F00992C40D1C000B9A31A /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1313,10 +1331,8 @@
 			isa = PBXGroup;
 			children = (
 				4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */,
-				4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */,
-				4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */,
-				4E9900812CDBCD9E007EEFF7 /* ORBCharacterChatView.swift */,
-				4E9900832CDBD730007EEFF7 /* ORBCharacterChatBox.swift */,
+				4E3CA6322CEE240600E6E071 /* Views */,
+				4E3CA6312CEE23FF00E6E071 /* ViewControllers */,
 			);
 			path = CharacterChat;
 			sourceTree = "<group>";
