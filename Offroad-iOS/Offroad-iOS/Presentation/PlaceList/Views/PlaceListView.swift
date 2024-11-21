@@ -14,17 +14,16 @@ class PlaceListView: UIView {
     
     //MARK: - UI Properties
     
-    let customNavigationBar = UIView()
+    private let customNavigationBar = UIView()
     let customBackButton = UIButton()
-    let titleLabel = UILabel()
-    let titleIcon = UIImageView()
+    private let titleLabel = UILabel()
+    private let titleIcon = UIImageView(image: .imgQuest)
     let segmentedControl = ORBSegmentedControl(titles: ["안 가본 곳", "전체"])
-    let separator = UIView()
+    private let separator = UIView()
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     
     var placeNeverVisitedListCollectionView: UICollectionView!
     var allPlaceListCollectionView: UICollectionView!
-//    var activityIndicator = UIActivityIndicatorView(style: .large)
     
     private var layoutMaker: UICollectionViewFlowLayout {
         let collectionViewHorizontalInset: CGFloat = 24
@@ -108,12 +107,6 @@ extension PlaceListView {
         allPlaceListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
         allPlaceListCollectionView.backgroundColor = .primary(.listBg)
         allPlaceListCollectionView.indicatorStyle = .black
-        
-//        activityIndicator.do { indicator in
-//            indicator.color = .sub(.sub)
-//            indicator.isHidden = false
-//            indicator.startAnimating()
-//        }
     }
     
     private func setupHierarchy() {
@@ -121,10 +114,10 @@ extension PlaceListView {
             customNavigationBar,
             customBackButton,
             titleLabel,
+            titleIcon,
             segmentedControl,
             separator,
             pageViewController.view
-//            activityIndicator
         )
     }
     
@@ -144,6 +137,12 @@ extension PlaceListView {
             make.leading.equalToSuperview().inset(23)
         }
         
+        titleIcon.snp.makeConstraints{ make in
+            make.leading.equalTo(titleLabel.snp.trailing).offset(8)
+            make.centerY.equalTo(titleLabel.snp.centerY)
+            make.size.equalTo(24)
+        }
+        
         segmentedControl.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(15)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24.5)
@@ -161,10 +160,6 @@ extension PlaceListView {
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
         }
-        
-//        activityIndicator.snp.makeConstraints { make in
-//            make.center.equalTo(pageViewController.view)
-//        }
     }
     
 }
