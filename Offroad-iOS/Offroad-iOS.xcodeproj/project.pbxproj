@@ -232,6 +232,7 @@
 		D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */; };
 		D0BD451F2CC77C3200128E74 /* MyPageCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */; };
 		D0C6FD132CE6561400517480 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D0C6FD122CE6561400517480 /* FirebaseMessaging */; };
+		D0E6BE902CED2827006CDAA8 /* PushNotificationRedirectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E6BE8F2CED2815006CDAA8 /* PushNotificationRedirectModel.swift */; };
 		D0E795FC2C447511005B47A5 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */; };
 		D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FE2C44FC2C005B47A5 /* UserModel.swift */; };
 		D0E796012C45222D005B47A5 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796002C45222D005B47A5 /* BaseTargetType.swift */; };
@@ -517,6 +518,7 @@
 		D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCustomButton.swift; sourceTree = "<group>"; };
 		D0C6FD092CE6551C00517480 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C6FD142CE6633500517480 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		D0E6BE8F2CED2815006CDAA8 /* PushNotificationRedirectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationRedirectModel.swift; sourceTree = "<group>"; };
 		D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		D0E795FE2C44FC2C005B47A5 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		D0E796002C45222D005B47A5 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
@@ -839,6 +841,7 @@
 		4E03946B2C2AA15C007F0517 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D0E6BE8E2CED280A006CDAA8 /* Model */,
 				4E03946C2C2AA4CE007F0517 /* UIComponents */,
 			);
 			path = Common;
@@ -2067,6 +2070,14 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		D0E6BE8E2CED280A006CDAA8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D0E6BE8F2CED2815006CDAA8 /* PushNotificationRedirectModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D0E795FA2C4474F6005B47A5 /* AuthManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2761,6 +2772,7 @@
 				D0E7963B2C45377C005B47A5 /* QuestAPI.swift in Sources */,
 				8792D0172C3E5828002051AC /* GenderView.swift in Sources */,
 				4EB32BE92C67A2DD003F98F2 /* QuestListView.swift in Sources */,
+				D0E6BE902CED2827006CDAA8 /* PushNotificationRedirectModel.swift in Sources */,
 				D0E7960C2C4522F2005B47A5 /* NetworkResult.swift in Sources */,
 				4E0394D92C2ABCCC007F0517 /* UIView+.swift in Sources */,
 				D06466AA2C8A08E500CF10FD /* MarketingConsentViewController.swift in Sources */,
