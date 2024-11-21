@@ -32,7 +32,7 @@ class QuestListView: UIView {
     private let ongoingQuestLabel = UILabel()
     private let separator = UIView()
     
-    let customBackButton = UIButton()
+    let customBackButton = NavigationPopButton()
     let ongoingQuestToggle = UISwitch()
     
     lazy var questListCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
@@ -64,25 +64,7 @@ extension QuestListView {
             view.backgroundColor = .main(.main1)
         }
 
-        customBackButton.do { button in
-            
-            let transformer = UIConfigurationTextAttributesTransformer { incoming in
-                var outgoing = incoming
-                outgoing.font = UIFont.offroad(style: .iosTextAuto)
-                outgoing.foregroundColor = UIColor.main(.main2)
-                return outgoing
-            }
-            
-            var configuration = UIButton.Configuration.plain()
-            configuration.titleTextAttributesTransformer = transformer
-            // 지금은 SFSymbol 사용, 추후 변경 예정
-            configuration.image = .init(systemName: "chevron.left")?.withTintColor(.main(.main2))
-            configuration.baseForegroundColor = .main(.main2)
-            configuration.imagePadding = 10
-            configuration.title = "탐험"
-
-            button.configuration = configuration
-        }
+        customBackButton.configureButtonTitle(titleString: "탐험")
 
         titleLabel.do { label in
             label.text = "퀘스트 목록"
