@@ -20,6 +20,11 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private var chatLogDataList: [ChatDataModel] = []
     private var chatLogDataSource: [[ChatDataModel]] = [[]]
     private var isChatButtonHidden: Bool = true
+    /// 채팅 중에 채팅 로그 뷰 진입 시 키보드가 내려가는데, 이때 keyboardWillHide() 메서드가 불리지 않게 하기 위해 사용하는 flag.
+    ///
+    /// 채팅 중에 채팅 로그 뷰에 진입하면 키보드가 내려가는 경우 `keyboardWillHide()`가 불리게 되는데, 이때
+    /// `rootView.safeAreaInsets.bottom` 와 `rootView.userChatView.frame.height`가 0 이어서 사용자 입력창이 보이게 되는 현상 발생함.
+    private var isKeyboardShown: Bool = false
     
     // userChatInputView의 textInputView의 height를 전달
     let userChatInputViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
@@ -93,6 +98,8 @@ extension CharacterChatLogViewController {
     }
     
     @objc private func keyboardWillShow(notification: Notification) {
+        guard !isKeyboardShown else { return }
+        isKeyboardShown = true
         guard rootView.userChatInputView.isFirstResponder else { return }
         rootView.userChatBoundsView.isUserInteractionEnabled = true
         rootView.userChatView.isUserInteractionEnabled = true
@@ -107,6 +114,8 @@ extension CharacterChatLogViewController {
     }
     
     @objc private func keyboardWillHide(notification: Notification) {
+        guard isKeyboardShown else { return }
+        isKeyboardShown = false
         rootView.userChatBoundsView.isUserInteractionEnabled = false
         rootView.userChatView.isUserInteractionEnabled = false
         UIView.animate(withDuration: 0.5) { [weak self] in
