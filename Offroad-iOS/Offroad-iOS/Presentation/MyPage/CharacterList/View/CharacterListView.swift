@@ -58,8 +58,6 @@ class CharacterListView: UIView {
         $0.backgroundColor = .clear
         $0.showsVerticalScrollIndicator = false
     }
-    
-    let viewForLoadingOverlay = UIView()
 
     // MARK: - Life Cycle
     
@@ -79,14 +77,12 @@ class CharacterListView: UIView {
     
     private func setupStyle() {
         backgroundColor = .primary(.listBg)
-        viewForLoadingOverlay.isUserInteractionEnabled = false
     }
 
     private func setupHierarchy() {
         addSubviews(
             labelView,
-            collectionView,
-            viewForLoadingOverlay
+            collectionView
         )
         labelView.addSubviews(
             customBackButton,
@@ -136,10 +132,6 @@ class CharacterListView: UIView {
             make.top.equalTo(labelView.snp.bottom)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
-        }
-        
-        viewForLoadingOverlay.snp.makeConstraints { make in
-            make.edges.equalTo(collectionView)
         }
     }
 }
