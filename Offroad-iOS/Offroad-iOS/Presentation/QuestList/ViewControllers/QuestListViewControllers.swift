@@ -70,7 +70,6 @@ extension QuestListViewController {
     
     @objc private func ongoingQuestSwitchValueChanged(sender: UISwitch) {
         isActive = sender.isOn
-        rootView.activityIndicatorView.startAnimating()
         rootView.questListCollectionView.setContentOffset(.zero, animated: false)
         rootView.questListCollectionView.reloadData()
     }
@@ -86,7 +85,6 @@ extension QuestListViewController {
     private func setupControlsTarget() {
         rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
         rootView.ongoingQuestSwitch.addTarget(self, action: #selector(ongoingQuestSwitchValueChanged(sender:)), for: .valueChanged)
-        rootView.questListCollectionView.refreshControl?.addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
     }
     
     private func setupCollectionView() {
@@ -102,6 +100,7 @@ extension QuestListViewController {
     }
     
     private func getInitialQuestList(isActive: Bool, cursor: Int = 0, size: Int = 20) {
+        rootView.questListCollectionView.startLoading(withoutShading: true)
         questListService.getQuestList(isActive: isActive, cursor: cursor, size: size) { [weak self] result in
             guard let self else { return }
             switch result {
@@ -112,8 +111,7 @@ extension QuestListViewController {
                 } else {
                     self.allQuestList = questListFromServer
                 }
-                self.rootView.activityIndicatorView.stopAnimating()
-                self.rootView.questListCollectionView.refreshControl?.endRefreshing()
+                self.rootView.questListCollectionView.stopLoading()
                 self.rootView.questListCollectionView.reloadData()
                 
                 lastCursorID = questListFromServer.last?.cursorId ?? Int()

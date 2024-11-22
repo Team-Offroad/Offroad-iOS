@@ -42,8 +42,8 @@ final class ORBAlertViewExplorationResult: ORBAlertBaseView, ORBAlertViewBaseUI 
         
         explorationResultImageView.snp.makeConstraints { make in
             make.top.equalTo(messageLabel.snp.bottom).offset(17)
-            make.horizontalEdges.equalTo(self)
-            make.height.greaterThanOrEqualTo(140)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(166)
         }
         
         buttonStackView.snp.makeConstraints { make in
