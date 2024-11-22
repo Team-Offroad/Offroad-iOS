@@ -29,7 +29,7 @@ final class CharacterListViewController: UIViewController {
         super.viewDidLoad()
         
         setupDelegate()
-        rootView.viewForLoadingOverlay.startLoading(withoutShading: true)
+        rootView.startLoading(withoutShading: true)
         viewModel.getCharacterListInfo()
         bindData()
     }
@@ -58,7 +58,7 @@ final class CharacterListViewController: UIViewController {
         viewModel.reloadCollectionView
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
-                self.rootView.viewForLoadingOverlay.stopLoading()
+                self.rootView.stopLoading()
                 self.rootView.collectionView.reloadData()
             }).disposed(by: disposeBag)
         
