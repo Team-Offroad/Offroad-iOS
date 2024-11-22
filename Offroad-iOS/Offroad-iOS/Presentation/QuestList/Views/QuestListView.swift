@@ -32,11 +32,10 @@ class QuestListView: UIView {
     private let ongoingQuestLabel = UILabel()
     private let separator = UIView()
     
-    let customBackButton = UIButton()
-    let ongoingQuestToggle = UISwitch()
+    let customBackButton = NavigationPopButton()
+    let ongoingQuestSwitch = UISwitch()
     
     lazy var questListCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
-    var activityIndicatorView = UIActivityIndicatorView(style: .large)
 
     //MARK: - Life Cycle
 
@@ -65,25 +64,7 @@ extension QuestListView {
             view.backgroundColor = .main(.main1)
         }
 
-        customBackButton.do { button in
-            
-            let transformer = UIConfigurationTextAttributesTransformer { incoming in
-                var outgoing = incoming
-                outgoing.font = UIFont.offroad(style: .iosTextAuto)
-                outgoing.foregroundColor = UIColor.main(.main2)
-                return outgoing
-            }
-            
-            var configuration = UIButton.Configuration.plain()
-            configuration.titleTextAttributesTransformer = transformer
-            // 지금은 SFSymbol 사용, 추후 변경 예정
-            configuration.image = .init(systemName: "chevron.left")?.withTintColor(.main(.main2))
-            configuration.baseForegroundColor = .main(.main2)
-            configuration.imagePadding = 10
-            configuration.title = "탐험"
-
-            button.configuration = configuration
-        }
+        customBackButton.configureButtonTitle(titleString: "탐험")
 
         titleLabel.do { label in
             label.text = "퀘스트 목록"
@@ -97,8 +78,8 @@ extension QuestListView {
             label.textColor = .grayscale(.gray400)
         }
         
-        ongoingQuestToggle.do {
-            $0.isOn = false
+        ongoingQuestSwitch.do {
+            $0.isOn = true
             $0.onTintColor = .sub(.sub)
         }
         
@@ -108,14 +89,6 @@ extension QuestListView {
         
         questListCollectionView.do { collectionView in
             collectionView.backgroundColor = .primary(.listBg)
-            collectionView.refreshControl = UIRefreshControl()
-            collectionView.refreshControl?.tintColor = .sub(.sub)
-            collectionView.indicatorStyle = .black
-        }
-        
-        activityIndicatorView.do { indicatorView in
-            indicatorView.color = .sub(.sub2)
-            indicatorView.startAnimating()
         }
     }
 
@@ -126,11 +99,10 @@ extension QuestListView {
             titleLabel,
             titleIcon,
             ongoingQuestLabel,
-            ongoingQuestToggle,
+            ongoingQuestSwitch,
             separator,
             questListCollectionView
         )
-        questListCollectionView.addSubview(activityIndicatorView)
     }
 
     private func setupLayout() {
@@ -157,10 +129,10 @@ extension QuestListView {
         
         ongoingQuestLabel.snp.makeConstraints { make in
             make.centerY.equalTo(titleLabel)
-            make.trailing.equalTo(ongoingQuestToggle.snp.leading).offset(-6)
+            make.trailing.equalTo(ongoingQuestSwitch.snp.leading).offset(-6)
         }
         
-        ongoingQuestToggle.snp.makeConstraints { make in
+        ongoingQuestSwitch.snp.makeConstraints { make in
             make.centerY.equalTo(titleLabel)
             make.trailing.equalToSuperview().inset(24)
         }
@@ -175,10 +147,6 @@ extension QuestListView {
             make.top.equalTo(separator.snp.bottom)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
-        }
-        
-        activityIndicatorView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
         }
     }
 

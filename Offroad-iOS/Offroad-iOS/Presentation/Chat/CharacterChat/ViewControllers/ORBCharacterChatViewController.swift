@@ -12,6 +12,10 @@ import RxCocoa
 
 class ORBCharacterChatViewController: UIViewController {
     
+    //MARK: - Properties
+    
+    var isCharacterChatBoxShown: Bool = false
+    
     var disposeBag = DisposeBag()
     let rootView = ORBCharacterChatView()
     
@@ -70,7 +74,6 @@ extension ORBCharacterChatViewController {
             return
         case .changed:
             let verticalPosition = sender.translation(in: rootView).y
-            print(verticalPosition)
             if verticalPosition < 0 {
                 let transform = CGAffineTransform(translationX: 0, y: verticalPosition)
                 rootView.characterChatBox.transform = transform
@@ -135,8 +138,11 @@ extension ORBCharacterChatViewController {
                 self.changeChatBoxMode(to: .withReplyButtonExpanded, animated: true)
             } else if self.rootView.characterChatBox.mode == .withReplyButtonExpanded {
                 self.changeChatBoxMode(to: .withReplyButtonShrinked, animated: true)
+            } else if self.rootView.characterChatBox.mode == .withoutReplyButtonShrinked {
+                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+            } else if self.rootView.characterChatBox.mode == .withoutReplyButtonExpanded {
+                self.changeChatBoxMode(to: .withoutReplyButtonShrinked, animated: true)
             }
-            
         }.disposed(by: disposeBag)
         
         rootView.characterChatBox.replyButton.rx.tap.bind { [weak self] in
@@ -150,7 +156,7 @@ extension ORBCharacterChatViewController {
             self.postCharacterChat(message: self.rootView.userChatInputView.text)
             print("메시지 전송: \(self.rootView.userChatInputView.text!)")
             // 로티 뜨도록 구현
-            self.configureCharacterChatBox(character: MyInfoManager.shared.representativeCharacterName ?? "", message: "", mode: .withoutReplyButtonShrinked, animated: true)
+            self.configureCharacterChatBox(character: MyInfoManager.shared.representativeCharacterName ?? "", message: "", mode: .loading, animated: true)
             self.showCharacterChatBox()
             self.rootView.userChatDisplayView.text = self.rootView.userChatInputView.text.trimmingCharacters(in: .whitespacesAndNewlines)
             self.rootView.userChatDisplayView.bounds.origin.y = -(self.rootView.userChatDisplayView.bounds.height)
@@ -234,42 +240,33 @@ extension ORBCharacterChatViewController {
             case .success(let dto):
                 guard let dto else {
                     self.showToast(message: "requestDTO is nil", inset: 66)
-                    self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                     return
                 }
                 let characterChatResponse = dto.data.content
-                self.configureCharacterChatBox(character: MyInfoManager.shared.representativeCharacterName ?? "", message: characterChatResponse, mode: .withoutReplyButtonExpanded, animated: true)
+                self.configureCharacterChatBox(character: MyInfoManager.shared.representativeCharacterName ?? "", message: characterChatResponse, mode: .withoutReplyButtonShrinked, animated: true)
             case .requestErr:
                 self.showToast(message: "requestError occurred", inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .unAuthentication:
                 self.showToast(message: "unAuthentication Error occurred", inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .unAuthorization:
                 self.showToast(message: "unAuthorized Error occurred", inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .apiArr:
                 self.showToast(message: "api Error occurred", inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .pathErr:
                 self.showToast(message: "path Error occurred", inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .registerErr:
                 self.showToast(message: "register Error occurred", inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .networkFail:
                 self.showToast(message: ErrorMessages.networkError, inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             case .decodeErr:
                 self.showToast(message: "decode Error occurred", inset: 66)
-//                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
                 self.hideCharacterChatBox()
             }
         }
@@ -278,24 +275,26 @@ extension ORBCharacterChatViewController {
     //MARK: - Func
     
     func showCharacterChatBox() {
+        isCharacterChatBoxShown = true
         rootView.layoutIfNeeded()
         characterChatBoxPositionAnimator.stopAnimation(true)
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.characterChatBox.transform = CGAffineTransform.identity
-            self.rootView.characterChatBoxTopConstraint.constant = 27
+            self.rootView.characterChatBoxTopConstraint.constant = view.safeAreaInsets.top + 27
             self.rootView.layoutIfNeeded()
         }
         characterChatBoxPositionAnimator.startAnimation()
     }
     
     func hideCharacterChatBox() {
+        isCharacterChatBoxShown = false
         characterChatBoxPositionAnimator.stopAnimation(true)
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.characterChatBox.transform = CGAffineTransform.identity
             self.rootView.characterChatBoxTopConstraint.constant
-            = -(rootView.safeAreaInsets.top +  self.rootView.characterChatBox.frame.height)
+            = -self.rootView.characterChatBox.frame.height
             self.rootView.layoutIfNeeded()
         }
         characterChatBoxPositionAnimator.addCompletion { [weak self] _ in
@@ -358,7 +357,7 @@ extension ORBCharacterChatViewController {
         characterChatBoxModeChangingAnimator.stopAnimation(true)
         rootView.characterChatBox.mode = mode
         rootView.characterChatBox.chevronImageButton.isHidden =
-        (mode == .withoutReplyButtonShrinked || mode == .withoutReplyButtonExpanded) ? true : false
+        (mode == .loading) ? true : false
         if animated {
             characterChatBoxModeChangingAnimator.addAnimations { [weak self] in
                 guard let self else { return }
@@ -376,17 +375,23 @@ extension ORBCharacterChatViewController {
                     self.rootView.characterChatBox.loadingAnimationView.isHidden = true
                     self.rootView.characterChatBox.loadingAnimationView.stop()
                 case .withoutReplyButtonShrinked:
-                    self.rootView.characterChatBox.messageLabel.isHidden = true
+                    self.rootView.characterChatBox.messageLabel.isHidden = false
                     self.rootView.characterChatBox.replyButton.isHidden = true
                     self.rootView.characterChatBox.chevronImageButton.transform = .identity
-                    self.rootView.characterChatBox.loadingAnimationView.isHidden = false
-                    self.rootView.characterChatBox.loadingAnimationView.play()
+                    self.rootView.characterChatBox.loadingAnimationView.isHidden = true
+                    self.rootView.characterChatBox.loadingAnimationView.stop()
                 case .withoutReplyButtonExpanded:
                     self.rootView.characterChatBox.messageLabel.isHidden = false
                     self.rootView.characterChatBox.replyButton.isHidden = true
                     self.rootView.characterChatBox.chevronImageButton.transform = .init(rotationAngle: .pi * 0.99)
                     self.rootView.characterChatBox.loadingAnimationView.isHidden = true
                     self.rootView.characterChatBox.loadingAnimationView.stop()
+                case .loading:
+                    self.rootView.characterChatBox.messageLabel.isHidden = true
+                    self.rootView.characterChatBox.replyButton.isHidden = true
+                    self.rootView.characterChatBox.chevronImageButton.transform = .identity
+                    self.rootView.characterChatBox.loadingAnimationView.isHidden = false
+                    self.rootView.characterChatBox.loadingAnimationView.play()
                 }
                 self.rootView.characterChatBox.setupAdditionalLayout()
                 self.rootView.layoutIfNeeded()
@@ -407,17 +412,23 @@ extension ORBCharacterChatViewController {
                 self.rootView.characterChatBox.loadingAnimationView.isHidden = true
                 self.rootView.characterChatBox.loadingAnimationView.stop()
             case .withoutReplyButtonShrinked:
-                self.rootView.characterChatBox.messageLabel.isHidden = true
+                self.rootView.characterChatBox.messageLabel.isHidden = false
                 self.rootView.characterChatBox.replyButton.isHidden = true
                 self.rootView.characterChatBox.chevronImageButton.transform = .identity
-                self.rootView.characterChatBox.loadingAnimationView.isHidden = false
-                self.rootView.characterChatBox.loadingAnimationView.play()
+                self.rootView.characterChatBox.loadingAnimationView.isHidden = true
+                self.rootView.characterChatBox.loadingAnimationView.stop()
             case .withoutReplyButtonExpanded:
                 self.rootView.characterChatBox.messageLabel.isHidden = false
                 self.rootView.characterChatBox.replyButton.isHidden = true
                 self.rootView.characterChatBox.chevronImageButton.transform = .init(rotationAngle: .pi * 0.99)
                 self.rootView.characterChatBox.loadingAnimationView.isHidden = true
                 self.rootView.characterChatBox.loadingAnimationView.stop()
+            case .loading:
+                self.rootView.characterChatBox.messageLabel.isHidden = true
+                self.rootView.characterChatBox.replyButton.isHidden = true
+                self.rootView.characterChatBox.chevronImageButton.transform = .identity
+                self.rootView.characterChatBox.loadingAnimationView.isHidden = false
+                self.rootView.characterChatBox.loadingAnimationView.play()
             }
             rootView.characterChatBox.setupAdditionalLayout()
             rootView.layoutIfNeeded()

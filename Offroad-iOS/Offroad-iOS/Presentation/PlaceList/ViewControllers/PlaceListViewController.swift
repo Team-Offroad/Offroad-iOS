@@ -106,19 +106,10 @@ extension PlaceListViewController {
             PlaceCollectionViewCell.self,
             forCellWithReuseIdentifier: PlaceCollectionViewCell.className
         )
-        rootView.placeNeverVisitedListCollectionView.refreshControl = UIRefreshControl()
-        rootView.placeNeverVisitedListCollectionView.refreshControl?.tintColor = .sub(.sub)
-        rootView.placeNeverVisitedListCollectionView.refreshControl?
-            .addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
-        
         rootView.allPlaceListCollectionView.register(
             PlaceCollectionViewCell.self,
             forCellWithReuseIdentifier: PlaceCollectionViewCell.className
         )
-        rootView.allPlaceListCollectionView.refreshControl = UIRefreshControl()
-        rootView.allPlaceListCollectionView.refreshControl?.tintColor = .sub(.sub)
-        rootView.allPlaceListCollectionView.refreshControl?
-            .addTarget(self, action: #selector(refreshCollectionView), for: .valueChanged)
     }
     
     private func setupDelegates() {
@@ -148,16 +139,15 @@ extension PlaceListViewController {
             limit: limit,
             isBounded: isBounded
         )
+        
+        rootView.pageViewController.view.startLoading(withoutShading: true)
         placeService.getRegisteredPlace(requestDTO: placeRequestDTO) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let response):
                 guard let responsePlaceArray = response?.data.places else { return }
                 places = responsePlaceArray
-                self.rootView.activityIndicator.stopAnimating()
-                
-                self.rootView.allPlaceListCollectionView.refreshControl?.endRefreshing()
-                self.rootView.placeNeverVisitedListCollectionView.refreshControl?.endRefreshing()
+                rootView.pageViewController.view.stopLoading()
 
                 self.rootView.allPlaceListCollectionView.reloadData()
                 self.rootView.placeNeverVisitedListCollectionView.reloadData()

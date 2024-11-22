@@ -29,6 +29,7 @@ class QuestMapViewController: OffroadTabBarViewController {
     private var searchedPlaceArray: [RegisteredPlaceInfo] = []
     private var isFocused: Bool = false
     private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
+    private var latestCategory: String?
     
     private var markerPoint: CGPoint? {
         guard let selectedMarker = viewModel.selectedMarker else { return nil }
@@ -272,6 +273,7 @@ extension QuestMapViewController {
         viewModel.selectedMarker = marker
         focusToMarker(marker)
         rootView.naverMapView.mapView.locationOverlay.icon = rootView.locationOverlayImage
+        latestCategory = marker.placeInfo.placeCategory
         tooltipWindow.placeInfoViewController.rootView.tooltip.configure(with: marker.placeInfo)
         tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = markerPoint!
         tooltipWindow.placeInfoViewController.showToolTip()
@@ -288,7 +290,19 @@ extension QuestMapViewController {
         alertController.xButton.isHidden = true
         let okAction = ORBAlertAction(title: buttonTitle, style: .default) { [weak self] _ in
             guard let self else { return }
-            if isSuccess { self.tabBarController?.selectedIndex = 0 }
+            if isSuccess {
+                // 홈 화면에서 띄울 로티 결정
+                guard let homeNavigationController = tabBarController?.viewControllers?[0] as? UINavigationController else {
+                    print("navigationController not found")
+                    return
+                }
+                guard let homeViewController = homeNavigationController.viewControllers[0] as? HomeViewController else {
+                    print("home view not found")
+                    return
+                }
+                homeViewController.categoryString = latestCategory ?? "NONE"
+                self.tabBarController?.selectedIndex = 0
+            }
             
             guard let completeQuests, isSuccess else { return }
             let message: String
