@@ -187,6 +187,7 @@ extension HomeView {
         }
 
         nicknameLabel.setContentHuggingPriority(.defaultHigh + 1, for: .vertical)
+        nicknameLabel.setContentCompressionResistancePriority(.defaultHigh + 1, for: .vertical)
         nicknameLabel.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(26)
             $0.leading.equalToSuperview().inset(24)
