@@ -63,7 +63,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         tabBarController.showTabBarAnimation()
         rootView.backgroundView.isHidden = false
-        ORBCharacterChatManager.shared.hideCharacterChatBox()
+        ORBCharacterChatManager.shared.endChat()
     }
     
     override func viewDidAppear(_ animated: Bool) {
