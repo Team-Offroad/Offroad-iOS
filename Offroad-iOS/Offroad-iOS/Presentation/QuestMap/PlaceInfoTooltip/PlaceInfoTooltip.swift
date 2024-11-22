@@ -13,7 +13,7 @@ final class PlaceInfoTooltip: UIView {
     
     private let tooptipImageView = UIImageView(image: .icnPlaceInfoPopupTooltip)
     private let rectView = UIView()
-    private let offroadLogoImageView = UIImageView(image: .icnOffroadlogoPopupView)
+    private let offroadLogoImageView = UIImageView(image: .icnPlaceInfoTooltipOrbLogo)
     private let nameLabel = UILabel()
     private let nameAndImageStackView = UIStackView()
     
@@ -57,8 +57,9 @@ extension PlaceInfoTooltip  {
         }
         
         offroadLogoImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.top.equalToSuperview().inset(27)
+            make.trailing.equalToSuperview().inset(22)
+            make.bottom.equalTo(exploreButton.snp.top).offset(-6)
         }
         
         nameAndImageStackView.snp.makeConstraints { make in
@@ -119,6 +120,10 @@ extension PlaceInfoTooltip  {
             label.textColor = .main(.main2)
             label.numberOfLines = 0
             label.textAlignment = .left
+        }
+        
+        offroadLogoImageView.do { imageView in
+            imageView.contentMode = .scaleAspectFit
         }
         
         nameAndImageStackView.do { stackView in
