@@ -154,7 +154,7 @@ extension ORBCharacterChatViewController {
         rootView.sendButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             self.postCharacterChat(message: self.rootView.userChatInputView.text)
-            print("메시지 전송: \(self.rootView.userChatInputView.text!)")
+            self.rootView.sendButton.isEnabled = false
             // 로티 뜨도록 구현
             self.configureCharacterChatBox(character: MyInfoManager.shared.representativeCharacterName ?? "", message: "", mode: .loading, animated: true)
             self.showCharacterChatBox()
@@ -269,6 +269,7 @@ extension ORBCharacterChatViewController {
                 self.showToast(message: "decode Error occurred", inset: 66)
                 self.hideCharacterChatBox()
             }
+            self.rootView.sendButton.isEnabled = true
         }
     }
     
