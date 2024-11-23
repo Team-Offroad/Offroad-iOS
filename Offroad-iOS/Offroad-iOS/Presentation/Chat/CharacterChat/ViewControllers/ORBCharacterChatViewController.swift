@@ -171,8 +171,8 @@ extension ORBCharacterChatViewController {
             guard let self else { return }
             print("채팅을 종료합니다.")
             self.rootView.userChatInputView.resignFirstResponder()
-            rootView.userChatInputView.text = ""
-            rootView.userChatDisplayView.text = ""
+            self.rootView.userChatInputView.text = ""
+            self.rootView.userChatDisplayView.text = ""
             hideCharacterChatBox()
         }.disposed(by: disposeBag)
         
