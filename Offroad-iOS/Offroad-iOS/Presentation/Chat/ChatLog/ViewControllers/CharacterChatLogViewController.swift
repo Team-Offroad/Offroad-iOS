@@ -84,7 +84,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         super.viewWillDisappear(animated)
         
         rootView.backgroundView.isHidden = true
-        rootView.endEditing(true)
+        rootView.userChatInputView.resignFirstResponder()
     }
     
 }
@@ -128,7 +128,7 @@ extension CharacterChatLogViewController {
     }
     
     @objc private func tapGestureHandler(_ sender: UITapGestureRecognizer) {
-        rootView.endEditing(true)
+        rootView.userChatInputView.resignFirstResponder()
     }
     
     //MARK: - Private Func
@@ -520,7 +520,7 @@ extension CharacterChatLogViewController: UICollectionViewDelegate {
     }
     
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        rootView.endEditing(true)
+        rootView.userChatInputView.resignFirstResponder()
         return true
     }
     
