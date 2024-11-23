@@ -204,7 +204,7 @@ extension MyPageView {
     
     private func setupLayout() {
         myPageScrollView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalTo(safeAreaLayoutGuide)
         }
         
         myPageContentView.snp.makeConstraints {
@@ -237,6 +237,7 @@ extension MyPageView {
         
         adventureStackView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
+            $0.leading.equalTo(characterProfileImageView.snp.trailing).offset(16)
             $0.trailing.equalToSuperview().inset(36)
         }
         
