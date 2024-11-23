@@ -237,9 +237,8 @@ extension CharacterChatLogViewController {
         rootView.sendButton.rx.tap.bind(
             onNext: { [weak self] in
                 guard let self else { return }
-                
                 self.postCharacterChat(message: self.rootView.userChatInputView.text)
-                
+                self.rootView.sendButton.isEnabled = false
                 // 사용자 채팅 버블 추가
                 self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text) { [weak self] isFinished in
                     guard let self else { return }
@@ -428,6 +427,7 @@ extension CharacterChatLogViewController {
             case .decodeErr:
                 self.showToast(message: "decode Error occurred", inset: 66)
             }
+            self.rootView.sendButton.isEnabled = true
         }
     }
     
