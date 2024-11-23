@@ -89,8 +89,6 @@ extension CharacterDetailCell {
     }
     
     private func setupLayout() {
-        contentView.roundCorners(cornerRadius: 10)
-        
         contentView.clipsToBounds = true
         
         containerView.snp.makeConstraints { make in
