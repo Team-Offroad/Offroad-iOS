@@ -25,7 +25,7 @@ final class TitlePopupView: UIView {
     private let popupView = UIView()
     private let myTitleLabel = UILabel()
     private let closeButton = UIButton()
-    private let titleCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    let titleCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     private let changeTitleButton = StateToggleButton(state: .isDisabled, title: "바꾸기")
         
     // MARK: - Life Cycle

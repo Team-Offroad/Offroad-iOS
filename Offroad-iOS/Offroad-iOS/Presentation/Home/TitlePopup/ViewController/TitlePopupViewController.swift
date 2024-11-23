@@ -23,6 +23,11 @@ final class TitlePopupViewController: UIViewController {
         didSet {
             rootView.reloadCollectionView()
             userTitleIndex = titleModelList?.firstIndex(where: { $0.emblemName == userTitleString }) ?? Int()
+            rootView.titleCollectionView.selectItem(
+                at: IndexPath(item: userTitleIndex, section: 0),
+                animated: false,
+                scrollPosition: []
+            )
         }
     }
     
@@ -127,10 +132,6 @@ extension TitlePopupViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.className, for: indexPath) as? TitleCollectionViewCell else { return UICollectionViewCell() }
         if let titleModelList {
             cell.configureCell(data: titleModelList[indexPath.item])
-            
-            if indexPath.item == userTitleIndex {
-                cell.changeCellState(true)
-            }
         }
         
         return cell
@@ -145,7 +146,7 @@ extension TitlePopupViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.cellForItem(at: indexPath)?.isSelected = true
+        collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
         indexPath.item == userTitleIndex ? rootView.toggleChangeTitleButtonState(false) : rootView.toggleChangeTitleButtonState(true)
 
         if let titleModelList {
