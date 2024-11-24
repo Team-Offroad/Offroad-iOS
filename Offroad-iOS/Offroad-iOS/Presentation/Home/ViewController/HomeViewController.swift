@@ -143,7 +143,7 @@ extension HomeViewController {
         titlePopupViewController.modalPresentationStyle = .overCurrentContext
         titlePopupViewController.delegate = self
         
-        present(titlePopupViewController, animated: false)
+        tabBarController?.present(titlePopupViewController, animated: false)
     }
 }
 
