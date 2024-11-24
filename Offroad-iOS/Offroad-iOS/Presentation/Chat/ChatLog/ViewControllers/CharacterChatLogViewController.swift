@@ -29,6 +29,8 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     // userChatInputView의 textInputView의 height를 전달
     let userChatInputViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
     let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    let isCharacterResponding = BehaviorRelay<Bool>(value: false)
+    let isTextViewEmpty = BehaviorRelay<Bool>(value: true)
     
     var disposeBag = DisposeBag()
     var characterName: String
@@ -224,22 +226,21 @@ extension CharacterChatLogViewController {
                     print("입력된 텍스트: \(text)")
                     self.rootView.loadingAnimationView.isHidden = false
                     self.rootView.loadingAnimationView.play()
-                    self.rootView.sendButton.isEnabled = true
+                    self.isTextViewEmpty.accept(false)
                 } else {
                     print("입력된 텍스트 없음")
                     self.rootView.loadingAnimationView.currentProgress = 0
                     self.rootView.loadingAnimationView.pause()
                     self.rootView.loadingAnimationView.isHidden = true
-                    self.rootView.sendButton.isEnabled = false
+                    self.isTextViewEmpty.accept(true)
                 }
             }).disposed(by: disposeBag)
         
         rootView.sendButton.rx.tap.bind(
             onNext: { [weak self] in
                 guard let self else { return }
-                
                 self.postCharacterChat(message: self.rootView.userChatInputView.text)
-                
+                self.rootView.sendButton.isEnabled = false
                 // 사용자 채팅 버블 추가
                 self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text) { [weak self] isFinished in
                     guard let self else { return }
@@ -293,6 +294,13 @@ extension CharacterChatLogViewController {
                     showToast(message: ErrorMessages.networkError, inset: 66)
                 }
             }).disposed(by: disposeBag)
+        
+        Observable.combineLatest(isCharacterResponding, isTextViewEmpty)
+            .map { return (!$0 && !$1) }
+            .subscribe { [weak self] shouldEnableSendButton in
+                guard let self else { return }
+                self.rootView.sendButton.isEnabled = shouldEnableSendButton
+            }.disposed(by: disposeBag)
     }
     
     private func setupNotifications() {
@@ -400,6 +408,7 @@ extension CharacterChatLogViewController {
     }
     
     private func postCharacterChat(message: String) {
+        isCharacterResponding.accept(true)
         let dto = CharacterChatPostRequestDTO(content: message)
         NetworkService.shared.characterChatService.postChat(body: dto) { [weak self] result in
             guard let self else { return }
@@ -428,6 +437,7 @@ extension CharacterChatLogViewController {
             case .decodeErr:
                 self.showToast(message: "decode Error occurred", inset: 66)
             }
+            self.isCharacterResponding.accept(false)
         }
     }
     
