@@ -206,6 +206,7 @@ extension QuestMapViewController {
             guard let self else { return }
             if success {
                 self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
+                MyInfoManager.shared.didSuccessAdventure.accept(())
             }
             self.tabBarController?.view.stopLoading()
             self.popupAdventureResult(isSuccess: success, image: image, completeQuests: completeQuests)
