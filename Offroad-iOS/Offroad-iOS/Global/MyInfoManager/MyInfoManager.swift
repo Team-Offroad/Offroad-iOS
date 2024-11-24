@@ -30,6 +30,7 @@ final class MyInfoManager {
     let didSuccessAdventure = PublishRelay<Void>()
     let didChangeRepresentativeCharacter = PublishRelay<Void>()
     let didChangeEmblem = PublishRelay<Void>()
+    let shouldUpdateCharacterAnimation = PublishRelay<String>()
     
     static let shared = MyInfoManager()
     

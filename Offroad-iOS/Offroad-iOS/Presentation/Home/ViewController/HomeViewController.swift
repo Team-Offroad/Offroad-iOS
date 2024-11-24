@@ -113,8 +113,10 @@ extension HomeViewController {
     
     private func bindData() {
         MyInfoManager.shared.didSuccessAdventure
+            .debug()
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
+                self.getUserAdventureInfo()
                 self.getUserQuestInfo()
             }).disposed(by: disposeBag)
         
@@ -122,6 +124,13 @@ extension HomeViewController {
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
                 self.getUserAdventureInfo()
+            }).disposed(by: disposeBag)
+        
+        MyInfoManager.shared.shouldUpdateCharacterAnimation
+            .debug()
+            .subscribe(onNext: { [weak self] category in
+                guard let self else { return }
+                self.categoryString = category
             }).disposed(by: disposeBag)
     }
     

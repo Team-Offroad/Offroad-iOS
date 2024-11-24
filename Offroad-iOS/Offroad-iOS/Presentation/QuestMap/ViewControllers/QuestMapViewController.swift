@@ -206,6 +206,7 @@ extension QuestMapViewController {
             guard let self else { return }
             if success {
                 self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
+                MyInfoManager.shared.shouldUpdateCharacterAnimation.accept(latestCategory ?? "NONE")
                 MyInfoManager.shared.didSuccessAdventure.accept(())
             }
             self.tabBarController?.view.stopLoading()
@@ -292,16 +293,6 @@ extension QuestMapViewController {
         let okAction = ORBAlertAction(title: buttonTitle, style: .default) { [weak self] _ in
             guard let self else { return }
             if isSuccess {
-                // 홈 화면에서 띄울 로티 결정
-                guard let homeNavigationController = tabBarController?.viewControllers?[0] as? UINavigationController else {
-                    print("navigationController not found")
-                    return
-                }
-                guard let homeViewController = homeNavigationController.viewControllers[0] as? HomeViewController else {
-                    print("home view not found")
-                    return
-                }
-                homeViewController.categoryString = latestCategory ?? "NONE"
                 self.tabBarController?.selectedIndex = 0
             }
             
