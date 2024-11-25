@@ -125,7 +125,6 @@ extension CharacterChatLogCell {
             messageLabelTrailingConstraint.isActive = true
             messageLabel.snp.remakeConstraints { make in
                 make.top.bottom.equalToSuperview().inset(14)
-//                make.trailing.equalToSuperview().inset(20)
                 make.leading.equalToSuperview().inset(20)
             }
             chatBubbleView.snp.remakeConstraints { make in
@@ -184,37 +183,5 @@ extension CharacterChatLogCell {
         updateConstraints()
         layoutIfNeeded()
     }
-    
-//    func startChatLoading() {
-//        guard role == .character else { return }
-//        animator.stopAnimation(true)
-//        messageLabel.isHidden = true
-//        loadingAnimationView.isHidden = false
-//        loadingAnimationView.play()
-//        animator.addAnimations { [weak self] in
-//            guard let self else { return }
-//            self.messageLabelTrailingConstraint.isActive = false
-//            self.loadingAnimationViewTrailingConstraint.isActive = true
-//            self.contentView.layoutIfNeeded()
-//        }
-//        animator.startAnimation()
-//    }
-//    
-//    func stopChatLoading(newMessage: String? = nil) {
-//        guard role == .character else { return }
-//        animator.stopAnimation(true)
-//        messageLabel.isHidden = false
-//        messageLabel.numberOfLines = 0
-//        if let newMessage { messageLabel.text = newMessage }
-//        loadingAnimationView.isHidden = true
-//        loadingAnimationView.stop()
-//        animator.addAnimations { [weak self] in
-//            guard let self else { return }
-//            self.loadingAnimationViewTrailingConstraint.isActive = false
-//            self.messageLabelTrailingConstraint.isActive = true
-//            self.contentView.layoutIfNeeded()
-//        }
-//        animator.startAnimation()
-//    }
     
 }

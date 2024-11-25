@@ -274,6 +274,9 @@ extension ORBCharacterChatViewController {
             case .networkFail:
                 self.showToast(message: ErrorMessages.networkError, inset: 66)
                 self.hideCharacterChatBox()
+            case .serverErr:
+                self.showToast(message: "오브가 답변하기 힘든 질문이예요.\n다른 이야기를 해볼까요?", inset: 66)
+                self.hideCharacterChatBox()
             case .decodeErr:
                 self.showToast(message: "decode Error occurred", inset: 66)
                 self.hideCharacterChatBox()
