@@ -330,6 +330,11 @@ extension CouponListViewController: UIPageViewControllerDataSource {
 
 extension CouponListViewController: UIPageViewControllerDelegate {
     
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        guard pageViewController.viewControllers?.first != nil else { return }
+        rootView.segmentedControl.isUserInteractionEnabled = false
+    }
+    
     func pageViewController(
         _ pageViewController: UIPageViewController,
         didFinishAnimating finished: Bool,
@@ -337,6 +342,7 @@ extension CouponListViewController: UIPageViewControllerDelegate {
         transitionCompleted completed: Bool
     ) {
         guard pageViewController.viewControllers?.first != nil else { return }
+        rootView.segmentedControl.isUserInteractionEnabled = true
         if let index = viewControllerList.firstIndex(of: pageViewController.viewControllers!.first!) {
             rootView.segmentedControl.selectSegment(index: index)
             selectedState.toggle()
