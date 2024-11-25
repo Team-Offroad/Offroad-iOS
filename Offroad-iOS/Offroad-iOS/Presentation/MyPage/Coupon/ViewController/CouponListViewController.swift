@@ -26,7 +26,7 @@ final class CouponListViewController: UIViewController {
     
     // MARK: - UI Properties
     
-    private let rootView = AcquiredCouponView()
+    private let rootView = CouponListView()
     
     lazy var viewControllerList: [UIViewController] = [
         CouponCollectionViewController(collectionView: rootView.collectionViewForAvailableCoupons),

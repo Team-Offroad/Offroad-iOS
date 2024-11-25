@@ -1,5 +1,5 @@
 //
-//  AcquiredCouponView.swift
+//  CouponListView.swift
 //  Offroad-iOS
 //
 //  Created by  정지원 on 8/27/24.
@@ -10,7 +10,7 @@ import UIKit
 import Lottie
 import SnapKit
 
-class AcquiredCouponView: UIView {
+class CouponListView: UIView {
     
     // MARK: - UI Properties
     
