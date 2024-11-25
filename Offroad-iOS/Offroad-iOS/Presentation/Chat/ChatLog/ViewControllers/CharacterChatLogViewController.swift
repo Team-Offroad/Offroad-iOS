@@ -452,6 +452,8 @@ extension CharacterChatLogViewController {
     /// 채팅이 성공했을 경우, 로딩 중이던 캐릭터의 말풍선이 캐릭터가 답변한 내용으로 변경됨.
     ///
     /// 채팅이 실패했을 경우, 로딩 중이던 캐릭터의 말풍선과 직전에 내가 했던 말풍선을 지움.
+    ///
+    /// 에러 발생 시, 채팅 로그 뷰컨트롤러를 nagivation stack에서 pop 하며 에러 메시지 토스트 표시
     private func updateChatLog(chatSuccess: Bool = true) {
         NetworkService.shared.characterChatService.getChatLog(completion: { [weak self] result in
             guard let self else { return }
@@ -463,18 +465,6 @@ extension CharacterChatLogViewController {
                     return
                 }
                 self.chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
-                
-//                let lastSection = chatLogDataSource.count - 1
-//                let lastSectionCount = chatLogDataSource[lastSection].count
-                
-//                let lastIndexPath = IndexPath(
-//                    item: lastSectionCount-1,
-//                    section: lastSection
-//                )
-                
-                // 채팅이 실패하여 collectionView의 item을 삭제해야 하는 경우,
-                // 아래 collectionView에서 performBatchUpdates 시에, dataSource에서 사라진 indexPath를 참조하여 deleteItems 해야 하므로,
-                // dataSource 업데이트 전 lastIndexPath와 secondLastIndexPath를 상수로 저장한 후 dataSource 업데이트해야 함.
                 self.chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList)
                 
                 guard
@@ -484,18 +474,6 @@ extension CharacterChatLogViewController {
                     self.navigationController?.popViewController(animated: true)
                     return
                 }
-//                print("1: \(lastIndexPath)")
-//                print("2: \(self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 1))")
-//                let secondLastIndexPath = IndexPath(
-//                    item: lastSectionCount-2,
-//                    section: lastSection
-//                )
-                
-//                guard let secondLastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 2) else { return }
-//                print("1: \(secondLastIndexPath)")
-//                print("2: \(self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 2))")
-                
-                
                 
                 if chatSuccess {
                     self.rootView.chatLogCollectionView.performBatchUpdates {
