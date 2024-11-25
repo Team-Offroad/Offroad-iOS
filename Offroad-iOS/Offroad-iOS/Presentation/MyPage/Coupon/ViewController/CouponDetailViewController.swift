@@ -70,8 +70,8 @@ class CouponDetailViewController: UIViewController {
         
         couponCodeInputSubject.subscribe { [weak self] codeInput in
             guard let self else { return }
-//            self.redeemCoupon(code: codeInput)
-            self.redeemCouponTest(code: codeInput)
+            self.redeemCoupon(code: codeInput)
+            //self.redeemCouponTest(code: codeInput)
         }.disposed(by: disposeBag)
         
         
