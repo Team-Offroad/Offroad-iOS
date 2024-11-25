@@ -320,6 +320,7 @@ extension CharacterChatLogViewController {
     
     private func scrollToBottom(animated: Bool) {
         let numberOfSections = rootView.chatLogCollectionView.numberOfSections
+        guard numberOfSections > 0 else { return }
         let numberOfItemsInLastSection = rootView.chatLogCollectionView.numberOfItems(inSection: numberOfSections-1)
         let lastIndexPath = IndexPath(item: numberOfItemsInLastSection-1, section: numberOfSections-1)
         rootView.chatLogCollectionView.scrollToItem(at: lastIndexPath, at: .top, animated: animated)
@@ -444,6 +445,13 @@ extension CharacterChatLogViewController {
         }
     }
     
+    
+    /// 채팅의 결과가 나왔을 때, 채팅 로그를 업데이트하는 메서드
+    /// - Parameter chatSuccess: 채팅이 성공했는지, 실패했는지 여부
+    ///
+    /// 채팅이 성공했을 경우, 로딩 중이던 캐릭터의 말풍선이 캐릭터가 답변한 내용으로 변경됨.
+    ///
+    /// 채팅이 실패했을 경우, 로딩 중이던 캐릭터의 말풍선과 직전에 내가 했던 말풍선을 지움.
     private func updateChatLog(chatSuccess: Bool = true) {
         NetworkService.shared.characterChatService.getChatLog(completion: { [weak self] result in
             guard let self else { return }
@@ -456,20 +464,38 @@ extension CharacterChatLogViewController {
                 }
                 self.chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
                 
-                let lastSection = chatLogDataSource.count - 1
-                let lastSectionCount = chatLogDataSource[lastSection].count
-                let lastIndexPath = IndexPath(
-                    item: lastSectionCount-1,
-                    section: lastSection
-                )
-                let secondLastIndexPath = IndexPath(
-                    item: lastSectionCount-2,
-                    section: lastSection
-                )
+//                let lastSection = chatLogDataSource.count - 1
+//                let lastSectionCount = chatLogDataSource[lastSection].count
+                
+//                let lastIndexPath = IndexPath(
+//                    item: lastSectionCount-1,
+//                    section: lastSection
+//                )
+                
                 // 채팅이 실패하여 collectionView의 item을 삭제해야 하는 경우,
                 // 아래 collectionView에서 performBatchUpdates 시에, dataSource에서 사라진 indexPath를 참조하여 deleteItems 해야 하므로,
                 // dataSource 업데이트 전 lastIndexPath와 secondLastIndexPath를 상수로 저장한 후 dataSource 업데이트해야 함.
                 self.chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList)
+                
+                guard
+                    let lastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 1),
+                    let secondLastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 2) else {
+                    self.showToast(message: "알 수 없는 오류가 발생했어요. 채팅을 다시 시도해 주세요.", inset: 66)
+                    self.navigationController?.popViewController(animated: true)
+                    return
+                }
+//                print("1: \(lastIndexPath)")
+//                print("2: \(self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 1))")
+//                let secondLastIndexPath = IndexPath(
+//                    item: lastSectionCount-2,
+//                    section: lastSection
+//                )
+                
+//                guard let secondLastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 2) else { return }
+//                print("1: \(secondLastIndexPath)")
+//                print("2: \(self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 2))")
+                
+                
                 
                 if chatSuccess {
                     self.rootView.chatLogCollectionView.performBatchUpdates {
@@ -478,6 +504,10 @@ extension CharacterChatLogViewController {
                 } else {
                     self.rootView.chatLogCollectionView.performBatchUpdates {
                         self.rootView.chatLogCollectionView.deleteItems(at: [lastIndexPath, secondLastIndexPath])
+                        let lastSection = self.rootView.chatLogCollectionView.numberOfSections - 1
+                        if self.chatLogDataSource.count == 0 || self.chatLogDataSource.last?.count == 0 {
+                            self.rootView.chatLogCollectionView.deleteSections([lastSection])
+                        }
                     }
                 }
                 self.scrollToBottom(animated: false)
