@@ -29,9 +29,9 @@ class CharacterDetailView: UIView, SVGFetchable {
     private let dottedLineView = UIView()
     private let detailLabelView = UIView()
     let nameLabel = UILabel()
-    private let mainLabel = UILabel()
+    private let characterMotionViewTitleLabel = UILabel()
     private let babyImage = UIImageView(image: UIImage(resource: .baby))
-    private var characterLogoImageView = UIImageView()
+    private var characterIconImageView = UIImageView()
     private let titleLabel = UILabel()
     let crownBadgeImageView = UIImageView(image: .imgCrownTag)
     private let detailLabel = UILabel()
@@ -114,71 +114,75 @@ extension CharacterDetailView {
             make.height.equalTo(84)
         }
         
-        characterLogoImageView.snp.makeConstraints { make in
+        characterIconImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
+            make.top.greaterThanOrEqualToSuperview().inset(15)
+            make.bottom.lessThanOrEqualToSuperview().inset(15)
             make.leading.equalToSuperview().inset(22)
             make.size.equalTo(50)
         }
         
         nameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(characterLogoImageView.snp.trailing).offset(17)
-            make.top.equalToSuperview().inset(21)
-            make.width.equalTo(35)
+            make.top.equalToSuperview().inset(15)
+            make.leading.equalTo(characterIconImageView.snp.trailing).offset(17)
+            make.trailing.lessThanOrEqualToSuperview().inset(22)
         }
         
         crownBadgeImageView.snp.makeConstraints { make in
             make.leading.equalTo(nameLabel.snp.trailing).offset(6)
+            make.trailing.lessThanOrEqualToSuperview()
             make.centerY.equalTo(nameLabel)
             make.size.equalTo(21)
         }
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(4)
-            make.leading.centerX.equalTo(nameLabel)
+            make.leading.equalTo(nameLabel)
+            make.trailing.lessThanOrEqualToSuperview().inset(22)
         }
         
         dottedLineView.snp.makeConstraints { make in
-            make.top.equalTo(labelView.snp.bottom)
+            make.top.equalToSuperview()
             make.height.equalTo(1)
-            make.horizontalEdges.equalToSuperview().inset(48)
+            make.horizontalEdges.equalToSuperview().inset(22)
         }
         
         detailLabelView.snp.makeConstraints { make in
             make.top.equalTo(labelView.snp.bottom)
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(104)
         }
         
         detailLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(22)
-            make.centerY.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.verticalEdges.equalToSuperview().inset(18)
         }
         
         selectButton.snp.makeConstraints { make in
-            make.top.equalTo(detailLabelView.snp.bottom).offset(20)
-            make.horizontalEdges.equalToSuperview().inset(24.5)
-            make.height.equalTo(50)
+            make.top.equalTo(detailLabelView.snp.bottom).offset(17)
+            make.horizontalEdges.equalToSuperview().inset(26.5)
+            make.height.equalTo(44)
         }
         
         characterMotionView.snp.makeConstraints { make in
-            make.top.equalTo(selectButton.snp.bottom).offset(32)
+            make.top.equalTo(selectButton.snp.bottom).offset(17)
             make.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
-        mainLabel.snp.makeConstraints { make in
+        characterMotionViewTitleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(30)
             make.left.equalToSuperview().inset(24.5)
         }
         
         babyImage.snp.makeConstraints { make in
-            make.centerY.equalTo(mainLabel)
-            make.leading.equalTo(mainLabel.snp.trailing).offset(8)
+            make.centerY.equalTo(characterMotionViewTitleLabel)
+            make.leading.equalTo(characterMotionViewTitleLabel.snp.trailing).offset(8)
             make.size.equalTo(CGSize(width: 26, height: 21))
         }
         
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(mainLabel.snp.bottom).offset(20)
+            make.top.equalTo(characterMotionViewTitleLabel.snp.bottom).offset(20)
             make.horizontalEdges.equalToSuperview().inset(24.5)
             collectionViewHeightConstraint = make.height.equalTo(800).constraint // 초기 높이
             make.bottom.equalToSuperview().inset(78)
@@ -200,7 +204,6 @@ extension CharacterDetailView {
             characterImageView,
             labelView,
             detailLabelView,
-            dottedLineView,
             selectButton,
             characterMotionView
         )
@@ -208,11 +211,14 @@ extension CharacterDetailView {
             nameLabel,
             crownBadgeImageView,
             titleLabel,
-            characterLogoImageView
+            characterIconImageView
         )
-        detailLabelView.addSubview(detailLabel)
+        detailLabelView.addSubviews(
+            detailLabel,
+            dottedLineView
+        )
         characterMotionView.addSubviews(
-            mainLabel,
+            characterMotionViewTitleLabel,
             babyImage,
             collectionView
         )
@@ -239,8 +245,12 @@ extension CharacterDetailView {
         characterImageView.contentMode = .scaleAspectFit
         
         labelView.do { view in
-            view.backgroundColor = UIColor.main(.main1)
+            view.backgroundColor = .primary(.white)
             view.roundCorners(cornerRadius: 10)
+        }
+        
+        characterIconImageView.do { imageView in
+            imageView.roundCorners(cornerRadius: 8)
         }
         
         dottedLineView.do { view in
@@ -260,7 +270,7 @@ extension CharacterDetailView {
         }
         
         detailLabelView.do { label in
-            label.backgroundColor = UIColor.main(.main1)
+            label.backgroundColor = .primary(.white)
             label.roundCorners(cornerRadius: 10)
         }
         
@@ -269,19 +279,20 @@ extension CharacterDetailView {
             label.font = UIFont.offroad(style: .iosSubtitle2Bold)
         }
         
-        mainLabel.do { label in
+        characterMotionViewTitleLabel.do { label in
             label.text = "캐릭터 모션"
             label.textAlignment = .left
             label.textColor = UIColor.main(.main2)
             label.font = UIFont.offroad(style: .iosSubtitle2Bold)
         }
         
-        characterLogoImageView.contentMode = .scaleAspectFit
+        characterIconImageView.contentMode = .scaleAspectFit
         
         titleLabel.do { label in
             label.textAlignment = .left
             label.textColor = UIColor.grayscale(.gray300)
             label.font = UIFont.offroad(style: .iosTextContentsSmall)
+            label.numberOfLines = 0
         }
         
         crownBadgeImageView.do { imageView in
@@ -291,7 +302,7 @@ extension CharacterDetailView {
         
         detailLabel.do { label in
             label.textAlignment = .left
-            label.numberOfLines = 3
+            label.numberOfLines = 0
             label.textColor = UIColor.grayscale(.gray400)
             label.font = UIFont.offroad(style: .iosBoxMedi)
         }
@@ -299,6 +310,7 @@ extension CharacterDetailView {
         selectButton.do { button in
             button.configureBackgroundColorWhen(normal: .main(.main2), highlighted: .blackOpacity(.black55), disabled: .blackOpacity(.black25))
             button.configureTitleFontWhen(normal: .offroad(style: .iosTextContents))
+            button.roundCorners(cornerRadius: 20)
             button.setTitleColor(.primary(.white), for: .normal)
             button.setTitleColor(.primary(.white), for: .disabled)
             button.setTitle("대표 캐릭터로 선택하기", for: .normal)
@@ -337,7 +349,7 @@ extension CharacterDetailView {
         fetchSVG(svgURLString: characterInfo.characterIconImageUrl) { image in
             DispatchQueue.main.async {[weak self] in
                 guard let self else { return }
-                self.characterLogoImageView.image = image
+                self.characterIconImageView.image = image
             }
         }
         

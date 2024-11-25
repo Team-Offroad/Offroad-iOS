@@ -20,10 +20,17 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private var chatLogDataList: [ChatDataModel] = []
     private var chatLogDataSource: [[ChatDataModel]] = [[]]
     private var isChatButtonHidden: Bool = true
+    /// 채팅 중에 채팅 로그 뷰 진입 시 키보드가 내려가는데, 이때 keyboardWillHide() 메서드가 불리지 않게 하기 위해 사용하는 flag.
+    ///
+    /// 채팅 중에 채팅 로그 뷰에 진입하면 키보드가 내려가는 경우 `keyboardWillHide()`가 불리게 되는데, 이때
+    /// `rootView.safeAreaInsets.bottom` 와 `rootView.userChatView.frame.height`가 0 이어서 사용자 입력창이 보이게 되는 현상 발생함.
+    private var isKeyboardShown: Bool = false
     
     // userChatInputView의 textInputView의 height를 전달
     let userChatInputViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
     let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    let isCharacterResponding = BehaviorRelay<Bool>(value: false)
+    let isTextViewEmpty = BehaviorRelay<Bool>(value: true)
     
     var disposeBag = DisposeBag()
     var characterName: String
@@ -63,7 +70,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         tabBarController.showTabBarAnimation()
         rootView.backgroundView.isHidden = false
-        ORBCharacterChatManager.shared.hideCharacterChatBox()
+        ORBCharacterChatManager.shared.endChat()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -79,7 +86,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         super.viewWillDisappear(animated)
         
         rootView.backgroundView.isHidden = true
-        rootView.endEditing(true)
+        rootView.userChatInputView.resignFirstResponder()
     }
     
 }
@@ -93,6 +100,8 @@ extension CharacterChatLogViewController {
     }
     
     @objc private func keyboardWillShow(notification: Notification) {
+        guard !isKeyboardShown else { return }
+        isKeyboardShown = true
         guard rootView.userChatInputView.isFirstResponder else { return }
         rootView.userChatBoundsView.isUserInteractionEnabled = true
         rootView.userChatView.isUserInteractionEnabled = true
@@ -107,6 +116,8 @@ extension CharacterChatLogViewController {
     }
     
     @objc private func keyboardWillHide(notification: Notification) {
+        guard isKeyboardShown else { return }
+        isKeyboardShown = false
         rootView.userChatBoundsView.isUserInteractionEnabled = false
         rootView.userChatView.isUserInteractionEnabled = false
         UIView.animate(withDuration: 0.5) { [weak self] in
@@ -119,7 +130,7 @@ extension CharacterChatLogViewController {
     }
     
     @objc private func tapGestureHandler(_ sender: UITapGestureRecognizer) {
-        rootView.endEditing(true)
+        rootView.userChatInputView.resignFirstResponder()
     }
     
     //MARK: - Private Func
@@ -215,22 +226,21 @@ extension CharacterChatLogViewController {
                     print("입력된 텍스트: \(text)")
                     self.rootView.loadingAnimationView.isHidden = false
                     self.rootView.loadingAnimationView.play()
-                    self.rootView.sendButton.isEnabled = true
+                    self.isTextViewEmpty.accept(false)
                 } else {
                     print("입력된 텍스트 없음")
                     self.rootView.loadingAnimationView.currentProgress = 0
                     self.rootView.loadingAnimationView.pause()
                     self.rootView.loadingAnimationView.isHidden = true
-                    self.rootView.sendButton.isEnabled = false
+                    self.isTextViewEmpty.accept(true)
                 }
             }).disposed(by: disposeBag)
         
         rootView.sendButton.rx.tap.bind(
             onNext: { [weak self] in
                 guard let self else { return }
-                
                 self.postCharacterChat(message: self.rootView.userChatInputView.text)
-                
+                self.rootView.sendButton.isEnabled = false
                 // 사용자 채팅 버블 추가
                 self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text) { [weak self] isFinished in
                     guard let self else { return }
@@ -284,6 +294,13 @@ extension CharacterChatLogViewController {
                     showToast(message: ErrorMessages.networkError, inset: 66)
                 }
             }).disposed(by: disposeBag)
+        
+        Observable.combineLatest(isCharacterResponding, isTextViewEmpty)
+            .map { return (!$0 && !$1) }
+            .subscribe { [weak self] shouldEnableSendButton in
+                guard let self else { return }
+                self.rootView.sendButton.isEnabled = shouldEnableSendButton
+            }.disposed(by: disposeBag)
     }
     
     private func setupNotifications() {
@@ -302,9 +319,7 @@ extension CharacterChatLogViewController {
     }
     
     private func scrollToBottom(animated: Bool) {
-        let numberOfSections = rootView.chatLogCollectionView.numberOfSections
-        let numberOfItemsInLastSection = rootView.chatLogCollectionView.numberOfItems(inSection: numberOfSections-1)
-        let lastIndexPath = IndexPath(item: numberOfItemsInLastSection-1, section: numberOfSections-1)
+        guard let lastIndexPath = rootView.chatLogCollectionView.getIndexPathFromLast(index: 1) else { return }
         rootView.chatLogCollectionView.scrollToItem(at: lastIndexPath, at: .top, animated: animated)
     }
     
@@ -391,6 +406,7 @@ extension CharacterChatLogViewController {
     }
     
     private func postCharacterChat(message: String) {
+        isCharacterResponding.accept(true)
         let dto = CharacterChatPostRequestDTO(content: message)
         NetworkService.shared.characterChatService.postChat(body: dto) { [weak self] result in
             guard let self else { return }
@@ -416,13 +432,26 @@ extension CharacterChatLogViewController {
                 self.showToast(message: "register Error occurred", inset: 66)
             case .networkFail:
                 self.showToast(message: ErrorMessages.networkError, inset: 66)
+            case .serverErr:
+                self.showToast(message: "오브가 답변하기 힘든 질문이예요.\n다른 이야기를 해볼까요?", inset: 66)
+                self.updateChatLog(chatSuccess: false)
             case .decodeErr:
                 self.showToast(message: "decode Error occurred", inset: 66)
             }
+            self.isCharacterResponding.accept(false)
         }
     }
     
-    private func updateChatLog() {
+    
+    /// 채팅의 결과가 나왔을 때, 채팅 로그를 업데이트하는 메서드
+    /// - Parameter chatSuccess: 채팅이 성공했는지, 실패했는지 여부
+    ///
+    /// 채팅이 성공했을 경우, 로딩 중이던 캐릭터의 말풍선이 캐릭터가 답변한 내용으로 변경됨.
+    ///
+    /// 채팅이 실패했을 경우, 로딩 중이던 캐릭터의 말풍선과 직전에 내가 했던 말풍선을 지움.
+    ///
+    /// 지우려는 말풍선의 indexPath를 구할 수 없는 경우, 채팅 로그 뷰컨트롤러를 nagivation stack에서 pop 하며 에러 메시지 토스트 표시
+    private func updateChatLog(chatSuccess: Bool = true) {
         NetworkService.shared.characterChatService.getChatLog(completion: { [weak self] result in
             guard let self else { return }
             self.tabBarController?.view.stopLoading()
@@ -435,17 +464,27 @@ extension CharacterChatLogViewController {
                 self.chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
                 self.chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList)
                 
+                guard
+                    let lastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 1),
+                    let secondLastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 2) else {
+                    self.showToast(message: "알 수 없는 오류가 발생했어요. 채팅을 다시 시도해 주세요.", inset: 66)
+                    self.rootView.chatLogCollectionView.reloadData()
+                    self.scrollToBottom(animated: true)
+                    return
+                }
                 
-                let lastSection = chatLogDataSource.count - 1
-                let lastSectionCount = chatLogDataSource[lastSection].count
-                let lastIndexPath = IndexPath(
-                    item: lastSectionCount-1,
-                    section: lastSection
-                )
-                
-                self.rootView.chatLogCollectionView.performBatchUpdates {
-                    self.rootView.chatLogCollectionView.reloadItems(at: [lastIndexPath])
-                    self.rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
+                if chatSuccess {
+                    self.rootView.chatLogCollectionView.performBatchUpdates {
+                        self.rootView.chatLogCollectionView.reloadItems(at: [lastIndexPath])
+                    }
+                } else {
+                    self.rootView.chatLogCollectionView.performBatchUpdates {
+                        self.rootView.chatLogCollectionView.deleteItems(at: [lastIndexPath, secondLastIndexPath])
+                        let lastSection = self.rootView.chatLogCollectionView.numberOfSections - 1
+                        if self.chatLogDataSource.count == 0 || self.chatLogDataSource.last?.count == 0 {
+                            self.rootView.chatLogCollectionView.deleteSections([lastSection])
+                        }
+                    }
                 }
                 self.scrollToBottom(animated: false)
                 showChatButton()
@@ -511,7 +550,7 @@ extension CharacterChatLogViewController: UICollectionViewDelegate {
     }
     
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        rootView.endEditing(true)
+        rootView.userChatInputView.resignFirstResponder()
         return true
     }
     

@@ -24,6 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             KakaoSDK.initSDK(appKey: nativeAppKey)
         }
         
+        // NetworkMonitoringManager 싱글톤 객체 생성
+        let _ = NetworkMonitoringManager.shared
+        
         FirebaseApp.configure()
         
         UNUserNotificationCenter.current().delegate = self

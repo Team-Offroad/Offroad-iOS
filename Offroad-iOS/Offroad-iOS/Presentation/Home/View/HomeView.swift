@@ -162,9 +162,9 @@ extension HomeView {
             backgroundImageView,
             nicknameLabel,
             characterNameView,
-            buttonStackView,
             characterBaseImageView,
             characterMotionView,
+            buttonStackView,
             titleView,
             questStackView
         )

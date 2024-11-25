@@ -24,7 +24,7 @@ class CharacterChatLogView: UIView {
     
     lazy var chatButtonBottomConstraint = chatButton.bottomAnchor.constraint(equalTo: bottomAnchor)
     lazy var userChatInputViewHeightConstraint = userChatInputView.heightAnchor.constraint(equalToConstant: 40)
-    lazy var userChatViewBottomConstraint = userChatView.bottomAnchor.constraint(equalTo: keyboardLayoutGuide.topAnchor)
+//    lazy var userChatViewBottomConstraint = userChatView.bottomAnchor.constraint(equalTo: keyboardLayoutGuide.topAnchor)
     
     //MARK: - UI Properties
     

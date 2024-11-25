@@ -10,11 +10,13 @@ import UIKit
 import Firebase
 import FirebaseMessaging
 import Photos
+import RxSwift
 
 final class HomeViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
     
+    private var disposeBag = DisposeBag()
     private let rootView = HomeView()
     
     private var userEmblemString = ""
@@ -50,6 +52,9 @@ final class HomeViewController: OffroadTabBarViewController {
         
         setupDelegate()
         setupTarget()
+        getUserAdventureInfo()
+        getUserQuestInfo()
+        bindData()
         
         requestPushNotificationPermission()
         redirectViewControllerForPushNotification()
@@ -62,8 +67,7 @@ final class HomeViewController: OffroadTabBarViewController {
         offroadTabBarController.showTabBarAnimation()
         
         self.navigationController?.navigationBar.isHidden = true
-        getUserAdventureInfo()
-        getUserQuestInfo()
+        
     }
 }
 
@@ -127,6 +131,29 @@ extension HomeViewController {
                 break
             }
         }
+    }
+    
+    private func bindData() {
+        MyInfoManager.shared.didSuccessAdventure
+            .debug()
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.getUserAdventureInfo()
+                self.getUserQuestInfo()
+            }).disposed(by: disposeBag)
+        
+        MyInfoManager.shared.didChangeRepresentativeCharacter
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.getUserAdventureInfo()
+            }).disposed(by: disposeBag)
+        
+        MyInfoManager.shared.shouldUpdateCharacterAnimation
+            .debug()
+            .subscribe(onNext: { [weak self] category in
+                guard let self else { return }
+                self.categoryString = category
+            }).disposed(by: disposeBag)
     }
     
     private func redirectNoticePost() {
@@ -231,7 +258,7 @@ extension HomeViewController {
         titlePopupViewController.modalPresentationStyle = .overCurrentContext
         titlePopupViewController.delegate = self
         
-        present(titlePopupViewController, animated: false)
+        tabBarController?.present(titlePopupViewController, animated: false)
     }
 }
 

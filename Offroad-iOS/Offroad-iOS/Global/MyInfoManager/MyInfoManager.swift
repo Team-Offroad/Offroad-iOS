@@ -7,7 +7,12 @@
 
 import Foundation
 
+import RxSwift
+import RxRelay
+
 final class MyInfoManager {
+    
+    //MARK: - Properties
     
     var representativeCharacterID: Int? = nil
     var completerQuestCount: Int? = nil
@@ -20,8 +25,16 @@ final class MyInfoManager {
         return characterInfo[representativeCharacterID]
     }
     
+    //MARK: - Rx Properties
+    
+    let didSuccessAdventure = PublishRelay<Void>()
+    let didChangeRepresentativeCharacter = PublishRelay<Void>()
+    let didChangeEmblem = PublishRelay<Void>()
+    let shouldUpdateCharacterAnimation = PublishRelay<String>()
     
     static let shared = MyInfoManager()
+    
+    //MARK: - Life Cycle
     
     private init() { }
     

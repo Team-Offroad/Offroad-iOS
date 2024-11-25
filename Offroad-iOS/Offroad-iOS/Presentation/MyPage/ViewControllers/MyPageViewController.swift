@@ -7,11 +7,14 @@
 
 import UIKit
 
+import RxSwift
+
 final class MyPageViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
     
     private let rootView = MyPageView()
+    private let disposeBag = DisposeBag()
     
     // MARK: - Life Cycle
     
@@ -23,6 +26,8 @@ final class MyPageViewController: OffroadTabBarViewController {
         super.viewDidLoad()
         
         setupAddTarget()
+        getUserInfo()
+        bindData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,8 +35,6 @@ final class MyPageViewController: OffroadTabBarViewController {
         
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.showTabBarAnimation()
-        
-        getUserInfo()
     }
 }
 
@@ -62,8 +65,17 @@ extension MyPageViewController {
         }
     }
     
-    // MARK: - @objc Func
-    
+    private func bindData() {
+        Observable.merge([MyInfoManager.shared.didSuccessAdventure.asObservable(),
+                          MyInfoManager.shared.didChangeRepresentativeCharacter.asObservable()])
+        .subscribe(onNext: { [weak self] in
+            guard let self else { return }
+            self.getUserInfo()
+        }).disposed(by: disposeBag)
+    }
+        
+        // MARK: - @objc Func
+        
     @objc private func myPageButtonTapped(_ sender: UIButton) {
         if sender == rootView.characterButton {
             let characterListViewController = CharacterListViewController()
@@ -71,7 +83,7 @@ extension MyPageViewController {
             self.navigationController?.pushViewController(characterListViewController, animated: true)
         }
         if sender == rootView.couponButton {
-            let acquiredCouponViewController = AcquiredCouponViewController()
+            let acquiredCouponViewController = CouponListViewController()
             self.navigationController?.pushViewController(acquiredCouponViewController, animated: true)
         }
         if sender == rootView.titleButton {
