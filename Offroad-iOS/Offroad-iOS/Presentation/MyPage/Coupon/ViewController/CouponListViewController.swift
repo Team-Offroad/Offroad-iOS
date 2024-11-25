@@ -7,10 +7,12 @@
 
 import UIKit
 
+import RxSwift
+
 final class CouponListViewController: UIViewController {
     
     // MARK: - Properties
-    
+    private var disposBag = DisposeBag()
     private var availableCouponsCount = 0
     private var usedCouponsCount = 0
     private var lastCursorIDForAvailableCoupons: Int = 0
@@ -128,12 +130,14 @@ extension CouponListViewController{
                     self.rootView.segmentedControl.changeSegmentTitle(at: 1, to: "사용 완료 \(usedCouponsCount)")
                     self.usedCouponDataSource.append(contentsOf: response.data.coupons)
                     self.lastCursorIDForUsedCoupons = response.data.coupons.last!.cursorId
+                    self.rootView.collectionViewForUsedCoupons.stopScrollLoading(lottie: self.rootView.loadingView)
                     self.rootView.collectionViewForUsedCoupons.reloadData()
                     self.lastIndexPathForUsedCoupons = IndexPath(item: self.usedCouponDataSource.count - 1, section: 0)
                 } else {
                     self.rootView.segmentedControl.changeSegmentTitle(at: 0, to: "사용 가능 \(availableCouponsCount)")
                     self.availableCouponDataSource.append(contentsOf: response.data.coupons)
                     self.lastCursorIDForAvailableCoupons = response.data.coupons.last!.cursorId
+                    self.rootView.collectionViewForAvailableCoupons.stopScrollLoading(lottie: self.rootView.loadingView)
                     self.rootView.collectionViewForAvailableCoupons.reloadData()
                     self.lastIndexPathForAvailableCoupons = IndexPath(item: self.availableCouponDataSource.count - 1, section: 0)
                 }
@@ -187,6 +191,15 @@ extension CouponListViewController: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CouponCell else { return }
         guard let couponInfo = cell.couponInfo else { return }
         let couponDetailViewController = CouponDetailViewController(coupon: couponInfo)
+        couponDetailViewController.afterCouponRedemptionSubject
+            .filter({ $0 == true })
+            .subscribe(onNext: { [weak self] isCouponSuccess in
+                guard let self else { return }
+                self.usedCouponDataSource = []
+                self.availableCouponDataSource = []
+                self.getCouponListsFromServer(isUsed: false, size: 14, cursor: 0)
+                self.getCouponListsFromServer(isUsed: true, size: 14, cursor: 0)
+            }).disposed(by: disposBag)
         navigationController?.pushViewController(couponDetailViewController, animated: true)
     }
     
