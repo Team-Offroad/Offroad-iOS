@@ -181,13 +181,12 @@ extension CouponListViewController: UICollectionViewDataSource {
 extension CouponListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard collectionView == rootView.collectionViewForAvailableCoupons else { return false }
+        guard collectionView == rootView.collectionViewForAvailableCoupons
+                || collectionView == rootView.collectionViewForUsedCoupons else { return false }
         return true
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        guard collectionView == rootView.collectionViewForAvailableCoupons else { return }
         guard let cell = collectionView.cellForItem(at: indexPath) as? CouponCell else { return }
         guard let couponInfo = cell.couponInfo else { return }
         let couponDetailViewController = CouponDetailViewController(coupon: couponInfo)
@@ -200,6 +199,9 @@ extension CouponListViewController: UICollectionViewDelegate {
                 self.getCouponListsFromServer(isUsed: false, size: 14, cursor: 0)
                 self.getCouponListsFromServer(isUsed: true, size: 14, cursor: 0)
             }).disposed(by: disposBag)
+        if collectionView == rootView.collectionViewForUsedCoupons {
+            couponDetailViewController.disableUseButton()
+        }
         navigationController?.pushViewController(couponDetailViewController, animated: true)
     }
     

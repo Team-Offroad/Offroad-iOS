@@ -78,28 +78,24 @@ class CouponDetailViewController: UIViewController {
         afterCouponRedemptionSubject
             .observe(on: ConcurrentMainScheduler.instance)
             .subscribe { [weak self] isSuccess in
-            guard let self else { return }
-            
-            let alertController: ORBAlertController
-            if isSuccess {
-                alertController = ORBAlertController(title: "사용 완료", message: "쿠폰 사용이 완료되었어요!", type: .normal)
-                let action = ORBAlertAction(title: "확인", style: .default) { _ in
-                    self.navigationController?.popViewController(animated: true)
-                    return
-                }
-                alertController.addAction(action)
-            } else {
-                alertController = ORBAlertController(title: "사용 실패", message: "다시 한 번 확인해 주세요.", type: .normal)
-                alertController.configureMessageLabel { label in
-                    label.textColor = .primary(.errorNew)
-                    label.font = .offroad(style: .iosSubtitle2Semibold)
+                guard let self else { return }
+                
+                let alertController: ORBAlertController
+                if isSuccess {
+                    alertController = ORBAlertController(title: "사용 완료", message: "쿠폰 사용이 완료되었어요!", type: .normal)
+                    self.couponDetailView.useButton.isEnabled = false
+                } else {
+                    alertController = ORBAlertController(title: "사용 실패", message: "다시 한 번 확인해 주세요.", type: .normal)
+                    alertController.configureMessageLabel { label in
+                        label.textColor = .primary(.errorNew)
+                        label.font = .offroad(style: .iosSubtitle2Semibold)
+                    }
                 }
                 let action = ORBAlertAction(title: "확인", style: .default) { _ in return }
                 alertController.addAction(action)
-            }
-            
-            self.present(alertController, animated: true)
-        }.disposed(by: disposeBag)
+
+                self.present(alertController, animated: true)
+            }.disposed(by: disposeBag)
     }
     
     private func redeemCoupon(code: String) {
@@ -163,6 +159,12 @@ extension CouponDetailViewController {
         }
         
         present(alertController, animated: true)
+    }
+    
+    //MARK: - Func
+    
+    func disableUseButton() {
+        couponDetailView.useButton.isEnabled = false
     }
     
 }
