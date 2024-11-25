@@ -60,6 +60,7 @@
 		4E3A32A42CE8E353007228D0 /* CharacterChatLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32A32CE8E353007228D0 /* CharacterChatLogViewModel.swift */; };
 		4E3F009E2C40D20800B9A31A /* OffroadTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */; };
 		4E416CE82C45DBE200CF6AB4 /* OffroadPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */; };
+		4E456CC02CF4003D0011B50F /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E456CBF2CF4003D0011B50F /* UICollectionView+.swift */; };
 		4E46E5F72CB997B4000A1EEE /* ORBToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5F62CB997B4000A1EEE /* ORBToastManager.swift */; };
 		4E46E5F92CB99944000A1EEE /* ORBToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5F82CB99944000A1EEE /* ORBToastWindow.swift */; };
 		4E46E5FB2CBA3F55000A1EEE /* UIWindowScene+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */; };
@@ -342,6 +343,7 @@
 		4E3A32A32CE8E353007228D0 /* CharacterChatLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatLogViewModel.swift; sourceTree = "<group>"; };
 		4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarController.swift; sourceTree = "<group>"; };
 		4E416CE72C45DBE200CF6AB4 /* OffroadPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadPlace.swift; sourceTree = "<group>"; };
+		4E456CBF2CF4003D0011B50F /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		4E46E5F62CB997B4000A1EEE /* ORBToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastManager.swift; sourceTree = "<group>"; };
 		4E46E5F82CB99944000A1EEE /* ORBToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastWindow.swift; sourceTree = "<group>"; };
 		4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindowScene+.swift"; sourceTree = "<group>"; };
@@ -688,6 +690,7 @@
 				4E4A8FD62C4A5752001FB498 /* UIImage+.swift */,
 				87738CCF2C8DC15200E107C7 /* UIColor+.swift */,
 				4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */,
+				4E456CBF2CF4003D0011B50F /* UICollectionView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2725,6 +2728,7 @@
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
 				D0E796502C453B47005B47A5 /* AdventureService.swift in Sources */,
 				4E08B95B2C5E4F860082EFB8 /* ORBSegmentedControl.swift in Sources */,
+				4E456CC02CF4003D0011B50F /* UICollectionView+.swift in Sources */,
 				87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */,
 				4EF6B0412CC3F1B900066640 /* ORBAlertViewTextFieldWithSubMessage.swift in Sources */,
 				4E3A32892CE733F2007228D0 /* LoadingView.swift in Sources */,
