@@ -101,6 +101,7 @@
 		4EBE34942C3FC749006DB244 /* QuestQRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE34932C3FC749006DB244 /* QuestQRView.swift */; };
 		4EC3EC932CA9049F008139BE /* CouponCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC3EC922CA9049F008139BE /* CouponCollectionViewController.swift */; };
 		4EC3EC952CA91A0C008139BE /* PlaceListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC3EC942CA91A0C008139BE /* PlaceListCollectionViewController.swift */; };
+		4EC6F0A62CF4747400895A87 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */; };
 		4ECCC95E2CC80088002B9C4F /* ORBToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */; };
 		4ECEEA6E2CB2C15E0029369A /* ORBTabBarShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */; };
 		4EDC3D412C31271F006A1493 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */; };
@@ -380,6 +381,7 @@
 		4EBE34932C3FC749006DB244 /* QuestQRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestQRView.swift; sourceTree = "<group>"; };
 		4EC3EC922CA9049F008139BE /* CouponCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponCollectionViewController.swift; sourceTree = "<group>"; };
 		4EC3EC942CA91A0C008139BE /* PlaceListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCollectionViewController.swift; sourceTree = "<group>"; };
+		4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastView.swift; sourceTree = "<group>"; };
 		4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBTabBarShapeView.swift; sourceTree = "<group>"; };
 		4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -688,6 +690,7 @@
 				4E4A8FD62C4A5752001FB498 /* UIImage+.swift */,
 				87738CCF2C8DC15200E107C7 /* UIColor+.swift */,
 				4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */,
+				4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2661,6 +2664,7 @@
 				D0E796152C452797005B47A5 /* AuthAPI.swift in Sources */,
 				D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */,
 				4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */,
+				4EC6F0A62CF4747400895A87 /* UIScrollView+.swift in Sources */,
 				D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */,
 				D00A486F2C634437008B286A /* NoticeViewController.swift in Sources */,
 				87738CD02C8DC15200E107C7 /* UIColor+.swift in Sources */,
