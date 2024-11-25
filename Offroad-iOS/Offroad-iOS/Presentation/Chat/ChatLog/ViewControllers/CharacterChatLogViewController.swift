@@ -453,7 +453,7 @@ extension CharacterChatLogViewController {
     ///
     /// 채팅이 실패했을 경우, 로딩 중이던 캐릭터의 말풍선과 직전에 내가 했던 말풍선을 지움.
     ///
-    /// 에러 발생 시, 채팅 로그 뷰컨트롤러를 nagivation stack에서 pop 하며 에러 메시지 토스트 표시
+    /// 지우려는 말풍선의 indexPath를 구할 수 없는 경우, 채팅 로그 뷰컨트롤러를 nagivation stack에서 pop 하며 에러 메시지 토스트 표시
     private func updateChatLog(chatSuccess: Bool = true) {
         NetworkService.shared.characterChatService.getChatLog(completion: { [weak self] result in
             guard let self else { return }
