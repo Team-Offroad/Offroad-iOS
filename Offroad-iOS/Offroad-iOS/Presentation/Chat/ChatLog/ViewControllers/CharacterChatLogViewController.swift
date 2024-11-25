@@ -434,6 +434,9 @@ extension CharacterChatLogViewController {
                 self.showToast(message: "register Error occurred", inset: 66)
             case .networkFail:
                 self.showToast(message: ErrorMessages.networkError, inset: 66)
+            case .serverErr:
+                self.showToast(message: "오브가 답변하기 힘든 질문이예요.\n다른 이야기를 해볼까요?", inset: 66)
+                self.updateChatLog(chatSuccess: false)
             case .decodeErr:
                 self.showToast(message: "decode Error occurred", inset: 66)
             }
@@ -441,7 +444,7 @@ extension CharacterChatLogViewController {
         }
     }
     
-    private func updateChatLog() {
+    private func updateChatLog(chatSuccess: Bool = true) {
         NetworkService.shared.characterChatService.getChatLog(completion: { [weak self] result in
             guard let self else { return }
             self.tabBarController?.view.stopLoading()
@@ -452,8 +455,6 @@ extension CharacterChatLogViewController {
                     return
                 }
                 self.chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
-                self.chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList)
-                
                 
                 let lastSection = chatLogDataSource.count - 1
                 let lastSectionCount = chatLogDataSource[lastSection].count
@@ -461,10 +462,23 @@ extension CharacterChatLogViewController {
                     item: lastSectionCount-1,
                     section: lastSection
                 )
+                let secondLastIndexPath = IndexPath(
+                    item: lastSectionCount-2,
+                    section: lastSection
+                )
+                // 채팅이 실패하여 collectionView의 item을 삭제해야 하는 경우,
+                // 아래 collectionView에서 performBatchUpdates 시에, dataSource에서 사라진 indexPath를 참조하여 deleteItems 해야 하므로,
+                // dataSource 업데이트 전 lastIndexPath와 secondLastIndexPath를 상수로 저장한 후 dataSource 업데이트해야 함.
+                self.chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList)
                 
-                self.rootView.chatLogCollectionView.performBatchUpdates {
-                    self.rootView.chatLogCollectionView.reloadItems(at: [lastIndexPath])
-                    self.rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
+                if chatSuccess {
+                    self.rootView.chatLogCollectionView.performBatchUpdates {
+                        self.rootView.chatLogCollectionView.reloadItems(at: [lastIndexPath])
+                    }
+                } else {
+                    self.rootView.chatLogCollectionView.performBatchUpdates {
+                        self.rootView.chatLogCollectionView.deleteItems(at: [lastIndexPath, secondLastIndexPath])
+                    }
                 }
                 self.scrollToBottom(animated: false)
                 showChatButton()

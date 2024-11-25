@@ -23,6 +23,7 @@ class BaseService {
         case 404: return .apiArr
         case 405: return .pathErr
         case 409: return .requestErr
+        case 500: return .serverErr
         default: return .networkFail
         }
     }
@@ -37,6 +38,7 @@ class BaseService {
         case 404: return .apiArr
         case 405: return .pathErr
         case 409: return .requestErr
+        case 500: return .serverErr
         default: return .networkFail
         }
     }
