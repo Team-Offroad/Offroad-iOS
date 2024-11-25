@@ -1,5 +1,5 @@
 //
-//  AcquiredCouponViewController.swift
+//  CouponListViewController.swift
 //  Offroad-iOS
 //
 //  Created by  정지원 on 8/27/24.
@@ -25,7 +25,7 @@ enum SelectedState {
     }
 }
 
-final class AcquiredCouponViewController: UIViewController {
+final class CouponListViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -97,7 +97,7 @@ final class AcquiredCouponViewController: UIViewController {
     }
 }
 
-extension AcquiredCouponViewController{
+extension CouponListViewController{
     
     // MARK: - @objc Method
     
@@ -222,7 +222,7 @@ extension AcquiredCouponViewController{
 
 //MARK: - UICollectionViewDataSource
 
-extension AcquiredCouponViewController: UICollectionViewDataSource {
+extension CouponListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == rootView.collectionViewForAvailableCoupons {
@@ -258,7 +258,7 @@ extension AcquiredCouponViewController: UICollectionViewDataSource {
 
 //MARK: - UICollectionViewDelegate
 
-extension AcquiredCouponViewController: UICollectionViewDelegate {
+extension CouponListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == rootView.collectionViewForAvailableCoupons {
@@ -297,7 +297,7 @@ extension AcquiredCouponViewController: UICollectionViewDelegate {
 
 //MARK: - ORBSegmentedControlDelegate
 
-extension AcquiredCouponViewController: ORBSegmentedControlDelegate {
+extension CouponListViewController: ORBSegmentedControlDelegate {
     
     func segmentedControlDidSelect(segmentedControl: ORBSegmentedControl, selectedIndex: Int) {
         setPageViewControllerPage(to: selectedIndex)
@@ -308,7 +308,7 @@ extension AcquiredCouponViewController: ORBSegmentedControlDelegate {
 
 //MARK: - UIPageViewControllerDataSource
 
-extension AcquiredCouponViewController: UIPageViewControllerDataSource {
+extension CouponListViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = viewControllerList.firstIndex(of: viewController) else { return nil }
@@ -328,7 +328,7 @@ extension AcquiredCouponViewController: UIPageViewControllerDataSource {
 
 //MARK: - UIPageViewControllerDelegate
 
-extension AcquiredCouponViewController: UIPageViewControllerDelegate {
+extension CouponListViewController: UIPageViewControllerDelegate {
     
     func pageViewController(
         _ pageViewController: UIPageViewController,
