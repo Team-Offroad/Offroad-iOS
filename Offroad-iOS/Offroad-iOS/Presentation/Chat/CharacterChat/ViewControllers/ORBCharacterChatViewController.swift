@@ -23,6 +23,8 @@ class ORBCharacterChatViewController: UIViewController {
     let userChatInputViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
     // userChatDisplayView의 textInputVie의 height를 전달
     let userChatDisplayViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
+    let isCharacterResponding = BehaviorRelay<Bool>(value: false)
+    let isTextViewEmpty = BehaviorRelay<Bool>(value: true)
     
     let characterChatBoxPositionAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     let characterChatBoxModeChangingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
@@ -154,7 +156,6 @@ extension ORBCharacterChatViewController {
         rootView.sendButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             self.postCharacterChat(message: self.rootView.userChatInputView.text)
-            print("메시지 전송: \(self.rootView.userChatInputView.text!)")
             // 로티 뜨도록 구현
             self.configureCharacterChatBox(character: MyInfoManager.shared.representativeCharacterName ?? "", message: "", mode: .loading, animated: true)
             self.showCharacterChatBox()
@@ -186,7 +187,7 @@ extension ORBCharacterChatViewController {
                     self.rootView.userChatDisplayView.isHidden = true
                     self.rootView.loadingAnimationView.isHidden = false
                     self.rootView.loadingAnimationView.play()
-                    self.rootView.sendButton.isEnabled = true
+                    self.isTextViewEmpty.accept(false)
                     self.updateChatDisplayViewHeight(height: 20)
                 } else {
                     print("입력된 텍스트 없음")
@@ -195,7 +196,7 @@ extension ORBCharacterChatViewController {
                     self.rootView.loadingAnimationView.currentProgress = 0
                     self.rootView.loadingAnimationView.pause()
                     self.rootView.loadingAnimationView.isHidden = true
-                    self.rootView.sendButton.isEnabled = false
+                    self.isTextViewEmpty.accept(true)
                 }
             }).disposed(by: disposeBag)
         
@@ -225,6 +226,13 @@ extension ORBCharacterChatViewController {
             self.rootView.updateConstraints()
             self.rootView.layoutIfNeeded()
         }).disposed(by: disposeBag)
+        
+        Observable.combineLatest(isCharacterResponding, isTextViewEmpty)
+            .map { return (!$0 && !$1) }
+            .subscribe { [weak self] shouldEnableSendButton in
+                guard let self else { return }
+                self.rootView.sendButton.isEnabled = shouldEnableSendButton
+            }.disposed(by: disposeBag)
     }
     
     private func setupGestures() {
@@ -233,6 +241,7 @@ extension ORBCharacterChatViewController {
     }
     
     private func postCharacterChat(message: String) {
+        isCharacterResponding.accept(true)
         let dto = CharacterChatPostRequestDTO(content: message)
         NetworkService.shared.characterChatService.postChat(body: dto) { [weak self] result in
             guard let self else { return }
@@ -265,10 +274,14 @@ extension ORBCharacterChatViewController {
             case .networkFail:
                 self.showToast(message: ErrorMessages.networkError, inset: 66)
                 self.hideCharacterChatBox()
+            case .serverErr:
+                self.showToast(message: "오브가 답변하기 힘든 질문이예요.\n다른 이야기를 해볼까요?", inset: 66)
+                self.hideCharacterChatBox()
             case .decodeErr:
                 self.showToast(message: "decode Error occurred", inset: 66)
                 self.hideCharacterChatBox()
             }
+            self.isCharacterResponding.accept(false)
         }
     }
     
