@@ -8,11 +8,13 @@
 import UIKit
 
 import Photos
+import RxSwift
 
 final class HomeViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
     
+    private var disposeBag = DisposeBag()
     private let rootView = HomeView()
     
     private var userEmblemString = ""
@@ -35,6 +37,9 @@ final class HomeViewController: OffroadTabBarViewController {
         super.viewDidLoad()
         
         setupTarget()
+        getUserAdventureInfo()
+        getUserQuestInfo()
+        bindData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,8 +49,7 @@ final class HomeViewController: OffroadTabBarViewController {
         offroadTabBarController.showTabBarAnimation()
         
         self.navigationController?.navigationBar.isHidden = true
-        getUserAdventureInfo()
-        getUserQuestInfo()
+        
     }
 }
 
@@ -105,6 +109,29 @@ extension HomeViewController {
                 break
             }
         }
+    }
+    
+    private func bindData() {
+        MyInfoManager.shared.didSuccessAdventure
+            .debug()
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.getUserAdventureInfo()
+                self.getUserQuestInfo()
+            }).disposed(by: disposeBag)
+        
+        MyInfoManager.shared.didChangeRepresentativeCharacter
+            .subscribe(onNext: { [weak self] in
+                guard let self else { return }
+                self.getUserAdventureInfo()
+            }).disposed(by: disposeBag)
+        
+        MyInfoManager.shared.shouldUpdateCharacterAnimation
+            .debug()
+            .subscribe(onNext: { [weak self] category in
+                guard let self else { return }
+                self.categoryString = category
+            }).disposed(by: disposeBag)
     }
     
     //MARK: - Func
