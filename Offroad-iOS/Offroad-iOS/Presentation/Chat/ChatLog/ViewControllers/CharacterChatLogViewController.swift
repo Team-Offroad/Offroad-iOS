@@ -319,10 +319,7 @@ extension CharacterChatLogViewController {
     }
     
     private func scrollToBottom(animated: Bool) {
-        let numberOfSections = rootView.chatLogCollectionView.numberOfSections
-        guard numberOfSections > 0 else { return }
-        let numberOfItemsInLastSection = rootView.chatLogCollectionView.numberOfItems(inSection: numberOfSections-1)
-        let lastIndexPath = IndexPath(item: numberOfItemsInLastSection-1, section: numberOfSections-1)
+        guard let lastIndexPath = rootView.chatLogCollectionView.getIndexPathFromLast(index: 1) else { return }
         rootView.chatLogCollectionView.scrollToItem(at: lastIndexPath, at: .top, animated: animated)
     }
     
@@ -471,7 +468,8 @@ extension CharacterChatLogViewController {
                     let lastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 1),
                     let secondLastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 2) else {
                     self.showToast(message: "알 수 없는 오류가 발생했어요. 채팅을 다시 시도해 주세요.", inset: 66)
-                    self.navigationController?.popViewController(animated: true)
+                    self.rootView.chatLogCollectionView.reloadData()
+                    self.scrollToBottom(animated: true)
                     return
                 }
                 
