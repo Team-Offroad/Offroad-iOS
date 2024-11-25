@@ -124,6 +124,14 @@ extension CharacterListViewController: UICollectionViewDelegate {
         navigationController?.pushViewController(characterDetailViewController, animated: true)
     }
     
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if viewModel.characterListDataSource[indexPath.item].isGained {
+            return true
+        } else {
+            return false
+        }
+    }
+    
 }
 
 //MARK: - SelectMainCharacterDelegate
