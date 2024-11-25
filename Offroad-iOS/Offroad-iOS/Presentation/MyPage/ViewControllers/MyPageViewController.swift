@@ -83,7 +83,7 @@ extension MyPageViewController {
             self.navigationController?.pushViewController(characterListViewController, animated: true)
         }
         if sender == rootView.couponButton {
-            let acquiredCouponViewController = AcquiredCouponViewController()
+            let acquiredCouponViewController = CouponListViewController()
             self.navigationController?.pushViewController(acquiredCouponViewController, animated: true)
         }
         if sender == rootView.titleButton {
