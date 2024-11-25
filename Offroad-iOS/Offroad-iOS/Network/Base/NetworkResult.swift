@@ -16,5 +16,6 @@ enum NetworkResult<T> {
     case pathErr                    // 경로 에러 발생했을 때 (405)
     case registerErr                // 데이터 등록 오류가 발생했을 때 (409)
     case networkFail                // 네트워크 연결 실패했을 때
+    case serverErr                // 서버에서 에러가 발생했을 때 (500대)
     case decodeErr                  // 데이터는 받아왔으나 DTO 형식으로 decode가 되지 않을 때
 }
