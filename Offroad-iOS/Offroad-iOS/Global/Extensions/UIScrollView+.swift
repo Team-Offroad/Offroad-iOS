@@ -17,7 +17,7 @@ extension UIScrollView {
         case bottom
     }
     
-    func startScrollLoading(lottie: LottieAnimationView, position: ScrollLoadingPosition) {
+    func startScrollLoading(lottie: LottieAnimationView, position: ScrollLoadingPosition = .bottom) {
         addSubview(lottie)
         lottie.isHidden = false
         lottie.play()

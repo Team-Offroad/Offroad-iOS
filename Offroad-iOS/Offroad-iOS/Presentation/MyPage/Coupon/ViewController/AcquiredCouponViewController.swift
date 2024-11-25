@@ -194,13 +194,12 @@ extension AcquiredCouponViewController: UICollectionViewDelegate {
         if collectionView == rootView.collectionViewForUsedCoupons {
             guard usedCouponDataSource.count < usedCouponsCount else { return }
             guard indexPath == lastIndexPathForUsedCoupons else { return }
-            print("사용한 쿠폰 추가 불러오기")
+            collectionView.startScrollLoading(lottie: rootView.loadingView)
             getCouponListsFromServer(isUsed: true, size: 14, cursor: lastCursorIDForUsedCoupons)
-            
         } else if collectionView == rootView.collectionViewForAvailableCoupons {
             guard availableCouponDataSource.count < availableCouponsCount else { return }
             guard indexPath == lastIndexPathForAvailableCoupons else { return }
-            print("사용 가능한 쿠폰 추가 불러오기")
+            collectionView.startScrollLoading(lottie: rootView.loadingView)
             getCouponListsFromServer(isUsed: false, size: 14, cursor: lastCursorIDForAvailableCoupons)
             
         }
