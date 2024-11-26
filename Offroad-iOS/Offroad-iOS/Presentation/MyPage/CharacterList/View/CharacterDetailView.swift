@@ -31,7 +31,6 @@ class CharacterDetailView: UIView, SVGFetchable {
     let nameLabel = UILabel()
     private let characterMotionViewTitleLabel = UILabel()
     private let babyImage = UIImageView(image: UIImage(resource: .baby))
-    private var characterIconImageView = UIImageView()
     private let titleLabel = UILabel()
     let crownBadgeImageView = UIImageView(image: .imgCrownTag)
     private let detailLabel = UILabel()
@@ -111,20 +110,11 @@ extension CharacterDetailView {
         labelView.snp.makeConstraints { make in
             make.top.equalTo(characterImageView.snp.bottom).offset(24)
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(84)
-        }
-        
-        characterIconImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.top.greaterThanOrEqualToSuperview().inset(15)
-            make.bottom.lessThanOrEqualToSuperview().inset(15)
-            make.leading.equalToSuperview().inset(22)
-            make.size.equalTo(50)
         }
         
         nameLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(15)
-            make.leading.equalTo(characterIconImageView.snp.trailing).offset(17)
+            make.top.equalToSuperview().inset(17)
+            make.leading.equalToSuperview().inset(22)
             make.trailing.lessThanOrEqualToSuperview().inset(22)
         }
         
@@ -139,6 +129,7 @@ extension CharacterDetailView {
             make.top.equalTo(nameLabel.snp.bottom).offset(4)
             make.leading.equalTo(nameLabel)
             make.trailing.lessThanOrEqualToSuperview().inset(22)
+            make.bottom.equalToSuperview().inset(17)
         }
         
         dottedLineView.snp.makeConstraints { make in
@@ -210,8 +201,7 @@ extension CharacterDetailView {
         labelView.addSubviews(
             nameLabel,
             crownBadgeImageView,
-            titleLabel,
-            characterIconImageView
+            titleLabel
         )
         detailLabelView.addSubviews(
             detailLabel,
@@ -249,10 +239,6 @@ extension CharacterDetailView {
             view.roundCorners(cornerRadius: 10)
         }
         
-        characterIconImageView.do { imageView in
-            imageView.roundCorners(cornerRadius: 8)
-        }
-        
         dottedLineView.do { view in
             let shapeLayer = CAShapeLayer()
             shapeLayer.strokeColor = UIColor.home(.homeContents2).cgColor
@@ -285,8 +271,6 @@ extension CharacterDetailView {
             label.textColor = UIColor.main(.main2)
             label.font = UIFont.offroad(style: .iosSubtitle2Bold)
         }
-        
-        characterIconImageView.contentMode = .scaleAspectFit
         
         titleLabel.do { label in
             label.textAlignment = .left
@@ -343,13 +327,6 @@ extension CharacterDetailView {
                 guard let self else { return }
                 self.characterImageView.stopLoading()
                 self.characterImageView.image = image
-            }
-        }
-        
-        fetchSVG(svgURLString: characterInfo.characterIconImageUrl) { image in
-            DispatchQueue.main.async {[weak self] in
-                guard let self else { return }
-                self.characterIconImageView.image = image
             }
         }
         
