@@ -22,6 +22,7 @@ class CouponListView: UIView {
     private var couponLogoImage = UIImageView(image: UIImage(resource: .imgCoupon))
     
     let segmentedControl = ORBSegmentedControl(titles: ["사용 가능 0", "사용 완료 0"])
+    let separator = UIView()
     
     private var layoutMaker: UICollectionViewFlowLayout {
         let horizontalInset: CGFloat = 24
@@ -71,6 +72,10 @@ class CouponListView: UIView {
             label.font = UIFont.offroad(style: .iosTextTitle)
         }
         
+        separator.do { view in
+            view.backgroundColor = .grayscale(.gray100)
+        }
+        
         collectionViewForAvailableCoupons.do { collectionView in
             collectionView.register(CouponCell.self, forCellWithReuseIdentifier: CouponCell.className)
             collectionView.backgroundColor = .clear
@@ -96,7 +101,8 @@ class CouponListView: UIView {
     private func setupHierarchy() {
         addSubviews(
             labelView,
-            pageViewController.view
+            pageViewController.view,
+            separator
         )
         
         labelView.addSubviews(
@@ -135,6 +141,12 @@ class CouponListView: UIView {
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(46)
             make.bottom.equalToSuperview()
+        }
+        
+        separator.snp.makeConstraints { make in
+            make.top.equalTo(segmentedControl.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(1)
         }
         
         pageViewController.view.snp.makeConstraints { make in
