@@ -60,21 +60,24 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         Messaging.messaging().apnsToken = deviceToken
     }
     
-    // Foreground(앱 켜진 상태)에서도 알림 오는 설정
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.list, .banner])
+        completionHandler([])
+
+        if let data = notification.request.content.userInfo["aps"] as? [String: Any] {
+            let category = notification.request.content.categoryIdentifier
+            if category == "CHARACTER_CHAT" {
+                if let characterName = data["characterName"] as? String,
+                   let message = data["message"] as? String {
+                    ORBCharacterChatManager.shared.showCharacterChatBox(character: characterName, message: message, mode: .withReplyButtonShrinked)
+                }
+            }
+        }
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         let application = UIApplication.shared
         
-        //앱이 켜져있는 상태에서 푸쉬 알림을 눌렀을 때
-        if application.applicationState == .active {
-            print("푸쉬알림 탭(앱 켜져있음)")
-        }
-        
-        //앱이 꺼져있는 상태에서 푸쉬 알림을 눌렀을 때
         if application.applicationState == .inactive {
             print("푸쉬알림 탭(앱 꺼져있음)")
             
