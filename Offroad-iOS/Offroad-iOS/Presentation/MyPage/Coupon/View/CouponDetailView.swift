@@ -10,9 +10,13 @@ import UIKit
 import SnapKit
 import Then
 
-final class CouponDetailView: UIView {
+final class CouponDetailView: UIScrollView {
     
     // MARK: - UI Properties
+    
+    let customNavigationBar = UIView().then { view in
+        view.backgroundColor = .primary(.listBg)
+    }
     
     let customBackButton = NavigationPopButton().then {
             $0.configureButtonTitle(titleString: "획득 쿠폰")
@@ -115,17 +119,19 @@ final class CouponDetailView: UIView {
     //MARK: - Private Func
     
     private func setupStyle() {
+        showsVerticalScrollIndicator = false
         backgroundColor = UIColor.primary(.listBg)
     }
     
     private func setupHierarchy() {
+        customNavigationBar.addSubview(customBackButton)
         addSubviews(
-            customBackButton,
             couponDetailView,
             usageTitleLabel,
             usageLogoImageView,
             usageDescriptionLabel,
-            useButton
+            useButton,
+            customNavigationBar
         )
         couponDetailView.addSubviews(
             couponImageView,
@@ -136,14 +142,20 @@ final class CouponDetailView: UIView {
     }
     
     private func setupLayout() {
+        customNavigationBar.snp.makeConstraints { make in
+            make.top.equalTo(frameLayoutGuide)
+            make.horizontalEdges.equalTo(frameLayoutGuide)
+        }
+        
         customBackButton.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(12)
             $0.leading.equalToSuperview().inset(12)
+            $0.bottom.equalToSuperview().inset(10)
         }
         
         couponDetailView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(customBackButton.snp.bottom).offset(43)
+            make.top.equalTo(contentLayoutGuide).inset(78)
             make.width.equalTo(312)
         }
         
@@ -185,12 +197,13 @@ final class CouponDetailView: UIView {
         usageDescriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(usageLogoImageView)
             make.leading.equalTo(usageLogoImageView.snp.trailing).offset(8)
-            make.trailing.equalToSuperview().inset(50)
+            make.trailing.equalTo(frameLayoutGuide).inset(50)
         }
         
         useButton.snp.makeConstraints { make in
-            make.bottom.equalTo(safeAreaLayoutGuide).inset(24)
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.top.equalTo(usageDescriptionLabel.snp.bottom).offset(50)
+            make.horizontalEdges.equalTo(frameLayoutGuide).inset(24)
+            make.bottom.equalTo(contentLayoutGuide).inset(24)
             make.height.equalTo(54)
         }
     }
