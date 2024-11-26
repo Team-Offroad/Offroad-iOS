@@ -11,6 +11,7 @@ import Moya
 
 protocol CharacterChatServiceProtocol {
     func postChat(
+        characterId: Int?,
         body: CharacterChatPostRequestDTO,
         completion: @escaping (NetworkResult<CharacterChatPostResponseDTO>) -> Void
     )
@@ -21,8 +22,8 @@ final class CharacterChatService: BaseService, CharacterChatServiceProtocol {
     
     let provider = MoyaProvider<CharacterChatAPI>.init(session: Session(interceptor: TokenInterceptor.shared), plugins: [MoyaPlugin()])
     
-    func postChat(body: CharacterChatPostRequestDTO, completion: @escaping (NetworkResult<CharacterChatPostResponseDTO>) -> Void) {
-        provider.request(.postChat(body: body)) { result in
+    func postChat(characterId: Int? = nil, body: CharacterChatPostRequestDTO, completion: @escaping (NetworkResult<CharacterChatPostResponseDTO>) -> Void) {
+        provider.request(.postChat(characterId: characterId, body: body)) { result in
             switch result {
             case .success(let response):
                 let networkResult: NetworkResult<CharacterChatPostResponseDTO> = self.fetchNetworkResult(

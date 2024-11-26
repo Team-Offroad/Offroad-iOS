@@ -240,10 +240,10 @@ extension ORBCharacterChatViewController {
         rootView.characterChatBox.addGestureRecognizer(tapGesture)
     }
     
-    private func postCharacterChat(message: String) {
+    private func postCharacterChat(characterId: Int? = nil, message: String) {
         isCharacterResponding.accept(true)
         let dto = CharacterChatPostRequestDTO(content: message)
-        NetworkService.shared.characterChatService.postChat(body: dto) { [weak self] result in
+        NetworkService.shared.characterChatService.postChat(characterId: characterId, body: dto) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let dto):

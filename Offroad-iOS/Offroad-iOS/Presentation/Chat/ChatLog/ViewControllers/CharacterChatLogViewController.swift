@@ -244,7 +244,7 @@ extension CharacterChatLogViewController {
         rootView.sendButton.rx.tap.bind(
             onNext: { [weak self] in
                 guard let self else { return }
-                self.postCharacterChat(message: self.rootView.userChatInputView.text)
+                self.postCharacterChat(characterId: characterId, message: self.rootView.userChatInputView.text)
                 self.rootView.sendButton.isEnabled = false
                 // 사용자 채팅 버블 추가
                 self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text) { [weak self] isFinished in
@@ -410,10 +410,10 @@ extension CharacterChatLogViewController {
         }
     }
     
-    private func postCharacterChat(message: String) {
+    private func postCharacterChat(characterId: Int?, message: String) {
         isCharacterResponding.accept(true)
         let dto = CharacterChatPostRequestDTO(content: message)
-        NetworkService.shared.characterChatService.postChat(body: dto) { [weak self] result in
+        NetworkService.shared.characterChatService.postChat(characterId: characterId, body: dto) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let dto):
@@ -457,7 +457,7 @@ extension CharacterChatLogViewController {
     ///
     /// 지우려는 말풍선의 indexPath를 구할 수 없는 경우, 채팅 로그 뷰컨트롤러를 nagivation stack에서 pop 하며 에러 메시지 토스트 표시
     private func updateChatLog(chatSuccess: Bool = true) {
-        NetworkService.shared.characterChatService.getChatLog(completion: { [weak self] result in
+        NetworkService.shared.characterChatService.getChatLog(characterId: characterId, completion: { [weak self] result in
             guard let self else { return }
             self.tabBarController?.view.stopLoading()
             switch result {
