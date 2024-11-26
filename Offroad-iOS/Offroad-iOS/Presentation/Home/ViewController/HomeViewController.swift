@@ -58,6 +58,14 @@ final class HomeViewController: OffroadTabBarViewController {
         
         requestPushNotificationPermission()
         redirectViewControllerForPushNotification()
+        
+        Messaging.messaging().token { token, error in
+            if let error = error {
+                print("Error fetching FCM token: \(error)")
+            } else if let token = token {
+                print("FCM token: \(token)")
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -162,7 +170,7 @@ extension HomeViewController {
             case .success(let data):
                 self.noticeModelList = data?.data.announcements ?? [NoticeInfo]()
                 
-                guard let id = Int(self.pushType?.data?["noticeID"] as! String) else { return }
+                guard let id = Int(self.pushType?.data?["announcementId"] as! String) else { return }
                 let noticePostViewController = NoticePostViewController(noticeInfo: self.noticeModelList[id - 1])
                 noticePostViewController.setupCustomBackButton(buttonTitle: "홈")
                 self.navigationController?.pushViewController(noticePostViewController, animated: true)
@@ -264,12 +272,10 @@ extension HomeViewController {
 
 extension HomeViewController: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        print("Firebase registration token: \(String(describing: fcmToken))")
-        
         let dataDict: [String: String] = ["token": fcmToken ?? ""]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
         
-        NetworkService.shared.pushNotificationService.postSocialLogin(body: FcmTokenRequestDTO(token: fcmToken ?? String())) { response in
+        NetworkService.shared.pushNotificationService.postFcmToken(body: FcmTokenRequestDTO(token: fcmToken ?? String())) { response in
             switch response {
             case .success:
                 print("fcm 토큰 갱신 성공!!!")
