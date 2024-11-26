@@ -30,7 +30,7 @@ class CharacterDetailView: UIView, SVGFetchable {
     private let detailLabelView = UIView()
     let nameLabel = UILabel()
     private let characterMotionViewTitleLabel = UILabel()
-    private let babyImage = UIImageView(image: UIImage(resource: .baby))
+    private let orbCharacterIconImage = UIImageView(image: .icnCharacterDetailOrbCharacter)
     private let titleLabel = UILabel()
     let crownBadgeImageView = UIImageView(image: .imgCrownTag)
     private let detailLabel = UILabel()
@@ -166,10 +166,10 @@ extension CharacterDetailView {
             make.left.equalToSuperview().inset(24.5)
         }
         
-        babyImage.snp.makeConstraints { make in
+        orbCharacterIconImage.snp.makeConstraints { make in
             make.centerY.equalTo(characterMotionViewTitleLabel)
             make.leading.equalTo(characterMotionViewTitleLabel.snp.trailing).offset(8)
-            make.size.equalTo(CGSize(width: 26, height: 21))
+            make.size.equalTo(27)
         }
         
         collectionView.snp.makeConstraints { make in
@@ -209,7 +209,7 @@ extension CharacterDetailView {
         )
         characterMotionView.addSubviews(
             characterMotionViewTitleLabel,
-            babyImage,
+            orbCharacterIconImage,
             collectionView
         )
     }
@@ -271,6 +271,8 @@ extension CharacterDetailView {
             label.textColor = UIColor.main(.main2)
             label.font = UIFont.offroad(style: .iosSubtitle2Bold)
         }
+        
+        orbCharacterIconImage.contentMode = .scaleAspectFit
         
         titleLabel.do { label in
             label.textAlignment = .left
