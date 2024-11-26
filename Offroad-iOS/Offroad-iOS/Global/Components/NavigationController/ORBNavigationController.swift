@@ -77,19 +77,19 @@ extension ORBNavigationController {
     
     private func setupSubscription() {
         ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController
-            .subscribe(onNext: { [weak self] characterName in
+            .subscribe(onNext: { [weak self] characterId in
                 guard let self else { return }
-                self.pushChatLogViewController(characterName: characterName)
+                self.pushChatLogViewController(characterId: characterId)
             }).disposed(by: disposeBag)
     }
     
     //MARK: - Func
     
-    func pushChatLogViewController(characterName: String) {
+    func pushChatLogViewController(characterId: Int) {
         guard !(viewControllers.last is CharacterChatLogViewController) else { return }
         guard view.window != nil else { return }
         guard let snapshot = topViewController?.view.snapshotView(afterScreenUpdates: true) else { return }
-        let chatLogViewController = CharacterChatLogViewController(background: snapshot, characterName: characterName)
+        let chatLogViewController = CharacterChatLogViewController(background: snapshot, characterId: characterId)
         pushViewController(chatLogViewController, animated: true)
     }
     

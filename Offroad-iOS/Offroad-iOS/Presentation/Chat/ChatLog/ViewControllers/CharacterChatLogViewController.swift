@@ -16,7 +16,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     
     private let viewModel = CharacterChatLogViewModel()
     private let chatButtonHidingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
-    private let rootView: CharacterChatLogView
+    private var rootView: CharacterChatLogView!
     private var chatLogDataList: [ChatDataModel] = []
     private var chatLogDataSource: [[ChatDataModel]] = [[]]
     private var isChatButtonHidden: Bool = true
@@ -33,14 +33,19 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     let isTextViewEmpty = BehaviorRelay<Bool>(value: true)
     
     var disposeBag = DisposeBag()
-    var characterName: String
+    var characterId: Int?
+    var characterName: String {
+        guard let representativeCharacterId = MyInfoManager.shared.representativeCharacterID else { return "" }
+        return MyInfoManager.shared.characterInfo[characterId ?? representativeCharacterId] ?? ""
+    }
     
     //MARK: - Life Cycle
     
-    init(background: UIView, characterName: String) {
-        self.rootView = CharacterChatLogView(background: background, characterName: characterName)
-        self.characterName = characterName
+    init(background: UIView, characterId: Int? = nil) {
+        self.characterId = characterId
         super.init(nibName: nil, bundle: nil)
+        
+        self.rootView = CharacterChatLogView(background: background, characterName: characterName)
     }
     
     required init?(coder: NSCoder) {
@@ -60,7 +65,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         bindData()
         setupNotifications()
         setupGestureRecognizers()
-        requestChatLogDataSource()
+        requestChatLogDataSource(characterId: characterId)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -175,12 +180,12 @@ extension CharacterChatLogViewController {
         rootView.chatLogCollectionView.addGestureRecognizer(tapGesture)
     }
     
-    private func requestChatLogDataSource() {
+    private func requestChatLogDataSource(characterId: Int? = nil) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.view.startLoading()
         }
-        NetworkService.shared.characterChatService.getChatLog(completion: { [weak self] result in
+        NetworkService.shared.characterChatService.getChatLog(characterId: characterId) { [weak self] result in
             guard let self else { return }
             self.view.stopLoading()
             switch result {
@@ -201,7 +206,7 @@ extension CharacterChatLogViewController {
             default:
                 self.showToast(message: "Something went wrong", inset: 60)
             }
-        })
+        }
     }
     
     private func bindData() {
@@ -289,7 +294,7 @@ extension CharacterChatLogViewController {
             .subscribe(onNext: { [weak self] isConnected in
                 guard let self else { return }
                 if isConnected {
-                    self.requestChatLogDataSource()
+                    self.requestChatLogDataSource(characterId: characterId)
                 } else {
                     showToast(message: ErrorMessages.networkError, inset: 66)
                 }

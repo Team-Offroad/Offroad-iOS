@@ -94,7 +94,7 @@ extension ORBCharacterChatViewController {
     @objc private func tapGestureHandler(sender: UITapGestureRecognizer) {
         guard rootView.characterChatBox.mode == .withReplyButtonShrinked
                 || rootView.characterChatBox.mode == .withReplyButtonExpanded else { return }
-        ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController.onNext(MyInfoManager.shared.representativeCharacterName ?? "")
+        ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController.onNext(MyInfoManager.shared.representativeCharacterID ?? 1)
     }
     
     //MARK: - Private Func

@@ -11,7 +11,7 @@ import Moya
 
 enum CharacterChatAPI {
     case postChat(body: CharacterChatPostRequestDTO)
-    case getChatLog
+    case getChatLog(characterId: Int? = nil)
 }
 
 extension CharacterChatAPI: BaseTargetType {
@@ -34,8 +34,9 @@ extension CharacterChatAPI: BaseTargetType {
         switch self {
         case .postChat(body: let body):
             return .requestJSONEncodable(body)
-        case .getChatLog:
-            return .requestPlain
+        case .getChatLog(characterId: let characterId):
+            guard let characterId else { return .requestPlain }
+            return .requestParameters(parameters: ["characterId" : characterId], encoding: URLEncoding.queryString)
         }
     }
     
