@@ -1,5 +1,5 @@
 //
-//  AcquiredCouponView.swift
+//  CouponListView.swift
 //  Offroad-iOS
 //
 //  Created by  정지원 on 8/27/24.
@@ -7,9 +7,10 @@
 
 import UIKit
 
+import Lottie
 import SnapKit
 
-class AcquiredCouponView: UIView {
+class CouponListView: UIView {
     
     // MARK: - UI Properties
     
@@ -24,7 +25,7 @@ class AcquiredCouponView: UIView {
     
     private var layoutMaker: UICollectionViewFlowLayout {
         let horizontalInset: CGFloat = 24
-        let verticalInset: CGFloat = 20
+        let verticalInset: CGFloat = 0
         let interItemSpacing: CGFloat = 20
         let lineSpacing: CGFloat = 20
         let itemWidth = floor((UIScreen.current.bounds.width - 2 * horizontalInset - interItemSpacing)/2)
@@ -39,6 +40,7 @@ class AcquiredCouponView: UIView {
     
     lazy var collectionViewForAvailableCoupons = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
     lazy var collectionViewForUsedCoupons = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
+    let loadingView = LottieAnimationView(name: "loading1")
     
     // MARK: - Life Cycle
     
@@ -73,12 +75,21 @@ class AcquiredCouponView: UIView {
             collectionView.register(CouponCell.self, forCellWithReuseIdentifier: CouponCell.className)
             collectionView.backgroundColor = .clear
             collectionView.indicatorStyle = .black
+            collectionView.contentInsetAdjustmentBehavior = .never
+            collectionView.contentInset = .init(top: 20, left: 0, bottom: 87, right: 0)
         }
         
         collectionViewForUsedCoupons.do { collectionView in
             collectionView.register(CouponCell.self, forCellWithReuseIdentifier: CouponCell.className)
             collectionView.backgroundColor = .clear
             collectionView.indicatorStyle = .black
+            collectionView.contentInsetAdjustmentBehavior = .never
+            collectionView.contentInset = .init(top: 20, left: 0, bottom: 87, right: 0)
+        }
+        
+        loadingView.do { animationView in
+            animationView.contentMode = .scaleAspectFit
+            animationView.loopMode = .loop
         }
     }
     
