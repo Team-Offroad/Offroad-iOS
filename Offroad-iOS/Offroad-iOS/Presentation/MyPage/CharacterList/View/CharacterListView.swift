@@ -31,7 +31,7 @@ class CharacterListView: UIView {
         $0.font = UIFont.offroad(style: .iosTextTitle)
     }
     
-    private let babyImage = UIImageView(image: UIImage(resource: .baby))
+    private let babyImage = UIImageView(image: .icnCharacterListBabyCharacter)
     
     private let subLabel = UILabel().then {
         $0.text = "퀘스트를 달성하고 보상으로 캐릭터를 얻어보아요!"
@@ -40,7 +40,7 @@ class CharacterListView: UIView {
         $0.font = UIFont.offroad(style: .iosBoxMedi)
     }
     
-    private let checkImage = UIImageView(image: UIImage(resource: .check))
+    private let checkImage = UIImageView(image: UIImage(resource: .iconCheckCircle))
     
     private lazy var layout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .vertical
@@ -77,6 +77,7 @@ class CharacterListView: UIView {
     
     private func setupStyle() {
         backgroundColor = .primary(.listBg)
+        checkImage.contentMode = .scaleAspectFit
     }
 
     private func setupHierarchy() {
