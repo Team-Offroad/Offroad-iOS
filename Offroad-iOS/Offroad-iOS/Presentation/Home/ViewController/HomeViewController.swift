@@ -222,8 +222,7 @@ extension HomeViewController {
             case "ANNOUNCEMENT_REDIRECT":
                 redirectNoticePost()
             case "CHARACTER_CHAT":
-                ORBCharacterChatManager.shared.startChat()
-                ORBCharacterChatManager.shared.showCharacterChatBox(character: self.pushType?.data?["characterName"] as! String, message: self.pushType?.data?["message"] as! String, mode: .withoutReplyButtonExpanded)
+                ORBCharacterChatManager.shared.showCharacterChatBox(character: self.pushType?.data?["characterName"] as! String, message: self.pushType?.data?["message"] as! String, mode: .withReplyButtonShrinked)
             default:
                 break
             }
