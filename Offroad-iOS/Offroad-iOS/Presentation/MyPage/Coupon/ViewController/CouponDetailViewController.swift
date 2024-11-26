@@ -155,7 +155,6 @@ extension CouponDetailViewController {
                 attributes: [.foregroundColor: UIColor.grayscale(.gray300)]
             )
             textField.attributedPlaceholder = attributedPlaceholder
-            textField.keyboardType = .numberPad
         }
         
         present(alertController, animated: true)
