@@ -547,7 +547,7 @@ extension CharacterChatLogViewController: UICollectionViewDelegate {
         let scrollOffsetAtBottomEdge =
         max(scrollView.contentSize.height - (scrollView.bounds.height - rootView.safeAreaInsets.bottom - 135), 0)
         
-        if ceil(scrollView.contentOffset.y) >= scrollOffsetAtBottomEdge {
+        if ceil(scrollView.contentOffset.y) >= (scrollOffsetAtBottomEdge - 20) {
             showChatButton()
         } else {
             hideChatButton()
