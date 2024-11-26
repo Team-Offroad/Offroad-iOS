@@ -304,7 +304,7 @@ extension CharacterDetailView {
         }
         
         characterMotionView.do { view in
-            view.backgroundColor = UIColor.main(.main1)
+            view.backgroundColor = .primary(.white)
             view.roundCorners(cornerRadius: 16)
         }
         
