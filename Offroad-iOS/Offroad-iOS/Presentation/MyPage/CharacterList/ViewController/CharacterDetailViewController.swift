@@ -18,7 +18,6 @@ final class CharacterDetailViewController: UIViewController {
     let viewModel: CharacterDetailViewModel
     let viewDidAppear = PublishRelay<Void>()
     var disposeBag = DisposeBag()
-    weak var delegate: SelectMainCharacterDelegate?
     
     // MARK: - Life Cycle
     
@@ -82,7 +81,6 @@ extension CharacterDetailViewController {
                 guard let self else { return }
                 self.rootView.crownBadgeImageView.isHidden = false
                 self.rootView.selectButton.isEnabled = false
-                self.delegate?.didSelectMainCharacter(characterId: self.viewModel.characterId)
                 self.showToast(message: "'\($0.characterName)'로 대표 캐릭터가 변경되었어요!", inset: 66, withImage: .btnChecked)
             }).disposed(by: disposeBag)
         
