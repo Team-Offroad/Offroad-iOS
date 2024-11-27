@@ -14,8 +14,6 @@ class CharacterListCell: UICollectionViewCell, SVGFetchable {
     
     // MARK: - Properties
     
-    let shrinkingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    
     override var isHighlighted: Bool {
         didSet { dimmingView.isHidden = !isHighlighted }
     }
@@ -59,7 +57,7 @@ class CharacterListCell: UICollectionViewCell, SVGFetchable {
         $0.isHidden = true
     }
     
-    let dimmingView = UIView().then {
+    private let dimmingView = UIView().then {
         $0.backgroundColor = .blackOpacity(.black25)
         $0.isHidden = true
     }

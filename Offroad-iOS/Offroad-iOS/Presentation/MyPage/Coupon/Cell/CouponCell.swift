@@ -9,6 +9,12 @@ import UIKit
 
 final class CouponCell: UICollectionViewCell {
     
+    // MARK: - Properties
+    
+    override var isHighlighted: Bool {
+        didSet { dimmingView.isHidden = !isHighlighted }
+    }
+    
     // MARK: - UI Properties
     
     var couponInfo: CouponInfo? = nil
@@ -17,6 +23,7 @@ final class CouponCell: UICollectionViewCell {
     private let newTagImageView = UIImageView()
     private let isUsedView = UIView()
     private let isUsedImageView = UIImageView(image: .icnCouponListCheckmark)
+    private let dimmingView = UIView()
     
     // MARK: - Life Cycle
     
@@ -67,6 +74,11 @@ final class CouponCell: UICollectionViewCell {
         isUsedView.do { view in
             view.backgroundColor = .blackOpacity(.black25)
         }
+        
+        dimmingView.do { view in
+            view.backgroundColor = .blackOpacity(.black25)
+            view.isHidden = true
+        }
     }
     
     private func setupHierarchy() {
@@ -74,7 +86,8 @@ final class CouponCell: UICollectionViewCell {
             couponimageView,
             couponNameLabel,
             isUsedView,
-            newTagImageView
+            newTagImageView,
+            dimmingView
         )
         isUsedView.addSubview(isUsedImageView)
     }
@@ -107,6 +120,10 @@ final class CouponCell: UICollectionViewCell {
         isUsedImageView.snp.makeConstraints { make in
             make.center.equalTo(couponimageView)
             make.size.equalTo(32)
+        }
+        
+        dimmingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
     
