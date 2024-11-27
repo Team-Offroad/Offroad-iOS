@@ -39,6 +39,13 @@ final class NoticePostViewController: UIViewController {
         rootView.setPostText(data: noticeDetailInfo)
         setupTarget()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+        offroadTabBarController.hideTabBarAnimation()
+    }
 }
 
 extension NoticePostViewController {
@@ -49,6 +56,13 @@ extension NoticePostViewController {
         rootView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         rootView.contentButton.addTarget(self, action: #selector(contentButtonTapped), for: .touchUpInside)
     }
+    
+    // MARK: - Func
+    
+    func setupCustomBackButton(buttonTitle: String) {
+        rootView.customBackButton.configureButtonTitle(titleString: buttonTitle)
+    }
+
     
     // MARK: - @objc Method
     

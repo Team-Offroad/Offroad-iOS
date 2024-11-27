@@ -102,3 +102,4 @@ iOSInjectionProject/
 
 ###Others###
 Secrets.xcconfig
+GoogleService-Info.plist

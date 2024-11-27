@@ -13,7 +13,19 @@ final class SplashViewController: UIViewController {
     
     private let rootView = SplashView()
     
+    private let pushType: PushNotificationRedirectModel?
+    
     // MARK: - Life Cycle
+    
+    init(pushType: PushNotificationRedirectModel? = nil) {
+        self.pushType = pushType
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {        
         view = rootView
@@ -67,7 +79,7 @@ extension SplashViewController {
                     self.presentViewController(viewController: ChoosingCharacterViewController())
                 } else {
                     self.getCharacterListInfo()
-                    self.presentViewController(viewController: OffroadTabBarController())
+                    self.presentViewController(viewController: OffroadTabBarController(pushType: pushType))
                 }
             default:
                 break
