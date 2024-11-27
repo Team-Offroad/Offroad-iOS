@@ -12,6 +12,12 @@ import Kingfisher
 
 class CharacterListCell: UICollectionViewCell, SVGFetchable {
     
+    // MARK: - Properties
+    
+    override var isHighlighted: Bool {
+        didSet { dimmingView.isHidden = !isHighlighted }
+    }
+    
     // MARK: - UI Properties
     
     private let containerView = UIView().then {
@@ -51,6 +57,11 @@ class CharacterListCell: UICollectionViewCell, SVGFetchable {
         $0.isHidden = true
     }
     
+    private let dimmingView = UIView().then {
+        $0.backgroundColor = .blackOpacity(.black25)
+        $0.isHidden = true
+    }
+    
     // MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -78,7 +89,7 @@ extension CharacterListCell {
     // MARK: - Private Func
     
     private func setupHierarchy() {
-        contentView.addSubviews(containerView, characterLabel, shadowView, newBadgeView, mainCharacterBadgeView)
+        contentView.addSubviews(containerView, characterLabel, shadowView, newBadgeView, mainCharacterBadgeView, dimmingView)
         shadowView.addSubview(lockImageView)
         containerView.addSubview(characterListCellImageView)
     }
@@ -94,9 +105,8 @@ extension CharacterListCell {
         }
         
         characterListCellImageView.snp.makeConstraints { make in
-            make.width.equalTo(81)
-            make.height.equalTo(147)
-            make.centerX.centerY.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(17.5)
+            make.verticalEdges.equalToSuperview().inset(17.5)
         }
         
         characterLabel.snp.makeConstraints{ make in
@@ -124,6 +134,10 @@ extension CharacterListCell {
         mainCharacterBadgeView.snp.makeConstraints { make in
             make.top.trailing.equalTo(containerView).inset(8)
             make.size.equalTo(24)
+        }
+        
+        dimmingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
     

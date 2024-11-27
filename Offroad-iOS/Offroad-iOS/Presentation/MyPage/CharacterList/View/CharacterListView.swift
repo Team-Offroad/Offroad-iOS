@@ -78,6 +78,7 @@ class CharacterListView: UIView {
     private func setupStyle() {
         backgroundColor = .primary(.listBg)
         checkImage.contentMode = .scaleAspectFit
+        collectionView.delaysContentTouches = false
     }
 
     private func setupHierarchy() {
