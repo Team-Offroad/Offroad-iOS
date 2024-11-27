@@ -951,9 +951,6 @@
 				D00A48602C633927008B286A /* View */,
 				D00A485F2C63391F008B286A /* ViewController */,
 				4E03947C2C2AA842007F0517 /* Notice */,
-				4E03947D2C2AA850007F0517 /* PlayGuide */,
-				4E03947E2C2AA855007F0517 /* TermsOfService */,
-				4E03947F2C2AA913007F0517 /* PrivacyPolicy */,
 				4E0394802C2AA936007F0517 /* MarketingConsent */,
 				4E0394812C2AA969007F0517 /* Logout */,
 				4E0394822C2AA983007F0517 /* DeleteAccount */,
@@ -969,27 +966,6 @@
 				4E0394832C2AA99C007F0517 /* NoticePost */,
 			);
 			path = Notice;
-			sourceTree = "<group>";
-		};
-		4E03947D2C2AA850007F0517 /* PlayGuide */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PlayGuide;
-			sourceTree = "<group>";
-		};
-		4E03947E2C2AA855007F0517 /* TermsOfService */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TermsOfService;
-			sourceTree = "<group>";
-		};
-		4E03947F2C2AA913007F0517 /* PrivacyPolicy */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PrivacyPolicy;
 			sourceTree = "<group>";
 		};
 		4E0394802C2AA936007F0517 /* MarketingConsent */ = {
