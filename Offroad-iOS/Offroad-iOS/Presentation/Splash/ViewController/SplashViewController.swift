@@ -79,7 +79,7 @@ extension SplashViewController {
                     self.presentViewController(viewController: ChoosingCharacterViewController())
                 } else {
                     self.getCharacterListInfo()
-                    self.presentViewController(viewController: OffroadTabBarController())
+                    self.presentViewController(viewController: OffroadTabBarController(pushType: pushType))
                 }
             default:
                 break
