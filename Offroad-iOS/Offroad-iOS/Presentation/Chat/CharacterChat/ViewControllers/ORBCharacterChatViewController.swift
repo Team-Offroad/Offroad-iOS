@@ -94,7 +94,7 @@ extension ORBCharacterChatViewController {
     @objc private func tapGestureHandler(sender: UITapGestureRecognizer) {
         guard rootView.characterChatBox.mode == .withReplyButtonShrinked
                 || rootView.characterChatBox.mode == .withReplyButtonExpanded else { return }
-        ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController.onNext(MyInfoManager.shared.representativeCharacterName ?? "")
+        ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController.onNext(MyInfoManager.shared.representativeCharacterID ?? 1)
     }
     
     //MARK: - Private Func
@@ -240,10 +240,10 @@ extension ORBCharacterChatViewController {
         rootView.characterChatBox.addGestureRecognizer(tapGesture)
     }
     
-    private func postCharacterChat(message: String) {
+    private func postCharacterChat(characterId: Int? = nil, message: String) {
         isCharacterResponding.accept(true)
         let dto = CharacterChatPostRequestDTO(content: message)
-        NetworkService.shared.characterChatService.postChat(body: dto) { [weak self] result in
+        NetworkService.shared.characterChatService.postChat(characterId: characterId, body: dto) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let dto):
