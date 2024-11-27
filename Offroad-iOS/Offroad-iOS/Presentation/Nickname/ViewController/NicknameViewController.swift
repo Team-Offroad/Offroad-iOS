@@ -73,7 +73,7 @@ extension NicknameViewController {
         let regex = try? NSRegularExpression(pattern: pattern)
         let eucKrLength = input.eucKrByteLength
         if let _ = regex?.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count)),
-           eucKrLength >= 4 {
+           eucKrLength >= 2 {
             print("정규식 통과")
             return true
         }
@@ -102,7 +102,6 @@ extension NicknameViewController {
     
     @objc private func textFieldDidChange() {
         let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
-        configureButtonStyle(nicknameView.checkButton, isEnabled: !isTextFieldEmpty)
         configureTextFieldStyle(nicknameView.textField, isEmpty: isTextFieldEmpty)
         nicknameView.nextButton.changeState(forState: .isDisabled)
         
@@ -111,15 +110,18 @@ extension NicknameViewController {
             nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
             nicknameView.textField.layer.borderColor = UIColor.primary(.errorNew).cgColor
             nicknameView.nextButton.changeState(forState: .isDisabled)
+            configureButtonStyle(nicknameView.checkButton, isEnabled: false)
         }
         else if isTextFieldEmpty {
             nicknameView.notionLabel.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
             nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
             nicknameView.notionLabel.font = UIFont.offroad(style: .iosHint)
             nicknameView.textField.layer.borderColor = UIColor.main(.main2).cgColor
+            configureButtonStyle(nicknameView.checkButton, isEnabled: false)
         }
         else {
             nicknameView.notionLabel.text = ""
+            configureButtonStyle(nicknameView.checkButton, isEnabled: true)
         }
     }
     
@@ -214,4 +216,3 @@ extension NicknameViewController: UITextFieldDelegate {
         }
     }
 }
-
