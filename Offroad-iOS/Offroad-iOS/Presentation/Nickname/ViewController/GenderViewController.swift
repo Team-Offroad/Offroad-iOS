@@ -72,6 +72,14 @@ final class GenderViewController: UIViewController {
         let isGenderSelected = genderView.maleButton.isSelected || genderView.femaleButton.isSelected || genderView.etcButton.isSelected
         genderView.nextButton.changeState(forState: isGenderSelected ? .isEnabled : .isDisabled)
     }
+    
+    private func resetGenderSelection() {
+        [genderView.maleButton, genderView.femaleButton, genderView.etcButton].forEach { button in
+            button.isSelected = false
+            button.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        }
+        genderView.nextButton.changeState(forState: .isDisabled)
+    }
 }
 
 extension GenderViewController {
@@ -128,6 +136,34 @@ extension GenderViewController {
                 return
             }
         }
+    }
+    
+    @objc func skipButtonTapped() {
+        let button = UIButton().then { button in
+            button.setImage(.backBarButton, for: .normal)
+            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
+            button.imageView?.contentMode = .scaleAspectFill
+            button.snp.makeConstraints { make in
+                make.width.equalTo(30)
+                make.height.equalTo(44)
+            }
+        }
+        
+        ProfileService().patchUpdateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: nil)) { result in
+            switch result {
+            case .success(let response):
+                print("프로필 업데이트 성공~~~~~~~~~")
+                
+                let choosingCharacterViewController = ChoosingCharacterViewController()
+                let customBackBarButton = UIBarButtonItem(customView: button)
+                choosingCharacterViewController.navigationItem.leftBarButtonItem = customBackBarButton
+                self.navigationController?.pushViewController(choosingCharacterViewController, animated: true)
+            default:
+                return
+            }
+        }
+        
+        resetGenderSelection()
     }
     
     @objc private func executePop() {
