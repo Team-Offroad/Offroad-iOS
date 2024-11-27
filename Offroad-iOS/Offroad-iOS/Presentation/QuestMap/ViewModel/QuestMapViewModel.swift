@@ -86,7 +86,7 @@ extension QuestMapViewModel {
             currentLatitude: target.lat,
             currentLongitude: target.lng,
             limit: 100,
-            isBounded: true
+            isBounded: false
         )
         
         NetworkService.shared.placeService.getRegisteredPlace(requestDTO: requestPlaceDTO) { [weak self] response in
