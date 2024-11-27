@@ -95,10 +95,13 @@ extension SettingViewController: UICollectionViewDelegateFlowLayout {
             marketingConsentViewController.modalPresentationStyle = .overCurrentContext
             self.present(marketingConsentViewController, animated: false)
         case 5:
+            let customerInquiryViewController = CustomerInquiryViewController()
+            self.navigationController?.pushViewController(customerInquiryViewController, animated: true)
+        case 6:
             let logoutViewController = LogoutViewController()
             logoutViewController.modalPresentationStyle = .overCurrentContext
             self.present(logoutViewController, animated: false)
-        case 6:
+        case 7:
             let deleteAccountViewController = DeleteAccountViewController()
             deleteAccountViewController.modalPresentationStyle = .overCurrentContext
             self.present(deleteAccountViewController, animated: false)

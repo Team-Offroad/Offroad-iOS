@@ -16,6 +16,7 @@ extension SettingBaseModel {
         SettingBaseModel(listString: "서비스 이용약관"),
         SettingBaseModel(listString: "개인정보처리방침"),
         SettingBaseModel(listString: "마케팅 수신동의"),
+        SettingBaseModel(listString: "고객 문의"),
         SettingBaseModel(listString: "로그아웃"),
         SettingBaseModel(listString: "회원 탈퇴")
     ]
