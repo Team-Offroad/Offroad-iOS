@@ -58,14 +58,6 @@ final class HomeViewController: OffroadTabBarViewController {
         
         requestPushNotificationPermission()
         redirectViewControllerForPushNotification()
-        
-        Messaging.messaging().token { token, error in
-            if let error = error {
-                print("Error fetching FCM token: \(error)")
-            } else if let token = token {
-                print("FCM token: \(token)")
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -213,6 +205,22 @@ extension HomeViewController {
     private func registerForPushNotifications() {
         DispatchQueue.main.async {
             UIApplication.shared.registerForRemoteNotifications()
+            
+            Messaging.messaging().token { token, error in
+                if let error = error {
+                    print("Error fetching FCM token: \(error)")
+                } else if let token = token {
+                    print("FCM token: \(token)")
+                    NetworkService.shared.pushNotificationService.postFcmToken(body: FcmTokenRequestDTO(token: token)) { response in
+                        switch response {
+                        case .success:
+                            print("fcm 토큰 전송 성공!!!")
+                        default:
+                            break
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -273,15 +281,6 @@ extension HomeViewController: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         let dataDict: [String: String] = ["token": fcmToken ?? ""]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
-        
-        NetworkService.shared.pushNotificationService.postFcmToken(body: FcmTokenRequestDTO(token: fcmToken ?? String())) { response in
-            switch response {
-            case .success:
-                print("fcm 토큰 갱신 성공!!!")
-            default:
-                break
-            }
-        }
     }
 }
 
