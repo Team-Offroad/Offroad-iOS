@@ -73,7 +73,7 @@ extension NicknameViewController {
         let regex = try? NSRegularExpression(pattern: pattern)
         let eucKrLength = input.eucKrByteLength
         if let _ = regex?.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count)),
-           eucKrLength >= 4 {
+           eucKrLength >= 2 {
             print("정규식 통과")
             return true
         }
@@ -111,6 +111,7 @@ extension NicknameViewController {
             nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
             nicknameView.textField.layer.borderColor = UIColor.primary(.errorNew).cgColor
             nicknameView.nextButton.changeState(forState: .isDisabled)
+            nicknameView.checkButton.isEnabled = false
         }
         else if isTextFieldEmpty {
             nicknameView.notionLabel.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
@@ -120,6 +121,7 @@ extension NicknameViewController {
         }
         else {
             nicknameView.notionLabel.text = ""
+            nicknameView.checkButton.isEnabled = true
         }
     }
     
