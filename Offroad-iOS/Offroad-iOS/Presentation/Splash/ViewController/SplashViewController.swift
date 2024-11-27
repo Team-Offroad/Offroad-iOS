@@ -19,11 +19,6 @@ final class SplashViewController: UIViewController {
         view = rootView
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        getCharacterListInfo()
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -59,7 +54,8 @@ extension SplashViewController {
     }
     
     private func checkUserChoosingInfo() {
-        NetworkService.shared.adventureService.getAdventureInfo(category: "NONE") { response in
+        NetworkService.shared.adventureService.getAdventureInfo(category: "NONE") { [weak self] response in
+            guard let self else { return }
             switch response {
             case .success(let data):
                 let userNickname = data?.data.nickname ?? ""
@@ -72,6 +68,8 @@ extension SplashViewController {
                 } else {
                     self.presentViewController(viewController: OffroadTabBarController())
                 }
+                
+                self.getCharacterListInfo()
             default:
                 break
             }
