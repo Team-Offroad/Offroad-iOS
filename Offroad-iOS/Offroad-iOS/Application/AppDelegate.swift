@@ -61,16 +61,17 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([])
-
         if let data = notification.request.content.userInfo["aps"] as? [String: Any] {
             let category = notification.request.content.categoryIdentifier
             if category == "CHARACTER_CHAT" {
+                completionHandler([])
                 if let characterName = data["characterName"] as? String,
                    let message = data["message"] as? String {
                     ORBCharacterChatManager.shared.showCharacterChatBox(character: characterName, message: message, mode: .withReplyButtonShrinked)
                     ORBCharacterChatManager.shared.chatViewController.rootView.setNeedsLayout()
                 }
+            } else if category == "ANNOUNCEMENT_REDIRECT" {
+                completionHandler([.list, .banner])
             }
         }
     }
@@ -78,6 +79,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
         let application = UIApplication.shared
+        
+        if application.applicationState == .active {
+            print("푸쉬알림 탭(앱 켜져있음)")
+            
+            //TODO: - 앱 실행 중에 공지사항 알림을 탭했을 때 수행할 동작 정의
+        }
         
         if application.applicationState == .inactive {
             print("푸쉬알림 탭(앱 꺼져있음)")
