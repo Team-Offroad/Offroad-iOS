@@ -102,7 +102,6 @@ extension NicknameViewController {
     
     @objc private func textFieldDidChange() {
         let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
-        configureButtonStyle(nicknameView.checkButton, isEnabled: !isTextFieldEmpty)
         configureTextFieldStyle(nicknameView.textField, isEmpty: isTextFieldEmpty)
         nicknameView.nextButton.changeState(forState: .isDisabled)
         
@@ -111,17 +110,18 @@ extension NicknameViewController {
             nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
             nicknameView.textField.layer.borderColor = UIColor.primary(.errorNew).cgColor
             nicknameView.nextButton.changeState(forState: .isDisabled)
-            nicknameView.checkButton.isEnabled = false
+            configureButtonStyle(nicknameView.checkButton, isEnabled: false)
         }
         else if isTextFieldEmpty {
             nicknameView.notionLabel.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
             nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
             nicknameView.notionLabel.font = UIFont.offroad(style: .iosHint)
             nicknameView.textField.layer.borderColor = UIColor.main(.main2).cgColor
+            configureButtonStyle(nicknameView.checkButton, isEnabled: false)
         }
         else {
             nicknameView.notionLabel.text = ""
-            nicknameView.checkButton.isEnabled = true
+            configureButtonStyle(nicknameView.checkButton, isEnabled: true)
         }
     }
     
