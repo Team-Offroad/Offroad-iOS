@@ -30,8 +30,7 @@ class CharacterDetailView: UIView, SVGFetchable {
     private let detailLabelView = UIView()
     let nameLabel = UILabel()
     private let characterMotionViewTitleLabel = UILabel()
-    private let babyImage = UIImageView(image: UIImage(resource: .baby))
-    private var characterIconImageView = UIImageView()
+    private let orbCharacterIconImage = UIImageView(image: .icnCharacterDetailOrbCharacter)
     private let titleLabel = UILabel()
     let crownBadgeImageView = UIImageView(image: .imgCrownTag)
     private let detailLabel = UILabel()
@@ -111,20 +110,11 @@ extension CharacterDetailView {
         labelView.snp.makeConstraints { make in
             make.top.equalTo(characterImageView.snp.bottom).offset(24)
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(84)
-        }
-        
-        characterIconImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.top.greaterThanOrEqualToSuperview().inset(15)
-            make.bottom.lessThanOrEqualToSuperview().inset(15)
-            make.leading.equalToSuperview().inset(22)
-            make.size.equalTo(50)
         }
         
         nameLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(15)
-            make.leading.equalTo(characterIconImageView.snp.trailing).offset(17)
+            make.top.equalToSuperview().inset(17)
+            make.leading.equalToSuperview().inset(22)
             make.trailing.lessThanOrEqualToSuperview().inset(22)
         }
         
@@ -139,6 +129,7 @@ extension CharacterDetailView {
             make.top.equalTo(nameLabel.snp.bottom).offset(4)
             make.leading.equalTo(nameLabel)
             make.trailing.lessThanOrEqualToSuperview().inset(22)
+            make.bottom.equalToSuperview().inset(17)
         }
         
         dottedLineView.snp.makeConstraints { make in
@@ -175,10 +166,10 @@ extension CharacterDetailView {
             make.left.equalToSuperview().inset(24.5)
         }
         
-        babyImage.snp.makeConstraints { make in
+        orbCharacterIconImage.snp.makeConstraints { make in
             make.centerY.equalTo(characterMotionViewTitleLabel)
             make.leading.equalTo(characterMotionViewTitleLabel.snp.trailing).offset(8)
-            make.size.equalTo(CGSize(width: 26, height: 21))
+            make.size.equalTo(27)
         }
         
         collectionView.snp.makeConstraints { make in
@@ -210,8 +201,7 @@ extension CharacterDetailView {
         labelView.addSubviews(
             nameLabel,
             crownBadgeImageView,
-            titleLabel,
-            characterIconImageView
+            titleLabel
         )
         detailLabelView.addSubviews(
             detailLabel,
@@ -219,7 +209,7 @@ extension CharacterDetailView {
         )
         characterMotionView.addSubviews(
             characterMotionViewTitleLabel,
-            babyImage,
+            orbCharacterIconImage,
             collectionView
         )
     }
@@ -238,7 +228,6 @@ extension CharacterDetailView {
             button.layer.borderColor = UIColor.sub(.sub).cgColor
             button.layer.borderWidth = 1
             button.roundCorners(cornerRadius: 18)
-            button.isEnabled = false
         }
         
         scrollView.showsVerticalScrollIndicator = false
@@ -247,10 +236,6 @@ extension CharacterDetailView {
         labelView.do { view in
             view.backgroundColor = .primary(.white)
             view.roundCorners(cornerRadius: 10)
-        }
-        
-        characterIconImageView.do { imageView in
-            imageView.roundCorners(cornerRadius: 8)
         }
         
         dottedLineView.do { view in
@@ -286,7 +271,7 @@ extension CharacterDetailView {
             label.font = UIFont.offroad(style: .iosSubtitle2Bold)
         }
         
-        characterIconImageView.contentMode = .scaleAspectFit
+        orbCharacterIconImage.contentMode = .scaleAspectFit
         
         titleLabel.do { label in
             label.textAlignment = .left
@@ -318,7 +303,7 @@ extension CharacterDetailView {
         }
         
         characterMotionView.do { view in
-            view.backgroundColor = UIColor.main(.main1)
+            view.backgroundColor = .primary(.white)
             view.roundCorners(cornerRadius: 16)
         }
         
@@ -343,13 +328,6 @@ extension CharacterDetailView {
                 guard let self else { return }
                 self.characterImageView.stopLoading()
                 self.characterImageView.image = image
-            }
-        }
-        
-        fetchSVG(svgURLString: characterInfo.characterIconImageUrl) { image in
-            DispatchQueue.main.async {[weak self] in
-                guard let self else { return }
-                self.characterIconImageView.image = image
             }
         }
         

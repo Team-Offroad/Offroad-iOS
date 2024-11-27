@@ -11,6 +11,7 @@ final class CouponCell: UICollectionViewCell {
     
     // MARK: - UI Properties
     
+    var couponInfo: CouponInfo? = nil
     private var couponimageView = UIImageView()
     private let couponNameLabel = UILabel()
     private let newTagImageView = UIImageView()
@@ -35,6 +36,7 @@ final class CouponCell: UICollectionViewCell {
         super.prepareForReuse()
         
         newTagImageView.isHidden = true
+        couponInfo = nil
     }
     
     // MARK: - Setup Functions
@@ -109,6 +111,7 @@ final class CouponCell: UICollectionViewCell {
     }
     
     func configureAvailableCell(with coupon: CouponInfo) {
+        couponInfo = coupon
         couponNameLabel.text = coupon.name
         couponNameLabel.text = coupon.name
         newTagImageView.isHidden = !(coupon.isNewGained ?? false)
@@ -117,6 +120,7 @@ final class CouponCell: UICollectionViewCell {
     }
     
     func configureUsedCell(with coupon: CouponInfo) {
+        couponInfo = coupon
         couponNameLabel.text = coupon.name
         couponNameLabel.text = coupon.name
         couponimageView.fetchSvgURLToImageView(svgUrlString: coupon.couponImageUrl)

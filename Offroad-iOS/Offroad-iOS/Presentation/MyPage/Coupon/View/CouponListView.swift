@@ -1,5 +1,5 @@
 //
-//  AcquiredCouponView.swift
+//  CouponListView.swift
 //  Offroad-iOS
 //
 //  Created by  정지원 on 8/27/24.
@@ -7,9 +7,10 @@
 
 import UIKit
 
+import Lottie
 import SnapKit
 
-class AcquiredCouponView: UIView {
+class CouponListView: UIView {
     
     // MARK: - UI Properties
     
@@ -21,10 +22,11 @@ class AcquiredCouponView: UIView {
     private var couponLogoImage = UIImageView(image: UIImage(resource: .imgCoupon))
     
     let segmentedControl = ORBSegmentedControl(titles: ["사용 가능 0", "사용 완료 0"])
+    let separator = UIView()
     
     private var layoutMaker: UICollectionViewFlowLayout {
         let horizontalInset: CGFloat = 24
-        let verticalInset: CGFloat = 20
+        let verticalInset: CGFloat = 0
         let interItemSpacing: CGFloat = 20
         let lineSpacing: CGFloat = 20
         let itemWidth = floor((UIScreen.current.bounds.width - 2 * horizontalInset - interItemSpacing)/2)
@@ -33,12 +35,13 @@ class AcquiredCouponView: UIView {
         layout.minimumInteritemSpacing = interItemSpacing
         layout.minimumLineSpacing = lineSpacing
         layout.sectionInset = .init(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
-        layout.estimatedItemSize = .init(width: itemWidth, height: itemWidth + 32)
+        layout.itemSize = .init(width: itemWidth, height: itemWidth + 32)
         return layout
     }
     
     lazy var collectionViewForAvailableCoupons = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
     lazy var collectionViewForUsedCoupons = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
+    let loadingView = LottieAnimationView(name: "loading1")
     
     // MARK: - Life Cycle
     
@@ -69,23 +72,37 @@ class AcquiredCouponView: UIView {
             label.font = UIFont.offroad(style: .iosTextTitle)
         }
         
+        separator.do { view in
+            view.backgroundColor = .grayscale(.gray100)
+        }
+        
         collectionViewForAvailableCoupons.do { collectionView in
             collectionView.register(CouponCell.self, forCellWithReuseIdentifier: CouponCell.className)
             collectionView.backgroundColor = .clear
             collectionView.indicatorStyle = .black
+            collectionView.contentInsetAdjustmentBehavior = .never
+            collectionView.contentInset = .init(top: 20, left: 0, bottom: 87, right: 0)
         }
         
         collectionViewForUsedCoupons.do { collectionView in
             collectionView.register(CouponCell.self, forCellWithReuseIdentifier: CouponCell.className)
             collectionView.backgroundColor = .clear
             collectionView.indicatorStyle = .black
+            collectionView.contentInsetAdjustmentBehavior = .never
+            collectionView.contentInset = .init(top: 20, left: 0, bottom: 87, right: 0)
+        }
+        
+        loadingView.do { animationView in
+            animationView.contentMode = .scaleAspectFit
+            animationView.loopMode = .loop
         }
     }
     
     private func setupHierarchy() {
         addSubviews(
             labelView,
-            pageViewController.view
+            pageViewController.view,
+            separator
         )
         
         labelView.addSubviews(
@@ -124,6 +141,12 @@ class AcquiredCouponView: UIView {
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(46)
             make.bottom.equalToSuperview()
+        }
+        
+        separator.snp.makeConstraints { make in
+            make.top.equalTo(segmentedControl.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(1)
         }
         
         pageViewController.view.snp.makeConstraints { make in
