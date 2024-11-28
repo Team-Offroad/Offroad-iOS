@@ -58,7 +58,12 @@ class QuestMapViewController: OffroadTabBarViewController {
         setupDelegates()
         rootView.naverMapView.mapView.positionMode = .direction
         locationManager.startUpdatingHeading()
-        viewModel.requestAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            viewModel.requestAuthorization()
+        } else {
+            viewModel.locationServiceDisabledRelay.accept(())
+        }
         viewModel.updateRegisteredPlaces(at: currentPositionTarget)
     }
     
@@ -180,14 +185,9 @@ extension QuestMapViewController {
         
         viewModel.locationServiceDisabledRelay
             .observe(on: ConcurrentMainScheduler.instance)
-            .subscribe { _ in
-                let alertController = ORBAlertController(
-                    title: "현재 위치를 불러올 수 없습니다.",
-                    message: "위치 기능을 활성화해 주세요", type: .normal
-                )
-                let okAction = ORBAlertAction(title: "확인", style: .default) { _ in return }
-                alertController.addAction(okAction)
-                self.present(alertController, animated: true)
+            .subscribe { [weak self] _ in
+                guard let self else { return }
+                self.showToast(message: "위치 기능이 비활성화되었습니다.\n탐험을 인증하기 위해서는 위치 기능을 활성화해 주세요.", inset: 66)
             }.disposed(by: disposeBag)
         
         viewModel.shouldRequestLocationAuthorization
