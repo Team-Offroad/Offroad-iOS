@@ -16,6 +16,7 @@ class OffroadTabBarController: UITabBarController {
     private var hideTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     private var showTabBarAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     var isTabBarShown: Bool = true
+    private let pushType: PushNotificationRedirectModel?
     
     //MARK: - UI Properties
     
@@ -23,6 +24,16 @@ class OffroadTabBarController: UITabBarController {
     let customTabBar = ORBTabBarShapeView()
     
     // MARK: - Life Cycle
+    
+    init(pushType: PushNotificationRedirectModel? = nil) {
+        self.pushType = pushType
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +45,6 @@ class OffroadTabBarController: UITabBarController {
         setTabBarButtonStyle()
         setupAppearance()
         setupButtonsAction()
-//        setupDelegates()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,7 +107,7 @@ extension OffroadTabBarController {
     }
     
     private func setOffroadViewControllers() {
-        let homeNavigationController = ORBNavigationController(rootViewController: HomeViewController())
+        let homeNavigationController = ORBNavigationController(rootViewController: HomeViewController(pushType: pushType))
         let mypageNavigationController = ORBNavigationController(rootViewController: MyPageViewController())
         
         let viewControllersArray: [UIViewController] = [

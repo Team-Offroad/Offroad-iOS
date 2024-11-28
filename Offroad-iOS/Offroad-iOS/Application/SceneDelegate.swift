@@ -25,6 +25,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.backgroundColor = .main(.main1)
         self.window?.rootViewController = SplashViewController()
         self.window?.makeKeyAndVisible()
+        
+        if let notification = connectionOptions.notificationResponse {
+            let data = notification.notification.request.content.userInfo["aps"] as? [String : Any]?
+            let category = notification.notification.request.content.categoryIdentifier
+            
+            let pushType = PushNotificationRedirectModel(data: data ?? nil, category: category)
+            self.window?.rootViewController = SplashViewController(pushType: pushType)
+        }
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {

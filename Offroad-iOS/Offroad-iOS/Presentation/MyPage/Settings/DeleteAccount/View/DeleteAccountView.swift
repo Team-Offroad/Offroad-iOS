@@ -70,7 +70,7 @@ extension DeleteAccountView {
         }
         
         deleteAccountMessageLabel.do {
-            $0.text = "오프로드 회원을 탈퇴하겠습니다."
+            $0.text = "오브 회원을 탈퇴하겠습니다."
             $0.setLineSpacing(spacing: 6)
             $0.font = .offroad(style: .iosTextBold)
             $0.textColor = .sub(.sub2)

@@ -7,6 +7,8 @@
 
 import UIKit
 
+import Firebase
+import FirebaseMessaging
 import Photos
 import RxSwift
 
@@ -26,8 +28,20 @@ final class HomeViewController: OffroadTabBarViewController {
     }
     
     var categoryString = "NONE"
+    private let pushType: PushNotificationRedirectModel?
+    private var noticeModelList: [NoticeInfo] = []
     
     // MARK: - Life Cycle
+    
+    init(pushType: PushNotificationRedirectModel? = nil) {
+        self.pushType = pushType
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = rootView
@@ -36,10 +50,14 @@ final class HomeViewController: OffroadTabBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupDelegate()
         setupTarget()
         getUserAdventureInfo()
         getUserQuestInfo()
         bindData()
+        
+        requestPushNotificationPermission()
+        redirectViewControllerForPushNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,6 +74,10 @@ final class HomeViewController: OffroadTabBarViewController {
 extension HomeViewController {
     
     // MARK: - Private Method
+    
+    private func setupDelegate() {
+        Messaging.messaging().delegate = self
+    }
     
     private func setupTarget() {
         rootView.changeTitleButton.addTarget(self, action: #selector(changeTitleButtonTapped), for: .touchUpInside)
@@ -134,6 +156,87 @@ extension HomeViewController {
             }).disposed(by: disposeBag)
     }
     
+    private func redirectNoticePost() {
+        NetworkService.shared.noticeService.getNoticeList { response in
+            switch response {
+            case .success(let data):
+                self.noticeModelList = data?.data.announcements ?? [NoticeInfo]()
+                
+                guard let id = Int(self.pushType?.data?["announcementId"] as! String) else { return }
+                let noticePostViewController = NoticePostViewController(noticeInfo: self.noticeModelList[id - 1])
+                noticePostViewController.setupCustomBackButton(buttonTitle: "홈")
+                self.navigationController?.pushViewController(noticePostViewController, animated: true)
+            default:
+                break
+            }
+        }
+    }
+    
+    private func requestPushNotificationPermission() {
+        let center = UNUserNotificationCenter.current()
+        center.getNotificationSettings { [weak self] settings in
+            switch settings.authorizationStatus {
+            case .notDetermined:
+                center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                    if let error = error {
+                        print("권한 요청 중 오류 발생: \(error)")
+                        return
+                    }
+                    if granted {
+                        DispatchQueue.main.async {
+                            self?.registerForPushNotifications()
+                        }
+                    } else {
+                        print("사용자가 푸시 알림을 거부했습니다.")
+                    }
+                }
+            case .denied:
+                print("사용자가 이전에 푸시 알림을 거부했습니다.")
+            case .authorized, .provisional, .ephemeral:
+                DispatchQueue.main.async {
+                    self?.registerForPushNotifications()
+                }
+            @unknown default:
+                break
+            }
+        }
+    }
+    
+    private func registerForPushNotifications() {
+        DispatchQueue.main.async {
+            UIApplication.shared.registerForRemoteNotifications()
+            
+            Messaging.messaging().token { token, error in
+                if let error = error {
+                    print("Error fetching FCM token: \(error)")
+                } else if let token = token {
+                    print("FCM token: \(token)")
+                    NetworkService.shared.pushNotificationService.postFcmToken(body: FcmTokenRequestDTO(token: token)) { response in
+                        switch response {
+                        case .success:
+                            print("fcm 토큰 전송 성공!!!")
+                        default:
+                            break
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func redirectViewControllerForPushNotification() {
+        if let pushType {
+            switch pushType.category {
+            case "ANNOUNCEMENT_REDIRECT":
+                redirectNoticePost()
+            case "CHARACTER_CHAT":
+                ORBCharacterChatManager.shared.showCharacterChatBox(character: self.pushType?.data?["characterName"] as! String, message: self.pushType?.data?["message"] as! String, mode: .withReplyButtonShrinked)
+            default:
+                break
+            }
+        }
+    }
+    
     //MARK: - Func
     
     func fetchCategoryString(category: String) {
@@ -171,6 +274,13 @@ extension HomeViewController {
         titlePopupViewController.delegate = self
         
         tabBarController?.present(titlePopupViewController, animated: false)
+    }
+}
+
+extension HomeViewController: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        let dataDict: [String: String] = ["token": fcmToken ?? ""]
+        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
     }
 }
 
