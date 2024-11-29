@@ -9,6 +9,7 @@ import UIKit
 
 import Kingfisher
 import RxSwift
+import RxCocoa
 import SnapKit
 
 class CouponDetailViewController: UIViewController {
@@ -19,7 +20,8 @@ class CouponDetailViewController: UIViewController {
     
     let coupon: CouponInfo
     let couponCodeInputSubject = PublishSubject<String>()
-    let afterCouponRedemptionSubject = PublishSubject<Bool>()
+    let afterCouponRedemptionRelay = PublishRelay<Bool>()
+    let networkFailRelay = PublishRelay<Void>()
     
     // MARK: - UI Properties
     
@@ -75,17 +77,25 @@ class CouponDetailViewController: UIViewController {
         }.disposed(by: disposeBag)
         
         
-        afterCouponRedemptionSubject
+        afterCouponRedemptionRelay
             .observe(on: ConcurrentMainScheduler.instance)
             .subscribe { [weak self] isSuccess in
                 guard let self else { return }
                 
                 let alertController: ORBAlertController
                 if isSuccess {
-                    alertController = ORBAlertController(title: "사용 완료", message: "쿠폰 사용이 완료되었어요!", type: .normal)
+                    alertController = ORBAlertController(
+                        title: AlertMessage.couponRedemptionSuccessTitle,
+                        message: AlertMessage.couponRedemptionSuccessMessage,
+                        type: .normal
+                    )
                     self.couponDetailView.useButton.isEnabled = false
                 } else {
-                    alertController = ORBAlertController(title: "사용 실패", message: "다시 한 번 확인해 주세요.", type: .normal)
+                    alertController = ORBAlertController(
+                        title: AlertMessage.couponRedemptionFailureTitle,
+                        message: AlertMessage.couponRedemptionFailureMessage,
+                        type: .normal
+                    )
                     alertController.configureMessageLabel { label in
                         label.textColor = .primary(.errorNew)
                         label.font = .offroad(style: .iosSubtitle2Semibold)
@@ -107,8 +117,10 @@ class CouponDetailViewController: UIViewController {
             case .success(let response):
                 guard let response else { return }
                 print("쿠폰 사용 결과: " + "\(response.data.success)")
-                self.afterCouponRedemptionSubject.onNext(response.data.success)
+                self.afterCouponRedemptionRelay.accept(response.data.success)
             default:
+                self.afterCouponRedemptionRelay.accept(false)
+                self.showToast(message: ErrorMessages.networkError, inset: 66)
                 return
             }
         }
@@ -123,7 +135,7 @@ class CouponDetailViewController: UIViewController {
         DispatchQueue.global().asyncAfter(deadline: .now() + 0.3) { [weak self] in
             guard let self else { return }
             //completion(code == "0000" ? true : false)
-            self.afterCouponRedemptionSubject.onNext(code == "0000" ? true : false)
+            self.afterCouponRedemptionRelay.accept(code == "0000" ? true : false)
         }
     }
     

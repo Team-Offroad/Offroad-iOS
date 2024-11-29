@@ -190,7 +190,7 @@ extension CouponListViewController: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CouponCell else { return }
         guard let couponInfo = cell.couponInfo else { return }
         let couponDetailViewController = CouponDetailViewController(coupon: couponInfo)
-        couponDetailViewController.afterCouponRedemptionSubject
+        couponDetailViewController.afterCouponRedemptionRelay
             .filter({ $0 == true })
             .subscribe(onNext: { [weak self] isCouponSuccess in
                 guard let self else { return }
