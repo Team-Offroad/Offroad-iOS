@@ -86,7 +86,7 @@ class QuestMapViewController: OffroadTabBarViewController {
         )
         tooltipWindow = PlaceInfoTooltipWindow(contentFrame: contentFrame)
         bindTooltip()
-        tooltipWindow.makeKeyAndVisible()
+        tooltipWindow.isHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
