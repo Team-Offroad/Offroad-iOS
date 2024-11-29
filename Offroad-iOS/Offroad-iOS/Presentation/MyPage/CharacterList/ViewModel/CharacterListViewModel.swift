@@ -22,16 +22,16 @@ final class CharacterListViewModel {
     var disposeBag = DisposeBag()
     var representativeCharacterIdSubject = PublishSubject<Int>()
     var characterListDataSourceSubject = PublishSubject<[CharacterListInfoData]>()
-    var reloadCollectionView = PublishSubject<Void>()
+    var reloadCollectionView = PublishRelay<Void>()
     var networkingFailure = PublishSubject<Void>()
     
     init() {
-        Observable.combineLatest(
+        Observable.zip(
             representativeCharacterIdSubject,
             characterListDataSourceSubject
         ).subscribe(onNext: { [weak self] _ in
             guard let self else { return }
-            self.reloadCollectionView.onNext(())
+            self.reloadCollectionView.accept(())
         }).disposed(by: disposeBag)
     }
 }
@@ -63,8 +63,4 @@ extension CharacterListViewModel {
         }
     }
     
-    func updateRepresentativeCharacter(id: Int) {
-        representativeCharacterId = id
-        representativeCharacterIdSubject.onNext(id)
-    }
 }
