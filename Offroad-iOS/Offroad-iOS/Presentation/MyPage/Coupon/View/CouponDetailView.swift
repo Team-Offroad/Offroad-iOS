@@ -25,7 +25,7 @@ final class CouponDetailView: UIScrollView {
     private let couponDetailView = UIView().then {
         $0.roundCorners(cornerRadius: 22)
         $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.home(.homeContents2).cgColor
+        $0.layer.borderColor = UIColor.primary(.stroke).cgColor
         $0.clipsToBounds = true
         $0.backgroundColor = UIColor.main(.main1)
     }
