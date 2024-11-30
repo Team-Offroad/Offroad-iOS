@@ -75,7 +75,7 @@ final class CouponDetailView: UIScrollView {
     
     private let usageLogoImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(resource: .imgKey)
+        $0.image = .icnCouponDetailKeyAndLock
     }
     
     private let usageDescriptionLabel = UILabel().then {
