@@ -180,6 +180,7 @@ final class CouponDetailView: UIScrollView {
             make.top.equalTo(dottedLineView.snp.bottom).offset(10)
             make.horizontalEdges.equalToSuperview().inset(21)
             make.bottom.equalToSuperview().inset(20)
+            make.height.greaterThanOrEqualTo(72)
         }
         
         usageTitleLabel.snp.makeConstraints { make in
