@@ -46,6 +46,7 @@ final class CouponListViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
+        bindData()
         rootView.segmentedControl.selectSegment(index: 0)
         setPageViewControllerPage(to: 0)
         getCouponListsFromServer(isUsed: false, size: 14, cursor: lastCursorIDForAvailableCoupons)
@@ -82,6 +83,15 @@ extension CouponListViewController{
         rootView.segmentedControl.delegate = self
         pageViewController.dataSource = self
         pageViewController.delegate = self
+    }
+    
+    private func bindData() {
+        NetworkMonitoringManager.shared.networkConnectionChanged.subscribe(onNext: { isConnected in
+            self.usedCouponDataSource = []
+            self.availableCouponDataSource = []
+            self.getCouponListsFromServer(isUsed: false, size: 14, cursor: 0)
+            self.getCouponListsFromServer(isUsed: true, size: 14, cursor: 0)
+        }).disposed(by: disposBag)
     }
     
     private func setPageViewControllerPage(to targetIndex: Int) {
