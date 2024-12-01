@@ -86,11 +86,24 @@ extension CouponListViewController{
     }
     
     private func bindData() {
-        NetworkMonitoringManager.shared.networkConnectionChanged.subscribe(onNext: { isConnected in
-            self.usedCouponDataSource = []
-            self.availableCouponDataSource = []
-            self.getCouponListsFromServer(isUsed: false, size: 14, cursor: 0)
-            self.getCouponListsFromServer(isUsed: true, size: 14, cursor: 0)
+        NetworkMonitoringManager.shared.networkConnectionChanged.subscribe(onNext: { [weak self] isConnected in
+            guard let self else { return }
+            guard isConnected else {
+                self.showToast(message: ErrorMessages.networkError, inset: 66)
+                return
+            }
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                //무한스크롤로 불러왔던 데이터 모두 초기화 후 다시 처음부터 불러오기
+                self.availableCouponDataSource = []
+                self.usedCouponDataSource = []
+                self.rootView.collectionViewForAvailableCoupons.reloadData()
+                self.rootView.collectionViewForAvailableCoupons.startLoading(withoutShading: true)
+                self.rootView.collectionViewForUsedCoupons.reloadData()
+                self.rootView.collectionViewForUsedCoupons.startLoading(withoutShading: true)
+                self.getCouponListsFromServer(isUsed: false, size: 14, cursor: 0)
+                self.getCouponListsFromServer(isUsed: true, size: 14, cursor: 0)
+            }
         }).disposed(by: disposBag)
     }
     
@@ -132,6 +145,11 @@ extension CouponListViewController{
                     return
                 }
                 guard response.data.coupons.count > 0 else { return }
+                if isUsed {
+                    rootView.collectionViewForUsedCoupons.stopLoading()
+                } else {
+                    rootView.collectionViewForAvailableCoupons.stopLoading()
+                }
                 
                 self.availableCouponsCount = response.data.availableCouponsCount
                 self.usedCouponsCount = response.data.usedCouponsCount
