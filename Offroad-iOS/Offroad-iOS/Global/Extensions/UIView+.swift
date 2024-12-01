@@ -69,7 +69,7 @@ extension UIView {
     }
     
     
-    func startLoading(withoutShading: Bool = false) {
+    @objc func startLoading(withoutShading: Bool = false) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
         // 이미 로딩중인 경우, 추가 로딩 뷰 띄우는 것 방지
@@ -80,7 +80,7 @@ extension UIView {
             loadingView.shadeView.isHidden = withoutShading
             loadingView.isHidden = true
             self.addSubview(loadingView)
-            loadingView.frame = self.bounds
+            loadingView.snp.makeConstraints { $0.edges.equalToSuperview() }
             UIView.animate(withDuration: 0.2) {
                 loadingView.isHidden = false
             }

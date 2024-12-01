@@ -46,6 +46,7 @@ final class CouponListViewController: UIViewController {
         
         setupTarget()
         setupDelegate()
+        bindData()
         rootView.segmentedControl.selectSegment(index: 0)
         setPageViewControllerPage(to: 0)
         getCouponListsFromServer(isUsed: false, size: 14, cursor: lastCursorIDForAvailableCoupons)
@@ -82,6 +83,28 @@ extension CouponListViewController{
         rootView.segmentedControl.delegate = self
         pageViewController.dataSource = self
         pageViewController.delegate = self
+    }
+    
+    private func bindData() {
+        NetworkMonitoringManager.shared.networkConnectionChanged.subscribe(onNext: { [weak self] isConnected in
+            guard let self else { return }
+            guard isConnected else {
+                self.showToast(message: ErrorMessages.networkError, inset: 66)
+                return
+            }
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                //무한스크롤로 불러왔던 데이터 모두 초기화 후 다시 처음부터 불러오기
+                self.availableCouponDataSource = []
+                self.usedCouponDataSource = []
+                self.rootView.collectionViewForAvailableCoupons.reloadData()
+                self.rootView.collectionViewForAvailableCoupons.startLoading(withoutShading: true)
+                self.rootView.collectionViewForUsedCoupons.reloadData()
+                self.rootView.collectionViewForUsedCoupons.startLoading(withoutShading: true)
+                self.getCouponListsFromServer(isUsed: false, size: 14, cursor: 0)
+                self.getCouponListsFromServer(isUsed: true, size: 14, cursor: 0)
+            }
+        }).disposed(by: disposBag)
     }
     
     private func setPageViewControllerPage(to targetIndex: Int) {
@@ -122,6 +145,11 @@ extension CouponListViewController{
                     return
                 }
                 guard response.data.coupons.count > 0 else { return }
+                if isUsed {
+                    rootView.collectionViewForUsedCoupons.stopLoading()
+                } else {
+                    rootView.collectionViewForAvailableCoupons.stopLoading()
+                }
                 
                 self.availableCouponsCount = response.data.availableCouponsCount
                 self.usedCouponsCount = response.data.usedCouponsCount
@@ -190,7 +218,7 @@ extension CouponListViewController: UICollectionViewDelegate {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CouponCell else { return }
         guard let couponInfo = cell.couponInfo else { return }
         let couponDetailViewController = CouponDetailViewController(coupon: couponInfo)
-        couponDetailViewController.afterCouponRedemptionSubject
+        couponDetailViewController.afterCouponRedemptionRelay
             .filter({ $0 == true })
             .subscribe(onNext: { [weak self] isCouponSuccess in
                 guard let self else { return }

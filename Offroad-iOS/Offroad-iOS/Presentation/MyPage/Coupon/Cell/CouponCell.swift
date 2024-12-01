@@ -51,7 +51,7 @@ final class CouponCell: UICollectionViewCell {
     private func setupStyle() {
         contentView.roundCorners(cornerRadius: 12)
         contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.home(.homeContents2).cgColor
+        contentView.layer.borderColor = UIColor.primary(.stroke).cgColor
         contentView.backgroundColor = UIColor.main(.main1)
         
         couponimageView.do { imageView in

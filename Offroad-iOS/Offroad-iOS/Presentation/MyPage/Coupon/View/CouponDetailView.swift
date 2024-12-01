@@ -22,10 +22,10 @@ final class CouponDetailView: UIScrollView {
             $0.configureButtonTitle(titleString: "획득 쿠폰")
     }
     
-    private let couponDetailView = UIView().then {
+    private let couponInfoView = UIView().then {
         $0.roundCorners(cornerRadius: 22)
         $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.home(.homeContents2).cgColor
+        $0.layer.borderColor = UIColor.primary(.stroke).cgColor
         $0.clipsToBounds = true
         $0.backgroundColor = UIColor.main(.main1)
     }
@@ -75,7 +75,7 @@ final class CouponDetailView: UIScrollView {
     
     private let usageLogoImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(resource: .imgKey)
+        $0.image = .icnCouponDetailKeyAndLock
     }
     
     private let usageDescriptionLabel = UILabel().then {
@@ -126,14 +126,14 @@ final class CouponDetailView: UIScrollView {
     private func setupHierarchy() {
         customNavigationBar.addSubview(customBackButton)
         addSubviews(
-            couponDetailView,
+            couponInfoView,
             usageTitleLabel,
             usageLogoImageView,
             usageDescriptionLabel,
             useButton,
             customNavigationBar
         )
-        couponDetailView.addSubviews(
+        couponInfoView.addSubviews(
             couponImageView,
             couponTitleLabel,
             dottedLineView,
@@ -153,7 +153,7 @@ final class CouponDetailView: UIScrollView {
             $0.bottom.equalToSuperview().inset(10)
         }
         
-        couponDetailView.snp.makeConstraints { make in
+        couponInfoView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(contentLayoutGuide).inset(78)
             make.width.equalTo(312)
@@ -167,7 +167,7 @@ final class CouponDetailView: UIScrollView {
         
         couponTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(couponImageView.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(21)
         }
         
         dottedLineView.snp.makeConstraints { make in
@@ -178,13 +178,13 @@ final class CouponDetailView: UIScrollView {
         
         couponDescriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(dottedLineView.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(21)
             make.bottom.equalToSuperview().inset(20)
-            make.height.equalTo(72)
+            make.height.greaterThanOrEqualTo(72)
         }
         
         usageTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(couponDetailView.snp.bottom).offset(24.5)
+            make.top.equalTo(couponInfoView.snp.bottom).offset(24.5)
             make.horizontalEdges.equalToSuperview().inset(50)
         }
         

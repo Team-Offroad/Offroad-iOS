@@ -20,8 +20,6 @@ class QuestMapViewController: OffroadTabBarViewController {
     
     private let viewModel = QuestMapViewModel()
     private let rootView = QuestMapView()
-    
-    private let locationManager = CLLocationManager()
     private let locationService = RegisteredPlaceService()
     
     private var disposeBag = DisposeBag()
@@ -30,6 +28,8 @@ class QuestMapViewController: OffroadTabBarViewController {
     private var isFocused: Bool = false
     private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
     private var latestCategory: String?
+    
+    private var locationManager: CLLocationManager { viewModel.locationManager }
     
     private var markerPoint: CGPoint? {
         guard let selectedMarker = viewModel.selectedMarker else { return nil }
@@ -58,7 +58,12 @@ class QuestMapViewController: OffroadTabBarViewController {
         setupDelegates()
         rootView.naverMapView.mapView.positionMode = .direction
         locationManager.startUpdatingHeading()
-        viewModel.requestAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            viewModel.requestAuthorization()
+        } else {
+            viewModel.locationServiceDisabledRelay.accept(())
+        }
         viewModel.updateRegisteredPlaces(at: currentPositionTarget)
     }
     
@@ -150,11 +155,15 @@ extension QuestMapViewController {
         
         self.tooltipWindow.placeInfoViewController.rootView.tooltip.exploreButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
-            self.viewModel.authenticatePlaceAdventure(placeInfo: viewModel.selectedMarker!.placeInfo)
-            self.tooltipWindow.placeInfoViewController.hideTooltip(completion: { [weak self] in
-                guard let self else { return }
-                self.viewModel.selectedMarker = nil
-            })
+            if CLLocationManager.locationServicesEnabled() {
+                self.viewModel.authenticatePlaceAdventure(placeInfo: viewModel.selectedMarker!.placeInfo)
+                self.tooltipWindow.placeInfoViewController.hideTooltip(completion: { [weak self] in
+                    guard let self else { return }
+                    self.viewModel.selectedMarker = nil
+                })
+            } else {
+                viewModel.locationServiceDisabledRelay.accept(())
+            }
         }.disposed(by: disposeBag)
     }
     
@@ -174,7 +183,15 @@ extension QuestMapViewController {
                 self.showToast(message: ErrorMessages.networkError, inset: 66)
             }).disposed(by: disposeBag)
         
+        viewModel.locationServiceDisabledRelay
+            .observe(on: ConcurrentMainScheduler.instance)
+            .subscribe { [weak self] _ in
+                guard let self else { return }
+                self.showToast(message: "위치 기능이 비활성화되었습니다.\n탐험을 인증하기 위해서는 위치 기능을 활성화해 주세요.", inset: 66)
+            }.disposed(by: disposeBag)
+        
         viewModel.shouldRequestLocationAuthorization
+            .observe(on: ConcurrentMainScheduler.instance)
             .subscribe { _ in
                 let alertController = ORBAlertController(
                     title: "위치 접근 권한이 막혀있습니다.",
@@ -427,13 +444,28 @@ extension QuestMapViewController: CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
-        case .authorizedAlways:
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+            
+            // 가족 공유 등의 기능에서 부모 혹은 보호자가 앱을 사용할 수 없도록 제한했을 때
+        case .restricted:
+            viewModel.shouldRequestLocationAuthorization.accept(())
+            
+            /*
+             - 사용자가 앱에 위치 사용 권한을 허용하지 않은 경우
+             - 위치 서비스를 끈 경우
+             - 비행기 모드로 인해 위치 서비스 사용이 불가한 경우
+             */
+        case .denied:
+            if CLLocationManager.locationServicesEnabled() {
+                viewModel.shouldRequestLocationAuthorization.accept(())
+            } else {
+                viewModel.locationServiceDisabledRelay.accept(())
+            }
+        case .authorizedAlways, .authorizedWhenInUse:
             flyToMyPosition()
             rootView.naverMapView.mapView.positionMode = .direction
-        case .authorizedWhenInUse:
-            flyToMyPosition()
-            rootView.naverMapView.mapView.positionMode = .direction
-        default:
+        @unknown default:
             return
         }
     }
