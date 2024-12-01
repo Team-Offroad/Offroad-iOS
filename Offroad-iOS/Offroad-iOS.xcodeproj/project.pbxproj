@@ -1378,6 +1378,37 @@
 			path = Lotties;
 			sourceTree = "<group>";
 		};
+		4EA479812CFC3F21001429BF /* Terms */ = {
+			isa = PBXGroup;
+			children = (
+				D00A48922C783953008B286A /* Model */,
+				D00A48912C78394C008B286A /* View */,
+				D00A48902C783945008B286A /* ViewController */,
+			);
+			path = Terms;
+			sourceTree = "<group>";
+		};
+		4EA479822CFC3F50001429BF /* NicknameSetting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NicknameSetting;
+			sourceTree = "<group>";
+		};
+		4EA479832CFC3F61001429BF /* BirthDateSetting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BirthDateSetting;
+			sourceTree = "<group>";
+		};
+		4EA479842CFC3F6A001429BF /* GenderSetting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = GenderSetting;
+			sourceTree = "<group>";
+		};
 		4EA90AC42C4521AF0046A6E1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1828,9 +1859,10 @@
 		D00A488D2C783916008B286A /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				D00A48922C783953008B286A /* Model */,
-				D00A48912C78394C008B286A /* View */,
-				D00A48902C783945008B286A /* ViewController */,
+				4EA479842CFC3F6A001429BF /* GenderSetting */,
+				4EA479832CFC3F61001429BF /* BirthDateSetting */,
+				4EA479822CFC3F50001429BF /* NicknameSetting */,
+				4EA479812CFC3F21001429BF /* Terms */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
