@@ -27,8 +27,13 @@ final class NicknameService: BaseService, NicknameServiceProtocol {
                     data: response.data
                 )
                 completion(networkResult)
-            case .failure(let err):
-                print(err)
+            case .failure(let error):
+                switch error {
+                case .underlying(_, _):
+                    completion(.networkFail)
+                default:
+                    completion(.networkFail)
+                }
             }
         }
     }
