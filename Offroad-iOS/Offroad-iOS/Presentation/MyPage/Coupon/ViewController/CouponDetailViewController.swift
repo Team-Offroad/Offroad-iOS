@@ -112,7 +112,7 @@ class CouponDetailViewController: UIViewController {
         let requestDTO = CouponRedemptionRequestDTO(code: code, couponId: coupon.id ?? Int())
         NetworkService.shared.couponService.postCouponRedemption(body: requestDTO) { [weak self] result in
             guard let self else { return }
-            
+            self.view.stopLoading()
             switch result {
             case .success(let response):
                 guard let response else { return }
@@ -134,6 +134,7 @@ class CouponDetailViewController: UIViewController {
     private func redeemCouponTest(code: String) {
         DispatchQueue.global().asyncAfter(deadline: .now() + 0.3) { [weak self] in
             guard let self else { return }
+            self.view.stopLoading()
             //completion(code == "0000" ? true : false)
             self.afterCouponRedemptionRelay.accept(code == "0000" ? true : false)
         }
@@ -154,8 +155,7 @@ extension CouponDetailViewController {
         let alertController = ORBAlertController(title: "쿠폰 사용", message: "코드를 입력 후 사장님에게 보여주세요", type: .textField)
         let okAction = ORBAlertAction(title: "확인", style: .default) { [weak self] action in
             guard let self else { return }
-            
-            // 여기서 쿠폰 사용 API 호출하기
+            self.view.startLoading()
             self.couponCodeInputSubject.onNext(alertController.textFieldToBeFirstResponder?.text ?? "")
         }
         
