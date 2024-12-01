@@ -96,6 +96,7 @@
 		4EA479892CFC4068001429BF /* NicknameSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA479882CFC4068001429BF /* NicknameSettingViewController.swift */; };
 		4EA4798B2CFC40E0001429BF /* OnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA4798A2CFC40E0001429BF /* OnboardingNavigationController.swift */; };
 		4EA4798D2CFC4260001429BF /* NicknameSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA4798C2CFC4260001429BF /* NicknameSettingView.swift */; };
+		4EA4798F2CFC91C5001429BF /* NicknameSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA4798E2CFC91C5001429BF /* NicknameSettingViewModel.swift */; };
 		4EA90AC62C4521C50046A6E1 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */; };
 		4EADB9712CC9518000930140 /* CharacterDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EADB9702CC9518000930140 /* CharacterDetailViewModel.swift */; };
 		4EB32BE72C67A2B0003F98F2 /* QuestListViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */; };
@@ -390,6 +391,7 @@
 		4EA479882CFC4068001429BF /* NicknameSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameSettingViewController.swift; sourceTree = "<group>"; };
 		4EA4798A2CFC40E0001429BF /* OnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNavigationController.swift; sourceTree = "<group>"; };
 		4EA4798C2CFC4260001429BF /* NicknameSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameSettingView.swift; sourceTree = "<group>"; };
+		4EA4798E2CFC91C5001429BF /* NicknameSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameSettingViewModel.swift; sourceTree = "<group>"; };
 		4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		4EADB9702CC9518000930140 /* CharacterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewModel.swift; sourceTree = "<group>"; };
 		4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListViewControllers.swift; sourceTree = "<group>"; };
@@ -1437,6 +1439,7 @@
 		4EA479872CFC4034001429BF /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				4EA4798E2CFC91C5001429BF /* NicknameSettingViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -2985,6 +2988,7 @@
 				D00A48842C6E5DA7008B286A /* NoticePostView.swift in Sources */,
 				872F4BB52C68D66200284DE0 /* CharacterListViewController.swift in Sources */,
 				D064668E2C7F127A00CF10FD /* TermsModel.swift in Sources */,
+				4EA4798F2CFC91C5001429BF /* NicknameSettingViewModel.swift in Sources */,
 				4E59A11C2C4228C500B548C6 /* AVCameraPreview.swift in Sources */,
 				4EE0498B2CA10DFC00754488 /* CouponAPI.swift in Sources */,
 				D0600BE92CE61EB000D8F1D6 /* PushNotificationAPI.swift in Sources */,

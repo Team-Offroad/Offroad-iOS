@@ -16,7 +16,7 @@ class OnboardingNavigationController: UINavigationController {
     }
     
     // 온보딩 시 입력 정보
-    var nickName: String? = nil
+    var nickname: String? = nil
     var year: Int? = nil
     var month: Int? = nil
     var day: Int? = nil
@@ -25,6 +25,7 @@ class OnboardingNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationBar.isHidden = true
     }
 
 }

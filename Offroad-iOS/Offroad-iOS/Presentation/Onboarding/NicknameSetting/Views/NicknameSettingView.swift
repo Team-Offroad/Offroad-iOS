@@ -13,7 +13,7 @@ final class NicknameSettingView: UIView {
     let subTitleLabel = UILabel()
     let nicknameTextField = UITextField()
     let checkDuplicateButton = UIButton()
-    let nicknameRulesLabel = UILabel()
+    let nicknameInstructionLabel = UILabel()
     let nextButton = UIButton()
     
     override init(frame: CGRect) {
@@ -59,7 +59,7 @@ extension NicknameSettingView {
             make.height.equalTo(50)
         }
         
-        nicknameRulesLabel.snp.makeConstraints { make in
+        nicknameInstructionLabel.snp.makeConstraints { make in
             make.top.equalTo(nicknameTextField.snp.bottom).offset(12)
             make.leading.equalTo(nicknameTextField)
         }
@@ -120,7 +120,7 @@ extension NicknameSettingView {
                                                 disabled: .blackOpacity(.black15))
         }
         
-        nicknameRulesLabel.do { label in
+        nicknameInstructionLabel.do { label in
             label.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
             label.textColor = UIColor.grayscale(.gray400)
             label.font = UIFont.offroad(style: .iosHint)
@@ -147,7 +147,7 @@ extension NicknameSettingView {
             subTitleLabel,
             nicknameTextField,
             checkDuplicateButton,
-            nicknameRulesLabel,
+            nicknameInstructionLabel,
             nextButton
         )
     }
