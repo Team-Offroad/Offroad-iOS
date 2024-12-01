@@ -93,6 +93,9 @@
 		4E9900882CE0768B007EEFF7 /* loading1.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E9900862CE0768B007EEFF7 /* loading1.json */; };
 		4E9900892CE0768B007EEFF7 /* loading2.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E9900872CE0768B007EEFF7 /* loading2.json */; };
 		4E99008B2CE0CB61007EEFF7 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */; };
+		4EA479892CFC4068001429BF /* NicknameSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA479882CFC4068001429BF /* NicknameSettingViewController.swift */; };
+		4EA4798B2CFC40E0001429BF /* OnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA4798A2CFC40E0001429BF /* OnboardingNavigationController.swift */; };
+		4EA4798D2CFC4260001429BF /* NicknameSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA4798C2CFC4260001429BF /* NicknameSettingView.swift */; };
 		4EA90AC62C4521C50046A6E1 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */; };
 		4EADB9712CC9518000930140 /* CharacterDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EADB9702CC9518000930140 /* CharacterDetailViewModel.swift */; };
 		4EB32BE72C67A2B0003F98F2 /* QuestListViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */; };
@@ -384,6 +387,9 @@
 		4E9900862CE0768B007EEFF7 /* loading1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = loading1.json; sourceTree = "<group>"; };
 		4E9900872CE0768B007EEFF7 /* loading2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = loading2.json; sourceTree = "<group>"; };
 		4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
+		4EA479882CFC4068001429BF /* NicknameSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameSettingViewController.swift; sourceTree = "<group>"; };
+		4EA4798A2CFC40E0001429BF /* OnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNavigationController.swift; sourceTree = "<group>"; };
+		4EA4798C2CFC4260001429BF /* NicknameSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameSettingView.swift; sourceTree = "<group>"; };
 		4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		4EADB9702CC9518000930140 /* CharacterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewModel.swift; sourceTree = "<group>"; };
 		4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListViewControllers.swift; sourceTree = "<group>"; };
@@ -1391,6 +1397,9 @@
 		4EA479822CFC3F50001429BF /* NicknameSetting */ = {
 			isa = PBXGroup;
 			children = (
+				4EA479872CFC4034001429BF /* ViewModels */,
+				4EA479862CFC402E001429BF /* ViewControllers */,
+				4EA479852CFC401F001429BF /* Views */,
 			);
 			path = NicknameSetting;
 			sourceTree = "<group>";
@@ -1407,6 +1416,29 @@
 			children = (
 			);
 			path = GenderSetting;
+			sourceTree = "<group>";
+		};
+		4EA479852CFC401F001429BF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4EA4798C2CFC4260001429BF /* NicknameSettingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4EA479862CFC402E001429BF /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4EA479882CFC4068001429BF /* NicknameSettingViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4EA479872CFC4034001429BF /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		4EA90AC42C4521AF0046A6E1 /* ViewControllers */ = {
@@ -1859,6 +1891,7 @@
 		D00A488D2C783916008B286A /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				4EA4798A2CFC40E0001429BF /* OnboardingNavigationController.swift */,
 				4EA479842CFC3F6A001429BF /* GenderSetting */,
 				4EA479832CFC3F61001429BF /* BirthDateSetting */,
 				4EA479822CFC3F50001429BF /* NicknameSetting */,
@@ -2811,6 +2844,7 @@
 				4E4E2C062CCE6F04000A634D /* PlaceInfoTooltipWindow.swift in Sources */,
 				4EFFAFB12CE4576300EFA714 /* ORBNavigationController.swift in Sources */,
 				87738CD52C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift in Sources */,
+				4EA4798B2CFC40E0001429BF /* OnboardingNavigationController.swift in Sources */,
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
 				872F4BB92C6B80A600284DE0 /* CharacterDetailView.swift in Sources */,
 				4EFFAFAE2CE442E900EFA714 /* ChatLogNavigationAnimator.swift in Sources */,
@@ -2849,6 +2883,7 @@
 				D0E7964A2C4539CE005B47A5 /* RegisteredPlaceRequestDTO.swift in Sources */,
 				D0E796222C45334D005B47A5 /* ProfileAPI.swift in Sources */,
 				D0E796592C455100005B47A5 /* EmblemAPI.swift in Sources */,
+				4EA4798D2CFC4260001429BF /* NicknameSettingView.swift in Sources */,
 				D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */,
 				D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */,
 				4E4E2BFE2CCE2414000A634D /* PlaceInfoViewController.swift in Sources */,
@@ -2903,6 +2938,7 @@
 				D0E796672C455467005B47A5 /* StartingCharacterResponseDTO.swift in Sources */,
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
 				D0E796372C4536F4005B47A5 /* CharacterService.swift in Sources */,
+				4EA479892CFC4068001429BF /* NicknameSettingViewController.swift in Sources */,
 				8791EDF62C7E121400E7F8B9 /* CouponListViewController.swift in Sources */,
 				4E08B9652C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift in Sources */,
 				4E3A32712CE51176007228D0 /* CharacterChatPostResponseDTO.swift in Sources */,
