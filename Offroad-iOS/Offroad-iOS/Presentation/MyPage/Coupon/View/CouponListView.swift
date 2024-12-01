@@ -19,7 +19,7 @@ class CouponListView: UIView {
     
     private let labelView = UIView()
     private let mainLabel = UILabel()
-    private var couponLogoImage = UIImageView(image: UIImage(resource: .imgCoupon))
+    private var couponLogoImage = UIImageView(image: UIImage(resource: .icnCouponDetailTicket))
     
     let segmentedControl = ORBSegmentedControl(titles: ["사용 가능 0", "사용 완료 0"])
     let separator = UIView()
