@@ -163,9 +163,14 @@ extension HomeViewController {
                 self.noticeModelList = data?.data.announcements ?? [NoticeInfo]()
                 
                 guard let id = Int(self.pushType?.data?["announcementId"] as! String) else { return }
-                let noticePostViewController = NoticePostViewController(noticeInfo: self.noticeModelList[id - 1])
-                noticePostViewController.setupCustomBackButton(buttonTitle: "홈")
-                self.navigationController?.pushViewController(noticePostViewController, animated: true)
+                
+                for post in self.noticeModelList {
+                    if post.id == id {
+                        let noticePostViewController = NoticePostViewController(noticeInfo: post)
+                        noticePostViewController.setupCustomBackButton(buttonTitle: "홈")
+                        self.navigationController?.pushViewController(noticePostViewController, animated: true)
+                    }
+                }
             default:
                 break
             }
