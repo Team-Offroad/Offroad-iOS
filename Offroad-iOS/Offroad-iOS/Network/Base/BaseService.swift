@@ -19,7 +19,7 @@ class BaseService {
         case 200, 201, 202:
             if let decodedData = fetchDecodeData(data: data, responseType: T.self) {
                 return .success(decodedData)
-            } else { return .decodeErr() }
+            } else { return .decodeErr }
         case 204: return .success(nil)
         case 400: return .requestErr(decodeErrorResponse)
         case 401: return .unAuthentication(decodeErrorResponse)
@@ -47,7 +47,7 @@ class BaseService {
         case 405: return .pathErr(decodeErrorResponse)
         case 409: return .requestErr(decodeErrorResponse)
         case 500...599: return .serverErr(decodeErrorResponse)
-        default: return .networkFail()
+        default: return .networkFail(decodeErrorResponse)
         }
     }
     
