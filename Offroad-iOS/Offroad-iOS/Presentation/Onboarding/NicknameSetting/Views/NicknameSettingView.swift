@@ -36,7 +36,7 @@ extension NicknameSettingView {
     
     private func setupLayout() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).inset(97)
+            make.top.equalTo(safeAreaLayoutGuide).inset(97).priority(.low)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24)
         }
         
@@ -62,6 +62,7 @@ extension NicknameSettingView {
         nicknameInstructionLabel.snp.makeConstraints { make in
             make.top.equalTo(nicknameTextField.snp.bottom).offset(12)
             make.leading.equalTo(nicknameTextField)
+            make.bottom.lessThanOrEqualTo(keyboardLayoutGuide.snp.top).offset(-12).priority(.high)
         }
         
         nextButton.snp.makeConstraints { make in
