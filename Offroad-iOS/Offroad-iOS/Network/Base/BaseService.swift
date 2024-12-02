@@ -26,7 +26,6 @@ class BaseService {
         case 403: return .unAuthorization(decodeErrorResponse)
         case 404: return .apiArr(decodeErrorResponse)
         case 405: return .pathErr(decodeErrorResponse)
-        case 409: return .requestErr(decodeErrorResponse)
         case 500...599: return .serverErr(decodeErrorResponse)
         default: return .networkFail(decodeErrorResponse)
         }
@@ -45,7 +44,6 @@ class BaseService {
         case 403: return .unAuthorization(decodeErrorResponse)
         case 404: return .apiArr(decodeErrorResponse)
         case 405: return .pathErr(decodeErrorResponse)
-        case 409: return .requestErr(decodeErrorResponse)
         case 500...599: return .serverErr(decodeErrorResponse)
         default: return .networkFail(decodeErrorResponse)
         }
@@ -58,10 +56,4 @@ class BaseService {
         } else { return nil }
     }
     
-    func fetchErrorMessageData(data: Data) -> ErrorResponseDTO? {
-        let decoder = JSONDecoder()
-        if let decodedData = try? decoder.decode(ErrorResponseDTO.self, from: data) {
-            return decodedData
-        } else { return nil }
-    }
 }

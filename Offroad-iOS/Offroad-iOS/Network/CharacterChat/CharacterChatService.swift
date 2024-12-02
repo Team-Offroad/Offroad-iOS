@@ -52,27 +52,14 @@ final class CharacterChatService: BaseService, CharacterChatServiceProtocol {
                 completion(networkResult)
             case .failure(let error):
                 print(error.localizedDescription)
-                switch error {
-                case .underlying(_, _ ):
-                    print(error.localizedDescription)
-                    guard let response = error.response else { return }
-                    let networkResult: NetworkResult<CharacterChatGetResponseDTO> = self.fetchNetworkResult(
-                        statusCode: response.statusCode,
-                        data: response.data
-                    )
-                    completion(networkResult)
-                default:
-                    print(error.localizedDescription)
-                    guard let response = error.response else { return }
-                    let networkResult: NetworkResult<CharacterChatGetResponseDTO> = self.fetchNetworkResult(
-                        statusCode: response.statusCode,
-                        data: response.data
-                    )
-                    completion(networkResult)
-                }
+                guard let response = error.response else { return }
+                let networkResult: NetworkResult<CharacterChatGetResponseDTO> = self.fetchNetworkResult(
+                    statusCode: response.statusCode,
+                    data: response.data
+                )
+                completion(networkResult)
             }
         }
     }
-    
     
 }
