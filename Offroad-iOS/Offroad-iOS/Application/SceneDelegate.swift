@@ -23,8 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window = UIWindow(windowScene: windowScene)
         self.window?.backgroundColor = .main(.main1)
-//        self.window?.rootViewController = SplashViewController()
-        self.window?.rootViewController = OnboardingNavigationController(rootViewController: NicknameSettingViewController())
+        self.window?.rootViewController = SplashViewController()
         self.window?.makeKeyAndVisible()
         
         if let notification = connectionOptions.notificationResponse {
