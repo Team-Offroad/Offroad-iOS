@@ -11,35 +11,41 @@ class BaseService {
     
     /// 200 받았을 때 decoding 할 데이터가 있는 경우 (대부분의 GET)
     func fetchNetworkResult<T: Decodable>(statusCode: Int, data: Data) -> NetworkResult<T> {
+        var decodeErrorResponse: ErrorResponseDTO? {
+            fetchDecodeData(data: data, responseType: ErrorResponseDTO.self)
+        }
+        
         switch statusCode {
         case 200, 201, 202:
             if let decodedData = fetchDecodeData(data: data, responseType: T.self) {
                 return .success(decodedData)
             } else { return .decodeErr }
         case 204: return .success(nil)
-        case 400: return .requestErr
-        case 401: return .unAuthentication
-        case 403: return .unAuthorization
-        case 404: return .apiArr
-        case 405: return .pathErr
-        case 409: return .requestErr
-        case 500: return .serverErr
-        default: return .networkFail
+        case 400: return .requestErr(decodeErrorResponse)
+        case 401: return .unAuthentication(decodeErrorResponse)
+        case 403: return .unAuthorization(decodeErrorResponse)
+        case 404: return .apiArr(decodeErrorResponse)
+        case 405: return .pathErr(decodeErrorResponse)
+        case 500...599: return .serverErr(decodeErrorResponse)
+        default: return .networkFail(decodeErrorResponse)
         }
     }
     
     /// 200 받았을 때 decoding 할 데이터가 없는 경우 (대부분의 PATCH, PUT, DELETE)
     func fetchNetworkResult(statusCode: Int, data: Data) -> NetworkResult<Any> {
+        var decodeErrorResponse: ErrorResponseDTO? {
+            fetchDecodeData(data: data, responseType: ErrorResponseDTO.self)
+        }
+        
         switch statusCode {
         case 200, 201, 204: return .success(nil)
-        case 400: return .requestErr
-        case 401: return .unAuthentication
-        case 403: return .unAuthorization
-        case 404: return .apiArr
-        case 405: return .pathErr
-        case 409: return .requestErr
-        case 500: return .serverErr
-        default: return .networkFail
+        case 400: return .requestErr(decodeErrorResponse)
+        case 401: return .unAuthentication(decodeErrorResponse)
+        case 403: return .unAuthorization(decodeErrorResponse)
+        case 404: return .apiArr(decodeErrorResponse)
+        case 405: return .pathErr(decodeErrorResponse)
+        case 500...599: return .serverErr(decodeErrorResponse)
+        default: return .networkFail(decodeErrorResponse)
         }
     }
     
@@ -49,4 +55,5 @@ class BaseService {
             return decodedData
         } else { return nil }
     }
+    
 }

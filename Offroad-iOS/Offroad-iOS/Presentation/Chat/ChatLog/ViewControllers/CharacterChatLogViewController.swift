@@ -199,10 +199,15 @@ extension CharacterChatLogViewController {
                 rootView.chatLogCollectionView.reloadData()
                 self.scrollToBottom(animated: false)
                 showChatButton()
-            case .networkFail:
+            case .networkFail(let errorResponseDTO):
+                print("message: \(errorResponseDTO?.message)")
+                print("customErrorCode: \(errorResponseDTO?.customErrorCode)")
                 showToast(message: ErrorMessages.networkError, inset: 66)
             case .decodeErr:
                 showToast(message: "디코딩 에러.", inset: 66)
+            case .serverErr(let errorResponseDTO):
+                print("message: \(errorResponseDTO?.message)")
+                print("customErrorCode: \(errorResponseDTO?.customErrorCode)")
             default:
                 self.showToast(message: "Something went wrong", inset: 60)
             }

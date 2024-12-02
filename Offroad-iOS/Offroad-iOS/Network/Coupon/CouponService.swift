@@ -55,7 +55,7 @@ final class CouponService: BaseService, CouponServiceProtocol {
                 completion(networkResult)
             case .failure(let error):
                 print(error.localizedDescription)
-                let networkResult: NetworkResult<CouponRedemptionResponseDTO> = .networkFail
+                let networkResult: NetworkResult<CouponRedemptionResponseDTO> = .networkFail()
                 completion(networkResult)
             }
         })

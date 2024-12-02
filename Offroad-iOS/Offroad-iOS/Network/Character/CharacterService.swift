@@ -50,7 +50,7 @@ final class CharacterService: BaseService, CharacterServiceProtocol {
                 case .underlying(let error, let response):
                     print(error.localizedDescription)
                     if response == nil {
-                        completion(.networkFail)
+                        completion(.networkFail())
                     }
                 default:
                     print(error.localizedDescription)
@@ -74,7 +74,7 @@ final class CharacterService: BaseService, CharacterServiceProtocol {
                 case .underlying(let error, let response):
                     print(error.localizedDescription)
                     if response == nil {
-                        completion(.networkFail)
+                        completion(.networkFail())
                     }
                 default:
                     print(error.localizedDescription)
@@ -99,7 +99,7 @@ final class CharacterService: BaseService, CharacterServiceProtocol {
                 case .underlying(let error, let response):
                     print(error.localizedDescription)
                     if response == nil {
-                        completion(.networkFail)
+                        completion(.networkFail())
                     }
                 default:
                     print(error.localizedDescription)
@@ -124,7 +124,7 @@ final class CharacterService: BaseService, CharacterServiceProtocol {
                 case .underlying(let error, let response):
                     print(error.localizedDescription)
                     if response == nil {
-                        completion(.networkFail)
+                        completion(.networkFail())
                     }
                 default:
                     print(error.localizedDescription)

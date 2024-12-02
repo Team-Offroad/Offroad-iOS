@@ -8,6 +8,6 @@
 import Foundation
 
 struct ErrorResponseDTO: Codable {
-    let message: String
-    let code: String
+    let message: String?
+    let customErrorCode: String?
 }

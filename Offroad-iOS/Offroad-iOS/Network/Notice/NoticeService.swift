@@ -31,7 +31,7 @@ final class NoticeService: BaseService, NoticeServiceProtocol {
                 case .underlying(let error, let response):
                     print(error.localizedDescription)
                     if response == nil {
-                        completion(.networkFail)
+                        completion(.networkFail())
                     }
                 default:
                     print(error.localizedDescription)
