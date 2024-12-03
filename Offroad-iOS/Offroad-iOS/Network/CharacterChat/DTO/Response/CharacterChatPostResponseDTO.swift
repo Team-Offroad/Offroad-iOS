@@ -16,12 +16,14 @@ struct ChatData: Codable {
     var role: String // "USER" 또는 "ORB_CHARACTER"
     var content: String
     var createdAt: String
+    var id: Int
 }
 
 struct ChatDataModel {
     var role: String
     var content: String
     var createdDate: Date?
+    var id: Int
     var isLoading: Bool = false
     
     var formattedTimeString: String {
@@ -39,10 +41,11 @@ struct ChatDataModel {
         return dateFormatter.string(from: createdDate)
     }
     
-    init(role: String, content: String, createdData: Date?, isLoading: Bool = false) {
+    init(role: String, content: String, createdData: Date?, id: Int, isLoading: Bool = false) {
         self.role = role
         self.content = content
         self.createdDate = createdData
+        self.id = id
         self.isLoading = isLoading
     }
     
@@ -51,6 +54,7 @@ struct ChatDataModel {
         
         self.role = data.role
         self.content = data.content
+        self.id = data.id
         formatter.formatOptions = [.withFullDate, .withTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
         formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
         if let date = formatter.date(from: data.createdAt) {
