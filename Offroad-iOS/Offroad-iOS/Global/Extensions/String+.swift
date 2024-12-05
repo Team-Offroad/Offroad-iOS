@@ -61,4 +61,60 @@ extension String {
         
         return String(string[startIndex..<endIndex])
     }
+    
+    /// 문자열이 한글로만 이루어져있는지 여부
+    private var isHangul: Bool {
+        for scalar in self.unicodeScalars {
+            if !(scalar.value >= 0xAC00 && scalar.value <= 0xD7A3) { return false }
+        }
+        return true
+    }
+    
+    /// 문자열이 영어 알파벳으로만 이루어졌는지 여부
+    private var isEnglishAlphabet: Bool {
+        for scalar in self.unicodeScalars {
+            // 대문자도 아니고, 소문자도 아니면 false 반환
+            if !(scalar.value >= 0x41 && scalar.value <= 0x5A) &&
+                !(scalar.value >= 0x61 && scalar.value <= 0x7A) { return false }
+        }
+        return true
+    }
+    
+    /// 문자열이 한글 혹은 영어 알파벳으로만 이루어졌는지 여부
+    private var containsOnlyKoreanOrEnglish: Bool {
+        for char in self {
+            let charString = String(char)
+            if !charString.isHangul && !charString.isEnglishAlphabet { return false }
+        }
+        return true
+    }
+    
+    /// 문자열이 EUC-KR 기준으로 몇 byte인지 계산 (한글, 영어 알파벳만 있다고 가정)
+    private var totalEUCKRByteCount: Int {
+        var hangulCount = 0
+        var englishAlphabetCount = 0
+        for char in self {
+            let char = String(char)
+            if char.isHangul {
+                hangulCount += 1
+            } else if char.isEnglishAlphabet {
+                englishAlphabetCount += 1
+            }
+        }
+        return englishAlphabetCount + hangulCount * 2
+    }
+    
+    /// (온보딩 시) 입력된 문자열이 닉네임 형식에 맞는지 여부
+    var isValidNicknameFormat: Bool {
+        guard !self.isEmpty else { return false }
+        guard self.containsOnlyKoreanOrEnglish else { return false }
+        guard self.totalEUCKRByteCount <= 16 else { return false }
+        if self.isHangul {
+            guard self.totalEUCKRByteCount >= 4 else { return false }
+        } else if self.isEnglishAlphabet {
+            guard self.totalEUCKRByteCount >= 2 else { return false }
+        }
+        return true
+    }
+    
 }
