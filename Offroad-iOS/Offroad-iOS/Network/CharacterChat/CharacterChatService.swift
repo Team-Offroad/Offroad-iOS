@@ -15,7 +15,7 @@ protocol CharacterChatServiceProtocol {
         body: CharacterChatPostRequestDTO,
         completion: @escaping (NetworkResult<CharacterChatPostResponseDTO>) -> Void
     )
-    func getChatLog(characterId: Int?, completion: @escaping (NetworkResult<CharacterChatGetResponseDTO>) -> Void)
+    func getChatLog(characterId: Int?, limit: Int, cursor: Int?, completion: @escaping (NetworkResult<CharacterChatGetResponseDTO>) -> Void)
 }
 
 final class CharacterChatService: BaseService, CharacterChatServiceProtocol {
@@ -41,8 +41,10 @@ final class CharacterChatService: BaseService, CharacterChatServiceProtocol {
         }
     }
     
-    func getChatLog(characterId: Int? = nil, completion: @escaping (NetworkResult<CharacterChatGetResponseDTO>) -> Void) {
-        provider.request(.getChatLog(characterId: characterId)) { result in
+    func getChatLog(characterId: Int? = nil, limit: Int, cursor: Int? = nil, completion: @escaping (NetworkResult<CharacterChatGetResponseDTO>) -> Void) {
+        provider.request(
+            CharacterChatAPI.getChatLog(characterId: characterId, limit: limit, cursor: cursor)
+        ) { result in
             switch result {
             case .success(let response):
                 let networkResult: NetworkResult<CharacterChatGetResponseDTO> = self.fetchNetworkResult(

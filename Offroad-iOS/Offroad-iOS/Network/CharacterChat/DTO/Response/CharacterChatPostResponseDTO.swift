@@ -23,7 +23,8 @@ struct ChatDataModel {
     var role: String
     var content: String
     var createdDate: Date?
-    var id: Int
+    // id가 옵셔널 타입인 이유는 사용자가 채팅을 보낸 직후의 채팅 말풍선은 아직 서버에 저장되기 전이므로 id를 알 수 없기 때문
+    var id: Int?
     var isLoading: Bool = false
     
     var formattedTimeString: String {
@@ -41,7 +42,7 @@ struct ChatDataModel {
         return dateFormatter.string(from: createdDate)
     }
     
-    init(role: String, content: String, createdData: Date?, id: Int, isLoading: Bool = false) {
+    init(role: String, content: String, createdData: Date?, id: Int? = nil, isLoading: Bool = false) {
         self.role = role
         self.content = content
         self.createdDate = createdData
