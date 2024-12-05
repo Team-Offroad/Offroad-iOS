@@ -25,6 +25,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     /// 채팅 중에 채팅 로그 뷰에 진입하면 키보드가 내려가는 경우 `keyboardWillHide()`가 불리게 되는데, 이때
     /// `rootView.safeAreaInsets.bottom` 와 `rootView.userChatView.frame.height`가 0 이어서 사용자 입력창이 보이게 되는 현상 발생함.
     private var isKeyboardShown: Bool = false
+    private var lastCursor: Int? = nil
     
     // userChatInputView의 textInputView의 height를 전달
     let userChatInputViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
@@ -65,7 +66,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         bindData()
         setupNotifications()
         setupGestureRecognizers()
-        requestChatLogDataSource(characterId: characterId)
+        requestChatLogDataSource(characterId: characterId, limit: 14, cursor: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -180,12 +181,15 @@ extension CharacterChatLogViewController {
         rootView.chatLogCollectionView.addGestureRecognizer(tapGesture)
     }
     
-    private func requestChatLogDataSource(characterId: Int? = nil) {
+    private func requestChatLogDataSource(characterId: Int? = nil, limit: Int, cursor: Int?) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
+            guard cursor == nil else { return }
             self.view.startLoading()
         }
-        NetworkService.shared.characterChatService.getChatLog(characterId: characterId) { [weak self] result in
+        NetworkService.shared.characterChatService.getChatLog(characterId: characterId,
+                                                              limit: limit,
+                                                              cursor: cursor) { [weak self] result in
             guard let self else { return }
             self.view.stopLoading()
             switch result {
@@ -194,20 +198,27 @@ extension CharacterChatLogViewController {
                     showToast(message: "responseDTO가 없습니다.", inset: 66)
                     return
                 }
-                chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
+                
+                if cursor == nil {
+                    chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
+                } else {
+                    chatLogDataList.append(contentsOf: responseDTO.data.map({ ChatDataModel(data: $0) }))
+                }
+                
+                guard chatLogDataList.count > 0 else { return }
+                self.lastCursor = chatLogDataList.last!.id
                 chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList)
                 rootView.chatLogCollectionView.reloadData()
-                self.scrollToBottom(animated: false)
+                if cursor == nil {
+                    self.scrollToBottom(animated: false)
+                }
                 showChatButton()
             case .networkFail(let errorResponseDTO):
-                print("message: \(errorResponseDTO?.message)")
-                print("customErrorCode: \(errorResponseDTO?.customErrorCode)")
                 showToast(message: ErrorMessages.networkError, inset: 66)
             case .decodeErr:
                 showToast(message: "디코딩 에러.", inset: 66)
             case .serverErr(let errorResponseDTO):
-                print("message: \(errorResponseDTO?.message)")
-                print("customErrorCode: \(errorResponseDTO?.customErrorCode)")
+                showToast(message: "서버 에러.", inset: 66)
             default:
                 self.showToast(message: "Something went wrong", inset: 60)
             }
@@ -299,7 +310,7 @@ extension CharacterChatLogViewController {
             .subscribe(onNext: { [weak self] isConnected in
                 guard let self else { return }
                 if isConnected {
-                    self.requestChatLogDataSource(characterId: characterId)
+                    self.requestChatLogDataSource(characterId: characterId, limit: 14, cursor: nil)
                 } else {
                     showToast(message: ErrorMessages.networkError, inset: 66)
                 }
