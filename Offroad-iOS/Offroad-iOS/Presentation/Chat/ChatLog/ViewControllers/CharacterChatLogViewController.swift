@@ -264,12 +264,10 @@ extension CharacterChatLogViewController {
                 self.postCharacterChat(characterId: characterId, message: self.rootView.userChatInputView.text)
                 self.rootView.sendButton.isEnabled = false
                 // 사용자 채팅 버블 추가
-                self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text) { [weak self] isFinished in
+                self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text, isLoading: false) { [weak self] isFinished in
                     guard let self else { return }
                     // 캐릭터 셀 추가
-                    self.sendChatBubble(isUserChat: false, text: "")
-                    // 추가된 캐릭터 셀 로딩 시작
-                    makeLastCellLoading()
+                    self.sendChatBubble(isUserChat: false, text: "", isLoading: true)
                 }
                 self.rootView.userChatInputView.text = ""
                 
@@ -355,7 +353,8 @@ extension CharacterChatLogViewController {
         userChatInputViewHeightAnimator.startAnimation()
     }
     
-    private func sendChatBubble(isUserChat: Bool, text: String, completeion: ((Bool) -> Void)? = nil) {
+    private func sendChatBubble(isUserChat: Bool, text: String, isLoading: Bool, completeion: ((Bool) -> Void)? = nil) {
+        print(#function)
         let currentDate = Date()
         let indexPathToInsert: IndexPath
         var collectionViewUpdateClosure: ( () -> Void )? = nil
@@ -398,31 +397,16 @@ extension CharacterChatLogViewController {
         }
         
         // performBatchUpdates 호출하기 전에 DataSource를 먼저 업데이트
-        self.chatLogDataList.append(
-            ChatDataModel(role: isUserChat ? "USER" : "ORB_CHARACTER", content: text, createdData: currentDate)
+        self.chatLogDataList.insert(
+            ChatDataModel(role: isUserChat ? "USER" : "ORB_CHARACTER", content: text, createdData: currentDate, isLoading: isLoading),
+            at: 0
         )
-        self.chatLogDataSource = self.viewModel.groupChatsByDate(chats: self.chatLogDataList)
         
         // DataSource 업데이트 후 performBatchUpdates 호출
         self.rootView.chatLogCollectionView.performBatchUpdates(collectionViewUpdateClosure, completion: completeion)
         
         // collection view가 업데이트될 때마다 가징 최신의 채팅(가장 아래의 채팅)이 보여지도록 구현
         self.scrollToBottom(animated: true)
-    }
-    
-    private func makeLastCellLoading() {
-        let lastSection = chatLogDataSource.count - 1
-        let lastSectionCount = chatLogDataSource[lastSection].count
-        let lastIndexPath = IndexPath(
-            item: lastSectionCount-1,
-            section: lastSection
-        )
-        chatLogDataSource[lastIndexPath.section][lastIndexPath.item].isLoading = true
-        chatLogDataSource[lastIndexPath.section][lastIndexPath.item].content = " "
-        rootView.chatLogCollectionView.performBatchUpdates {
-            rootView.chatLogCollectionView.reloadItems(at: [lastIndexPath])
-            rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
-        }
     }
     
     private func postCharacterChat(characterId: Int?, message: String) {
