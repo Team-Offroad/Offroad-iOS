@@ -70,13 +70,10 @@ extension SplashViewController {
             guard let self else { return }
             switch response {
             case .success(let data):
-                let userNickname = data?.data.nickname ?? ""
                 let characterName = data?.data.characterName ?? ""
                                                 
-                if userNickname == "" {
-                    self.presentViewController(viewController: TermsConsentViewController())
-                } else if characterName == "" {
-                    self.presentViewController(viewController: ChoosingCharacterViewController())
+                if characterName == "" {
+                    self.presentViewController(viewController: LoginViewController())
                 } else {
                     self.getCharacterListInfo()
                     self.presentViewController(viewController: OffroadTabBarController(pushType: pushType))
