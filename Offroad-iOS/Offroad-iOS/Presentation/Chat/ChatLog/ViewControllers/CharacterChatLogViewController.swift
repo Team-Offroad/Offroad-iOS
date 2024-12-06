@@ -17,10 +17,10 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private let viewModel = CharacterChatLogViewModel()
     private let chatButtonHidingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private var rootView: CharacterChatLogView!
-    private var chatLogDataList: [ChatDataModel] = []
-    private var chatLogDataSource: [[ChatDataModel]] {
-        return viewModel.groupChatsByDate(chats: chatLogDataList)
+    private var chatLogDataList: [ChatDataModel] = [] {
+        didSet { chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList) }
     }
+    private var chatLogDataSource: [[ChatDataModel]] = [[]]
     private var isChatButtonHidden: Bool = true
     /// 채팅 중에 채팅 로그 뷰 진입 시 키보드가 내려가는데, 이때 keyboardWillHide() 메서드가 불리지 않게 하기 위해 사용하는 flag.
     ///
@@ -202,9 +202,9 @@ extension CharacterChatLogViewController {
                 }
                 
                 if cursor == nil {
-                    chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
+                    self.chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
                 } else {
-                    chatLogDataList.append(contentsOf: responseDTO.data.map({ ChatDataModel(data: $0) }))
+                    self.chatLogDataList.append(contentsOf: responseDTO.data.map({ ChatDataModel(data: $0) }))
                 }
                 
                 guard chatLogDataList.count > 0 else { return }
