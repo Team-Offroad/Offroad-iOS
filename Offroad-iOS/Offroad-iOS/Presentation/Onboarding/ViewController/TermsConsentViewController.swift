@@ -97,6 +97,11 @@ extension TermsConsentViewController {
                 dateFormatter.dateFormat = "yyyy년 M월 d일 HH:mm"
                 
                 self.showToast(message: "\(dateFormatter.string(from: Date()))부로\n마케팅 정보 수신 \(isAgreedString) 처리되었습니다.", inset: 54)
+                
+                let nicknameViewController = NicknameViewController()
+                let navigationController = UINavigationController(rootViewController: nicknameViewController)
+                
+                self.presentNavigationController(navigationController: navigationController)
             default:
                 break
             }
@@ -113,11 +118,6 @@ extension TermsConsentViewController {
     
     @objc private func nextButtonTapped() {
         patchMarketingConsent(isAgreed: MarketingConsentRequestDTO(marketing: termsModelData[3].isSelected))
-        
-        let nicknameViewController = NicknameViewController()
-        let navigationController = UINavigationController(rootViewController: nicknameViewController)
-        
-        self.presentNavigationController(navigationController: navigationController)
     }
 }
 
