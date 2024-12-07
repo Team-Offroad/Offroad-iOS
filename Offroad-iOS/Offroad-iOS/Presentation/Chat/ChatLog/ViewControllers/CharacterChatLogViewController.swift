@@ -545,22 +545,18 @@ extension CharacterChatLogViewController: UIScrollViewDelegate {
         let triggerOffset: CGFloat = 200
         if scrollView.contentOffset.y < triggerOffset && !isScrollLoading {
             isScrollLoading = true
-            DispatchQueue.global().async { [weak self] in
+            self.requestChatLogDataSource(characterId: characterId, limit: 14, cursor: lastCursor) { [weak self] in
                 guard let self else { return }
-                self.requestChatLogDataSource(characterId: characterId, limit: 14, cursor: lastCursor) { [weak self] in
-                    guard let self else { return }
-                    self.rootView.chatLogCollectionView.reloadData()
-                    let previousContentHeight = scrollView.contentSize.height
-                    scrollView.layoutIfNeeded()
-                    let updatedContentHeight = scrollView.contentSize.height
-                    scrollView.contentOffset = CGPoint(
-                        x: 0,
-                        y: updatedContentHeight - previousContentHeight + self.rootView.chatLogCollectionView.contentOffset.y
-                    )
-                    self.isScrollLoading = false
-                }
+                self.rootView.chatLogCollectionView.reloadData()
+                let previousContentHeight = scrollView.contentSize.height
+                scrollView.layoutIfNeeded()
+                let updatedContentHeight = scrollView.contentSize.height
+                scrollView.contentOffset = CGPoint(
+                    x: 0,
+                    y: updatedContentHeight - previousContentHeight + self.rootView.chatLogCollectionView.contentOffset.y
+                )
+                self.isScrollLoading = false
             }
-            
         }
         
         guard scrollView.contentSize.height > 0 else { return }
