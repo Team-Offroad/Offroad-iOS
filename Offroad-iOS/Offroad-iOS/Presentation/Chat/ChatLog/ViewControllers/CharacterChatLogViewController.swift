@@ -68,7 +68,12 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         bindData()
         setupNotifications()
         setupGestureRecognizers()
-        requestChatLogDataSource(characterId: characterId, limit: 14, cursor: nil)
+        requestChatLogDataSource(characterId: characterId, limit: 14, cursor: nil) { [weak self] in
+            guard let self else { return }
+            self.rootView.chatLogCollectionView.reloadData()
+            self.scrollToBottom(animated: false)
+            showChatButton()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -183,7 +188,7 @@ extension CharacterChatLogViewController {
         rootView.chatLogCollectionView.addGestureRecognizer(tapGesture)
     }
     
-    private func requestChatLogDataSource(characterId: Int? = nil, limit: Int, cursor: Int?) {
+    private func requestChatLogDataSource(characterId: Int? = nil, limit: Int, cursor: Int?, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             guard cursor == nil else { return }
@@ -209,16 +214,12 @@ extension CharacterChatLogViewController {
                 
                 guard chatLogDataList.count > 0 else { return }
                 self.lastCursor = chatLogDataList.last!.id
-                rootView.chatLogCollectionView.reloadData()
-                if cursor == nil {
-                    self.scrollToBottom(animated: false)
-                }
-                showChatButton()
-            case .networkFail(let errorResponseDTO):
+                completion?()
+            case .networkFail:
                 showToast(message: ErrorMessages.networkError, inset: 66)
             case .decodeErr:
                 showToast(message: "디코딩 에러.", inset: 66)
-            case .serverErr(let errorResponseDTO):
+            case .serverErr:
                 showToast(message: "서버 에러.", inset: 66)
             default:
                 self.showToast(message: "Something went wrong", inset: 60)
@@ -309,7 +310,11 @@ extension CharacterChatLogViewController {
             .subscribe(onNext: { [weak self] isConnected in
                 guard let self else { return }
                 if isConnected {
-                    self.requestChatLogDataSource(characterId: characterId, limit: 14, cursor: nil)
+                    self.requestChatLogDataSource(characterId: characterId, limit: 14, cursor: nil) { [weak self] in
+                        guard let self else { return }
+                        self.rootView.chatLogCollectionView.reloadData()
+                        self.scrollToBottom(animated: false)
+                    }
                 } else {
                     showToast(message: ErrorMessages.networkError, inset: 66)
                 }
