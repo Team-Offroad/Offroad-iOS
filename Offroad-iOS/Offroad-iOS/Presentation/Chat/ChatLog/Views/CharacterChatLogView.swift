@@ -162,7 +162,6 @@ extension CharacterChatLogView {
             )
             collectionView.contentInsetAdjustmentBehavior = .automatic
             collectionView.contentInset.bottom = 135
-            collectionView.showsVerticalScrollIndicator = false
             collectionView.keyboardDismissMode = .onDrag
         }
         
