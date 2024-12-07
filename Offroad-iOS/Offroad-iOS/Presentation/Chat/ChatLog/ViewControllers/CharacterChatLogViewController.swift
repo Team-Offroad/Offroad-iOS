@@ -28,6 +28,8 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     /// `rootView.safeAreaInsets.bottom` 와 `rootView.userChatView.frame.height`가 0 이어서 사용자 입력창이 보이게 되는 현상 발생함.
     private var isKeyboardShown: Bool = false
     private var lastCursor: Int? = nil
+    private var isScrollLoading: Bool = false
+    private var currentOffset: CGFloat = 0
     
     // userChatInputView의 textInputView의 height를 전달
     let userChatInputViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
@@ -533,11 +535,34 @@ extension CharacterChatLogViewController: UICollectionViewDataSource {
     
 }
 
-//MARK: - UICollectionViewDelegate
+//MARK: - UIScrollViewDelegate
 
-extension CharacterChatLogViewController: UICollectionViewDelegate {
+extension CharacterChatLogViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("scrollViewDidScroll, yOffset: \(scrollView.contentOffset.y)")
+        currentOffset = scrollView.contentOffset.y
+        let triggerOffset: CGFloat = 200
+        if scrollView.contentOffset.y < triggerOffset && !isScrollLoading {
+            isScrollLoading = true
+            DispatchQueue.global().async { [weak self] in
+                guard let self else { return }
+                self.requestChatLogDataSource(characterId: characterId, limit: 14, cursor: lastCursor) { [weak self] in
+                    guard let self else { return }
+                    self.rootView.chatLogCollectionView.reloadData()
+                    let previousContentHeight = scrollView.contentSize.height
+                    scrollView.layoutIfNeeded()
+                    let updatedContentHeight = scrollView.contentSize.height
+                    scrollView.contentOffset = CGPoint(
+                        x: 0,
+                        y: updatedContentHeight - previousContentHeight + self.rootView.chatLogCollectionView.contentOffset.y
+                    )
+                    self.isScrollLoading = false
+                }
+            }
+            
+        }
+        
         guard scrollView.contentSize.height > 0 else { return }
         let scrollOffsetAtBottomEdge =
         max(scrollView.contentSize.height - (scrollView.bounds.height - rootView.safeAreaInsets.bottom - 135), 0)
