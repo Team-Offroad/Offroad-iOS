@@ -215,7 +215,7 @@ extension CharacterChatLogViewController {
                 self.lastCursor = chatLogDataList.last!.id
                 completion?()
             case .networkFail:
-                showToast(message: ErrorMessages.networkError, inset: 66)
+                return
             case .decodeErr:
                 showToast(message: "디코딩 에러.", inset: 66)
             case .serverErr:
