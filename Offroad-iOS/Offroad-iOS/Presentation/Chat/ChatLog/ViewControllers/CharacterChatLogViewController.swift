@@ -316,15 +316,7 @@ extension CharacterChatLogViewController {
         NetworkMonitoringManager.shared.networkConnectionChanged
             .subscribe(onNext: { [weak self] isConnected in
                 guard let self else { return }
-                if isConnected {
-                    self.updateChatLogDataSource(characterId: characterId, limit: 14, cursor: nil) { [weak self] in
-                        guard let self else { return }
-                        self.didGetAllChatLog = false
-                        self.rootView.chatLogCollectionView.reloadData()
-                        self.scrollToBottom(animated: false)
-                        self.isScrollLoading = false
-                    }
-                } else {
+                if !isConnected {
                     showToast(message: ErrorMessages.networkError, inset: 66)
                 }
             }).disposed(by: disposeBag)
