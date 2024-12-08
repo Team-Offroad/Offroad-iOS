@@ -210,7 +210,12 @@ extension CharacterChatLogViewController {
                 }
                 
                 if responseDTO.data.count == 0 { self.didGetAllChatLog = true }
-                self.chatLogDataList.append(contentsOf: responseDTO.data.map({ ChatDataModel(data: $0) }))
+                if let cursor {
+                    self.chatLogDataList.append(contentsOf: responseDTO.data.map({ ChatDataModel(data: $0) }))
+                } else {
+                    self.chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
+                }
+                
                 guard chatLogDataList.count > 0 else { return }
                 self.lastCursor = chatLogDataList.last!.id
                 completion?()
@@ -317,6 +322,7 @@ extension CharacterChatLogViewController {
                         self.didGetAllChatLog = false
                         self.rootView.chatLogCollectionView.reloadData()
                         self.scrollToBottom(animated: false)
+                        self.isScrollLoading = false
                     }
                 } else {
                     showToast(message: ErrorMessages.networkError, inset: 66)
