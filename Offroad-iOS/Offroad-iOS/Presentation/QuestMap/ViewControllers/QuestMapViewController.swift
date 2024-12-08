@@ -180,7 +180,6 @@ extension QuestMapViewController {
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
                 self.tabBarController?.view.stopLoading()
-                self.showToast(message: ErrorMessages.networkError, inset: 66)
             }).disposed(by: disposeBag)
         
         viewModel.locationServiceDisabledRelay

@@ -110,9 +110,8 @@ extension QuestMapViewModel {
                 }
                 
                 self.markersSubject.onNext(markers)
-            case .networkFail:
-                self.networkFailureSubject.onNext(())
             default:
+                self.networkFailureSubject.onNext(())
                 return
             }
         }
@@ -146,9 +145,8 @@ extension QuestMapViewModel {
                     self.isLocationAdventureAuthenticated.onNext(data.data.isValidPosition)
                     self.successCharacterImageUrl.onNext(data.data.successCharacterImageUrl)
                     self.completeQuestList.onNext(data.data.completeQuestList)
-                case .networkFail:
-                    self.networkFailureSubject.onNext(())
                 default:
+                    self.networkFailureSubject.onNext(())
                     return
                 }
             })

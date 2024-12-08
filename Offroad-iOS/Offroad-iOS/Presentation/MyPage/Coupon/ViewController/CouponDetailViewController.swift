@@ -120,7 +120,6 @@ class CouponDetailViewController: UIViewController {
                 self.afterCouponRedemptionRelay.accept(response.data.success)
             default:
                 self.afterCouponRedemptionRelay.accept(false)
-                self.showToast(message: ErrorMessages.networkError, inset: 66)
                 return
             }
         }

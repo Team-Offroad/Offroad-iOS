@@ -8,17 +8,10 @@
 import UIKit
 
 import CoreLocation
-import RxSwift
-import RxCocoa
 
 class PlaceListViewController: UIViewController {
     
     //MARK: - Properties
-    
-    var disposeBag = DisposeBag()
-    
-    let netWorkdDidFail = PublishRelay<Void>()
-    let viewDidAppear = PublishRelay<Void>()
     
     let locationManager = CLLocationManager()
     let placeService = RegisteredPlaceService()
@@ -48,8 +41,6 @@ class PlaceListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        bindData()
-        
         setupButtonsActions()
         setupCollectionView()
         setupDelegates()
@@ -66,12 +57,6 @@ class PlaceListViewController: UIViewController {
         offroadTabBarController.hideTabBarAnimation()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        viewDidAppear.accept(())
-    }
-        
 }
 
 extension PlaceListViewController {
@@ -87,15 +72,6 @@ extension PlaceListViewController {
     }
     
     //MARK: - Private Func
-    
-    private func bindData() {
-        Observable.combineLatest(netWorkdDidFail, viewDidAppear)
-            .subscribe { [weak self] _ in
-                guard let self else { return }
-                self.showToast(message: ErrorMessages.networkError, inset: 66)
-            }
-            .disposed(by: disposeBag)
-    }
         
     private func setupButtonsActions() {
         rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
@@ -155,9 +131,8 @@ extension PlaceListViewController {
                 self.rootView.segmentedControl.isUserInteractionEnabled = true
                 self.rootView.pageViewController.view.isUserInteractionEnabled = true
                 
-            case .networkFail:
-                netWorkdDidFail.accept(())
             default:
+                rootView.pageViewController.view.stopLoading()
                 return
             }
         }

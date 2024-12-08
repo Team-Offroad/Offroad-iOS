@@ -30,7 +30,6 @@ final class CharacterDetailViewModel {
     
     var disposeBag = DisposeBag()
     
-    var representativeCharacterChanged = PublishSubject<Void>()
     var characterDetailInfoSubject = PublishSubject<CharacterDetailInfo?>()
     var characterMotionListDataSourceSubject = PublishSubject<[CharacterMotionInfoData]?>()
     
@@ -46,16 +45,8 @@ final class CharacterDetailViewModel {
         
         Observable.combineLatest(
             self.characterDetailInfoSubject,
-            self.characterMotionListDataSourceSubject
-        ).do(onNext: { [weak self] in
-            guard let self else { return }
-            /// 네트워크 종류를 구분하지 않아서, 로컬 네트워크(loopback 등)일 경우 문제 생길 수 있음.
-            /// 일반적인 상황에서는 큰 문제 없을 것으로 예상
-            let isNetworkConnected = NetworkMonitoringManager.shared.networkMonitor.currentPath.status == .satisfied
-            if !isNetworkConnected && ((($0 == nil) || ($1 == nil))) {
-                self.networkingFailure.onNext(())
-            }
-        }).filter({ $0 != nil && $1 != nil })
+            self.characterMotionListDataSourceSubject)
+        .filter({ $0 != nil && $1 != nil })
         .subscribe(onNext: { [weak self] _ in
             guard let self else { return }
             self.networkingSuccess.onNext(())
@@ -70,7 +61,7 @@ final class CharacterDetailViewModel {
         
         Observable.combineLatest(
             characterDetailInfoSubject,
-            representativeCharacterChanged
+            MyInfoManager.shared.didChangeRepresentativeCharacter
         )
         .filter({ $0.0 != nil })
         .map({ ($0.0!, $0.1) })
@@ -91,9 +82,8 @@ extension CharacterDetailViewModel {
                 representativeCharacterId = characterId
                 MyInfoManager.shared.representativeCharacterID = characterId
                 MyInfoManager.shared.didChangeRepresentativeCharacter.accept(())
-                representativeCharacterChanged.onNext(())
             case .networkFail:
-                self.networkingFailure.onNext(())
+                return
             default:
                 break
             }
