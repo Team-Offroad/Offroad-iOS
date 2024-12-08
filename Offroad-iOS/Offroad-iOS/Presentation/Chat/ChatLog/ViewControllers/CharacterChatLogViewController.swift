@@ -29,7 +29,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private var isKeyboardShown: Bool = false
     private var lastCursor: Int? = nil
     private var isScrollLoading: Bool = false
-    private var currentOffset: CGFloat = 0
+    private var didGetAllChatLog: Bool = false
     
     // userChatInputView의 textInputView의 height를 전달
     let userChatInputViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
@@ -70,11 +70,12 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         bindData()
         setupNotifications()
         setupGestureRecognizers()
-        requestChatLogDataSource(characterId: characterId, limit: 14, cursor: nil) { [weak self] in
+        updateChatLogDataSource(characterId: characterId, limit: 28, cursor: nil) { [weak self] in
             guard let self else { return }
+            self.didGetAllChatLog = false
+            self.showChatButton()
             self.rootView.chatLogCollectionView.reloadData()
             self.scrollToBottom(animated: false)
-            showChatButton()
         }
     }
     
@@ -190,7 +191,7 @@ extension CharacterChatLogViewController {
         rootView.chatLogCollectionView.addGestureRecognizer(tapGesture)
     }
     
-    private func requestChatLogDataSource(characterId: Int? = nil, limit: Int, cursor: Int?, completion: (() -> Void)? = nil) {
+    private func updateChatLogDataSource(characterId: Int? = nil, limit: Int, cursor: Int?, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             guard cursor == nil else { return }
@@ -208,12 +209,8 @@ extension CharacterChatLogViewController {
                     return
                 }
                 
-                if cursor == nil {
-                    self.chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
-                } else {
-                    self.chatLogDataList.append(contentsOf: responseDTO.data.map({ ChatDataModel(data: $0) }))
-                }
-                
+                if responseDTO.data.count == 0 { self.didGetAllChatLog = true }
+                self.chatLogDataList.append(contentsOf: responseDTO.data.map({ ChatDataModel(data: $0) }))
                 guard chatLogDataList.count > 0 else { return }
                 self.lastCursor = chatLogDataList.last!.id
                 completion?()
@@ -312,8 +309,9 @@ extension CharacterChatLogViewController {
             .subscribe(onNext: { [weak self] isConnected in
                 guard let self else { return }
                 if isConnected {
-                    self.requestChatLogDataSource(characterId: characterId, limit: 14, cursor: nil) { [weak self] in
+                    self.updateChatLogDataSource(characterId: characterId, limit: 14, cursor: nil) { [weak self] in
                         guard let self else { return }
+                        self.didGetAllChatLog = false
                         self.rootView.chatLogCollectionView.reloadData()
                         self.scrollToBottom(animated: false)
                     }
@@ -500,6 +498,73 @@ extension CharacterChatLogViewController {
         showChatButton()
     }
     
+    private func expandChatLogCollectionView() {
+        let previousSectionCount = self.rootView.chatLogCollectionView.numberOfSections
+        let previousFirstSectionItemsCount = self.rootView.chatLogCollectionView.numberOfItems(inSection: 0)
+        isScrollLoading = true
+        self.updateChatLogDataSource(characterId: characterId, limit: 14, cursor: lastCursor) { [weak self] in
+            guard let self else { return }
+            
+            let newSectionCount = self.chatLogDataSource.count
+            let sectionCountDifference = newSectionCount - previousSectionCount
+            
+            var sectionsToInsert: [Int] = []
+            var indexPathsToInsert:[IndexPath] = []
+            var collectionViewUpdateClosure: ( () -> Void )? = nil
+            
+            // 추가되는 섹션이 없을 경우
+            if sectionCountDifference == 0 {
+                // 첫 번째 섹션에서 추가되는 item 수
+                let itemDifference = self.chatLogDataSource[0].count - previousFirstSectionItemsCount
+                
+                for i in 0..<itemDifference {
+                    indexPathsToInsert.append(IndexPath(item: i, section: 0))
+                }
+                collectionViewUpdateClosure = { [weak self] in
+                    guard let self else { return }
+                    self.rootView.chatLogCollectionView.insertItems(at: indexPathsToInsert)
+                }
+                
+            } else if sectionCountDifference > 0 {
+                for sectionIndex in 0...sectionCountDifference {
+                    if sectionIndex != sectionCountDifference {
+                        sectionsToInsert.append(sectionIndex)
+                    }
+                    // 기존에 존재하던 Section인 경우 (기존에 존재하던 Section의 item 수의 차이만큼 추가)
+                    if sectionIndex == sectionCountDifference {
+                        let itemDifferece = self.chatLogDataSource[sectionIndex].count - previousFirstSectionItemsCount
+                        for i in 0..<itemDifferece {
+                            indexPathsToInsert.append(IndexPath(item: i, section: sectionIndex))
+                        }
+                    }
+                    /*
+                     새로 추가되는 Section인 경우 DataSource를 바탕으로 item의 갯수 자동으로 계산됨.
+                     (별도 insertItems 작업 필요 없음.)
+                     */
+                }
+                
+                collectionViewUpdateClosure = { [weak self] in
+                    guard let self else { return }
+                    self.rootView.chatLogCollectionView.insertSections(IndexSet(sectionsToInsert))
+                    self.rootView.chatLogCollectionView.insertItems(at: indexPathsToInsert)
+                }
+                
+            } else {
+                // 인터넷 재접속으로 인해 새로고침 된 경우
+                // 별도 조치 없음. (헷갈릴 것 같아 주석으로 남겨놓음.
+            }
+            
+            UIView.animate(withDuration: 0, animations: { [weak self] in
+                guard let self else { return }
+                self.rootView.chatLogCollectionView.performBatchUpdates(collectionViewUpdateClosure)
+            }, completion: { [weak self] isFinished in
+                guard let self else { return }
+                self.isScrollLoading = false
+            })
+        }
+    }
+    
+    
 }
 
 //MARK: - UICollectionViewDataSource
@@ -540,33 +605,22 @@ extension CharacterChatLogViewController: UICollectionViewDataSource {
 extension CharacterChatLogViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("scrollViewDidScroll, yOffset: \(scrollView.contentOffset.y)")
-        currentOffset = scrollView.contentOffset.y
-        let triggerOffset: CGFloat = 200
-        if scrollView.contentOffset.y < triggerOffset && !isScrollLoading {
-            isScrollLoading = true
-            self.requestChatLogDataSource(characterId: characterId, limit: 14, cursor: lastCursor) { [weak self] in
-                guard let self else { return }
-                self.rootView.chatLogCollectionView.reloadData()
-                let previousContentHeight = scrollView.contentSize.height
-                scrollView.layoutIfNeeded()
-                let updatedContentHeight = scrollView.contentSize.height
-                scrollView.contentOffset = CGPoint(
-                    x: 0,
-                    y: updatedContentHeight - previousContentHeight + self.rootView.chatLogCollectionView.contentOffset.y
-                )
-                self.isScrollLoading = false
-            }
+        let triggerYOffset: CGFloat = 500
+        // 무한스크롤 발동 조건
+        if scrollView.contentOffset.y < triggerYOffset && !isScrollLoading && !didGetAllChatLog {
+            expandChatLogCollectionView()
         }
         
-        guard scrollView.contentSize.height > 0 else { return }
-        let scrollOffsetAtBottomEdge =
-        max(scrollView.contentSize.height - (scrollView.bounds.height - rootView.safeAreaInsets.bottom - 135), 0)
-        
-        if ceil(scrollView.contentOffset.y) >= (scrollOffsetAtBottomEdge - 20) {
-            showChatButton()
-        } else {
-            hideChatButton()
+        // 채팅하기 버튼 숨김 여부
+        if scrollView.contentSize.height > 0 {
+            let scrollOffsetAtBottomEdge =
+            max(scrollView.contentSize.height - (scrollView.bounds.height - rootView.safeAreaInsets.bottom - 135), 0)
+            
+            if ceil(scrollView.contentOffset.y) >= (scrollOffsetAtBottomEdge - 20) {
+                showChatButton()
+            } else {
+                hideChatButton()
+            }
         }
     }
     
