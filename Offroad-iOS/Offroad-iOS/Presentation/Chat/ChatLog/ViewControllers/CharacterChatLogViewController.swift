@@ -261,13 +261,16 @@ extension CharacterChatLogViewController {
         rootView.sendButton.rx.tap.bind(
             onNext: { [weak self] in
                 guard let self else { return }
-                self.postCharacterChat(characterId: characterId, message: self.rootView.userChatInputView.text)
+                let userMessage = self.rootView.userChatInputView.text
                 self.rootView.sendButton.isEnabled = false
                 // 사용자 채팅 버블 추가
                 self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text, isLoading: false) { [weak self] isFinished in
                     guard let self else { return }
                     // 캐릭터 셀 추가
-                    self.sendChatBubble(isUserChat: false, text: "", isLoading: true)
+                    self.sendChatBubble(isUserChat: false, text: "", isLoading: true) { [weak self] isFinished in
+                        guard let self else { return }
+                        self.postCharacterChat(characterId: characterId, message: userMessage!)
+                    }
                 }
                 self.rootView.userChatInputView.text = ""
                 
