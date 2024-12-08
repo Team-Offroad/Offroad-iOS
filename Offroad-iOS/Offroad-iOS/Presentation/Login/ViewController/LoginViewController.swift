@@ -116,22 +116,14 @@ extension LoginViewController {
         NetworkService.shared.adventureService.getAdventureInfo(category: "NONE") { response in
             switch response {
             case .success(let data):
-                let userNickname = data?.data.nickname ?? ""
                 let characterName = data?.data.characterName ?? ""
                                                 
-                if userNickname == "" {
+                if characterName == "" {
                     let termsConsentViewController = TermsConsentViewController()
                     termsConsentViewController.modalPresentationStyle = .fullScreen
                     termsConsentViewController.modalTransitionStyle = .crossDissolve
 
                     self.present(termsConsentViewController, animated: true)
-                } else if characterName == "" {
-                    let choosingCharacterViewController = ChoosingCharacterViewController()
-                    
-                    choosingCharacterViewController.modalPresentationStyle = .fullScreen
-                    choosingCharacterViewController.modalTransitionStyle = .crossDissolve
-                    
-                    self.present(choosingCharacterViewController, animated: true)
                 } else {
                     let offroadTabBarViewController = OffroadTabBarController()
                     
