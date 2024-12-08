@@ -92,7 +92,16 @@ extension TermsConsentViewController {
         NetworkService.shared.profileService.patchMarketingConsent(body: isAgreed) { response in
             switch response {
             case .success:
-                print("마케팅 수신 여부 변경 성공!\n요청 성공 값: \(isAgreed.marketing)")
+                let isAgreedString = isAgreed.marketing ? "동의" : "비동의"
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy년 M월 d일 HH:mm"
+                
+                self.showToast(message: "\(dateFormatter.string(from: Date()))부로\n마케팅 정보 수신 \(isAgreedString) 처리되었습니다.", inset: 54)
+                
+                let nicknameViewController = NicknameViewController()
+                let navigationController = UINavigationController(rootViewController: nicknameViewController)
+                
+                self.presentNavigationController(navigationController: navigationController)
             default:
                 break
             }
@@ -109,11 +118,6 @@ extension TermsConsentViewController {
     
     @objc private func nextButtonTapped() {
         patchMarketingConsent(isAgreed: MarketingConsentRequestDTO(marketing: termsModelData[3].isSelected))
-        
-        let nicknameViewController = NicknameViewController()
-        let navigationController = UINavigationController(rootViewController: nicknameViewController)
-        
-        self.presentNavigationController(navigationController: navigationController)
     }
 }
 
