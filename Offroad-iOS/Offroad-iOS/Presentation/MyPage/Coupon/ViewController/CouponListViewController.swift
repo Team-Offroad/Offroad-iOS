@@ -247,12 +247,14 @@ extension CouponListViewController: UICollectionViewDelegate {
         if collectionView == rootView.collectionViewForUsedCoupons {
             guard usedCouponDataSource.count < usedCouponsCount else { return }
             guard indexPath == lastIndexPathForUsedCoupons else { return }
-            collectionView.startScrollLoading(lottie: rootView.loadingView)
+            let scrollLoadingCollectionView = collectionView as! ScrollLoadingCollectionView
+            scrollLoadingCollectionView.startScrollLoading(direction: .bottom)
             getCouponListsFromServer(isUsed: true, size: 14, cursor: lastCursorIDForUsedCoupons)
         } else if collectionView == rootView.collectionViewForAvailableCoupons {
             guard availableCouponDataSource.count < availableCouponsCount else { return }
             guard indexPath == lastIndexPathForAvailableCoupons else { return }
-            collectionView.startScrollLoading(lottie: rootView.loadingView)
+            let scrollLoadingCollectionView = collectionView as! ScrollLoadingCollectionView
+            scrollLoadingCollectionView.startScrollLoading(direction: .bottom)
             getCouponListsFromServer(isUsed: false, size: 14, cursor: lastCursorIDForAvailableCoupons)
             
         }
