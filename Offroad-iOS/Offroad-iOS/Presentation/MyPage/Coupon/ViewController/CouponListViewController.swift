@@ -154,19 +154,29 @@ extension CouponListViewController{
                 self.availableCouponsCount = response.data.availableCouponsCount
                 self.usedCouponsCount = response.data.usedCouponsCount
                 
+                var indexPathsToInsert: [IndexPath] = []
+                
                 if isUsed {
-                    self.rootView.segmentedControl.changeSegmentTitle(at: 1, to: "사용 완료 \(usedCouponsCount)")
+                    for itemIndex in 0..<response.data.coupons.count {
+                        let indexPath = IndexPath(item: self.usedCouponDataSource.count + itemIndex, section: 0)
+                        indexPathsToInsert.append(indexPath)
+                    }
                     self.usedCouponDataSource.append(contentsOf: response.data.coupons)
                     self.lastCursorIDForUsedCoupons = response.data.coupons.last!.cursorId
-                    self.rootView.collectionViewForUsedCoupons.stopScrollLoading(lottie: self.rootView.loadingView)
-                    self.rootView.collectionViewForUsedCoupons.reloadData()
+                    self.rootView.collectionViewForUsedCoupons.stopScrollLoading(direction: .bottom)
+                    self.rootView.collectionViewForUsedCoupons.insertItems(at: indexPathsToInsert)
+                    self.rootView.segmentedControl.changeSegmentTitle(at: 1, to: "사용 완료 \(usedCouponsCount)")
                     self.lastIndexPathForUsedCoupons = IndexPath(item: self.usedCouponDataSource.count - 1, section: 0)
                 } else {
-                    self.rootView.segmentedControl.changeSegmentTitle(at: 0, to: "사용 가능 \(availableCouponsCount)")
+                    for itemIndex in 0..<response.data.coupons.count {
+                        let indexPath = IndexPath(item: self.availableCouponDataSource.count + itemIndex, section: 0)
+                        indexPathsToInsert.append(indexPath)
+                    }
                     self.availableCouponDataSource.append(contentsOf: response.data.coupons)
                     self.lastCursorIDForAvailableCoupons = response.data.coupons.last!.cursorId
-                    self.rootView.collectionViewForAvailableCoupons.stopScrollLoading(lottie: self.rootView.loadingView)
-                    self.rootView.collectionViewForAvailableCoupons.reloadData()
+                    self.rootView.collectionViewForAvailableCoupons.stopScrollLoading(direction: .bottom)
+                    self.rootView.collectionViewForAvailableCoupons.insertItems(at: indexPathsToInsert)
+                    self.rootView.segmentedControl.changeSegmentTitle(at: 0, to: "사용 가능 \(availableCouponsCount)")
                     self.lastIndexPathForAvailableCoupons = IndexPath(item: self.availableCouponDataSource.count - 1, section: 0)
                 }
             default:
