@@ -197,11 +197,13 @@ extension CharacterChatLogViewController {
             guard cursor == nil else { return }
             self.view.startLoading()
         }
+        if cursor != nil { rootView.chatLogCollectionView.startScrollLoading(direction: .top) }
         NetworkService.shared.characterChatService.getChatLog(characterId: characterId,
                                                               limit: limit,
                                                               cursor: cursor) { [weak self] result in
             guard let self else { return }
             self.view.stopLoading()
+            rootView.chatLogCollectionView.stopScrollLoading(direction: .top)
             switch result {
             case .success(let responseDTO):
                 guard let responseDTO else {

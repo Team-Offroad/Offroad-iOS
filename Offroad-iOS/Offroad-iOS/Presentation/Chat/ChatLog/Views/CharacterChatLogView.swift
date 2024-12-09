@@ -35,7 +35,7 @@ class CharacterChatLogView: UIView {
     let backButton = UIButton()
     private let customNavigationTitleLabel = UILabel()
     
-    lazy var chatLogCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    lazy var chatLogCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layout)
     let chatButton = UIButton()
     
     let userChatBoundsView = UIView()
