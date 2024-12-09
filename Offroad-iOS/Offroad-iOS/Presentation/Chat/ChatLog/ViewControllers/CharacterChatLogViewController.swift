@@ -468,7 +468,7 @@ extension CharacterChatLogViewController {
         let dataSourceSectionCount = chatLogDataSource.count
         let dataSourceLastSectionItemCount = chatLogDataSource.last?.count ?? 0
         
-        guard dataSourceSectionCount > 0, dataSourceLastSectionItemCount > 2 else { return }
+        guard dataSourceSectionCount > 0, dataSourceLastSectionItemCount > 1 else { return }
         
         guard
             let lastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 1),
