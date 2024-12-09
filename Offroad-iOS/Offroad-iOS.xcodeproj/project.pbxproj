@@ -136,6 +136,8 @@
 		4EF833EE2CC4268200D94314 /* ORBPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833ED2CC4268200D94314 /* ORBPopup.swift */; };
 		4EF833F02CC486EE00D94314 /* EmblemPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833EF2CC486EE00D94314 /* EmblemPopupViewController.swift */; };
 		4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */; };
+		4EFC7D252D066D110068367E /* ScrollLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC7D242D066D110068367E /* ScrollLoading.swift */; };
+		4EFC7D3F2D06CB130068367E /* ScrollLoadingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC7D3E2D06CB130068367E /* ScrollLoadingCollectionView.swift */; };
 		4EFCDFDD2C92BB27006DEBB6 /* ORBAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDC2C92BB27006DEBB6 /* ORBAlertController.swift */; };
 		4EFCDFDF2C92BD8A006DEBB6 /* ORBAlertBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDE2C92BD8A006DEBB6 /* ORBAlertBackgroundView.swift */; };
 		4EFCDFE12C92BD93006DEBB6 /* ORBAlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE02C92BD93006DEBB6 /* ORBAlertType.swift */; };
@@ -427,6 +429,8 @@
 		4EF833ED2CC4268200D94314 /* ORBPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBPopup.swift; sourceTree = "<group>"; };
 		4EF833EF2CC486EE00D94314 /* EmblemPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmblemPopupViewController.swift; sourceTree = "<group>"; };
 		4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapListButton.swift; sourceTree = "<group>"; };
+		4EFC7D242D066D110068367E /* ScrollLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoading.swift; sourceTree = "<group>"; };
+		4EFC7D3E2D06CB130068367E /* ScrollLoadingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoadingCollectionView.swift; sourceTree = "<group>"; };
 		4EFCDFDC2C92BB27006DEBB6 /* ORBAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertController.swift; sourceTree = "<group>"; };
 		4EFCDFDE2C92BD8A006DEBB6 /* ORBAlertBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertBackgroundView.swift; sourceTree = "<group>"; };
 		4EFCDFE02C92BD93006DEBB6 /* ORBAlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertType.swift; sourceTree = "<group>"; };
@@ -1207,6 +1211,8 @@
 			children = (
 				4E3A32882CE733F2007228D0 /* LoadingView.swift */,
 				87D9A70C2CE9BC1700F1CECD /* ScrollLoadingView.swift */,
+				4EFC7D242D066D110068367E /* ScrollLoading.swift */,
+				4EFC7D3E2D06CB130068367E /* ScrollLoadingCollectionView.swift */,
 			);
 			path = Loading;
 			sourceTree = "<group>";
@@ -2821,6 +2827,7 @@
 				D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */,
 				4E4E2BFE2CCE2414000A634D /* PlaceInfoViewController.swift in Sources */,
 				4E0394312C2A9DCE007F0517 /* ViewController.swift in Sources */,
+				4EFC7D3F2D06CB130068367E /* ScrollLoadingCollectionView.swift in Sources */,
 				4E46E5F72CB997B4000A1EEE /* ORBToastManager.swift in Sources */,
 				87738CDC2C8E164200E107C7 /* CharacterMotionResponseDTO.swift in Sources */,
 				4E1E94172C3AC27000A7B08A /* QuestMapViewController.swift in Sources */,
@@ -2930,6 +2937,7 @@
 				D03C835E2C61E44700F3094D /* TokenIntercepter.swift in Sources */,
 				4E03942F2C2A9DCE007F0517 /* SceneDelegate.swift in Sources */,
 				4E3A32692CE510DF007228D0 /* CharacterChatAPI.swift in Sources */,
+				4EFC7D252D066D110068367E /* ScrollLoading.swift in Sources */,
 				D0E7961E2C45280F005B47A5 /* SocialLoginResponseDTO.swift in Sources */,
 				D0600BE72CE61E6A00D8F1D6 /* FcmTokenRequestDTO.swift in Sources */,
 				D0E796172C4527AA005B47A5 /* AuthService.swift in Sources */,
