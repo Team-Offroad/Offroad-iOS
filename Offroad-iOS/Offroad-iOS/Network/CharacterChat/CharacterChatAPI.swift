@@ -40,15 +40,11 @@ extension CharacterChatAPI: BaseTargetType {
                 urlParameters: ["characterId" : characterId]
             )
         case .getChatLog(characterId: let characterId, limit: let limit, cursor: let cursor):
-            
-            // parameter로 들어갈 빈 딕셔너리 만든 후 각 항목이 nil이 아닐 경우 딕셔너리에 넣어 보내기
             var queryParameters: [String: Any] = [:]
             if let characterId { queryParameters["characterId"] = characterId }
             queryParameters["limit"] = limit
             if let cursor { queryParameters["cursor"] = cursor }
             return .requestParameters(parameters: queryParameters, encoding: URLEncoding.queryString)
-//            guard let characterId else { return .requestPlain }
-//            return .requestParameters(parameters: ["characterId" : characterId], encoding: URLEncoding.queryString)
         }
     }
     
