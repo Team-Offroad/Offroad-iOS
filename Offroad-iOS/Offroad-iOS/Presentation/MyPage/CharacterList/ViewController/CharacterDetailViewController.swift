@@ -96,14 +96,6 @@ extension CharacterDetailViewController {
             self.rootView.collectionView.reloadData()
         }).disposed(by: disposeBag)
         
-        Observable.combineLatest(
-            viewModel.networkingFailure,
-            viewDidAppear.take(1)
-        ).subscribe(onNext: { [weak self] _, _ in
-            guard let self else { return }
-            self.showToast(message: ErrorMessages.networkError, inset: 66)
-        }).disposed(by: disposeBag)
-        
         rootView.customBackButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
             self.navigationController?.popViewController(animated: true)
