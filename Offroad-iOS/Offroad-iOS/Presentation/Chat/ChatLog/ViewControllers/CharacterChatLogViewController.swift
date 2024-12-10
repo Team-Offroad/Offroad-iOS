@@ -30,6 +30,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private var lastCursor: Int? = nil
     private var isScrollLoading: Bool = false
     private var didGetAllChatLog: Bool = false
+    private var isScrollingToTop: Bool = false
     
     // userChatInputView의 textInputView의 height를 전달
     let userChatInputViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
@@ -203,7 +204,6 @@ extension CharacterChatLogViewController {
                                                               cursor: cursor) { [weak self] result in
             guard let self else { return }
             self.view.stopLoading()
-            rootView.chatLogCollectionView.stopScrollLoading(direction: .top)
             switch result {
             case .success(let responseDTO):
                 guard let responseDTO else {
@@ -211,8 +211,11 @@ extension CharacterChatLogViewController {
                     return
                 }
                 
-                if responseDTO.data.count == 0 { self.didGetAllChatLog = true }
-                if let cursor {
+                if responseDTO.data.count == 0 {
+                    self.didGetAllChatLog = true
+                    rootView.chatLogCollectionView.stopScrollLoading(direction: .top)
+                }
+                if cursor != nil {
                     self.chatLogDataList.append(contentsOf: responseDTO.data.map({ ChatDataModel(data: $0) }))
                 } else {
                     self.chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
@@ -607,13 +610,29 @@ extension CharacterChatLogViewController: UICollectionViewDataSource {
 
 extension CharacterChatLogViewController: UIScrollViewDelegate {
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let triggerYOffset: CGFloat = 500
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        rootView.userChatInputView.resignFirstResponder()
+        isScrollingToTop = true
+        return true
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        print(#function)
+        isScrollingToTop = false
+    }
+    
+    func scrollViewWillEndDragging(
+        _ scrollView: UIScrollView,
+        withVelocity velocity: CGPoint,
+        targetContentOffset: UnsafeMutablePointer<CGPoint>
+    ) {
         // 무한스크롤 발동 조건
-        if scrollView.contentOffset.y < triggerYOffset && !isScrollLoading && !didGetAllChatLog {
+        if targetContentOffset.pointee.y <= 0 && !isScrollLoading && !didGetAllChatLog && !isScrollingToTop {
             expandChatLogCollectionView()
         }
-        
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // 채팅하기 버튼 숨김 여부
         if scrollView.contentSize.height > 0 {
             let scrollOffsetAtBottomEdge =
@@ -625,11 +644,6 @@ extension CharacterChatLogViewController: UIScrollViewDelegate {
                 hideChatButton()
             }
         }
-    }
-    
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        rootView.userChatInputView.resignFirstResponder()
-        return true
     }
     
 }
