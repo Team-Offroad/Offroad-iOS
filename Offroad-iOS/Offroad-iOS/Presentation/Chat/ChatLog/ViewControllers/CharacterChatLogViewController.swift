@@ -28,6 +28,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     /// `rootView.safeAreaInsets.bottom` 와 `rootView.userChatView.frame.height`가 0 이어서 사용자 입력창이 보이게 되는 현상 발생함.
     private var isKeyboardShown: Bool = false
     private var lastCursor: Int? = nil
+    private var currentYOffset: CGFloat = 0
     private var isScrollLoading: Bool = false
     private var didGetAllChatLog: Bool = false
     private var isScrollingToTop: Bool = false
@@ -198,7 +199,7 @@ extension CharacterChatLogViewController {
             guard cursor == nil else { return }
             self.view.startLoading()
         }
-        if cursor != nil { rootView.chatLogCollectionView.startScrollLoading(direction: .top) }
+        rootView.chatLogCollectionView.startScrollLoading(direction: .top)
         NetworkService.shared.characterChatService.getChatLog(characterId: characterId,
                                                               limit: limit,
                                                               cursor: cursor) { [weak self] result in
@@ -560,13 +561,16 @@ extension CharacterChatLogViewController {
                 // 별도 조치 없음. (헷갈릴 것 같아 주석으로 남겨놓음.
             }
             
-            UIView.animate(withDuration: 0, animations: { [weak self] in
+            let contentHeightBeforeLoading = rootView.chatLogCollectionView.contentSize.height
+            UIView.performWithoutAnimation{ [weak self] in
                 guard let self else { return }
                 self.rootView.chatLogCollectionView.performBatchUpdates(collectionViewUpdateClosure)
-            }, completion: { [weak self] isFinished in
-                guard let self else { return }
-                self.isScrollLoading = false
-            })
+                self.rootView.chatLogCollectionView.layoutIfNeeded()
+            }
+            let contentHeightAfterLoading = rootView.chatLogCollectionView.contentSize.height
+            let offsetToSet = contentHeightAfterLoading - contentHeightBeforeLoading + currentYOffset
+            self.rootView.chatLogCollectionView.contentOffset.y = offsetToSet
+            self.isScrollLoading = false
         }
     }
     
@@ -617,22 +621,18 @@ extension CharacterChatLogViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        print(#function)
         isScrollingToTop = false
-    }
-    
-    func scrollViewWillEndDragging(
-        _ scrollView: UIScrollView,
-        withVelocity velocity: CGPoint,
-        targetContentOffset: UnsafeMutablePointer<CGPoint>
-    ) {
-        // 무한스크롤 발동 조건
-        if targetContentOffset.pointee.y <= 0 && !isScrollLoading && !didGetAllChatLog && !isScrollingToTop {
-            expandChatLogCollectionView()
-        }
+        expandChatLogCollectionView()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        currentYOffset = scrollView.contentOffset.y
+        
+        // 무한스크롤 발동 조건
+        if scrollView.contentOffset.y < 200 && scrollView.isDecelerating && !isScrollLoading && !didGetAllChatLog {
+            expandChatLogCollectionView()
+        }
+        
         // 채팅하기 버튼 숨김 여부
         if scrollView.contentSize.height > 0 {
             let scrollOffsetAtBottomEdge =
