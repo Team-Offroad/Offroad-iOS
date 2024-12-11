@@ -19,7 +19,7 @@ struct ChatData: Codable {
     var id: Int
 }
 
-struct ChatDataModel {
+struct ChatDataModel: Hashable {
     var role: String
     var content: String
     var createdDate: Date?

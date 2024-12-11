@@ -26,6 +26,22 @@ final class CharacterChatLogViewModel {
         return sortedKeys.compactMap { groupedChats[$0] }
     }
     
+    func groupChatsByDateForDiffableDataSource(chats: [ChatDataModel]) -> [String: [ChatDataModel]] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        var groupedChats: [String: [ChatDataModel]] = [:]
+        for chat in chats {
+            guard let createdDate = chat.createdDate else { continue }
+            let dateKey = dateFormatter.string(from: createdDate) // 날짜만 추출
+            if groupedChats[dateKey] == nil {
+                groupedChats[dateKey] = []
+            }
+            groupedChats[dateKey]?.insert(chat, at: 0)
+        }
+        return groupedChats
+    }
+    
     // UILabel 안에 특정 텍스트가 들어갔을 때, label의 사이즈를 미리 계산하여 반환하는 함수.
     // (셀을 직접 그리기 전에 셀의 높이를 동적으로 계산하여 flowLayout에서 이를 바탕으로 layout계산해야 하기 때문.)
     // 채팅 내용에 따라 텍스트의 높이가 달라지기 때문에 특정 텍스트일 때 채팅 버블의 높이를 미리 계산하기 위함.
