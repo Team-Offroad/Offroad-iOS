@@ -558,7 +558,9 @@ extension CharacterChatLogViewController: UIScrollViewDelegate {
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         isScrollingToTop = false
-        expandChatLogCollectionView()
+        if !isScrollLoading && !didGetAllChatLog {
+            expandChatLogCollectionView()
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
