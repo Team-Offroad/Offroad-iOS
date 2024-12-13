@@ -174,13 +174,15 @@ extension CharacterChatLogViewController {
     
     private func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<CharacterChatLogCell, ChatDataModel>(
-            handler: { cell, indexPath, item in
+            handler: { [weak self] cell, indexPath, item in
+                guard let self else { return }
                 cell.configure(with: item, characterName: self.characterName)
             })
         
         let headerRegistration = UICollectionView.SupplementaryRegistration<CharacterChatLogHeader>(
             elementKind: UICollectionView.elementKindSectionHeader,
-            handler: { supplementaryView, elementKind, indexPath in
+            handler: { [weak self] supplementaryView, elementKind, indexPath in
+                guard let self else { return }
                 let firstChatDataModelOfDay = self.chatLogDataSourceForSnapshot[self.chatLogDataSourceForSnapshot.keys.sorted(by: { $0 < $1 })[indexPath.section]]?.first
                 supplementaryView.dateLabel.text = firstChatDataModelOfDay?.formattedDateString
             })
