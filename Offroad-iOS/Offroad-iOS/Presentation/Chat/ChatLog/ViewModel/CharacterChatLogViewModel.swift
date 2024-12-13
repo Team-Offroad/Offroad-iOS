@@ -20,9 +20,9 @@ final class CharacterChatLogViewModel {
             if groupedChats[dateKey] == nil {
                 groupedChats[dateKey] = []
             }
-            groupedChats[dateKey]?.insert(chat, at: 0)
+            groupedChats[dateKey]?.append(chat)
         }
-        let sortedKeys = groupedChats.keys.sorted()
+        let sortedKeys = groupedChats.keys.sorted(by: { $0 > $1 })
         return sortedKeys.compactMap { groupedChats[$0] }
     }
     
@@ -37,7 +37,7 @@ final class CharacterChatLogViewModel {
             if groupedChats[dateKey] == nil {
                 groupedChats[dateKey] = []
             }
-            groupedChats[dateKey]?.insert(chat, at: 0)
+            groupedChats[dateKey]?.append(chat)
         }
         return groupedChats
     }

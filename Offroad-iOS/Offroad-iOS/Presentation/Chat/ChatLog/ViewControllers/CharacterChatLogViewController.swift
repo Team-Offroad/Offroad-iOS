@@ -87,7 +87,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
             self.showChatButton()
             updateCollectionView(animatingDifferences: false) { [weak self] in
                 guard let self else { return }
-                self.scrollToBottom(animated: true)
+                self.scrollToFirstCell(animated: true)
             }
         }
     }
@@ -139,7 +139,7 @@ extension CharacterChatLogViewController {
             rootView.userChatBoundsView.bounds.origin.y = 0
             rootView.chatLogCollectionView.contentInsetAdjustmentBehavior = .never
             rootView.chatLogCollectionView.contentInset.bottom = rootView.keyboardLayoutGuide.layoutFrame.height + rootView.userChatView.frame.height + 16
-            self.scrollToBottom(animated: false)
+            self.scrollToLastCell(animated: false)
             rootView.layoutIfNeeded()
         }
     }
@@ -239,7 +239,7 @@ extension CharacterChatLogViewController {
             guard cursor == nil else { return }
             self.view.startLoading()
         }
-        rootView.chatLogCollectionView.startScrollLoading(direction: .top)
+        rootView.chatLogCollectionView.startScrollLoading(direction: .bottom)
         NetworkService.shared.characterChatService.getChatLog(characterId: characterId,
                                                               limit: limit,
                                                               cursor: cursor) { [weak self] result in
@@ -254,7 +254,7 @@ extension CharacterChatLogViewController {
                 
                 if responseDTO.data.count == 0 {
                     self.didGetAllChatLog = true
-                    rootView.chatLogCollectionView.stopScrollLoading(direction: .top)
+                    rootView.chatLogCollectionView.stopScrollLoading(direction: .bottom)
                 }
                 if cursor != nil {
                     self.chatLogDataList.append(contentsOf: responseDTO.data.map({ ChatDataModel(data: $0) }))
@@ -339,7 +339,7 @@ extension CharacterChatLogViewController {
                     ) { [weak self] in
                     guard let self else { return }
                     self.rootView.chatLogCollectionView.contentInset.bottom = self.rootView.keyboardLayoutGuide.layoutFrame.height + self.rootView.userChatView.frame.height + 16.0
-                    self.scrollToBottom(animated: false)
+                    self.scrollToLastCell(animated: false)
                 }
             } else {
                 self.updateChatInputViewHeight(height: 19.0 + (9*2))
@@ -351,7 +351,7 @@ extension CharacterChatLogViewController {
                 ) { [weak self] in
                     guard let self else { return }
                     self.rootView.chatLogCollectionView.contentInset.bottom = self.rootView.keyboardLayoutGuide.layoutFrame.height + self.rootView.userChatView.frame.height + 16.0
-                    self.scrollToBottom(animated: false)
+                    self.scrollToLastCell(animated: false)
                 }
             }
             self.rootView.updateConstraints()
@@ -389,9 +389,16 @@ extension CharacterChatLogViewController {
         )
     }
     
-    private func scrollToBottom(animated: Bool) {
+    private func scrollToLastCell(animated: Bool) {
         guard let lastIndexPath = rootView.chatLogCollectionView.getIndexPathFromLast(index: 1) else { return }
         rootView.chatLogCollectionView.scrollToItem(at: lastIndexPath, at: .top, animated: animated)
+    }
+    
+    private func scrollToFirstCell(animated: Bool) {
+        guard rootView.chatLogCollectionView.cellForItem(
+            at: IndexPath(item: 0, section: 0)
+        ) != nil else { return }
+        rootView.chatLogCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: animated)
     }
     
     private func updateChatInputViewHeight(height: CGFloat) {
@@ -416,7 +423,7 @@ extension CharacterChatLogViewController {
         chatLogDataList.insert(chatDataModelToAppend, at: 0)
         updateCollectionView(animatingDifferences: true, completion: { [weak self] in
             guard let self else { return }
-            self.scrollToBottom(animated: true)
+            self.scrollToLastCell(animated: true)
             completion?()
         })
     }
@@ -480,7 +487,7 @@ extension CharacterChatLogViewController {
             let secondLastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 2) else {
             self.showToast(message: "알 수 없는 오류가 발생했어요. 채팅을 다시 시도해 주세요.", inset: 66)
             self.rootView.chatLogCollectionView.reloadData()
-            self.scrollToBottom(animated: true)
+            self.scrollToLastCell(animated: true)
             return
         }
         
@@ -490,51 +497,34 @@ extension CharacterChatLogViewController {
             }
             updateCollectionView(animatingDifferences: true) { [weak self] in
                 guard let self else { return }
-                self.scrollToBottom(animated: true)
+                self.scrollToLastCell(animated: true)
                 self.showChatButton()
             }
         } else {
             chatLogDataList.removeFirst(2)
             updateCollectionView(animatingDifferences: true) { [weak self] in
                 guard let self else { return }
-                self.scrollToBottom(animated: true)
+                self.scrollToLastCell(animated: true)
                 self.showChatButton()
             }
         }
     }
     
     private func updateCollectionView(animatingDifferences animating: Bool, completion: (() -> Void)? = nil) {
-        DispatchQueue.global().async { [weak self] in
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self else { return }
             var snapshot = NSDiffableDataSourceSnapshot<String, ChatDataModel>()
-            snapshot.appendSections(chatLogDataSourceForSnapshot.keys.sorted(by: { $0 < $1 }))
-            chatLogDataSourceForSnapshot.keys.sorted { $0 < $1 }.forEach { [weak self] dateInString in
+            snapshot.appendSections(chatLogDataSourceForSnapshot.keys.sorted(by: { $0 > $1 }))
+            chatLogDataSourceForSnapshot.keys.sorted { $0 > $1 }.forEach { [weak self] dateInString in
                 guard let self else { return }
                 snapshot.appendItems(self.chatLogDataSourceForSnapshot[dateInString]!, toSection: dateInString)
             }
-            DispatchQueue.main.async { [weak self] in
+            
+            self.dataSource.apply(snapshot, animatingDifferences: animating, completion: { [weak self] in
                 guard let self else { return }
-                
-                if animating {
-                    self.dataSource.apply(snapshot, animatingDifferences: true, completion: completion)
-                } else {
-                    let contentHeightBeforeLoading = rootView.chatLogCollectionView.contentSize.height
-                    let currentOffset = currentYOffset
-                    CATransaction.begin()
-                    CATransaction.setDisableActions(true)
-                    self.dataSource.apply(snapshot, animatingDifferences: false, completion: { [weak self] in
-                        guard let self else { return }
-                        
-                        let contentHeightAfterLoading = rootView.chatLogCollectionView.contentSize.height
-                        let offsetToSet = contentHeightAfterLoading - contentHeightBeforeLoading + currentYOffset
-                        self.rootView.chatLogCollectionView.contentOffset.y = offsetToSet
-                        self.rootView.chatLogCollectionView.layoutIfNeeded()
-                        CATransaction.commit()
-                        self.isScrollLoading = false
-                        completion?()
-                    })
-                }
-            }
+                self.isScrollLoading = false
+                completion?()
+            })
         }
     }
     
@@ -542,7 +532,7 @@ extension CharacterChatLogViewController {
         isScrollLoading = true
         self.updateChatLogDataSource(characterId: characterId, limit: 14, cursor: lastCursor) { [weak self] in
             guard let self else { return }
-            self.updateCollectionView(animatingDifferences: false)
+            self.updateCollectionView(animatingDifferences: true)
         }
     }
     
@@ -569,7 +559,7 @@ extension CharacterChatLogViewController: UIScrollViewDelegate {
         currentYOffset = scrollView.contentOffset.y
         
         // 무한스크롤 발동 조건
-        if scrollView.contentOffset.y < 200 && scrollView.isDecelerating && !isScrollLoading && !didGetAllChatLog {
+        if scrollView.contentOffset.y > (scrollView.contentSize.height - scrollView.bounds.height - 200) && scrollView.isDecelerating && !isScrollLoading && !didGetAllChatLog {
             expandChatLogCollectionView()
         }
         
