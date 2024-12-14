@@ -86,7 +86,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
             self.rootView.chatLogCollectionView.contentInset.top = 135 + rootView.safeAreaInsets.bottom
             updateCollectionView(animatingDifferences: false) { [weak self] in
                 guard let self else { return }
-                self.scrollToFirstCell(animated: true)
+                self.scrollToFirstCell(at: .centeredVertically, animated: true)
             }
         }
     }
@@ -415,11 +415,11 @@ extension CharacterChatLogViewController {
         
     }
     
-    private func scrollToFirstCell(animated: Bool) {
+    private func scrollToFirstCell(at scrollPosition: UICollectionView.ScrollPosition = .top, animated: Bool) {
         guard rootView.chatLogCollectionView.cellForItem(
             at: IndexPath(item: 0, section: 0)
         ) != nil else { return }
-        rootView.chatLogCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: animated)
+        rootView.chatLogCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: scrollPosition, animated: animated)
     }
     
     private func updateChatInputViewHeight(height: CGFloat) {
