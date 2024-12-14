@@ -32,7 +32,6 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     /// `rootView.safeAreaInsets.bottom` 와 `rootView.userChatView.frame.height`가 0 이어서 사용자 입력창이 보이게 되는 현상 발생함.
     private var isKeyboardShown: Bool = false
     private var lastCursor: Int? = nil
-    private var currentYOffset: CGFloat = 0
     private var expectedYOffet: CGFloat = 0
     private var isScrollLoading: Bool = false
     private var didGetAllChatLog: Bool = false
