@@ -82,7 +82,6 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         setupGestureRecognizers()
         updateChatLogDataSource(characterId: characterId, limit: 28, cursor: nil) { [weak self] in
             guard let self else { return }
-            self.didGetAllChatLog = false
             self.showChatButton()
             self.rootView.chatLogCollectionView.contentInset.top = 135 + rootView.safeAreaInsets.bottom
             updateCollectionView(animatingDifferences: false) { [weak self] in
@@ -252,7 +251,7 @@ extension CharacterChatLogViewController {
                     return
                 }
                 
-                if responseDTO.data.count == 0 {
+                if responseDTO.data.count < limit {
                     self.didGetAllChatLog = true
                     rootView.chatLogCollectionView.stopScrollLoading(direction: .bottom)
                 }
