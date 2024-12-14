@@ -39,21 +39,21 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private var isScrollingToTop: Bool = false
     
     // userChatInputView의 textInputView의 height를 전달
-    let userChatInputViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
-    let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    let isCharacterResponding = BehaviorRelay<Bool>(value: false)
-    let isTextViewEmpty = BehaviorRelay<Bool>(value: true)
+    private let userChatInputViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
+    private let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    private let isCharacterResponding = BehaviorRelay<Bool>(value: false)
+    private let isTextViewEmpty = BehaviorRelay<Bool>(value: true)
     
-    var disposeBag = DisposeBag()
-    var characterId: Int?
-    var characterName: String {
+    private var disposeBag = DisposeBag()
+    private var characterId: Int?
+    private var characterName: String {
         guard let representativeCharacterId = MyInfoManager.shared.representativeCharacterID else { return "" }
         return MyInfoManager.shared.characterInfo[characterId ?? representativeCharacterId] ?? ""
     }
     
     //MARK: - DiffableDataSource
     
-    var dataSource: UICollectionViewDiffableDataSource<String, ChatDataModel>!
+    private var dataSource: UICollectionViewDiffableDataSource<String, ChatDataModel>!
     
     //MARK: - Life Cycle
     
