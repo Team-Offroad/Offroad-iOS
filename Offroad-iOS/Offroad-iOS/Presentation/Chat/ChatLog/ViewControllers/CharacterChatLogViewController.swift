@@ -399,16 +399,11 @@ extension CharacterChatLogViewController {
     private func scrollToLastCell(animated: Bool) {
         guard let lastIndexPath = rootView.chatLogCollectionView.getIndexPathFromLast(index: 1) else { return }
         if animated {
-            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: { [weak self] in
-                guard let self else { return }
-                self.rootView.chatLogCollectionView.scrollToItem(at: lastIndexPath, at: .top, animated: false)
-            }, completion: { [weak self] isFinished in
-                guard let self else { return }
-                self.isScrollingToTop = false
-                if !self.isScrollLoading && !self.didGetAllChatLog {
-                    self.expandChatLogCollectionView()
-                }
-            })
+            let targetOffset = CGPoint(
+                x: 0,
+                y: rootView.chatLogCollectionView.contentSize.height - rootView.chatLogCollectionView.bounds.height
+            )
+            self.rootView.chatLogCollectionView.setContentOffset(targetOffset, animated: true)
             
         } else {
             rootView.chatLogCollectionView.scrollToItem(at: lastIndexPath, at: .top, animated: false)
@@ -571,6 +566,7 @@ extension CharacterChatLogViewController: UIScrollViewDelegate {
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         rootView.userChatInputView.resignFirstResponder()
         isScrollingToTop = true
+        // custom ScrollToTop 동작
         scrollToLastCell(animated: true)
         return false
     }
@@ -579,6 +575,14 @@ extension CharacterChatLogViewController: UIScrollViewDelegate {
         isScrollingToTop = false
         if !isScrollLoading && !didGetAllChatLog {
             expandChatLogCollectionView()
+        }
+    }
+    
+    // customScrollToTop 의 completion handler 역할
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        self.isScrollingToTop = false
+        if !self.isScrollLoading && !self.didGetAllChatLog {
+            self.expandChatLogCollectionView()
         }
     }
     
