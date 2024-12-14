@@ -101,6 +101,14 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         ORBCharacterChatManager.shared.endChat()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        rootView.chatLogCollectionView.automaticallyAdjustsScrollIndicatorInsets = false
+        rootView.chatLogCollectionView.verticalScrollIndicatorInsets =
+            .init(top: rootView.safeAreaInsets.bottom, left: 0, bottom: 0, right: 0)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -531,7 +539,7 @@ extension CharacterChatLogViewController {
         isScrollLoading = true
         self.updateChatLogDataSource(characterId: characterId, limit: 14, cursor: lastCursor) { [weak self] in
             guard let self else { return }
-            self.updateCollectionView(animatingDifferences: true)
+            self.updateCollectionView(animatingDifferences: false)
         }
     }
     
