@@ -84,6 +84,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
             guard let self else { return }
             self.didGetAllChatLog = false
             self.showChatButton()
+            self.rootView.chatLogCollectionView.contentInset.top = 135 + rootView.safeAreaInsets.bottom
             updateCollectionView(animatingDifferences: false) { [weak self] in
                 guard let self else { return }
                 self.scrollToFirstCell(animated: true)
@@ -137,8 +138,8 @@ extension CharacterChatLogViewController {
             guard let self else { return }
             rootView.userChatBoundsView.bounds.origin.y = 0
             rootView.chatLogCollectionView.contentInsetAdjustmentBehavior = .never
-            rootView.chatLogCollectionView.contentInset.bottom = rootView.keyboardLayoutGuide.layoutFrame.height + rootView.userChatView.frame.height + 16
-            self.scrollToLastCell(animated: false)
+            rootView.chatLogCollectionView.contentInset.top = rootView.keyboardLayoutGuide.layoutFrame.height + rootView.userChatView.frame.height + 16
+            self.scrollToFirstCell(animated: false)
             rootView.layoutIfNeeded()
         }
     }
@@ -151,8 +152,8 @@ extension CharacterChatLogViewController {
         UIView.animate(withDuration: 0.5) { [weak self] in
             guard let self else { return }
             rootView.userChatBoundsView.bounds.origin.y = -(rootView.safeAreaInsets.bottom + rootView.userChatView.frame.height)
-            rootView.chatLogCollectionView.contentInsetAdjustmentBehavior = .automatic
-            rootView.chatLogCollectionView.contentInset.bottom = 135
+            rootView.chatLogCollectionView.contentInsetAdjustmentBehavior = .never
+            rootView.chatLogCollectionView.contentInset.top = 135 + rootView.safeAreaInsets.bottom
             rootView.layoutIfNeeded()
         }
     }
@@ -564,13 +565,15 @@ extension CharacterChatLogViewController: UIScrollViewDelegate {
         // 채팅하기 버튼 숨김 여부
         if scrollView.contentSize.height > 0 {
             let scrollOffsetAtBottomEdge =
-            max(scrollView.contentSize.height - (scrollView.bounds.height - rootView.safeAreaInsets.bottom - 135), 0)
+            -(rootView.safeAreaInsets.bottom + 135)
             
-            if ceil(scrollView.contentOffset.y) >= (scrollOffsetAtBottomEdge - 20) {
+            if floor(scrollView.contentOffset.y) <= (scrollOffsetAtBottomEdge) {
                 showChatButton()
             } else {
                 hideChatButton()
             }
+        } else {
+            showChatButton()
         }
     }
     
