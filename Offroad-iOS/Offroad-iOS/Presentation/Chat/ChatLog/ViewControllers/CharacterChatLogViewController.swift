@@ -146,7 +146,7 @@ extension CharacterChatLogViewController {
             rootView.userChatBoundsView.bounds.origin.y = 0
             rootView.chatLogCollectionView.contentInsetAdjustmentBehavior = .never
             rootView.chatLogCollectionView.contentInset.top = rootView.keyboardLayoutGuide.layoutFrame.height + rootView.userChatView.frame.height + 16
-            self.scrollToFirstCell(animated: false)
+            self.scrollToFirstCell(at: .top, animated: false)
             rootView.layoutIfNeeded()
         }
     }
@@ -346,7 +346,7 @@ extension CharacterChatLogViewController {
                     ) { [weak self] in
                     guard let self else { return }
                     self.rootView.chatLogCollectionView.contentInset.top = self.rootView.keyboardLayoutGuide.layoutFrame.height + self.rootView.userChatView.frame.height + 16.0
-                    self.scrollToFirstCell(animated: false)
+                        self.scrollToFirstCell(at: .top, animated: false)
                 }
             } else {
                 self.updateChatInputViewHeight(height: 19.0 + (9*2))
@@ -358,7 +358,7 @@ extension CharacterChatLogViewController {
                 ) { [weak self] in
                     guard let self else { return }
                     self.rootView.chatLogCollectionView.contentInset.top = self.rootView.keyboardLayoutGuide.layoutFrame.height + self.rootView.userChatView.frame.height + 16.0
-                    self.scrollToFirstCell(animated: false)
+                    self.scrollToFirstCell(at: .top, animated: false)
                 }
             }
             self.rootView.updateConstraints()
