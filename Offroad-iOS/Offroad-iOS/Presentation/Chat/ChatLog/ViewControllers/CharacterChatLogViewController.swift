@@ -398,7 +398,26 @@ extension CharacterChatLogViewController {
     
     private func scrollToLastCell(animated: Bool) {
         guard let lastIndexPath = rootView.chatLogCollectionView.getIndexPathFromLast(index: 1) else { return }
-        rootView.chatLogCollectionView.scrollToItem(at: lastIndexPath, at: .top, animated: animated)
+        if animated {
+            UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: { [weak self] in
+                guard let self else { return }
+                self.rootView.chatLogCollectionView.scrollToItem(at: lastIndexPath, at: .top, animated: false)
+            }, completion: { [weak self] isFinished in
+                guard let self else { return }
+                self.isScrollingToTop = false
+                if !self.isScrollLoading && !self.didGetAllChatLog {
+                    self.expandChatLogCollectionView()
+                }
+            })
+            
+        } else {
+            rootView.chatLogCollectionView.scrollToItem(at: lastIndexPath, at: .top, animated: false)
+            isScrollingToTop = false
+            if !isScrollLoading && !didGetAllChatLog {
+                expandChatLogCollectionView()
+            }
+        }
+        
     }
     
     private func scrollToFirstCell(animated: Bool) {
@@ -539,7 +558,7 @@ extension CharacterChatLogViewController {
         isScrollLoading = true
         self.updateChatLogDataSource(characterId: characterId, limit: 14, cursor: lastCursor) { [weak self] in
             guard let self else { return }
-            self.updateCollectionView(animatingDifferences: false)
+            self.updateCollectionView(animatingDifferences: true)
         }
     }
     
@@ -565,7 +584,10 @@ extension CharacterChatLogViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // 무한스크롤 발동 조건
-        if scrollView.contentOffset.y > (scrollView.contentSize.height - scrollView.bounds.height + 20) && scrollView.isDecelerating && !isScrollLoading && !didGetAllChatLog {
+        if scrollView.contentOffset.y > (scrollView.contentSize.height - scrollView.bounds.height)
+            && scrollView.isDecelerating
+            && !isScrollLoading
+            && !didGetAllChatLog {
             expandChatLogCollectionView()
         }
         
