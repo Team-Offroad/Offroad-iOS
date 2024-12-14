@@ -56,9 +56,6 @@ extension CharacterChatLogFooter {
     //MARK: - Private Func
     
     private func setupStyle() {
-//        transform = verticalFlipTransform
-        backgroundColor = .red.withAlphaComponent(0.3)
-        
         dateLabel.do { label in
             label.font = .offroad(style: .iosBoxMedi)
             label.textColor = .main(.main3)

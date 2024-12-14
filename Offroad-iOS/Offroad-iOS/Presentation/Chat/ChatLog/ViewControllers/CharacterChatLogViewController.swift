@@ -179,11 +179,11 @@ extension CharacterChatLogViewController {
                 cell.configure(with: item, characterName: self.characterName)
             })
         
-        let headerRegistration = UICollectionView.SupplementaryRegistration<CharacterChatLogHeader>(
-            elementKind: UICollectionView.elementKindSectionHeader,
+        let footerRegistration = UICollectionView.SupplementaryRegistration<CharacterChatLogFooter>(
+            elementKind: UICollectionView.elementKindSectionFooter,
             handler: { [weak self] supplementaryView, elementKind, indexPath in
                 guard let self else { return }
-                let firstChatDataModelOfDay = self.chatLogDataSourceForSnapshot[self.chatLogDataSourceForSnapshot.keys.sorted(by: { $0 < $1 })[indexPath.section]]?.first
+                let firstChatDataModelOfDay = self.chatLogDataSourceForSnapshot[self.chatLogDataSourceForSnapshot.keys.sorted(by: { $0 > $1 })[indexPath.section]]?.first
                 supplementaryView.dateLabel.text = firstChatDataModelOfDay?.formattedDateString
             })
         
@@ -197,7 +197,7 @@ extension CharacterChatLogViewController {
             })
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) -> UICollectionReusableView? in
-            return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration,
+            return collectionView.dequeueConfiguredReusableSupplementary(using: footerRegistration,
                                                                          for: indexPath)
         }
     }
@@ -338,8 +338,8 @@ extension CharacterChatLogViewController {
                         initialSpringVelocity: 1
                     ) { [weak self] in
                     guard let self else { return }
-                    self.rootView.chatLogCollectionView.contentInset.bottom = self.rootView.keyboardLayoutGuide.layoutFrame.height + self.rootView.userChatView.frame.height + 16.0
-                    self.scrollToLastCell(animated: false)
+                    self.rootView.chatLogCollectionView.contentInset.top = self.rootView.keyboardLayoutGuide.layoutFrame.height + self.rootView.userChatView.frame.height + 16.0
+                    self.scrollToFirstCell(animated: false)
                 }
             } else {
                 self.updateChatInputViewHeight(height: 19.0 + (9*2))
@@ -350,8 +350,8 @@ extension CharacterChatLogViewController {
                     initialSpringVelocity: 1
                 ) { [weak self] in
                     guard let self else { return }
-                    self.rootView.chatLogCollectionView.contentInset.bottom = self.rootView.keyboardLayoutGuide.layoutFrame.height + self.rootView.userChatView.frame.height + 16.0
-                    self.scrollToLastCell(animated: false)
+                    self.rootView.chatLogCollectionView.contentInset.top = self.rootView.keyboardLayoutGuide.layoutFrame.height + self.rootView.userChatView.frame.height + 16.0
+                    self.scrollToFirstCell(animated: false)
                 }
             }
             self.rootView.updateConstraints()
@@ -423,7 +423,7 @@ extension CharacterChatLogViewController {
         chatLogDataList.insert(chatDataModelToAppend, at: 0)
         updateCollectionView(animatingDifferences: true, completion: { [weak self] in
             guard let self else { return }
-            self.scrollToLastCell(animated: true)
+            self.scrollToFirstCell(animated: true)
             completion?()
         })
     }
@@ -487,7 +487,7 @@ extension CharacterChatLogViewController {
             let secondLastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 2) else {
             self.showToast(message: "알 수 없는 오류가 발생했어요. 채팅을 다시 시도해 주세요.", inset: 66)
             self.rootView.chatLogCollectionView.reloadData()
-            self.scrollToLastCell(animated: true)
+            self.scrollToFirstCell(animated: true)
             return
         }
         
@@ -497,14 +497,14 @@ extension CharacterChatLogViewController {
             }
             updateCollectionView(animatingDifferences: true) { [weak self] in
                 guard let self else { return }
-                self.scrollToLastCell(animated: true)
+                self.scrollToFirstCell(animated: true)
                 self.showChatButton()
             }
         } else {
             chatLogDataList.removeFirst(2)
             updateCollectionView(animatingDifferences: true) { [weak self] in
                 guard let self else { return }
-                self.scrollToLastCell(animated: true)
+                self.scrollToFirstCell(animated: true)
                 self.showChatButton()
             }
         }
@@ -545,7 +545,8 @@ extension CharacterChatLogViewController: UIScrollViewDelegate {
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         rootView.userChatInputView.resignFirstResponder()
         isScrollingToTop = true
-        return true
+        scrollToLastCell(animated: true)
+        return false
     }
     
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
@@ -556,8 +557,6 @@ extension CharacterChatLogViewController: UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        currentYOffset = scrollView.contentOffset.y
-        
         // 무한스크롤 발동 조건
         if scrollView.contentOffset.y > (scrollView.contentSize.height - scrollView.bounds.height + 20) && scrollView.isDecelerating && !isScrollLoading && !didGetAllChatLog {
             expandChatLogCollectionView()

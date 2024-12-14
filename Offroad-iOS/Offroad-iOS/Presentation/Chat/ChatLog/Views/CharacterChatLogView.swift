@@ -13,11 +13,13 @@ class CharacterChatLogView: UIView {
     
     //MARK: - Properties
     
+    private let verticalFlipTransform = CGAffineTransform(scaleX: 1, y: -1)
+    
     private var layout: UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 16
-        layout.headerReferenceSize = .init(width: UIScreen.currentScreenSize.width, height: 25)
+        layout.footerReferenceSize = .init(width: UIScreen.currentScreenSize.width, height: 25)
         layout.sectionInset = .init(top: 22, left: 0, bottom: 22, right: 0)
         return layout
     }
@@ -154,15 +156,9 @@ extension CharacterChatLogView {
         
         chatLogCollectionView.do { collectionView in
             collectionView.backgroundColor = .clear
-            collectionView.register(CharacterChatLogCell.self, forCellWithReuseIdentifier: CharacterChatLogCell.className)
-            collectionView.register(
-                CharacterChatLogHeader.self,
-                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                withReuseIdentifier: CharacterChatLogHeader.className
-            )
-            collectionView.contentInsetAdjustmentBehavior = .automatic
-            collectionView.contentInset.bottom = 135
+            collectionView.contentInsetAdjustmentBehavior = .never
             collectionView.keyboardDismissMode = .onDrag
+            collectionView.transform = verticalFlipTransform
         }
         
         chatButton.do { button in

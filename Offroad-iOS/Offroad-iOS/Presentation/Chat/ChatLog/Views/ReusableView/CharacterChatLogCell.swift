@@ -18,6 +18,8 @@ class CharacterChatLogCell: UICollectionViewCell {
     
     //MARK: - Properties
     
+    private let verticalFlipTransform = CGAffineTransform(scaleX: 1, y: -1)
+    
     let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     
     private var role: CellType = .user
@@ -82,6 +84,7 @@ extension CharacterChatLogCell {
     //MARK: - Private Func
     
     private func setupStyle() {
+        contentView.transform = verticalFlipTransform
         chatBubbleView.backgroundColor = .main(.main3)
         chatBubbleView.roundCorners(cornerRadius: 14)
         chatBubbleView.layer.borderColor = UIColor.neutral(.btnInactive).cgColor

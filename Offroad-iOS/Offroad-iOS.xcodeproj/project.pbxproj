@@ -50,7 +50,7 @@
 		4E393C9A2C48C9A6003403EC /* QuestResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E393C992C48C9A6003403EC /* QuestResultViewController.swift */; };
 		4E393C9C2C48C9B2003403EC /* QuestResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E393C9B2C48C9B2003403EC /* QuestResultView.swift */; };
 		4E3A32622CE4EDD0007228D0 /* CharacterChatLogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32612CE4EDD0007228D0 /* CharacterChatLogCell.swift */; };
-		4E3A32652CE4EE48007228D0 /* CharacterChatLogHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32642CE4EE48007228D0 /* CharacterChatLogHeader.swift */; };
+		4E3A32652CE4EE48007228D0 /* CharacterChatLogFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32642CE4EE48007228D0 /* CharacterChatLogFooter.swift */; };
 		4E3A32692CE510DF007228D0 /* CharacterChatAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32682CE510DF007228D0 /* CharacterChatAPI.swift */; };
 		4E3A326B2CE510ED007228D0 /* CharacterChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A326A2CE510ED007228D0 /* CharacterChatService.swift */; };
 		4E3A326F2CE5114C007228D0 /* CharacterChatPostRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A326E2CE5114C007228D0 /* CharacterChatPostRequestDTO.swift */; };
@@ -346,7 +346,7 @@
 		4E393C992C48C9A6003403EC /* QuestResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestResultViewController.swift; sourceTree = "<group>"; };
 		4E393C9B2C48C9B2003403EC /* QuestResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestResultView.swift; sourceTree = "<group>"; };
 		4E3A32612CE4EDD0007228D0 /* CharacterChatLogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatLogCell.swift; sourceTree = "<group>"; };
-		4E3A32642CE4EE48007228D0 /* CharacterChatLogHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatLogHeader.swift; sourceTree = "<group>"; };
+		4E3A32642CE4EE48007228D0 /* CharacterChatLogFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatLogFooter.swift; sourceTree = "<group>"; };
 		4E3A32682CE510DF007228D0 /* CharacterChatAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatAPI.swift; sourceTree = "<group>"; };
 		4E3A326A2CE510ED007228D0 /* CharacterChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatService.swift; sourceTree = "<group>"; };
 		4E3A326E2CE5114C007228D0 /* CharacterChatPostRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatPostRequestDTO.swift; sourceTree = "<group>"; };
@@ -1165,7 +1165,7 @@
 			isa = PBXGroup;
 			children = (
 				4E3A32612CE4EDD0007228D0 /* CharacterChatLogCell.swift */,
-				4E3A32642CE4EE48007228D0 /* CharacterChatLogHeader.swift */,
+				4E3A32642CE4EE48007228D0 /* CharacterChatLogFooter.swift */,
 			);
 			path = ReusableView;
 			sourceTree = "<group>";
@@ -2856,7 +2856,7 @@
 				87D9A70D2CE9BC1700F1CECD /* ScrollLoadingView.swift in Sources */,
 				4E0394DD2C2ABEF2007F0517 /* UITextField+.swift in Sources */,
 				D06466A52C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift in Sources */,
-				4E3A32652CE4EE48007228D0 /* CharacterChatLogHeader.swift in Sources */,
+				4E3A32652CE4EE48007228D0 /* CharacterChatLogFooter.swift in Sources */,
 				4EF6B03F2CC3EEFE00066640 /* ORBAlertViewTextField.swift in Sources */,
 				D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */,
 				4E46E5F92CB99944000A1EEE /* ORBToastWindow.swift in Sources */,
