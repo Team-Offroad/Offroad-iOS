@@ -559,7 +559,7 @@ extension CharacterChatLogViewController: UIScrollViewDelegate {
         currentYOffset = scrollView.contentOffset.y
         
         // 무한스크롤 발동 조건
-        if scrollView.contentOffset.y > (scrollView.contentSize.height - scrollView.bounds.height - 200) && scrollView.isDecelerating && !isScrollLoading && !didGetAllChatLog {
+        if scrollView.contentOffset.y > (scrollView.contentSize.height - scrollView.bounds.height + 20) && scrollView.isDecelerating && !isScrollLoading && !didGetAllChatLog {
             expandChatLogCollectionView()
         }
         
