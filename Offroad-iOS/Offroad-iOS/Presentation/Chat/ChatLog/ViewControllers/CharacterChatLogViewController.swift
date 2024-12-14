@@ -17,7 +17,9 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private let viewModel = CharacterChatLogViewModel()
     private let chatButtonHidingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private var rootView: CharacterChatLogView!
-    private var chatLogDataList: [ChatDataModel] = []
+    private var chatLogDataList: [ChatDataModel] = [] {
+        didSet { chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList) }
+    }
     private var chatLogDataSource: [[ChatDataModel]] = [[]]
     private var isChatButtonHidden: Bool = true
     /// 채팅 중에 채팅 로그 뷰 진입 시 키보드가 내려가는데, 이때 keyboardWillHide() 메서드가 불리지 않게 하기 위해 사용하는 flag.
@@ -25,6 +27,9 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     /// 채팅 중에 채팅 로그 뷰에 진입하면 키보드가 내려가는 경우 `keyboardWillHide()`가 불리게 되는데, 이때
     /// `rootView.safeAreaInsets.bottom` 와 `rootView.userChatView.frame.height`가 0 이어서 사용자 입력창이 보이게 되는 현상 발생함.
     private var isKeyboardShown: Bool = false
+    private var lastCursor: Int? = nil
+    private var isScrollLoading: Bool = false
+    private var didGetAllChatLog: Bool = false
     
     // userChatInputView의 textInputView의 height를 전달
     let userChatInputViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
@@ -65,7 +70,13 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         bindData()
         setupNotifications()
         setupGestureRecognizers()
-        requestChatLogDataSource(characterId: characterId)
+        updateChatLogDataSource(characterId: characterId, limit: 28, cursor: nil) { [weak self] in
+            guard let self else { return }
+            self.didGetAllChatLog = false
+            self.showChatButton()
+            self.rootView.chatLogCollectionView.reloadData()
+            self.scrollToBottom(animated: false)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -180,12 +191,15 @@ extension CharacterChatLogViewController {
         rootView.chatLogCollectionView.addGestureRecognizer(tapGesture)
     }
     
-    private func requestChatLogDataSource(characterId: Int? = nil) {
+    private func updateChatLogDataSource(characterId: Int? = nil, limit: Int, cursor: Int?, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
+            guard cursor == nil else { return }
             self.view.startLoading()
         }
-        NetworkService.shared.characterChatService.getChatLog(characterId: characterId) { [weak self] result in
+        NetworkService.shared.characterChatService.getChatLog(characterId: characterId,
+                                                              limit: limit,
+                                                              cursor: cursor) { [weak self] result in
             guard let self else { return }
             self.view.stopLoading()
             switch result {
@@ -194,20 +208,23 @@ extension CharacterChatLogViewController {
                     showToast(message: "responseDTO가 없습니다.", inset: 66)
                     return
                 }
-                chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
-                chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList)
-                rootView.chatLogCollectionView.reloadData()
-                self.scrollToBottom(animated: false)
-                showChatButton()
-            case .networkFail(let errorResponseDTO):
-                print("message: \(errorResponseDTO?.message)")
-                print("customErrorCode: \(errorResponseDTO?.customErrorCode)")
-                showToast(message: ErrorMessages.networkError, inset: 66)
+                
+                if responseDTO.data.count == 0 { self.didGetAllChatLog = true }
+                if let cursor {
+                    self.chatLogDataList.append(contentsOf: responseDTO.data.map({ ChatDataModel(data: $0) }))
+                } else {
+                    self.chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
+                }
+                
+                guard chatLogDataList.count > 0 else { return }
+                self.lastCursor = chatLogDataList.last!.id
+                completion?()
+            case .networkFail:
+                return
             case .decodeErr:
                 showToast(message: "디코딩 에러.", inset: 66)
-            case .serverErr(let errorResponseDTO):
-                print("message: \(errorResponseDTO?.message)")
-                print("customErrorCode: \(errorResponseDTO?.customErrorCode)")
+            case .serverErr:
+                showToast(message: "서버 에러.", inset: 66)
             default:
                 self.showToast(message: "Something went wrong", inset: 60)
             }
@@ -249,15 +266,16 @@ extension CharacterChatLogViewController {
         rootView.sendButton.rx.tap.bind(
             onNext: { [weak self] in
                 guard let self else { return }
-                self.postCharacterChat(characterId: characterId, message: self.rootView.userChatInputView.text)
+                let userMessage = self.rootView.userChatInputView.text
                 self.rootView.sendButton.isEnabled = false
                 // 사용자 채팅 버블 추가
-                self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text) { [weak self] isFinished in
+                self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text, isLoading: false) { [weak self] isFinished in
                     guard let self else { return }
                     // 캐릭터 셀 추가
-                    self.sendChatBubble(isUserChat: false, text: "")
-                    // 추가된 캐릭터 셀 로딩 시작
-                    makeLastCellLoading()
+                    self.sendChatBubble(isUserChat: false, text: "", isLoading: true) { [weak self] isFinished in
+                        guard let self else { return }
+                        self.postCharacterChat(characterId: characterId, message: userMessage!)
+                    }
                 }
                 self.rootView.userChatInputView.text = ""
                 
@@ -298,9 +316,7 @@ extension CharacterChatLogViewController {
         NetworkMonitoringManager.shared.networkConnectionChanged
             .subscribe(onNext: { [weak self] isConnected in
                 guard let self else { return }
-                if isConnected {
-                    self.requestChatLogDataSource(characterId: characterId)
-                } else {
+                if !isConnected {
                     showToast(message: ErrorMessages.networkError, inset: 66)
                 }
             }).disposed(by: disposeBag)
@@ -343,13 +359,14 @@ extension CharacterChatLogViewController {
         userChatInputViewHeightAnimator.startAnimation()
     }
     
-    private func sendChatBubble(isUserChat: Bool, text: String, completeion: ((Bool) -> Void)? = nil) {
+    private func sendChatBubble(isUserChat: Bool, text: String, isLoading: Bool, completeion: ((Bool) -> Void)? = nil) {
+        print(#function)
         let currentDate = Date()
         let indexPathToInsert: IndexPath
         var collectionViewUpdateClosure: ( () -> Void )? = nil
         
-        // 채팅 로그가 있는 경우
-        if let latestChatData = chatLogDataList.last {
+        // 채팅 로그가 있는 경우 (가장 최근 채팅 내역이 있는 경우)
+        if let latestChatData = chatLogDataList.first {
             
             // 가장 마지막 채팅이 오늘인 경우 -> 기존 Section에 Item만 추가
             if viewModel.areDatesSameDay(latestChatData.createdDate!, currentDate) {
@@ -360,7 +377,6 @@ extension CharacterChatLogViewController {
                 )
                 collectionViewUpdateClosure = { [weak self] in
                     guard let self else { return }
-                    self.rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
                     self.rootView.chatLogCollectionView.insertItems(at: [indexPathToInsert])
                 }
                 
@@ -370,7 +386,6 @@ extension CharacterChatLogViewController {
                 indexPathToInsert = IndexPath(item: 0, section: self.chatLogDataSource.count)
                 collectionViewUpdateClosure = { [weak self] in
                     guard let self else { return }
-                    self.rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
                     self.rootView.chatLogCollectionView.insertSections(.init(integer: self.chatLogDataSource.count-1))
                     self.rootView.chatLogCollectionView.insertItems(at: [indexPathToInsert])
                 }
@@ -388,31 +403,16 @@ extension CharacterChatLogViewController {
         }
         
         // performBatchUpdates 호출하기 전에 DataSource를 먼저 업데이트
-        self.chatLogDataList.append(
-            ChatDataModel(role: isUserChat ? "USER" : "ORB_CHARACTER", content: text, createdData: currentDate)
+        self.chatLogDataList.insert(
+            ChatDataModel(role: isUserChat ? "USER" : "ORB_CHARACTER", content: text, createdData: currentDate, isLoading: isLoading),
+            at: 0
         )
-        self.chatLogDataSource = self.viewModel.groupChatsByDate(chats: self.chatLogDataList)
         
         // DataSource 업데이트 후 performBatchUpdates 호출
         self.rootView.chatLogCollectionView.performBatchUpdates(collectionViewUpdateClosure, completion: completeion)
         
         // collection view가 업데이트될 때마다 가징 최신의 채팅(가장 아래의 채팅)이 보여지도록 구현
         self.scrollToBottom(animated: true)
-    }
-    
-    private func makeLastCellLoading() {
-        let lastSection = chatLogDataSource.count - 1
-        let lastSectionCount = chatLogDataSource[lastSection].count
-        let lastIndexPath = IndexPath(
-            item: lastSectionCount-1,
-            section: lastSection
-        )
-        chatLogDataSource[lastIndexPath.section][lastIndexPath.item].isLoading = true
-        chatLogDataSource[lastIndexPath.section][lastIndexPath.item].content = " "
-        rootView.chatLogCollectionView.performBatchUpdates {
-            rootView.chatLogCollectionView.reloadItems(at: [lastIndexPath])
-            rootView.chatLogCollectionView.collectionViewLayout.invalidateLayout()
-        }
     }
     
     private func postCharacterChat(characterId: Int?, message: String) {
@@ -422,11 +422,12 @@ extension CharacterChatLogViewController {
             guard let self else { return }
             switch result {
             case .success(let dto):
-                guard dto != nil else {
-                    self.showToast(message: "requestDTO is nil", inset: 66)
+                guard let data = dto?.data else {
+                    self.showToast(message: "response data is Empty", inset: 66)
                     return
-                }                
-                self.updateChatLog()
+                }
+                let chatDataModel = ChatDataModel(data: data)
+                self.updateChatLog(chatSuccess: true, characterResponse: chatDataModel)
                 
             case .requestErr:
                 self.showToast(message: "requestError occurred", inset: 66)
@@ -461,52 +462,109 @@ extension CharacterChatLogViewController {
     /// 채팅이 실패했을 경우, 로딩 중이던 캐릭터의 말풍선과 직전에 내가 했던 말풍선을 지움.
     ///
     /// 지우려는 말풍선의 indexPath를 구할 수 없는 경우, 채팅 로그 뷰컨트롤러를 nagivation stack에서 pop 하며 에러 메시지 토스트 표시
-    private func updateChatLog(chatSuccess: Bool = true) {
-        NetworkService.shared.characterChatService.getChatLog(characterId: characterId, completion: { [weak self] result in
+    private func updateChatLog(chatSuccess: Bool, characterResponse: ChatDataModel? = nil) {
+        let dataSourceSectionCount = chatLogDataSource.count
+        let dataSourceLastSectionItemCount = chatLogDataSource.last?.count ?? 0
+        
+        guard dataSourceSectionCount > 0, dataSourceLastSectionItemCount > 2 else { return }
+        
+        guard
+            let lastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 1),
+            let secondLastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 2) else {
+            self.showToast(message: "알 수 없는 오류가 발생했어요. 채팅을 다시 시도해 주세요.", inset: 66)
+            self.rootView.chatLogCollectionView.reloadData()
+            self.scrollToBottom(animated: true)
+            return
+        }
+        
+        if chatSuccess {
+            print("변경될 말풍선 내용(비어있어야함): \(chatLogDataSource[dataSourceSectionCount - 1][dataSourceLastSectionItemCount - 1].content)")
+            if let characterResponse, chatLogDataList.count > 0 {
+                chatLogDataList[0] = characterResponse
+            }
+            self.rootView.chatLogCollectionView.performBatchUpdates {
+                self.rootView.chatLogCollectionView.reloadItems(at: [lastIndexPath])
+            }
+        } else {
+            chatLogDataList.removeFirst(2)
+            self.rootView.chatLogCollectionView.performBatchUpdates {
+                self.rootView.chatLogCollectionView.deleteItems(at: [lastIndexPath, secondLastIndexPath])
+                let lastSection = self.rootView.chatLogCollectionView.numberOfSections - 1
+                if self.chatLogDataSource.count == 0 || self.chatLogDataSource.last?.count == 0 {
+                    self.rootView.chatLogCollectionView.deleteSections([lastSection])
+                }
+            }
+        }
+        self.scrollToBottom(animated: false)
+        showChatButton()
+    }
+    
+    private func expandChatLogCollectionView() {
+        let previousSectionCount = self.rootView.chatLogCollectionView.numberOfSections
+        let previousFirstSectionItemsCount = self.rootView.chatLogCollectionView.numberOfItems(inSection: 0)
+        isScrollLoading = true
+        self.updateChatLogDataSource(characterId: characterId, limit: 14, cursor: lastCursor) { [weak self] in
             guard let self else { return }
-            self.tabBarController?.view.stopLoading()
-            switch result {
-            case .success(let responseDTO):
-                guard let responseDTO else {
-                    showToast(message: "responseDTO가 없습니다.", inset: 66)
-                    return
-                }
-                self.chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
-                self.chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList)
+            
+            let newSectionCount = self.chatLogDataSource.count
+            let sectionCountDifference = newSectionCount - previousSectionCount
+            
+            var sectionsToInsert: [Int] = []
+            var indexPathsToInsert:[IndexPath] = []
+            var collectionViewUpdateClosure: ( () -> Void )? = nil
+            
+            // 추가되는 섹션이 없을 경우
+            if sectionCountDifference == 0 {
+                // 첫 번째 섹션에서 추가되는 item 수
+                let itemDifference = self.chatLogDataSource[0].count - previousFirstSectionItemsCount
                 
-                guard
-                    let lastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 1),
-                    let secondLastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 2) else {
-                    self.showToast(message: "알 수 없는 오류가 발생했어요. 채팅을 다시 시도해 주세요.", inset: 66)
-                    self.rootView.chatLogCollectionView.reloadData()
-                    self.scrollToBottom(animated: true)
-                    return
+                for i in 0..<itemDifference {
+                    indexPathsToInsert.append(IndexPath(item: i, section: 0))
+                }
+                collectionViewUpdateClosure = { [weak self] in
+                    guard let self else { return }
+                    self.rootView.chatLogCollectionView.insertItems(at: indexPathsToInsert)
                 }
                 
-                if chatSuccess {
-                    self.rootView.chatLogCollectionView.performBatchUpdates {
-                        self.rootView.chatLogCollectionView.reloadItems(at: [lastIndexPath])
+            } else if sectionCountDifference > 0 {
+                for sectionIndex in 0...sectionCountDifference {
+                    if sectionIndex != sectionCountDifference {
+                        sectionsToInsert.append(sectionIndex)
                     }
-                } else {
-                    self.rootView.chatLogCollectionView.performBatchUpdates {
-                        self.rootView.chatLogCollectionView.deleteItems(at: [lastIndexPath, secondLastIndexPath])
-                        let lastSection = self.rootView.chatLogCollectionView.numberOfSections - 1
-                        if self.chatLogDataSource.count == 0 || self.chatLogDataSource.last?.count == 0 {
-                            self.rootView.chatLogCollectionView.deleteSections([lastSection])
+                    // 기존에 존재하던 Section인 경우 (기존에 존재하던 Section의 item 수의 차이만큼 추가)
+                    if sectionIndex == sectionCountDifference {
+                        let itemDifferece = self.chatLogDataSource[sectionIndex].count - previousFirstSectionItemsCount
+                        for i in 0..<itemDifferece {
+                            indexPathsToInsert.append(IndexPath(item: i, section: sectionIndex))
                         }
                     }
+                    /*
+                     새로 추가되는 Section인 경우 DataSource를 바탕으로 item의 갯수 자동으로 계산됨.
+                     (별도 insertItems 작업 필요 없음.)
+                     */
                 }
-                self.scrollToBottom(animated: false)
-                showChatButton()
-            case .networkFail:
-                showToast(message: ErrorMessages.networkError, inset: 66)
-            case .decodeErr:
-                showToast(message: "디코딩 에러.", inset: 66)
-            default:
-                self.showToast(message: "Something went wrong", inset: 60)
+                
+                collectionViewUpdateClosure = { [weak self] in
+                    guard let self else { return }
+                    self.rootView.chatLogCollectionView.insertSections(IndexSet(sectionsToInsert))
+                    self.rootView.chatLogCollectionView.insertItems(at: indexPathsToInsert)
+                }
+                
+            } else {
+                // 인터넷 재접속으로 인해 새로고침 된 경우
+                // 별도 조치 없음. (헷갈릴 것 같아 주석으로 남겨놓음.
             }
-        })
+            
+            UIView.animate(withDuration: 0, animations: { [weak self] in
+                guard let self else { return }
+                self.rootView.chatLogCollectionView.performBatchUpdates(collectionViewUpdateClosure)
+            }, completion: { [weak self] isFinished in
+                guard let self else { return }
+                self.isScrollLoading = false
+            })
+        }
     }
+    
     
 }
 
@@ -543,19 +601,27 @@ extension CharacterChatLogViewController: UICollectionViewDataSource {
     
 }
 
-//MARK: - UICollectionViewDelegate
+//MARK: - UIScrollViewDelegate
 
-extension CharacterChatLogViewController: UICollectionViewDelegate {
+extension CharacterChatLogViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView.contentSize.height > 0 else { return }
-        let scrollOffsetAtBottomEdge =
-        max(scrollView.contentSize.height - (scrollView.bounds.height - rootView.safeAreaInsets.bottom - 135), 0)
+        let triggerYOffset: CGFloat = 500
+        // 무한스크롤 발동 조건
+        if scrollView.contentOffset.y < triggerYOffset && !isScrollLoading && !didGetAllChatLog {
+            expandChatLogCollectionView()
+        }
         
-        if ceil(scrollView.contentOffset.y) >= (scrollOffsetAtBottomEdge - 20) {
-            showChatButton()
-        } else {
-            hideChatButton()
+        // 채팅하기 버튼 숨김 여부
+        if scrollView.contentSize.height > 0 {
+            let scrollOffsetAtBottomEdge =
+            max(scrollView.contentSize.height - (scrollView.bounds.height - rootView.safeAreaInsets.bottom - 135), 0)
+            
+            if ceil(scrollView.contentOffset.y) >= (scrollOffsetAtBottomEdge - 20) {
+                showChatButton()
+            } else {
+                hideChatButton()
+            }
         }
     }
     
