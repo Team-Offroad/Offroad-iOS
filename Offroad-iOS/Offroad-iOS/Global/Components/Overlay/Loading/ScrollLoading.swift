@@ -54,8 +54,6 @@ extension ScrollLoading {
             loadingLottie = bottomLoadingAnimationView
         }
         
-        // subview로 추가하려는 loadingLottie가 이미 subview로 들어가 있다면 return
-        // 아래 둘 중에 어느 게 더 나을 지 모르겠음.
         guard !currentLoadingDirections.contains(where: { $0 == direction }) else { return }
         guard !subviews.contains(where: { $0 == loadingLottie }) else { return }
         

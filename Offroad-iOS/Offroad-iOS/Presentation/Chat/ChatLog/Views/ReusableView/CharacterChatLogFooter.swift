@@ -41,8 +41,7 @@ extension CharacterChatLogFooter {
     
     private func setupLayout() {
         dateLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview()
+            make.centerX.top.equalToSuperview()
             make.height.equalTo(19)
         }
         
