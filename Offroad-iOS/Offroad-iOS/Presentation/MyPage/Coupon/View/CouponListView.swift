@@ -36,11 +36,12 @@ class CouponListView: UIView {
         layout.minimumLineSpacing = lineSpacing
         layout.sectionInset = .init(top: verticalInset, left: horizontalInset, bottom: verticalInset, right: horizontalInset)
         layout.itemSize = .init(width: itemWidth, height: itemWidth + 32)
+        layout.scrollDirection = .vertical
         return layout
     }
     
-    lazy var collectionViewForAvailableCoupons = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
-    lazy var collectionViewForUsedCoupons = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
+    lazy var collectionViewForAvailableCoupons = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
+    lazy var collectionViewForUsedCoupons = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
     let loadingView = LottieAnimationView(name: "loading1")
     
     // MARK: - Life Cycle
@@ -80,16 +81,16 @@ class CouponListView: UIView {
             collectionView.register(CouponCell.self, forCellWithReuseIdentifier: CouponCell.className)
             collectionView.backgroundColor = .clear
             collectionView.indicatorStyle = .black
-            collectionView.contentInsetAdjustmentBehavior = .never
-            collectionView.contentInset = .init(top: 20, left: 0, bottom: 87, right: 0)
+            collectionView.contentInsetAdjustmentBehavior = .always
+            collectionView.contentInset = .init(top: 20, left: 0, bottom: 20, right: 0)
         }
         
         collectionViewForUsedCoupons.do { collectionView in
             collectionView.register(CouponCell.self, forCellWithReuseIdentifier: CouponCell.className)
             collectionView.backgroundColor = .clear
             collectionView.indicatorStyle = .black
-            collectionView.contentInsetAdjustmentBehavior = .never
-            collectionView.contentInset = .init(top: 20, left: 0, bottom: 87, right: 0)
+            collectionView.contentInsetAdjustmentBehavior = .always
+            collectionView.contentInset = .init(top: 20, left: 0, bottom: 20, right: 0)
         }
         
         loadingView.do { animationView in

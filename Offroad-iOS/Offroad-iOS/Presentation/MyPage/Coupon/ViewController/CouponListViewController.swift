@@ -155,18 +155,18 @@ extension CouponListViewController{
                 self.usedCouponsCount = response.data.usedCouponsCount
                 
                 if isUsed {
-                    self.rootView.segmentedControl.changeSegmentTitle(at: 1, to: "사용 완료 \(usedCouponsCount)")
                     self.usedCouponDataSource.append(contentsOf: response.data.coupons)
                     self.lastCursorIDForUsedCoupons = response.data.coupons.last!.cursorId
-                    self.rootView.collectionViewForUsedCoupons.stopScrollLoading(lottie: self.rootView.loadingView)
+                    self.rootView.collectionViewForUsedCoupons.stopScrollLoading(direction: .bottom)
                     self.rootView.collectionViewForUsedCoupons.reloadData()
+                    self.rootView.segmentedControl.changeSegmentTitle(at: 1, to: "사용 완료 \(usedCouponsCount)")
                     self.lastIndexPathForUsedCoupons = IndexPath(item: self.usedCouponDataSource.count - 1, section: 0)
                 } else {
-                    self.rootView.segmentedControl.changeSegmentTitle(at: 0, to: "사용 가능 \(availableCouponsCount)")
                     self.availableCouponDataSource.append(contentsOf: response.data.coupons)
                     self.lastCursorIDForAvailableCoupons = response.data.coupons.last!.cursorId
-                    self.rootView.collectionViewForAvailableCoupons.stopScrollLoading(lottie: self.rootView.loadingView)
+                    self.rootView.collectionViewForAvailableCoupons.stopScrollLoading(direction: .bottom)
                     self.rootView.collectionViewForAvailableCoupons.reloadData()
+                    self.rootView.segmentedControl.changeSegmentTitle(at: 0, to: "사용 가능 \(availableCouponsCount)")
                     self.lastIndexPathForAvailableCoupons = IndexPath(item: self.availableCouponDataSource.count - 1, section: 0)
                 }
             default:
@@ -237,12 +237,14 @@ extension CouponListViewController: UICollectionViewDelegate {
         if collectionView == rootView.collectionViewForUsedCoupons {
             guard usedCouponDataSource.count < usedCouponsCount else { return }
             guard indexPath == lastIndexPathForUsedCoupons else { return }
-            collectionView.startScrollLoading(lottie: rootView.loadingView)
+            let scrollLoadingCollectionView = collectionView as! ScrollLoadingCollectionView
+            scrollLoadingCollectionView.startScrollLoading(direction: .bottom)
             getCouponListsFromServer(isUsed: true, size: 14, cursor: lastCursorIDForUsedCoupons)
         } else if collectionView == rootView.collectionViewForAvailableCoupons {
             guard availableCouponDataSource.count < availableCouponsCount else { return }
             guard indexPath == lastIndexPathForAvailableCoupons else { return }
-            collectionView.startScrollLoading(lottie: rootView.loadingView)
+            let scrollLoadingCollectionView = collectionView as! ScrollLoadingCollectionView
+            scrollLoadingCollectionView.startScrollLoading(direction: .bottom)
             getCouponListsFromServer(isUsed: false, size: 14, cursor: lastCursorIDForAvailableCoupons)
             
         }
