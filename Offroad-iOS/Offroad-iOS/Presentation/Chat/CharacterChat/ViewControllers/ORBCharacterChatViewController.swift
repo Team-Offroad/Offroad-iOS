@@ -94,6 +94,13 @@ extension ORBCharacterChatViewController {
     @objc private func tapGestureHandler(sender: UITapGestureRecognizer) {
         guard rootView.characterChatBox.mode == .withReplyButtonShrinked
                 || rootView.characterChatBox.mode == .withReplyButtonExpanded else { return }
+        NetworkService.shared.characterChatService.patchChatRead { [weak self] networkResult in
+            guard let self else { return }
+            switch networkResult {
+            case .success: return
+            default: self.showToast(message: ErrorMessages.networkError, inset: 66)
+            }
+        }
         ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController.onNext(MyInfoManager.shared.representativeCharacterID ?? 1)
     }
     
