@@ -87,6 +87,7 @@ extension HomeView {
         chatUnreadDotView.do { view in
             view.backgroundColor = .primary(.errorNew)
             view.roundCorners(cornerRadius: 4)
+            view.isHidden = true
         }
         
         shareButton.do {
