@@ -25,6 +25,7 @@ class ORBCharacterChatViewController: UIViewController {
     let userChatDisplayViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
     let isCharacterResponding = BehaviorRelay<Bool>(value: false)
     let isTextViewEmpty = BehaviorRelay<Bool>(value: true)
+    let patchChatReadRelay = PublishRelay<Void>()
     
     let characterChatBoxPositionAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     let characterChatBoxModeChangingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
@@ -92,13 +93,7 @@ extension ORBCharacterChatViewController {
     }
     
     @objc private func tapGestureHandler(sender: UITapGestureRecognizer) {
-        NetworkService.shared.characterChatService.patchChatRead { [weak self] networkResult in
-            guard let self else { return }
-            switch networkResult {
-            case .success: return
-            default: self.showToast(message: ErrorMessages.networkError, inset: 66)
-            }
-        }
+        patchChatReadRelay.accept(())
         ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController.onNext(MyInfoManager.shared.representativeCharacterID ?? 1)
     }
     
@@ -154,7 +149,9 @@ extension ORBCharacterChatViewController {
         
         rootView.characterChatBox.replyButton.rx.tap.bind { [weak self] in
             guard let self else { return }
-            self.rootView.userChatInputView.becomeFirstResponder()
+            if self.rootView.userChatInputView.becomeFirstResponder() {
+                self.patchChatReadRelay.accept(())
+            }
             self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
         }.disposed(by: disposeBag)
         
@@ -230,6 +227,16 @@ extension ORBCharacterChatViewController {
             }
             self.rootView.updateConstraints()
             self.rootView.layoutIfNeeded()
+        }).disposed(by: disposeBag)
+        
+        patchChatReadRelay.subscribe(onNext: {
+            NetworkService.shared.characterChatService.patchChatRead { [weak self] networkResult in
+                guard let self else { return }
+                switch networkResult {
+                case .success: return
+                default: self.showToast(message: ErrorMessages.networkError, inset: 66)
+                }
+            }
         }).disposed(by: disposeBag)
         
         Observable.combineLatest(isCharacterResponding, isTextViewEmpty)
