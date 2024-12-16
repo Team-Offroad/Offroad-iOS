@@ -293,6 +293,7 @@ extension ORBCharacterChatViewController {
         characterChatBoxPositionAnimator.stopAnimation(true)
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
             guard let self else { return }
+            // pagGesture로 변경된 (세로)위치 원상복구
             self.rootView.characterChatBox.transform = CGAffineTransform.identity
             self.rootView.characterChatBoxTopConstraint.constant = view.safeAreaInsets.top + 27
             self.rootView.layoutIfNeeded()
@@ -305,6 +306,7 @@ extension ORBCharacterChatViewController {
         characterChatBoxPositionAnimator.stopAnimation(true)
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
             guard let self else { return }
+            // pagGesture로 변경된 (세로)위치 원상복구
             self.rootView.characterChatBox.transform = CGAffineTransform.identity
             self.rootView.characterChatBoxTopConstraint.constant
             = -self.rootView.characterChatBox.frame.height
@@ -355,22 +357,12 @@ extension ORBCharacterChatViewController {
         rootView.characterChatBox.characterNameLabel.text = name + " :"
         rootView.characterChatBox.messageLabel.text = message
         changeChatBoxMode(to: mode, animated: animated)
-        let labelFrameWidth = rootView.characterChatBox.messageLabel.frame.width
-        let labelFrameHeight = rootView.characterChatBox.messageLabel.frame.height
-        let calculatedLabelSize = calculateLabelSize(
-            text: message,
-            font: rootView.characterChatBox.messageLabel.font,
-            maxSize: .init(width: labelFrameWidth, height: CGFloat.greatestFiniteMagnitude)
-        )
-        rootView.characterChatBox.chevronImageButton.isHidden
-        = (calculatedLabelSize.height > labelFrameHeight) ? false : true
     }
     
     func changeChatBoxMode(to mode: ChatBoxMode, animated: Bool) {
         characterChatBoxModeChangingAnimator.stopAnimation(true)
         rootView.characterChatBox.mode = mode
-        rootView.characterChatBox.chevronImageButton.isHidden =
-        (mode == .loading) ? true : false
+        rootView.characterChatBox.chevronImageButton.isHidden = (mode == .loading)
         if animated {
             characterChatBoxModeChangingAnimator.addAnimations { [weak self] in
                 guard let self else { return }
