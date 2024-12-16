@@ -22,7 +22,7 @@ final class HomeView: UIView {
     private let characterNameLabel = UILabel()
     private let backgroundImageView = UIImageView(image: UIImage(resource: .imgHomeBackground))
     let chatButton = UIButton()
-    private let chatUnreadDotView = UIView()
+    let chatUnreadDotView = UIView()
     let shareButton = UIButton()
     let changeCharacterButton = UIButton()
     private let buttonStackView = UIStackView()
