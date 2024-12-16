@@ -7,9 +7,11 @@
 
 import UIKit
 
-class CharacterChatLogHeader: UICollectionReusableView {
+class CharacterChatLogFooter: UICollectionReusableView {
     
     //MARK: - UI Properties
+    
+    private let verticalFlipTransform = CGAffineTransform(scaleX: 1, y: -1)
     
     let dateLabel = UILabel()
     private let separator = UIView()
@@ -26,16 +28,20 @@ class CharacterChatLogHeader: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        transform = verticalFlipTransform
+        super.layoutSubviews()
+    }
+    
 }
 
-extension CharacterChatLogHeader {
+extension CharacterChatLogFooter {
     
     //MARK: - Layout Func
     
     private func setupLayout() {
         dateLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview()
+            make.centerX.top.equalToSuperview()
             make.height.equalTo(19)
         }
         
