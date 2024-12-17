@@ -150,6 +150,10 @@ extension ORBCharacterChatViewController {
             guard let self else { return }
             self.rootView.window?.makeKeyAndVisible()
             self.rootView.userChatInputView.becomeFirstResponder()
+            
+            self.rootView.characterChatBox.isHidden = false
+            self.rootView.userChatView.isHidden = false
+            self.rootView.endChatButton.isHidden = false
             self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
         }.disposed(by: disposeBag)
         
@@ -327,6 +331,7 @@ extension ORBCharacterChatViewController {
         guard isUserChatInputViewShown else { return }
         let inputViewHeight = rootView.userChatView.frame.height
         isUserChatInputViewShown = false
+        // 48: 채팅 종료 버튼과 그 아래의 padding 값의 합
         updateChatInputViewPosition(bottomInset: -(48 + inputViewHeight))
     }
     
