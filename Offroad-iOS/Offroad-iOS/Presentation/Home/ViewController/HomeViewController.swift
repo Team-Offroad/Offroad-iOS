@@ -55,7 +55,6 @@ final class HomeViewController: OffroadTabBarViewController {
         setupTarget()
         getUserAdventureInfo()
         getUserQuestInfo()
-        getLastChatInfo()
         bindData()
         
         requestPushNotificationPermission()
@@ -69,7 +68,7 @@ final class HomeViewController: OffroadTabBarViewController {
         offroadTabBarController.showTabBarAnimation()
         
         self.navigationController?.navigationBar.isHidden = true
-        
+        getLastChatInfo()
     }
 }
 
@@ -136,8 +135,10 @@ extension HomeViewController {
     }
     
     private func getLastChatInfo() {
+        rootView.chatButton.isEnabled = false
         NetworkService.shared.characterChatService.getLastChatInfo { [weak self] networkResult in
             guard let self else { return }
+            self.rootView.chatButton.isEnabled = true
             switch networkResult {
             case .success(let dto):
                 guard let dto else { return }
