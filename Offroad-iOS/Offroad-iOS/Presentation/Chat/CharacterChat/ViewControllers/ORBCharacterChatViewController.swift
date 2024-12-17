@@ -384,7 +384,7 @@ extension ORBCharacterChatViewController {
                 case .withReplyButtonExpanded:
                     self.rootView.characterChatBox.messageLabel.isHidden = false
                     self.rootView.characterChatBox.replyButton.isHidden = false
-                    self.rootView.characterChatBox.chevronImageButton.transform = .init(rotationAngle: .pi * 0.99)
+                    self.rootView.characterChatBox.chevronImageButton.transform = .init(rotationAngle: .pi * 0.9999)
                     self.rootView.characterChatBox.loadingAnimationView.isHidden = true
                     self.rootView.characterChatBox.loadingAnimationView.stop()
                 case .withoutReplyButtonShrinked:
@@ -396,7 +396,7 @@ extension ORBCharacterChatViewController {
                 case .withoutReplyButtonExpanded:
                     self.rootView.characterChatBox.messageLabel.isHidden = false
                     self.rootView.characterChatBox.replyButton.isHidden = true
-                    self.rootView.characterChatBox.chevronImageButton.transform = .init(rotationAngle: .pi * 0.99)
+                    self.rootView.characterChatBox.chevronImageButton.transform = .init(rotationAngle: .pi * 0.9999)
                     self.rootView.characterChatBox.loadingAnimationView.isHidden = true
                     self.rootView.characterChatBox.loadingAnimationView.stop()
                 case .loading:

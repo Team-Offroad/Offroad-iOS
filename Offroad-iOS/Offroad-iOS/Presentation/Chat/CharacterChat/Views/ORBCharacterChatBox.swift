@@ -86,10 +86,10 @@ extension ORBCharacterChatBox {
         }
         
         chevronImageButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(19)
+            make.centerY.equalTo(messageLabel.snp.top).offset(12)
             make.trailing.equalToSuperview().inset(24)
             make.width.equalTo(34)
-            make.height.equalTo(22)
+            make.height.equalTo(34)
         }
         
         replyButton.snp.makeConstraints { make in
@@ -172,6 +172,7 @@ extension ORBCharacterChatBox {
         
         chevronImageButton.do { button in
             button.setImage(.icnChatViewChevronDown, for: .normal)
+            button.configureBackgroundColorWhen(normal: .clear, highlighted: .grayscale(.gray100))
         }
         
         replyButton.do { button in
