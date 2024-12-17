@@ -15,6 +15,7 @@ class ORBCharacterChatViewController: UIViewController {
     //MARK: - Properties
     
     var isCharacterChatBoxShown: Bool = false
+    var isUserChatInputViewShown: Bool = false
     
     var disposeBag = DisposeBag()
     let rootView = ORBCharacterChatView()
@@ -54,18 +55,17 @@ extension ORBCharacterChatViewController {
     //MARK: - @objc Func
     
     @objc private func keyboardWillShow(_ notification: Notification) {
-        guard rootView.userChatInputView.isFirstResponder else { return }
+        guard rootView.userChatInputView.isFirstResponder, !isUserChatInputViewShown else { return }
         rootView.layoutIfNeeded()
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRect = keyboardFrame.cgRectValue
+            isUserChatInputViewShown = true
             updateChatInputViewPosition(bottomInset: keyboardRect.height)
         }
     }
     
     @objc private func keyboardWillHide(_ notification: Notification) {
-        rootView.layoutIfNeeded()
-        let inputViewHeight = rootView.userChatView.frame.height
-        updateChatInputViewPosition(bottomInset: -(48 + inputViewHeight))
+        hideUserChatInputView()
     }
     
     @objc private func panGestureHandler(sender: UIPanGestureRecognizer) {
@@ -148,6 +148,7 @@ extension ORBCharacterChatViewController {
         
         rootView.characterChatBox.replyButton.rx.tap.bind { [weak self] in
             guard let self else { return }
+            self.rootView.window?.makeKeyAndVisible()
             self.rootView.userChatInputView.becomeFirstResponder()
             self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
         }.disposed(by: disposeBag)
@@ -171,6 +172,7 @@ extension ORBCharacterChatViewController {
             guard let self else { return }
             print("채팅을 종료합니다.")
             self.rootView.userChatInputView.resignFirstResponder()
+            self.hideUserChatInputView()
             self.rootView.userChatInputView.text = ""
             self.rootView.userChatDisplayView.text = ""
             hideCharacterChatBox()
@@ -318,6 +320,14 @@ extension ORBCharacterChatViewController {
             self.rootView.characterChatBox.messageLabel.text = ""
         }
         characterChatBoxPositionAnimator.startAnimation()
+    }
+    
+    func hideUserChatInputView() {
+        rootView.layoutIfNeeded()
+        guard isUserChatInputViewShown else { return }
+        let inputViewHeight = rootView.userChatView.frame.height
+        isUserChatInputViewShown = false
+        updateChatInputViewPosition(bottomInset: -(48 + inputViewHeight))
     }
     
     func updateChatInputViewPosition(bottomInset: CGFloat) {

@@ -63,6 +63,7 @@ extension ORBCharacterChatManager {
     }
     
     func endChat() {
+        chatViewController.hideUserChatInputView()
         chatViewController.rootView.userChatInputView.resignFirstResponder()
         chatViewController.rootView.userChatInputView.text = ""
         chatViewController.rootView.userChatDisplayView.text = ""
