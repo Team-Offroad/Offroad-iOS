@@ -139,6 +139,7 @@ extension NicknameViewController {
                     self.nicknameView.notionLabel.text = "중복된 닉네임이에요. 다른 멋진 이름이 있으신가요?"
                     self.configureButtonStyle(self.nicknameView.checkButton, isEnabled: false)
                     self.nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
+                    self.nicknameView.textField.layer.borderColor = UIColor.primary(.errorNew).cgColor
                     self.nicknameView.nextButton.changeState(forState: .isDisabled)
                 }
                 else if self.whetherDuplicate == false && self.formError(self.nicknameView.textField.text ?? "") == false {
