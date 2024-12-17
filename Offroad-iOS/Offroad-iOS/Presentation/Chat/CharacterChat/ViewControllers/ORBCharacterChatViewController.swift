@@ -34,7 +34,6 @@ class ORBCharacterChatViewController: UIViewController {
     let userChatDisplayViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     
     lazy var panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureHandler))
-    lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureHandler))
     
     override func loadView() {
         view = rootView
@@ -46,6 +45,7 @@ class ORBCharacterChatViewController: UIViewController {
         setupNotifications()
         bindData()
         setupGestures()
+        setupTargets()
     }
     
 }
@@ -79,6 +79,10 @@ extension ORBCharacterChatViewController {
             if verticalPosition < 0 {
                 let transform = CGAffineTransform(translationX: 0, y: verticalPosition)
                 rootView.characterChatBox.transform = transform
+            } else {
+                let maximumDragDistance: CGFloat = 60
+                let transform = CGAffineTransform(translationX: 0, y: maximumDragDistance * (1 - exp(-0.5 * verticalPosition / maximumDragDistance)))
+                rootView.characterChatBox.transform = transform
             }
         case .ended, .cancelled, .failed:
             if sender.velocity(in: rootView).y < -100 {
@@ -91,9 +95,19 @@ extension ORBCharacterChatViewController {
         }
     }
     
-    @objc private func tapGestureHandler(sender: UITapGestureRecognizer) {
+    @objc private func shrinkChatBox() {
+        rootView.characterChatBox.shrink()
+    }
+    
+    @objc private func touchUpOutside(event: UIControl.Event) {
+        rootView.characterChatBox.expand()
+    }
+    
+    @objc private func touchUpInside() {
+        rootView.characterChatBox.expand()
         guard rootView.characterChatBox.mode != .loading else { return }
-        ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController.onNext(MyInfoManager.shared.representativeCharacterID ?? 1)
+        ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController
+            .onNext(MyInfoManager.shared.representativeCharacterID ?? 1)
     }
     
     //MARK: - Private Func
@@ -241,8 +255,14 @@ extension ORBCharacterChatViewController {
     }
     
     private func setupGestures() {
+        panGesture.delegate = self
         rootView.characterChatBox.addGestureRecognizer(panGesture)
-        rootView.characterChatBox.addGestureRecognizer(tapGesture)
+    }
+    
+    private func setupTargets() {
+        rootView.characterChatBox.addTarget(self, action: #selector(shrinkChatBox), for: [.touchDown])
+        rootView.characterChatBox.addTarget(self, action: #selector(touchUpOutside), for: [.touchUpOutside, .touchCancel])
+        rootView.characterChatBox.addTarget(self, action: #selector(touchUpInside), for: .touchUpInside)
     }
     
     private func postCharacterChat(characterId: Int? = nil, message: String) {
@@ -460,6 +480,16 @@ extension ORBCharacterChatViewController {
             rootView.characterChatBox.setupAdditionalLayout()
             rootView.layoutIfNeeded()
         }
+    }
+    
+}
+
+//MARK: - UIGestureRecognizerDelegate
+
+extension ORBCharacterChatViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
 }

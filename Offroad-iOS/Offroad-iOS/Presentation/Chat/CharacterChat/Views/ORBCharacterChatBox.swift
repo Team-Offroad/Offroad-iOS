@@ -22,10 +22,11 @@ enum ChatBoxMode {
     case loading
 }
 
-class ORBCharacterChatBox: UIView {
+class ORBCharacterChatBox: UIControl {
     
     var mode: ChatBoxMode
     
+    let shrinkBehaviorAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     let characterNameLabel = UILabel()
     let messageLabel = UILabel()
     let loadingAnimationView = LottieAnimationView(name: "loading2")
@@ -190,6 +191,27 @@ extension ORBCharacterChatBox {
     
     private func setupHierarchy() {
         addSubviews(characterNameLabel, messageLabel, loadingAnimationView, chevronImageButton, replyButton)
+    }
+    
+    //MARK: - Func
+    
+    func shrink() {
+        shrinkBehaviorAnimator.stopAnimation(true)
+        shrinkBehaviorAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            let shrinkTransform = CGAffineTransform(scaleX: 0.97, y: 0.97)
+            self.transform = shrinkTransform
+        }
+        shrinkBehaviorAnimator.startAnimation()
+    }
+    
+    func expand() {
+        shrinkBehaviorAnimator.stopAnimation(true)
+        shrinkBehaviorAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            transform = CGAffineTransform.identity
+        }
+        shrinkBehaviorAnimator.startAnimation()
     }
     
 }
