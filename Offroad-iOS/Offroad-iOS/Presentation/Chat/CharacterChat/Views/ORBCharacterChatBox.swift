@@ -106,7 +106,7 @@ extension ORBCharacterChatBox {
             replyButtonTopConstraint.isActive = true
             replyButtonBottomConstraint.isActive = true
         case .withReplyButtonExpanded:
-            messageLabel.numberOfLines = 0
+            messageLabel.numberOfLines = 3
             messageLabelTrailingConstraintToChevronImageButton.isActive = true
             messageLabelTrailingConstraintToSuperview.isActive = false
             replyButtonTopConstraint.isActive = true
@@ -118,7 +118,7 @@ extension ORBCharacterChatBox {
             replyButtonTopConstraint.isActive = false
             replyButtonBottomConstraint.isActive = false
         case .withoutReplyButtonExpanded:
-            messageLabel.numberOfLines = 0
+            messageLabel.numberOfLines = 3
             messageLabelTrailingConstraintToChevronImageButton.isActive = true
             messageLabelTrailingConstraintToSuperview.isActive = false
             replyButtonTopConstraint.isActive = false
