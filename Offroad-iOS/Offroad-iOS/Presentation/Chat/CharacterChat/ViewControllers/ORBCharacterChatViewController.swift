@@ -392,31 +392,31 @@ extension ORBCharacterChatViewController {
                 case .withReplyButtonShrinked:
                     self.rootView.characterChatBox.messageLabel.isHidden = false
                     self.rootView.characterChatBox.replyButton.isHidden = false
-                    self.rootView.characterChatBox.chevronImageButton.transform = .identity
+                    self.rootView.characterChatBox.chevronImageButton.imageView?.transform = .identity
                     self.rootView.characterChatBox.loadingAnimationView.isHidden = true
                     self.rootView.characterChatBox.loadingAnimationView.stop()
                 case .withReplyButtonExpanded:
                     self.rootView.characterChatBox.messageLabel.isHidden = false
                     self.rootView.characterChatBox.replyButton.isHidden = false
-                    self.rootView.characterChatBox.chevronImageButton.transform = .init(rotationAngle: .pi * 0.9999)
+                    self.rootView.characterChatBox.chevronImageButton.imageView?.transform = .init(rotationAngle: .pi * 0.9999)
                     self.rootView.characterChatBox.loadingAnimationView.isHidden = true
                     self.rootView.characterChatBox.loadingAnimationView.stop()
                 case .withoutReplyButtonShrinked:
                     self.rootView.characterChatBox.messageLabel.isHidden = false
                     self.rootView.characterChatBox.replyButton.isHidden = true
-                    self.rootView.characterChatBox.chevronImageButton.transform = .identity
+                    self.rootView.characterChatBox.chevronImageButton.imageView?.transform = .identity
                     self.rootView.characterChatBox.loadingAnimationView.isHidden = true
                     self.rootView.characterChatBox.loadingAnimationView.stop()
                 case .withoutReplyButtonExpanded:
                     self.rootView.characterChatBox.messageLabel.isHidden = false
                     self.rootView.characterChatBox.replyButton.isHidden = true
-                    self.rootView.characterChatBox.chevronImageButton.transform = .init(rotationAngle: .pi * 0.9999)
+                    self.rootView.characterChatBox.chevronImageButton.imageView?.transform = .init(rotationAngle: .pi * 0.9999)
                     self.rootView.characterChatBox.loadingAnimationView.isHidden = true
                     self.rootView.characterChatBox.loadingAnimationView.stop()
                 case .loading:
                     self.rootView.characterChatBox.messageLabel.isHidden = true
                     self.rootView.characterChatBox.replyButton.isHidden = true
-                    self.rootView.characterChatBox.chevronImageButton.transform = .identity
+                    self.rootView.characterChatBox.chevronImageButton.imageView?.transform = .identity
                     self.rootView.characterChatBox.loadingAnimationView.isHidden = false
                     self.rootView.characterChatBox.loadingAnimationView.play()
                 }
@@ -429,31 +429,31 @@ extension ORBCharacterChatViewController {
             case .withReplyButtonShrinked:
                 self.rootView.characterChatBox.messageLabel.isHidden = false
                 self.rootView.characterChatBox.replyButton.isHidden = false
-                self.rootView.characterChatBox.chevronImageButton.transform = .identity
+                self.rootView.characterChatBox.chevronImageButton.imageView?.transform = .identity
                 self.rootView.characterChatBox.loadingAnimationView.isHidden = true
                 self.rootView.characterChatBox.loadingAnimationView.stop()
             case .withReplyButtonExpanded:
                 self.rootView.characterChatBox.messageLabel.isHidden = false
                 self.rootView.characterChatBox.replyButton.isHidden = false
-                self.rootView.characterChatBox.chevronImageButton.transform = .init(rotationAngle: .pi * 0.99)
+                self.rootView.characterChatBox.chevronImageButton.imageView?.transform = .init(rotationAngle: .pi * 0.99)
                 self.rootView.characterChatBox.loadingAnimationView.isHidden = true
                 self.rootView.characterChatBox.loadingAnimationView.stop()
             case .withoutReplyButtonShrinked:
                 self.rootView.characterChatBox.messageLabel.isHidden = false
                 self.rootView.characterChatBox.replyButton.isHidden = true
-                self.rootView.characterChatBox.chevronImageButton.transform = .identity
+                self.rootView.characterChatBox.chevronImageButton.imageView?.transform = .identity
                 self.rootView.characterChatBox.loadingAnimationView.isHidden = true
                 self.rootView.characterChatBox.loadingAnimationView.stop()
             case .withoutReplyButtonExpanded:
                 self.rootView.characterChatBox.messageLabel.isHidden = false
                 self.rootView.characterChatBox.replyButton.isHidden = true
-                self.rootView.characterChatBox.chevronImageButton.transform = .init(rotationAngle: .pi * 0.99)
+                self.rootView.characterChatBox.chevronImageButton.imageView?.transform = .init(rotationAngle: .pi * 0.99)
                 self.rootView.characterChatBox.loadingAnimationView.isHidden = true
                 self.rootView.characterChatBox.loadingAnimationView.stop()
             case .loading:
                 self.rootView.characterChatBox.messageLabel.isHidden = true
                 self.rootView.characterChatBox.replyButton.isHidden = true
-                self.rootView.characterChatBox.chevronImageButton.transform = .identity
+                self.rootView.characterChatBox.chevronImageButton.imageView?.transform = .identity
                 self.rootView.characterChatBox.loadingAnimationView.isHidden = false
                 self.rootView.characterChatBox.loadingAnimationView.play()
             }
