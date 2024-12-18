@@ -25,6 +25,7 @@ class ORBCharacterChatViewController: UIViewController {
     let userChatDisplayViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
     let isCharacterResponding = BehaviorRelay<Bool>(value: false)
     let isTextViewEmpty = BehaviorRelay<Bool>(value: true)
+    let patchChatReadRelay = PublishRelay<Void>()
     
     let characterChatBoxPositionAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     let characterChatBoxModeChangingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
@@ -92,8 +93,7 @@ extension ORBCharacterChatViewController {
     }
     
     @objc private func tapGestureHandler(sender: UITapGestureRecognizer) {
-        guard rootView.characterChatBox.mode == .withReplyButtonShrinked
-                || rootView.characterChatBox.mode == .withReplyButtonExpanded else { return }
+        patchChatReadRelay.accept(())
         ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController.onNext(MyInfoManager.shared.representativeCharacterID ?? 1)
     }
     
@@ -149,7 +149,9 @@ extension ORBCharacterChatViewController {
         
         rootView.characterChatBox.replyButton.rx.tap.bind { [weak self] in
             guard let self else { return }
-            self.rootView.userChatInputView.becomeFirstResponder()
+            if self.rootView.userChatInputView.becomeFirstResponder() {
+                self.patchChatReadRelay.accept(())
+            }
             self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
         }.disposed(by: disposeBag)
         
@@ -227,6 +229,16 @@ extension ORBCharacterChatViewController {
             self.rootView.layoutIfNeeded()
         }).disposed(by: disposeBag)
         
+        patchChatReadRelay.subscribe(onNext: {
+            NetworkService.shared.characterChatService.patchChatRead { [weak self] networkResult in
+                guard let self else { return }
+                switch networkResult {
+                case .success: return
+                default: self.showToast(message: ErrorMessages.networkError, inset: 66)
+                }
+            }
+        }).disposed(by: disposeBag)
+        
         Observable.combineLatest(isCharacterResponding, isTextViewEmpty)
             .map { return (!$0 && !$1) }
             .subscribe { [weak self] shouldEnableSendButton in
@@ -293,6 +305,7 @@ extension ORBCharacterChatViewController {
         characterChatBoxPositionAnimator.stopAnimation(true)
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
             guard let self else { return }
+            // pagGesture로 변경된 (세로)위치 원상복구
             self.rootView.characterChatBox.transform = CGAffineTransform.identity
             self.rootView.characterChatBoxTopConstraint.constant = view.safeAreaInsets.top + 27
             self.rootView.layoutIfNeeded()
@@ -305,6 +318,7 @@ extension ORBCharacterChatViewController {
         characterChatBoxPositionAnimator.stopAnimation(true)
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
             guard let self else { return }
+            // pagGesture로 변경된 (세로)위치 원상복구
             self.rootView.characterChatBox.transform = CGAffineTransform.identity
             self.rootView.characterChatBoxTopConstraint.constant
             = -self.rootView.characterChatBox.frame.height
@@ -355,22 +369,12 @@ extension ORBCharacterChatViewController {
         rootView.characterChatBox.characterNameLabel.text = name + " :"
         rootView.characterChatBox.messageLabel.text = message
         changeChatBoxMode(to: mode, animated: animated)
-        let labelFrameWidth = rootView.characterChatBox.messageLabel.frame.width
-        let labelFrameHeight = rootView.characterChatBox.messageLabel.frame.height
-        let calculatedLabelSize = calculateLabelSize(
-            text: message,
-            font: rootView.characterChatBox.messageLabel.font,
-            maxSize: .init(width: labelFrameWidth, height: CGFloat.greatestFiniteMagnitude)
-        )
-        rootView.characterChatBox.chevronImageButton.isHidden
-        = (calculatedLabelSize.height > labelFrameHeight) ? false : true
     }
     
     func changeChatBoxMode(to mode: ChatBoxMode, animated: Bool) {
         characterChatBoxModeChangingAnimator.stopAnimation(true)
         rootView.characterChatBox.mode = mode
-        rootView.characterChatBox.chevronImageButton.isHidden =
-        (mode == .loading) ? true : false
+        rootView.characterChatBox.chevronImageButton.isHidden = (mode == .loading)
         if animated {
             characterChatBoxModeChangingAnimator.addAnimations { [weak self] in
                 guard let self else { return }

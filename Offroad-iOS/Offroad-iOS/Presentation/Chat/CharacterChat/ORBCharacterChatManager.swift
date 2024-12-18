@@ -48,17 +48,6 @@ extension ORBCharacterChatManager {
     
     func startChat() {
         chatWindow.makeKeyAndVisible()
-        if chatViewController.isCharacterChatBoxShown {
-            chatViewController.showCharacterChatBox()
-            chatViewController.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
-        } else {
-            chatViewController.configureCharacterChatBox(
-                character: "", message: "",
-                mode: .withoutReplyButtonShrinked,
-                animated: false
-            )
-            chatViewController.hideCharacterChatBox()
-        }
         self.chatViewController.rootView.userChatInputView.becomeFirstResponder()
     }
     
