@@ -292,9 +292,9 @@ extension BirthViewController {
         if validateDay() {
             let nextVC = GenderViewController(
                 nickname: nickname,
-                birthYear: birthView.yearTextField.text ?? "",
-                birthMonth: birthView.monthTextField.text ?? "",
-                birthDay: birthView.dayTextField.text ?? ""
+                birthYear: Int(birthView.yearTextField.text ?? ""),
+                birthMonth: Int(birthView.monthTextField.text ?? ""),
+                birthDay: Int(birthView.dayTextField.text ?? "")
             )
             let button = UIButton().then { button in
                 button.setImage(.backBarButton, for: .normal)
@@ -338,6 +338,8 @@ extension BirthViewController {
         genderViewController.navigationItem.leftBarButtonItem = customBackBarButton
         
         self.navigationController?.pushViewController(genderViewController, animated: true)
+        
+        resetBirthFields()
     }
     
     

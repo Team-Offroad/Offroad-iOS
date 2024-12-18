@@ -26,7 +26,7 @@ final class GenderViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    convenience init(nickname: String, birthYear: String?, birthMonth: String?, birthDay: String?) {
+    convenience init(nickname: String, birthYear: Int?, birthMonth: Int?, birthDay: Int?) {
         self.init(nibName: nil, bundle: nil)
         
         self.nickname = nickname
@@ -62,10 +62,10 @@ final class GenderViewController: UIViewController {
         genderView.maleButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         genderView.femaleButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         genderView.etcButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-        genderView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        genderView.nextButton.addTarget(self, action: #selector(buttonToCharacterVC), for: .touchUpInside)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: genderView.skipButton)
-        genderView.skipButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        genderView.skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
     }
     
     private func updateNextButtonState() {
@@ -99,7 +99,7 @@ extension GenderViewController {
         updateNextButtonState()
     }
     
-    @objc func nextButtonTapped() {
+    @objc func buttonToCharacterVC() {
         let gender: String?
         if genderView.maleButton.isSelected {
             gender = "MALE"
@@ -112,6 +112,14 @@ extension GenderViewController {
             gender = nil
         }
         
+        let nextVC = ChoosingCharacterViewController(
+            nickname: nickname,
+            birthYear: birthYear,
+            birthMonth: birthMonth,
+            birthDay: birthDay,
+            gender: gender
+        )
+        
         let button = UIButton().then { button in
             button.setImage(.backBarButton, for: .normal)
             button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
@@ -122,23 +130,30 @@ extension GenderViewController {
             }
         }
         
+        let customBackBarButton = UIBarButtonItem(customView: button)
+        nextVC.navigationItem.leftBarButtonItem = customBackBarButton
         
-        ProfileService().patchUpdateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender)) { result in
-            switch result {
-            case .success(let response):
-                print("프로필 업데이트 성공~~~~~~~~~")
-                
-                let choosingCharacterViewController = ChoosingCharacterViewController()
-                let customBackBarButton = UIBarButtonItem(customView: button)
-                choosingCharacterViewController.navigationItem.leftBarButtonItem = customBackBarButton
-                self.navigationController?.pushViewController(choosingCharacterViewController, animated: true)
-            default:
-                return
-            }
-        }
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
+        
+        
+//        ProfileService().patchUpdateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender)) { result in
+//            switch result {
+//            case .success(let response):
+//                print("프로필 업데이트 성공~~~~~~~~~")
+//                
+//                let choosingCharacterViewController = ChoosingCharacterViewController()
+//                let customBackBarButton = UIBarButtonItem(customView: button)
+//                choosingCharacterViewController.navigationItem.leftBarButtonItem = customBackBarButton
+//                self.navigationController?.pushViewController(choosingCharacterViewController, animated: true)
+//            default:
+//                return
+//            }
+//        }
     
     @objc func skipButtonTapped() {
+        let choosingCharacterViewController = ChoosingCharacterViewController(nickname: nickname, birthYear: birthYear, birthMonth: birthMonth, birthDay: birthDay, gender: nil)
+        
         let button = UIButton().then { button in
             button.setImage(.backBarButton, for: .normal)
             button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
@@ -149,27 +164,16 @@ extension GenderViewController {
             }
         }
         
-        ProfileService().patchUpdateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: nil)) { result in
-            switch result {
-            case .success(let response):
-                print("프로필 업데이트 성공~~~~~~~~~")
-                
-                let choosingCharacterViewController = ChoosingCharacterViewController()
-                let customBackBarButton = UIBarButtonItem(customView: button)
-                choosingCharacterViewController.navigationItem.leftBarButtonItem = customBackBarButton
-                self.navigationController?.pushViewController(choosingCharacterViewController, animated: true)
-            default:
-                return
-            }
-        }
+        let customBackBarButton = UIBarButtonItem(customView: button)
+        customBackBarButton.tintColor = .black
+        choosingCharacterViewController.navigationItem.leftBarButtonItem = customBackBarButton
+        
+        self.navigationController?.pushViewController(choosingCharacterViewController, animated: true)
         
         resetGenderSelection()
     }
     
     @objc private func executePop() {
-        if let birthVC = navigationController?.viewControllers.first(where: { $0 is BirthViewController }) as? BirthViewController {
-            birthVC.resetBirthFields()
-        }
         navigationController?.popViewController(animated: true)
     }
 }
