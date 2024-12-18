@@ -69,23 +69,30 @@ extension ORBCharacterChatViewController {
     }
     
     @objc private func panGestureHandler(sender: UIPanGestureRecognizer) {
-        guard rootView.characterChatBox.mode == .withReplyButtonShrinked
-                || rootView.characterChatBox.mode == .withReplyButtonExpanded else { return }
+        let hasReplyButton = rootView.characterChatBox.mode == .withReplyButtonShrinked
+        || rootView.characterChatBox.mode == .withReplyButtonExpanded
         switch sender.state {
         case .possible, .began:
             return
         case .changed:
             let verticalPosition = sender.translation(in: rootView).y
-            if verticalPosition < 0 {
+            if verticalPosition < 0, hasReplyButton {
                 let transform = CGAffineTransform(translationX: 0, y: verticalPosition)
                 rootView.characterChatBox.transform = transform
-            } else {
+                
+            } else if verticalPosition < 0, !hasReplyButton {
+                let maximumDragDistance: CGFloat = 60
+                let transform = CGAffineTransform(translationX: 0, y: -maximumDragDistance * (1 - exp(-0.5 * -verticalPosition / maximumDragDistance)))
+                rootView.characterChatBox.transform = transform
+                
+            } else if verticalPosition > 0 {
                 let maximumDragDistance: CGFloat = 60
                 let transform = CGAffineTransform(translationX: 0, y: maximumDragDistance * (1 - exp(-0.5 * verticalPosition / maximumDragDistance)))
                 rootView.characterChatBox.transform = transform
+                
             }
         case .ended, .cancelled, .failed:
-            if sender.velocity(in: rootView).y < -100 {
+            if sender.velocity(in: rootView).y < -100, hasReplyButton {
                 hideCharacterChatBox()
             } else {
                 showCharacterChatBox()
