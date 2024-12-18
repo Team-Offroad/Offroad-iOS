@@ -167,6 +167,9 @@ extension GenderViewController {
     }
     
     @objc private func executePop() {
+        if let birthVC = navigationController?.viewControllers.first(where: { $0 is BirthViewController }) as? BirthViewController {
+            birthVC.resetBirthFields()
+        }
         navigationController?.popViewController(animated: true)
     }
 }

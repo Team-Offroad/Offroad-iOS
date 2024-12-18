@@ -345,6 +345,18 @@ extension BirthViewController {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
     }
+    
+    func resetBirthFields() {
+        birthView.yearTextField.text = ""
+        birthView.monthTextField.text = ""
+        birthView.dayTextField.text = ""
+        birthView.notionLabel.text = ""
+        birthView.nextButton.changeState(forState: .isDisabled)
+        
+        [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].forEach {
+            $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        }
+    }
 }
 
 //MARK: - UITextFieldDelegate
