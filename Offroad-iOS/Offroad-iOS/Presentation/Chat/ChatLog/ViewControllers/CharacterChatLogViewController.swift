@@ -42,6 +42,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     private let isCharacterResponding = BehaviorRelay<Bool>(value: false)
     private let isTextViewEmpty = BehaviorRelay<Bool>(value: true)
+    private let patchChatReadRelay = PublishRelay<Int?>()
     
     private var disposeBag = DisposeBag()
     private var characterId: Int?
@@ -365,6 +366,16 @@ extension CharacterChatLogViewController {
             self.rootView.layoutIfNeeded()
         }).disposed(by: disposeBag)
         
+        patchChatReadRelay.subscribe(onNext: { characterId in
+            NetworkService.shared.characterChatService.patchChatRead(characterId: characterId) { [weak self] networkResult in
+                guard let self else { return }
+                switch networkResult {
+                case .success: return
+                default: self.showToast(message: ErrorMessages.networkError, inset: 66)
+                }
+            }
+        }).disposed(by: disposeBag)
+        
         NetworkMonitoringManager.shared.networkConnectionChanged
             .subscribe(onNext: { [weak self] isConnected in
                 guard let self else { return }
@@ -519,6 +530,7 @@ extension CharacterChatLogViewController {
             updateCollectionView(animatingDifferences: true) { [weak self] in
                 guard let self else { return }
                 self.scrollToFirstCell(animated: true)
+                self.patchChatReadRelay.accept(characterId)
                 self.showChatButton()
             }
         } else {
@@ -526,6 +538,7 @@ extension CharacterChatLogViewController {
             updateCollectionView(animatingDifferences: true) { [weak self] in
                 guard let self else { return }
                 self.scrollToFirstCell(animated: true)
+                self.patchChatReadRelay.accept(characterId)
                 self.showChatButton()
             }
         }

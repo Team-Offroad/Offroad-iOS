@@ -22,6 +22,7 @@ final class HomeView: UIView {
     private let characterNameLabel = UILabel()
     private let backgroundImageView = UIImageView(image: UIImage(resource: .imgHomeBackground))
     let chatButton = UIButton()
+    let chatUnreadDotView = UIView()
     let shareButton = UIButton()
     let changeCharacterButton = UIButton()
     private let buttonStackView = UIStackView()
@@ -81,6 +82,12 @@ extension HomeView {
         
         chatButton.do {
             $0.setImage(.btnChat, for: .normal)
+        }
+        
+        chatUnreadDotView.do { view in
+            view.backgroundColor = .primary(.errorNew)
+            view.roundCorners(cornerRadius: 4)
+            view.isHidden = true
         }
         
         shareButton.do {
@@ -175,6 +182,7 @@ extension HomeView {
             shareButton,
             changeCharacterButton
         )
+        chatButton.addSubview(chatUnreadDotView)
         titleView.addSubviews(titleLabel, changeTitleButton)
         questStackView.addArrangedSubviews(recentQuestView, almostDoneQuestView)
         recentQuestView.addSubviews(recentQuestProgressView, recentQuestProgressLabel)
@@ -207,6 +215,12 @@ extension HomeView {
         buttonStackView.snp.makeConstraints {
             $0.top.equalTo(characterNameView.snp.top)
             $0.trailing.equalToSuperview().inset(24)
+        }
+        
+        chatUnreadDotView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(2)
+            make.trailing.equalToSuperview().inset(4)
+            make.size.equalTo(8)
         }
         
         characterBaseImageView.snp.makeConstraints {

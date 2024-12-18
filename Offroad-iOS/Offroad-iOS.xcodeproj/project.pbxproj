@@ -43,6 +43,7 @@
 		4E1E94172C3AC27000A7B08A /* QuestMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94162C3AC27000A7B08A /* QuestMapViewController.swift */; };
 		4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* QuestMapView.swift */; };
 		4E23776E2CC81B2000716AFF /* NetworkMonitoringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */; };
+		4E3120F82D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3120F72D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift */; };
 		4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6CE2C456FBF007358DA /* UITabBar+.swift */; };
 		4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */; };
 		4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */; };
@@ -339,6 +340,7 @@
 		4E1E94162C3AC27000A7B08A /* QuestMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapViewController.swift; sourceTree = "<group>"; };
 		4E1E94182C3AC27C00A7B08A /* QuestMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapView.swift; sourceTree = "<group>"; };
 		4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitoringManager.swift; sourceTree = "<group>"; };
+		4E3120F72D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatReadGetResponseDTO.swift; sourceTree = "<group>"; };
 		4E37B6CE2C456FBF007358DA /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterView.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/View/CompleteChoosingCharacterView.swift"; sourceTree = SOURCE_ROOT; };
 		4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterViewController.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/ViewController/CompleteChoosingCharacterViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -1202,6 +1204,7 @@
 			children = (
 				4E3A32702CE51176007228D0 /* CharacterChatPostResponseDTO.swift */,
 				4E3A32722CE51185007228D0 /* CharacterChatGetResponseDTO.swift */,
+				4E3120F72D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -2754,6 +2757,7 @@
 				4E4E2C0C2CCF6518000A634D /* QuestMapViewModel.swift in Sources */,
 				D004F8582CA12B1500D5A2CD /* NoticeAPI.swift in Sources */,
 				872F4BB72C6B809800284DE0 /* CharacterDetailViewController.swift in Sources */,
+				4E3120F82D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift in Sources */,
 				D06466A12C89CB5200CF10FD /* UserInfoResponseDTO.swift in Sources */,
 				872F4BBB2C6B917800284DE0 /* CharacterDetailCell.swift in Sources */,
 				D0E7963D2C453787005B47A5 /* QuestService.swift in Sources */,
