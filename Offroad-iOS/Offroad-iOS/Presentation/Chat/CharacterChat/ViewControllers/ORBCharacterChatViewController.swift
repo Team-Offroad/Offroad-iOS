@@ -82,12 +82,12 @@ extension ORBCharacterChatViewController {
                 rootView.characterChatBox.transform = transform
                 
             } else if verticalPosition < 0, !hasReplyButton {
-                let maximumDragDistance: CGFloat = 60
+                let maximumDragDistance: CGFloat = 15
                 let transform = CGAffineTransform(translationX: 0, y: -maximumDragDistance * (1 - exp(-0.5 * -verticalPosition / maximumDragDistance)))
                 rootView.characterChatBox.transform = transform
                 
             } else if verticalPosition > 0 {
-                let maximumDragDistance: CGFloat = 60
+                let maximumDragDistance: CGFloat = hasReplyButton ? 60 : 15
                 let transform = CGAffineTransform(translationX: 0, y: maximumDragDistance * (1 - exp(-0.5 * verticalPosition / maximumDragDistance)))
                 rootView.characterChatBox.transform = transform
                 
