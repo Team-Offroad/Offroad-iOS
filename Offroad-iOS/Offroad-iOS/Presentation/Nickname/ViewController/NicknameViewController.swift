@@ -207,13 +207,7 @@ extension NicknameViewController: UITextFieldDelegate {
         let currentText = textField.text!
         let newText = currentText.replacingCharacters(in: range, with: string)
         
-        //입력된 텍스트의 byte 길이를 계산한 후 최대 바이트 길이인 16을 초과하는 경우에만 입력을 막는 코드
-        let byteLength = newText.eucKrByteLength
-        
-        if byteLength > 16 {
-            return false
-        } else {
-            return true
-        }
+        let isValid = newText.isValidNicknameFormat
+        return isValid
     }
 }
