@@ -45,14 +45,14 @@ extension NicknameViewController {
     
     private func setupTarget() {
         nicknameView.checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
-        nicknameView.textField.addTarget(self, action: #selector(textFieldDidBegin), for: .editingDidBegin)
-        nicknameView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        nicknameView.textField.addTarget(self, action: #selector(textFieldDidEnd), for: .editingDidEnd)
+        nicknameView.nicknameTextField.addTarget(self, action: #selector(textFieldDidBegin), for: .editingDidBegin)
+        nicknameView.nicknameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        nicknameView.nicknameTextField.addTarget(self, action: #selector(textFieldDidEnd), for: .editingDidEnd)
         nicknameView.nextButton.addTarget(self, action: #selector(buttonToBirthVC), for: .touchUpInside)
     }
     
     private func setupDelegate() {
-        nicknameView.textField.delegate = self
+        nicknameView.nicknameTextField.delegate = self
     }
     
     private func configureButtonStyle(_ button: UIButton, isEnabled: Bool) {
@@ -87,28 +87,28 @@ extension NicknameViewController {
     //MARK: - @objc Method
     
     @objc private func textFieldDidBegin() {
-        let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
+        let isTextFieldEmpty = nicknameView.nicknameTextField.text?.isEmpty ?? true
         if isTextFieldEmpty {
-            nicknameView.textField.layer.borderColor = UIColor.main(.main2).cgColor
+            nicknameView.nicknameTextField.layer.borderColor = UIColor.main(.main2).cgColor
         }
     }
     
     @objc private func textFieldDidEnd() {
-        let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
+        let isTextFieldEmpty = nicknameView.nicknameTextField.text?.isEmpty ?? true
         if isTextFieldEmpty {
-            nicknameView.textField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+            nicknameView.nicknameTextField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         }
     }
     
     @objc private func textFieldDidChange() {
-        let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
-        configureTextFieldStyle(nicknameView.textField, isEmpty: isTextFieldEmpty)
+        let isTextFieldEmpty = nicknameView.nicknameTextField.text?.isEmpty ?? true
+        configureTextFieldStyle(nicknameView.nicknameTextField, isEmpty: isTextFieldEmpty)
         nicknameView.nextButton.changeState(forState: .isDisabled)
         
-        if !formError(self.nicknameView.textField.text ?? "") && !isTextFieldEmpty {
+        if !formError(self.nicknameView.nicknameTextField.text ?? "") && !isTextFieldEmpty {
             nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 작성해주세요."
             nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
-            nicknameView.textField.layer.borderColor = UIColor.primary(.errorNew).cgColor
+            nicknameView.nicknameTextField.layer.borderColor = UIColor.primary(.errorNew).cgColor
             nicknameView.nextButton.changeState(forState: .isDisabled)
             configureButtonStyle(nicknameView.checkButton, isEnabled: false)
         }
@@ -116,7 +116,7 @@ extension NicknameViewController {
             nicknameView.notionLabel.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
             nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
             nicknameView.notionLabel.font = UIFont.offroad(style: .iosHint)
-            nicknameView.textField.layer.borderColor = UIColor.main(.main2).cgColor
+            nicknameView.nicknameTextField.layer.borderColor = UIColor.main(.main2).cgColor
             configureButtonStyle(nicknameView.checkButton, isEnabled: false)
         }
         else {
@@ -131,7 +131,7 @@ extension NicknameViewController {
     }
     
     @objc private func checkButtonTapped() {
-        NetworkService.shared.nicknameService.checkNicknameDuplicate(inputNickname: nicknameView.textField.text ?? "") { response in
+        NetworkService.shared.nicknameService.checkNicknameDuplicate(inputNickname: nicknameView.nicknameTextField.text ?? "") { response in
             switch response {
             case .success(let data):
                 self.whetherDuplicate = data?.data.isDuplicate ?? Bool()
@@ -139,16 +139,16 @@ extension NicknameViewController {
                     self.nicknameView.notionLabel.text = "중복된 닉네임이에요. 다른 멋진 이름이 있으신가요?"
                     self.configureButtonStyle(self.nicknameView.checkButton, isEnabled: false)
                     self.nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
-                    self.nicknameView.textField.layer.borderColor = UIColor.primary(.errorNew).cgColor
+                    self.nicknameView.nicknameTextField.layer.borderColor = UIColor.primary(.errorNew).cgColor
                     self.nicknameView.nextButton.changeState(forState: .isDisabled)
                 }
-                else if self.whetherDuplicate == false && self.formError(self.nicknameView.textField.text ?? "") == false {
+                else if self.whetherDuplicate == false && self.formError(self.nicknameView.nicknameTextField.text ?? "") == false {
                     self.nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 말씀해주세요."
                     self.nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
-                    self.nicknameView.textField.layer.borderColor = UIColor.primary(.errorNew).cgColor
+                    self.nicknameView.nicknameTextField.layer.borderColor = UIColor.primary(.errorNew).cgColor
                 }
                 else {
-                    self.nicknameView.textField.resignFirstResponder()
+                    self.nicknameView.nicknameTextField.resignFirstResponder()
                     self.nicknameView.notionLabel.text = "좋은 닉네임이에요!"
                     self.nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
                     self.configureButtonStyle(self.nicknameView.checkButton, isEnabled: false)
@@ -161,7 +161,7 @@ extension NicknameViewController {
     }
     
     @objc func buttonToBirthVC(sender: UIButton) {
-        let nextVC = BirthViewController(nickname: self.nicknameView.textField.text ?? "")
+        let nextVC = BirthViewController(nickname: self.nicknameView.nicknameTextField.text ?? "")
         
         let button = UIButton().then { button in
             button.setImage(.backBarButton, for: .normal)
@@ -207,7 +207,13 @@ extension NicknameViewController: UITextFieldDelegate {
         let currentText = textField.text!
         let newText = currentText.replacingCharacters(in: range, with: string)
         
-        let isValid = newText.isValidNicknameFormat
-        return isValid
+        //입력된 텍스트의 byte 길이를 계산한 후 최대 바이트 길이인 16을 초과하는 경우에만 입력을 막는 코드
+        let byteLength = newText.eucKrByteLength
+        
+        if byteLength > 16 {
+            return false
+        } else {
+            return true
+        }
     }
 }
