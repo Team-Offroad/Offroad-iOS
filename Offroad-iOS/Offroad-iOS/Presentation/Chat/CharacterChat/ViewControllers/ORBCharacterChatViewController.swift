@@ -333,6 +333,7 @@ extension ORBCharacterChatViewController {
     
     func showCharacterChatBox() {
         isCharacterChatBoxShown = true
+        rootView.characterChatBox.isHidden = false
         rootView.layoutIfNeeded()
         characterChatBoxPositionAnimator.stopAnimation(true)
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
