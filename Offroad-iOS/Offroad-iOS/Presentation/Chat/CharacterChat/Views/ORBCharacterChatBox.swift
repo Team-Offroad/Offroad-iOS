@@ -214,4 +214,39 @@ extension ORBCharacterChatBox {
         shrinkBehaviorAnimator.startAnimation()
     }
     
+    func setupHiddenState(mode: ChatBoxMode) {
+        switch mode {
+        case .withReplyButtonShrinked:
+            messageLabel.isHidden = false
+            replyButton.isHidden = false
+            chevronImageButton.imageView?.transform = .identity
+            loadingAnimationView.isHidden = true
+            loadingAnimationView.stop()
+        case .withReplyButtonExpanded:
+            messageLabel.isHidden = false
+            replyButton.isHidden = false
+            chevronImageButton.imageView?.transform = .init(rotationAngle: .pi * 0.9999)
+            loadingAnimationView.isHidden = true
+            loadingAnimationView.stop()
+        case .withoutReplyButtonShrinked:
+            messageLabel.isHidden = false
+            replyButton.isHidden = true
+            chevronImageButton.imageView?.transform = .identity
+            loadingAnimationView.isHidden = true
+            loadingAnimationView.stop()
+        case .withoutReplyButtonExpanded:
+            messageLabel.isHidden = false
+            replyButton.isHidden = true
+            chevronImageButton.imageView?.transform = .init(rotationAngle: .pi * 0.9999)
+            loadingAnimationView.isHidden = true
+            loadingAnimationView.stop()
+        case .loading:
+            messageLabel.isHidden = true
+            replyButton.isHidden = true
+            chevronImageButton.imageView?.transform = .identity
+            loadingAnimationView.isHidden = false
+            loadingAnimationView.play()
+        }
+    }
+    
 }
