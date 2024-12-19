@@ -323,12 +323,14 @@ extension CharacterChatLogViewController {
                 let userMessage = self.rootView.userChatInputView.text
                 self.rootView.sendButton.isEnabled = false
                 // 사용자 채팅 버블 추가
-                self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text, isLoading: false) { [weak self] in
-                    guard let self else { return }
-                    // 캐릭터 셀 추가
-                    self.sendChatBubble(isUserChat: false, text: "", isLoading: true) { [weak self] in
+                self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text, isLoading: false) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
                         guard let self else { return }
-                        self.postCharacterChat(characterId: characterId, message: userMessage!)
+                        // 캐릭터 셀 추가
+                        self.sendChatBubble(isUserChat: false, text: "", isLoading: true) { [weak self] in
+                            guard let self else { return }
+                            self.postCharacterChat(characterId: characterId, message: userMessage!)
+                        }
                     }
                 }
                 self.rootView.userChatInputView.text = ""
@@ -453,11 +455,11 @@ extension CharacterChatLogViewController {
         )
         
         chatLogDataList.insert(chatDataModelToAppend, at: 0)
-        updateCollectionView(animatingDifferences: true, completion: { [weak self] in
+        updateCollectionView(animatingDifferences: true, completion: { completion?() })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { [weak self] in
             guard let self else { return }
             self.scrollToFirstCell(animated: true)
-            completion?()
-        })
+        }
     }
     
     private func postCharacterChat(characterId: Int?, message: String) {
