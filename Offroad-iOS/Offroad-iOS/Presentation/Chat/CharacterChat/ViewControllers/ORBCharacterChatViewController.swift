@@ -202,6 +202,7 @@ extension ORBCharacterChatViewController {
             self.hideUserChatInputView()
             self.rootView.userChatInputView.text = ""
             self.rootView.userChatDisplayView.text = ""
+            panGesture.isEnabled = false
             hideCharacterChatBox()
         }.disposed(by: disposeBag)
         
@@ -334,6 +335,7 @@ extension ORBCharacterChatViewController {
     func showCharacterChatBox() {
         isCharacterChatBoxShown = true
         rootView.characterChatBox.isHidden = false
+        panGesture.isEnabled = true
         rootView.layoutIfNeeded()
         characterChatBoxPositionAnimator.stopAnimation(true)
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
