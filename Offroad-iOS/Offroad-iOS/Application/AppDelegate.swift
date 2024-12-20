@@ -67,6 +67,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 completionHandler([])
                 if let characterName = data["characterName"] as? String,
                    let message = data["message"] as? String {
+                    ORBCharacterChatManager.shared.shouldUpdateLastChatInfo.accept(())
                     ORBCharacterChatManager.shared.showCharacterChatBox(character: characterName, message: message, mode: .withReplyButtonShrinked)
                     ORBCharacterChatManager.shared.chatViewController.rootView.setNeedsLayout()
                 }

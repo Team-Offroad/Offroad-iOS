@@ -56,6 +56,7 @@ final class HomeViewController: OffroadTabBarViewController {
         getUserAdventureInfo()
         getUserQuestInfo()
         bindData()
+        getLastChatInfo()
         
         requestPushNotificationPermission()
         redirectViewControllerForPushNotification()
@@ -68,7 +69,6 @@ final class HomeViewController: OffroadTabBarViewController {
         offroadTabBarController.showTabBarAnimation()
         
         self.navigationController?.navigationBar.isHidden = true
-        getLastChatInfo()
     }
 }
 
@@ -134,7 +134,7 @@ extension HomeViewController {
         }
     }
     
-    private func getLastChatInfo() {
+    func getLastChatInfo() {
         rootView.chatButton.isEnabled = false
         NetworkService.shared.characterChatService.getLastChatInfo { [weak self] networkResult in
             guard let self else { return }
@@ -173,6 +173,14 @@ extension HomeViewController {
                 guard let self else { return }
                 self.categoryString = category
             }).disposed(by: disposeBag)
+        
+        Observable.merge(
+            [ORBCharacterChatManager.shared.shouldUpdateLastChatInfo.asObservable(),
+             ORBCharacterChatManager.shared.didReadLastChat.asObservable()]
+        ).subscribe(onNext: { [weak self] in
+            guard let self else { return }
+            self.getLastChatInfo()
+        }).disposed(by: disposeBag)
     }
     
     private func redirectNoticePost() {
@@ -254,6 +262,7 @@ extension HomeViewController {
             case "ANNOUNCEMENT_REDIRECT":
                 redirectNoticePost()
             case "CHARACTER_CHAT":
+                ORBCharacterChatManager.shared.chatViewController.patchChatReadRelay.accept(())
                 ORBCharacterChatManager.shared.showCharacterChatBox(character: self.pushType?.data?["characterName"] as! String, message: self.pushType?.data?["message"] as! String, mode: .withReplyButtonShrinked)
             default:
                 break
@@ -278,6 +287,7 @@ extension HomeViewController {
             )
         }
         ORBCharacterChatManager.shared.startChat()
+        ORBCharacterChatManager.shared.chatViewController.patchChatReadRelay.accept(())
     }
     
     @objc private func shareButtonTapped() {

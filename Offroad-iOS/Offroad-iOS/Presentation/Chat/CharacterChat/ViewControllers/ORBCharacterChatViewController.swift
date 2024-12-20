@@ -114,6 +114,7 @@ extension ORBCharacterChatViewController {
     @objc private func touchUpInside() {
         rootView.characterChatBox.expand()
         guard rootView.characterChatBox.mode != .loading else { return }
+        patchChatReadRelay.accept(())
         ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController
             .onNext(MyInfoManager.shared.representativeCharacterID ?? 1)
     }
@@ -260,8 +261,11 @@ extension ORBCharacterChatViewController {
             NetworkService.shared.characterChatService.patchChatRead { [weak self] networkResult in
                 guard let self else { return }
                 switch networkResult {
-                case .success: return
-                default: self.showToast(message: ErrorMessages.networkError, inset: 66)
+                case .success:
+                    ORBCharacterChatManager.shared.didReadLastChat.accept(())
+                    return
+                default:
+                    self.showToast(message: ErrorMessages.networkError, inset: 66)
                 }
             }
         }).disposed(by: disposeBag)
