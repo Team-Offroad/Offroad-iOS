@@ -427,13 +427,13 @@ extension ORBCharacterChatViewController {
             characterChatBoxModeChangingAnimator.addAnimations { [weak self] in
                 guard let self else { return }
                 self.rootView.characterChatBox.setupHiddenState(mode: mode)
-                self.rootView.characterChatBox.setupAdditionalLayout()
+                self.rootView.characterChatBox.setupAdditionalLayout(mode: mode)
                 self.rootView.layoutIfNeeded()
             }
             characterChatBoxModeChangingAnimator.startAnimation()
         } else {
             rootView.characterChatBox.setupHiddenState(mode: mode)
-            rootView.characterChatBox.setupAdditionalLayout()
+            rootView.characterChatBox.setupAdditionalLayout(mode: mode)
             rootView.layoutIfNeeded()
         }
     }

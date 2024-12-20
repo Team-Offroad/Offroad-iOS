@@ -51,7 +51,7 @@ class ORBCharacterChatBox: UIControl {
         setupStyle()
         setupHierarchy()
         setupLayout()
-        setupAdditionalLayout()
+        setupAdditionalLayout(mode: mode)
     }
     
     required init?(coder: NSCoder) {
@@ -98,7 +98,7 @@ extension ORBCharacterChatBox {
         }
     }
     
-    func setupAdditionalLayout() {
+    func setupAdditionalLayout(mode: ChatBoxMode) {
         switch mode {
         case .withReplyButtonShrinked:
             messageLabel.numberOfLines = 1
