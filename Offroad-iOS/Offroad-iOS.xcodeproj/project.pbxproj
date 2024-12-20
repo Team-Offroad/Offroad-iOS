@@ -158,6 +158,8 @@
 		87738CD52C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CD42C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift */; };
 		87738CDC2C8E164200E107C7 /* CharacterMotionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CDB2C8E164200E107C7 /* CharacterMotionResponseDTO.swift */; };
 		877F2D7B2D153C8500E90436 /* ReNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877F2D7A2D153C8500E90436 /* ReNicknameViewController.swift */; };
+		877F2D7D2D154F4100E90436 /* ReGenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877F2D7C2D154F4100E90436 /* ReGenderViewController.swift */; };
+		877F2D7F2D1550EE00E90436 /* ReBirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877F2D7E2D1550EE00E90436 /* ReBirthViewController.swift */; };
 		8791EDF42C7E11E000E7F8B9 /* CouponListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF32C7E11E000E7F8B9 /* CouponListView.swift */; };
 		8791EDF62C7E121400E7F8B9 /* CouponListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF52C7E121400E7F8B9 /* CouponListViewController.swift */; };
 		8791EDF82C7E1D2B00E7F8B9 /* CouponDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF72C7E1D2B00E7F8B9 /* CouponDetailViewController.swift */; };
@@ -454,6 +456,8 @@
 		87738CD42C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailResponseDTO.swift; sourceTree = "<group>"; };
 		87738CDB2C8E164200E107C7 /* CharacterMotionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterMotionResponseDTO.swift; sourceTree = "<group>"; };
 		877F2D7A2D153C8500E90436 /* ReNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReNicknameViewController.swift; sourceTree = "<group>"; };
+		877F2D7C2D154F4100E90436 /* ReGenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReGenderViewController.swift; sourceTree = "<group>"; };
+		877F2D7E2D1550EE00E90436 /* ReBirthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReBirthViewController.swift; sourceTree = "<group>"; };
 		8791EDF32C7E11E000E7F8B9 /* CouponListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListView.swift; sourceTree = "<group>"; };
 		8791EDF52C7E121400E7F8B9 /* CouponListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListViewController.swift; sourceTree = "<group>"; };
 		8791EDF72C7E1D2B00E7F8B9 /* CouponDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponDetailViewController.swift; sourceTree = "<group>"; };
@@ -1705,6 +1709,8 @@
 			isa = PBXGroup;
 			children = (
 				877F2D7A2D153C8500E90436 /* ReNicknameViewController.swift */,
+				877F2D7C2D154F4100E90436 /* ReGenderViewController.swift */,
+				877F2D7E2D1550EE00E90436 /* ReBirthViewController.swift */,
 				8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */,
 				87E046932C3D2B38002D12C2 /* BirthViewController.swift */,
 				8792D0142C3E581E002051AC /* GenderViewController.swift */,
@@ -2853,6 +2859,7 @@
 				4EF833EC2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift in Sources */,
 				4EE049912CA14E6500754488 /* CouponCell.swift in Sources */,
 				4E23776E2CC81B2000716AFF /* NetworkMonitoringManager.swift in Sources */,
+				877F2D7F2D1550EE00E90436 /* ReBirthViewController.swift in Sources */,
 				D05C31DC2CDB4441004761A7 /* ShareableImageProvider.swift in Sources */,
 				D0E796352C4536E8005B47A5 /* CharacterAPI.swift in Sources */,
 				4E6659382CEB96E70024ABEE /* MyInfoManager.swift in Sources */,
@@ -2868,6 +2875,7 @@
 				4EF6B03F2CC3EEFE00066640 /* ORBAlertViewTextField.swift in Sources */,
 				D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */,
 				4E46E5F92CB99944000A1EEE /* ORBToastWindow.swift in Sources */,
+				877F2D7D2D154F4100E90436 /* ReGenderViewController.swift in Sources */,
 				4EEA82FC2CE3907C0062F0DE /* CharacterChatLogView.swift in Sources */,
 				4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
