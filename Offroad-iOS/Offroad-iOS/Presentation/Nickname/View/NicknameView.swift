@@ -28,7 +28,7 @@ final class NicknameView: UIView {
         $0.font = UIFont.offroad(style: .iosSubtitleReg)
     }
     
-    var textField = UITextField().then {
+    var nicknameTextField = UITextField().then {
         $0.textColor = UIColor.main(.main2)
         $0.backgroundColor = UIColor.main(.main3)
         $0.addPadding(left: 13,right: 13)
@@ -55,6 +55,7 @@ final class NicknameView: UIView {
     private let textFieldStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.alignment = .fill
+        $0.spacing = 14
         $0.distribution = .fillProportionally
     }
     
@@ -94,7 +95,7 @@ extension NicknameView {
             nextButton
         )
 
-        textFieldStackView.addArrangedSubviews(textField, checkButton)
+        textFieldStackView.addArrangedSubviews(nicknameTextField, checkButton)
     }
     
     private func setupLayout() {
@@ -115,9 +116,8 @@ extension NicknameView {
             make.height.equalTo(48)
         }
         
-        textField.snp.makeConstraints { make in
+        nicknameTextField.snp.makeConstraints { make in
             make.leading.equalTo(textFieldStackView)
-            make.trailing.equalTo(checkButton.snp.leading).offset(-14)
             make.height.equalTo(48)
         }
         

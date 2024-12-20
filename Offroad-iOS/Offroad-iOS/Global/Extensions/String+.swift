@@ -90,7 +90,7 @@ extension String {
     }
     
     /// 문자열이 EUC-KR 기준으로 몇 byte인지 계산 (한글, 영어 알파벳만 있다고 가정)
-    private var totalEUCKRByteCount: Int {
+    var totalEUCKRByteCount: Int {
         var hangulCount = 0
         var englishAlphabetCount = 0
         for char in self {
