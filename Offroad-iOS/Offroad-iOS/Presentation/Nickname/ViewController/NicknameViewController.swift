@@ -101,6 +101,14 @@ extension NicknameViewController {
     }
     
     @objc private func textFieldDidChange() {
+        guard var text = nicknameView.nicknameTextField.text else { return }
+            
+        ///아래의 코드로 종성 입력은 가능해지지만 16바이트 넘게 입력하면 입력하던 게 다 사라지고 입력이 됨. -> removeLast()의 특성
+        //        if text.totalEUCKRByteCount > 16 {
+        //                text = String(text.removeLast())
+        //            }
+        //            nicknameView.nicknameTextField.text = text
+        
         let isTextFieldEmpty = nicknameView.nicknameTextField.text?.isEmpty ?? true
         configureTextFieldStyle(nicknameView.nicknameTextField, isEmpty: isTextFieldEmpty)
         nicknameView.nextButton.changeState(forState: .isDisabled)
@@ -208,7 +216,7 @@ extension NicknameViewController: UITextFieldDelegate {
         let newText = currentText.replacingCharacters(in: range, with: string)
         
         //입력된 텍스트의 byte 길이를 계산한 후 최대 바이트 길이인 16을 초과하는 경우에만 입력을 막는 코드
-        let byteLength = newText.eucKrByteLength
+        let byteLength = newText.totalEUCKRByteCount
         
         if byteLength > 16 {
             return false
