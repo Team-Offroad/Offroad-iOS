@@ -23,6 +23,11 @@ final class ReGenderViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
+    /// BehaviorRelay로 각 버튼 상태 관리
+    private let isMaleSelected = BehaviorRelay<Bool>(value: false)
+    private let isFemaleSelected = BehaviorRelay<Bool>(value: false)
+    private let isOtherSelected = BehaviorRelay<Bool>(value: false)
+    
     // MARK: - Life Cycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -62,109 +67,133 @@ final class ReGenderViewController: UIViewController {
     
     private func setupBindings() {
         ///3개의 버튼을 클릭했을 때 동작하는 방식이 같으므로 Observable.merge로 처리
-        //        Observable.merge(
-        //            genderView.maleButton.rx.tap.map { Gender.male },
-        //            genderView.femaleButton.rx.tap.map { Gender.female },
-        //            genderView.etcButton.rx.tap.map { Gender.other }
-        //        )
-        //        .subscribe(onNext: { [weak self] selectedGender in
-        //            self?.handleGenderSelection(selectedGender)
-        //        })
-        //        .disposed(by: disposeBag)
+        genderView.maleButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.isMaleSelected.accept(!self.isMaleSelected.value)
+                self.isFemaleSelected.accept(false)
+                self.isOtherSelected.accept(false)
+            })
+            .disposed(by: disposeBag)
         
-        //        genderView.skipButton.rx.tap
-        //            .subscribe(onNext: { [weak self] in
-        //                self?.navigateToChoosingCharacter(gender: nil)
-        //                self?.resetGenderSelection()
-        //            })
-        //            .disposed(by: disposeBag)
+        genderView.femaleButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.isFemaleSelected.accept(!self.isFemaleSelected.value)
+                self.isMaleSelected.accept(false)
+                self.isOtherSelected.accept(false)
+            })
+            .disposed(by: disposeBag)
         
-        //        genderView.nextButton.rx.tap
-        //            .subscribe(onNext: { [weak self] in
-        //                self?.navigateToChoosingCharacter(gender: self?.selectedGender())
-        //            })
-        //            .disposed(by: disposeBag)
+        genderView.etcButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.isOtherSelected.accept(!self.isOtherSelected.value)
+                self.isMaleSelected.accept(false)
+                self.isFemaleSelected.accept(false)
+            })
+            .disposed(by: disposeBag)
         
         /// 성별 버튼의 선택 상태를 combineLatest에서 통합적으로 처리 후 nextButton 활성화 상태를 업데이트
-        ///하나라도 선택되면 true 반환
-        //        Observable.combineLatest(
-        //            genderView.maleButton.rx.isSelected.asObservable(),
-        //            genderView.femaleButton.rx.isSelected.asObservable(),
-        //            genderView.etcButton.rx.isSelected.asObservable()
-        //        ) { $0 || $1 || $2 }
-        //        .bind(to: genderView.nextButton.rx.isEnabled)
-        //        .disposed(by: disposeBag)
-        //    }
+        ////하나라도 선택되면 true 반환
+        Observable.combineLatest(
+            isMaleSelected.asObservable(),
+            isFemaleSelected.asObservable(),
+            isOtherSelected.asObservable()
+        )
+        .map { $0 || $1 || $2 } // 하나라도 true면 활성화
+        .subscribe(onNext: { [weak self] isEnabled in
+            guard let self = self else { return }
+            let state: buttonState = isEnabled ? .isEnabled : .isDisabled
+            self.genderView.nextButton.changeState(forState: state) // 상태 업데이트
+        })
+        .disposed(by: disposeBag)
         
-        // 선택된 성별 버튼의 상태를 업데이트하는 메서드
-        //     func handleGenderSelection(_ selectedGender: Gender) {
-        //        [genderView.maleButton, genderView.femaleButton, genderView.etcButton].forEach { button in
-        //            button.isSelected = (button == selectedGender.button) // 선택된 버튼만 활성화
-        //            button.layer.borderColor = button.isSelected ? UIColor.sub(.sub).cgColor : UIColor.grayscale(.gray100).cgColor // 선택 여부에 따라 테두리 색상 변경
-        //        }
-        //    }
-        //
-        //     func resetGenderSelection() {
-        //        [genderView.maleButton, genderView.femaleButton, genderView.etcButton].forEach { button in
-        //            button.isSelected = false // 선택 상태 초기화
-        //            button.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-        //        }
-        //        genderView.nextButton.isEnabled = false
-        //    }
+        genderView.skipButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.navigateToChoosingCharacter(gender: nil)
+                self?.resetGenderSelection()
+            })
+            .disposed(by: disposeBag)
         
-        //    private func navigateToChoosingCharacter(gender: String?) {
-        //        let nextVC = ChoosingCharacterViewController(
-        //            nickname: nickname,
-        //            birthYear: birthYear,
-        //            birthMonth: birthMonth,
-        //            birthDay: birthDay,
-        //            gender: gender
-        //        )
+        genderView.nextButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.navigateToChoosingCharacter(gender: self?.selectedGender())
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    //선택된 성별 버튼의 상태를 업데이트하는 메서드
+    func handleGenderSelection(_ selectedGender: Gender) {
+        [genderView.maleButton, genderView.femaleButton, genderView.etcButton].forEach { button in
+            button.isSelected = (button == selectedGender.button)
+            button.layer.borderColor = button.isSelected ? UIColor.sub(.sub).cgColor : UIColor.grayscale(.gray100).cgColor
+        }
+    }
+    
+    func resetGenderSelection() {
+        [genderView.maleButton, genderView.femaleButton, genderView.etcButton].forEach { button in
+            button.isSelected = false
+            button.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        }
+        isMaleSelected.accept(false)
+        isFemaleSelected.accept(false)
+        isOtherSelected.accept(false)
+        genderView.nextButton.changeState(forState: .isDisabled)
+    }
+    
+    private func navigateToChoosingCharacter(gender: String?) {
+        let nextVC = ChoosingCharacterViewController(
+            nickname: nickname,
+            birthYear: birthYear,
+            birthMonth: birthMonth,
+            birthDay: birthDay,
+            gender: gender
+        )
         
-        // 커스텀 백 버튼 설정
-        //        let backButton = UIButton().then { button in
-        //            button.setImage(.backBarButton, for: .normal)
-        //            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
-        //            button.imageView?.contentMode = .scaleAspectFill
-        //            button.snp.makeConstraints { make in
-        //                make.width.equalTo(30)
-        //                make.height.equalTo(44)
-        //            }
-        //        }
-        //
-        //        let customBackBarButton = UIBarButtonItem(customView: backButton)
-        //        nextVC.navigationItem.leftBarButtonItem = customBackBarButton
-        //
-        //        self.navigationController?.pushViewController(nextVC, animated: true)
-        //    }
+        let backButton = UIButton().then { button in
+            button.setImage(.backBarButton, for: .normal)
+            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
+            button.imageView?.contentMode = .scaleAspectFill
+            button.snp.makeConstraints { make in
+                make.width.equalTo(30)
+                make.height.equalTo(44)
+            }
+        }
         
-        //    private func selectedGender() -> String? {
-        //        if genderView.maleButton.isSelected {
-        //            return "MALE"
-        //        } else if genderView.femaleButton.isSelected {
-        //            return "FEMALE"
-        //        } else if genderView.etcButton.isSelected {
-        //            return "OTHER"
-        //        }
-        //        return nil
-        //    }
-        //
+        let customBackBarButton = UIBarButtonItem(customView: backButton)
+        nextVC.navigationItem.leftBarButtonItem = customBackBarButton
         
-        //    @objc private func executePop() {
-        //        navigationController?.popViewController(animated: true)
-        //    }
-        
-        
-        //private enum Gender {
-        //    case male, female, other
-        //
-        //    var button: UIButton {
-        //        switch self {
-        //        case .male: return GenderView().maleButton
-        //        case .female: return GenderView().femaleButton
-        //        case .other: return GenderView().etcButton
-        //        }
-        //    }
-        //}
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    private func selectedGender() -> String? {
+        if isMaleSelected.value {
+            return "MALE"
+        } else if isFemaleSelected.value {
+            return "FEMALE"
+        } else if isOtherSelected.value {
+            return "OTHER"
+        }
+        return nil
+    }
+    
+    
+    @objc private func executePop() {
+        navigationController?.popViewController(animated: true)
     }
 }
+
+
+enum Gender {
+    case male, female, other
+    
+    var button: UIButton {
+        switch self {
+        case .male: return GenderView().maleButton
+        case .female: return GenderView().femaleButton
+        case .other: return GenderView().etcButton
+        }
+    }
+}
+
