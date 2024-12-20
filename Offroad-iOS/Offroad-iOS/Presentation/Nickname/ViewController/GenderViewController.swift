@@ -135,21 +135,7 @@ extension GenderViewController {
         
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
-        
-        
-//        ProfileService().patchUpdateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender)) { result in
-//            switch result {
-//            case .success(let response):
-//                print("프로필 업데이트 성공~~~~~~~~~")
-//                
-//                let choosingCharacterViewController = ChoosingCharacterViewController()
-//                let customBackBarButton = UIBarButtonItem(customView: button)
-//                choosingCharacterViewController.navigationItem.leftBarButtonItem = customBackBarButton
-//                self.navigationController?.pushViewController(choosingCharacterViewController, animated: true)
-//            default:
-//                return
-//            }
-//        }
+
     
     @objc func skipButtonTapped() {
         let choosingCharacterViewController = ChoosingCharacterViewController(nickname: nickname, birthYear: birthYear, birthMonth: birthMonth, birthDay: birthDay, gender: nil)
