@@ -273,7 +273,7 @@ extension HomeViewController {
         if let lastUnreadChatInfo {
             ORBCharacterChatManager.shared.showCharacterChatBox(
                 character: lastUnreadChatInfo.characterName ?? MyInfoManager.shared.representativeCharacterName ?? "",
-                message: lastUnreadChatInfo.characterName ?? "",
+                message: lastUnreadChatInfo.content ?? "",
                 mode: .withoutReplyButtonExpanded
             )
         }
