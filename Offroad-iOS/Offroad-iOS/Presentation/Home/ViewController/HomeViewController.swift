@@ -274,7 +274,7 @@ extension HomeViewController {
             ORBCharacterChatManager.shared.showCharacterChatBox(
                 character: lastUnreadChatInfo.characterName ?? MyInfoManager.shared.representativeCharacterName ?? "",
                 message: lastUnreadChatInfo.content ?? "",
-                mode: .withoutReplyButtonExpanded
+                mode: .withoutReplyButtonShrinked
             )
         }
         ORBCharacterChatManager.shared.startChat()
