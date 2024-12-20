@@ -197,6 +197,11 @@ extension BirthViewController {
         }
         // 텍스트필드 자동 이동 구현
         if textField == birthView.yearTextField {
+            [birthView.monthTextField, birthView.dayTextField].forEach {
+                if $0.layer.borderColor == UIColor.main(.main2).cgColor {
+                    $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+                }
+            }
             if validateYear() && textField.text?.count == 4 {
                 birthView.monthTextField.becomeFirstResponder()
                 birthView.notionLabel.text = ""
@@ -211,10 +216,15 @@ extension BirthViewController {
             }
         }
         if textField == birthView.monthTextField {
+            [birthView.yearTextField, birthView.dayTextField].forEach {
+                if $0.layer.borderColor == UIColor.main(.main2).cgColor {
+                    $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+                }
+            }
             if validateMonth() && textField.text?.count == 2 {
-                textField.layer.borderColor = UIColor.main(.main2).cgColor
                 birthView.dayTextField.becomeFirstResponder()
                 birthView.notionLabel.text = ""
+                textField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
             }
             else if validateMonth() && textField.text?.count == 1 {
                 textField.layer.borderColor = UIColor.main(.main2).cgColor
@@ -228,6 +238,11 @@ extension BirthViewController {
             }
         }
         if textField == birthView.dayTextField {
+            [birthView.yearTextField, birthView.monthTextField].forEach {
+                if $0.layer.borderColor != UIColor.primary(.errorNew).cgColor  {
+                    $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+                }
+            }
             if validateDay() && textField.text?.count == 2 {
                 textField.layer.borderColor = UIColor.main(.main2).cgColor
             }

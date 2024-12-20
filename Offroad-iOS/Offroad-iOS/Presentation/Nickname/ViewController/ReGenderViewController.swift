@@ -72,8 +72,8 @@ final class ReGenderViewController: UIViewController {
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
                 self.isMaleSelected.accept(!self.isMaleSelected.value)
-                self.isFemaleSelected.accept(false)
-                self.isOtherSelected.accept(false)
+                self.handleGenderSelection(.male)
+                self.updateNextButtonState()
             })
             .disposed(by: disposeBag)
         
@@ -81,8 +81,8 @@ final class ReGenderViewController: UIViewController {
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
                 self.isFemaleSelected.accept(!self.isFemaleSelected.value)
-                self.isMaleSelected.accept(false)
-                self.isOtherSelected.accept(false)
+                self.handleGenderSelection(.female)
+                self.updateNextButtonState()
             })
             .disposed(by: disposeBag)
         
@@ -90,8 +90,8 @@ final class ReGenderViewController: UIViewController {
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
                 self.isOtherSelected.accept(!self.isOtherSelected.value)
-                self.isMaleSelected.accept(false)
-                self.isFemaleSelected.accept(false)
+                self.handleGenderSelection(.other)
+                self.updateNextButtonState()
             })
             .disposed(by: disposeBag)
         
@@ -127,9 +127,15 @@ final class ReGenderViewController: UIViewController {
     //선택된 성별 버튼의 상태를 업데이트하는 메서드
     func handleGenderSelection(_ selectedGender: Gender) {
         [genderView.maleButton, genderView.femaleButton, genderView.etcButton].forEach { button in
-            button.isSelected = (button == selectedGender.button)
-            button.layer.borderColor = button.isSelected ? UIColor.sub(.sub).cgColor : UIColor.grayscale(.gray100).cgColor
+            let isSelected = (button == selectedGender.button(in: genderView))
+            button.isSelected = isSelected
+            button.layer.borderColor = isSelected ? UIColor.sub(.sub).cgColor : UIColor.grayscale(.gray100).cgColor
         }
+    }
+    
+    func updateNextButtonState() {
+        let isGenderSelected = genderView.maleButton.isSelected || genderView.femaleButton.isSelected || genderView.etcButton.isSelected
+        genderView.nextButton.changeState(forState: isGenderSelected ? .isEnabled : .isDisabled)
     }
     
     func resetGenderSelection() {
@@ -185,15 +191,14 @@ final class ReGenderViewController: UIViewController {
     }
 }
 
-
 enum Gender {
     case male, female, other
     
-    var button: UIButton {
+    func button(in view: GenderView) -> UIButton {
         switch self {
-        case .male: return GenderView().maleButton
-        case .female: return GenderView().femaleButton
-        case .other: return GenderView().etcButton
+        case .male: return view.maleButton
+        case .female: return view.femaleButton
+        case .other: return view.etcButton
         }
     }
 }
