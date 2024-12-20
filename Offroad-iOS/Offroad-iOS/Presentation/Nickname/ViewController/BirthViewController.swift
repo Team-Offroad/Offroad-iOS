@@ -292,9 +292,9 @@ extension BirthViewController {
         if validateDay() {
             let nextVC = GenderViewController(
                 nickname: nickname,
-                birthYear: birthView.yearTextField.text ?? "",
-                birthMonth: birthView.monthTextField.text ?? "",
-                birthDay: birthView.dayTextField.text ?? ""
+                birthYear: Int(birthView.yearTextField.text ?? ""),
+                birthMonth: Int(birthView.monthTextField.text ?? ""),
+                birthDay: Int(birthView.dayTextField.text ?? "")
             )
             let button = UIButton().then { button in
                 button.setImage(.backBarButton, for: .normal)
@@ -338,12 +338,26 @@ extension BirthViewController {
         genderViewController.navigationItem.leftBarButtonItem = customBackBarButton
         
         self.navigationController?.pushViewController(genderViewController, animated: true)
+        
+        resetBirthFields()
     }
     
     
     // 텍스트 필드 글자 수 제한
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
+    }
+    
+    func resetBirthFields() {
+        birthView.yearTextField.text = ""
+        birthView.monthTextField.text = ""
+        birthView.dayTextField.text = ""
+        birthView.notionLabel.text = ""
+        birthView.nextButton.changeState(forState: .isDisabled)
+        
+        [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].forEach {
+            $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        }
     }
 }
 
