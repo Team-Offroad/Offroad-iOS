@@ -56,6 +56,7 @@ final class ReGenderViewController: UIViewController {
         
         setupBindings()
         self.modalPresentationStyle = .fullScreen
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: genderView.skipButton)
     }
     
     private func presentToNextVC() {
@@ -95,7 +96,7 @@ final class ReGenderViewController: UIViewController {
             .disposed(by: disposeBag)
         
         /// 성별 버튼의 선택 상태를 combineLatest에서 통합적으로 처리 후 nextButton 활성화 상태를 업데이트
-        ////하나라도 선택되면 true 반환
+        /// 하나라도 선택되면 true 반환
         Observable.combineLatest(
             isMaleSelected.asObservable(),
             isFemaleSelected.asObservable(),
