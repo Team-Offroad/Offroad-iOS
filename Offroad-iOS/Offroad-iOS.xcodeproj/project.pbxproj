@@ -157,6 +157,7 @@
 		87738CD02C8DC15200E107C7 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CCF2C8DC15200E107C7 /* UIColor+.swift */; };
 		87738CD52C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CD42C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift */; };
 		87738CDC2C8E164200E107C7 /* CharacterMotionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CDB2C8E164200E107C7 /* CharacterMotionResponseDTO.swift */; };
+		877F2D7B2D153C8500E90436 /* ReNicknameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877F2D7A2D153C8500E90436 /* ReNicknameViewController.swift */; };
 		8791EDF42C7E11E000E7F8B9 /* CouponListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF32C7E11E000E7F8B9 /* CouponListView.swift */; };
 		8791EDF62C7E121400E7F8B9 /* CouponListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF52C7E121400E7F8B9 /* CouponListViewController.swift */; };
 		8791EDF82C7E1D2B00E7F8B9 /* CouponDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF72C7E1D2B00E7F8B9 /* CouponDetailViewController.swift */; };
@@ -452,6 +453,7 @@
 		87738CCF2C8DC15200E107C7 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		87738CD42C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailResponseDTO.swift; sourceTree = "<group>"; };
 		87738CDB2C8E164200E107C7 /* CharacterMotionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterMotionResponseDTO.swift; sourceTree = "<group>"; };
+		877F2D7A2D153C8500E90436 /* ReNicknameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReNicknameViewController.swift; sourceTree = "<group>"; };
 		8791EDF32C7E11E000E7F8B9 /* CouponListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListView.swift; sourceTree = "<group>"; };
 		8791EDF52C7E121400E7F8B9 /* CouponListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponListViewController.swift; sourceTree = "<group>"; };
 		8791EDF72C7E1D2B00E7F8B9 /* CouponDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponDetailViewController.swift; sourceTree = "<group>"; };
@@ -1702,6 +1704,7 @@
 		87E046962C3D5E23002D12C2 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				877F2D7A2D153C8500E90436 /* ReNicknameViewController.swift */,
 				8792CFFD2C3D85BE002051AC /* NicknameViewController.swift */,
 				87E046932C3D2B38002D12C2 /* BirthViewController.swift */,
 				8792D0142C3E581E002051AC /* GenderViewController.swift */,
@@ -2842,6 +2845,7 @@
 				D0E7962F2C4535B1005B47A5 /* NicknameService.swift in Sources */,
 				4EF6B0432CC3F45000066640 /* ORBAlertViewScrollableContent.swift in Sources */,
 				D0E796202C4532A6005B47A5 /* ErrorResponseDTO.swift in Sources */,
+				877F2D7B2D153C8500E90436 /* ReNicknameViewController.swift in Sources */,
 				D0E796332C453615005B47A5 /* NicknameCheckResponseDTO.swift in Sources */,
 				D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */,
 				4EFCDFE12C92BD93006DEBB6 /* ORBAlertType.swift in Sources */,
