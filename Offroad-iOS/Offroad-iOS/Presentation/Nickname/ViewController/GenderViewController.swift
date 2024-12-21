@@ -79,7 +79,6 @@ final class GenderViewController: UIViewController {
     }
     
     private func setupBindings() {
-        ///3개의 버튼을 클릭했을 때 동작하는 방식이 같으므로 Observable.merge로 처리
         genderView.maleButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
@@ -118,7 +117,7 @@ final class GenderViewController: UIViewController {
         .subscribe(onNext: { [weak self] isEnabled in
             guard let self = self else { return }
             let state: buttonState = isEnabled ? .isEnabled : .isDisabled
-            self.genderView.nextButton.changeState(forState: state) // 상태 업데이트
+            self.genderView.nextButton.changeState(forState: state)
         })
         .disposed(by: disposeBag)
         
@@ -169,19 +168,6 @@ final class GenderViewController: UIViewController {
             birthDay: birthDay,
             gender: gender
         )
-        
-        let backButton = UIButton().then { button in
-            button.setImage(.backBarButton, for: .normal)
-            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
-            button.imageView?.contentMode = .scaleAspectFill
-            button.snp.makeConstraints { make in
-                make.width.equalTo(30)
-                make.height.equalTo(44)
-            }
-        }
-        
-        let customBackBarButton = UIBarButtonItem(customView: backButton)
-        nextVC.navigationItem.leftBarButtonItem = customBackBarButton
         
         self.navigationController?.pushViewController(nextVC, animated: true)
     }

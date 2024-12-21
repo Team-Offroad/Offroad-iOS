@@ -11,7 +11,6 @@ import Moya
 
 protocol CharacterServiceProtocol {
     func getStartingCharacterList(completion: @escaping (NetworkResult<StartingCharacterResponseDTO>) -> ())
-    func postChoosingCharacter(parameter: Int, completion: @escaping (NetworkResult<CharacterChoosingResponseDTO>) -> ())
     func getCharacterListInfo(completion: @escaping (NetworkResult<CharacterListResponseDTO>) -> ())
     func getCharacterDetail(characterId: Int, completion: @escaping (NetworkResult<CharacterDetailResponseDTO>) -> ())
     func getCharacterMotionList(characterId: Int, completion: @escaping (NetworkResult<CharacterMotionResponseDTO>) -> ())
@@ -31,30 +30,6 @@ final class CharacterService: BaseService, CharacterServiceProtocol {
                 completion(networkResult)
             case .failure(let err):
                 print(err)
-            }
-        }
-    }
-    
-    func postChoosingCharacter(parameter: Int, completion: @escaping (NetworkResult<CharacterChoosingResponseDTO>) -> ()) {
-        provider.request(.postChoosingCharacter(characterID: parameter)) { result in
-            switch result {
-            case .success(let response):
-                let networkResult: NetworkResult<CharacterChoosingResponseDTO> = self.fetchNetworkResult(
-                    statusCode: response.statusCode,
-                    data: response.data
-                )
-                completion(networkResult)
-            case .failure(let error):
-                print(error.localizedDescription)
-                switch error {
-                case .underlying(let error, let response):
-                    print(error.localizedDescription)
-                    if response == nil {
-                        completion(.networkFail())
-                    }
-                default:
-                    print(error.localizedDescription)
-                }
             }
         }
     }
