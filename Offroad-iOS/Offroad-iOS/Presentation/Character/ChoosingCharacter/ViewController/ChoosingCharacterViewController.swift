@@ -174,6 +174,7 @@ final class ChoosingCharacterViewController: UIViewController {
     
     @objc private func leftArrowTapped() {
         choosingCharacterView.leftButton.isUserInteractionEnabled = false
+        choosingCharacterView.rightButton.isUserInteractionEnabled = false
         let currentIndexPath = choosingCharacterView.collectionView.indexPathsForVisibleItems.first
         guard let indexPath = currentIndexPath else { return }
         
@@ -182,6 +183,7 @@ final class ChoosingCharacterViewController: UIViewController {
     }
     
     @objc private func rightArrowTapped() {
+        choosingCharacterView.leftButton.isUserInteractionEnabled = false
         choosingCharacterView.rightButton.isUserInteractionEnabled = false
         let currentIndexPath = choosingCharacterView.collectionView.indexPathsForVisibleItems.first
         guard let indexPath = currentIndexPath else { return }
