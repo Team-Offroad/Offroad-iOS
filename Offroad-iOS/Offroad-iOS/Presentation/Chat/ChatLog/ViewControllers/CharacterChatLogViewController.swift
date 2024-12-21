@@ -44,6 +44,9 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private let isTextViewEmpty = BehaviorRelay<Bool>(value: true)
     private let patchChatReadRelay = PublishRelay<Int?>()
     
+    /// 채팅 로그 뷰가 떠 있을 때 캐릭터 채팅 푸시 알림이 오면 캐릭터 채팅 내용을 전달
+    let characterChatPushedRelay = PublishRelay<String>()
+    
     private var disposeBag = DisposeBag()
     private var characterId: Int?
     private var characterName: String {
@@ -99,6 +102,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         tabBarController.showTabBarAnimation()
         rootView.backgroundView.isHidden = false
+        ORBCharacterChatManager.shared.currentChatLogViewController = self
         ORBCharacterChatManager.shared.endChat()
     }
     
@@ -124,6 +128,12 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         
         rootView.backgroundView.isHidden = true
         rootView.userChatInputView.resignFirstResponder()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        ORBCharacterChatManager.shared.currentChatLogViewController = nil
     }
     
 }
@@ -393,6 +403,11 @@ extension CharacterChatLogViewController {
                 guard let self else { return }
                 self.rootView.sendButton.isEnabled = shouldEnableSendButton
             }.disposed(by: disposeBag)
+        
+        characterChatPushedRelay.subscribe(onNext: { [weak self] message in
+            guard let self else { return }
+            self.sendChatBubble(isUserChat: false, text: message, isLoading: false)
+        }).disposed(by: disposeBag)
     }
     
     private func setupNotifications() {

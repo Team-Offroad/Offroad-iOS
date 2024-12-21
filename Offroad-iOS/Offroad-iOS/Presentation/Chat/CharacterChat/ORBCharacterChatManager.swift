@@ -22,6 +22,7 @@ final class ORBCharacterChatManager {
     let shouldMakeKeyboardBackgroundTransparent = PublishRelay<Bool>()
     let shouldUpdateLastChatInfo = PublishRelay<Void>()
     let didReadLastChat = PublishRelay<Void>()
+    weak var currentChatLogViewController: CharacterChatLogViewController? = nil
     
     //MARK: - UI Properties
     
