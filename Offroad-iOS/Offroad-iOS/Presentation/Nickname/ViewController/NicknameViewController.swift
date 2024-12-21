@@ -84,12 +84,8 @@ final class NicknameViewController: UIViewController {
             .disposed(by: disposeBag)
         
         /// 화면 터치 시 키보드 내려가게 하는 코드
-        /// 기존 UIKit에선
-        ///  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        ///self.view.endEditing(true)
-        ///    }로 구현했었는데,
+        /// 기존 UIKit에선 touchesBegan으로 로 구현했었는데,
         /// UITapGestureRecognizer를 rx로 바인딩하여 구현하는 것도 가능하다.
-        ///
         let tapGesture = UITapGestureRecognizer()
         view.addGestureRecognizer(tapGesture)
         tapGesture.rx.event
@@ -158,11 +154,6 @@ final class NicknameViewController: UIViewController {
                     self.configureButtonStyle(self.nicknameView.checkButton, isEnabled: false)
                     self.nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
                     self.nicknameView.nextButton.changeState(forState: .isDisabled)
-                }
-                else if self.whetherDuplicate == false && self.formError(self.nicknameView.nicknameTextField.text ?? "") == false {
-                    self.nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 말씀해주세요."
-                    self.nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
-                    self.nicknameView.nicknameTextField.layer.borderColor = UIColor.primary(.errorNew).cgColor
                 }
                 else {
                     self.nicknameView.nicknameTextField.resignFirstResponder()

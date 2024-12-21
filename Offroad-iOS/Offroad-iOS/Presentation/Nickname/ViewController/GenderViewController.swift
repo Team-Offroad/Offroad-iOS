@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import SnapKit
 
+import SnapKit
 import Then
 import RxSwift
 import RxCocoa
@@ -24,7 +24,7 @@ final class GenderViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
-    /// BehaviorRelay로 각 버튼 상태 관리
+    // BehaviorRelay로 각 버튼 상태 관리
     private let isMaleSelected = BehaviorRelay<Bool>(value: false)
     private let isFemaleSelected = BehaviorRelay<Bool>(value: false)
     private let isOtherSelected = BehaviorRelay<Bool>(value: false)
@@ -58,11 +58,6 @@ final class GenderViewController: UIViewController {
         setupBindings()
         self.modalPresentationStyle = .fullScreen
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: genderView.skipButton)
-    }
-    
-    private func presentToNextVC() {
-        let choosingCharacterViewController = ChoosingCharacterViewController()
-        present(UINavigationController(rootViewController: choosingCharacterViewController), animated: true)
     }
     
     // MARK: - Private Methods
