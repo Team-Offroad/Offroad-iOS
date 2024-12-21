@@ -22,10 +22,11 @@ enum ChatBoxMode {
     case loading
 }
 
-class ORBCharacterChatBox: UIView {
+class ORBCharacterChatBox: UIControl {
     
     var mode: ChatBoxMode
     
+    let shrinkBehaviorAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     let characterNameLabel = UILabel()
     let messageLabel = UILabel()
     let loadingAnimationView = LottieAnimationView(name: "loading2")
@@ -50,7 +51,7 @@ class ORBCharacterChatBox: UIView {
         setupStyle()
         setupHierarchy()
         setupLayout()
-        setupAdditionalLayout()
+        setupAdditionalLayout(mode: mode)
     }
     
     required init?(coder: NSCoder) {
@@ -86,10 +87,10 @@ extension ORBCharacterChatBox {
         }
         
         chevronImageButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(19)
+            make.centerY.equalTo(messageLabel.snp.top).offset(12)
             make.trailing.equalToSuperview().inset(24)
             make.width.equalTo(34)
-            make.height.equalTo(22)
+            make.height.equalTo(34)
         }
         
         replyButton.snp.makeConstraints { make in
@@ -97,7 +98,7 @@ extension ORBCharacterChatBox {
         }
     }
     
-    func setupAdditionalLayout() {
+    func setupAdditionalLayout(mode: ChatBoxMode) {
         switch mode {
         case .withReplyButtonShrinked:
             messageLabel.numberOfLines = 1
@@ -106,7 +107,7 @@ extension ORBCharacterChatBox {
             replyButtonTopConstraint.isActive = true
             replyButtonBottomConstraint.isActive = true
         case .withReplyButtonExpanded:
-            messageLabel.numberOfLines = 0
+            messageLabel.numberOfLines = 3
             messageLabelTrailingConstraintToChevronImageButton.isActive = true
             messageLabelTrailingConstraintToSuperview.isActive = false
             replyButtonTopConstraint.isActive = true
@@ -118,7 +119,7 @@ extension ORBCharacterChatBox {
             replyButtonTopConstraint.isActive = false
             replyButtonBottomConstraint.isActive = false
         case .withoutReplyButtonExpanded:
-            messageLabel.numberOfLines = 0
+            messageLabel.numberOfLines = 3
             messageLabelTrailingConstraintToChevronImageButton.isActive = true
             messageLabelTrailingConstraintToSuperview.isActive = false
             replyButtonTopConstraint.isActive = false
@@ -172,6 +173,7 @@ extension ORBCharacterChatBox {
         
         chevronImageButton.do { button in
             button.setImage(.icnChatViewChevronDown, for: .normal)
+            button.configureBackgroundColorWhen(normal: .clear, highlighted: .grayscale(.gray100))
         }
         
         replyButton.do { button in
@@ -189,6 +191,62 @@ extension ORBCharacterChatBox {
     
     private func setupHierarchy() {
         addSubviews(characterNameLabel, messageLabel, loadingAnimationView, chevronImageButton, replyButton)
+    }
+    
+    //MARK: - Func
+    
+    func shrink() {
+        shrinkBehaviorAnimator.stopAnimation(true)
+        shrinkBehaviorAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            let shrinkTransform = CGAffineTransform(scaleX: 0.97, y: 0.97)
+            self.transform = shrinkTransform
+        }
+        shrinkBehaviorAnimator.startAnimation()
+    }
+    
+    func expand() {
+        shrinkBehaviorAnimator.stopAnimation(true)
+        shrinkBehaviorAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            transform = CGAffineTransform.identity
+        }
+        shrinkBehaviorAnimator.startAnimation()
+    }
+    
+    func setupHiddenState(mode: ChatBoxMode) {
+        switch mode {
+        case .withReplyButtonShrinked:
+            messageLabel.isHidden = false
+            replyButton.isHidden = false
+            chevronImageButton.imageView?.transform = .identity
+            loadingAnimationView.isHidden = true
+            loadingAnimationView.stop()
+        case .withReplyButtonExpanded:
+            messageLabel.isHidden = false
+            replyButton.isHidden = false
+            chevronImageButton.imageView?.transform = .init(rotationAngle: .pi * 0.9999)
+            loadingAnimationView.isHidden = true
+            loadingAnimationView.stop()
+        case .withoutReplyButtonShrinked:
+            messageLabel.isHidden = false
+            replyButton.isHidden = true
+            chevronImageButton.imageView?.transform = .identity
+            loadingAnimationView.isHidden = true
+            loadingAnimationView.stop()
+        case .withoutReplyButtonExpanded:
+            messageLabel.isHidden = false
+            replyButton.isHidden = true
+            chevronImageButton.imageView?.transform = .init(rotationAngle: .pi * 0.9999)
+            loadingAnimationView.isHidden = true
+            loadingAnimationView.stop()
+        case .loading:
+            messageLabel.isHidden = true
+            replyButton.isHidden = true
+            chevronImageButton.imageView?.transform = .identity
+            loadingAnimationView.isHidden = false
+            loadingAnimationView.play()
+        }
     }
     
 }

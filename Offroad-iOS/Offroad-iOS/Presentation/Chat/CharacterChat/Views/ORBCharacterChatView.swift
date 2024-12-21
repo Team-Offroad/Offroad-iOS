@@ -124,6 +124,11 @@ extension ORBCharacterChatView {
         userChatView.do { view in
             view.backgroundColor = .primary(.white)
             view.roundCorners(cornerRadius: 20, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
+            view.layer.shadowColor = UIColor.primary(.black).cgColor
+            view.layer.shadowOffset = .zero
+            view.layer.shadowOpacity = 0.2
+            view.layer.shadowRadius = 10
+            view.layer.masksToBounds = false
         }
         meLabel.do { label in
             label.textColor = .main(.main2)

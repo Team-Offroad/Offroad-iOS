@@ -232,6 +232,7 @@ extension ORBAlertController {
             })
             .bind { [weak self] recognizer in
                 print("tapped in view")
+                guard !ORBCharacterChatManager.shared.chatViewController.isUserChatInputViewShown else { return }
                 self?.rootView.endEditing(true)
             }.disposed(by: disposeBag)
         
