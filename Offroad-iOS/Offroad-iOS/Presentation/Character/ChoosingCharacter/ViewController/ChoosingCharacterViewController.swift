@@ -86,6 +86,7 @@ final class ChoosingCharacterViewController: UIViewController {
         super.viewDidLoad()
         
         setupTarget()
+        setupNavigationBar()
         setupCollectionView()
         
         let style = NSMutableParagraphStyle()
@@ -136,16 +137,6 @@ final class ChoosingCharacterViewController: UIViewController {
     }
     
     private func patchProfileData(characterID: Int) {
-        let button = UIButton().then { button in
-            button.setImage(.backBarButton, for: .normal)
-            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
-            button.imageView?.contentMode = .scaleAspectFill
-            button.snp.makeConstraints { make in
-                make.width.equalTo(30)
-                make.height.equalTo(44)
-            }
-        }
-        
         ProfileService().patchUpdateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender, characterID: characterID)) { response in
             switch response {
             case .success(let data):
