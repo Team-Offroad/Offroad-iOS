@@ -99,6 +99,21 @@ final class ChoosingCharacterViewController: UIViewController {
     
     //MARK: - Private Method
     
+    private func setupNavigationBar() {
+        let backButton = UIButton().then {
+            $0.setImage(.backBarButton, for: .normal)
+            $0.addTarget(self, action: #selector(executePop), for: .touchUpInside)
+            $0.imageView?.contentMode = .scaleAspectFill
+            $0.snp.makeConstraints { make in
+                make.width.equalTo(30)
+                make.height.equalTo(44)
+            }
+        }
+        let customBackBarButton = UIBarButtonItem(customView: backButton)
+        customBackBarButton.tintColor = .black
+        navigationItem.leftBarButtonItem = customBackBarButton
+    }
+    
     private func setupTarget() {
         choosingCharacterView.selectButton.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
     }
@@ -120,27 +135,6 @@ final class ChoosingCharacterViewController: UIViewController {
         return svgImage.renderedUIImage ?? UIImage()
     }
     
-    private func postCharacterID(characterID: Int) {
-        NetworkService.shared.characterService.postChoosingCharacter(parameter: characterID) { response in
-            switch response {
-            case .success(let data):
-                
-                let myCharacterImage = data?.data.characterImageUrl ?? ""
-                
-                let completeChoosingCharacterViewController = CompleteChoosingCharacterViewController(characterImage: myCharacterImage)
-                completeChoosingCharacterViewController.modalTransitionStyle = .crossDissolve
-                completeChoosingCharacterViewController.modalPresentationStyle = .fullScreen
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
-                    self.present(completeChoosingCharacterViewController, animated: true)
-                }
-                
-            default:
-                break
-            }
-        }
-    }
-    
     private func patchProfileData(characterID: Int) {
         let button = UIButton().then { button in
             button.setImage(.backBarButton, for: .normal)
@@ -152,17 +146,22 @@ final class ChoosingCharacterViewController: UIViewController {
             }
         }
         
-        ProfileService().patchUpdateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender, characterID: characterID)) { result in
-            switch result {
-            case .success(let response):
+        ProfileService().patchUpdateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender, characterID: characterID)) { response in
+            switch response {
+            case .success(let data):
                 print("프로필 업데이트 성공~~~~~~~~~")
                 
-                let choosingCharacterViewController = ChoosingCharacterViewController()
-                let customBackBarButton = UIBarButtonItem(customView: button)
-                choosingCharacterViewController.navigationItem.leftBarButtonItem = customBackBarButton
-                self.navigationController?.pushViewController(choosingCharacterViewController, animated: true)
+                let myCharacterImage = data?.data.characterImageUrl ?? ""
+                
+                let completeChoosingCharacterViewController = CompleteChoosingCharacterViewController(characterImage: myCharacterImage)
+                completeChoosingCharacterViewController.modalTransitionStyle = .crossDissolve
+                completeChoosingCharacterViewController.modalPresentationStyle = .fullScreen
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
+                    self.present(completeChoosingCharacterViewController, animated: true)
+                }
             default:
-                return
+                break
             }
         }
     }
@@ -200,7 +199,6 @@ final class ChoosingCharacterViewController: UIViewController {
         alertController.xButton.isHidden = true
         let cancelAction = ORBAlertAction(title: "아니요", style: .cancel) { _ in return }
         let okAction = ORBAlertAction(title: "네,좋아요!", style: .default) { _ in
-            self.postCharacterID(characterID: self.selectedCharacterID)
             self.patchProfileData(characterID: self.selectedCharacterID)
         }
         alertController.addAction(cancelAction)
