@@ -137,7 +137,7 @@ final class ChoosingCharacterViewController: UIViewController {
     }
     
     private func patchProfileData(characterID: Int) {
-        ProfileService().patchUpdateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender, characterID: characterID)) { response in
+        ProfileService().patchUpdateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender, characterId: characterID)) { response in
             switch response {
             case .success(let data):
                 print("프로필 업데이트 성공~~~~~~~~~")
