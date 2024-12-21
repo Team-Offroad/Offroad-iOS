@@ -33,6 +33,7 @@ class ORBCharacterChatViewController: UIViewController {
     let userChatViewAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     let userChatDisplayViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    private var hideWorkItem: DispatchWorkItem?
     
     lazy var panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureHandler))
     
@@ -74,6 +75,7 @@ extension ORBCharacterChatViewController {
         || rootView.characterChatBox.mode == .withReplyButtonExpanded
         switch sender.state {
         case .possible, .began:
+            stopAutoHide()
             return
         case .changed:
             let verticalPosition = sender.translation(in: rootView).y
@@ -96,7 +98,10 @@ extension ORBCharacterChatViewController {
             if sender.velocity(in: rootView).y < -100, hasReplyButton {
                 hideCharacterChatBox()
             } else {
-                showCharacterChatBox()
+                showCharacterChatBox(isAutoDismiss: false)
+                if hasReplyButton {
+                    restartAutoHide()
+                }
             }
         @unknown default:
             rootView.characterChatBox.transform = CGAffineTransform.identity
@@ -171,6 +176,7 @@ extension ORBCharacterChatViewController {
         
         rootView.characterChatBox.replyButton.rx.tap.bind { [weak self] in
             guard let self else { return }
+            self.stopAutoHide()
             self.rootView.window?.makeKeyAndVisible()
             if self.rootView.userChatInputView.becomeFirstResponder() {
                 self.patchChatReadRelay.accept(())
@@ -186,7 +192,7 @@ extension ORBCharacterChatViewController {
             self.postCharacterChat(message: self.rootView.userChatInputView.text)
             // 로티 뜨도록 구현
             self.configureCharacterChatBox(character: MyInfoManager.shared.representativeCharacterName ?? "", message: "", mode: .loading, animated: true)
-            self.showCharacterChatBox()
+            self.showCharacterChatBox(isAutoDismiss: false)
             self.rootView.userChatDisplayView.text = self.rootView.userChatInputView.text.trimmingCharacters(in: .whitespacesAndNewlines)
             self.rootView.userChatDisplayView.bounds.origin.y = -(self.rootView.userChatDisplayView.bounds.height)
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1) {
@@ -335,9 +341,28 @@ extension ORBCharacterChatViewController {
         }
     }
     
+    private func scheduleAutoHide() {
+        hideWorkItem?.cancel()
+        hideWorkItem = DispatchWorkItem(block: { [weak self] in
+            guard let self else { return }
+            self.hideCharacterChatBox()
+        })
+        // 채팅 박스 나타나는 애니메이션 시간: 0.5초
+        // 3초 뒤에 사라지도록 구현
+        DispatchQueue.main.asyncAfter(deadline: .now() + (3 + 0.5), execute: hideWorkItem!)
+    }
+    
+    private func stopAutoHide() {
+        hideWorkItem?.cancel()
+    }
+    
+    private func restartAutoHide() {
+        scheduleAutoHide()
+    }
+    
     //MARK: - Func
     
-    func showCharacterChatBox() {
+    func showCharacterChatBox(isAutoDismiss: Bool = true) {
         isCharacterChatBoxShown = true
         rootView.characterChatBox.isHidden = false
         panGesture.isEnabled = true
@@ -351,9 +376,13 @@ extension ORBCharacterChatViewController {
             self.rootView.layoutIfNeeded()
         }
         characterChatBoxPositionAnimator.startAnimation()
+        if isAutoDismiss {
+            scheduleAutoHide()
+        }
     }
     
     func hideCharacterChatBox() {
+        panGesture.isEnabled = false
         isCharacterChatBoxShown = false
         characterChatBoxPositionAnimator.stopAnimation(true)
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
