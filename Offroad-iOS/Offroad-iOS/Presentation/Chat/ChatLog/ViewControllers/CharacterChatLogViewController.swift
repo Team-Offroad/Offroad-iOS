@@ -368,7 +368,8 @@ extension CharacterChatLogViewController {
             self.rootView.layoutIfNeeded()
         }).disposed(by: disposeBag)
         
-        patchChatReadRelay.subscribe(onNext: { characterId in
+        patchChatReadRelay.subscribe(onNext: { [weak self] characterId in
+            guard let self else { return }
             NetworkService.shared.characterChatService.patchChatRead(characterId: characterId) { [weak self] networkResult in
                 guard let self else { return }
                 switch networkResult {

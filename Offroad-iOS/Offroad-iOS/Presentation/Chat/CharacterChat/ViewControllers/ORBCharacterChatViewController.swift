@@ -257,7 +257,8 @@ extension ORBCharacterChatViewController {
             self.rootView.layoutIfNeeded()
         }).disposed(by: disposeBag)
         
-        patchChatReadRelay.subscribe(onNext: {
+        patchChatReadRelay.subscribe(onNext: { [weak self] in
+            guard let self else { return }
             NetworkService.shared.characterChatService.patchChatRead { [weak self] networkResult in
                 guard let self else { return }
                 switch networkResult {
