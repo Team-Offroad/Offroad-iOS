@@ -46,7 +46,7 @@ final class NicknameViewController: UIViewController {
     private func setupBindings() {
         /// RxSwift에서 제공하는 UITextField.rx.text는 .editingChanged 이벤트 + 최초 초기화 1회 + 포커싱 + 언포커싱 될 때 모두 방출된다.
         /// 하지만 기존 코드에서 editingDidBegin, editingDidEnd, editingChanged으로 나뉘었으므로 각각의 상황에 맞게 controlEvent를 나눈다.
-
+        
         //텍스트 필드 focus 이벤트 바인딩(editingDidBegin,editingDidEnd)
         nicknameView.nicknameTextField.rx.controlEvent([.editingDidBegin])
             .subscribe(onNext: { [weak self] in
@@ -73,6 +73,13 @@ final class NicknameViewController: UIViewController {
         nicknameView.checkButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.checkButtonTapped()
+            })
+            .disposed(by: disposeBag)
+        
+        nicknameView.nextButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let button = self?.nicknameView.nextButton as? StateToggleButton else { return }
+                self?.buttonToBirthVC(sender: button)
             })
             .disposed(by: disposeBag)
         
@@ -139,6 +146,8 @@ final class NicknameViewController: UIViewController {
         return false
     }
     
+    //MARK: - @Objc Func
+    
     @objc private func checkButtonTapped() {
         NetworkService.shared.nicknameService.checkNicknameDuplicate(inputNickname: nicknameView.nicknameTextField.text ?? "") { response in
             switch response {
@@ -166,6 +175,30 @@ final class NicknameViewController: UIViewController {
                 break
             }
         }
+    }
+    
+    @objc func buttonToBirthVC(sender: StateToggleButton) {
+        let nextVC = BirthViewController(nickname: self.nicknameView.nicknameTextField.text ?? "")
+        
+        let button = UIButton().then { button in
+            button.setImage(.backBarButton, for: .normal)
+            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
+            button.imageView?.contentMode = .scaleAspectFill
+            button.snp.makeConstraints { make in
+                make.width.equalTo(30)
+                make.height.equalTo(44)
+            }
+        }
+        
+        let customBackBarButton = UIBarButtonItem(customView: button)
+        customBackBarButton.tintColor = .black
+        nextVC.navigationItem.leftBarButtonItem = customBackBarButton
+        
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @objc private func executePop() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
