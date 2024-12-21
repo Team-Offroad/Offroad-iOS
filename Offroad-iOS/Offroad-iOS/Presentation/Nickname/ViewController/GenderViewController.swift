@@ -9,10 +9,12 @@ import UIKit
 
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 final class GenderViewController: UIViewController {
     
-    //MARK: - Properties
+    // MARK: - Properties
     
     private let genderView = GenderView()
     private var nickname: String = ""
@@ -20,7 +22,14 @@ final class GenderViewController: UIViewController {
     private var birthMonth: Int?
     private var birthDay: Int?
     
-    //MARK: - Life Cycle
+    private let disposeBag = DisposeBag()
+    
+    // BehaviorRelay로 각 버튼 상태 관리
+    private let isMaleSelected = BehaviorRelay<Bool>(value: false)
+    private let isFemaleSelected = BehaviorRelay<Bool>(value: false)
+    private let isOtherSelected = BehaviorRelay<Bool>(value: false)
+    
+    // MARK: - Life Cycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
@@ -30,9 +39,9 @@ final class GenderViewController: UIViewController {
         self.init(nibName: nil, bundle: nil)
         
         self.nickname = nickname
-        self.birthYear = birthYear.flatMap { Int($0) }
-        self.birthMonth = birthMonth.flatMap { Int($0) }
-        self.birthDay = birthDay.flatMap { Int($0) }
+        self.birthYear = birthYear
+        self.birthMonth = birthMonth
+        self.birthDay = birthDay
     }
     
     required init?(coder: NSCoder) {
@@ -46,72 +55,112 @@ final class GenderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupAddTarget()
-        
+        setupBindings()
         self.modalPresentationStyle = .fullScreen
-    }
-    
-    private func presentToNextVC() {
-        let choosingCharacterViewController = ChoosingCharacterViewController()
-        present(UINavigationController(rootViewController: choosingCharacterViewController), animated: true)
-    }
-    
-    //MARK: - Private Method
-    
-    private func setupAddTarget() {
-        genderView.maleButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-        genderView.femaleButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-        genderView.etcButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-        genderView.nextButton.addTarget(self, action: #selector(buttonToCharacterVC), for: .touchUpInside)
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: genderView.skipButton)
-        genderView.skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
+        setupNavigationBar()
     }
     
-    private func updateNextButtonState() {
+    // MARK: - Private Methods
+    
+    private func setupNavigationBar() {
+        let backButton = UIButton().then {
+            $0.setImage(.backBarButton, for: .normal)
+            $0.addTarget(self, action: #selector(executePop), for: .touchUpInside)
+            $0.imageView?.contentMode = .scaleAspectFill
+            $0.snp.makeConstraints { make in
+                make.width.equalTo(30)
+                make.height.equalTo(44)
+            }
+        }
+        let customBackBarButton = UIBarButtonItem(customView: backButton)
+        customBackBarButton.tintColor = .black
+        navigationItem.leftBarButtonItem = customBackBarButton
+    }
+    
+    private func setupBindings() {
+        genderView.maleButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.isMaleSelected.accept(!self.isMaleSelected.value)
+                self.handleGenderSelection(.male)
+                self.updateNextButtonState()
+            })
+            .disposed(by: disposeBag)
+        
+        genderView.femaleButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.isFemaleSelected.accept(!self.isFemaleSelected.value)
+                self.handleGenderSelection(.female)
+                self.updateNextButtonState()
+            })
+            .disposed(by: disposeBag)
+        
+        genderView.etcButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.isOtherSelected.accept(!self.isOtherSelected.value)
+                self.handleGenderSelection(.other)
+                self.updateNextButtonState()
+            })
+            .disposed(by: disposeBag)
+        
+        /// 성별 버튼의 선택 상태를 combineLatest에서 통합적으로 처리 후 nextButton 활성화 상태를 업데이트
+        /// 하나라도 선택되면 true 반환
+        Observable.combineLatest(
+            isMaleSelected.asObservable(),
+            isFemaleSelected.asObservable(),
+            isOtherSelected.asObservable()
+        )
+        .map { $0 || $1 || $2 } // 하나라도 true면 활성화
+        .subscribe(onNext: { [weak self] isEnabled in
+            guard let self = self else { return }
+            let state: buttonState = isEnabled ? .isEnabled : .isDisabled
+            self.genderView.nextButton.changeState(forState: state)
+        })
+        .disposed(by: disposeBag)
+        
+        genderView.skipButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.navigateToChoosingCharacter(gender: nil)
+                self?.resetGenderSelection()
+            })
+            .disposed(by: disposeBag)
+        
+        genderView.nextButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.navigateToChoosingCharacter(gender: self?.selectedGender())
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    //선택된 성별 버튼의 상태를 업데이트하는 메서드
+    func handleGenderSelection(_ selectedGender: Gender) {
+        [genderView.maleButton, genderView.femaleButton, genderView.etcButton].forEach { button in
+            let isSelected = (button == selectedGender.button(in: genderView))
+            button.isSelected = isSelected
+            button.layer.borderColor = isSelected ? UIColor.sub(.sub).cgColor : UIColor.grayscale(.gray100).cgColor
+        }
+    }
+    
+    func updateNextButtonState() {
         let isGenderSelected = genderView.maleButton.isSelected || genderView.femaleButton.isSelected || genderView.etcButton.isSelected
         genderView.nextButton.changeState(forState: isGenderSelected ? .isEnabled : .isDisabled)
     }
     
-    private func resetGenderSelection() {
+    func resetGenderSelection() {
         [genderView.maleButton, genderView.femaleButton, genderView.etcButton].forEach { button in
             button.isSelected = false
             button.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         }
+        isMaleSelected.accept(false)
+        isFemaleSelected.accept(false)
+        isOtherSelected.accept(false)
         genderView.nextButton.changeState(forState: .isDisabled)
     }
-}
-
-extension GenderViewController {
     
-    //MARK: - @objc Method
-    @objc func buttonTapped(_ sender: UIButton) {
-        [genderView.maleButton, genderView.femaleButton, genderView.etcButton].forEach { button in
-            if button == sender {
-                button.isSelected.toggle()
-                button.layer.borderColor = button.isSelected ? UIColor.sub(.sub).cgColor : UIColor.grayscale(.gray100).cgColor
-                genderView.nextButton.changeState(forState: .isEnabled)
-            } else {
-                button.isSelected = false
-                button.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-            }
-        }
-        updateNextButtonState()
-    }
-    
-    @objc func buttonToCharacterVC() {
-        let gender: String?
-        if genderView.maleButton.isSelected {
-            gender = "MALE"
-        } else if genderView.femaleButton.isSelected {
-            gender = "FEMALE"
-        } else if genderView.etcButton.isSelected {
-            gender = "OTHER"
-        }
-        else {
-            gender = nil
-        }
-        
+    private func navigateToChoosingCharacter(gender: String?) {
         let nextVC = ChoosingCharacterViewController(
             nickname: nickname,
             birthYear: birthYear,
@@ -120,46 +169,34 @@ extension GenderViewController {
             gender: gender
         )
         
-        let button = UIButton().then { button in
-            button.setImage(.backBarButton, for: .normal)
-            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
-            button.imageView?.contentMode = .scaleAspectFill
-            button.snp.makeConstraints { make in
-                make.width.equalTo(30)
-                make.height.equalTo(44)
-            }
-        }
-        
-        let customBackBarButton = UIBarButtonItem(customView: button)
-        nextVC.navigationItem.leftBarButtonItem = customBackBarButton
-        
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
-
     
-    @objc func skipButtonTapped() {
-        let choosingCharacterViewController = ChoosingCharacterViewController(nickname: nickname, birthYear: birthYear, birthMonth: birthMonth, birthDay: birthDay, gender: nil)
-        
-        let button = UIButton().then { button in
-            button.setImage(.backBarButton, for: .normal)
-            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
-            button.imageView?.contentMode = .scaleAspectFill
-            button.snp.makeConstraints { make in
-                make.width.equalTo(30)
-                make.height.equalTo(44)
-            }
+    private func selectedGender() -> String? {
+        if isMaleSelected.value {
+            return "MALE"
+        } else if isFemaleSelected.value {
+            return "FEMALE"
+        } else if isOtherSelected.value {
+            return "OTHER"
         }
-        
-        let customBackBarButton = UIBarButtonItem(customView: button)
-        customBackBarButton.tintColor = .black
-        choosingCharacterViewController.navigationItem.leftBarButtonItem = customBackBarButton
-        
-        self.navigationController?.pushViewController(choosingCharacterViewController, animated: true)
-        
-        resetGenderSelection()
+        return nil
     }
+    
     
     @objc private func executePop() {
         navigationController?.popViewController(animated: true)
+    }
+}
+
+enum Gender {
+    case male, female, other
+    
+    func button(in view: GenderView) -> UIButton {
+        switch self {
+        case .male: return view.maleButton
+        case .female: return view.femaleButton
+        case .other: return view.etcButton
+        }
     }
 }
