@@ -79,7 +79,7 @@ final class NicknameViewController: UIViewController {
         nicknameView.nextButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 guard let button = self?.nicknameView.nextButton as? StateToggleButton else { return }
-                self?.buttonToBirthVC(sender: button)
+                self?.navigateToBirthViewController(sender: button)
             })
             .disposed(by: disposeBag)
         
@@ -168,22 +168,8 @@ final class NicknameViewController: UIViewController {
         }
     }
     
-    @objc func buttonToBirthVC(sender: StateToggleButton) {
+    @objc func navigateToBirthViewController(sender: StateToggleButton) {
         let nextVC = BirthViewController(nickname: self.nicknameView.nicknameTextField.text ?? "")
-        
-        let button = UIButton().then { button in
-            button.setImage(.backBarButton, for: .normal)
-            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
-            button.imageView?.contentMode = .scaleAspectFill
-            button.snp.makeConstraints { make in
-                make.width.equalTo(30)
-                make.height.equalTo(44)
-            }
-        }
-        
-        let customBackBarButton = UIBarButtonItem(customView: button)
-        customBackBarButton.tintColor = .black
-        nextVC.navigationItem.leftBarButtonItem = customBackBarButton
         
         self.navigationController?.pushViewController(nextVC, animated: true)
     }

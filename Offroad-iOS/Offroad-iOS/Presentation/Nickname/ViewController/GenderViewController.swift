@@ -58,9 +58,25 @@ final class GenderViewController: UIViewController {
         setupBindings()
         self.modalPresentationStyle = .fullScreen
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: genderView.skipButton)
+        setupNavigationBar()
     }
     
     // MARK: - Private Methods
+    
+    private func setupNavigationBar() {
+        let backButton = UIButton().then {
+            $0.setImage(.backBarButton, for: .normal)
+            $0.addTarget(self, action: #selector(executePop), for: .touchUpInside)
+            $0.imageView?.contentMode = .scaleAspectFill
+            $0.snp.makeConstraints { make in
+                make.width.equalTo(30)
+                make.height.equalTo(44)
+            }
+        }
+        let customBackBarButton = UIBarButtonItem(customView: backButton)
+        customBackBarButton.tintColor = .black
+        navigationItem.leftBarButtonItem = customBackBarButton
+    }
     
     private func setupBindings() {
         ///3개의 버튼을 클릭했을 때 동작하는 방식이 같으므로 Observable.merge로 처리

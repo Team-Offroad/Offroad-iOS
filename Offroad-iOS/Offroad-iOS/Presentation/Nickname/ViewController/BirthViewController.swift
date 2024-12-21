@@ -42,6 +42,7 @@ final class BirthViewController: UIViewController {
         
         setupDelegate()
         setupAddTarget()
+        setupNavigationBar()
         
     }
     
@@ -54,6 +55,21 @@ final class BirthViewController: UIViewController {
     }
     
     //MARK: - Private Method
+    
+    private func setupNavigationBar() {
+        let backButton = UIButton().then {
+            $0.setImage(.backBarButton, for: .normal)
+            $0.addTarget(self, action: #selector(executePop), for: .touchUpInside)
+            $0.imageView?.contentMode = .scaleAspectFill
+            $0.snp.makeConstraints { make in
+                make.width.equalTo(30)
+                make.height.equalTo(44)
+            }
+        }
+        let customBackBarButton = UIBarButtonItem(customView: backButton)
+        customBackBarButton.tintColor = .black
+        navigationItem.leftBarButtonItem = customBackBarButton
+    }
     
     private func setupAddTarget() {
         birthView.yearTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
@@ -68,7 +84,7 @@ final class BirthViewController: UIViewController {
         birthView.monthTextField.addTarget(self, action: #selector(textFieldDidEndEditing(_:)), for: .editingDidEnd)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldDidEndEditing(_:)), for: .editingDidEnd)
         
-        birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
+        birthView.nextButton.addTarget(self, action: #selector(navigateToGenderViewController), for: .touchUpInside)
         birthView.skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: birthView.skipButton)
@@ -303,7 +319,7 @@ extension BirthViewController {
         }
     }
     
-    @objc func buttonToGenderVC(sender: UIButton) {
+    @objc func navigateToGenderViewController(sender: UIButton) {
         if validateDay() {
             let nextVC = GenderViewController(
                 nickname: nickname,
@@ -311,18 +327,6 @@ extension BirthViewController {
                 birthMonth: Int(birthView.monthTextField.text ?? ""),
                 birthDay: Int(birthView.dayTextField.text ?? "")
             )
-            let button = UIButton().then { button in
-                button.setImage(.backBarButton, for: .normal)
-                button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
-                button.imageView?.contentMode = .scaleAspectFill
-                button.snp.makeConstraints { make in
-                    make.width.equalTo(30)
-                    make.height.equalTo(44)
-                }
-            }
-            
-            let customBackBarButton = UIBarButtonItem(customView: button)
-            nextVC.navigationItem.leftBarButtonItem = customBackBarButton
             
             self.navigationController?.pushViewController(nextVC, animated: true)
         } else {
