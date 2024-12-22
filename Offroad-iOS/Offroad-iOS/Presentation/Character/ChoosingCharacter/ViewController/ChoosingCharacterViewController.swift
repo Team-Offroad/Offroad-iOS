@@ -170,7 +170,9 @@ final class ChoosingCharacterViewController: UIViewController {
         guard let indexPath = currentIndexPath else { return }
         
         let previousIndex = indexPath.item - 1
-        choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: previousIndex, section: 0), at: .centeredHorizontally, animated: true)
+        if previousIndex >= 0 {
+            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: previousIndex, section: 0), at: .centeredHorizontally, animated: true)
+        }
     }
     
     @objc private func rightArrowTapped() {
@@ -180,7 +182,11 @@ final class ChoosingCharacterViewController: UIViewController {
         guard let indexPath = currentIndexPath else { return }
         
         let nextIndex = indexPath.item + 1
-        choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: nextIndex, section: 0), at: .centeredHorizontally, animated: true)
+        let itemCount = choosingCharacterView.collectionView.numberOfItems(inSection: 0)
+
+        if nextIndex < itemCount {
+            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: nextIndex, section: 0), at: .centeredHorizontally, animated: true)
+        }
     }
     
     @objc private func selectButtonTapped() {
