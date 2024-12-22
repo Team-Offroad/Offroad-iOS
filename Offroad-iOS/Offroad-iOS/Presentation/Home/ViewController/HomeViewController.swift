@@ -106,7 +106,7 @@ extension HomeViewController {
                 
                 self.rootView.updateAdventureInfo(nickname: nickname, baseImageUrl: baseImageUrl, characterName: characterName, emblemName: emblemName)
                 
-                if self.categoryString != "NONE" && motionImageUrl != "" {
+                if motionImageUrl != "" {
                     self.rootView.showMotionImage(motionImageUrl: motionImageUrl)
                 }
             default:
