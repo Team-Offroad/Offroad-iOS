@@ -36,7 +36,7 @@ final class NicknameView: UIView {
         $0.roundCorners(cornerRadius: 5)
         $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         $0.attributedPlaceholder = NSAttributedString(
-            string: "닉네임을 입력",
+            string: "닉네임 입력",
             attributes: [NSAttributedString.Key.font: UIFont.offroad(style: .iosTextAuto), NSAttributedString.Key.foregroundColor: UIColor.grayscale(.gray300)]
         )
         $0.resignFirstResponder()
