@@ -52,7 +52,7 @@ final class NicknameViewController: UIViewController {
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
                 
-                if self.whetherDuplicate {
+                if self.whetherDuplicate || self.nicknameView.notionLabel.text == "한글 2~8자, 영어 2~16자 이내로 다시 작성해주세요." {
                     self.nicknameView.nicknameTextField.layer.borderColor = UIColor.primary(.errorNew).cgColor
                 } else {
                     self.nicknameView.nicknameTextField.layer.borderColor = UIColor.main(.main2).cgColor
@@ -97,7 +97,7 @@ final class NicknameViewController: UIViewController {
             .bind { [weak self] _ in
                 guard let self = self else { return }
                 self.view.endEditing(true)
-                if self.nicknameView.notionLabel.text == "중복된 닉네임이에요. 다른 멋진 이름이 있으신가요?" {
+                if self.whetherDuplicate || self.nicknameView.notionLabel.text == "한글 2~8자, 영어 2~16자 이내로 다시 작성해주세요." {
                     self.nicknameView.nicknameTextField.layer.borderColor = UIColor.primary(.errorNew).cgColor
                 }
             }
