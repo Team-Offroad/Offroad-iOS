@@ -67,8 +67,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 completionHandler([])
                 if let characterName = data["characterName"] as? String,
                    let message = data["message"] as? String {
-                    ORBCharacterChatManager.shared.showCharacterChatBox(character: characterName, message: message, mode: .withReplyButtonShrinked)
-                    ORBCharacterChatManager.shared.chatViewController.rootView.setNeedsLayout()
+                    if let chatLogViewController = ORBCharacterChatManager.shared.currentChatLogViewController {
+                        chatLogViewController.characterChatPushedRelay.accept(message)
+                    } else {
+                        ORBCharacterChatManager.shared.shouldUpdateLastChatInfo.accept(())
+                        ORBCharacterChatManager.shared.showCharacterChatBox(character: characterName, message: message, mode: .withReplyButtonShrinked)
+                        ORBCharacterChatManager.shared.chatViewController.rootView.setNeedsLayout()
+                    }
                 }
             } else if category == "ANNOUNCEMENT_REDIRECT" {
                 completionHandler([.list, .banner])
