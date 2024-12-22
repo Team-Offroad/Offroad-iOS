@@ -50,8 +50,13 @@ final class NicknameViewController: UIViewController {
         //텍스트 필드 focus 이벤트 바인딩(editingDidBegin,editingDidEnd)
         nicknameView.nicknameTextField.rx.controlEvent([.editingDidBegin])
             .subscribe(onNext: { [weak self] in
-                self?.nicknameView.nicknameTextField.layer.borderColor = UIColor.main(.main2).cgColor
-            })
+                guard let self = self else { return }
+                
+                if self.whetherDuplicate {
+                    self.nicknameView.nicknameTextField.layer.borderColor = UIColor.primary(.errorNew).cgColor
+                } else {
+                    self.nicknameView.nicknameTextField.layer.borderColor = UIColor.main(.main2).cgColor
+                }            })
             .disposed(by: disposeBag)
         
         nicknameView.nicknameTextField.rx.controlEvent([.editingDidEnd])
@@ -90,15 +95,27 @@ final class NicknameViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
         tapGesture.rx.event
             .bind { [weak self] _ in
-                self?.view.endEditing(true)
+                guard let self = self else { return }
+                self.view.endEditing(true)
+                if self.nicknameView.notionLabel.text == "중복된 닉네임이에요. 다른 멋진 이름이 있으신가요?" {
+                    self.nicknameView.nicknameTextField.layer.borderColor = UIColor.primary(.errorNew).cgColor
+                }
             }
             .disposed(by: disposeBag)
     }
     
     private func handleTextFieldChange(_ text: String) {
-        
         let isTextFieldEmpty = text.isEmpty
-        configureTextFieldStyle(nicknameView.nicknameTextField, isEmpty: isTextFieldEmpty)
+        let isInitialState = nicknameView.nicknameTextField.layer.borderColor == UIColor.grayscale(.gray100).cgColor
+        
+        if isTextFieldEmpty && isInitialState {
+            configureTextFieldStyle(nicknameView.nicknameTextField, isEmpty: true)
+        } else if isTextFieldEmpty {
+            nicknameView.nicknameTextField.layer.borderColor = UIColor.main(.main2).cgColor
+        } else {
+            configureTextFieldStyle(nicknameView.nicknameTextField, isEmpty: false)
+        }
+        
         nicknameView.nextButton.changeState(forState: .isDisabled)
         
         if !formError(text) && !isTextFieldEmpty {
@@ -111,13 +128,15 @@ final class NicknameViewController: UIViewController {
             nicknameView.notionLabel.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
             nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
             nicknameView.notionLabel.font = UIFont.offroad(style: .iosHint)
-            nicknameView.nicknameTextField.layer.borderColor = UIColor.main(.main2).cgColor
             configureButtonStyle(nicknameView.checkButton, isEnabled: false)
         } else {
-            nicknameView.notionLabel.text = ""
+            nicknameView.notionLabel.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
+            nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
+            nicknameView.notionLabel.font = UIFont.offroad(style: .iosHint)
             configureButtonStyle(nicknameView.checkButton, isEnabled: true)
         }
     }
+    
     
     private func configureButtonStyle(_ button: UIButton, isEnabled: Bool) {
         button.isEnabled = isEnabled
@@ -151,6 +170,7 @@ final class NicknameViewController: UIViewController {
                 self.whetherDuplicate = data?.data.isDuplicate ?? Bool()
                 if self.whetherDuplicate == true {
                     self.nicknameView.notionLabel.text = "중복된 닉네임이에요. 다른 멋진 이름이 있으신가요?"
+                    self.nicknameView.nicknameTextField.layer.borderColor = UIColor.primary(.errorNew).cgColor
                     self.configureButtonStyle(self.nicknameView.checkButton, isEnabled: false)
                     self.nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
                     self.nicknameView.nextButton.changeState(forState: .isDisabled)
