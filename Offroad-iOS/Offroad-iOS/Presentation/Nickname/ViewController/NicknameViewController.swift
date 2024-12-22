@@ -96,9 +96,17 @@ final class NicknameViewController: UIViewController {
     }
     
     private func handleTextFieldChange(_ text: String) {
-        
         let isTextFieldEmpty = text.isEmpty
-        configureTextFieldStyle(nicknameView.nicknameTextField, isEmpty: isTextFieldEmpty)
+        let isInitialState = nicknameView.nicknameTextField.layer.borderColor == UIColor.grayscale(.gray100).cgColor
+        
+        if isTextFieldEmpty && isInitialState {
+            configureTextFieldStyle(nicknameView.nicknameTextField, isEmpty: true)
+        } else if isTextFieldEmpty {
+            nicknameView.nicknameTextField.layer.borderColor = UIColor.main(.main2).cgColor
+        } else {
+            configureTextFieldStyle(nicknameView.nicknameTextField, isEmpty: false)
+        }
+        
         nicknameView.nextButton.changeState(forState: .isDisabled)
         
         if !formError(text) && !isTextFieldEmpty {
@@ -111,13 +119,15 @@ final class NicknameViewController: UIViewController {
             nicknameView.notionLabel.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
             nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
             nicknameView.notionLabel.font = UIFont.offroad(style: .iosHint)
-            nicknameView.nicknameTextField.layer.borderColor = UIColor.main(.main2).cgColor
             configureButtonStyle(nicknameView.checkButton, isEnabled: false)
         } else {
-            nicknameView.notionLabel.text = ""
+            nicknameView.notionLabel.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
+            nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
+            nicknameView.notionLabel.font = UIFont.offroad(style: .iosHint)
             configureButtonStyle(nicknameView.checkButton, isEnabled: true)
         }
     }
+
     
     private func configureButtonStyle(_ button: UIButton, isEnabled: Bool) {
         button.isEnabled = isEnabled
