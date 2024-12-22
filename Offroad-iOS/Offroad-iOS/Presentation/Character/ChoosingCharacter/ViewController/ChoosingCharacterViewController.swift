@@ -46,8 +46,8 @@ final class ChoosingCharacterViewController: UIViewController {
     
     private var extendedCharacterImageList = [UIImage]() {
         didSet {
-            choosingCharacterView.collectionView.reloadData()
             if extendedCharacterImageList.count > 2 {
+                choosingCharacterView.collectionView.reloadData()
                 choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)
             }
         }
