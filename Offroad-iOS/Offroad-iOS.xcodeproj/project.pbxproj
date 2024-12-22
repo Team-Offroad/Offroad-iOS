@@ -944,7 +944,6 @@
 		4E0394762C2AA721007F0517 /* PlaceList */ = {
 			isa = PBXGroup;
 			children = (
-				4E08B9632C5E8EB70082EFB8 /* Models */,
 				4E08B9552C5DF07F0082EFB8 /* Views */,
 				4E08B9542C5DF0780082EFB8 /* ViewControllers */,
 			);
@@ -1101,13 +1100,6 @@
 				4E08B9612C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		4E08B9632C5E8EB70082EFB8 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		4E1E94142C3AC25000A7B08A /* ViewControllers */ = {
