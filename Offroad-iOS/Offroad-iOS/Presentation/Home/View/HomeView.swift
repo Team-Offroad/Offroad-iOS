@@ -116,7 +116,7 @@ extension HomeView {
         
         characterMotionView.do {
             $0.contentMode = .scaleAspectFit
-            $0.loopMode = .loop
+            $0.loopMode = .repeat(60)
         }
         
         titleView.do {
