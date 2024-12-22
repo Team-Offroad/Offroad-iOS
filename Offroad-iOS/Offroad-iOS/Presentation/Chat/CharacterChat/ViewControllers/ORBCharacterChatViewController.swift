@@ -109,6 +109,7 @@ extension ORBCharacterChatViewController {
     }
     
     @objc private func shrinkChatBox() {
+        stopAutoHide()
         rootView.characterChatBox.shrink()
     }
     
@@ -159,6 +160,21 @@ extension ORBCharacterChatViewController {
             .subscribe(onNext: { [weak self] isTransparent in
                 guard let self else { return }
                 self.rootView.keyboardBackgroundView.isHidden = isTransparent
+            }).disposed(by: disposeBag)
+        
+        rootView.characterChatBox.chevronImageButton.rx.controlEvent(.touchDown).bind(onNext: { [weak self] in
+            guard let self else { return }
+            self.stopAutoHide()
+        }).disposed(by: disposeBag)
+        
+        rootView.characterChatBox.chevronImageButton.rx.controlEvent([.touchUpInside, .touchUpOutside])
+            .bind(onNext: { [weak self] in
+                guard let self else { return }
+                let hasReplyButton = self.rootView.characterChatBox.mode == .withReplyButtonShrinked
+                || self.rootView.characterChatBox.mode == .withReplyButtonExpanded
+                if hasReplyButton {
+                    self.restartAutoHide()
+                }
             }).disposed(by: disposeBag)
         
         rootView.characterChatBox.chevronImageButton.rx.tap.bind { [weak self] in
