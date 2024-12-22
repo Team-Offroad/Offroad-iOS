@@ -50,8 +50,13 @@ final class NicknameViewController: UIViewController {
         //텍스트 필드 focus 이벤트 바인딩(editingDidBegin,editingDidEnd)
         nicknameView.nicknameTextField.rx.controlEvent([.editingDidBegin])
             .subscribe(onNext: { [weak self] in
-                self?.nicknameView.nicknameTextField.layer.borderColor = UIColor.main(.main2).cgColor
-            })
+                guard let self = self else { return }
+                
+                if self.whetherDuplicate {
+                    self.nicknameView.nicknameTextField.layer.borderColor = UIColor.primary(.errorNew).cgColor
+                } else {
+                    self.nicknameView.nicknameTextField.layer.borderColor = UIColor.main(.main2).cgColor
+                }            })
             .disposed(by: disposeBag)
         
         nicknameView.nicknameTextField.rx.controlEvent([.editingDidEnd])
@@ -90,7 +95,11 @@ final class NicknameViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
         tapGesture.rx.event
             .bind { [weak self] _ in
-                self?.view.endEditing(true)
+                guard let self = self else { return }
+                self.view.endEditing(true)
+                if self.nicknameView.notionLabel.text == "중복된 닉네임이에요. 다른 멋진 이름이 있으신가요?" {
+                    self.nicknameView.nicknameTextField.layer.borderColor = UIColor.primary(.errorNew).cgColor
+                }
             }
             .disposed(by: disposeBag)
     }
@@ -127,7 +136,7 @@ final class NicknameViewController: UIViewController {
             configureButtonStyle(nicknameView.checkButton, isEnabled: true)
         }
     }
-
+    
     
     private func configureButtonStyle(_ button: UIButton, isEnabled: Bool) {
         button.isEnabled = isEnabled
