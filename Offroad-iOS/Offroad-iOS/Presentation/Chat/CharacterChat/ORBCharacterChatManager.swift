@@ -20,6 +20,9 @@ final class ORBCharacterChatManager {
     
     let shouldPushCharacterChatLogViewController = PublishSubject<Int>()
     let shouldMakeKeyboardBackgroundTransparent = PublishRelay<Bool>()
+    let shouldUpdateLastChatInfo = PublishRelay<Void>()
+    let didReadLastChat = PublishRelay<Void>()
+    weak var currentChatLogViewController: CharacterChatLogViewController? = nil
     
     //MARK: - UI Properties
     
@@ -27,19 +30,26 @@ final class ORBCharacterChatManager {
     var chatViewController: ORBCharacterChatViewController {
         chatWindow.rootViewController as! ORBCharacterChatViewController
     }
+    var characterChatBox: ORBCharacterChatBox { chatViewController.rootView.characterChatBox }
+    var userChatView: UIView { chatViewController.rootView.userChatView }
+    var endChatButton: UIButton { chatViewController.rootView.endChatButton }
     
     //MARK: - Life Cycle
     
-    private init() { }
+    private init() {
+        characterChatBox.isHidden = true
+        userChatView.isHidden = true
+        endChatButton.isHidden = true
+    }
     
 }
-    
+
 extension ORBCharacterChatManager {
     
-    func showCharacterChatBox(character name: String, message: String, mode: ChatBoxMode) {
+    func showCharacterChatBox(character name: String, message: String, mode: ChatBoxMode, isAutoDismiss: Bool = true) {
         chatWindow.makeKeyAndVisible()
         chatViewController.configureCharacterChatBox(character: name, message: message, mode: mode, animated: false)
-        chatViewController.showCharacterChatBox()
+        chatViewController.showCharacterChatBox(isAutoDismiss: isAutoDismiss)
     }
     
     func hideCharacterChatBox() {
@@ -48,10 +58,13 @@ extension ORBCharacterChatManager {
     
     func startChat() {
         chatWindow.makeKeyAndVisible()
+        userChatView.isHidden = false
+        endChatButton.isHidden = false
         self.chatViewController.rootView.userChatInputView.becomeFirstResponder()
     }
     
     func endChat() {
+        chatViewController.hideUserChatInputView()
         chatViewController.rootView.userChatInputView.resignFirstResponder()
         chatViewController.rootView.userChatInputView.text = ""
         chatViewController.rootView.userChatDisplayView.text = ""
