@@ -120,7 +120,6 @@ class CouponDetailViewController: UIViewController {
                 self.afterCouponRedemptionRelay.accept(response.data.success)
             default:
                 self.afterCouponRedemptionRelay.accept(false)
-                self.showToast(message: ErrorMessages.networkError, inset: 66)
                 return
             }
         }
@@ -167,6 +166,7 @@ extension CouponDetailViewController {
                 attributes: [.foregroundColor: UIColor.grayscale(.gray300)]
             )
             textField.attributedPlaceholder = attributedPlaceholder
+            textField.delegate = self
         }
         
         present(alertController, animated: true)
@@ -180,3 +180,16 @@ extension CouponDetailViewController {
     
 }
 
+//MARK: - UITextFieldDelegate
+
+extension CouponDetailViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if ORBCharacterChatManager.shared.chatViewController.isUserChatInputViewShown {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+}

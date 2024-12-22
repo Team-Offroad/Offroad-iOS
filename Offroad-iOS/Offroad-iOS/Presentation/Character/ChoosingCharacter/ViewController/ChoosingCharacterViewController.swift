@@ -16,6 +16,11 @@ final class ChoosingCharacterViewController: UIViewController {
     //MARK: - Properties
     
     private let choosingCharacterView = ChoosingCharacterView()
+    private var nickname: String = ""
+    private var birthYear: Int?
+    private var birthMonth: Int?
+    private var birthDay: Int?
+    private var gender: String?
     
     private var characterInfoModelList: [StartingCharacter]? {
         didSet {
@@ -26,7 +31,7 @@ final class ChoosingCharacterViewController: UIViewController {
     private var characterImageList: [Int:UIImage] = [:] {
         didSet {
             let imageCount = characterImageList.count
-
+            
             if imageCount == characterInfoModelList?.count {
                 DispatchQueue.main.async {
                     self.extendedCharacterImageList.append(self.characterImageList[imageCount] ?? UIImage())
@@ -55,6 +60,24 @@ final class ChoosingCharacterViewController: UIViewController {
     
     //MARK: - Life Cycle
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    convenience init(nickname: String, birthYear: Int?, birthMonth: Int?, birthDay: Int?, gender: String?) {
+        self.init(nibName: nil, bundle: nil)
+        
+        self.nickname = nickname
+        self.birthYear = birthYear
+        self.birthMonth = birthMonth
+        self.birthDay = birthDay
+        self.gender = gender
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func loadView() {
         view = choosingCharacterView
     }
@@ -75,6 +98,21 @@ final class ChoosingCharacterViewController: UIViewController {
     }
     
     //MARK: - Private Method
+    
+    private func setupNavigationBar() {
+        let backButton = UIButton().then {
+            $0.setImage(.backBarButton, for: .normal)
+            $0.addTarget(self, action: #selector(executePop), for: .touchUpInside)
+            $0.imageView?.contentMode = .scaleAspectFill
+            $0.snp.makeConstraints { make in
+                make.width.equalTo(30)
+                make.height.equalTo(44)
+            }
+        }
+        let customBackBarButton = UIBarButtonItem(customView: backButton)
+        customBackBarButton.tintColor = .black
+        navigationItem.leftBarButtonItem = customBackBarButton
+    }
     
     private func setupTarget() {
         choosingCharacterView.selectButton.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
@@ -97,10 +135,21 @@ final class ChoosingCharacterViewController: UIViewController {
         return svgImage.renderedUIImage ?? UIImage()
     }
     
-    private func postCharacterID(characterID: Int) {
-        NetworkService.shared.characterService.postChoosingCharacter(parameter: characterID) { response in
+    private func patchProfileData(characterID: Int) {
+        let button = UIButton().then { button in
+            button.setImage(.backBarButton, for: .normal)
+            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
+            button.imageView?.contentMode = .scaleAspectFill
+            button.snp.makeConstraints { make in
+                make.width.equalTo(30)
+                make.height.equalTo(44)
+            }
+        }
+        
+        ProfileService().patchUpdateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender, characterID: characterID)) { response in
             switch response {
             case .success(let data):
+                print("프로필 업데이트 성공~~~~~~~~~")
                 
                 let myCharacterImage = data?.data.characterImageUrl ?? ""
                 
@@ -111,7 +160,6 @@ final class ChoosingCharacterViewController: UIViewController {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.4){
                     self.present(completeChoosingCharacterViewController, animated: true)
                 }
-                
             default:
                 break
             }
@@ -119,6 +167,10 @@ final class ChoosingCharacterViewController: UIViewController {
     }
     
     //MARK: - @objc Method
+    
+    @objc private func executePop() {
+        navigationController?.popViewController(animated: true)
+    }
     
     @objc private func leftArrowTapped() {
         choosingCharacterView.leftButton.isUserInteractionEnabled = false
@@ -147,7 +199,7 @@ final class ChoosingCharacterViewController: UIViewController {
         alertController.xButton.isHidden = true
         let cancelAction = ORBAlertAction(title: "아니요", style: .cancel) { _ in return }
         let okAction = ORBAlertAction(title: "네,좋아요!", style: .default) { _ in
-            self.postCharacterID(characterID: self.selectedCharacterID)
+            self.patchProfileData(characterID: self.selectedCharacterID)
         }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)

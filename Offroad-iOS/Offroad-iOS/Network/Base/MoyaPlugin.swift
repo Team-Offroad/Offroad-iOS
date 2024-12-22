@@ -68,5 +68,7 @@ final class MoyaPlugin: PluginType {
         log.append("\(error.failureReason ?? error.errorDescription ?? "unknown error")\n")
         log.append("<-- END HTTP")
         print(log)
+        
+        ORBToastManager.shared.showToast(message: ErrorMessages.networkError, inset: 54)
     }
 }

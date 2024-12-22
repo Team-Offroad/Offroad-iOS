@@ -42,6 +42,7 @@ final class BirthViewController: UIViewController {
         
         setupDelegate()
         setupAddTarget()
+        setupNavigationBar()
         
     }
     
@@ -54,6 +55,21 @@ final class BirthViewController: UIViewController {
     }
     
     //MARK: - Private Method
+    
+    private func setupNavigationBar() {
+        let backButton = UIButton().then {
+            $0.setImage(.backBarButton, for: .normal)
+            $0.addTarget(self, action: #selector(executePop), for: .touchUpInside)
+            $0.imageView?.contentMode = .scaleAspectFill
+            $0.snp.makeConstraints { make in
+                make.width.equalTo(30)
+                make.height.equalTo(44)
+            }
+        }
+        let customBackBarButton = UIBarButtonItem(customView: backButton)
+        customBackBarButton.tintColor = .black
+        navigationItem.leftBarButtonItem = customBackBarButton
+    }
     
     private func setupAddTarget() {
         birthView.yearTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidBegin)
@@ -68,7 +84,7 @@ final class BirthViewController: UIViewController {
         birthView.monthTextField.addTarget(self, action: #selector(textFieldDidEndEditing(_:)), for: .editingDidEnd)
         birthView.dayTextField.addTarget(self, action: #selector(textFieldDidEndEditing(_:)), for: .editingDidEnd)
         
-        birthView.nextButton.addTarget(self, action: #selector(buttonToGenderVC), for: .touchUpInside)
+        birthView.nextButton.addTarget(self, action: #selector(navigateToGenderViewController), for: .touchUpInside)
         birthView.skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: birthView.skipButton)
@@ -197,6 +213,11 @@ extension BirthViewController {
         }
         // 텍스트필드 자동 이동 구현
         if textField == birthView.yearTextField {
+            [birthView.monthTextField, birthView.dayTextField].forEach {
+                if $0.layer.borderColor == UIColor.main(.main2).cgColor {
+                    $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+                }
+            }
             if validateYear() && textField.text?.count == 4 {
                 birthView.monthTextField.becomeFirstResponder()
                 birthView.notionLabel.text = ""
@@ -211,10 +232,15 @@ extension BirthViewController {
             }
         }
         if textField == birthView.monthTextField {
+            [birthView.yearTextField, birthView.dayTextField].forEach {
+                if $0.layer.borderColor == UIColor.main(.main2).cgColor {
+                    $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+                }
+            }
             if validateMonth() && textField.text?.count == 2 {
-                textField.layer.borderColor = UIColor.main(.main2).cgColor
                 birthView.dayTextField.becomeFirstResponder()
                 birthView.notionLabel.text = ""
+                textField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
             }
             else if validateMonth() && textField.text?.count == 1 {
                 textField.layer.borderColor = UIColor.main(.main2).cgColor
@@ -228,6 +254,11 @@ extension BirthViewController {
             }
         }
         if textField == birthView.dayTextField {
+            [birthView.yearTextField, birthView.monthTextField].forEach {
+                if $0.layer.borderColor != UIColor.primary(.errorNew).cgColor  {
+                    $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+                }
+            }
             if validateDay() && textField.text?.count == 2 {
                 textField.layer.borderColor = UIColor.main(.main2).cgColor
             }
@@ -288,26 +319,14 @@ extension BirthViewController {
         }
     }
     
-    @objc func buttonToGenderVC(sender: UIButton) {
+    @objc func navigateToGenderViewController(sender: UIButton) {
         if validateDay() {
             let nextVC = GenderViewController(
                 nickname: nickname,
-                birthYear: birthView.yearTextField.text ?? "",
-                birthMonth: birthView.monthTextField.text ?? "",
-                birthDay: birthView.dayTextField.text ?? ""
+                birthYear: Int(birthView.yearTextField.text ?? ""),
+                birthMonth: Int(birthView.monthTextField.text ?? ""),
+                birthDay: Int(birthView.dayTextField.text ?? "")
             )
-            let button = UIButton().then { button in
-                button.setImage(.backBarButton, for: .normal)
-                button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
-                button.imageView?.contentMode = .scaleAspectFill
-                button.snp.makeConstraints { make in
-                    make.width.equalTo(30)
-                    make.height.equalTo(44)
-                }
-            }
-            
-            let customBackBarButton = UIBarButtonItem(customView: button)
-            nextVC.navigationItem.leftBarButtonItem = customBackBarButton
             
             self.navigationController?.pushViewController(nextVC, animated: true)
         } else {
@@ -338,12 +357,26 @@ extension BirthViewController {
         genderViewController.navigationItem.leftBarButtonItem = customBackBarButton
         
         self.navigationController?.pushViewController(genderViewController, animated: true)
+        
+        resetBirthFields()
     }
     
     
     // 텍스트 필드 글자 수 제한
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
+    }
+    
+    func resetBirthFields() {
+        birthView.yearTextField.text = ""
+        birthView.monthTextField.text = ""
+        birthView.dayTextField.text = ""
+        birthView.notionLabel.text = ""
+        birthView.nextButton.changeState(forState: .isDisabled)
+        
+        [birthView.yearTextField, birthView.monthTextField, birthView.dayTextField].forEach {
+            $0.layer.borderColor = UIColor.grayscale(.gray100).cgColor
+        }
     }
 }
 
