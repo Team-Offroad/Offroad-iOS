@@ -116,7 +116,7 @@ extension HomeView {
         
         characterMotionView.do {
             $0.contentMode = .scaleAspectFit
-            $0.loopMode = .loop
+            $0.loopMode = .repeat(60)
         }
         
         titleView.do {
@@ -199,6 +199,7 @@ extension HomeView {
         nicknameLabel.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(26)
             $0.leading.equalToSuperview().inset(24)
+            $0.height.equalTo(29)
         }
         
         characterNameView.snp.makeConstraints {
@@ -217,6 +218,12 @@ extension HomeView {
             $0.trailing.equalToSuperview().inset(24)
         }
         
+        [chatButton, shareButton, changeCharacterButton].forEach { button in
+            button.snp.makeConstraints {
+                $0.size.equalTo(44)
+            }
+        }
+        
         chatUnreadDotView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(2)
             make.trailing.equalToSuperview().inset(4)
@@ -226,12 +233,13 @@ extension HomeView {
         characterBaseImageView.snp.makeConstraints {
             $0.top.equalTo(characterNameView.snp.bottom).offset(25)
             $0.bottom.equalTo(titleView.snp.top).offset(-25)
+            $0.size.equalTo(253)
             $0.horizontalEdges.equalToSuperview()
         }
         
         characterMotionView.snp.makeConstraints {
-            $0.top.equalTo(characterNameView.snp.bottom).offset(25)
-            $0.bottom.equalTo(titleView.snp.top).offset(-25)
+            $0.top.equalTo(characterNameView.snp.bottom)
+            $0.bottom.equalTo(titleView.snp.top)
             $0.horizontalEdges.equalToSuperview()
         }
         
