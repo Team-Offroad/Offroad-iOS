@@ -88,4 +88,10 @@ extension EmptyStateCollectionView {
         addSubview(emptyStateStackView)
     }
     
+    //MARK: - Func
+    
+    func setEmptyStateMessage(_ message: String?) {
+        emptyStateMessage = message
+    }
+    
 }
