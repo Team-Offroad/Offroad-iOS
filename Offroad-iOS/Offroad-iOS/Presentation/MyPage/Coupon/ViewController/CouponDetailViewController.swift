@@ -166,6 +166,7 @@ extension CouponDetailViewController {
                 attributes: [.foregroundColor: UIColor.grayscale(.gray300)]
             )
             textField.attributedPlaceholder = attributedPlaceholder
+            textField.delegate = self
         }
         
         present(alertController, animated: true)
@@ -179,3 +180,16 @@ extension CouponDetailViewController {
     
 }
 
+//MARK: - UITextFieldDelegate
+
+extension CouponDetailViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if ORBCharacterChatManager.shared.chatViewController.isUserChatInputViewShown {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+}
