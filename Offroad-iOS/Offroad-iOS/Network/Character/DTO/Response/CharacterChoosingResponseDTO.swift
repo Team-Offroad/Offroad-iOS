@@ -13,5 +13,5 @@ struct CharacterChoosingResponseDTO: Codable {
 }
 
 struct CharacterImage: Codable {
-    let characterImageUrl: String
+    let characterImageUrl: String?
 }
