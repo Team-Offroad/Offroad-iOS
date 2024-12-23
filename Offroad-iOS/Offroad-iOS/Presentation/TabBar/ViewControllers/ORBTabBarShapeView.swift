@@ -62,7 +62,7 @@ extension ORBTabBarShapeView {
         path.addLine(to: .init(x: 0, y: bounds.height))
         path.close()
         
-        UIColor.sub(.sub4).setFill()
+        UIColor.sub(.sub480).setFill()
         path.fill()
     }
     
