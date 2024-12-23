@@ -111,6 +111,7 @@ extension TitlePopupViewController {
             switch response {
             case .success:
                 print("칭호 변경 성공!!!!!!!")
+                MyInfoManager.shared.shouldUpdateUserInfoData.accept(())
             default:
                 break
             }

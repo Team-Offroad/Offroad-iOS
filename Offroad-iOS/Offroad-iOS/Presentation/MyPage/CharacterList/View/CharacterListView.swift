@@ -31,7 +31,9 @@ class CharacterListView: UIView {
         $0.font = UIFont.offroad(style: .iosTextTitle)
     }
     
-    private let babyImage = UIImageView(image: .icnCharacterListBabyCharacter)
+    private let characterIconImage = UIImageView(image: .icnCharacterDetailOrbCharacter).then { imageView in
+        imageView.contentMode = .scaleAspectFit
+    }
     
     private let subLabel = UILabel().then {
         $0.text = "퀘스트를 달성하고 보상으로 캐릭터를 얻어보아요!"
@@ -89,7 +91,7 @@ class CharacterListView: UIView {
         labelView.addSubviews(
             customBackButton,
             mainLabel,
-            babyImage,
+            characterIconImage,
             subLabel,
             characterImage,
             checkImage
@@ -118,10 +120,10 @@ class CharacterListView: UIView {
             make.bottom.equalToSuperview().inset(24)
         }
 
-        babyImage.snp.makeConstraints { make in
+        characterIconImage.snp.makeConstraints { make in
             make.centerY.equalTo(mainLabel)
             make.leading.equalTo(mainLabel.snp.trailing).offset(8)
-            make.size.equalTo(CGSize(width: 26, height: 21))
+            make.size.equalTo(27)
         }
 
         checkImage.snp.makeConstraints { make in
