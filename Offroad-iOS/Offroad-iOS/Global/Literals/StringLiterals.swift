@@ -19,7 +19,7 @@ struct AlertMessage {
     static let adventureFailureTitle = "탐험 실패"
     static let adventureFailureLocationMessage = "탐험에 실패했어요.\n위치를 다시 한 번 확인해주세요."
     static let adventureFailureQRMessage = "탐험에 실패했어요.\nQR코드를 다시 한 번 확인해주세요."
-    static let adventureFailureVisitCount = "한 장소는 하루에 한 번만 방문 가능해요.\n내일 다시 방문해주세요."
+    static let adventureFailureVisitCountMessage = "한 장소는 하루에 한 번만 방문 가능해요.\n내일 다시 방문해주세요."
     static let couponRedemptionSuccessTitle = "사용 완료"
     static let couponRedemptionSuccessMessage = "쿠폰 사용이 완료되었어요!"
     static let couponRedemptionFailureTitle = "사용 실패"
