@@ -213,20 +213,24 @@ extension QuestMapViewController {
             }).disposed(by: disposeBag)
         
         Observable.zip(
-            viewModel.isLocationAdventureAuthenticated,
+            viewModel.isLocationAuthorized,
             viewModel.successCharacterImage,
-            viewModel.completeQuestList
+            viewModel.completeQuestList,
+            viewModel.isFirstVisitToday
         )
         .observe(on: MainScheduler.instance)
-        .subscribe(onNext: { [weak self] success, image, completeQuests in
+        .subscribe(onNext: { [weak self] locationValidation, image, completeQuests, isFirstVisitToday in
             guard let self else { return }
-            if success {
+            if locationValidation {
                 self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
                 MyInfoManager.shared.shouldUpdateCharacterAnimation.accept(latestCategory ?? "NONE")
                 MyInfoManager.shared.didSuccessAdventure.accept(())
             }
             self.tabBarController?.view.stopLoading()
-            self.popupAdventureResult(isSuccess: success, image: image, completeQuests: completeQuests)
+            self.popupAdventureResult(isValidLocation: locationValidation,
+                                      image: image,
+                                      completeQuests: completeQuests,
+                                      isFirstVisitToday: isFirstVisitToday)
         }).disposed(by: disposeBag)
         
         rootView.reloadPlaceButton.rx.tap.bind { [weak self] _ in
@@ -298,21 +302,47 @@ extension QuestMapViewController {
         return true
     }
     
-    private func popupAdventureResult(isSuccess: Bool, image: UIImage?, completeQuests: [CompleteQuest]?) {
-        let title: String = isSuccess ? AlertMessage.adventureSuccessTitle : AlertMessage.adventureFailureTitle
-        let message: String = isSuccess ? AlertMessage.adventureSuccessMessage : AlertMessage.adventureFailureLocationMessage
-        let buttonTitle: String = isSuccess ? "홈으로" : "확인"
+    private func popupAdventureResult(
+        isValidLocation: Bool,
+        image: UIImage?,
+        completeQuests: [CompleteQuest]?,
+        isFirstVisitToday: Bool
+    ) {
+        let title: String = (isValidLocation && isFirstVisitToday) ? AlertMessage.adventureSuccessTitle : AlertMessage.adventureFailureTitle
+        let message: String
+        let buttonTitle: String
+        
+        // 탐험 성공
+        if isValidLocation && isFirstVisitToday {
+            message = AlertMessage.adventureSuccessMessage
+            buttonTitle = "홈으로"
+            
+        // 위치는 맞으나, 해당 날짜에 두 번째 방문인 경우
+        } else if isValidLocation && !isFirstVisitToday {
+            message = AlertMessage.adventureFailureVisitCountMessage
+            buttonTitle = "확인"
+            
+        // isValidLocation이 false인 경우 (잘못된 위치)
+        } else {
+            message = AlertMessage.adventureFailureLocationMessage
+            buttonTitle = "확인"
+        }
+        
         let alertController = ORBAlertController(title: title, message: message, type: .explorationResult)
         alertController.configureExplorationResultImage { $0.image = image }
-        alertController.configureMessageLabel { $0.highlightText(targetText: "위치", font: .offroad(style: .iosTextBold)) }
+        alertController.configureMessageLabel {
+            $0.highlightText(targetText: "위치", font: .offroad(style: .iosTextBold))
+            $0.highlightText(targetText: "한 번", font: .offroad(style: .iosTextBold))
+            $0.highlightText(targetText: "내일 다시", font: .offroad(style: .iosTextBold))
+        }
         alertController.xButton.isHidden = true
         let okAction = ORBAlertAction(title: buttonTitle, style: .default) { [weak self] _ in
             guard let self else { return }
-            if isSuccess {
+            if isValidLocation && isFirstVisitToday {
                 self.tabBarController?.selectedIndex = 0
             }
             
-            guard let completeQuests, isSuccess else { return }
+            guard let completeQuests, isValidLocation else { return }
             let message: String
             if completeQuests.count <= 0 {
                 return
