@@ -144,11 +144,20 @@ extension CouponListViewController{
                 guard let response else {
                     return
                 }
-                guard response.data.coupons.count > 0 else { return }
+                guard response.data.coupons.count > 0 else {
+                    if isUsed {
+                        self.rootView.collectionViewForUsedCoupons.emptyState = true
+                    } else {
+                        self.rootView.collectionViewForAvailableCoupons.emptyState = true
+                    }
+                    return
+                }
                 if isUsed {
-                    rootView.collectionViewForUsedCoupons.stopLoading()
+                    self.rootView.collectionViewForUsedCoupons.stopLoading()
+                    self.rootView.collectionViewForUsedCoupons.emptyState = false
                 } else {
-                    rootView.collectionViewForAvailableCoupons.stopLoading()
+                    self.rootView.collectionViewForAvailableCoupons.stopLoading()
+                    self.rootView.collectionViewForAvailableCoupons.emptyState = false
                 }
                 
                 self.availableCouponsCount = response.data.availableCouponsCount
