@@ -14,7 +14,7 @@ final class SplashView: UIView {
     
     //MARK: - UI Properties
     
-    private let offroadLogoImageView = UIImageView(image: UIImage(resource: .imgOffroadLogoSplash))
+    private let orbLogoImageView = UIImageView(image: UIImage(resource: .imgOrbLogoSplash))
     
     // MARK: - Life Cycle
     
@@ -40,12 +40,14 @@ extension SplashView {
     }
     
     private func setupHierarchy() {
-        addSubview(offroadLogoImageView)
+        addSubview(orbLogoImageView)
     }
     
     private func setupLayout() {
-        offroadLogoImageView.snp.makeConstraints {
+        orbLogoImageView.snp.makeConstraints {
             $0.center.equalToSuperview()
+            $0.height.equalTo(138)
+            $0.width.equalTo(105)
         }
     }
     
@@ -53,7 +55,7 @@ extension SplashView {
     
     func dismissOffroadLogiView(completion: @escaping () -> Void) {
         UIView.animate(withDuration: 0.4, animations: {
-            self.offroadLogoImageView.alpha = 0
+            self.orbLogoImageView.alpha = 0
         }, completion: { _ in
             completion()
         })
