@@ -16,6 +16,7 @@ struct AdventuresPlaceAuthenticationResultData: Codable {
     let isValidPosition: Bool
     let successCharacterImageUrl: String
     let completeQuestList: [CompleteQuest]?
+    let isFirstVisitToday: Bool
 }
 
 struct CompleteQuest: Codable {
