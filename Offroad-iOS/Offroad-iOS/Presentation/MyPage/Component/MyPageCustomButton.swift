@@ -14,6 +14,7 @@ final class MyPageCustomButton: UIButton {
     
     //MARK: - UI Properties
     
+    private let backgroundImageView = UIImageView()
     private let customTitleLabel = UILabel()
     
     //MARK: - Life Cycle
@@ -36,8 +37,12 @@ extension MyPageCustomButton {
     // MARK: - Layout
     
     private func setupStyle(titleText: String, image: UIImage) {
-        setImage(image, for: .normal)
         clipsToBounds = true
+        
+        backgroundImageView.do {
+            $0.image = image
+            $0.contentMode = .scaleAspectFill
+        }
         
         customTitleLabel.do {
             $0.text = titleText
@@ -48,10 +53,14 @@ extension MyPageCustomButton {
     }
     
     private func setupHierarchy() {
-        addSubview(customTitleLabel)
+        addSubviews(backgroundImageView, customTitleLabel)
     }
     
     private func setupLayout() {
+        backgroundImageView.snp.makeConstraints {
+            $0.size.equalToSuperview()
+        }
+        
         customTitleLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(17)
         }

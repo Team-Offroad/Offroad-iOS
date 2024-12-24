@@ -97,9 +97,8 @@ extension CharacterDetailCell {
         }
         
         motionImageView.snp.makeConstraints { make in
-            make.width.equalTo(81)
-            make.height.equalTo(147)
-            make.centerX.centerY.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(17.5)
+            make.verticalEdges.equalToSuperview().inset(17.5)
         }
         
         motionTitleLabel.snp.makeConstraints{ make in
@@ -113,8 +112,7 @@ extension CharacterDetailCell {
         }
         
         lockImageView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(75)
+            make.center.equalToSuperview()
             make.width.equalTo(33)
             make.height.equalTo(37)
         }
