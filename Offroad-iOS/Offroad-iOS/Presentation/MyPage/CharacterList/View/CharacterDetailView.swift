@@ -102,13 +102,11 @@ extension CharacterDetailView {
         
         characterImageView.snp.makeConstraints { make in
             make.top.equalTo(contentView.safeAreaLayoutGuide).inset(119)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(155)
-            make.height.equalTo(280)
+            make.horizontalEdges.equalToSuperview().inset(70)
         }
         
         labelView.snp.makeConstraints { make in
-            make.top.equalTo(characterImageView.snp.bottom).offset(24)
+            make.top.equalTo(characterImageView.snp.bottom).offset(50)
             make.horizontalEdges.equalToSuperview().inset(24)
         }
         
