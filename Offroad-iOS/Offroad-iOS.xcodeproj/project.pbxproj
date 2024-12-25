@@ -68,10 +68,7 @@
 		4E46E5FB2CBA3F55000A1EEE /* UIWindowScene+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */; };
 		4E46E5FD2CBA483D000A1EEE /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */; };
 		4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4A8FD62C4A5752001FB498 /* UIImage+.swift */; };
-		4E4E2BFE2CCE2414000A634D /* PlaceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2BFD2CCE2414000A634D /* PlaceInfoViewController.swift */; };
-		4E4E2C002CCE241D000A634D /* PlaceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2BFF2CCE241D000A634D /* PlaceInfoView.swift */; };
 		4E4E2C022CCE2841000A634D /* PlaceInfoTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */; };
-		4E4E2C062CCE6F04000A634D /* PlaceInfoTooltipWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C052CCE6F03000A634D /* PlaceInfoTooltipWindow.swift */; };
 		4E4E2C0C2CCF6518000A634D /* QuestMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C0B2CCF6518000A634D /* QuestMapViewModel.swift */; };
 		4E56F53D2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */; };
 		4E56F53F2C987C5500EEE677 /* ZeroDurationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */; };
@@ -86,6 +83,10 @@
 		4E66593D2CECA0CE0024ABEE /* StringLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66593C2CECA0CE0024ABEE /* StringLiterals.swift */; };
 		4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4E6A5BC22C2E8C290027FDF0 /* Then */; };
 		4E700C852CB3CA1E00C664C2 /* ORBOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */; };
+		4E7A609B2D1C695A0079007C /* PlaceInfoTooltipWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C052CCE6F03000A634D /* PlaceInfoTooltipWindow.swift */; };
+		4E7A609C2D1C695A0079007C /* PlaceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2BFD2CCE2414000A634D /* PlaceInfoViewController.swift */; };
+		4E7A609D2D1C695A0079007C /* PlaceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2BFF2CCE241D000A634D /* PlaceInfoView.swift */; };
+		4E7A609F2D1C698F0079007C /* ORBMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4E99007C2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */; };
 		4E99007E2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */; };
@@ -381,6 +382,7 @@
 		4E6659372CEB96E70024ABEE /* MyInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoManager.swift; sourceTree = "<group>"; };
 		4E66593C2CECA0CE0024ABEE /* StringLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLiterals.swift; sourceTree = "<group>"; };
 		4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBOverlayViewController.swift; sourceTree = "<group>"; };
+		4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapViewController.swift; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatWindow.swift; sourceTree = "<group>"; };
 		4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatManager.swift; sourceTree = "<group>"; };
@@ -1119,6 +1121,7 @@
 			isa = PBXGroup;
 			children = (
 				4E1E94162C3AC27000A7B08A /* QuestMapViewController.swift */,
+				4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -2797,7 +2800,6 @@
 				D0E7964E2C453B38005B47A5 /* AdventureAPI.swift in Sources */,
 				4E56F53F2C987C5500EEE677 /* ZeroDurationAnimator.swift in Sources */,
 				D0E7961C2C4527FE005B47A5 /* SocialLoginRequestDTO.swift in Sources */,
-				4E4E2C062CCE6F04000A634D /* PlaceInfoTooltipWindow.swift in Sources */,
 				4EFFAFB12CE4576300EFA714 /* ORBNavigationController.swift in Sources */,
 				87738CD52C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift in Sources */,
 				4E0394DB2C2ABE9D007F0517 /* UIStackView+.swift in Sources */,
@@ -2840,13 +2842,13 @@
 				D0E796592C455100005B47A5 /* EmblemAPI.swift in Sources */,
 				D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */,
 				D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */,
-				4E4E2BFE2CCE2414000A634D /* PlaceInfoViewController.swift in Sources */,
 				4E0394312C2A9DCE007F0517 /* ViewController.swift in Sources */,
 				4EFC7D3F2D06CB130068367E /* ScrollLoadingCollectionView.swift in Sources */,
 				4E46E5F72CB997B4000A1EEE /* ORBToastManager.swift in Sources */,
 				87738CDC2C8E164200E107C7 /* CharacterMotionResponseDTO.swift in Sources */,
 				4E1E94172C3AC27000A7B08A /* QuestMapViewController.swift in Sources */,
 				8791EDF42C7E11E000E7F8B9 /* CouponListView.swift in Sources */,
+				4E7A609F2D1C698F0079007C /* ORBMapViewController.swift in Sources */,
 				D0E937942CF6FCC20061782D /* CustomerInquiryViewController.swift in Sources */,
 				4E393C9C2C48C9B2003403EC /* QuestResultView.swift in Sources */,
 				4EEA82FE2CE3908C0062F0DE /* CharacterChatLogViewController.swift in Sources */,
@@ -2906,7 +2908,6 @@
 				D06D26C52C3D83AA00E79F25 /* HomeViewController.swift in Sources */,
 				D0E796612C455391005B47A5 /* ChangeEmblemResponseDTO.swift in Sources */,
 				4E0C69692C4724A100B6453E /* OffroadNMFMarker.swift in Sources */,
-				4E4E2C002CCE241D000A634D /* PlaceInfoView.swift in Sources */,
 				D06D26CD2C3E6EA200E79F25 /* CustomRecentProgressView.swift in Sources */,
 				D064669A2C86FCDB00CF10FD /* DeleteAccountViewController.swift in Sources */,
 				D06466902C83A18400CF10FD /* TermsConsentPopupViewController.swift in Sources */,
@@ -2969,6 +2970,9 @@
 				D0E796452C4538E6005B47A5 /* PlaceService.swift in Sources */,
 				4EFD004E2CCA50AB005C294D /* CharacterListViewModel.swift in Sources */,
 				4EFCDFDD2C92BB27006DEBB6 /* ORBAlertController.swift in Sources */,
+				4E7A609B2D1C695A0079007C /* PlaceInfoTooltipWindow.swift in Sources */,
+				4E7A609C2D1C695A0079007C /* PlaceInfoViewController.swift in Sources */,
+				4E7A609D2D1C695A0079007C /* PlaceInfoView.swift in Sources */,
 				4E46E5FB2CBA3F55000A1EEE /* UIWindowScene+.swift in Sources */,
 				D00A486A2C633EF2008B286A /* SettingBaseModel.swift in Sources */,
 			);
