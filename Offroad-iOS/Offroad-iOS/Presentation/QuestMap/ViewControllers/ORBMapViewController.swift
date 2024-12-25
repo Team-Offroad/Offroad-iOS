@@ -132,17 +132,17 @@ extension ORBMapViewController {
     
     private func bindData() {
         viewModel.startLoading.subscribe(onNext: {
-            self.tabBarController?.view.startLoading()
+            self.view.startLoading()
         }).disposed(by: disposeBag)
         
         viewModel.stopLoading.subscribe(onNext: {
-            self.tabBarController?.view.stopLoading()
+            self.view.stopLoading()
         }).disposed(by: disposeBag)
         
         viewModel.networkFailureSubject
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
-                self.tabBarController?.view.stopLoading()
+                self.view.stopLoading()
             }).disposed(by: disposeBag)
         
         viewModel.locationServiceDisabledRelay
@@ -189,7 +189,7 @@ extension ORBMapViewController {
                 MyInfoManager.shared.shouldUpdateCharacterAnimation.accept(latestCategory ?? "NONE")
                 MyInfoManager.shared.didSuccessAdventure.accept(())
             }
-            self.tabBarController?.view.stopLoading()
+            self.view.stopLoading()
             self.popupAdventureResult(isValidLocation: locationValidation,
                                       image: image,
                                       completeQuests: completeQuests,
