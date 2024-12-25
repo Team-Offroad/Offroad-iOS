@@ -42,6 +42,10 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     private let isCharacterResponding = BehaviorRelay<Bool>(value: false)
     private let isTextViewEmpty = BehaviorRelay<Bool>(value: true)
+    private let patchChatReadRelay = PublishRelay<Int?>()
+    
+    /// 채팅 로그 뷰가 떠 있을 때 캐릭터 채팅 푸시 알림이 오면 캐릭터 채팅 내용을 전달
+    let characterChatPushedRelay = PublishRelay<String>()
     
     private var disposeBag = DisposeBag()
     private var characterId: Int?
@@ -98,6 +102,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         tabBarController.showTabBarAnimation()
         rootView.backgroundView.isHidden = false
+        ORBCharacterChatManager.shared.currentChatLogViewController = self
         ORBCharacterChatManager.shared.endChat()
     }
     
@@ -123,6 +128,12 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         
         rootView.backgroundView.isHidden = true
         rootView.userChatInputView.resignFirstResponder()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        ORBCharacterChatManager.shared.currentChatLogViewController = nil
     }
     
 }
@@ -322,12 +333,14 @@ extension CharacterChatLogViewController {
                 let userMessage = self.rootView.userChatInputView.text
                 self.rootView.sendButton.isEnabled = false
                 // 사용자 채팅 버블 추가
-                self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text, isLoading: false) { [weak self] in
-                    guard let self else { return }
-                    // 캐릭터 셀 추가
-                    self.sendChatBubble(isUserChat: false, text: "", isLoading: true) { [weak self] in
+                self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text, isLoading: false) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
                         guard let self else { return }
-                        self.postCharacterChat(characterId: characterId, message: userMessage!)
+                        // 캐릭터 셀 추가
+                        self.sendChatBubble(isUserChat: false, text: "", isLoading: true) { [weak self] in
+                            guard let self else { return }
+                            self.postCharacterChat(characterId: characterId, message: userMessage!)
+                        }
                     }
                 }
                 self.rootView.userChatInputView.text = ""
@@ -365,6 +378,17 @@ extension CharacterChatLogViewController {
             self.rootView.layoutIfNeeded()
         }).disposed(by: disposeBag)
         
+        patchChatReadRelay.subscribe(onNext: { [weak self] characterId in
+            guard let self else { return }
+            NetworkService.shared.characterChatService.patchChatRead(characterId: characterId) { [weak self] networkResult in
+                guard let self else { return }
+                switch networkResult {
+                case .success: return
+                default: self.showToast(message: ErrorMessages.networkError, inset: 66)
+                }
+            }
+        }).disposed(by: disposeBag)
+        
         NetworkMonitoringManager.shared.networkConnectionChanged
             .subscribe(onNext: { [weak self] isConnected in
                 guard let self else { return }
@@ -379,6 +403,11 @@ extension CharacterChatLogViewController {
                 guard let self else { return }
                 self.rootView.sendButton.isEnabled = shouldEnableSendButton
             }.disposed(by: disposeBag)
+        
+        characterChatPushedRelay.subscribe(onNext: { [weak self] message in
+            guard let self else { return }
+            self.sendChatBubble(isUserChat: false, text: message, isLoading: false)
+        }).disposed(by: disposeBag)
     }
     
     private func setupNotifications() {
@@ -442,11 +471,11 @@ extension CharacterChatLogViewController {
         )
         
         chatLogDataList.insert(chatDataModelToAppend, at: 0)
-        updateCollectionView(animatingDifferences: true, completion: { [weak self] in
+        updateCollectionView(animatingDifferences: true, completion: { completion?() })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { [weak self] in
             guard let self else { return }
             self.scrollToFirstCell(animated: true)
-            completion?()
-        })
+        }
     }
     
     private func postCharacterChat(characterId: Int?, message: String) {
@@ -519,6 +548,7 @@ extension CharacterChatLogViewController {
             updateCollectionView(animatingDifferences: true) { [weak self] in
                 guard let self else { return }
                 self.scrollToFirstCell(animated: true)
+                self.patchChatReadRelay.accept(characterId)
                 self.showChatButton()
             }
         } else {
@@ -526,6 +556,7 @@ extension CharacterChatLogViewController {
             updateCollectionView(animatingDifferences: true) { [weak self] in
                 guard let self else { return }
                 self.scrollToFirstCell(animated: true)
+                self.patchChatReadRelay.accept(characterId)
                 self.showChatButton()
             }
         }

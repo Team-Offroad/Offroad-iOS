@@ -30,6 +30,7 @@ final class HomeViewController: OffroadTabBarViewController {
     var categoryString = "NONE"
     private let pushType: PushNotificationRedirectModel?
     private var noticeModelList: [NoticeInfo] = []
+    private var lastUnreadChatInfo: CharacterChatReadGetResponseData? = nil
     
     // MARK: - Life Cycle
     
@@ -55,6 +56,7 @@ final class HomeViewController: OffroadTabBarViewController {
         getUserAdventureInfo()
         getUserQuestInfo()
         bindData()
+        getLastChatInfo()
         
         requestPushNotificationPermission()
         redirectViewControllerForPushNotification()
@@ -67,7 +69,6 @@ final class HomeViewController: OffroadTabBarViewController {
         offroadTabBarController.showTabBarAnimation()
         
         self.navigationController?.navigationBar.isHidden = true
-        
     }
 }
 
@@ -105,7 +106,7 @@ extension HomeViewController {
                 
                 self.rootView.updateAdventureInfo(nickname: nickname, baseImageUrl: baseImageUrl, characterName: characterName, emblemName: emblemName)
                 
-                if self.categoryString != "NONE" && motionImageUrl != "" {
+                if motionImageUrl != "" {
                     self.rootView.showMotionImage(motionImageUrl: motionImageUrl)
                 }
             default:
@@ -133,6 +134,24 @@ extension HomeViewController {
         }
     }
     
+    func getLastChatInfo() {
+        rootView.chatButton.isEnabled = false
+        NetworkService.shared.characterChatService.getLastChatInfo { [weak self] networkResult in
+            guard let self else { return }
+            self.rootView.chatButton.isEnabled = true
+            switch networkResult {
+            case .success(let dto):
+                guard let dto else { return }
+                self.rootView.chatUnreadDotView.isHidden = dto.data.doesAllRead
+                self.lastUnreadChatInfo = dto.data.doesAllRead ? nil : dto.data
+            case .serverErr(_):
+                showToast(message: "서버에 문제가 있는 것 같아요. 잠시 후 다시 시도해주세요.", inset: 66)
+            default:
+                showToast(message: ErrorMessages.networkError, inset: 66)
+            }
+        }
+    }
+    
     private func bindData() {
         MyInfoManager.shared.didSuccessAdventure
             .debug()
@@ -154,6 +173,14 @@ extension HomeViewController {
                 guard let self else { return }
                 self.categoryString = category
             }).disposed(by: disposeBag)
+        
+        Observable.merge(
+            [ORBCharacterChatManager.shared.shouldUpdateLastChatInfo.asObservable(),
+             ORBCharacterChatManager.shared.didReadLastChat.asObservable()]
+        ).subscribe(onNext: { [weak self] in
+            guard let self else { return }
+            self.getLastChatInfo()
+        }).disposed(by: disposeBag)
     }
     
     private func redirectNoticePost() {
@@ -235,6 +262,7 @@ extension HomeViewController {
             case "ANNOUNCEMENT_REDIRECT":
                 redirectNoticePost()
             case "CHARACTER_CHAT":
+                ORBCharacterChatManager.shared.chatViewController.patchChatReadRelay.accept(())
                 ORBCharacterChatManager.shared.showCharacterChatBox(character: self.pushType?.data?["characterName"] as! String, message: self.pushType?.data?["message"] as! String, mode: .withReplyButtonShrinked)
             default:
                 break
@@ -251,7 +279,16 @@ extension HomeViewController {
     //MARK: - @Objc Func
     
     @objc private func chatButtonTapped() {
+        if let lastUnreadChatInfo {
+            ORBCharacterChatManager.shared.showCharacterChatBox(
+                character: lastUnreadChatInfo.characterName ?? MyInfoManager.shared.representativeCharacterName ?? "",
+                message: lastUnreadChatInfo.content ?? "",
+                mode: .withoutReplyButtonShrinked,
+                isAutoDismiss: false
+            )
+        }
         ORBCharacterChatManager.shared.startChat()
+        ORBCharacterChatManager.shared.chatViewController.patchChatReadRelay.accept(())
     }
     
     @objc private func shareButtonTapped() {
@@ -263,6 +300,12 @@ extension HomeViewController {
         
         let activityViewController = UIActivityViewController(activityItems: [imageProvider], applicationActivities: nil)
         activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .mail]
+        
+        if let popoverController = activityViewController.popoverPresentationController {
+            popoverController.sourceView = rootView.shareButton
+            popoverController.sourceRect = rootView.shareButton.bounds
+            popoverController.permittedArrowDirections = .any
+        }
         
         self.present(activityViewController, animated: true)
     }

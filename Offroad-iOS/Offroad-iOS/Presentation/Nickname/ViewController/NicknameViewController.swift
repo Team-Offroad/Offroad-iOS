@@ -10,14 +10,16 @@ import UIKit
 import Moya
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 final class NicknameViewController: UIViewController {
     
     //MARK: - Properties
     
     private let nicknameView = NicknameView()
-    
     private var whetherDuplicate: Bool = false
+    private let disposeBag = DisposeBag()
     
     //MARK: - Life Cycle
     
@@ -28,39 +30,119 @@ final class NicknameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupTarget()
         setupDelegate()
+        setupBindings()
         view.backgroundColor = UIColor.main(.main1)
         
         self.modalPresentationStyle = .fullScreen
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-}
-
-extension NicknameViewController {
     //MARK: - Private Func
     
-    private func setupTarget() {
-        nicknameView.checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
-        nicknameView.textField.addTarget(self, action: #selector(textFieldDidBegin), for: .editingDidBegin)
-        nicknameView.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        nicknameView.textField.addTarget(self, action: #selector(textFieldDidEnd), for: .editingDidEnd)
-        nicknameView.nextButton.addTarget(self, action: #selector(buttonToBirthVC), for: .touchUpInside)
+    private func setupDelegate() {
+        nicknameView.nicknameTextField.delegate = self
     }
     
-    private func setupDelegate() {
-        nicknameView.textField.delegate = self
+    private func setupBindings() {
+        /// RxSwift에서 제공하는 UITextField.rx.text는 .editingChanged 이벤트 + 최초 초기화 1회 + 포커싱 + 언포커싱 될 때 모두 방출된다.
+        /// 하지만 기존 코드에서 editingDidBegin, editingDidEnd, editingChanged으로 나뉘었으므로 각각의 상황에 맞게 controlEvent를 나눈다.
+        
+        //텍스트 필드 focus 이벤트 바인딩(editingDidBegin,editingDidEnd)
+        nicknameView.nicknameTextField.rx.controlEvent([.editingDidBegin])
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                
+                if self.whetherDuplicate || self.nicknameView.notionLabel.text == "한글 2~8자, 영어 2~16자 이내로 다시 작성해주세요." {
+                    self.nicknameView.nicknameTextField.layer.borderColor = UIColor.primary(.errorNew).cgColor
+                } else {
+                    self.nicknameView.nicknameTextField.layer.borderColor = UIColor.main(.main2).cgColor
+                }            })
+            .disposed(by: disposeBag)
+        
+        nicknameView.nicknameTextField.rx.controlEvent([.editingDidEnd])
+            .subscribe(onNext: { [weak self] in
+                let isTextFieldEmpty = self?.nicknameView.nicknameTextField.text?.isEmpty ?? true
+                self?.nicknameView.nicknameTextField.layer.borderColor = isTextFieldEmpty ? UIColor.grayscale(.gray100).cgColor : UIColor.main(.main2).cgColor
+            })
+            .disposed(by: disposeBag)
+        
+        // 텍스트 필드 입력 이벤트 바인딩(기존의 editingChanged)
+        nicknameView.nicknameTextField.rx.text.orEmpty
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] text in
+                self?.handleTextFieldChange(text)
+            })
+            .disposed(by: disposeBag)
+        
+        // 중복 체크 버튼 이벤트 바인딩
+        nicknameView.checkButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.checkButtonTapped()
+            })
+            .disposed(by: disposeBag)
+        
+        nicknameView.nextButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let button = self?.nicknameView.nextButton as? StateToggleButton else { return }
+                self?.navigateToBirthViewController(sender: button)
+            })
+            .disposed(by: disposeBag)
+        
+        /// 화면 터치 시 키보드 내려가게 하는 코드
+        /// 기존 UIKit에선 touchesBegan으로 로 구현했었는데,
+        /// UITapGestureRecognizer를 rx로 바인딩하여 구현하는 것도 가능하다.
+        let tapGesture = UITapGestureRecognizer()
+        view.addGestureRecognizer(tapGesture)
+        tapGesture.rx.event
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                self.view.endEditing(true)
+                if self.whetherDuplicate || self.nicknameView.notionLabel.text == "한글 2~8자, 영어 2~16자 이내로 다시 작성해주세요." {
+                    self.nicknameView.nicknameTextField.layer.borderColor = UIColor.primary(.errorNew).cgColor
+                }
+            }
+            .disposed(by: disposeBag)
     }
+    
+    private func handleTextFieldChange(_ text: String) {
+        let isTextFieldEmpty = text.isEmpty
+        let isInitialState = nicknameView.nicknameTextField.layer.borderColor == UIColor.grayscale(.gray100).cgColor
+        
+        if isTextFieldEmpty && isInitialState {
+            configureTextFieldStyle(nicknameView.nicknameTextField, isEmpty: true)
+        } else if isTextFieldEmpty {
+            nicknameView.nicknameTextField.layer.borderColor = UIColor.main(.main2).cgColor
+        } else {
+            configureTextFieldStyle(nicknameView.nicknameTextField, isEmpty: false)
+        }
+        
+        nicknameView.nextButton.changeState(forState: .isDisabled)
+        
+        if !formError(text) && !isTextFieldEmpty {
+            nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 작성해주세요."
+            nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
+            nicknameView.nicknameTextField.layer.borderColor = UIColor.primary(.errorNew).cgColor
+            nicknameView.nextButton.changeState(forState: .isDisabled)
+            configureButtonStyle(nicknameView.checkButton, isEnabled: false)
+        } else if isTextFieldEmpty {
+            nicknameView.notionLabel.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
+            nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
+            nicknameView.notionLabel.font = UIFont.offroad(style: .iosHint)
+            configureButtonStyle(nicknameView.checkButton, isEnabled: false)
+        } else {
+            nicknameView.notionLabel.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
+            nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
+            nicknameView.notionLabel.font = UIFont.offroad(style: .iosHint)
+            configureButtonStyle(nicknameView.checkButton, isEnabled: true)
+        }
+    }
+    
     
     private func configureButtonStyle(_ button: UIButton, isEnabled: Bool) {
         button.isEnabled = isEnabled
         button.setTitleColor(.primary(.white), for: .normal)
         button.backgroundColor = isEnabled ? .primary(.black) : .blackOpacity(.black15)
         button.roundCorners(cornerRadius: 5)
-        
     }
     
     private func configureTextFieldStyle(_ textField: UITextField, isEmpty: Bool) {
@@ -68,86 +150,33 @@ extension NicknameViewController {
         textField.layer.borderColor = borderColor.cgColor
     }
     
-    private func formError(_ input: String) -> Bool{
+    private func formError(_ input: String) -> Bool {
         let pattern = "^[A-Za-z가-힣]{2,}$"
         let regex = try? NSRegularExpression(pattern: pattern)
         let eucKrLength = input.eucKrByteLength
         if let _ = regex?.firstMatch(in: input, options: [], range: NSRange(location: 0, length: input.count)),
            eucKrLength >= 2 {
-            print("정규식 통과")
             return true
         }
-        print("유효하지 않은 id 형식입니다.")
         return false
     }
-}
-
-extension NicknameViewController {
     
-    //MARK: - @objc Method
-    
-    @objc private func textFieldDidBegin() {
-        let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
-        if isTextFieldEmpty {
-            nicknameView.textField.layer.borderColor = UIColor.main(.main2).cgColor
-        }
-    }
-    
-    @objc private func textFieldDidEnd() {
-        let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
-        if isTextFieldEmpty {
-            nicknameView.textField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-        }
-    }
-    
-    @objc private func textFieldDidChange() {
-        let isTextFieldEmpty = nicknameView.textField.text?.isEmpty ?? true
-        configureTextFieldStyle(nicknameView.textField, isEmpty: isTextFieldEmpty)
-        nicknameView.nextButton.changeState(forState: .isDisabled)
-        
-        if !formError(self.nicknameView.textField.text ?? "") && !isTextFieldEmpty {
-            nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 작성해주세요."
-            nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
-            nicknameView.textField.layer.borderColor = UIColor.primary(.errorNew).cgColor
-            nicknameView.nextButton.changeState(forState: .isDisabled)
-            configureButtonStyle(nicknameView.checkButton, isEnabled: false)
-        }
-        else if isTextFieldEmpty {
-            nicknameView.notionLabel.text = "*한글 2~8자, 영어 2~16자 이내로 작성해주세요."
-            nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
-            nicknameView.notionLabel.font = UIFont.offroad(style: .iosHint)
-            nicknameView.textField.layer.borderColor = UIColor.main(.main2).cgColor
-            configureButtonStyle(nicknameView.checkButton, isEnabled: false)
-        }
-        else {
-            nicknameView.notionLabel.text = ""
-            configureButtonStyle(nicknameView.checkButton, isEnabled: true)
-        }
-    }
-    
-    // 화면 터치 시 키보드 내려가게 하는 코드
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
+    //MARK: - @Objc Func
     
     @objc private func checkButtonTapped() {
-        NetworkService.shared.nicknameService.checkNicknameDuplicate(inputNickname: nicknameView.textField.text ?? "") { response in
+        NetworkService.shared.nicknameService.checkNicknameDuplicate(inputNickname: nicknameView.nicknameTextField.text ?? "") { response in
             switch response {
             case .success(let data):
                 self.whetherDuplicate = data?.data.isDuplicate ?? Bool()
                 if self.whetherDuplicate == true {
                     self.nicknameView.notionLabel.text = "중복된 닉네임이에요. 다른 멋진 이름이 있으신가요?"
+                    self.nicknameView.nicknameTextField.layer.borderColor = UIColor.primary(.errorNew).cgColor
                     self.configureButtonStyle(self.nicknameView.checkButton, isEnabled: false)
                     self.nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
                     self.nicknameView.nextButton.changeState(forState: .isDisabled)
                 }
-                else if self.whetherDuplicate == false && self.formError(self.nicknameView.textField.text ?? "") == false {
-                    self.nicknameView.notionLabel.text = "한글 2~8자, 영어 2~16자 이내로 다시 말씀해주세요."
-                    self.nicknameView.notionLabel.textColor = UIColor.primary(.errorNew)
-                    self.nicknameView.textField.layer.borderColor = UIColor.primary(.errorNew).cgColor
-                }
                 else {
-                    self.nicknameView.textField.resignFirstResponder()
+                    self.nicknameView.nicknameTextField.resignFirstResponder()
                     self.nicknameView.notionLabel.text = "좋은 닉네임이에요!"
                     self.nicknameView.notionLabel.textColor = UIColor.grayscale(.gray400)
                     self.configureButtonStyle(self.nicknameView.checkButton, isEnabled: false)
@@ -159,22 +188,8 @@ extension NicknameViewController {
         }
     }
     
-    @objc func buttonToBirthVC(sender: UIButton) {
-        let nextVC = BirthViewController(nickname: self.nicknameView.textField.text ?? "")
-        
-        let button = UIButton().then { button in
-            button.setImage(.backBarButton, for: .normal)
-            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
-            button.imageView?.contentMode = .scaleAspectFill
-            button.snp.makeConstraints { make in
-                make.width.equalTo(30)
-                make.height.equalTo(44)
-            }
-        }
-        
-        let customBackBarButton = UIBarButtonItem(customView: button)
-        customBackBarButton.tintColor = .black
-        nextVC.navigationItem.leftBarButtonItem = customBackBarButton
+    @objc func navigateToBirthViewController(sender: StateToggleButton) {
+        let nextVC = BirthViewController(nickname: self.nicknameView.nicknameTextField.text ?? "")
         
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
@@ -188,14 +203,12 @@ extension NicknameViewController {
 
 extension NicknameViewController: UITextFieldDelegate {
     
-    // return키 눌렀을 때 키보드 내려가게 하는 코드
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // 백스페이스 처리
         if let char = string.cString(using: String.Encoding.utf8) {
             let isBackSpace = strcmp(char, "\\b")
             if isBackSpace == -92 {
@@ -205,14 +218,7 @@ extension NicknameViewController: UITextFieldDelegate {
         guard let range = Range(range, in: textField.text!) else { return false }
         let currentText = textField.text!
         let newText = currentText.replacingCharacters(in: range, with: string)
-        
-        //입력된 텍스트의 byte 길이를 계산한 후 최대 바이트 길이인 16을 초과하는 경우에만 입력을 막는 코드
         let byteLength = newText.eucKrByteLength
-        
-        if byteLength > 16 {
-            return false
-        } else {
-            return true
-        }
+        return byteLength <= 16
     }
 }

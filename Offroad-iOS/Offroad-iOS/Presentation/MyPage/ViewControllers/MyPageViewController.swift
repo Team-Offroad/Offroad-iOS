@@ -67,14 +67,15 @@ extension MyPageViewController {
     
     private func bindData() {
         Observable.merge([MyInfoManager.shared.didSuccessAdventure.asObservable(),
-                          MyInfoManager.shared.didChangeRepresentativeCharacter.asObservable()])
+                          MyInfoManager.shared.didChangeRepresentativeCharacter.asObservable(),
+                          MyInfoManager.shared.shouldUpdateUserInfoData.asObservable()])
         .subscribe(onNext: { [weak self] in
             guard let self else { return }
             self.getUserInfo()
         }).disposed(by: disposeBag)
     }
-        
-        // MARK: - @objc Func
+    
+    // MARK: - @objc Func
         
     @objc private func myPageButtonTapped(_ sender: UIButton) {
         if sender == rootView.characterButton {

@@ -58,6 +58,7 @@ final class CharacterService: BaseService, CharacterServiceProtocol {
             }
         }
     }
+
     
     func getCharacterListInfo(completion: @escaping (NetworkResult<CharacterListResponseDTO>) -> ()) {
         provider.request(.getCharacterList) { result in

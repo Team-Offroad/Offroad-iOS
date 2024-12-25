@@ -102,13 +102,13 @@ extension CharacterDetailView {
         
         characterImageView.snp.makeConstraints { make in
             make.top.equalTo(contentView.safeAreaLayoutGuide).inset(119)
+            // 이미지의 좌우 여백 padding 값: 70
             make.centerX.equalToSuperview()
-            make.width.equalTo(155)
-            make.height.equalTo(280)
+            make.size.equalTo(UIScreen.currentScreenSize.width - (70 * 2))
         }
         
         labelView.snp.makeConstraints { make in
-            make.top.equalTo(characterImageView.snp.bottom).offset(24)
+            make.top.equalTo(characterImageView.snp.bottom).offset(50)
             make.horizontalEdges.equalToSuperview().inset(24)
         }
         

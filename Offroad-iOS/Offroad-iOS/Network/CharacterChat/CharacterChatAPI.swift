@@ -12,6 +12,8 @@ import Moya
 enum CharacterChatAPI {
     case postChat(characterId: Int? = nil, body: CharacterChatPostRequestDTO)
     case getChatLog(characterId: Int? = nil, limit: Int, cursor: Int? = nil)
+    case patchChatRead(characterId: Int? = nil)
+    case getLastChatInfo
 }
 
 extension CharacterChatAPI: BaseTargetType {
@@ -20,13 +22,21 @@ extension CharacterChatAPI: BaseTargetType {
     }
     
     var path: String {
-        "/chats"
+        switch self {
+        case .postChat, .getChatLog:
+           return  "/chats"
+        case .patchChatRead:
+            return "/chats/read"
+        case .getLastChatInfo:
+            return "/chats/last-unread"
+        }
     }
     
     var method: Moya.Method {
         switch self {
         case .postChat: .post
-        case .getChatLog: .get
+        case .patchChatRead: .patch
+        case .getChatLog, .getLastChatInfo: .get
         }
     }
     
@@ -45,6 +55,12 @@ extension CharacterChatAPI: BaseTargetType {
             queryParameters["limit"] = limit
             if let cursor { queryParameters["cursor"] = cursor }
             return .requestParameters(parameters: queryParameters, encoding: URLEncoding.queryString)
+        case .patchChatRead(characterId: let characterId):
+            var queryParameters: [String: Any] = [:]
+            if let characterId { queryParameters["characterId"] = characterId }
+            return .requestParameters(parameters: queryParameters, encoding: URLEncoding.queryString)
+        case .getLastChatInfo:
+            return .requestPlain
         }
     }
     

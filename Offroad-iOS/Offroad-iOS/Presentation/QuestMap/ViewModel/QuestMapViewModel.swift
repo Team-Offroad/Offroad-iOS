@@ -26,7 +26,8 @@ final class QuestMapViewModel: SVGFetchable {
     var selectedMarker: OffroadNMFMarker? = nil
     private var isFocused: Bool = false
     
-    let isLocationAdventureAuthenticated = PublishSubject<Bool>()
+    let isLocationAuthorized = PublishSubject<Bool>()
+    let isFirstVisitToday = PublishRelay<Bool>()
     let successCharacterImageUrl = PublishSubject<String>()
     let successCharacterImage = PublishSubject<UIImage?>()
     let completeQuestList = PublishSubject<[CompleteQuest]?>()
@@ -142,9 +143,10 @@ extension QuestMapViewModel {
                 switch result {
                 case .success(let data):
                     guard let data else { return }
-                    self.isLocationAdventureAuthenticated.onNext(data.data.isValidPosition)
+                    self.isLocationAuthorized.onNext(data.data.isValidPosition)
                     self.successCharacterImageUrl.onNext(data.data.successCharacterImageUrl)
                     self.completeQuestList.onNext(data.data.completeQuestList)
+                    self.isFirstVisitToday.accept(data.data.isFirstVisitToday)
                 default:
                     self.networkFailureSubject.onNext(())
                     return
