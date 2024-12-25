@@ -43,10 +43,7 @@ class ORBMapViewController: OffroadTabBarViewController {
     
     
     
-    
     //MARK: - UI Properties
-    
-    var tooltip: PlaceInfoTooltip = .init()
     
     //MARK: - Life Cycle
     
@@ -262,7 +259,11 @@ extension ORBMapViewController {
         focusToMarker(marker)
         rootView.naverMapView.mapView.locationOverlay.icon = rootView.locationOverlayImage
         latestCategory = marker.placeInfo.placeCategory
+        
         // 툴팁 보이기
+        rootView.tooltip.configure(with: marker.placeInfo)
+        rootView.tooltipAnchorPoint = markerPoint!
+        rootView.showTooltip()
         
         return true
     }
@@ -326,17 +327,6 @@ extension ORBMapViewController {
         present(alertController, animated: true)
     }
     
-    
-    
-    
-    
-    
-    
-   
-    
-    
-    
-    
 }
 
 //MARK: - NMFMapViewCameraDelegate
@@ -361,7 +351,12 @@ extension ORBMapViewController: NMFMapViewCameraDelegate {
         case -1:
             viewModel.isCompassMode = false
             if viewModel.selectedMarker != nil {
-                // 툴팁 숨기기
+                // 툴팁 동기화 + 툴팁 숨기기
+                rootView.tooltipAnchorPoint = markerPoint!
+                rootView.hideTooltip {[weak self] in
+                    guard let self else { return }
+                    self.viewModel.selectedMarker = nil
+                }
             }
         // 버튼 선택으로 카메라 이동
         case -2:
@@ -372,6 +367,10 @@ extension ORBMapViewController: NMFMapViewCameraDelegate {
             
             guard viewModel.selectedMarker != nil else { return }
             // 툴팁 숨기기
+            rootView.hideTooltip {[weak self] in
+                guard let self else { return }
+                self.viewModel.selectedMarker = nil
+            }
         default:
             return
         }
@@ -380,6 +379,7 @@ extension ORBMapViewController: NMFMapViewCameraDelegate {
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
         if viewModel.selectedMarker != nil {
             // 툴팁의 위치를 마커의 위치와 동기화
+            rootView.tooltipAnchorPoint = markerPoint!
         }
     }
     
@@ -412,6 +412,10 @@ extension ORBMapViewController: NMFMapViewTouchDelegate {
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         if viewModel.selectedMarker != nil {
             // 툴팁 숨김처리
+            rootView.hideTooltip {[weak self] in
+                guard let self else { return }
+                self.viewModel.selectedMarker = nil
+            }
         }
     }
     

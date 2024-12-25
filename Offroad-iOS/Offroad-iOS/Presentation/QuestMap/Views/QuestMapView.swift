@@ -18,6 +18,8 @@ class QuestMapView: UIView {
     let customNavigationBar = UIView()
     let navigationBarSeparator = UIView()
     let titleLabel = UILabel()
+    let shadingView = UIView()
+    let tooltip: PlaceInfoTooltip = .init()
     let reloadPlaceButton = UIButton()
     let switchTrackingModeButton = UIButton()
     private let listButtonStackView = UIStackView()
@@ -28,6 +30,23 @@ class QuestMapView: UIView {
     private let compass = NMFCompassView()
     private let triangleArrowOverlayImage = NMFOverlayImage(image: .icnQuestMapNavermapLocationOverlaySubIcon1)
     let locationOverlayImage = NMFOverlayImage(image: .icnQuestMapCircleInWhiteBorder)
+    
+    // tooltip의 centerYAnchor인 이유는 tooltip.layer.anchorPoint가 (0.5, 1)이기 때문
+    lazy var tooltipCenterYConstraint = tooltip.centerYAnchor.constraint(equalTo: self.topAnchor, constant: 0)
+    lazy var tooltipCenterXConstraint = tooltip.centerXAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
+    
+    var tooltipAnchorPoint: CGPoint = .zero {
+        didSet {
+            updateTooltipPosition()
+        }
+    }
+    
+    var isTooltipShown: Bool = false
+    
+    private let shadingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    private let tooltipTransparencyAnimator = UIViewPropertyAnimator(duration: 0.2, dampingRatio: 1)
+    private let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.8)
+    private let tooltipHidingAnimator = UIViewPropertyAnimator(duration: 0.25, dampingRatio: 1)
     
     //MARK: - Life Cycle
     
@@ -67,6 +86,13 @@ extension QuestMapView {
             make.height.equalTo(1)
         }
         
+        shadingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        tooltipCenterYConstraint.isActive = true
+        tooltipCenterXConstraint.isActive = true
+        
         reloadPlaceButton.snp.makeConstraints { make in
             make.top.equalTo(customNavigationBar.snp.bottom).offset(23)
             make.centerX.equalToSuperview()
@@ -102,7 +128,7 @@ extension QuestMapView {
     //MARK: - Private Func
     
     private func setupHierarchy() {
-        naverMapView.addSubviews(reloadPlaceButton, switchTrackingModeButton)
+        naverMapView.addSubviews(shadingView, tooltip, reloadPlaceButton, switchTrackingModeButton)
         listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
         customNavigationBar.addSubview(titleLabel)
         addSubviews(
@@ -127,6 +153,10 @@ extension QuestMapView {
         
         navigationBarSeparator.do { view in
             view.backgroundColor = .grayscale(.gray100)
+        }
+        
+        shadingView.do { view in
+            view.isUserInteractionEnabled = false
         }
         
         reloadPlaceButton.do { button in
@@ -171,6 +201,12 @@ extension QuestMapView {
         customizeLocationOverlaySubIcon(mode: .compass)
     }
     
+    private func updateTooltipPosition() {
+        tooltipCenterYConstraint.constant = tooltipAnchorPoint.y// + tooltip.bounds.height * 0.5
+        tooltipCenterXConstraint.constant = tooltipAnchorPoint.x
+        layoutIfNeeded()
+    }
+    
     //MARK: - Func
     
     func customizeLocationOverlaySubIcon(mode: NMFMyPositionMode) {
@@ -190,6 +226,60 @@ extension QuestMapView {
         default:
             break
         }
+    }
+    
+    func showTooltip(completion: (() -> Void)? = nil) {
+        tooltip.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        tooltip.alpha = 0
+        layoutIfNeeded()
+        tooltipHidingAnimator.stopAnimation(true)
+        
+        shadingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.shadingView.backgroundColor = .blackOpacity(.black25)
+        }
+        tooltipTransparencyAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.tooltip.alpha = 1
+        }
+        tooltipShowingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.tooltip.transform = .identity
+            self.layoutIfNeeded()
+        }
+        tooltipShowingAnimator.addCompletion { _ in
+            completion?()
+        }
+        isTooltipShown = true
+        tooltipTransparencyAnimator.startAnimation()
+        shadingAnimator.startAnimation()
+        tooltipShowingAnimator.startAnimation()
+    }
+    
+    func hideTooltip(completion: (() -> Void)? = nil) {
+        guard isTooltipShown else { return }
+        tooltipShowingAnimator.stopAnimation(true)
+        
+        shadingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.shadingView.backgroundColor = .clear
+        }
+        tooltipHidingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.tooltip.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
+        }
+        tooltipHidingAnimator.addAnimations({ [weak self] in
+            guard let self else { return }
+            self.tooltip.alpha = 0
+        }, delayFactor: 0.3)
+        tooltipHidingAnimator.addCompletion { [weak self] _ in
+            guard let self else { return }
+            self.tooltip.configure(with: nil)
+            completion?()
+        }
+        isTooltipShown = false
+        shadingAnimator.startAnimation()
+        tooltipHidingAnimator.startAnimation()
     }
     
 }
