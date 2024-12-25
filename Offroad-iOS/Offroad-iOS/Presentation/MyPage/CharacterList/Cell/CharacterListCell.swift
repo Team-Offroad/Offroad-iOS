@@ -120,8 +120,7 @@ extension CharacterListCell {
         }
         
         lockImageView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(75)
+            make.center.equalToSuperview()
             make.width.equalTo(33)
             make.height.equalTo(37)
         }
