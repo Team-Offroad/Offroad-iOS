@@ -202,7 +202,8 @@ extension QuestMapView {
     }
     
     private func updateTooltipPosition() {
-        tooltipCenterYConstraint.constant = tooltipAnchorPoint.y// + tooltip.bounds.height * 0.5
+        // 17 뺀 것은 툴팁 아래 화살표 끝 위치를 마커의 중앙으로 설정하기 위함.
+        tooltipCenterYConstraint.constant = tooltipAnchorPoint.y - 17
         tooltipCenterXConstraint.constant = tooltipAnchorPoint.x
         layoutIfNeeded()
     }
