@@ -82,9 +82,6 @@
 		4E66593D2CECA0CE0024ABEE /* StringLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66593C2CECA0CE0024ABEE /* StringLiterals.swift */; };
 		4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4E6A5BC22C2E8C290027FDF0 /* Then */; };
 		4E700C852CB3CA1E00C664C2 /* ORBOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */; };
-		4E7A609B2D1C695A0079007C /* PlaceInfoTooltipWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C052CCE6F03000A634D /* PlaceInfoTooltipWindow.swift */; };
-		4E7A609C2D1C695A0079007C /* PlaceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2BFD2CCE2414000A634D /* PlaceInfoViewController.swift */; };
-		4E7A609D2D1C695A0079007C /* PlaceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2BFF2CCE241D000A634D /* PlaceInfoView.swift */; };
 		4E7A609F2D1C698F0079007C /* ORBMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4E99007C2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */; };
@@ -365,10 +362,7 @@
 		4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindowScene+.swift"; sourceTree = "<group>"; };
 		4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		4E4A8FD62C4A5752001FB498 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
-		4E4E2BFD2CCE2414000A634D /* PlaceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoViewController.swift; sourceTree = "<group>"; };
-		4E4E2BFF2CCE241D000A634D /* PlaceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoView.swift; sourceTree = "<group>"; };
 		4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTooltip.swift; sourceTree = "<group>"; };
-		4E4E2C052CCE6F03000A634D /* PlaceInfoTooltipWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTooltipWindow.swift; sourceTree = "<group>"; };
 		4E4E2C0B2CCF6518000A634D /* ORBMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapViewModel.swift; sourceTree = "<group>"; };
 		4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationTransitionDelegate.swift; sourceTree = "<group>"; };
 		4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationAnimator.swift; sourceTree = "<group>"; };
@@ -1302,9 +1296,6 @@
 		4E4E2C082CCE7B52000A634D /* PlaceInfoTooltip */ = {
 			isa = PBXGroup;
 			children = (
-				4E4E2C052CCE6F03000A634D /* PlaceInfoTooltipWindow.swift */,
-				4E4E2BFD2CCE2414000A634D /* PlaceInfoViewController.swift */,
-				4E4E2BFF2CCE241D000A634D /* PlaceInfoView.swift */,
 				4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */,
 			);
 			path = PlaceInfoTooltip;
@@ -2966,9 +2957,6 @@
 				D0E796452C4538E6005B47A5 /* PlaceService.swift in Sources */,
 				4EFD004E2CCA50AB005C294D /* CharacterListViewModel.swift in Sources */,
 				4EFCDFDD2C92BB27006DEBB6 /* ORBAlertController.swift in Sources */,
-				4E7A609B2D1C695A0079007C /* PlaceInfoTooltipWindow.swift in Sources */,
-				4E7A609C2D1C695A0079007C /* PlaceInfoViewController.swift in Sources */,
-				4E7A609D2D1C695A0079007C /* PlaceInfoView.swift in Sources */,
 				4E46E5FB2CBA3F55000A1EEE /* UIWindowScene+.swift in Sources */,
 				D00A486A2C633EF2008B286A /* SettingBaseModel.swift in Sources */,
 			);
