@@ -68,7 +68,7 @@
 		4E46E5FD2CBA483D000A1EEE /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */; };
 		4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4A8FD62C4A5752001FB498 /* UIImage+.swift */; };
 		4E4E2C022CCE2841000A634D /* PlaceInfoTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */; };
-		4E4E2C0C2CCF6518000A634D /* QuestMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C0B2CCF6518000A634D /* QuestMapViewModel.swift */; };
+		4E4E2C0C2CCF6518000A634D /* ORBMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C0B2CCF6518000A634D /* ORBMapViewModel.swift */; };
 		4E56F53D2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */; };
 		4E56F53F2C987C5500EEE677 /* ZeroDurationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */; };
 		4E56F54C2C995BA800EEE677 /* ORBAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E56F54B2C995BA800EEE677 /* ORBAlertViewModel.swift */; };
@@ -369,7 +369,7 @@
 		4E4E2BFF2CCE241D000A634D /* PlaceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoView.swift; sourceTree = "<group>"; };
 		4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTooltip.swift; sourceTree = "<group>"; };
 		4E4E2C052CCE6F03000A634D /* PlaceInfoTooltipWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTooltipWindow.swift; sourceTree = "<group>"; };
-		4E4E2C0B2CCF6518000A634D /* QuestMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapViewModel.swift; sourceTree = "<group>"; };
+		4E4E2C0B2CCF6518000A634D /* ORBMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapViewModel.swift; sourceTree = "<group>"; };
 		4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationTransitionDelegate.swift; sourceTree = "<group>"; };
 		4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationAnimator.swift; sourceTree = "<group>"; };
 		4E56F54B2C995BA800EEE677 /* ORBAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewModel.swift; sourceTree = "<group>"; };
@@ -1313,7 +1313,7 @@
 		4E4E2C0A2CCF6503000A634D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4E4E2C0B2CCF6518000A634D /* QuestMapViewModel.swift */,
+				4E4E2C0B2CCF6518000A634D /* ORBMapViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2765,7 +2765,7 @@
 				4EF6B0332CC3E22800066640 /* ORBAlertViewBaseUI.swift in Sources */,
 				D0600BEB2CE61EBC00D8F1D6 /* PushNotificationService.swift in Sources */,
 				8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */,
-				4E4E2C0C2CCF6518000A634D /* QuestMapViewModel.swift in Sources */,
+				4E4E2C0C2CCF6518000A634D /* ORBMapViewModel.swift in Sources */,
 				D004F8582CA12B1500D5A2CD /* NoticeAPI.swift in Sources */,
 				872F4BB72C6B809800284DE0 /* CharacterDetailViewController.swift in Sources */,
 				4E3120F82D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift in Sources */,

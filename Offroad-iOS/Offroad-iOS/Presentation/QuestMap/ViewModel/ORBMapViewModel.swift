@@ -1,5 +1,5 @@
 //
-//  QuestMapViewModel.swift
+//  ORBMapViewModel.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 10/28/24.
@@ -14,7 +14,7 @@ import RxCocoa
 import SnapKit
 import Then
 
-final class QuestMapViewModel: SVGFetchable {
+final class ORBMapViewModel: SVGFetchable {
     
     //MARK: - Properties
     
@@ -60,7 +60,7 @@ final class QuestMapViewModel: SVGFetchable {
     
 }
 
-extension QuestMapViewModel {
+extension ORBMapViewModel {
     
     //MARK: - Func
     
