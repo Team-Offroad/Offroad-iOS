@@ -259,7 +259,11 @@ extension ORBMapViewController {
         }
     }
     
+    /// 마커를 탭 시 동작할 함수
+    ///- Parameters overlay: 탭 이벤트를 받아서 전달하는 NMFOverlay
+    /// - Returns: `true`를 반환할 경우 마커를 탭 시 메서드를 실행. 그렇지 않을 경우 `NMFMapView`까지 이벤트가 전달되어 `NMFMapViewTouchDelegate`의 `mapView(_:didTapMap:point:)`가  호출됩니다.
     private func markerTouchHandler(overlay: NMFOverlay) -> Bool {
+        guard !isTooltipShown else { return false }
         guard let marker = overlay as? OffroadNMFMarker else { return false }
         viewModel.isCompassMode = false
         selectedMarker = marker
@@ -351,11 +355,13 @@ extension ORBMapViewController {
             guard let self else { return }
             self.rootView.tooltip.transform = .identity
             self.rootView.layoutIfNeeded()
+            self.rootView.compass.alpha = 0
         }
         tooltipShowingAnimator.addCompletion { _ in
             completion?()
         }
         isTooltipShown = true
+        rootView.shadingView.isUserInteractionEnabled = true
         tooltipTransparencyAnimator.startAnimation()
         shadingAnimator.startAnimation()
         tooltipShowingAnimator.startAnimation()
@@ -372,6 +378,7 @@ extension ORBMapViewController {
         tooltipHidingAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.tooltip.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
+            self.rootView.compass.alpha = 1
         }
         tooltipHidingAnimator.addAnimations({ [weak self] in
             guard let self else { return }
@@ -381,6 +388,7 @@ extension ORBMapViewController {
             guard let self else { return }
             self.rootView.tooltip.configure(with: nil)
             self.selectedMarker = nil
+            self.rootView.shadingView.isUserInteractionEnabled = false
             completion?()
         }
         isTooltipShown = false

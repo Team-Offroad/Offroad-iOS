@@ -27,7 +27,7 @@ class ORBMapView: UIView {
     let placeListButton = QuestMapListButton(image: .iconPlaceMarker, title: "장소 목록")
     
     let naverMapView = NMFNaverMapView()
-    private let compass = NMFCompassView()
+    let compass = NMFCompassView()
     private let triangleArrowOverlayImage = NMFOverlayImage(image: .icnQuestMapNavermapLocationOverlaySubIcon1)
     let locationOverlayImage = NMFOverlayImage(image: .icnQuestMapCircleInWhiteBorder)
     
@@ -121,7 +121,7 @@ extension ORBMapView {
     //MARK: - Private Func
     
     private func setupHierarchy() {
-        naverMapView.addSubviews(shadingView, tooltip, reloadPlaceButton, switchTrackingModeButton)
+        naverMapView.addSubviews(reloadPlaceButton, switchTrackingModeButton, shadingView, tooltip)
         listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
         customNavigationBar.addSubview(titleLabel)
         addSubviews(
