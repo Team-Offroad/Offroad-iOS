@@ -80,21 +80,11 @@ class ORBMapViewController: OffroadTabBarViewController {
         viewModel.isCompassMode = false
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         let orangeLocationOverlayImage = rootView.locationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
     }
     
 }
@@ -130,8 +120,6 @@ extension ORBMapViewController {
     }
     
     //MARK: - Private Func
-    
-    // 툴팁 동작 구현
     
     private func bindData() {
         viewModel.startLoading.subscribe(onNext: {
