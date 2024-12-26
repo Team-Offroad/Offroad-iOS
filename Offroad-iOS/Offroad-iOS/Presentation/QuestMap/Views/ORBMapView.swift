@@ -1,5 +1,5 @@
 //
-//  QuestMapView.swift
+//  ORBMapView.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 2024/07/07.
@@ -11,7 +11,7 @@ import NMapsMap
 import SnapKit
 import Then
 
-class QuestMapView: UIView {
+class ORBMapView: UIView {
     
     //MARK: - UI Properties
     
@@ -58,7 +58,7 @@ class QuestMapView: UIView {
     
 }
 
-extension QuestMapView {
+extension ORBMapView {
     
     //MARK: - Layout Func
     

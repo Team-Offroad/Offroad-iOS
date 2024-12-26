@@ -40,7 +40,7 @@
 		4E0C69692C4724A100B6453E /* OffroadNMFMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69682C4724A100B6453E /* OffroadNMFMarker.swift */; };
 		4E1E94112C39870700A7B08A /* ColorLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94102C39870700A7B08A /* ColorLiterals.swift */; };
 		4E1E94132C398C4200A7B08A /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94122C398C4200A7B08A /* String+.swift */; };
-		4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* QuestMapView.swift */; };
+		4E1E94192C3AC27C00A7B08A /* ORBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* ORBMapView.swift */; };
 		4E1ED3832D188FA80058C8D9 /* EmptyStateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ED3822D188FA80058C8D9 /* EmptyStateCollectionView.swift */; };
 		4E23776E2CC81B2000716AFF /* NetworkMonitoringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */; };
 		4E3120F82D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3120F72D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift */; };
@@ -338,7 +338,7 @@
 		4E0C69682C4724A100B6453E /* OffroadNMFMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadNMFMarker.swift; sourceTree = "<group>"; };
 		4E1E94102C39870700A7B08A /* ColorLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiterals.swift; sourceTree = "<group>"; };
 		4E1E94122C398C4200A7B08A /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
-		4E1E94182C3AC27C00A7B08A /* QuestMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapView.swift; sourceTree = "<group>"; };
+		4E1E94182C3AC27C00A7B08A /* ORBMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapView.swift; sourceTree = "<group>"; };
 		4E1ED3822D188FA80058C8D9 /* EmptyStateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateCollectionView.swift; sourceTree = "<group>"; };
 		4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitoringManager.swift; sourceTree = "<group>"; };
 		4E3120F72D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatReadGetResponseDTO.swift; sourceTree = "<group>"; };
@@ -1126,7 +1126,7 @@
 		4E1E94152C3AC25500A7B08A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4E1E94182C3AC27C00A7B08A /* QuestMapView.swift */,
+				4E1E94182C3AC27C00A7B08A /* ORBMapView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2736,7 +2736,7 @@
 				4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */,
 				4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */,
 				D0E7966C2C457D64005B47A5 /* AdventureInfoResponseDTO.swift in Sources */,
-				4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */,
+				4E1E94192C3AC27C00A7B08A /* ORBMapView.swift in Sources */,
 				4EFCDFE32C92C1F1006DEBB6 /* ORBAlertButton.swift in Sources */,
 				4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */,
 				D063E98C2C49328300434A09 /* SVGKImage+.swift in Sources */,
@@ -2754,7 +2754,7 @@
 				4E9900822CDBCD9E007EEFF7 /* ORBCharacterChatView.swift in Sources */,
 				D0E796572C453BCB005B47A5 /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
 				4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */,
-				4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */,
+				4E1E94192C3AC27C00A7B08A /* ORBMapView.swift in Sources */,
 				D004F8CF2CB4DDE600D5A2CD /* KakaoAuthManager.swift in Sources */,
 				D06466AC2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift in Sources */,
 				4E3A32A42CE8E353007228D0 /* CharacterChatLogViewModel.swift in Sources */,

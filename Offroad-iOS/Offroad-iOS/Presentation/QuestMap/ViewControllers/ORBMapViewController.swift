@@ -19,7 +19,7 @@ class ORBMapViewController: OffroadTabBarViewController {
     //MARK: - Properties
     
     private let viewModel = QuestMapViewModel()
-    private let rootView = QuestMapView()
+    private let rootView = ORBMapView()
     private let locationService = RegisteredPlaceService()
     
     private var disposeBag = DisposeBag()
