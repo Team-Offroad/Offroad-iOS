@@ -59,6 +59,7 @@ class ORBMapViewController: OffroadTabBarViewController {
         bindData()
         setupTooltipAction()
         setupDelegates()
+        setupGestureRecognizers()
         rootView.naverMapView.mapView.positionMode = .direction
         locationManager.startUpdatingHeading()
         
@@ -237,6 +238,15 @@ extension ORBMapViewController {
         rootView.naverMapView.mapView.addCameraDelegate(delegate: self)
         rootView.naverMapView.mapView.touchDelegate = self
         locationManager.delegate = self
+    }
+    
+    private func setupGestureRecognizers() {
+        let tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer.rx.event.subscribe(onNext: { [weak self] gesture in
+            guard let self else { return }
+            self.hideTooltip()
+        }).disposed(by: disposeBag)
+        rootView.shadingView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     private func focusToMarker(_ marker: NMFMarker) {
