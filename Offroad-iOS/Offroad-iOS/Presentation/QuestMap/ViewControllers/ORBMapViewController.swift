@@ -55,6 +55,7 @@ class ORBMapViewController: OffroadTabBarViewController {
         super.viewDidLoad()
         
         bindData()
+        setupTooltipAction()
         setupDelegates()
         rootView.naverMapView.mapView.positionMode = .direction
         locationManager.startUpdatingHeading()
@@ -225,6 +226,25 @@ extension ORBMapViewController {
         }.disposed(by: disposeBag)
     }
     
+    private func setupTooltipAction() {
+        rootView.tooltip.exploreButton.rx.tap.bind(onNext: { [weak self] _ in
+            guard let self else { return }
+            if CLLocationManager.locationServicesEnabled() {
+                self.viewModel.authenticatePlaceAdventure(placeInfo: viewModel.selectedMarker!.placeInfo)
+            } else {
+                viewModel.locationServiceDisabledRelay.accept(())
+            }
+        }).disposed(by: disposeBag)
+        
+        rootView.tooltip.closeButton.rx.tap.bind(onNext: { [weak self] in
+            guard let self else { return }
+            self.rootView.hideTooltip { [weak self] in
+                guard let self else { return }
+                self.viewModel.selectedMarker = nil
+            }
+        }).disposed(by: disposeBag)
+    }
+    
     private func setupDelegates() {
         rootView.naverMapView.mapView.addCameraDelegate(delegate: self)
         rootView.naverMapView.mapView.touchDelegate = self
@@ -247,7 +267,6 @@ extension ORBMapViewController {
         cameraUpdate.reason = 1
         cameraUpdate.animation = .easeOut
         rootView.naverMapView.mapView.moveCamera(cameraUpdate) { isCancelled in
-            print("호출호출")
             completion?(isCancelled)
         }
     }
