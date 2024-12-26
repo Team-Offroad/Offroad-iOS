@@ -202,6 +202,10 @@ extension ORBMapViewController {
             self.rootView.reloadPlaceButton.isEnabled = false
             try? self.viewModel.markersSubject.value().forEach({ marker in marker.mapView = nil })
             self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
+            self.rootView.hideTooltip { [weak self] in
+                guard let self else { return }
+                self.viewModel.selectedMarker = nil
+            }
         }.disposed(by: disposeBag)
         
         rootView.switchTrackingModeButton.rx.tap.bind { [weak self] _ in
