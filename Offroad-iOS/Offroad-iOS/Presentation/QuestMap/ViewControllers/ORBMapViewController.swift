@@ -256,7 +256,6 @@ extension ORBMapViewController {
         guard let marker = overlay as? OffroadNMFMarker else { return false }
         viewModel.isCompassMode = false
         viewModel.selectedMarker = marker
-        focusToMarker(marker)
         rootView.naverMapView.mapView.locationOverlay.icon = rootView.locationOverlayImage
         latestCategory = marker.placeInfo.placeCategory
         
@@ -353,10 +352,6 @@ extension ORBMapViewController: NMFMapViewCameraDelegate {
             if viewModel.selectedMarker != nil {
                 // 툴팁 동기화 + 툴팁 숨기기
                 rootView.tooltipAnchorPoint = markerPoint!
-                rootView.hideTooltip {[weak self] in
-                    guard let self else { return }
-                    self.viewModel.selectedMarker = nil
-                }
             }
         // 버튼 선택으로 카메라 이동
         case -2:
