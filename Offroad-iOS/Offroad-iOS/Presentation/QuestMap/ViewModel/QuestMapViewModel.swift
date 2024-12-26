@@ -23,7 +23,6 @@ final class QuestMapViewModel: SVGFetchable {
     let locationManager = CLLocationManager()
     private var currentZoomLevel: Double = 14
     private var searchedPlaceArray: [RegisteredPlaceInfo] = []
-    var selectedMarker: OffroadNMFMarker? = nil
     private var isFocused: Bool = false
     
     let isLocationAuthorized = PublishSubject<Bool>()

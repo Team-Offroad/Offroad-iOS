@@ -30,9 +30,9 @@ class ORBMapViewController: OffroadTabBarViewController {
     private var latestCategory: String?
     
     private var locationManager: CLLocationManager { viewModel.locationManager }
-    
+    private var selectedMarker: OffroadNMFMarker? = nil
     private var markerPoint: CGPoint? {
-        guard let selectedMarker = viewModel.selectedMarker else { return nil }
+        guard let selectedMarker else { return nil }
         let selectedMarkerPosition = rootView.naverMapView.mapView.projection.point(from: selectedMarker.position)
         return self.rootView.naverMapView.mapView.convert(selectedMarkerPosition, to: self.rootView)
     }
@@ -41,9 +41,11 @@ class ORBMapViewController: OffroadTabBarViewController {
         rootView.naverMapView.mapView.cameraPosition.target
     }
     
-    
-    
-    //MARK: - UI Properties
+    var isTooltipShown: Bool = false
+    private let shadingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    private let tooltipTransparencyAnimator = UIViewPropertyAnimator(duration: 0.2, dampingRatio: 1)
+    private let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.8)
+    private let tooltipHidingAnimator = UIViewPropertyAnimator(duration: 0.25, dampingRatio: 1)
     
     //MARK: - Life Cycle
     
@@ -202,10 +204,7 @@ extension ORBMapViewController {
             self.rootView.reloadPlaceButton.isEnabled = false
             try? self.viewModel.markersSubject.value().forEach({ marker in marker.mapView = nil })
             self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
-            self.rootView.hideTooltip { [weak self] in
-                guard let self else { return }
-                self.viewModel.selectedMarker = nil
-            }
+            self.hideTooltip()
         }.disposed(by: disposeBag)
         
         rootView.switchTrackingModeButton.rx.tap.bind { [weak self] _ in
@@ -234,7 +233,7 @@ extension ORBMapViewController {
         rootView.tooltip.exploreButton.rx.tap.bind(onNext: { [weak self] _ in
             guard let self else { return }
             if CLLocationManager.locationServicesEnabled() {
-                self.viewModel.authenticatePlaceAdventure(placeInfo: viewModel.selectedMarker!.placeInfo)
+                self.viewModel.authenticatePlaceAdventure(placeInfo: selectedMarker!.placeInfo)
             } else {
                 viewModel.locationServiceDisabledRelay.accept(())
             }
@@ -242,10 +241,7 @@ extension ORBMapViewController {
         
         rootView.tooltip.closeButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
-            self.rootView.hideTooltip { [weak self] in
-                guard let self else { return }
-                self.viewModel.selectedMarker = nil
-            }
+            self.hideTooltip()
         }).disposed(by: disposeBag)
     }
     
@@ -278,14 +274,14 @@ extension ORBMapViewController {
     private func markerTouchHandler(overlay: NMFOverlay) -> Bool {
         guard let marker = overlay as? OffroadNMFMarker else { return false }
         viewModel.isCompassMode = false
-        viewModel.selectedMarker = marker
+        selectedMarker = marker
         rootView.naverMapView.mapView.locationOverlay.icon = rootView.locationOverlayImage
         latestCategory = marker.placeInfo.placeCategory
         
         // 툴팁 보이기
         rootView.tooltip.configure(with: marker.placeInfo)
         rootView.tooltipAnchorPoint = markerPoint!
-        rootView.showTooltip()
+        showTooltip()
         
         return true
     }
@@ -349,6 +345,61 @@ extension ORBMapViewController {
         present(alertController, animated: true)
     }
     
+    private func showTooltip(completion: (() -> Void)? = nil) {
+        rootView.tooltip.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        rootView.tooltip.alpha = 0
+        rootView.layoutIfNeeded()
+        tooltipHidingAnimator.stopAnimation(true)
+        
+        shadingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.shadingView.backgroundColor = .blackOpacity(.black25)
+        }
+        tooltipTransparencyAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.tooltip.alpha = 1
+        }
+        tooltipShowingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.tooltip.transform = .identity
+            self.rootView.layoutIfNeeded()
+        }
+        tooltipShowingAnimator.addCompletion { _ in
+            completion?()
+        }
+        isTooltipShown = true
+        tooltipTransparencyAnimator.startAnimation()
+        shadingAnimator.startAnimation()
+        tooltipShowingAnimator.startAnimation()
+    }
+    
+    private func hideTooltip(completion: (() -> Void)? = nil) {
+        guard isTooltipShown else { return }
+        tooltipShowingAnimator.stopAnimation(true)
+        
+        shadingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.shadingView.backgroundColor = .clear
+        }
+        tooltipHidingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.tooltip.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
+        }
+        tooltipHidingAnimator.addAnimations({ [weak self] in
+            guard let self else { return }
+            self.rootView.tooltip.alpha = 0
+        }, delayFactor: 0.3)
+        tooltipHidingAnimator.addCompletion { [weak self] _ in
+            guard let self else { return }
+            self.rootView.tooltip.configure(with: nil)
+            self.selectedMarker = nil
+            completion?()
+        }
+        isTooltipShown = false
+        shadingAnimator.startAnimation()
+        tooltipHidingAnimator.startAnimation()
+    }
+    
 }
 
 //MARK: - NMFMapViewCameraDelegate
@@ -372,7 +423,7 @@ extension ORBMapViewController: NMFMapViewCameraDelegate {
         // 제스처 사용으로 카메라 이동
         case -1:
             viewModel.isCompassMode = false
-            if viewModel.selectedMarker != nil {
+            if selectedMarker != nil {
                 // 툴팁 동기화 + 툴팁 숨기기
                 rootView.tooltipAnchorPoint = markerPoint!
             }
@@ -383,19 +434,16 @@ extension ORBMapViewController: NMFMapViewCameraDelegate {
             rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
             rootView.customizeLocationOverlaySubIcon(mode: .compass)
             
-            guard viewModel.selectedMarker != nil else { return }
+            guard selectedMarker != nil else { return }
             // 툴팁 숨기기
-            rootView.hideTooltip {[weak self] in
-                guard let self else { return }
-                self.viewModel.selectedMarker = nil
-            }
+            hideTooltip()
         default:
             return
         }
     }
     
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
-        if viewModel.selectedMarker != nil {
+        if selectedMarker != nil {
             // 툴팁의 위치를 마커의 위치와 동기화
             rootView.tooltipAnchorPoint = markerPoint!
         }
@@ -428,12 +476,9 @@ extension ORBMapViewController: NMFMapViewCameraDelegate {
 extension ORBMapViewController: NMFMapViewTouchDelegate {
     
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
-        if viewModel.selectedMarker != nil {
+        if selectedMarker != nil {
             // 툴팁 숨김처리
-            rootView.hideTooltip {[weak self] in
-                guard let self else { return }
-                self.viewModel.selectedMarker = nil
-            }
+            hideTooltip()
         }
     }
     

@@ -41,13 +41,6 @@ class QuestMapView: UIView {
         }
     }
     
-    var isTooltipShown: Bool = false
-    
-    private let shadingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    private let tooltipTransparencyAnimator = UIViewPropertyAnimator(duration: 0.2, dampingRatio: 1)
-    private let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.8)
-    private let tooltipHidingAnimator = UIViewPropertyAnimator(duration: 0.25, dampingRatio: 1)
-    
     //MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -227,60 +220,6 @@ extension QuestMapView {
         default:
             break
         }
-    }
-    
-    func showTooltip(completion: (() -> Void)? = nil) {
-        tooltip.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-        tooltip.alpha = 0
-        layoutIfNeeded()
-        tooltipHidingAnimator.stopAnimation(true)
-        
-        shadingAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.shadingView.backgroundColor = .blackOpacity(.black25)
-        }
-        tooltipTransparencyAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.tooltip.alpha = 1
-        }
-        tooltipShowingAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.tooltip.transform = .identity
-            self.layoutIfNeeded()
-        }
-        tooltipShowingAnimator.addCompletion { _ in
-            completion?()
-        }
-        isTooltipShown = true
-        tooltipTransparencyAnimator.startAnimation()
-        shadingAnimator.startAnimation()
-        tooltipShowingAnimator.startAnimation()
-    }
-    
-    func hideTooltip(completion: (() -> Void)? = nil) {
-        guard isTooltipShown else { return }
-        tooltipShowingAnimator.stopAnimation(true)
-        
-        shadingAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.shadingView.backgroundColor = .clear
-        }
-        tooltipHidingAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.tooltip.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
-        }
-        tooltipHidingAnimator.addAnimations({ [weak self] in
-            guard let self else { return }
-            self.tooltip.alpha = 0
-        }, delayFactor: 0.3)
-        tooltipHidingAnimator.addCompletion { [weak self] _ in
-            guard let self else { return }
-            self.tooltip.configure(with: nil)
-            completion?()
-        }
-        isTooltipShown = false
-        shadingAnimator.startAnimation()
-        tooltipHidingAnimator.startAnimation()
     }
     
 }
