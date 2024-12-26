@@ -40,7 +40,6 @@
 		4E0C69692C4724A100B6453E /* OffroadNMFMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69682C4724A100B6453E /* OffroadNMFMarker.swift */; };
 		4E1E94112C39870700A7B08A /* ColorLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94102C39870700A7B08A /* ColorLiterals.swift */; };
 		4E1E94132C398C4200A7B08A /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94122C398C4200A7B08A /* String+.swift */; };
-		4E1E94172C3AC27000A7B08A /* QuestMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94162C3AC27000A7B08A /* QuestMapViewController.swift */; };
 		4E1E94192C3AC27C00A7B08A /* QuestMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* QuestMapView.swift */; };
 		4E1ED3832D188FA80058C8D9 /* EmptyStateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ED3822D188FA80058C8D9 /* EmptyStateCollectionView.swift */; };
 		4E23776E2CC81B2000716AFF /* NetworkMonitoringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */; };
@@ -339,7 +338,6 @@
 		4E0C69682C4724A100B6453E /* OffroadNMFMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadNMFMarker.swift; sourceTree = "<group>"; };
 		4E1E94102C39870700A7B08A /* ColorLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiterals.swift; sourceTree = "<group>"; };
 		4E1E94122C398C4200A7B08A /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
-		4E1E94162C3AC27000A7B08A /* QuestMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapViewController.swift; sourceTree = "<group>"; };
 		4E1E94182C3AC27C00A7B08A /* QuestMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapView.swift; sourceTree = "<group>"; };
 		4E1ED3822D188FA80058C8D9 /* EmptyStateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateCollectionView.swift; sourceTree = "<group>"; };
 		4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitoringManager.swift; sourceTree = "<group>"; };
@@ -1120,7 +1118,6 @@
 		4E1E94142C3AC25000A7B08A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				4E1E94162C3AC27000A7B08A /* QuestMapViewController.swift */,
 				4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */,
 			);
 			path = ViewControllers;
@@ -2846,7 +2843,6 @@
 				4EFC7D3F2D06CB130068367E /* ScrollLoadingCollectionView.swift in Sources */,
 				4E46E5F72CB997B4000A1EEE /* ORBToastManager.swift in Sources */,
 				87738CDC2C8E164200E107C7 /* CharacterMotionResponseDTO.swift in Sources */,
-				4E1E94172C3AC27000A7B08A /* QuestMapViewController.swift in Sources */,
 				8791EDF42C7E11E000E7F8B9 /* CouponListView.swift in Sources */,
 				4E7A609F2D1C698F0079007C /* ORBMapViewController.swift in Sources */,
 				D0E937942CF6FCC20061782D /* CustomerInquiryViewController.swift in Sources */,
