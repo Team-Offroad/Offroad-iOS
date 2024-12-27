@@ -23,7 +23,6 @@ class ORBMapViewController: OffroadTabBarViewController {
     private let locationService = RegisteredPlaceService()
     
     private var disposeBag = DisposeBag()
-    private var currentZoomLevel: Double = 14
     private var searchedPlaceArray: [RegisteredPlaceInfo] = []
     private var isFocused: Bool = false
     private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
@@ -92,9 +91,9 @@ class ORBMapViewController: OffroadTabBarViewController {
 
 extension ORBMapViewController {
     
-    //MARK: - @objc Func
+    //MARK: - Private Func
     
-    @objc private func switchTrackingMode() {
+    private func switchTrackingMode() {
         // 툴팁 숨기기
         switch rootView.naverMapView.mapView.positionMode == .normal {
         case true:
@@ -119,8 +118,6 @@ extension ORBMapViewController {
             rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
         }
     }
-    
-    //MARK: - Private Func
     
     private func bindData() {
         viewModel.startLoading.subscribe(onNext: {
@@ -250,7 +247,6 @@ extension ORBMapViewController {
     }
     
     private func focusToMarker(_ marker: NMFMarker) {
-        currentZoomLevel = rootView.naverMapView.mapView.zoomLevel
         let markerLatLng = NMGLatLng(lat: marker.position.lat, lng: marker.position.lng)
         let cameraUpdate = NMFCameraUpdate(scrollTo: markerLatLng)
         cameraUpdate.animation = .easeOut
@@ -462,7 +458,7 @@ extension ORBMapViewController: NMFMapViewCameraDelegate {
         switch reason {
         // API 호출로 카메라 이동
         case 0:
-            rootView.naverMapView.mapView.positionMode = .direction
+            return
         // 핸드폰을 돌려서, 혹은 현재 위치 버튼 선택 후 위치 트래킹 활성화로 인해 카메라 방향이 회전한 경우
         case 10:
             rootView.naverMapView.mapView.positionMode = .direction
