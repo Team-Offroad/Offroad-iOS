@@ -22,7 +22,7 @@ class ORBMapView: UIView {
     let tooltip: PlaceInfoTooltip = .init()
     let reloadPlaceButton = UIButton()
     let switchTrackingModeButton = UIButton()
-    private let listButtonStackView = UIStackView()
+    let listButtonStackView = UIStackView()
     let questListButton = QuestMapListButton(image: .iconListBullet, title: "퀘스트 목록")
     let placeListButton = QuestMapListButton(image: .iconPlaceMarker, title: "장소 목록")
     
@@ -109,6 +109,7 @@ extension ORBMapView {
             make.centerX.equalToSuperview()
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(40)
             make.bottom.equalTo(safeAreaLayoutGuide).inset(59)
+            make.height.greaterThanOrEqualTo(48)
         }
         
         compass.snp.makeConstraints { make in
