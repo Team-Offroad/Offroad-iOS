@@ -319,6 +319,14 @@ extension ORBMapViewController {
         rootView.tooltipAnchorPoint = markerPoint!
         showTooltip()
         
+        let projection = rootView.naverMapView.mapView.projection
+        let point = projection.point(from: marker.position)
+        let mapFrame = rootView.naverMapView.mapView.frame
+        let delta = viewModel.caculateDeltaToShowTooltip(point: point,
+                                            at: mapFrame,
+                                            tooltipSize: rootView.tooltip.frame.size,
+                                            contentInset: 20)
+        moveCamera(scrollBy: delta)
         return true
     }
     
