@@ -95,7 +95,7 @@ extension ORBMapView {
         
         naverMapView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.top.equalToSuperview().inset(123)
+            make.top.equalTo(navigationBarSeparator.snp.bottom)
             make.bottom.equalToSuperview()
         }
         
