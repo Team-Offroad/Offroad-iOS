@@ -97,7 +97,7 @@ extension ORBMapViewController {
         // 툴팁 숨기기
         switch rootView.naverMapView.mapView.positionMode == .normal {
         case true:
-            flyToMyPosition(completion: { [weak self] isCancelled in
+            focusToMyPosition(completion: { [weak self] isCancelled in
                 guard let self else { return }
                 guard !isCancelled else { return }
                 self.rootView.naverMapView.mapView.positionMode = .direction
@@ -254,7 +254,7 @@ extension ORBMapViewController {
         rootView.naverMapView.mapView.moveCamera(cameraUpdate)
     }
     
-    private func flyToMyPosition(completion: ((Bool) -> Void)? = nil) {
+    private func focusToMyPosition(completion: ((Bool) -> Void)? = nil) {
         guard let currentCoord = locationManager.location?.coordinate else { return }
         let currentLatLng = NMGLatLng(lat: currentCoord.latitude, lng: currentCoord.longitude)
         let cameraUpdate = NMFCameraUpdate(scrollTo: currentLatLng)
@@ -526,7 +526,7 @@ extension ORBMapViewController: CLLocationManagerDelegate {
                 viewModel.locationServiceDisabledRelay.accept(())
             }
         case .authorizedAlways, .authorizedWhenInUse:
-            flyToMyPosition()
+            focusToMyPosition()
             rootView.naverMapView.mapView.positionMode = .direction
         @unknown default:
             return
