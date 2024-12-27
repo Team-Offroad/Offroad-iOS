@@ -146,8 +146,10 @@ extension CouponListViewController{
                 }
                 guard response.data.coupons.count > 0 else {
                     if isUsed {
+                        self.rootView.collectionViewForUsedCoupons.reloadData()
                         self.rootView.collectionViewForUsedCoupons.emptyState = true
                     } else {
+                        self.rootView.collectionViewForAvailableCoupons.reloadData()
                         self.rootView.collectionViewForAvailableCoupons.emptyState = true
                     }
                     return
