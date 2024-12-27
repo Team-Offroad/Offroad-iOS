@@ -361,12 +361,12 @@ extension ORBMapViewController {
             guard let self else { return }
             self.rootView.tooltip.transform = .identity
             self.rootView.layoutIfNeeded()
-            self.rootView.compass.alpha = 0
         }
         tooltipShowingAnimator.addCompletion { _ in
             completion?()
         }
         isTooltipShown = true
+        rootView.compass.isHidden = true
         rootView.shadingView.isUserInteractionEnabled = true
         tooltipTransparencyAnimator.startAnimation()
         shadingAnimator.startAnimation()
@@ -384,7 +384,6 @@ extension ORBMapViewController {
         tooltipHidingAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.tooltip.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
-            self.rootView.compass.alpha = 1
         }
         tooltipHidingAnimator.addAnimations({ [weak self] in
             guard let self else { return }
@@ -398,6 +397,7 @@ extension ORBMapViewController {
             completion?()
         }
         isTooltipShown = false
+        rootView.compass.isHidden = false
         shadingAnimator.startAnimation()
         tooltipHidingAnimator.startAnimation()
     }
