@@ -309,6 +309,9 @@ extension ORBMapViewController {
     private func markerTouchHandler(overlay: NMFOverlay) -> Bool {
         guard !isTooltipShown else { return false }
         guard let marker = overlay as? OffroadNMFMarker else { return false }
+        let projection = rootView.naverMapView.mapView.projection
+        let point = projection.point(from: marker.position)
+        guard !rootView.markerTapBlocker.frame.contains(point) else { return false }
         viewModel.isCompassMode = false
         selectedMarker = marker
         rootView.naverMapView.mapView.locationOverlay.icon = rootView.locationOverlayImage
@@ -319,14 +322,12 @@ extension ORBMapViewController {
         rootView.tooltipAnchorPoint = markerPoint!
         showTooltip()
         
-        let projection = rootView.naverMapView.mapView.projection
-        let point = projection.point(from: marker.position)
         let mapFrame = rootView.naverMapView.mapView.frame
         let delta = viewModel.caculateDeltaToShowTooltip(point: point,
                                             at: mapFrame,
                                             tooltipSize: rootView.tooltip.frame.size,
                                             contentInset: 20)
-        moveCamera(scrollBy: delta)
+        moveCamera(scrollBy: delta, animationDuration: 0.3)
         return true
     }
     

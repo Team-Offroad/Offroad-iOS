@@ -18,6 +18,7 @@ class ORBMapView: UIView {
     let customNavigationBar = UIView()
     let navigationBarSeparator = UIView()
     let titleLabel = UILabel()
+    let markerTapBlocker = UIView()
     let shadingView = UIView()
     let tooltip: PlaceInfoTooltip = .init()
     let reloadPlaceButton = UIButton()
@@ -79,6 +80,11 @@ extension ORBMapView {
             make.height.equalTo(1)
         }
         
+        markerTapBlocker.snp.makeConstraints { make in
+            make.top.equalTo(listButtonStackView)
+            make.horizontalEdges.bottom.equalToSuperview()
+        }
+        
         shadingView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -122,7 +128,7 @@ extension ORBMapView {
     //MARK: - Private Func
     
     private func setupHierarchy() {
-        naverMapView.addSubviews(reloadPlaceButton, switchTrackingModeButton, shadingView, tooltip)
+        naverMapView.addSubviews(markerTapBlocker, reloadPlaceButton, switchTrackingModeButton, shadingView, tooltip)
         listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
         customNavigationBar.addSubview(titleLabel)
         addSubviews(
@@ -150,6 +156,11 @@ extension ORBMapView {
         }
         
         shadingView.do { view in
+            view.isUserInteractionEnabled = false
+        }
+        
+        markerTapBlocker.do { view in
+            view.backgroundColor = .clear
             view.isUserInteractionEnabled = false
         }
         
