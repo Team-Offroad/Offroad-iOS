@@ -9,7 +9,7 @@ import Foundation
 
 import NMapsMap
 
-enum OffroadPlaceCategory: String {
+enum ORBPlaceCategory: String {
     case caffe
     case park
     case restaurant

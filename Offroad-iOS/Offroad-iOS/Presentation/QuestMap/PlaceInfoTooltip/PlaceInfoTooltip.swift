@@ -197,7 +197,7 @@ extension PlaceInfoTooltip  {
             placeCategoryImageView.image = nil
             return
         }
-        guard let category = OffroadPlaceCategory(rawValue: placeInfo.placeCategory.lowercased()) else { return }
+        guard let category = ORBPlaceCategory(rawValue: placeInfo.placeCategory.lowercased()) else { return }
         switch category {
         case .caffe:
             placeCategoryImageView.image = .imgCategoryCafe
