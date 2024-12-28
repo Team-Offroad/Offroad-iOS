@@ -10,7 +10,7 @@ import UIKit
 import NMapsMap
 import Then
 
-class OffroadNMFMarker: NMFMarker {
+class ORBNMFMarker: NMFMarker {
     
     //MARK: - Properties
     

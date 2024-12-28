@@ -37,7 +37,7 @@
 		4E08B9652C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9642C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift */; };
 		4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */; };
 		4E09BF572C48A5B7009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */; };
-		4E0C69692C4724A100B6453E /* OffroadNMFMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69682C4724A100B6453E /* OffroadNMFMarker.swift */; };
+		4E0C69692C4724A100B6453E /* ORBNMFMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69682C4724A100B6453E /* ORBNMFMarker.swift */; };
 		4E1E94112C39870700A7B08A /* ColorLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94102C39870700A7B08A /* ColorLiterals.swift */; };
 		4E1E94132C398C4200A7B08A /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94122C398C4200A7B08A /* String+.swift */; };
 		4E1E94192C3AC27C00A7B08A /* ORBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* ORBMapView.swift */; };
@@ -332,7 +332,7 @@
 		4E08B9642C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListDummyDataManager.swift; sourceTree = "<group>"; };
 		4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationRequestDTO.swift; sourceTree = "<group>"; };
 		4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationResponsetDTO.swift; sourceTree = "<group>"; };
-		4E0C69682C4724A100B6453E /* OffroadNMFMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadNMFMarker.swift; sourceTree = "<group>"; };
+		4E0C69682C4724A100B6453E /* ORBNMFMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBNMFMarker.swift; sourceTree = "<group>"; };
 		4E1E94102C39870700A7B08A /* ColorLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiterals.swift; sourceTree = "<group>"; };
 		4E1E94122C398C4200A7B08A /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		4E1E94182C3AC27C00A7B08A /* ORBMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapView.swift; sourceTree = "<group>"; };
@@ -1546,7 +1546,7 @@
 			isa = PBXGroup;
 			children = (
 				4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */,
-				4E0C69682C4724A100B6453E /* OffroadNMFMarker.swift */,
+				4E0C69682C4724A100B6453E /* ORBNMFMarker.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -2894,7 +2894,7 @@
 				D063E9A42C6108DB00434A09 /* CollectedTitleModel.swift in Sources */,
 				D06D26C52C3D83AA00E79F25 /* HomeViewController.swift in Sources */,
 				D0E796612C455391005B47A5 /* ChangeEmblemResponseDTO.swift in Sources */,
-				4E0C69692C4724A100B6453E /* OffroadNMFMarker.swift in Sources */,
+				4E0C69692C4724A100B6453E /* ORBNMFMarker.swift in Sources */,
 				D06D26CD2C3E6EA200E79F25 /* CustomRecentProgressView.swift in Sources */,
 				D064669A2C86FCDB00CF10FD /* DeleteAccountViewController.swift in Sources */,
 				D06466902C83A18400CF10FD /* TermsConsentPopupViewController.swift in Sources */,

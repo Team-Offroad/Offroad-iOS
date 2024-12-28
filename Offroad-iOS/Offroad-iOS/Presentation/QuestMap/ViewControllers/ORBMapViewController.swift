@@ -29,7 +29,7 @@ class ORBMapViewController: OffroadTabBarViewController {
     private var latestCategory: String?
     
     private var locationManager: CLLocationManager { viewModel.locationManager }
-    private var selectedMarker: OffroadNMFMarker? = nil
+    private var selectedMarker: ORBNMFMarker? = nil
     private var markerPoint: CGPoint? {
         guard let selectedMarker else { return nil }
         let selectedMarkerPosition = rootView.naverMapView.mapView.projection.point(from: selectedMarker.position)
@@ -308,7 +308,7 @@ extension ORBMapViewController {
     /// - Returns: `true`를 반환할 경우 마커를 탭 시 메서드를 실행. 그렇지 않을 경우 `NMFMapView`까지 이벤트가 전달되어 `NMFMapViewTouchDelegate`의 `mapView(_:didTapMap:point:)`가  호출됩니다.
     private func markerTouchHandler(overlay: NMFOverlay) -> Bool {
         guard !isTooltipShown else { return false }
-        guard let marker = overlay as? OffroadNMFMarker else { return false }
+        guard let marker = overlay as? ORBNMFMarker else { return false }
         let projection = rootView.naverMapView.mapView.projection
         let point = projection.point(from: marker.position)
         guard !rootView.markerTapBlocker.frame.contains(point) else { return false }

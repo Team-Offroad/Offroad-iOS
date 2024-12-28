@@ -35,7 +35,7 @@ final class ORBMapViewModel: SVGFetchable {
     let startLoading = PublishRelay<Void>()
     let stopLoading = PublishRelay<Void>()
     let networkFailureSubject = PublishSubject<Void>()
-    let markersSubject = BehaviorSubject<[OffroadNMFMarker]>(value: [])
+    let markersSubject = BehaviorSubject<[ORBNMFMarker]>(value: [])
     let customOverlayImage = NMFOverlayImage(image: .icnQuestMapPlaceMarker)
     let shouldRequestLocationAuthorization = PublishRelay<Void>()
     let locationServiceDisabledRelay = PublishRelay<Void>()
@@ -105,7 +105,7 @@ extension ORBMapViewModel {
             switch response {
             case .success(let data):
                 let markers = data!.data.places.map {
-                    return OffroadNMFMarker(placeInfo: $0, iconImage: self.customOverlayImage)
+                    return ORBNMFMarker(placeInfo: $0, iconImage: self.customOverlayImage)
                         .then { $0.width = 26; $0.height = 32 }
                 }
                 
