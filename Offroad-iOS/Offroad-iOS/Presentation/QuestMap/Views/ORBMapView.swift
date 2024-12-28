@@ -18,6 +18,8 @@ class ORBMapView: UIView {
     let customNavigationBar = UIView()
     let navigationBarSeparator = UIView()
     let titleLabel = UILabel()
+    let gradientView = UIView()
+    let gradientLayer = CAGradientLayer()
     let markerTapBlocker = UIView()
     let shadingView = UIView()
     let tooltip: PlaceInfoTooltip = .init()
@@ -57,6 +59,13 @@ class ORBMapView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        gradientLayer.frame = gradientView.bounds
+        gradientView.layer.addSublayer(gradientLayer)
+    }
+    
 }
 
 extension ORBMapView {
@@ -78,6 +87,11 @@ extension ORBMapView {
             make.top.equalTo(customNavigationBar.snp.bottom)
             make.horizontalEdges.equalToSuperview()
             make.height.equalTo(1)
+        }
+        
+        gradientView.snp.makeConstraints { make in
+            make.top.equalTo(listButtonStackView).offset(-63)
+            make.horizontalEdges.bottom.equalToSuperview()
         }
         
         markerTapBlocker.snp.makeConstraints { make in
@@ -128,7 +142,7 @@ extension ORBMapView {
     //MARK: - Private Func
     
     private func setupHierarchy() {
-        naverMapView.addSubviews(markerTapBlocker, reloadPlaceButton, switchTrackingModeButton, shadingView, tooltip)
+        naverMapView.addSubviews(gradientView, markerTapBlocker, reloadPlaceButton, switchTrackingModeButton, shadingView, tooltip)
         listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
         customNavigationBar.addSubview(titleLabel)
         addSubviews(
@@ -157,6 +171,15 @@ extension ORBMapView {
         
         shadingView.do { view in
             view.isUserInteractionEnabled = false
+        }
+        
+        gradientView.isUserInteractionEnabled = false
+        gradientLayer.do { layer in
+            layer.type = .axial
+            layer.colors = [UIColor(hex: "5B5B5B")!.withAlphaComponent(0.55).cgColor, UIColor.clear.cgColor]
+            layer.startPoint = CGPoint(x: 0, y: 1)
+            layer.endPoint = CGPoint(x: 0, y: 0)
+            layer.locations = [0, 1]
         }
         
         markerTapBlocker.do { view in
