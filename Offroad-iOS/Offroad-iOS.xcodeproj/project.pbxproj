@@ -134,7 +134,7 @@
 		4EF833EC2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */; };
 		4EF833EE2CC4268200D94314 /* ORBPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833ED2CC4268200D94314 /* ORBPopup.swift */; };
 		4EF833F02CC486EE00D94314 /* EmblemPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833EF2CC486EE00D94314 /* EmblemPopupViewController.swift */; };
-		4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */; };
+		4EFA808B2C3E79E800876D05 /* ORBMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* ORBMapListButton.swift */; };
 		4EFC7D252D066D110068367E /* ScrollLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC7D242D066D110068367E /* ScrollLoading.swift */; };
 		4EFC7D3F2D06CB130068367E /* ScrollLoadingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC7D3E2D06CB130068367E /* ScrollLoadingCollectionView.swift */; };
 		4EFCDFDD2C92BB27006DEBB6 /* ORBAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFDC2C92BB27006DEBB6 /* ORBAlertController.swift */; };
@@ -426,7 +426,7 @@
 		4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewAcquiredEmblem.swift; sourceTree = "<group>"; };
 		4EF833ED2CC4268200D94314 /* ORBPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBPopup.swift; sourceTree = "<group>"; };
 		4EF833EF2CC486EE00D94314 /* EmblemPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmblemPopupViewController.swift; sourceTree = "<group>"; };
-		4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestMapListButton.swift; sourceTree = "<group>"; };
+		4EFA808A2C3E79E800876D05 /* ORBMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapListButton.swift; sourceTree = "<group>"; };
 		4EFC7D242D066D110068367E /* ScrollLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoading.swift; sourceTree = "<group>"; };
 		4EFC7D3E2D06CB130068367E /* ScrollLoadingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoadingCollectionView.swift; sourceTree = "<group>"; };
 		4EFCDFDC2C92BB27006DEBB6 /* ORBAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertController.swift; sourceTree = "<group>"; };
@@ -1545,7 +1545,7 @@
 		4EFA80892C3E79B800876D05 /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
-				4EFA808A2C3E79E800876D05 /* QuestMapListButton.swift */,
+				4EFA808A2C3E79E800876D05 /* ORBMapListButton.swift */,
 				4E0C69682C4724A100B6453E /* ORBNMFMarker.swift */,
 			);
 			path = UIComponents;
@@ -2950,7 +2950,7 @@
 				4E393C9A2C48C9A6003403EC /* QuestResultViewController.swift in Sources */,
 				4E416CE82C45DBE200CF6AB4 /* OffroadPlace.swift in Sources */,
 				D0EAF21B2C3B026500566543 /* SplashViewController.swift in Sources */,
-				4EFA808B2C3E79E800876D05 /* QuestMapListButton.swift in Sources */,
+				4EFA808B2C3E79E800876D05 /* ORBMapListButton.swift in Sources */,
 				4E58FC002C7DFE78002A951B /* QuestListAPI.swift in Sources */,
 				D00A48962C783988008B286A /* TermsConsentViewController.swift in Sources */,
 				4EF833F02CC486EE00D94314 /* EmblemPopupViewController.swift in Sources */,

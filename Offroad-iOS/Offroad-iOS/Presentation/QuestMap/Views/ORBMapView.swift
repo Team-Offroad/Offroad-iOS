@@ -26,8 +26,8 @@ class ORBMapView: UIView {
     let reloadPlaceButton = UIButton()
     let switchTrackingModeButton = UIButton()
     let listButtonStackView = UIStackView()
-    let questListButton = QuestMapListButton(image: .iconListBullet, title: "퀘스트 목록")
-    let placeListButton = QuestMapListButton(image: .iconPlaceMarker, title: "장소 목록")
+    let questListButton = ORBMapListButton(image: .iconListBullet, title: "퀘스트 목록")
+    let placeListButton = ORBMapListButton(image: .iconPlaceMarker, title: "장소 목록")
     
     let naverMapView = NMFNaverMapView()
     let compass = NMFCompassView()
