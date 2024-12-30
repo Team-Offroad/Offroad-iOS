@@ -14,6 +14,8 @@ final class MyInfoManager {
     
     //MARK: - Properties
     
+    var disposeBag = DisposeBag()
+    
     var representativeCharacterID: Int? = nil
     var completerQuestCount: Int? = nil
     var visitedPlacesCount: Int? = nil
@@ -31,6 +33,7 @@ final class MyInfoManager {
     let didChangeRepresentativeCharacter = PublishRelay<Void>()
     let didChangeEmblem = PublishRelay<Void>()
     let shouldUpdateCharacterAnimation = PublishRelay<String>()
+    let shouldUpdateUserInfoData = PublishRelay<Void>()
     
     static let shared = MyInfoManager()
     

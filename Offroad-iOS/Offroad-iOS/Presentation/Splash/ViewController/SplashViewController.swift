@@ -13,15 +13,22 @@ final class SplashViewController: UIViewController {
     
     private let rootView = SplashView()
     
+    private let pushType: PushNotificationRedirectModel?
+    
     // MARK: - Life Cycle
+    
+    init(pushType: PushNotificationRedirectModel? = nil) {
+        self.pushType = pushType
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {        
         view = rootView
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        getCharacterListInfo()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -59,18 +66,17 @@ extension SplashViewController {
     }
     
     private func checkUserChoosingInfo() {
-        NetworkService.shared.adventureService.getAdventureInfo(category: "NONE") { response in
+        NetworkService.shared.adventureService.getAdventureInfo(category: "NONE") { [weak self] response in
+            guard let self else { return }
             switch response {
             case .success(let data):
-                let userNickname = data?.data.nickname ?? ""
                 let characterName = data?.data.characterName ?? ""
                                                 
-                if userNickname == "" {
-                    self.presentViewController(viewController: TermsConsentViewController())
-                } else if characterName == "" {
-                    self.presentViewController(viewController: ChoosingCharacterViewController())
+                if characterName == "" {
+                    self.presentViewController(viewController: LoginViewController())
                 } else {
-                    self.presentViewController(viewController: OffroadTabBarController())
+                    self.getCharacterListInfo()
+                    self.presentViewController(viewController: OffroadTabBarController(pushType: pushType))
                 }
             default:
                 break

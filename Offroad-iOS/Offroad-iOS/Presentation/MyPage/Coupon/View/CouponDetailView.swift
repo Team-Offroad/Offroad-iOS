@@ -10,18 +10,22 @@ import UIKit
 import SnapKit
 import Then
 
-final class CouponDetailView: UIView {
+final class CouponDetailView: UIScrollView {
     
     // MARK: - UI Properties
+    
+    let customNavigationBar = UIView().then { view in
+        view.backgroundColor = .primary(.listBg)
+    }
     
     let customBackButton = NavigationPopButton().then {
             $0.configureButtonTitle(titleString: "획득 쿠폰")
     }
     
-    private let couponDetailView = UIView().then {
+    private let couponInfoView = UIView().then {
         $0.roundCorners(cornerRadius: 22)
         $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor.home(.homeContents2).cgColor
+        $0.layer.borderColor = UIColor.primary(.stroke).cgColor
         $0.clipsToBounds = true
         $0.backgroundColor = UIColor.main(.main1)
     }
@@ -71,7 +75,7 @@ final class CouponDetailView: UIView {
     
     private let usageLogoImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
-        $0.image = UIImage(resource: .imgKey)
+        $0.image = .icnCouponDetailKeyAndLock
     }
     
     private let usageDescriptionLabel = UILabel().then {
@@ -84,9 +88,16 @@ final class CouponDetailView: UIView {
     
     let useButton = UIButton().then {
         $0.setTitle("사용하기", for: .normal)
+        $0.setTitle("사용완료", for: .disabled)
+        $0.setTitleColor(.main(.main1), for: .normal)
+        $0.setTitleColor(.main(.main1), for: .disabled)
         $0.titleLabel?.textAlignment = .center
-        $0.titleLabel?.font = UIFont.offroad(style: .iosText)
-        $0.backgroundColor = UIColor.main(.main2)
+        $0.configureTitleFontWhen(normal: .offroad(style: .iosText))
+        $0.configureBackgroundColorWhen(
+            normal: .main(.main2),
+            highlighted: .blackOpacity(.black55),
+            disabled: .blackOpacity(.black15)
+        )
         $0.roundCorners(cornerRadius: 5)
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
     }
@@ -108,19 +119,21 @@ final class CouponDetailView: UIView {
     //MARK: - Private Func
     
     private func setupStyle() {
+        showsVerticalScrollIndicator = false
         backgroundColor = UIColor.primary(.listBg)
     }
     
     private func setupHierarchy() {
+        customNavigationBar.addSubview(customBackButton)
         addSubviews(
-            customBackButton,
-            couponDetailView,
+            couponInfoView,
             usageTitleLabel,
             usageLogoImageView,
             usageDescriptionLabel,
-            useButton
+            useButton,
+            customNavigationBar
         )
-        couponDetailView.addSubviews(
+        couponInfoView.addSubviews(
             couponImageView,
             couponTitleLabel,
             dottedLineView,
@@ -129,14 +142,20 @@ final class CouponDetailView: UIView {
     }
     
     private func setupLayout() {
+        customNavigationBar.snp.makeConstraints { make in
+            make.top.equalTo(frameLayoutGuide)
+            make.horizontalEdges.equalTo(frameLayoutGuide)
+        }
+        
         customBackButton.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(12)
             $0.leading.equalToSuperview().inset(12)
+            $0.bottom.equalToSuperview().inset(10)
         }
         
-        couponDetailView.snp.makeConstraints { make in
+        couponInfoView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(customBackButton.snp.bottom).offset(43)
+            make.top.equalTo(contentLayoutGuide).inset(78)
             make.width.equalTo(312)
         }
         
@@ -148,7 +167,7 @@ final class CouponDetailView: UIView {
         
         couponTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(couponImageView.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(21)
         }
         
         dottedLineView.snp.makeConstraints { make in
@@ -159,13 +178,13 @@ final class CouponDetailView: UIView {
         
         couponDescriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(dottedLineView.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(21)
             make.bottom.equalToSuperview().inset(20)
-            make.height.equalTo(72)
+            make.height.greaterThanOrEqualTo(72)
         }
         
         usageTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(couponDetailView.snp.bottom).offset(24.5)
+            make.top.equalTo(couponInfoView.snp.bottom).offset(24.5)
             make.horizontalEdges.equalToSuperview().inset(50)
         }
         
@@ -178,12 +197,13 @@ final class CouponDetailView: UIView {
         usageDescriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(usageLogoImageView)
             make.leading.equalTo(usageLogoImageView.snp.trailing).offset(8)
-            make.trailing.equalToSuperview().inset(50)
+            make.trailing.equalTo(frameLayoutGuide).inset(50)
         }
         
         useButton.snp.makeConstraints { make in
-            make.bottom.equalTo(safeAreaLayoutGuide).inset(24)
-            make.horizontalEdges.equalToSuperview().inset(24)
+            make.top.equalTo(usageDescriptionLabel.snp.bottom).offset(50)
+            make.horizontalEdges.equalTo(frameLayoutGuide).inset(24)
+            make.bottom.equalTo(contentLayoutGuide).inset(24)
             make.height.equalTo(54)
         }
     }

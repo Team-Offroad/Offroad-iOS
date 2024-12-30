@@ -22,8 +22,24 @@ final class CharacterChatLogViewModel {
             }
             groupedChats[dateKey]?.append(chat)
         }
-        let sortedKeys = groupedChats.keys.sorted()
+        let sortedKeys = groupedChats.keys.sorted(by: { $0 > $1 })
         return sortedKeys.compactMap { groupedChats[$0] }
+    }
+    
+    func groupChatsByDateForDiffableDataSource(chats: [ChatDataModel]) -> [String: [ChatDataModel]] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        var groupedChats: [String: [ChatDataModel]] = [:]
+        for chat in chats {
+            guard let createdDate = chat.createdDate else { continue }
+            let dateKey = dateFormatter.string(from: createdDate) // 날짜만 추출
+            if groupedChats[dateKey] == nil {
+                groupedChats[dateKey] = []
+            }
+            groupedChats[dateKey]?.append(chat)
+        }
+        return groupedChats
     }
     
     // UILabel 안에 특정 텍스트가 들어갔을 때, label의 사이즈를 미리 계산하여 반환하는 함수.

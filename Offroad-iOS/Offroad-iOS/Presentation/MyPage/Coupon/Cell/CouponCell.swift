@@ -9,13 +9,21 @@ import UIKit
 
 final class CouponCell: UICollectionViewCell {
     
+    // MARK: - Properties
+    
+    override var isHighlighted: Bool {
+        didSet { dimmingView.isHidden = !isHighlighted }
+    }
+    
     // MARK: - UI Properties
     
+    var couponInfo: CouponInfo? = nil
     private var couponimageView = UIImageView()
     private let couponNameLabel = UILabel()
     private let newTagImageView = UIImageView()
     private let isUsedView = UIView()
     private let isUsedImageView = UIImageView(image: .icnCouponListCheckmark)
+    private let dimmingView = UIView()
     
     // MARK: - Life Cycle
     
@@ -35,6 +43,7 @@ final class CouponCell: UICollectionViewCell {
         super.prepareForReuse()
         
         newTagImageView.isHidden = true
+        couponInfo = nil
     }
     
     // MARK: - Setup Functions
@@ -42,7 +51,7 @@ final class CouponCell: UICollectionViewCell {
     private func setupStyle() {
         contentView.roundCorners(cornerRadius: 12)
         contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.home(.homeContents2).cgColor
+        contentView.layer.borderColor = UIColor.primary(.stroke).cgColor
         contentView.backgroundColor = UIColor.main(.main1)
         
         couponimageView.do { imageView in
@@ -65,6 +74,11 @@ final class CouponCell: UICollectionViewCell {
         isUsedView.do { view in
             view.backgroundColor = .blackOpacity(.black25)
         }
+        
+        dimmingView.do { view in
+            view.backgroundColor = .blackOpacity(.black25)
+            view.isHidden = true
+        }
     }
     
     private func setupHierarchy() {
@@ -72,7 +86,8 @@ final class CouponCell: UICollectionViewCell {
             couponimageView,
             couponNameLabel,
             isUsedView,
-            newTagImageView
+            newTagImageView,
+            dimmingView
         )
         isUsedView.addSubview(isUsedImageView)
     }
@@ -106,9 +121,14 @@ final class CouponCell: UICollectionViewCell {
             make.center.equalTo(couponimageView)
             make.size.equalTo(32)
         }
+        
+        dimmingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     func configureAvailableCell(with coupon: CouponInfo) {
+        couponInfo = coupon
         couponNameLabel.text = coupon.name
         couponNameLabel.text = coupon.name
         newTagImageView.isHidden = !(coupon.isNewGained ?? false)
@@ -117,6 +137,7 @@ final class CouponCell: UICollectionViewCell {
     }
     
     func configureUsedCell(with coupon: CouponInfo) {
+        couponInfo = coupon
         couponNameLabel.text = coupon.name
         couponNameLabel.text = coupon.name
         couponimageView.fetchSvgURLToImageView(svgUrlString: coupon.couponImageUrl)

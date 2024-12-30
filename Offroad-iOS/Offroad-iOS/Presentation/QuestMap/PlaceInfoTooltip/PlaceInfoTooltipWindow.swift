@@ -22,6 +22,7 @@ class PlaceInfoTooltipWindow: UIWindow {
         super.init(windowScene: UIWindowScene.current)
         
         rootViewController = placeInfoViewController
+        windowLevel = .statusBar + 1
     }
     
     required init?(coder: NSCoder) {

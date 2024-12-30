@@ -26,7 +26,8 @@ final class QuestMapViewModel: SVGFetchable {
     var selectedMarker: OffroadNMFMarker? = nil
     private var isFocused: Bool = false
     
-    let isLocationAdventureAuthenticated = PublishSubject<Bool>()
+    let isLocationAuthorized = PublishSubject<Bool>()
+    let isFirstVisitToday = PublishRelay<Bool>()
     let successCharacterImageUrl = PublishSubject<String>()
     let successCharacterImage = PublishSubject<UIImage?>()
     let completeQuestList = PublishSubject<[CompleteQuest]?>()
@@ -37,10 +38,12 @@ final class QuestMapViewModel: SVGFetchable {
     let networkFailureSubject = PublishSubject<Void>()
     let markersSubject = BehaviorSubject<[OffroadNMFMarker]>(value: [])
     let customOverlayImage = NMFOverlayImage(image: .icnQuestMapPlaceMarker)
-    let shouldRequestLocationAuthorization = PublishSubject<Void>()
+    let shouldRequestLocationAuthorization = PublishRelay<Void>()
+    let locationServiceDisabledRelay = PublishRelay<Void>()
     
     var isCompassMode = false
     var currentLocation: NMGLatLng? {
+        locationManager.startUpdatingLocation()
         guard let coordinate = locationManager.location?.coordinate else { return nil }
         return NMGLatLng(lat: coordinate.latitude, lng: coordinate.longitude)
     }
@@ -66,11 +69,19 @@ extension QuestMapViewModel {
         let status = locationManager.authorizationStatus
         switch status {
         case .notDetermined:
-            locationManager.requestAlwaysAuthorization()
+            locationManager.requestWhenInUseAuthorization()
+            
+            // 가족 공유 등의 기능에서 부모 혹은 보호자가 앱을 사용할 수 없도록 제한했을 때
         case .restricted:
-            shouldRequestLocationAuthorization.onNext(())
+            shouldRequestLocationAuthorization.accept(())
+            
+            /*
+             - 사용자가 앱에 위치 사용 권한을 허용하지 않은 경우
+             - 위치 서비스를 끈 경우
+             - 비행기 모드로 인해 위치 서비스 사용이 불가한 경우
+             */
         case .denied:
-            shouldRequestLocationAuthorization.onNext(())
+            shouldRequestLocationAuthorization.accept(())
         case .authorizedAlways:
             return
         case .authorizedWhenInUse:
@@ -86,7 +97,7 @@ extension QuestMapViewModel {
             currentLatitude: target.lat,
             currentLongitude: target.lng,
             limit: 100,
-            isBounded: true
+            isBounded: false
         )
         
         NetworkService.shared.placeService.getRegisteredPlace(requestDTO: requestPlaceDTO) { [weak self] response in
@@ -100,17 +111,22 @@ extension QuestMapViewModel {
                 }
                 
                 self.markersSubject.onNext(markers)
-            case .networkFail:
-                self.networkFailureSubject.onNext(())
             default:
+                self.networkFailureSubject.onNext(())
                 return
             }
         }
     }
     
     func authenticatePlaceAdventure(placeInfo: RegisteredPlaceInfo) {
+        guard locationManager.authorizationStatus == .authorizedAlways
+                || locationManager.authorizationStatus == .authorizedWhenInUse else {
+            print(locationManager.authorizationStatus.rawValue)
+            shouldRequestLocationAuthorization.accept(())
+            return
+        }
         guard let currentLocation else {
-            shouldRequestLocationAuthorization.onNext(())
+            shouldRequestLocationAuthorization.accept(())
             return
         }
         let dto = AdventuresPlaceAuthenticationRequestDTO(
@@ -127,12 +143,12 @@ extension QuestMapViewModel {
                 switch result {
                 case .success(let data):
                     guard let data else { return }
-                    self.isLocationAdventureAuthenticated.onNext(data.data.isValidPosition)
+                    self.isLocationAuthorized.onNext(data.data.isValidPosition)
                     self.successCharacterImageUrl.onNext(data.data.successCharacterImageUrl)
                     self.completeQuestList.onNext(data.data.completeQuestList)
-                case .networkFail:
-                    self.networkFailureSubject.onNext(())
+                    self.isFirstVisitToday.accept(data.data.isFirstVisitToday)
                 default:
+                    self.networkFailureSubject.onNext(())
                     return
                 }
             })

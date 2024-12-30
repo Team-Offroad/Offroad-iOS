@@ -22,7 +22,7 @@ final class LoginView: UIView {
 
     //MARK: - UI Properties
     
-    private let offroadLogoImageView = UIImageView(image: UIImage(resource: .imgOffroadLogoLogin))
+    private let orbLogoImageView = UIImageView(image: UIImage(resource: .imgOrbLogoLogin))
     private let kakaoLoginButton = UIButton()
     private let appleLoginButton = UIButton()
     private let kakaoLogoImageView = UIImageView(image: UIImage(resource: .imgKakaoLogo))
@@ -57,6 +57,7 @@ extension LoginView {
             $0.titleLabel?.font = .offroad(style: .bothLogin)
             $0.backgroundColor = .primary(.kakao)
             $0.roundCorners(cornerRadius: 5)
+            $0.isHidden = true
         }
         
         appleLoginButton.do {
@@ -74,16 +75,18 @@ extension LoginView {
     }
     
     private func setupHierarchy() {
-        addSubviews(offroadLogoImageView, loginButtonStackView)
+        addSubviews(orbLogoImageView, loginButtonStackView)
         loginButtonStackView.addArrangedSubviews(kakaoLoginButton, appleLoginButton)
         kakaoLoginButton.addSubview(kakaoLogoImageView)
         appleLoginButton.addSubview(appleLogoImageView)
     }
     
     private func setupLayout() {
-        offroadLogoImageView.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).inset(233)
+        orbLogoImageView.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(253)
             $0.centerX.equalToSuperview()
+            $0.width.equalTo(167)
+            $0.height.equalTo(41)
         }
         
         kakaoLoginButton.snp.makeConstraints {
@@ -105,7 +108,7 @@ extension LoginView {
         }
         
         loginButtonStackView.snp.makeConstraints{
-            $0.top.equalTo(offroadLogoImageView.snp.bottom).offset(38)
+            $0.top.equalTo(orbLogoImageView.snp.bottom).offset(38)
             $0.horizontalEdges.equalToSuperview().inset(24)
         }
     }

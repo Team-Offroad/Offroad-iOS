@@ -18,7 +18,6 @@ final class CharacterDetailViewController: UIViewController {
     let viewModel: CharacterDetailViewModel
     let viewDidAppear = PublishRelay<Void>()
     var disposeBag = DisposeBag()
-    weak var delegate: SelectMainCharacterDelegate?
     
     // MARK: - Life Cycle
     
@@ -82,8 +81,6 @@ extension CharacterDetailViewController {
                 guard let self else { return }
                 self.rootView.crownBadgeImageView.isHidden = false
                 self.rootView.selectButton.isEnabled = false
-                self.rootView.chatLogButton.isEnabled = self.viewModel.isCurrentCharacterRepresentative
-                self.delegate?.didSelectMainCharacter(characterId: self.viewModel.characterId)
                 self.showToast(message: "'\($0.characterName)'로 대표 캐릭터가 변경되었어요!", inset: 66, withImage: .btnChecked)
             }).disposed(by: disposeBag)
         
@@ -91,21 +88,12 @@ extension CharacterDetailViewController {
             .subscribe(onNext: { [weak self] characterDetailInfo in
                 guard let self else { return }
                 self.rootView.configurerCharacterDetailView(using: characterDetailInfo)
-                self.rootView.chatLogButton.isEnabled = self.viewModel.isCurrentCharacterRepresentative
             }).disposed(by: disposeBag)
         
         viewModel.networkingSuccess
             .subscribe(onNext: { [weak self] in
             guard let self else { return }
             self.rootView.collectionView.reloadData()
-        }).disposed(by: disposeBag)
-        
-        Observable.combineLatest(
-            viewModel.networkingFailure,
-            viewDidAppear.take(1)
-        ).subscribe(onNext: { [weak self] _, _ in
-            guard let self else { return }
-            self.showToast(message: ErrorMessages.networkError, inset: 66)
         }).disposed(by: disposeBag)
         
         rootView.customBackButton.rx.tap.bind(onNext: { [weak self] in
@@ -117,7 +105,7 @@ extension CharacterDetailViewController {
         rootView.chatLogButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
             guard let orbNavigationController = navigationController as? ORBNavigationController else { return }
-            orbNavigationController.pushChatLogViewController(characterName: rootView.nameLabel.text!)
+            orbNavigationController.pushChatLogViewController(characterId: viewModel.characterId)
         }).disposed(by: disposeBag)
         
         NetworkMonitoringManager.shared.networkConnectionChanged

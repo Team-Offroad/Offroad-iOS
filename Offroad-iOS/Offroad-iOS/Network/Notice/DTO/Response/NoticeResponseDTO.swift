@@ -17,6 +17,7 @@ struct Notices: Codable {
 }
 
 struct NoticeInfo: Codable {
+    let id: Int
     let title: String
     let content: String
     let isImportant: Bool

@@ -74,6 +74,7 @@ final class CharacterListViewController: UIViewController {
             .subscribe(onNext: { [weak self] isConnected in
                 guard let self else { return }
                 if isConnected {
+                    self.rootView.startLoading()
                     self.viewModel.getCharacterListInfo()
                 } else {
                     self.showToast(message: ErrorMessages.networkError, inset: 66)
@@ -83,6 +84,12 @@ final class CharacterListViewController: UIViewController {
         rootView.customBackButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
             self.navigationController?.popViewController(animated: true)
+        }).disposed(by: disposeBag)
+        
+        MyInfoManager.shared.didChangeRepresentativeCharacter.subscribe(onNext: { [weak self] in
+            guard let self else { return }
+            self.rootView.startLoading()
+            self.viewModel.getCharacterListInfo()
         }).disposed(by: disposeBag)
     }
     
@@ -120,7 +127,6 @@ extension CharacterListViewController: UICollectionViewDelegate {
             characterId: viewModel.characterListDataSource[indexPath.item].characterId,
             representativeCharacterId: representativeCharacterId
         )
-        characterDetailViewController.delegate = self
         navigationController?.pushViewController(characterDetailViewController, animated: true)
     }
     
@@ -132,18 +138,4 @@ extension CharacterListViewController: UICollectionViewDelegate {
         }
     }
     
-}
-
-//MARK: - SelectMainCharacterDelegate
-
-extension CharacterListViewController: SelectMainCharacterDelegate {
-    
-    func didSelectMainCharacter(characterId: Int) {
-        viewModel.updateRepresentativeCharacter(id: characterId)
-    }
-    
-}
-
-protocol SelectMainCharacterDelegate: AnyObject {
-    func didSelectMainCharacter(characterId: Int)
 }

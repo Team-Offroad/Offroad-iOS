@@ -30,6 +30,11 @@ final class CouponService: BaseService, CouponServiceProtocol {
                 completion(networkResult)
             case .failure(let error):
                 print(error.localizedDescription)
+                let networkResult: NetworkResult<CouponListResponseDTO> = self.fetchNetworkResult(
+                    statusCode: error.response?.statusCode ?? 0,
+                    data: error.response?.data ?? Data()
+                )
+                completion(networkResult)
             }
         })
     }
@@ -50,6 +55,8 @@ final class CouponService: BaseService, CouponServiceProtocol {
                 completion(networkResult)
             case .failure(let error):
                 print(error.localizedDescription)
+                let networkResult: NetworkResult<CouponRedemptionResponseDTO> = .networkFail()
+                completion(networkResult)
             }
         })
     }

@@ -7,6 +7,8 @@
 
 import UIKit
 
+import Firebase
+import FirebaseMessaging
 import Photos
 import RxSwift
 
@@ -26,8 +28,21 @@ final class HomeViewController: OffroadTabBarViewController {
     }
     
     var categoryString = "NONE"
+    private let pushType: PushNotificationRedirectModel?
+    private var noticeModelList: [NoticeInfo] = []
+    private var lastUnreadChatInfo: CharacterChatReadGetResponseData? = nil
     
     // MARK: - Life Cycle
+    
+    init(pushType: PushNotificationRedirectModel? = nil) {
+        self.pushType = pushType
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = rootView
@@ -36,10 +51,15 @@ final class HomeViewController: OffroadTabBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupDelegate()
         setupTarget()
         getUserAdventureInfo()
         getUserQuestInfo()
         bindData()
+        getLastChatInfo()
+        
+        requestPushNotificationPermission()
+        redirectViewControllerForPushNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,13 +69,16 @@ final class HomeViewController: OffroadTabBarViewController {
         offroadTabBarController.showTabBarAnimation()
         
         self.navigationController?.navigationBar.isHidden = true
-        
     }
 }
 
 extension HomeViewController {
     
     // MARK: - Private Method
+    
+    private func setupDelegate() {
+        Messaging.messaging().delegate = self
+    }
     
     private func setupTarget() {
         rootView.changeTitleButton.addTarget(self, action: #selector(changeTitleButtonTapped), for: .touchUpInside)
@@ -83,7 +106,7 @@ extension HomeViewController {
                 
                 self.rootView.updateAdventureInfo(nickname: nickname, baseImageUrl: baseImageUrl, characterName: characterName, emblemName: emblemName)
                 
-                if self.categoryString != "NONE" && motionImageUrl != "" {
+                if motionImageUrl != "" {
                     self.rootView.showMotionImage(motionImageUrl: motionImageUrl)
                 }
             default:
@@ -111,6 +134,24 @@ extension HomeViewController {
         }
     }
     
+    func getLastChatInfo() {
+        rootView.chatButton.isEnabled = false
+        NetworkService.shared.characterChatService.getLastChatInfo { [weak self] networkResult in
+            guard let self else { return }
+            self.rootView.chatButton.isEnabled = true
+            switch networkResult {
+            case .success(let dto):
+                guard let dto else { return }
+                self.rootView.chatUnreadDotView.isHidden = dto.data.doesAllRead
+                self.lastUnreadChatInfo = dto.data.doesAllRead ? nil : dto.data
+            case .serverErr(_):
+                showToast(message: "서버에 문제가 있는 것 같아요. 잠시 후 다시 시도해주세요.", inset: 66)
+            default:
+                showToast(message: ErrorMessages.networkError, inset: 66)
+            }
+        }
+    }
+    
     private func bindData() {
         MyInfoManager.shared.didSuccessAdventure
             .debug()
@@ -132,6 +173,101 @@ extension HomeViewController {
                 guard let self else { return }
                 self.categoryString = category
             }).disposed(by: disposeBag)
+        
+        Observable.merge(
+            [ORBCharacterChatManager.shared.shouldUpdateLastChatInfo.asObservable(),
+             ORBCharacterChatManager.shared.didReadLastChat.asObservable()]
+        ).subscribe(onNext: { [weak self] in
+            guard let self else { return }
+            self.getLastChatInfo()
+        }).disposed(by: disposeBag)
+    }
+    
+    private func redirectNoticePost() {
+        NetworkService.shared.noticeService.getNoticeList { response in
+            switch response {
+            case .success(let data):
+                self.noticeModelList = data?.data.announcements ?? [NoticeInfo]()
+                
+                guard let id = Int(self.pushType?.data?["announcementId"] as! String) else { return }
+                
+                for post in self.noticeModelList {
+                    if post.id == id {
+                        let noticePostViewController = NoticePostViewController(noticeInfo: post)
+                        noticePostViewController.setupCustomBackButton(buttonTitle: "홈")
+                        self.navigationController?.pushViewController(noticePostViewController, animated: true)
+                    }
+                }
+            default:
+                break
+            }
+        }
+    }
+    
+    private func requestPushNotificationPermission() {
+        let center = UNUserNotificationCenter.current()
+        center.getNotificationSettings { [weak self] settings in
+            switch settings.authorizationStatus {
+            case .notDetermined:
+                center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                    if let error = error {
+                        print("권한 요청 중 오류 발생: \(error)")
+                        return
+                    }
+                    if granted {
+                        DispatchQueue.main.async {
+                            self?.registerForPushNotifications()
+                        }
+                    } else {
+                        print("사용자가 푸시 알림을 거부했습니다.")
+                    }
+                }
+            case .denied:
+                print("사용자가 이전에 푸시 알림을 거부했습니다.")
+            case .authorized, .provisional, .ephemeral:
+                DispatchQueue.main.async {
+                    self?.registerForPushNotifications()
+                }
+            @unknown default:
+                break
+            }
+        }
+    }
+    
+    private func registerForPushNotifications() {
+        DispatchQueue.main.async {
+            UIApplication.shared.registerForRemoteNotifications()
+            
+            Messaging.messaging().token { token, error in
+                if let error = error {
+                    print("Error fetching FCM token: \(error)")
+                } else if let token = token {
+                    print("FCM token: \(token)")
+                    NetworkService.shared.pushNotificationService.postFcmToken(body: FcmTokenRequestDTO(token: token)) { response in
+                        switch response {
+                        case .success:
+                            print("fcm 토큰 전송 성공!!!")
+                        default:
+                            break
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func redirectViewControllerForPushNotification() {
+        if let pushType {
+            switch pushType.category {
+            case "ANNOUNCEMENT_REDIRECT":
+                redirectNoticePost()
+            case "CHARACTER_CHAT":
+                ORBCharacterChatManager.shared.chatViewController.patchChatReadRelay.accept(())
+                ORBCharacterChatManager.shared.showCharacterChatBox(character: self.pushType?.data?["characterName"] as! String, message: self.pushType?.data?["message"] as! String, mode: .withReplyButtonShrinked)
+            default:
+                break
+            }
+        }
     }
     
     //MARK: - Func
@@ -143,7 +279,16 @@ extension HomeViewController {
     //MARK: - @Objc Func
     
     @objc private func chatButtonTapped() {
+        if let lastUnreadChatInfo {
+            ORBCharacterChatManager.shared.showCharacterChatBox(
+                character: lastUnreadChatInfo.characterName ?? MyInfoManager.shared.representativeCharacterName ?? "",
+                message: lastUnreadChatInfo.content ?? "",
+                mode: .withoutReplyButtonShrinked,
+                isAutoDismiss: false
+            )
+        }
         ORBCharacterChatManager.shared.startChat()
+        ORBCharacterChatManager.shared.chatViewController.patchChatReadRelay.accept(())
     }
     
     @objc private func shareButtonTapped() {
@@ -155,6 +300,12 @@ extension HomeViewController {
         
         let activityViewController = UIActivityViewController(activityItems: [imageProvider], applicationActivities: nil)
         activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .mail]
+        
+        if let popoverController = activityViewController.popoverPresentationController {
+            popoverController.sourceView = rootView.shareButton
+            popoverController.sourceRect = rootView.shareButton.bounds
+            popoverController.permittedArrowDirections = .any
+        }
         
         self.present(activityViewController, animated: true)
     }
@@ -171,6 +322,13 @@ extension HomeViewController {
         titlePopupViewController.delegate = self
         
         tabBarController?.present(titlePopupViewController, animated: false)
+    }
+}
+
+extension HomeViewController: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        let dataDict: [String: String] = ["token": fcmToken ?? ""]
+        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
     }
 }
 

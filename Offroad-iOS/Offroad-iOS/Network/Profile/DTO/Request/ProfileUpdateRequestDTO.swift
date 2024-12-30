@@ -13,4 +13,5 @@ struct ProfileUpdateRequestDTO: Codable {
     let month: Int?
     let day: Int?
     let gender: String?
+    let characterId: Int
 }
