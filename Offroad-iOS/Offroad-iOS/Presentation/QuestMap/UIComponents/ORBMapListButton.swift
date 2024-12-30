@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class QuestMapListButton: UIButton {
+class ORBMapListButton: UIButton {
     
     //MARK: - Life Cycle
     

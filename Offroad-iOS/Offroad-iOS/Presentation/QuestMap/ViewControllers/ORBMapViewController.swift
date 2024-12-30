@@ -1,8 +1,8 @@
 //
-//  QuestMapViewController.swift
+//  ORBMapViewController.swift
 //  Offroad-iOS
 //
-//  Created by 김민성 on 2024/07/07.
+//  Created by 김민성 on 12/26/24.
 //
 
 import CoreLocation
@@ -14,25 +14,24 @@ import RxCocoa
 import SnapKit
 import Then
 
-class QuestMapViewController: OffroadTabBarViewController {
+class ORBMapViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
     
-    private let viewModel = QuestMapViewModel()
-    private let rootView = QuestMapView()
+    private let viewModel = ORBMapViewModel()
+    private let rootView = ORBMapView()
     private let locationService = RegisteredPlaceService()
     
     private var disposeBag = DisposeBag()
-    private var currentZoomLevel: Double = 14
     private var searchedPlaceArray: [RegisteredPlaceInfo] = []
     private var isFocused: Bool = false
     private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
     private var latestCategory: String?
     
     private var locationManager: CLLocationManager { viewModel.locationManager }
-    
+    private var selectedMarker: ORBNMFMarker? = nil
     private var markerPoint: CGPoint? {
-        guard let selectedMarker = viewModel.selectedMarker else { return nil }
+        guard let selectedMarker else { return nil }
         let selectedMarkerPosition = rootView.naverMapView.mapView.projection.point(from: selectedMarker.position)
         return self.rootView.naverMapView.mapView.convert(selectedMarkerPosition, to: self.rootView)
     }
@@ -41,9 +40,11 @@ class QuestMapViewController: OffroadTabBarViewController {
         rootView.naverMapView.mapView.cameraPosition.target
     }
     
-    //MARK: - UI Properties
-    
-    var tooltipWindow: PlaceInfoTooltipWindow!
+    var isTooltipShown: Bool = false
+    private let shadingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    private let tooltipTransparencyAnimator = UIViewPropertyAnimator(duration: 0.2, dampingRatio: 1)
+    private let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.8)
+    private let tooltipHidingAnimator = UIViewPropertyAnimator(duration: 0.25, dampingRatio: 1)
     
     //MARK: - Life Cycle
     
@@ -55,7 +56,9 @@ class QuestMapViewController: OffroadTabBarViewController {
         super.viewDidLoad()
         
         bindData()
+        setupTooltipAction()
         setupDelegates()
+        setupGestureRecognizers()
         rootView.naverMapView.mapView.positionMode = .direction
         locationManager.startUpdatingHeading()
         
@@ -77,48 +80,24 @@ class QuestMapViewController: OffroadTabBarViewController {
         viewModel.isCompassMode = false
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        guard tooltipWindow == nil else { return }
-        let naverMapViewFrame = self.rootView.naverMapView.frame
-        let contentFrame = CGRect(
-            origin: naverMapViewFrame.origin,
-            size: .init(
-                width: naverMapViewFrame.width,
-                height: naverMapViewFrame.height - (view.safeAreaInsets.bottom + 107)
-            )
-        )
-        tooltipWindow = PlaceInfoTooltipWindow(contentFrame: contentFrame)
-        bindTooltip()
-        tooltipWindow.isHidden = false
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         
         let orangeLocationOverlayImage = rootView.locationOverlayImage
         rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        self.tooltipWindow = nil
-    }
-    
 }
 
-extension QuestMapViewController {
+extension ORBMapViewController {
     
-    //MARK: - @objc Func
+    //MARK: - Private Func
     
-    @objc private func switchTrackingMode() {
-        tooltipWindow.placeInfoViewController.hideTooltip()
+    private func switchTrackingMode() {
+        // 툴팁 숨기기
         switch rootView.naverMapView.mapView.positionMode == .normal {
         case true:
-            flyToMyPosition(completion: { [weak self] isCancelled in
+            focusToMyPosition(completion: { [weak self] isCancelled in
                 guard let self else { return }
                 guard !isCancelled else { return }
                 self.rootView.naverMapView.mapView.positionMode = .direction
@@ -140,46 +119,19 @@ extension QuestMapViewController {
         }
     }
     
-    //MARK: - Private Func
-    
-    private func bindTooltip() {
-        self.tooltipWindow.placeInfoViewController.shouldHideTooltip
-            .debug()
-            .subscribe(onNext: { [weak self] in
-                guard let self else { return }
-                self.tooltipWindow.placeInfoViewController.hideTooltip { [weak self] in
-                    guard let self else { return }
-                    self.viewModel.selectedMarker = nil
-                }
-            }).disposed(by: disposeBag)
-        
-        self.tooltipWindow.placeInfoViewController.rootView.tooltip.exploreButton.rx.tap.bind { [weak self] _ in
-            guard let self else { return }
-            if CLLocationManager.locationServicesEnabled() {
-                self.viewModel.authenticatePlaceAdventure(placeInfo: viewModel.selectedMarker!.placeInfo)
-                self.tooltipWindow.placeInfoViewController.hideTooltip(completion: { [weak self] in
-                    guard let self else { return }
-                    self.viewModel.selectedMarker = nil
-                })
-            } else {
-                viewModel.locationServiceDisabledRelay.accept(())
-            }
-        }.disposed(by: disposeBag)
-    }
-    
     private func bindData() {
         viewModel.startLoading.subscribe(onNext: {
-            self.tabBarController?.view.startLoading()
+            self.view.startLoading()
         }).disposed(by: disposeBag)
         
         viewModel.stopLoading.subscribe(onNext: {
-            self.tabBarController?.view.stopLoading()
+            self.view.stopLoading()
         }).disposed(by: disposeBag)
         
         viewModel.networkFailureSubject
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
-                self.tabBarController?.view.stopLoading()
+                self.view.stopLoading()
             }).disposed(by: disposeBag)
         
         viewModel.locationServiceDisabledRelay
@@ -226,7 +178,7 @@ extension QuestMapViewController {
                 MyInfoManager.shared.shouldUpdateCharacterAnimation.accept(latestCategory ?? "NONE")
                 MyInfoManager.shared.didSuccessAdventure.accept(())
             }
-            self.tabBarController?.view.stopLoading()
+            self.view.stopLoading()
             self.popupAdventureResult(isValidLocation: locationValidation,
                                       image: image,
                                       completeQuests: completeQuests,
@@ -238,6 +190,7 @@ extension QuestMapViewController {
             self.rootView.reloadPlaceButton.isEnabled = false
             try? self.viewModel.markersSubject.value().forEach({ marker in marker.mapView = nil })
             self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
+            self.hideTooltip()
         }.disposed(by: disposeBag)
         
         rootView.switchTrackingModeButton.rx.tap.bind { [weak self] _ in
@@ -262,43 +215,119 @@ extension QuestMapViewController {
         }.disposed(by: disposeBag)
     }
     
+    private func setupTooltipAction() {
+        rootView.tooltip.exploreButton.rx.tap.bind(onNext: { [weak self] _ in
+            guard let self else { return }
+            if CLLocationManager.locationServicesEnabled() {
+                self.viewModel.authenticatePlaceAdventure(placeInfo: selectedMarker!.placeInfo)
+            } else {
+                viewModel.locationServiceDisabledRelay.accept(())
+            }
+        }).disposed(by: disposeBag)
+        
+        rootView.tooltip.closeButton.rx.tap.bind(onNext: { [weak self] in
+            guard let self else { return }
+            self.hideTooltip()
+        }).disposed(by: disposeBag)
+    }
+    
     private func setupDelegates() {
         rootView.naverMapView.mapView.addCameraDelegate(delegate: self)
         rootView.naverMapView.mapView.touchDelegate = self
         locationManager.delegate = self
     }
     
-    private func focusToMarker(_ marker: NMFMarker) {
-        currentZoomLevel = rootView.naverMapView.mapView.zoomLevel
-        let markerLatLng = NMGLatLng(lat: marker.position.lat, lng: marker.position.lng)
-        let cameraUpdate = NMFCameraUpdate(scrollTo: markerLatLng)
-        cameraUpdate.animation = .easeOut
-        cameraUpdate.reason = 20
-        rootView.naverMapView.mapView.moveCamera(cameraUpdate)
+    private func setupGestureRecognizers() {
+        let tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer.rx.event.subscribe(onNext: { [weak self] gesture in
+            guard let self else { return }
+            self.hideTooltip()
+        }).disposed(by: disposeBag)
+        rootView.shadingView.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    private func flyToMyPosition(completion: ((Bool) -> Void)? = nil) {
+    private func focusToMarker(_ marker: NMFMarker) {
+        let markerLatLng = NMGLatLng(lat: marker.position.lat, lng: marker.position.lng)
+        moveCamera(scrollTo: markerLatLng, reason: 20)
+    }
+    
+    private func focusToMyPosition(completion: ((Bool) -> Void)? = nil) {
         guard let currentCoord = locationManager.location?.coordinate else { return }
         let currentLatLng = NMGLatLng(lat: currentCoord.latitude, lng: currentCoord.longitude)
-        let cameraUpdate = NMFCameraUpdate(scrollTo: currentLatLng)
-        cameraUpdate.reason = 1
-        cameraUpdate.animation = .easeOut
-        rootView.naverMapView.mapView.moveCamera(cameraUpdate) { isCancelled in
-            print("호출호출")
+        moveCamera(scrollTo: currentLatLng, reason: 1) { isCancelled in
             completion?(isCancelled)
         }
     }
     
+    /// 지도의 카메라를 지정된 좌표(`NMGLatLng`)로 이동시키는 함수
+    /// - Parameters:
+    ///   - coordinate: 이동하고자 하는 좌표값. `NMGLatLng` 타입
+    ///   - animationDuration: 애니메이션 시간. 0으로 설정할 경우, 애니메이션 없이 바로 이동. 기본값은 NAVER Map iOS SDK에서 설정하는 0.2
+    ///   - reason: 카메라 이동에 사용될 `NMFCameraUpdate` 타입의 `reason` 속성에 할당할 값. 기본값은 `NMFMapChangedByDeveloper`이며, -1에 해당. (개발자가 API를 호출해 카메라가 움직였음을 의미)
+    ///   - completion: 카메라 이동이 완료되었을 때 호출되는 콜백 블록. 애니메이션이 있으면 완전히 끝난 후에 호출됩니다. `Bool` 타입의 매개변수는 카메라 이동이 완료되기 전에 다른 카메라 이동이 호출되거나 사용자가 제스처로 지도를 조작한 경우 `true`입니다.
+    private func moveCamera(
+        scrollTo coordinate: NMGLatLng,
+        // NAVER Map iOS SDK에서 지정하는 기본값이 0.2
+        animationDuration: TimeInterval = 0.2,
+        reason: Int32 = Int32(NMFMapChangedByDeveloper),
+        completion: ((Bool) -> Void)? = nil
+    ) {
+        let cameraUpdate = NMFCameraUpdate(scrollTo: coordinate)
+        cameraUpdate.reason = reason
+        cameraUpdate.animation = .easeOut
+        cameraUpdate.animationDuration = animationDuration
+        rootView.naverMapView.mapView.moveCamera(cameraUpdate) { isCancelled in
+            completion?(isCancelled)
+        }
+    }
+    
+    /// 지도의 카메라를 현재 위치에서 `delta` 포인트만큼 이동시키는 함수
+    /// - Parameters:
+    ///   - delta: 이동할 거리. 가로, 세로로 `pt` 단위이며 각각의 값을 `x`, `y` 속성으로 갖는 `CGPoint` 값.
+    ///   - animationDuration: 애니메이션 시간. 0으로 설정할 경우, 애니메이션 없이 바로 이동. 기본값은 NAVER Map iOS SDK에서 설정하는 0.2
+    ///   - reason: 카메라 이동에 사용될 `NMFCameraUpdate` 타입의 `reason` 속성에 할당할 값. 기본값은 `NMFMapChangedByDeveloper`이며, -1에 해당. (개발자가 API를 호출해 카메라가 움직였음을 의미)
+    ///   - completion: 카메라 이동이 완료되었을 때 호출되는 콜백 블록. 애니메이션이 있으면 완전히 끝난 후에 호출됩니다. `Bool` 타입의 매개변수는 카메라 이동이 완료되기 전에 다른 카메라 이동이 호출되거나 사용자가 제스처로 지도를 조작한 경우 `true`입니다.
+    private func moveCamera(
+        scrollBy delta: CGPoint,
+        // NAVER Map iOS SDK에서 지정하는 기본값이 0.2
+        animationDuration: TimeInterval = 0.2,
+        reason: Int32 = Int32(NMFMapChangedByDeveloper),
+        completion: ((Bool) -> Void)? = nil
+    ) {
+        let cameraUpdate = NMFCameraUpdate(scrollBy: delta)
+        cameraUpdate.reason = reason
+        cameraUpdate.animation = .easeOut
+        cameraUpdate.animationDuration = animationDuration
+        rootView.naverMapView.mapView.moveCamera(cameraUpdate) { isCancelled in
+            completion?(isCancelled)
+        }
+    }
+    
+    /// 마커를 탭 시 동작할 함수
+    ///- Parameters overlay: 탭 이벤트를 받아서 전달하는 NMFOverlay
+    /// - Returns: `true`를 반환할 경우 마커를 탭 시 메서드를 실행. 그렇지 않을 경우 `NMFMapView`까지 이벤트가 전달되어 `NMFMapViewTouchDelegate`의 `mapView(_:didTapMap:point:)`가  호출됩니다.
     private func markerTouchHandler(overlay: NMFOverlay) -> Bool {
-        guard let marker = overlay as? OffroadNMFMarker else { return false }
+        guard !isTooltipShown else { return false }
+        guard let marker = overlay as? ORBNMFMarker else { return false }
+        let projection = rootView.naverMapView.mapView.projection
+        let point = projection.point(from: marker.position)
+        guard !rootView.markerTapBlocker.frame.contains(point) else { return false }
         viewModel.isCompassMode = false
-        viewModel.selectedMarker = marker
-        focusToMarker(marker)
+        selectedMarker = marker
         rootView.naverMapView.mapView.locationOverlay.icon = rootView.locationOverlayImage
         latestCategory = marker.placeInfo.placeCategory
-        tooltipWindow.placeInfoViewController.rootView.tooltip.configure(with: marker.placeInfo)
-        tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = markerPoint!
-        tooltipWindow.placeInfoViewController.showToolTip()
+        
+        // 툴팁 보이기
+        rootView.tooltip.configure(with: marker.placeInfo)
+        rootView.tooltipAnchorPoint = markerPoint!
+        showTooltip()
+        
+        let mapFrame = rootView.naverMapView.mapView.frame
+        let delta = viewModel.caculateDeltaToShowTooltip(point: point,
+                                            at: mapFrame,
+                                            tooltipSize: rootView.tooltip.frame.size,
+                                            contentInset: 20)
+        moveCamera(scrollBy: delta, animationDuration: 0.3)
         return true
     }
     
@@ -361,11 +390,70 @@ extension QuestMapViewController {
         present(alertController, animated: true)
     }
     
+    private func showTooltip(completion: (() -> Void)? = nil) {
+        rootView.tooltip.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        rootView.tooltip.alpha = 0
+        rootView.layoutIfNeeded()
+        tooltipHidingAnimator.stopAnimation(true)
+        
+        shadingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.shadingView.backgroundColor = .blackOpacity(.black25)
+        }
+        tooltipTransparencyAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.tooltip.alpha = 1
+        }
+        tooltipShowingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.tooltip.transform = .identity
+            self.rootView.layoutIfNeeded()
+        }
+        tooltipShowingAnimator.addCompletion { _ in
+            completion?()
+        }
+        isTooltipShown = true
+        rootView.compass.isHidden = true
+        rootView.shadingView.isUserInteractionEnabled = true
+        tooltipTransparencyAnimator.startAnimation()
+        shadingAnimator.startAnimation()
+        tooltipShowingAnimator.startAnimation()
+    }
+    
+    private func hideTooltip(completion: (() -> Void)? = nil) {
+        guard isTooltipShown else { return }
+        tooltipShowingAnimator.stopAnimation(true)
+        
+        shadingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.shadingView.backgroundColor = .clear
+        }
+        tooltipHidingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.tooltip.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
+        }
+        tooltipHidingAnimator.addAnimations({ [weak self] in
+            guard let self else { return }
+            self.rootView.tooltip.alpha = 0
+        }, delayFactor: 0.3)
+        tooltipHidingAnimator.addCompletion { [weak self] _ in
+            guard let self else { return }
+            self.rootView.tooltip.configure(with: nil)
+            self.selectedMarker = nil
+            self.rootView.shadingView.isUserInteractionEnabled = false
+            completion?()
+        }
+        isTooltipShown = false
+        rootView.compass.isHidden = false
+        shadingAnimator.startAnimation()
+        tooltipHidingAnimator.startAnimation()
+    }
+    
 }
 
 //MARK: - NMFMapViewCameraDelegate
 
-extension QuestMapViewController: NMFMapViewCameraDelegate {
+extension ORBMapViewController: NMFMapViewCameraDelegate {
     
     /**
      reason
@@ -384,12 +472,9 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
         // 제스처 사용으로 카메라 이동
         case -1:
             viewModel.isCompassMode = false
-            if viewModel.selectedMarker != nil {
-                tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = markerPoint!
-                tooltipWindow.placeInfoViewController.hideTooltip { [weak self] in
-                    guard let self else { return }
-                    self.viewModel.selectedMarker = nil
-                }
+            if selectedMarker != nil {
+                // 툴팁 동기화 + 툴팁 숨기기
+                rootView.tooltipAnchorPoint = markerPoint!
             }
         // 버튼 선택으로 카메라 이동
         case -2:
@@ -398,19 +483,18 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
             rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
             rootView.customizeLocationOverlaySubIcon(mode: .compass)
             
-            guard viewModel.selectedMarker != nil else { return }
-            tooltipWindow.placeInfoViewController.hideTooltip() { [weak self] in
-                guard let self else { return }
-                self.viewModel.selectedMarker = nil
-            }
+            guard selectedMarker != nil else { return }
+            // 툴팁 숨기기
+            hideTooltip()
         default:
             return
         }
     }
     
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
-        if viewModel.selectedMarker != nil {
-            tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = markerPoint!
+        if selectedMarker != nil {
+            // 툴팁의 위치를 마커의 위치와 동기화
+            rootView.tooltipAnchorPoint = markerPoint!
         }
     }
     
@@ -421,7 +505,7 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
         switch reason {
         // API 호출로 카메라 이동
         case 0:
-            rootView.naverMapView.mapView.positionMode = .direction
+            return
         // 핸드폰을 돌려서, 혹은 현재 위치 버튼 선택 후 위치 트래킹 활성화로 인해 카메라 방향이 회전한 경우
         case 10:
             rootView.naverMapView.mapView.positionMode = .direction
@@ -438,15 +522,12 @@ extension QuestMapViewController: NMFMapViewCameraDelegate {
 
 //MARK: - NMFMapViewTouchDelegate
 
-extension QuestMapViewController: NMFMapViewTouchDelegate {
+extension ORBMapViewController: NMFMapViewTouchDelegate {
     
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
-        if viewModel.selectedMarker != nil {
-            tooltipWindow.placeInfoViewController.rootView.tooltipAnchorPoint = markerPoint!
-            tooltipWindow.placeInfoViewController.hideTooltip { [weak self] in
-                guard let self else { return }
-                self.viewModel.selectedMarker = nil
-            }
+        if selectedMarker != nil {
+            // 툴팁 숨김처리
+            hideTooltip()
         }
     }
     
@@ -454,7 +535,7 @@ extension QuestMapViewController: NMFMapViewTouchDelegate {
 
 //MARK: - CLLocationManagerDelegate
 
-extension QuestMapViewController: CLLocationManagerDelegate {
+extension ORBMapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         let currentHeading = newHeading.trueHeading
@@ -492,7 +573,7 @@ extension QuestMapViewController: CLLocationManagerDelegate {
                 viewModel.locationServiceDisabledRelay.accept(())
             }
         case .authorizedAlways, .authorizedWhenInUse:
-            flyToMyPosition()
+            focusToMyPosition()
             rootView.naverMapView.mapView.positionMode = .direction
         @unknown default:
             return
@@ -500,3 +581,4 @@ extension QuestMapViewController: CLLocationManagerDelegate {
     }
     
 }
+

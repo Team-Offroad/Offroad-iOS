@@ -112,7 +112,7 @@ extension OffroadTabBarController {
         
         let viewControllersArray: [UIViewController] = [
             homeNavigationController,
-            ORBNavigationController(rootViewController: QuestMapViewController()),
+            ORBNavigationController(rootViewController: ORBMapViewController()),
             mypageNavigationController
         ]
         
