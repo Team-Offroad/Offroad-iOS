@@ -9,13 +9,18 @@ import UIKit
 
 final class ORBTabBarShapeView: UIView {
     
+    //MARK: - UI Properties
+    
+    var blurEffectView = CustomIntensityBlurView(blurStyle: .dark, intensity: 0.1)
+    
     //MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .clear
-        isUserInteractionEnabled = false
+        setupStyle()
+        setupHierarchy()
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -30,7 +35,24 @@ final class ORBTabBarShapeView: UIView {
 
 extension ORBTabBarShapeView {
     
+    //MARK: - Layout Func
+    
+    private func setupLayout() {
+        blurEffectView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
     //MARK: - Private Func
+    
+    private func setupStyle() {
+        backgroundColor = .sub(.sub480)
+        isUserInteractionEnabled = false
+    }
+    
+    private func setupHierarchy() {
+        addSubview(blurEffectView)
+    }
     
     private func drawORBTabBarShape() {
         let path = UIBezierPath()
