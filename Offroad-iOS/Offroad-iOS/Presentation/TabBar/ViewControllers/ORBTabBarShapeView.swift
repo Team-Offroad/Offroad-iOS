@@ -58,7 +58,7 @@ extension ORBTabBarShapeView {
     
     private func drawORBTabBarShape() {
         let path = UIBezierPath()
-        path.move(to: .zero)
+        path.move(to: .init(x: 25, y: 0))
         path.addLine(to: .init(x: center.x - 55.4, y: 0))
         path.addCurve(
             to: .init(x: center.x - 44.75, y: 8.2),
@@ -81,9 +81,20 @@ extension ORBTabBarShapeView {
             controlPoint2: .init(x: center.x + 50.5, y: 0)
         )
         path.addLine(to: .init(x: center.x + 55.4, y: 0))
-        path.addLine(to: .init(x: bounds.width, y: 0))
+        path.addLine(to: .init(x: bounds.width - 25, y: 0))
+        path.addCurve(
+            to: .init(x: bounds.width, y: 25),
+            controlPoint1: .init(x: bounds.width - 11.2, y: 0),
+            controlPoint2: .init(x: bounds.width, y: 11.2)
+        )
         path.addLine(to: .init(x: bounds.width, y: bounds.height))
         path.addLine(to: .init(x: 0, y: bounds.height))
+        path.addLine(to: .init(x: 0, y: 25))
+        path.addCurve(
+            to: .init(x: 25, y: 0),
+            controlPoint1: .init(x: 0, y: 11.2),
+            controlPoint2: .init(x: 11.2, y: 0)
+        )
         path.close()
         
         let shapeLayer = CAShapeLayer()

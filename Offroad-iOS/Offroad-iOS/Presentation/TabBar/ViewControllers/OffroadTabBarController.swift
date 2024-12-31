@@ -93,10 +93,6 @@ extension OffroadTabBarController {
     }
     
     private func setupStyle() {
-        customTabBar.roundCorners(
-            cornerRadius: 25,
-            maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        )
         
         customOffroadLogoButton.do { button in
             button.setImage(.icnTabBarOrbLogo, for: .normal)
