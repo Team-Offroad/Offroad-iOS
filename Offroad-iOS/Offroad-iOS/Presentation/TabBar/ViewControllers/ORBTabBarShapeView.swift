@@ -11,7 +11,7 @@ final class ORBTabBarShapeView: UIView {
     
     //MARK: - UI Properties
     
-    var blurEffectView = CustomIntensityBlurView(blurStyle: .dark, intensity: 0.1)
+    var blurEffectView = CustomIntensityBlurView(blurStyle: .dark, intensity: 0.15)
     
     //MARK: - Life Cycle
     
