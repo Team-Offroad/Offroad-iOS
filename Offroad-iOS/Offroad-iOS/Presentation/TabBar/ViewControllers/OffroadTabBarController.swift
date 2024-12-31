@@ -21,6 +21,7 @@ class OffroadTabBarController: UITabBarController {
     //MARK: - UI Properties
     
     let customOffroadLogoButton = UIButton()
+    let circleBlurView = CustomIntensityBlurView(blurStyle: .light, intensity: 0.1)
     let customTabBar = ORBTabBarShapeView()
     
     // MARK: - Life Cycle
@@ -75,6 +76,7 @@ extension OffroadTabBarController {
     
     private func setupHierarchy() {
         tabBar.addSubview(customTabBar)
+        tabBar.addSubview(circleBlurView)
         tabBar.addSubview(customOffroadLogoButton)
     }
     
@@ -84,6 +86,10 @@ extension OffroadTabBarController {
             // 28: 오브 로고 버튼과 탭바의 세로 영역이 겹치는 부분의 높이
             make.bottom.equalToSuperview().inset(tabBarHeight - 28)
             make.width.height.equalTo(74)
+        }
+        
+        circleBlurView.snp.makeConstraints { make in
+            make.edges.equalTo(customOffroadLogoButton)
         }
         
         customTabBar.snp.makeConstraints { make in
@@ -96,6 +102,11 @@ extension OffroadTabBarController {
         
         customOffroadLogoButton.do { button in
             button.setImage(.icnTabBarOrbLogo, for: .normal)
+        }
+        
+        circleBlurView.do { view in
+            // 탭바의 가운데 버튼 가로/세로 길이: 74
+            view.roundCorners(cornerRadius: 37)
         }
         
         tabBar.tintColor = .main(.main1)
