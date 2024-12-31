@@ -27,7 +27,9 @@ final class ORBTabBarShapeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func draw(_ rect: CGRect) {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
         drawORBTabBarShape()
     }
     
@@ -84,8 +86,9 @@ extension ORBTabBarShapeView {
         path.addLine(to: .init(x: 0, y: bounds.height))
         path.close()
         
-        UIColor.sub(.sub480).setFill()
-        path.fill()
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.cgPath
+        layer.mask = shapeLayer
     }
     
 }
