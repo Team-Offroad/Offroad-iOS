@@ -42,3 +42,32 @@ final class MyInfoManager {
     private init() { }
     
 }
+
+extension MyInfoManager {
+    
+    //MARK: - Func
+    
+    func updateCharacterListInfo() {
+        NetworkService.shared.characterService.getCharacterListInfo { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let responseDTO):
+                guard let responseDTO else { return }
+                let gainedData = responseDTO.data.gainedCharacters.map({ CharacterListInfoData(info: $0, isGained: true) })
+                let notGainedData = responseDTO.data.notGainedCharacters.map({ CharacterListInfoData(info: $0, isGained: false) })
+                
+                var characterListDataSource: [CharacterListInfoData] = []
+                characterListDataSource = gainedData + notGainedData
+                characterListDataSource.forEach { data in
+                    self.characterInfo[data.characterId] = data.characterName
+                }
+                self.representativeCharacterID = responseDTO.data.representativeCharacterId
+            case .networkFail:
+                ORBToastManager.shared.showToast(message: ErrorMessages.networkError, inset: 66)
+            default:
+                break
+            }
+        }
+    }
+    
+}
