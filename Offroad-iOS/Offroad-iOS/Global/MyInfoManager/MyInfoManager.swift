@@ -64,7 +64,7 @@ extension MyInfoManager {
                 }
                 self.representativeCharacterID = responseDTO.data.representativeCharacterId
             case .networkFail:
-                ORBToastManager.shared.showToast(message: ErrorMessages.networkError, inset: 66)
+                ORBToastManager.shared.showToast(message: ErrorMessages.getCharacterListFailure, inset: 66)
             default:
                 break
             }
