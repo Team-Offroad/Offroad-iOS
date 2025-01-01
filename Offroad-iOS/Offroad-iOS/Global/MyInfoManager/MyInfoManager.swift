@@ -24,7 +24,8 @@ final class MyInfoManager {
     
     var representativeCharacterName: String? {
         guard let representativeCharacterID else { return nil }
-        return characterInfo[representativeCharacterID]
+        guard let returnValue = characterInfo[representativeCharacterID] else { return nil }
+        return returnValue
     }
     
     //MARK: - Rx Properties
