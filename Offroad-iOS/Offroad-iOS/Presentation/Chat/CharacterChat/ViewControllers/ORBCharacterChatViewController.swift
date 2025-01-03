@@ -122,7 +122,7 @@ extension ORBCharacterChatViewController {
         guard rootView.characterChatBox.mode != .loading else { return }
         patchChatReadRelay.accept(())
         ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController
-            .onNext(MyInfoManager.shared.representativeCharacterID ?? 1)
+            .onNext(MyInfoManager.shared.representativeCharacterID)
     }
     
     //MARK: - Private Func

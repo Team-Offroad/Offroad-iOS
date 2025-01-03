@@ -18,7 +18,7 @@ final class ORBCharacterChatManager {
     
     //MARK: - Properties
     
-    let shouldPushCharacterChatLogViewController = PublishSubject<Int>()
+    let shouldPushCharacterChatLogViewController = PublishSubject<Int?>()
     let shouldMakeKeyboardBackgroundTransparent = PublishRelay<Bool>()
     let shouldUpdateLastChatInfo = PublishRelay<Void>()
     let didReadLastChat = PublishRelay<Void>()

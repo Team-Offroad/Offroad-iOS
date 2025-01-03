@@ -38,6 +38,8 @@ final class HomeViewController: OffroadTabBarViewController {
         self.pushType = pushType
         
         super.init(nibName: nil, bundle: nil)
+        
+        MyInfoManager.shared.updateCharacterListInfo()
     }
     
     required init?(coder: NSCoder) {

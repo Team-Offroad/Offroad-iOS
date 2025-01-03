@@ -11,6 +11,7 @@ struct ErrorMessages {
     static let locationUnauthorized = "위치 정보 사용 동의 후 이용 가능합니다."
     static let cameraUsageUnauthorized = "카메라 권한 허용 후 이용 가능합니다."
     static let birthDateError = "다시 한 번 확인해주세요."
+    static let getCharacterListFailure = "캐릭터 목록을 불러오는 데 실패하였습니다."
 }
 
 struct AlertMessage {

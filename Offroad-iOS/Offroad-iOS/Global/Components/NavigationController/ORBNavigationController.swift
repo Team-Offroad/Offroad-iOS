@@ -85,7 +85,7 @@ extension ORBNavigationController {
     
     //MARK: - Func
     
-    func pushChatLogViewController(characterId: Int) {
+    func pushChatLogViewController(characterId: Int?) {
         guard !(viewControllers.last is CharacterChatLogViewController) else { return }
         guard view.window != nil else { return }
         guard let snapshot = topViewController?.view.snapshotView(afterScreenUpdates: true) else { return }
