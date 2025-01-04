@@ -28,6 +28,8 @@ internal class ORBAlertBackgroundView: UIView {
         switch type {
         case .normal:
             self.alertView = ORBAlertViewNormal()
+        case .couponRedemptionFailure:
+            self.alertView = ORBAlertViewCouponRedemptionFailure()
         case .textField:
             self.alertView = ORBAlertViewTextField()
         case .textFieldWithSubMessage:

@@ -21,6 +21,11 @@ enum ORBAlertType {
      */
     case textField
     
+    /*
+     쿠폰 사용에 실패했을 경우
+     */
+    case couponRedemptionFailure
+    
     /**
      textField가 있으며 메시지 아래에 서브 텍스트가 있는 경우
      */
