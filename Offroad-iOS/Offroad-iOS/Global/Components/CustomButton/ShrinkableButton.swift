@@ -14,8 +14,12 @@ class ShrinkableButton: UIButton, ORBTouchFeedback {
     
     //MARK: - Properties
     
-    var disposeBag = DisposeBag()
-    var shrinkScale: CGFloat
+    private var disposeBag = DisposeBag()
+    private var shrinkScale: CGFloat
+    
+    /// 버튼의 isSelected가  true일 때 버튼에 손이 닿으면 shrink하는지 여부
+    /// false로 설정할 경우, select되었을 때는 버튼에 손이 닿아도 (highlight되어도) shrink되지 않는다.
+    var shrinkWhenSelected: Bool = true
     
     private(set) var shrinkingAnimator: UIViewPropertyAnimator = .init(duration: 0.15, curve: .easeOut)
     
@@ -59,6 +63,7 @@ extension ShrinkableButton {
     private func setupActions() {
         self.rx.controlEvent(.touchDown).subscribe(onNext: { [weak self] in
             guard let self else { return }
+            guard !self.isSelected || shrinkWhenSelected else { return }
             self.shrink(scale: self.shrinkScale)
         }).disposed(by: disposeBag)
         

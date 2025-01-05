@@ -26,6 +26,7 @@ final class ORBSegmentedControlButton: ShrinkableButton {
         super.init(frame: frame)
         
         self.titleLabel?.font = UIFont.pretendardFont(ofSize: 18, weight: .medium)
+        self.shrinkWhenSelected = false
     }
     
     required init?(coder: NSCoder) {
