@@ -17,7 +17,7 @@ class ShrinkableButton: UIButton, ORBTouchFeedback {
     var disposeBag = DisposeBag()
     var shrinkScale: CGFloat
     
-    private(set) var shrinkingAnimator: UIViewPropertyAnimator = .init(duration: 0.3, dampingRatio: 1)
+    private(set) var shrinkingAnimator: UIViewPropertyAnimator = .init(duration: 0.15, curve: .easeOut)
     
     //MARK: - Life Cycle
     
