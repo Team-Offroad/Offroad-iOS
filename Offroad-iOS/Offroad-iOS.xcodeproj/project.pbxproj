@@ -101,6 +101,7 @@
 		4EBE34942C3FC749006DB244 /* QuestQRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE34932C3FC749006DB244 /* QuestQRView.swift */; };
 		4EC3EC932CA9049F008139BE /* CouponCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC3EC922CA9049F008139BE /* CouponCollectionViewController.swift */; };
 		4EC3EC952CA91A0C008139BE /* PlaceListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC3EC942CA91A0C008139BE /* PlaceListCollectionViewController.swift */; };
+		4EC4A1FE2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */; };
 		4EC4A1ED2D24380700A8C130 /* CustomIntensityBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1EC2D24380700A8C130 /* CustomIntensityBlurView.swift */; };
 		4EC6F0A62CF4747400895A87 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */; };
 		4ECCC95E2CC80088002B9C4F /* ORBToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */; };
@@ -394,6 +395,7 @@
 		4EBE34932C3FC749006DB244 /* QuestQRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestQRView.swift; sourceTree = "<group>"; };
 		4EC3EC922CA9049F008139BE /* CouponCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponCollectionViewController.swift; sourceTree = "<group>"; };
 		4EC3EC942CA91A0C008139BE /* PlaceListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCollectionViewController.swift; sourceTree = "<group>"; };
+		4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewCouponRedemptionFailure.swift; sourceTree = "<group>"; };
 		4EC4A1EC2D24380700A8C130 /* CustomIntensityBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIntensityBlurView.swift; sourceTree = "<group>"; };
 		4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastView.swift; sourceTree = "<group>"; };
@@ -1535,6 +1537,7 @@
 			children = (
 				4EF6B03C2CC3EA9800066640 /* ORBAlertBaseView.swift */,
 				4EF6B0372CC3E7A900066640 /* ORBAlertViewNormal.swift */,
+				4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */,
 				4EF6B03E2CC3EEFE00066640 /* ORBAlertViewTextField.swift */,
 				4EF6B0402CC3F1B900066640 /* ORBAlertViewTextFieldWithSubMessage.swift */,
 				4EF6B0422CC3F45000066640 /* ORBAlertViewScrollableContent.swift */,
@@ -2897,6 +2900,7 @@
 				D0E937962CF6FCCC0061782D /* CustomerInquiryView.swift in Sources */,
 				D063E9A42C6108DB00434A09 /* CollectedTitleModel.swift in Sources */,
 				D06D26C52C3D83AA00E79F25 /* HomeViewController.swift in Sources */,
+				4EC4A1FE2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift in Sources */,
 				D0E796612C455391005B47A5 /* ChangeEmblemResponseDTO.swift in Sources */,
 				4E0C69692C4724A100B6453E /* ORBNMFMarker.swift in Sources */,
 				D06D26CD2C3E6EA200E79F25 /* CustomRecentProgressView.swift in Sources */,

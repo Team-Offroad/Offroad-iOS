@@ -94,12 +94,8 @@ class CouponDetailViewController: UIViewController {
                     alertController = ORBAlertController(
                         title: AlertMessage.couponRedemptionFailureTitle,
                         message: AlertMessage.couponRedemptionFailureMessage,
-                        type: .normal
+                        type: .couponRedemptionFailure
                     )
-                    alertController.configureMessageLabel { label in
-                        label.textColor = .primary(.errorNew)
-                        label.font = .offroad(style: .iosSubtitle2Semibold)
-                    }
                 }
                 let action = ORBAlertAction(title: "확인", style: .default) { _ in return }
                 alertController.addAction(action)
