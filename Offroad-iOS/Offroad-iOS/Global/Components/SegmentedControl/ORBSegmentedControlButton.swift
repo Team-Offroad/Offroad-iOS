@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ORBSegmentedControlButton: UIButton {
+final class ORBSegmentedControlButton: ShrinkableButton {
     
     //MARK: - Properties
     

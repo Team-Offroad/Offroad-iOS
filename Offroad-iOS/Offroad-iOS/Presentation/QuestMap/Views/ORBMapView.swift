@@ -23,7 +23,7 @@ class ORBMapView: UIView {
     let markerTapBlocker = UIView()
     let shadingView = UIView()
     let tooltip: PlaceInfoTooltip = .init()
-    let reloadPlaceButton = UIButton()
+    let reloadPlaceButton = ShrinkableButton(shrinkScale: 0.95)
     let switchTrackingModeButton = UIButton()
     let listButtonStackView = UIStackView()
     let questListButton = ORBMapListButton(image: .iconListBullet, title: "퀘스트 목록")
@@ -191,7 +191,11 @@ extension ORBMapView {
             button.setTitle("현 지도에서 검색", for: .normal)
             button.setImage(.icnReloadArrow, for: .normal)
             button.setImage(.icnReloadArrow, for: .disabled)
-            button.configureBackgroundColorWhen(normal: .primary(.white), highlighted: .grayscale(.gray300), disabled: .grayscale(.gray200))
+            button.configureBackgroundColorWhen(
+                normal: .primary(.white),
+                highlighted: .primary(.listBg),
+                disabled: .grayscale(.gray100)
+            )
             button.configureTitleFontWhen(normal: .pretendardFont(ofSize: 13.2, weight: .medium))
             button.setTitleColor(.grayscale(.gray400), for: .normal)
             button.setTitleColor(.grayscale(.gray400), for: .highlighted)

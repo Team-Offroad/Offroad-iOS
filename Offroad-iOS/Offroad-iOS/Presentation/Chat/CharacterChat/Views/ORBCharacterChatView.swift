@@ -30,8 +30,8 @@ final class ORBCharacterChatView: UIView {
     let userChatDisplayView = UITextView()
     let userChatInputView = UITextView()
     let keyboardBackgroundView = UIView()
-    let sendButton = UIButton()
-    let endChatButton = UIButton()
+    let sendButton = ShrinkableButton(shrinkScale: 0.9)
+    let endChatButton = ShrinkableButton(shrinkScale: 0.93)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -176,7 +176,7 @@ extension ORBCharacterChatView {
             button.setTitle("채팅 종료", for: .normal)
             button.roundCorners(cornerRadius: 18)
             button.configureTitleFontWhen(normal: .offroad(style: .iosTextContents))
-            button.configureBackgroundColorWhen(normal: .sub(.sub55), highlighted: .sub(.sub480))
+            button.configureBackgroundColorWhen(normal: .sub(.sub55), highlighted: .sub(.sub))
         }
     }
     
@@ -184,9 +184,5 @@ extension ORBCharacterChatView {
         userChatView.addSubviews(meLabel, userChatDisplayView, loadingAnimationView, userChatInputView, sendButton)
         addSubviews(characterChatBox, userChatView, keyboardBackgroundView, endChatButton)
     }
-    
-    //MARK: - Func
-    
-    
     
 }
