@@ -9,7 +9,7 @@ import UIKit
 
 protocol ORBTouchFeedback {
     
-    var animator: UIViewPropertyAnimator { get }
+    var shrinkingAnimator: UIViewPropertyAnimator { get }
     
     func shrink(scale: CGFloat)
     func restore()
@@ -19,22 +19,22 @@ protocol ORBTouchFeedback {
 extension ORBTouchFeedback where Self: UIView {
     
     func shrink(scale: CGFloat) {
-        animator.stopAnimation(true)
-        animator.addAnimations { [weak self] in
+        shrinkingAnimator.stopAnimation(true)
+        shrinkingAnimator.addAnimations { [weak self] in
             guard let self else { return }
             let transform = CGAffineTransform(scaleX: scale, y: scale)
             self.transform = transform
         }
-        animator.startAnimation()
+        shrinkingAnimator.startAnimation()
     }
     
     func restore() {
-        animator.stopAnimation(true)
-        animator.addAnimations { [weak self] in
+        shrinkingAnimator.stopAnimation(true)
+        shrinkingAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.transform = CGAffineTransform.identity
         }
-        animator.startAnimation()
+        shrinkingAnimator.startAnimation()
     }
     
 }

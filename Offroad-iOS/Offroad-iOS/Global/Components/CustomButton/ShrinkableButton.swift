@@ -13,7 +13,7 @@ class ShrinkableButton: UIButton, ORBTouchFeedback {
     
     var shrinkScale: CGFloat
     
-    private(set) var animator: UIViewPropertyAnimator = .init(duration: 0.3, dampingRatio: 1)
+    private(set) var shrinkingAnimator: UIViewPropertyAnimator = .init(duration: 0.3, dampingRatio: 1)
     
     //MARK: - Life Cycle
     
