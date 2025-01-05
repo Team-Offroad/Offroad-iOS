@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class SettingBaseCollectionViewCell: UICollectionViewCell {
+final class SettingBaseCollectionViewCell: ShrinkableCollectionViewCell {
     
     //MARK: - Properties
     

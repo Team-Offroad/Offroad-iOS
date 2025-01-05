@@ -193,7 +193,7 @@ extension ORBMapView {
             button.setImage(.icnReloadArrow, for: .disabled)
             button.configureBackgroundColorWhen(
                 normal: .primary(.white),
-                highlighted: .primary(.listBg),
+                highlighted: .grayscale(.gray100),
                 disabled: .grayscale(.gray100)
             )
             button.configureTitleFontWhen(normal: .pretendardFont(ofSize: 13.2, weight: .medium))
