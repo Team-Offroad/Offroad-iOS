@@ -15,3 +15,26 @@ protocol ORBTouchFeedback {
     func expand()
     
 }
+
+extension ORBTouchFeedback where Self: UIView {
+    
+    func shrink(scale: CGFloat) {
+        animator.stopAnimation(true)
+        animator.addAnimations { [weak self] in
+            guard let self else { return }
+            let transform = CGAffineTransform(scaleX: scale, y: scale)
+            self.transform = transform
+        }
+        animator.startAnimation()
+    }
+    
+    func expand() {
+        animator.stopAnimation(true)
+        animator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.transform = CGAffineTransform.identity
+        }
+        animator.startAnimation()
+    }
+    
+}
