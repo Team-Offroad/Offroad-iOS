@@ -22,7 +22,7 @@ final class PlaceInfoTooltip: UIView {
     private let addresssLabel = UILabel()
     private let visitCountLabel = UILabel()
     
-    let exploreButton = UIButton()
+    let exploreButton = ShrinkableButton(shrinkScale: 0.97)
     let closeButton = UIButton()
     
     //MARK: - Life Cycle
@@ -160,6 +160,7 @@ extension PlaceInfoTooltip  {
             button.setTitleColor(.primary(.white), for: .normal)
             button.configureBackgroundColorWhen(normal: .sub(.sub4), highlighted: .sub(.sub480))
             button.configureTitleFontWhen(normal: .offroad(style: .iosBtnSmall))
+            button.configuration?.baseForegroundColor = .primary(.white)
             button.roundCorners(cornerRadius: 5)
         }
         
