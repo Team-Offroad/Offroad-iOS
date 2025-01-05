@@ -7,10 +7,14 @@
 
 import UIKit
 
+import RxSwift
+import RxCocoa
+
 class ShrinkableButton: UIButton, ORBTouchFeedback {
     
     //MARK: - Properties
     
+    var disposeBag = DisposeBag()
     var shrinkScale: CGFloat
     
     private(set) var shrinkingAnimator: UIViewPropertyAnimator = .init(duration: 0.3, dampingRatio: 1)
@@ -24,7 +28,7 @@ class ShrinkableButton: UIButton, ORBTouchFeedback {
         self.shrinkScale = 0.9
         super.init(frame: frame)
         
-        setupTargets()
+        setupActions()
     }
     
     /// `shrinkScale` 속성을 임의의 값으로 초기화하는 지정생성자
@@ -33,38 +37,40 @@ class ShrinkableButton: UIButton, ORBTouchFeedback {
         self.shrinkScale = shrinkScale
         super.init(frame: .zero)
         
-        setupTargets()
+        setupActions()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func cancelTracking(with event: UIEvent?) {
+        super.cancelTracking(with: event)
+        
+        restore()
+    }
+    
 }
 
 extension ShrinkableButton {
     
-    //MARK: - objc Func
-    
-    @objc private func touchDown() {
-        shrink(scale: shrinkScale)
-    }
-    
-    @objc private func touchDragExit() {
-        restore()
-        cancelTracking(with: nil)
-    }
-    
-    @objc private func touchUpInside() {
-        restore()
-    }
-    
     //MARK: - Private Func
     
-    private func setupTargets() {
-        addTarget(self, action: #selector(touchDown), for: .touchDown)
-        addTarget(self, action: #selector(touchDragExit), for: .touchDragExit)
-        addTarget(self, action: #selector(touchUpInside), for: .touchUpInside)
+    private func setupActions() {
+        self.rx.controlEvent(.touchDown).subscribe(onNext: { [weak self] in
+            guard let self else { return }
+            self.shrink(scale: self.shrinkScale)
+        }).disposed(by: disposeBag)
+        
+        self.rx.controlEvent(.touchDragExit).subscribe(onNext: { [weak self] in
+            guard let self else { return }
+            self.cancelTracking(with: nil)
+        }).disposed(by: disposeBag)
+        
+        self.rx.controlEvent(.touchUpInside).subscribe(onNext: { [weak self] in
+            guard let self else { return }
+            self.restore()
+        }).disposed(by: disposeBag)
     }
     
 }
