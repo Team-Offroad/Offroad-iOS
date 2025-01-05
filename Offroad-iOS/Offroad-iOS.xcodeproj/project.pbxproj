@@ -1277,6 +1277,7 @@
 		4E3F00992C40D1C000B9A31A /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				4EC15AC42D2A9A9D00BC5826 /* Views */,
 				4E3F009B2C40D1DC00B9A31A /* ViewControllers */,
 			);
 			path = TabBar;
@@ -1287,7 +1288,6 @@
 			children = (
 				4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */,
 				4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */,
-				4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1449,6 +1449,14 @@
 			children = (
 				4EBE34932C3FC749006DB244 /* QuestQRView.swift */,
 				4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4EC15AC42D2A9A9D00BC5826 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
