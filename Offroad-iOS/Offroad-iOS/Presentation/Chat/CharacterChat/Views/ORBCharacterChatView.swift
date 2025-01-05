@@ -177,6 +177,7 @@ extension ORBCharacterChatView {
             button.roundCorners(cornerRadius: 18)
             button.configureTitleFontWhen(normal: .offroad(style: .iosTextContents))
             button.configureBackgroundColorWhen(normal: .sub(.sub55), highlighted: .sub(.sub))
+            button.configuration?.baseForegroundColor = .primary(.white)
         }
     }
     

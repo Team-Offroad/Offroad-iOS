@@ -169,6 +169,7 @@ extension CharacterChatLogView {
                 normal: .primary(.white).withAlphaComponent(0.33),
                 highlighted: .primary(.white).withAlphaComponent(0.55)
             )
+            button.configuration?.baseForegroundColor = .primary(.white)
         }
         
         userChatBoundsView.do { view in

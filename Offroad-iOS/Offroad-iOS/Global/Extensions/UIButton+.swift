@@ -45,7 +45,7 @@ extension UIButton {
         if let configuration {
             newConfiguration = configuration
         } else {
-            newConfiguration = UIButton.Configuration.filled()
+            newConfiguration = UIButton.Configuration.gray()
         }
         
         let transformer = UIConfigurationColorTransformer { incomingColor in
@@ -88,7 +88,7 @@ extension UIButton {
         if let configuration {
             newConfiguration = configuration
         } else {
-            newConfiguration = UIButton.Configuration.filled()
+            newConfiguration = UIButton.Configuration.gray()
         }
         
         let transformer = UIConfigurationTextAttributesTransformer { incoming in

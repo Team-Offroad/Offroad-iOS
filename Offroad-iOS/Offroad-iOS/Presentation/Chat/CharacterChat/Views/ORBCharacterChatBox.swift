@@ -181,6 +181,7 @@ extension ORBCharacterChatBox {
             button.setTitleColor(.main(.main3), for: .normal)
             button.configureBackgroundColorWhen(normal: .main(.main2), highlighted: .main(.main2).withAlphaComponent(0.7))
             button.configureTitleFontWhen(normal: .offroad(style: .iosTextContents))
+            button.configuration?.baseForegroundColor = .main(.main3)
             button.roundCorners(cornerRadius: 8)
             switch mode {
             case .withReplyButtonShrinked, .withReplyButtonExpanded: button.isHidden = false

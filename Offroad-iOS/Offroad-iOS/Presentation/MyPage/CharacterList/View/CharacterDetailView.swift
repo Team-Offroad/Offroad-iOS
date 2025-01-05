@@ -224,6 +224,7 @@ extension CharacterDetailView {
             button.setTitle("채팅 로그", for: .normal)
             button.setTitleColor(.grayscale(.gray100), for: .disabled)
             button.configureBackgroundColorWhen(normal: .sub(.sub55), highlighted: .sub(.sub), disabled: .sub(.sub55).withAlphaComponent(0.4))
+            button.configuration?.baseForegroundColor = .primary(.white)
             button.configureTitleFontWhen(normal: .offroad(style: .iosTextContents))
             button.layer.borderColor = UIColor.sub(.sub).cgColor
             button.layer.borderWidth = 1
