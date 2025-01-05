@@ -15,13 +15,11 @@ final class ORBAlertViewCouponRedemptionFailure: ORBAlertBaseView, ORBAlertViewB
     let messageLabelContainerView = UIView()
     let messageLabelWithExclamationMark = UIView()
     
-    lazy var contentStackView: UIView = UIStackView(
-        arrangedSubviews: [titleLabel, spacerView1, messageLabelContainerView, spacerView2, buttonStackView]
-    ).then { stackView in
-        stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-    }
+    lazy var contentStackView = UIStackView(arrangedSubviews: [titleLabel,
+                                                               spacerView1,
+                                                               messageLabelContainerView,
+                                                               spacerView2,
+                                                               buttonStackView])
     
     private var spacerView1 = UIView()
     private var spacerView2 = UIView()
@@ -68,6 +66,12 @@ final class ORBAlertViewCouponRedemptionFailure: ORBAlertBaseView, ORBAlertViewB
             make.centerX.top.bottom.equalToSuperview()
             make.leading.greaterThanOrEqualToSuperview()
             make.trailing.lessThanOrEqualToSuperview()
+        }
+        
+        contentStackView.do { stackView in
+            stackView.axis = .vertical
+            stackView.alignment = .fill
+            stackView.distribution = .fill
         }
         
         titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
