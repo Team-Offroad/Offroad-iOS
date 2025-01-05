@@ -20,7 +20,7 @@ class OffroadTabBarController: UITabBarController {
     
     //MARK: - UI Properties
     
-    let customOffroadLogoButton = ShrinkableButton()
+    let customOffroadLogoButton = ShrinkableButton(shrinkScale: 0.95)
     let circleBlurView = CustomIntensityBlurView(blurStyle: .light, intensity: 0.1)
     let customTabBar = ORBTabBarShapeView()
     
