@@ -68,6 +68,7 @@ extension MyPageView {
         myPageScrollView.do {
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
+            $0.delaysContentTouches = false
         }
         
         myPageContentView.do {
