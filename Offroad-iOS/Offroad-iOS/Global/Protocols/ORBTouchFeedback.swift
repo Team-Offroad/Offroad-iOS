@@ -12,7 +12,7 @@ protocol ORBTouchFeedback {
     var animator: UIViewPropertyAnimator { get }
     
     func shrink(scale: CGFloat)
-    func expand()
+    func restore()
     
 }
 
@@ -28,7 +28,7 @@ extension ORBTouchFeedback where Self: UIView {
         animator.startAnimation()
     }
     
-    func expand() {
+    func restore() {
         animator.stopAnimation(true)
         animator.addAnimations { [weak self] in
             guard let self else { return }
