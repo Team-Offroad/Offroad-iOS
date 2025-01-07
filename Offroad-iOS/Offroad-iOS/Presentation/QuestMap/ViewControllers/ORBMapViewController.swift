@@ -63,7 +63,7 @@ class ORBMapViewController: OffroadTabBarViewController {
         locationManager.startUpdatingHeading()
         
         if CLLocationManager.locationServicesEnabled() {
-            viewModel.requestAuthorization()
+            viewModel.checkLocationAuthorizationStatus()
         } else {
             viewModel.locationServiceDisabledRelay.accept(())
         }
@@ -199,7 +199,7 @@ extension ORBMapViewController {
             case .authorizedAlways, .authorizedWhenInUse:
                 self.switchTrackingMode()
             default:
-                self.viewModel.requestAuthorization()
+                self.viewModel.checkLocationAuthorizationStatus()
                 return
             }
         }.disposed(by: disposeBag)

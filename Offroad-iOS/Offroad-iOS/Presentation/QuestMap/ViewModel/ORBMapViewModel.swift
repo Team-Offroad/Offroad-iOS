@@ -64,7 +64,7 @@ extension ORBMapViewModel {
     
     //MARK: - Func
     
-    func requestAuthorization() {
+    func checkLocationAuthorizationStatus() {
         let status = locationManager.authorizationStatus
         switch status {
         case .notDetermined:
