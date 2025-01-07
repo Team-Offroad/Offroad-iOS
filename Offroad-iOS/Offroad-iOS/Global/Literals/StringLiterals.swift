@@ -25,6 +25,8 @@ struct AlertMessage {
     static let couponRedemptionSuccessMessage = "쿠폰 사용이 완료되었어요!"
     static let couponRedemptionFailureTitle = "사용 실패"
     static let couponRedemptionFailureMessage = "다시 한 번 확인해 주세요."
+    static let locationUnauthorizedTitle = "위치 서비스 설정"
+    static let locationUnauthorizedMessage = "위치 확인을 위해서는 설정에서 위치 접근을 허용해 주세요."
 }
 
 struct LoadingMessage {

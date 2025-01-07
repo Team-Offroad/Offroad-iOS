@@ -145,8 +145,8 @@ extension ORBMapViewController {
             .observe(on: ConcurrentMainScheduler.instance)
             .subscribe { _ in
                 let alertController = ORBAlertController(
-                    title: "위치 접근 권한이 막혀있습니다.",
-                    message: "위치 정보 권한을 허용해 주세요", type: .normal
+                    title: AlertMessage.locationUnauthorizedTitle,
+                    message: AlertMessage.locationUnauthorizedMessage, type: .normal
                 )
                 let okAction = ORBAlertAction(title: "확인", style: .default) { _ in return }
                 alertController.addAction(okAction)
