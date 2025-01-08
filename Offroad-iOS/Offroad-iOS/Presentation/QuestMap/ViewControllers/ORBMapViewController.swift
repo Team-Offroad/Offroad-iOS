@@ -449,6 +449,13 @@ extension ORBMapViewController {
         tooltipHidingAnimator.startAnimation()
     }
     
+    private func setLocationOverlayHiddenState(to isHidden: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.rootView.naverMapView.mapView.locationOverlay.hidden = isHidden
+        }
+    }
+    
 }
 
 //MARK: - NMFMapViewCameraDelegate
