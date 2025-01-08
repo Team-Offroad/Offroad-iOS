@@ -37,8 +37,8 @@ final class ORBMapViewModel: SVGFetchable {
     let networkFailureSubject = PublishSubject<Void>()
     let markersSubject = BehaviorSubject<[ORBNMFMarker]>(value: [])
     let customOverlayImage = NMFOverlayImage(image: .icnQuestMapPlaceMarker)
-    let shouldRequestLocationAuthorization = PublishRelay<Void>()
-    let locationServiceDisabledRelay = PublishRelay<Void>()
+    let locationUnauthorizedMessage = PublishRelay<String>()
+    let locationServicesDisabledRelay = PublishRelay<Void>()
     
     var isCompassMode = false
     var currentLocation: NMGLatLng? {
@@ -62,32 +62,53 @@ final class ORBMapViewModel: SVGFetchable {
 
 extension ORBMapViewModel {
     
+    enum LocationAuthorizationFailure: Error {
+        case denied
+        case restricted
+        case servicesDisabled
+        case reducedAccuracy
+    }
+    
     //MARK: - Func
     
-    func checkLocationAuthorizationStatus() {
-        let status = locationManager.authorizationStatus
-        switch status {
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
+    func checkLocationAuthorizationStatus(completion: ((Result<Void, LocationAuthorizationFailure>) -> Void)? = nil) {
+        
+        DispatchQueue.global().async { [weak self] in
+            guard let self else { return }
             
-            // 가족 공유 등의 기능에서 부모 혹은 보호자가 앱을 사용할 수 없도록 제한했을 때
-        case .restricted:
-            shouldRequestLocationAuthorization.accept(())
+            guard CLLocationManager.locationServicesEnabled() else {
+                self.locationServicesDisabledRelay.accept(())
+                completion?(.failure(.servicesDisabled))
+                return
+            }
             
-            /*
-             - 사용자가 앱에 위치 사용 권한을 허용하지 않은 경우
-             - 위치 서비스를 끈 경우
-             - 비행기 모드로 인해 위치 서비스 사용이 불가한 경우
-             */
-        case .denied:
-            shouldRequestLocationAuthorization.accept(())
-        case .authorizedAlways:
-            return
-        case .authorizedWhenInUse:
-            return
-        @unknown default:
-            return
-        }
+            let status = self.locationManager.authorizationStatus
+            switch status {
+            case .notDetermined:
+                self.locationManager.requestWhenInUseAuthorization()
+                
+                // 가족 공유 등의 기능에서 부모 혹은 보호자가 앱을 사용할 수 없도록 제한했을 때
+            case .restricted:
+                completion?(.failure(.restricted))
+                
+                /*
+                 - 사용자가 앱에 위치 사용 권한을 허용하지 않은 경우
+                 - 위치 서비스를 끈 경우
+                 - 비행기 모드로 인해 위치 서비스 사용이 불가한 경우
+                 */
+            case .denied:
+                completion?(.failure(.denied))
+                
+            case .authorizedAlways, .authorizedWhenInUse:
+                guard locationManager.accuracyAuthorization == .fullAccuracy else {
+                    completion?(.failure(.reducedAccuracy))
+                    return
+                }
+                completion?(.success(()))
+            @unknown default:
+                return
+            }
+        }   
     }
     
     func updateRegisteredPlaces(at target: NMGLatLng) {
@@ -118,14 +139,8 @@ extension ORBMapViewModel {
     }
     
     func authenticatePlaceAdventure(placeInfo: RegisteredPlaceInfo) {
-        guard locationManager.authorizationStatus == .authorizedAlways
-                || locationManager.authorizationStatus == .authorizedWhenInUse else {
-            print(locationManager.authorizationStatus.rawValue)
-            shouldRequestLocationAuthorization.accept(())
-            return
-        }
         guard let currentLocation else {
-            shouldRequestLocationAuthorization.accept(())
+            locationUnauthorizedMessage.accept(ErrorMessages.accessingLocationDataFailure)
             return
         }
         let dto = AdventuresPlaceAuthenticationRequestDTO(
