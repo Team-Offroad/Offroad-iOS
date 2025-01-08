@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ORBAlertButton: UIButton {
+class ORBAlertButton: ShrinkableButton {
     
     //MARK: - Properties
     
@@ -17,7 +17,7 @@ class ORBAlertButton: UIButton {
     
     init(alertAction: ORBAlertAction) {
         self.action = alertAction
-        super.init(frame: .zero)
+        super.init(shrinkScale: 0.97)
         
         setupStyle()
         setupLayout()
@@ -52,7 +52,6 @@ extension ORBAlertButton {
         
         let normalBackground: UIColor
         var highlightedBackgroundColor: UIColor {
-            // 추후 디자인 팀과 논의하여 highlight 상태일 경우 색을 별도로 요청할 생각입니다.
             return normalBackground.withAlphaComponent(0.9)
         }
         let disabledBackground: UIColor = UIColor.lightGray

@@ -86,7 +86,7 @@ final class CouponDetailView: UIScrollView {
         $0.setLineHeight(percentage: 160)
     }
     
-    let useButton = UIButton().then {
+    let useButton = ShrinkableButton().then {
         $0.setTitle("사용하기", for: .normal)
         $0.setTitle("사용완료", for: .disabled)
         $0.setTitleColor(.main(.main1), for: .normal)
@@ -98,6 +98,7 @@ final class CouponDetailView: UIScrollView {
             highlighted: .blackOpacity(.black55),
             disabled: .blackOpacity(.black15)
         )
+        $0.configuration?.baseForegroundColor = .main(.main1)
         $0.roundCorners(cornerRadius: 5)
         $0.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
     }

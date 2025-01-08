@@ -7,7 +7,7 @@
 
 import UIKit
 
-class QuestListCollectionViewCell: UICollectionViewCell {
+class QuestListCollectionViewCell: ShrinkableCollectionViewCell {
 
     //MARK: - Properties
 
