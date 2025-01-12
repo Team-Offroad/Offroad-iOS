@@ -304,8 +304,11 @@ extension ORBMapViewController {
         cameraUpdate.reason = reason
         cameraUpdate.animation = .easeOut
         cameraUpdate.animationDuration = animationDuration
-        rootView.naverMapView.mapView.moveCamera(cameraUpdate) { isCancelled in
-            completion?(isCancelled)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.rootView.naverMapView.mapView.moveCamera(cameraUpdate) { isCancelled in
+                completion?(isCancelled)
+            }
         }
     }
     
