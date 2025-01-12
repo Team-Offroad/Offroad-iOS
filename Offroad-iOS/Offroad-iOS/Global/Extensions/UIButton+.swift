@@ -39,13 +39,15 @@ extension UIButton {
         highlighted: UIColor? = nil,
         focused: UIColor? = nil,
         selected: UIColor? = nil,
-        disabled: UIColor? = nil
+        disabled: UIColor? = nil,
+        highlightedAndSelected: UIColor? = nil,
+        disabledAndSelected: UIColor? = nil
     ) {
         var newConfiguration: UIButton.Configuration
         if let configuration {
             newConfiguration = configuration
         } else {
-            newConfiguration = UIButton.Configuration.filled()
+            newConfiguration = UIButton.Configuration.gray()
         }
         
         let transformer = UIConfigurationColorTransformer { incomingColor in
@@ -60,6 +62,10 @@ extension UIButton {
                 return selected ?? normal
             case .disabled:
                 return disabled ?? .gray
+            case .init(rawValue: 5):
+                return highlightedAndSelected ?? normal
+            case .init(rawValue: 6):
+                return disabledAndSelected ?? disabled ?? normal
             default:
                 return normal
             }
@@ -82,13 +88,15 @@ extension UIButton {
         highlighted: UIFont? = nil,
         focused: UIFont? = nil,
         selected: UIFont? = nil,
-        disabled: UIFont? = nil
+        disabled: UIFont? = nil,
+        highlightedAndSelected: UIFont? = nil,
+        disabledAndSelected: UIFont? = nil
     ) {
         var newConfiguration: UIButton.Configuration
         if let configuration {
             newConfiguration = configuration
         } else {
-            newConfiguration = UIButton.Configuration.filled()
+            newConfiguration = UIButton.Configuration.gray()
         }
         
         let transformer = UIConfigurationTextAttributesTransformer { incoming in
@@ -104,6 +112,10 @@ extension UIButton {
                 outgoing.font = selected ?? normal
             case .disabled:
                 outgoing.font = disabled ?? normal
+            case .init(rawValue: 5):
+                outgoing.font = highlightedAndSelected ?? normal
+            case .init(rawValue: 6):
+                outgoing.font = disabledAndSelected ?? disabled ?? normal
             default:
                 break
             }

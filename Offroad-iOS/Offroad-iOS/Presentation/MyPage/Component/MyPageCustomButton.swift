@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class MyPageCustomButton: UIButton {
+final class MyPageCustomButton: ShrinkableButton {
     
     //MARK: - UI Properties
     
@@ -20,7 +20,7 @@ final class MyPageCustomButton: UIButton {
     //MARK: - Life Cycle
     
     init(titleString: String, backgroundImage: UIImage) {
-        super.init(frame: .zero)
+        super.init(shrinkScale: 0.95)
         
         setupHierarchy()
         setupStyle(titleText: titleString, image: backgroundImage)

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-class CharacterListCell: UICollectionViewCell, SVGFetchable {
+class CharacterListCell: ShrinkableCollectionViewCell, SVGFetchable {
     
     // MARK: - Properties
     
@@ -58,7 +58,7 @@ class CharacterListCell: UICollectionViewCell, SVGFetchable {
     }
     
     private let dimmingView = UIView().then {
-        $0.backgroundColor = .blackOpacity(.black25)
+        $0.backgroundColor = .blackOpacity(.black15)
         $0.isHidden = true
     }
     

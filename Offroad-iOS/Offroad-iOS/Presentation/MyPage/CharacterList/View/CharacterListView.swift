@@ -59,6 +59,7 @@ class CharacterListView: UIView {
         $0.register(CharacterListCell.self, forCellWithReuseIdentifier: CharacterListCell.className)
         $0.backgroundColor = .clear
         $0.showsVerticalScrollIndicator = false
+        $0.delaysContentTouches = false
     }
 
     // MARK: - Life Cycle

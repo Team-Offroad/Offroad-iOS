@@ -89,6 +89,7 @@ extension QuestListView {
         
         questListCollectionView.do { collectionView in
             collectionView.backgroundColor = .primary(.listBg)
+            collectionView.delaysContentTouches = false
         }
     }
 
