@@ -61,7 +61,15 @@ class ORBMapViewController: OffroadTabBarViewController {
         setupGestureRecognizers()
         rootView.naverMapView.mapView.positionMode = .direction
         locationManager.startUpdatingHeading()
-        viewModel.checkLocationAuthorizationStatus()
+        viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
+            guard let self else { return }
+            switch authorizationCase {
+            case .fullAccuracy, .reducedAccuracy:
+                return
+            default:
+                return
+            }
+        }
         viewModel.updateRegisteredPlaces(at: currentPositionTarget)
     }
     
@@ -202,20 +210,19 @@ extension ORBMapViewController {
         rootView.switchTrackingModeButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
             
-            self.viewModel.checkLocationAuthorizationStatus { [weak self] result in
+            self.viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
                 guard let self else { return }
-                switch result {
-                case .success():
+                switch authorizationCase {
+                case .fullAccuracy:
                     self.switchTrackingMode()
-                case .failure(let error):
-                    switch error {
-                    case .denied, .restricted:
-                        self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationUnauthorizedMessage)
-                    case .servicesDisabled:
-                        self.viewModel.locationServicesDisabledRelay.accept(())
-                    case .reducedAccuracy:
-                        self.switchTrackingMode()
-                    }
+                case .notDetermined:
+                    return
+                case .denied, .restricted:
+                    self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationUnauthorizedMessage)
+                case .servicesDisabled:
+                    self.viewModel.locationServicesDisabledRelay.accept(())
+                case .reducedAccuracy:
+                    self.switchTrackingMode()
                 }
             }
         }.disposed(by: disposeBag)
@@ -235,20 +242,19 @@ extension ORBMapViewController {
         rootView.tooltip.exploreButton.rx.tap.bind(onNext: { [weak self] _ in
             guard let self else { return }
             
-            self.viewModel.checkLocationAuthorizationStatus { [weak self] result in
+            self.viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
                 guard let self else { return }
-                switch result {
-                case .success():
+                switch authorizationCase {
+                case .fullAccuracy:
                     self.viewModel.authenticatePlaceAdventure(placeInfo: selectedMarker!.placeInfo)
-                case .failure(let error):
-                    switch error {
-                    case .denied, .restricted:
-                        self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationUnauthorizedAdventureMessage)
-                    case .servicesDisabled:
-                        self.viewModel.locationServicesDisabledRelay.accept(())
-                    case .reducedAccuracy:
-                        self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationReducedAccuracyMessage)
-                    }
+                case .notDetermined:
+                    return
+                case .denied, .restricted:
+                    self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationUnauthorizedAdventureMessage)
+                case .servicesDisabled:
+                    self.viewModel.locationServicesDisabledRelay.accept(())
+                case .reducedAccuracy:
+                    self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationReducedAccuracyMessage)
                 }
             }
         }).disposed(by: disposeBag)
@@ -591,9 +597,9 @@ extension ORBMapViewController: CLLocationManagerDelegate {
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        viewModel.checkLocationAuthorizationStatus { result in
-            switch result {
-            case .success(()):
+        viewModel.checkLocationAuthorizationStatus { authorizationCase in
+            switch authorizationCase {
+            case .fullAccuracy:
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
                     self.hideTooltip()
@@ -601,17 +607,14 @@ extension ORBMapViewController: CLLocationManagerDelegate {
                     self.rootView.naverMapView.mapView.positionMode = .direction
                     self.setLocationOverlayHiddenState(to: false)
                 }
-            case .failure(let error):
-                switch error {
-                case .denied, .restricted:
-                    self.showToast(message: AlertMessage.locationUnauthorizedAdventureMessage, inset: 66)
-                    self.setLocationOverlayHiddenState(to: true)
-                case .servicesDisabled:
-                    self.viewModel.locationServicesDisabledRelay.accept(())
-                    self.setLocationOverlayHiddenState(to: true)
-                case .reducedAccuracy:
-                    return
-                }
+            case .denied, .restricted:
+                self.showToast(message: AlertMessage.locationUnauthorizedAdventureMessage, inset: 66)
+                self.setLocationOverlayHiddenState(to: true)
+            case .servicesDisabled:
+                self.viewModel.locationServicesDisabledRelay.accept(())
+                self.setLocationOverlayHiddenState(to: true)
+            case .notDetermined, .reducedAccuracy:
+                return
             }
         }
     }

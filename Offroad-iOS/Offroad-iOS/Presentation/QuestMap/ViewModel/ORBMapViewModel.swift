@@ -62,7 +62,9 @@ final class ORBMapViewModel: SVGFetchable {
 
 extension ORBMapViewModel {
     
-    enum LocationAuthorizationFailure: Error {
+    enum LocationAuthorizationCase: Equatable {
+        case fullAccuracy
+        case notDetermined
         case denied
         case restricted
         case servicesDisabled
@@ -71,14 +73,14 @@ extension ORBMapViewModel {
     
     //MARK: - Func
     
-    func checkLocationAuthorizationStatus(completion: ((Result<Void, LocationAuthorizationFailure>) -> Void)? = nil) {
+    func checkLocationAuthorizationStatus(completion: ((LocationAuthorizationCase) -> Void)? = nil) {
         
         DispatchQueue.global().async { [weak self] in
             guard let self else { return }
             
             guard CLLocationManager.locationServicesEnabled() else {
                 self.locationServicesDisabledRelay.accept(())
-                completion?(.failure(.servicesDisabled))
+                completion?(.servicesDisabled)
                 return
             }
             
@@ -86,10 +88,11 @@ extension ORBMapViewModel {
             switch status {
             case .notDetermined:
                 self.locationManager.requestWhenInUseAuthorization()
+                completion?(.notDetermined)
                 
                 // 가족 공유 등의 기능에서 부모 혹은 보호자가 앱을 사용할 수 없도록 제한했을 때
             case .restricted:
-                completion?(.failure(.restricted))
+                completion?(.restricted)
                 
                 /*
                  - 사용자가 앱에 위치 사용 권한을 허용하지 않은 경우
@@ -97,14 +100,14 @@ extension ORBMapViewModel {
                  - 비행기 모드로 인해 위치 서비스 사용이 불가한 경우
                  */
             case .denied:
-                completion?(.failure(.denied))
+                completion?(.denied)
                 
             case .authorizedAlways, .authorizedWhenInUse:
                 guard locationManager.accuracyAuthorization == .fullAccuracy else {
-                    completion?(.failure(.reducedAccuracy))
+                    completion?(.reducedAccuracy)
                     return
                 }
-                completion?(.success(()))
+                completion?(.fullAccuracy)
             @unknown default:
                 return
             }
