@@ -62,13 +62,13 @@ final class ORBMapViewModel: SVGFetchable {
 
 extension ORBMapViewModel {
     
-    enum LocationAuthorizationCase: Equatable {
+    enum LocationAuthorizationCase: Int {
+        case notDetermined = 0 
         case fullAccuracy
-        case notDetermined
+        case reducedAccuracy
         case denied
         case restricted
         case servicesDisabled
-        case reducedAccuracy
     }
     
     //MARK: - Func
@@ -97,7 +97,6 @@ extension ORBMapViewModel {
                 /*
                  - 사용자가 앱에 위치 사용 권한을 허용하지 않은 경우
                  - 위치 서비스를 끈 경우
-                 - 비행기 모드로 인해 위치 서비스 사용이 불가한 경우
                  */
             case .denied:
                 completion?(.denied)
