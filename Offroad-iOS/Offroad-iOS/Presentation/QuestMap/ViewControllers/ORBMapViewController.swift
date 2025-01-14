@@ -212,16 +212,16 @@ extension ORBMapViewController {
             self.viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
                 guard let self else { return }
                 switch authorizationCase {
-                case .fullAccuracy:
-                    self.switchTrackingMode()
                 case .notDetermined:
                     return
+                case .fullAccuracy:
+                    self.switchTrackingMode()
+                case .reducedAccuracy:
+                    self.switchTrackingMode()
                 case .denied, .restricted:
                     self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationUnauthorizedMessage)
                 case .servicesDisabled:
                     self.viewModel.locationServicesDisabledRelay.accept(())
-                case .reducedAccuracy:
-                    self.switchTrackingMode()
                 }
             }
         }.disposed(by: disposeBag)
@@ -244,16 +244,16 @@ extension ORBMapViewController {
             self.viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
                 guard let self else { return }
                 switch authorizationCase {
-                case .fullAccuracy:
-                    self.viewModel.authenticatePlaceAdventure(placeInfo: selectedMarker!.placeInfo)
                 case .notDetermined:
                     return
+                case .fullAccuracy:
+                    self.viewModel.authenticatePlaceAdventure(placeInfo: selectedMarker!.placeInfo)
+                case .reducedAccuracy:
+                    self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationReducedAccuracyMessage)
                 case .denied, .restricted:
                     self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationUnauthorizedAdventureMessage)
                 case .servicesDisabled:
                     self.viewModel.locationServicesDisabledRelay.accept(())
-                case .reducedAccuracy:
-                    self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationReducedAccuracyMessage)
                 }
             }
         }).disposed(by: disposeBag)
@@ -598,6 +598,8 @@ extension ORBMapViewController: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         viewModel.checkLocationAuthorizationStatus { authorizationCase in
             switch authorizationCase {
+            case .notDetermined, .reducedAccuracy:
+                return
             case .fullAccuracy:
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
@@ -612,8 +614,6 @@ extension ORBMapViewController: CLLocationManagerDelegate {
             case .servicesDisabled:
                 self.viewModel.locationServicesDisabledRelay.accept(())
                 self.setLocationOverlayHiddenState(to: true)
-            case .notDetermined, .reducedAccuracy:
-                return
             }
         }
     }
