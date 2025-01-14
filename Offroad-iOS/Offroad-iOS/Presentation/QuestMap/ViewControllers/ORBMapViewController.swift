@@ -65,8 +65,9 @@ class ORBMapViewController: OffroadTabBarViewController {
             guard let self else { return }
             if authorizationCase != .fullAccuracy && authorizationCase != .reducedAccuracy {
                 // 사용자 위치 불러올 수 없을 시 초기 위치 설정
-                // 초기 위치: 서울시 동대문구 망우로 46 DDM청년창업센터
-                self.moveCamera(scrollTo: .init(lat: 37.5887592, lng: 127.0585367), animationDuration: 0)
+                // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
+                self.moveCamera(scrollTo: .init(lat: 37.5716229, lng: 126.9767879), animationDuration: 0)
+                self.viewModel.updateRegisteredPlaces(at: .init(lat: 37.5716229, lng: 126.9767879))
             }
         }
         viewModel.updateRegisteredPlaces(at: currentPositionTarget)
