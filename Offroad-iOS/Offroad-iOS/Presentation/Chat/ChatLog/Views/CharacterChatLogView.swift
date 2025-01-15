@@ -165,6 +165,7 @@ extension CharacterChatLogView {
             button.setTitle("채팅하기", for: .normal)
             button.isUserInteractionEnabled = false
             button.roundCorners(cornerRadius: 12)
+            button.configureTitleFontWhen(normal: .offroad(style: .iosText))
             button.configureBackgroundColorWhen(
                 normal: .primary(.white).withAlphaComponent(0.33),
                 highlighted: .primary(.white).withAlphaComponent(0.55)
