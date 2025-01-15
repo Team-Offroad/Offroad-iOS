@@ -48,9 +48,9 @@ extension ChoosingCharacterCell {
     
     private func setupLayout() {
         imageView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(115)
-            make.centerX.equalToSuperview()
-            make.size.equalTo(210)
+            make.center.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(90)
+            make.verticalEdges.equalToSuperview().inset(40)
         }
     }
     

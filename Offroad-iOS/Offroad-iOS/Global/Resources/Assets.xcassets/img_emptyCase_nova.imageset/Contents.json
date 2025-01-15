@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "img_emptyCase_nova.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

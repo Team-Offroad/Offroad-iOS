@@ -68,6 +68,7 @@ extension MyPageView {
         myPageScrollView.do {
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
+            $0.delaysContentTouches = false
         }
         
         myPageContentView.do {
@@ -165,6 +166,7 @@ extension MyPageView {
         
         verticalStackView.do {
             $0.axis = .vertical
+            $0.distribution = .fillEqually
             $0.spacing = 15
         }
     }
@@ -275,15 +277,10 @@ extension MyPageView {
             $0.centerX.equalToSuperview().offset(backgroundViewWidth / 4)
         }
         
-        [characterButton, couponButton, titleButton, settingButton].forEach {
-            $0.snp.makeConstraints {
-                $0.height.equalTo(138)
-            }
-        }
-        
         verticalStackView.snp.makeConstraints {
             $0.top.equalTo(questPlaceBackgroundView.snp.bottom).offset(18)
             $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.height.equalTo((backgroundViewWidth - 24) * 291 / 345)
         }
     }
     

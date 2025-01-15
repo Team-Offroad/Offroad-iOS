@@ -10,16 +10,17 @@ import UIKit
 import SnapKit
 import Then
 
-final class MyPageCustomButton: UIButton {
+final class MyPageCustomButton: ShrinkableButton {
     
     //MARK: - UI Properties
     
+    private let backgroundImageView = UIImageView()
     private let customTitleLabel = UILabel()
     
     //MARK: - Life Cycle
     
     init(titleString: String, backgroundImage: UIImage) {
-        super.init(frame: .zero)
+        super.init(shrinkScale: 0.95)
         
         setupHierarchy()
         setupStyle(titleText: titleString, image: backgroundImage)
@@ -36,8 +37,12 @@ extension MyPageCustomButton {
     // MARK: - Layout
     
     private func setupStyle(titleText: String, image: UIImage) {
-        setImage(image, for: .normal)
         clipsToBounds = true
+        
+        backgroundImageView.do {
+            $0.image = image
+            $0.contentMode = .scaleAspectFill
+        }
         
         customTitleLabel.do {
             $0.text = titleText
@@ -48,10 +53,14 @@ extension MyPageCustomButton {
     }
     
     private func setupHierarchy() {
-        addSubview(customTitleLabel)
+        addSubviews(backgroundImageView, customTitleLabel)
     }
     
     private func setupLayout() {
+        backgroundImageView.snp.makeConstraints {
+            $0.size.equalToSuperview()
+        }
+        
         customTitleLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(17)
         }

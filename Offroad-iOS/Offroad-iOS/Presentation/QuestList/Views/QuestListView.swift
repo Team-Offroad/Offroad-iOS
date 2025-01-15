@@ -35,7 +35,7 @@ class QuestListView: UIView {
     let customBackButton = NavigationPopButton()
     let ongoingQuestSwitch = UISwitch()
     
-    lazy var questListCollectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
+    lazy var questListCollectionView = EmptyStateCollectionView(message: EmptyCaseMessage.activeQuests, frame: .zero, collectionViewLayout: layoutMaker)
 
     //MARK: - Life Cycle
 
@@ -89,6 +89,7 @@ extension QuestListView {
         
         questListCollectionView.do { collectionView in
             collectionView.backgroundColor = .primary(.listBg)
+            collectionView.delaysContentTouches = false
         }
     }
 

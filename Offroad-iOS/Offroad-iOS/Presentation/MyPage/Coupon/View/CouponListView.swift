@@ -40,8 +40,8 @@ class CouponListView: UIView {
         return layout
     }
     
-    lazy var collectionViewForAvailableCoupons = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
-    lazy var collectionViewForUsedCoupons = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
+    lazy var collectionViewForAvailableCoupons = ScrollLoadingCollectionView(message: EmptyCaseMessage.availableCoupons, frame: .zero, collectionViewLayout: layoutMaker)
+    lazy var collectionViewForUsedCoupons = ScrollLoadingCollectionView(message: EmptyCaseMessage.usedCoupons, frame: .zero, collectionViewLayout: layoutMaker)
     let loadingView = LottieAnimationView(name: "loading1")
     
     // MARK: - Life Cycle

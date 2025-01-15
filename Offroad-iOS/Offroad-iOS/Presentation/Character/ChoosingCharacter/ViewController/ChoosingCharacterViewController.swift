@@ -217,8 +217,11 @@ extension ChoosingCharacterViewController: SVGFetchable {
                     self.characterNames.append(character.name)
                     self.characterDiscriptions.append(character.description)
                     
-                    self.fetchSVG(svgURLString: character.characterBaseImageUrl) { image in
-                        self.characterImageList[character.id] = image ?? UIImage()
+                    self.fetchSVG(svgURLString: character.characterBaseImageUrl) { [weak self] image in
+                        guard let self = self else { return }
+                        DispatchQueue.main.async {
+                            self.characterImageList[character.id] = image ?? UIImage()
+                        }
                     }
                 }
             default:

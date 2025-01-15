@@ -26,7 +26,6 @@ final class HomeView: UIView {
     let shareButton = UIButton()
     let changeCharacterButton = UIButton()
     private let buttonStackView = UIStackView()
-    private let characterBaseImageView = UIImageView()
     private let characterMotionView = LottieAnimationView()
     private let titleView = UIView()
     private let titleLabel = UILabel()
@@ -110,10 +109,6 @@ extension HomeView {
             $0.spacing = 9
         }
         
-        characterBaseImageView.do {
-            $0.contentMode = .scaleAspectFit
-        }
-        
         characterMotionView.do {
             $0.contentMode = .scaleAspectFit
             $0.loopMode = .repeat(60)
@@ -169,7 +164,6 @@ extension HomeView {
             backgroundImageView,
             nicknameLabel,
             characterNameView,
-            characterBaseImageView,
             characterMotionView,
             buttonStackView,
             titleView,
@@ -224,17 +218,10 @@ extension HomeView {
             }
         }
         
-        chatUnreadDotView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(2)
-            make.trailing.equalToSuperview().inset(4)
-            make.size.equalTo(8)
-        }
-        
-        characterBaseImageView.snp.makeConstraints {
-            $0.top.equalTo(characterNameView.snp.bottom).offset(25)
-            $0.bottom.equalTo(titleView.snp.top).offset(-25)
-            $0.size.equalTo(253)
-            $0.horizontalEdges.equalToSuperview()
+        chatUnreadDotView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(2)
+            $0.trailing.equalToSuperview().inset(4)
+            $0.size.equalTo(8)
         }
         
         characterMotionView.snp.makeConstraints {
@@ -296,20 +283,13 @@ extension HomeView {
     }
     
     func updateAdventureInfo(nickname: String, baseImageUrl: String, characterName: String, emblemName: String) {
-        characterMotionView.isHidden = true
-        characterBaseImageView.isHidden = false
-
         nicknameLabel.text = "모험가 \(nickname)님"
         nicknameLabel.highlightText(targetText: nickname, font: .offroad(style: .iosProfileTitle))
-        characterBaseImageView.fetchSvgURLToImageView(svgUrlString: baseImageUrl)
         characterNameLabel.text = characterName
         titleLabel.text = emblemName
     }
     
     func showMotionImage(motionImageUrl: String) {
-        characterMotionView.isHidden = false
-        characterBaseImageView.isHidden = true
-
         characterMotionView.fetchMotionURLToAnimationView(motionUrlString: motionImageUrl)
     }
     
