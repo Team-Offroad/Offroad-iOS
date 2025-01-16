@@ -46,8 +46,8 @@ final class ChoosingCharacterViewController: UIViewController {
     
     private var extendedCharacterImageList = [UIImage]() {
         didSet {
-            choosingCharacterView.collectionView.reloadData()
             if extendedCharacterImageList.count > 2 {
+                choosingCharacterView.collectionView.reloadData()
                 choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: false)
             }
         }
@@ -86,6 +86,7 @@ final class ChoosingCharacterViewController: UIViewController {
         super.viewDidLoad()
         
         setupTarget()
+        setupNavigationBar()
         setupCollectionView()
         
         let style = NSMutableParagraphStyle()
@@ -136,17 +137,7 @@ final class ChoosingCharacterViewController: UIViewController {
     }
     
     private func patchProfileData(characterID: Int) {
-        let button = UIButton().then { button in
-            button.setImage(.backBarButton, for: .normal)
-            button.addTarget(self, action: #selector(executePop), for: .touchUpInside)
-            button.imageView?.contentMode = .scaleAspectFill
-            button.snp.makeConstraints { make in
-                make.width.equalTo(30)
-                make.height.equalTo(44)
-            }
-        }
-        
-        ProfileService().patchUpdateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender, characterID: characterID)) { response in
+        ProfileService().patchUpdateProfile(body: ProfileUpdateRequestDTO(nickname: nickname, year: birthYear, month: birthMonth, day: birthDay, gender: gender, characterId: characterID)) { response in
             switch response {
             case .success(let data):
                 print("프로필 업데이트 성공~~~~~~~~~")
@@ -174,20 +165,28 @@ final class ChoosingCharacterViewController: UIViewController {
     
     @objc private func leftArrowTapped() {
         choosingCharacterView.leftButton.isUserInteractionEnabled = false
+        choosingCharacterView.rightButton.isUserInteractionEnabled = false
         let currentIndexPath = choosingCharacterView.collectionView.indexPathsForVisibleItems.first
         guard let indexPath = currentIndexPath else { return }
         
         let previousIndex = indexPath.item - 1
-        choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: previousIndex, section: 0), at: .centeredHorizontally, animated: true)
+        if previousIndex >= 0 {
+            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: previousIndex, section: 0), at: .centeredHorizontally, animated: true)
+        }
     }
     
     @objc private func rightArrowTapped() {
+        choosingCharacterView.leftButton.isUserInteractionEnabled = false
         choosingCharacterView.rightButton.isUserInteractionEnabled = false
         let currentIndexPath = choosingCharacterView.collectionView.indexPathsForVisibleItems.first
         guard let indexPath = currentIndexPath else { return }
         
         let nextIndex = indexPath.item + 1
-        choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: nextIndex, section: 0), at: .centeredHorizontally, animated: true)
+        let itemCount = choosingCharacterView.collectionView.numberOfItems(inSection: 0)
+
+        if nextIndex < itemCount {
+            choosingCharacterView.collectionView.scrollToItem(at: IndexPath(item: nextIndex, section: 0), at: .centeredHorizontally, animated: true)
+        }
     }
     
     @objc private func selectButtonTapped() {
@@ -218,8 +217,11 @@ extension ChoosingCharacterViewController: SVGFetchable {
                     self.characterNames.append(character.name)
                     self.characterDiscriptions.append(character.description)
                     
-                    self.fetchSVG(svgURLString: character.characterBaseImageUrl) { image in
-                        self.characterImageList[character.id] = image ?? UIImage()
+                    self.fetchSVG(svgURLString: character.characterBaseImageUrl) { [weak self] image in
+                        guard let self = self else { return }
+                        DispatchQueue.main.async {
+                            self.characterImageList[character.id] = image ?? UIImage()
+                        }
                     }
                 }
             default:

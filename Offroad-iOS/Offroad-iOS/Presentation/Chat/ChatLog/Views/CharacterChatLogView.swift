@@ -38,12 +38,12 @@ class CharacterChatLogView: UIView {
     private let customNavigationTitleLabel = UILabel()
     
     lazy var chatLogCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layout)
-    let chatButton = UIButton()
+    let chatButton = ShrinkableButton()
     
     let userChatBoundsView = UIView()
     let userChatView = UIView()
     let userChatInputView = UITextView()
-    let sendButton = UIButton()
+    let sendButton = ShrinkableButton()
     let loadingAnimationView = LottieAnimationView(name: "loading2")
     let keyboardBackgroundView = UIView().then { $0.backgroundColor = .primary(.white) }
     
@@ -165,10 +165,12 @@ extension CharacterChatLogView {
             button.setTitle("채팅하기", for: .normal)
             button.isUserInteractionEnabled = false
             button.roundCorners(cornerRadius: 12)
+            button.configureTitleFontWhen(normal: .offroad(style: .iosText))
             button.configureBackgroundColorWhen(
                 normal: .primary(.white).withAlphaComponent(0.33),
                 highlighted: .primary(.white).withAlphaComponent(0.55)
             )
+            button.configuration?.baseForegroundColor = .primary(.white)
         }
         
         userChatBoundsView.do { view in

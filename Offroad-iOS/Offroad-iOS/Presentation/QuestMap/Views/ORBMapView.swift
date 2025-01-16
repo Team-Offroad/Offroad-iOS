@@ -1,5 +1,5 @@
 //
-//  QuestMapView.swift
+//  ORBMapView.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 2024/07/07.
@@ -11,23 +11,38 @@ import NMapsMap
 import SnapKit
 import Then
 
-class QuestMapView: UIView {
+class ORBMapView: UIView {
     
     //MARK: - UI Properties
     
     let customNavigationBar = UIView()
     let navigationBarSeparator = UIView()
     let titleLabel = UILabel()
-    let reloadPlaceButton = UIButton()
+    let gradientView = UIView()
+    let gradientLayer = CAGradientLayer()
+    let markerTapBlocker = UIView()
+    let shadingView = UIView()
+    let tooltip: PlaceInfoTooltip = .init()
+    let reloadPlaceButton = ShrinkableButton(shrinkScale: 0.95)
     let switchTrackingModeButton = UIButton()
-    private let listButtonStackView = UIStackView()
-    let questListButton = QuestMapListButton(image: .iconListBullet, title: "퀘스트 목록")
-    let placeListButton = QuestMapListButton(image: .iconPlaceMarker, title: "장소 목록")
+    let listButtonStackView = UIStackView()
+    let questListButton = ORBMapListButton(image: .iconListBullet, title: "퀘스트 목록")
+    let placeListButton = ORBMapListButton(image: .iconPlaceMarker, title: "장소 목록")
     
     let naverMapView = NMFNaverMapView()
-    private let compass = NMFCompassView()
+    let compass = NMFCompassView()
     private let triangleArrowOverlayImage = NMFOverlayImage(image: .icnQuestMapNavermapLocationOverlaySubIcon1)
     let locationOverlayImage = NMFOverlayImage(image: .icnQuestMapCircleInWhiteBorder)
+    
+    // tooltip의 centerYAnchor인 이유는 tooltip.layer.anchorPoint가 (0.5, 1)이기 때문
+    lazy var tooltipCenterYConstraint = tooltip.centerYAnchor.constraint(equalTo: self.topAnchor, constant: 0)
+    lazy var tooltipCenterXConstraint = tooltip.centerXAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
+    
+    var tooltipAnchorPoint: CGPoint = .zero {
+        didSet {
+            updateTooltipPosition()
+        }
+    }
     
     //MARK: - Life Cycle
     
@@ -44,9 +59,16 @@ class QuestMapView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        gradientLayer.frame = gradientView.bounds
+        gradientView.layer.addSublayer(gradientLayer)
+    }
+    
 }
 
-extension QuestMapView {
+extension ORBMapView {
     
     //MARK: - Layout Func
     
@@ -67,6 +89,23 @@ extension QuestMapView {
             make.height.equalTo(1)
         }
         
+        gradientView.snp.makeConstraints { make in
+            make.top.equalTo(listButtonStackView).offset(-63)
+            make.horizontalEdges.bottom.equalToSuperview()
+        }
+        
+        markerTapBlocker.snp.makeConstraints { make in
+            make.top.equalTo(listButtonStackView)
+            make.horizontalEdges.bottom.equalToSuperview()
+        }
+        
+        shadingView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        tooltipCenterYConstraint.isActive = true
+        tooltipCenterXConstraint.isActive = true
+        
         reloadPlaceButton.snp.makeConstraints { make in
             make.top.equalTo(customNavigationBar.snp.bottom).offset(23)
             make.centerX.equalToSuperview()
@@ -76,7 +115,7 @@ extension QuestMapView {
         
         naverMapView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.top.equalToSuperview().inset(123)
+            make.top.equalTo(navigationBarSeparator.snp.bottom)
             make.bottom.equalToSuperview()
         }
         
@@ -90,6 +129,7 @@ extension QuestMapView {
             make.centerX.equalToSuperview()
             make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(40)
             make.bottom.equalTo(safeAreaLayoutGuide).inset(59)
+            make.height.greaterThanOrEqualTo(48)
         }
         
         compass.snp.makeConstraints { make in
@@ -102,7 +142,7 @@ extension QuestMapView {
     //MARK: - Private Func
     
     private func setupHierarchy() {
-        naverMapView.addSubviews(reloadPlaceButton, switchTrackingModeButton)
+        naverMapView.addSubviews(gradientView, markerTapBlocker, reloadPlaceButton, switchTrackingModeButton, shadingView, tooltip)
         listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
         customNavigationBar.addSubview(titleLabel)
         addSubviews(
@@ -129,11 +169,33 @@ extension QuestMapView {
             view.backgroundColor = .grayscale(.gray100)
         }
         
+        shadingView.do { view in
+            view.isUserInteractionEnabled = false
+        }
+        
+        gradientView.isUserInteractionEnabled = false
+        gradientLayer.do { layer in
+            layer.type = .axial
+            layer.colors = [UIColor(hex: "5B5B5B")!.withAlphaComponent(0.55).cgColor, UIColor.clear.cgColor]
+            layer.startPoint = CGPoint(x: 0, y: 1)
+            layer.endPoint = CGPoint(x: 0, y: 0)
+            layer.locations = [0, 1]
+        }
+        
+        markerTapBlocker.do { view in
+            view.backgroundColor = .clear
+            view.isUserInteractionEnabled = false
+        }
+        
         reloadPlaceButton.do { button in
             button.setTitle("현 지도에서 검색", for: .normal)
             button.setImage(.icnReloadArrow, for: .normal)
             button.setImage(.icnReloadArrow, for: .disabled)
-            button.configureBackgroundColorWhen(normal: .primary(.white), highlighted: .grayscale(.gray300), disabled: .grayscale(.gray200))
+            button.configureBackgroundColorWhen(
+                normal: .primary(.white),
+                highlighted: .grayscale(.gray100),
+                disabled: .grayscale(.gray100)
+            )
             button.configureTitleFontWhen(normal: .pretendardFont(ofSize: 13.2, weight: .medium))
             button.setTitleColor(.grayscale(.gray400), for: .normal)
             button.setTitleColor(.grayscale(.gray400), for: .highlighted)
@@ -169,6 +231,13 @@ extension QuestMapView {
         // 현재 위치 표시하는 마커 커스텀
         naverMapView.mapView.locationOverlay.icon = locationOverlayImage
         customizeLocationOverlaySubIcon(mode: .compass)
+    }
+    
+    private func updateTooltipPosition() {
+        // 17 뺀 것은 툴팁 아래 화살표 끝 위치를 마커의 중앙으로 설정하기 위함.
+        tooltipCenterYConstraint.constant = tooltipAnchorPoint.y - 17
+        tooltipCenterXConstraint.constant = tooltipAnchorPoint.x
+        layoutIfNeeded()
     }
     
     //MARK: - Func

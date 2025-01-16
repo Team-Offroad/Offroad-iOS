@@ -22,7 +22,7 @@ final class PlaceInfoTooltip: UIView {
     private let addresssLabel = UILabel()
     private let visitCountLabel = UILabel()
     
-    let exploreButton = UIButton()
+    let exploreButton = ShrinkableButton(shrinkScale: 0.97)
     let closeButton = UIButton()
     
     //MARK: - Life Cycle
@@ -65,7 +65,7 @@ extension PlaceInfoTooltip  {
         nameAndImageStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(17)
             make.leading.equalToSuperview().inset(15)
-            make.trailing.lessThanOrEqualToSuperview().inset(44)
+            make.trailing.lessThanOrEqualTo(closeButton.snp.leading).offset(-3)
         }
         
         placeCategoryImageView.snp.makeConstraints { make in
@@ -95,8 +95,9 @@ extension PlaceInfoTooltip  {
         }
         
         closeButton.snp.makeConstraints { make in
-            make.top.trailing.equalToSuperview()
-            make.width.height.equalTo(44)
+            make.centerX.equalTo(rectView.snp.trailing).offset(-22)
+            make.centerY.equalTo(rectView.snp.top).offset(22)
+            make.width.height.equalTo(32)
         }
         
         self.snp.makeConstraints { make in
@@ -159,11 +160,13 @@ extension PlaceInfoTooltip  {
             button.setTitleColor(.primary(.white), for: .normal)
             button.configureBackgroundColorWhen(normal: .sub(.sub4), highlighted: .sub(.sub480))
             button.configureTitleFontWhen(normal: .offroad(style: .iosBtnSmall))
+            button.configuration?.baseForegroundColor = .primary(.white)
             button.roundCorners(cornerRadius: 5)
         }
         
         closeButton.do { button in
             button.setImage(.btnPlaceInfoPopupClose, for: .normal)
+            button.configureBackgroundColorWhen(normal: .clear, highlighted: .grayscale(.gray100))
         }
     }
     
@@ -195,7 +198,7 @@ extension PlaceInfoTooltip  {
             placeCategoryImageView.image = nil
             return
         }
-        guard let category = OffroadPlaceCategory(rawValue: placeInfo.placeCategory.lowercased()) else { return }
+        guard let category = ORBPlaceCategory(rawValue: placeInfo.placeCategory.lowercased()) else { return }
         switch category {
         case .caffe:
             placeCategoryImageView.image = .imgCategoryCafe

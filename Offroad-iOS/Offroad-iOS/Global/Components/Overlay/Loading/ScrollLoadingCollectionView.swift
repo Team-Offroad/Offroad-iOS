@@ -9,7 +9,7 @@ import UIKit
 
 import Lottie
 
-final class ScrollLoadingCollectionView: UICollectionView, ScrollLoading {
+final class ScrollLoadingCollectionView: EmptyStateCollectionView, ScrollLoading {
     
     var topLoadingAnimationView: Lottie.LottieAnimationView = LottieAnimationView(name: "loading1")
     var leftLoadingAnimationView: Lottie.LottieAnimationView = LottieAnimationView(name: "loading1")
@@ -17,6 +17,14 @@ final class ScrollLoadingCollectionView: UICollectionView, ScrollLoading {
     var bottomLoadingAnimationView: Lottie.LottieAnimationView = LottieAnimationView(name: "loading1")
     
     var currentLoadingDirections: Set<ScrollLoadingDirection> = []
+    
+    override init(message: String? = nil, frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(message: message, frame: frame, collectionViewLayout: layout)
+    }
+    
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()

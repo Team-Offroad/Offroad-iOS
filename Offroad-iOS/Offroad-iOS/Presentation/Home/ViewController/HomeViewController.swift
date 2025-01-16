@@ -38,6 +38,8 @@ final class HomeViewController: OffroadTabBarViewController {
         self.pushType = pushType
         
         super.init(nibName: nil, bundle: nil)
+        
+        MyInfoManager.shared.updateCharacterListInfo()
     }
     
     required init?(coder: NSCoder) {
@@ -106,7 +108,7 @@ extension HomeViewController {
                 
                 self.rootView.updateAdventureInfo(nickname: nickname, baseImageUrl: baseImageUrl, characterName: characterName, emblemName: emblemName)
                 
-                if self.categoryString != "NONE" && motionImageUrl != "" {
+                if motionImageUrl != "" {
                     self.rootView.showMotionImage(motionImageUrl: motionImageUrl)
                 }
             default:
@@ -300,6 +302,12 @@ extension HomeViewController {
         
         let activityViewController = UIActivityViewController(activityItems: [imageProvider], applicationActivities: nil)
         activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .mail]
+        
+        if let popoverController = activityViewController.popoverPresentationController {
+            popoverController.sourceView = rootView.shareButton
+            popoverController.sourceRect = rootView.shareButton.bounds
+            popoverController.permittedArrowDirections = .any
+        }
         
         self.present(activityViewController, animated: true)
     }

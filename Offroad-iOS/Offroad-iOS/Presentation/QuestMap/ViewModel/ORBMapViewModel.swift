@@ -1,5 +1,5 @@
 //
-//  QuestMapViewModel.swift
+//  ORBMapViewModel.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 10/28/24.
@@ -14,7 +14,7 @@ import RxCocoa
 import SnapKit
 import Then
 
-final class QuestMapViewModel: SVGFetchable {
+final class ORBMapViewModel: SVGFetchable {
     
     //MARK: - Properties
     
@@ -23,10 +23,10 @@ final class QuestMapViewModel: SVGFetchable {
     let locationManager = CLLocationManager()
     private var currentZoomLevel: Double = 14
     private var searchedPlaceArray: [RegisteredPlaceInfo] = []
-    var selectedMarker: OffroadNMFMarker? = nil
     private var isFocused: Bool = false
     
-    let isLocationAdventureAuthenticated = PublishSubject<Bool>()
+    let isLocationAuthorized = PublishSubject<Bool>()
+    let isFirstVisitToday = PublishRelay<Bool>()
     let successCharacterImageUrl = PublishSubject<String>()
     let successCharacterImage = PublishSubject<UIImage?>()
     let completeQuestList = PublishSubject<[CompleteQuest]?>()
@@ -35,7 +35,7 @@ final class QuestMapViewModel: SVGFetchable {
     let startLoading = PublishRelay<Void>()
     let stopLoading = PublishRelay<Void>()
     let networkFailureSubject = PublishSubject<Void>()
-    let markersSubject = BehaviorSubject<[OffroadNMFMarker]>(value: [])
+    let markersSubject = BehaviorSubject<[ORBNMFMarker]>(value: [])
     let customOverlayImage = NMFOverlayImage(image: .icnQuestMapPlaceMarker)
     let shouldRequestLocationAuthorization = PublishRelay<Void>()
     let locationServiceDisabledRelay = PublishRelay<Void>()
@@ -60,7 +60,7 @@ final class QuestMapViewModel: SVGFetchable {
     
 }
 
-extension QuestMapViewModel {
+extension ORBMapViewModel {
     
     //MARK: - Func
     
@@ -102,7 +102,7 @@ extension QuestMapViewModel {
             switch response {
             case .success(let data):
                 let markers = data!.data.places.map {
-                    return OffroadNMFMarker(placeInfo: $0, iconImage: self.customOverlayImage)
+                    return ORBNMFMarker(placeInfo: $0, iconImage: self.customOverlayImage)
                         .then { $0.width = 26; $0.height = 32 }
                 }
                 
@@ -139,14 +139,38 @@ extension QuestMapViewModel {
                 switch result {
                 case .success(let data):
                     guard let data else { return }
-                    self.isLocationAdventureAuthenticated.onNext(data.data.isValidPosition)
+                    self.isLocationAuthorized.onNext(data.data.isValidPosition)
                     self.successCharacterImageUrl.onNext(data.data.successCharacterImageUrl)
                     self.completeQuestList.onNext(data.data.completeQuestList)
+                    self.isFirstVisitToday.accept(data.data.isFirstVisitToday)
                 default:
                     self.networkFailureSubject.onNext(())
                     return
                 }
             })
+    }
+    
+    /// 어떤 마커의 위치에서 툴팁이 떴을 때 특정 영역에서 툴팁이 온전히 보이기 위해 화면상에서 마커가 최소한으로 이동해야 하는 거리를 계산하는 함수.
+    /// - Parameters:
+    ///   - point: 마커의 위치
+    ///   - rect: 마커가 존재하는 지도의 frame
+    ///   - tooltipSize: 툴팁의 frame의 크기
+    ///   - inset: 지도에서 툴팁이 뜰 때 적용될 inset값
+    /// - Returns: 툴팁이 온전히 보이기 위해 마커가 최소한으로 이동해야 하는 가로, 세로 point를 각각 x, y 속성으로 갖는 CGPoint
+    func caculateDeltaToShowTooltip(point: CGPoint, at rect: CGRect, tooltipSize: CGSize, contentInset inset: CGFloat = 0) -> CGPoint {
+        var delta: CGPoint = .zero
+        
+        if point.x < (tooltipSize.width/2 + inset) {
+            delta.x = (tooltipSize.width/2 + inset) - point.x
+        } else if point.x > rect.width - tooltipSize.width/2 - inset {
+            delta.x = (rect.width - tooltipSize.width/2 - inset) - point.x
+        }
+        
+        // 툴팁의 아래는 마커의 위치로부터 17만큼 위로 떨어져 있음. 마커의 중앙에 툴팁의 꼭짓점이 위치해야 하기 때문.
+        if point.y < tooltipSize.height + 17 + inset {
+            delta.y = tooltipSize.height + 17 + inset - point.y
+        }
+        return delta
     }
     
 }

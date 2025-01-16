@@ -75,8 +75,9 @@ extension CompleteChoosingCharacterView {
         }
         
         characterView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.centerX.equalToSuperview()
+            make.top.equalTo(mainLabel.snp.bottom).offset(100)
+            make.bottom.equalTo(startButton.snp.top).offset(-200)
+            make.horizontalEdges.equalToSuperview().inset(79)
         }
         
         startButton.snp.makeConstraints{ make in
