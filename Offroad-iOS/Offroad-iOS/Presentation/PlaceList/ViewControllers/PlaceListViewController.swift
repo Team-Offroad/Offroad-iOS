@@ -104,11 +104,9 @@ extension PlaceListViewController {
     private func reloadCollectionViewData(coordinate: CLLocationCoordinate2D? = nil, limit: Int, isBounded: Bool) {
         rootView.segmentedControl.isUserInteractionEnabled = false
         rootView.pageViewController.view.isUserInteractionEnabled = false
-        guard let currentCoordinate else {
-            print("현재 위치 좌표를 구할 수 없음")
-            // 위치 정보 불러올 수 없을 경우 피드백 논의하기
-            return
-        }
+        // 사용자 위치 불러올 수 없을 시 초기 위치 설정
+        // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
+        let currentCoordinate = currentCoordinate ?? .init(latitude: 37.5716229, longitude: 126.9767879)
         let placeRequestDTO = RegisteredPlaceRequestDTO(
             currentLatitude: currentCoordinate.latitude,
             currentLongitude: currentCoordinate.longitude,
