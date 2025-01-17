@@ -17,7 +17,11 @@ class PlaceListViewController: UIViewController {
     let placeService = RegisteredPlaceService()
     var places: [RegisteredPlaceInfo] = []
     var placesNeverVisited: [RegisteredPlaceInfo] { places.filter { $0.visitCount == 0 } }
-    var currentCoordinate: CLLocationCoordinate2D? { locationManager.location?.coordinate }
+    var currentCoordinate: CLLocationCoordinate2D {
+        // 사용자 위치 불러올 수 없을 시 초기 위치 설정
+        // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
+        locationManager.location?.coordinate ?? .init(latitude: 37.5716229, longitude: 126.9767879)
+    }
     var pageViewController: UIPageViewController {
         rootView.pageViewController
     }
@@ -105,16 +109,6 @@ extension PlaceListViewController {
     private func reloadCollectionViewData(coordinate: CLLocationCoordinate2D? = nil, limit: Int, isBounded: Bool) {
         rootView.segmentedControl.isUserInteractionEnabled = false
         rootView.pageViewController.view.isUserInteractionEnabled = false
-        // 사용자 위치 불러올 수 없을 시 초기 위치 설정
-        // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
-        let currentCoordinate = currentCoordinate ?? .init(latitude: 37.5716229, longitude: 126.9767879)
-        let placeRequestDTO = RegisteredPlaceRequestDTO(
-            currentLatitude: currentCoordinate.latitude,
-            currentLongitude: currentCoordinate.longitude,
-            limit: limit,
-            isBounded: isBounded
-        )
-        
         rootView.pageViewController.view.startLoading(withoutShading: true)
         
         NetworkService.shared.placeService.getRegisteredListPlaces(
