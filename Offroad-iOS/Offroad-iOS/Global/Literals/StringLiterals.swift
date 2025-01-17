@@ -12,6 +12,7 @@ struct ErrorMessages {
     static let cameraUsageUnauthorized = "카메라 권한 허용 후 이용 가능합니다."
     static let birthDateError = "다시 한 번 확인해주세요."
     static let getCharacterListFailure = "캐릭터 목록을 불러오는 데 실패하였습니다."
+    static let accessingLocationDataFailure = "위치 정보를 가져오는 데 실패했습니다."
 }
 
 struct AlertMessage {
@@ -25,12 +26,17 @@ struct AlertMessage {
     static let couponRedemptionSuccessMessage = "쿠폰 사용이 완료되었어요!"
     static let couponRedemptionFailureTitle = "사용 실패"
     static let couponRedemptionFailureMessage = "다시 한 번 확인해 주세요."
+    static let locationUnauthorizedTitle = "위치 서비스 설정"
+    static let locationUnauthorizedMessage = "위치 확인을 위해서는 설정에서 위치 접근을 허용해 주세요."
+    static let locationUnauthorizedAdventureMessage = "위치정보 사용 동의 후 이용 가능합니다."
+    static let locationServicesDisabledMessage = "위치 기능이 비활성화되어 있습니다.\n탐험을 인증하기 위해서는 위치 기능을 활성화해 주세요."
+    static let locationReducedAccuracyMessage = "\"정확한 위치\" 기능이 꺼져 있습니다. 탐험을 위해서는 정확한 위치 접근을 허용해 주세요."
 }
 
 struct LoadingMessage {
     static let loading = "로딩 중입니다."
     /// 현재 로직 상 사용할 일 없음. (퀘스트 클리어 팝업은 로딩 없이 바로 띄우기 때문)
-    static let questClearing = "클리어한 퀘스트가 있어요. 잠시마 기다려주세요."
+    static let questClearing = "클리어한 퀘스트가 있어요. 잠시만 기다려주세요."
     static let login = "로그인 중입니다."
 }
 

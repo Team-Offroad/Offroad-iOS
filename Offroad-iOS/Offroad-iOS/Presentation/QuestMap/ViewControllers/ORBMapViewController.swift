@@ -61,11 +61,14 @@ class ORBMapViewController: OffroadTabBarViewController {
         setupGestureRecognizers()
         rootView.naverMapView.mapView.positionMode = .direction
         locationManager.startUpdatingHeading()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            viewModel.requestAuthorization()
-        } else {
-            viewModel.locationServiceDisabledRelay.accept(())
+        viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
+            guard let self else { return }
+            if authorizationCase != .fullAccuracy && authorizationCase != .reducedAccuracy {
+                // 사용자 위치 불러올 수 없을 시 초기 위치 설정
+                // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
+                self.moveCamera(scrollTo: .init(lat: 37.5716229, lng: 126.9767879), animationDuration: 0)
+                self.viewModel.updateRegisteredPlaces(at: .init(lat: 37.5716229, lng: 126.9767879))
+            }
         }
         viewModel.updateRegisteredPlaces(at: currentPositionTarget)
     }
@@ -94,59 +97,70 @@ extension ORBMapViewController {
     //MARK: - Private Func
     
     private func switchTrackingMode() {
-        // 툴팁 숨기기
-        switch rootView.naverMapView.mapView.positionMode == .normal {
-        case true:
-            focusToMyPosition(completion: { [weak self] isCancelled in
-                guard let self else { return }
-                guard !isCancelled else { return }
-                self.rootView.naverMapView.mapView.positionMode = .direction
-            })
-        case false:
-            viewModel.isCompassMode.toggle()
-            let currentHeading = locationManager.heading?.trueHeading ?? 0
-            rootView.naverMapView.mapView.locationOverlay.heading = currentHeading
-            guard viewModel.isCompassMode else {
-                rootView.naverMapView.mapView.positionMode = .direction
-                return
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            switch rootView.naverMapView.mapView.positionMode == .normal {
+            case true:
+                focusToMyPosition(completion: { [weak self] isCancelled in
+                    guard let self else { return }
+                    guard !isCancelled else { return }
+                    self.rootView.naverMapView.mapView.positionMode = .direction
+                })
+            case false:
+                viewModel.isCompassMode.toggle()
+                let currentHeading = locationManager.heading?.trueHeading ?? 0
+                rootView.naverMapView.mapView.locationOverlay.heading = currentHeading
+                guard viewModel.isCompassMode else {
+                    rootView.naverMapView.mapView.positionMode = .direction
+                    return
+                }
+                let cameraUpdate = NMFCameraUpdate(heading: currentHeading)
+                cameraUpdate.reason = 10
+                cameraUpdate.animation = .easeOut
+                rootView.naverMapView.mapView.moveCamera(cameraUpdate)
+                let orangeLocationOverlayImage = rootView.locationOverlayImage
+                rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
             }
-            let cameraUpdate = NMFCameraUpdate(heading: currentHeading)
-            cameraUpdate.reason = 10
-            cameraUpdate.animation = .easeOut
-            rootView.naverMapView.mapView.moveCamera(cameraUpdate)
-            let orangeLocationOverlayImage = rootView.locationOverlayImage
-            rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
         }
     }
     
     private func bindData() {
-        viewModel.startLoading.subscribe(onNext: {
+        viewModel.startLoading
+            .asDriver(onErrorJustReturn: ())
+            .drive(onNext: { [weak self] in
+            guard let self else { return }
             self.view.startLoading()
         }).disposed(by: disposeBag)
         
-        viewModel.stopLoading.subscribe(onNext: {
-            self.view.stopLoading()
-        }).disposed(by: disposeBag)
-        
-        viewModel.networkFailureSubject
-            .subscribe(onNext: { [weak self] in
+        viewModel.stopLoading
+            .asDriver(onErrorJustReturn: ())
+            .drive(onNext: { [weak self] in
                 guard let self else { return }
                 self.view.stopLoading()
             }).disposed(by: disposeBag)
         
-        viewModel.locationServiceDisabledRelay
+        viewModel.networkFailureSubject
+            .asDriver(onErrorJustReturn: ())
+            .drive(onNext: { [weak self] in
+                guard let self else { return }
+                self.view.stopLoading()
+            }).disposed(by: disposeBag)
+        
+        viewModel.locationServicesDisabledRelay
             .observe(on: ConcurrentMainScheduler.instance)
             .subscribe { [weak self] _ in
                 guard let self else { return }
-                self.showToast(message: "위치 기능이 비활성화되었습니다.\n탐험을 인증하기 위해서는 위치 기능을 활성화해 주세요.", inset: 66)
+                self.showToast(message: AlertMessage.locationServicesDisabledMessage, inset: 66)
             }.disposed(by: disposeBag)
         
-        viewModel.shouldRequestLocationAuthorization
-            .observe(on: ConcurrentMainScheduler.instance)
-            .subscribe { _ in
+        viewModel.locationUnauthorizedMessage
+            .asDriver(onErrorJustReturn: "")
+            .drive { [weak self] message in
+                guard let self else { return }
+                self.viewModel.isCompassMode = false
                 let alertController = ORBAlertController(
-                    title: "위치 접근 권한이 막혀있습니다.",
-                    message: "위치 정보 권한을 허용해 주세요", type: .normal
+                    title: AlertMessage.locationUnauthorizedTitle,
+                    message: message, type: .normal
                 )
                 let okAction = ORBAlertAction(title: "확인", style: .default) { _ in return }
                 alertController.addAction(okAction)
@@ -195,12 +209,21 @@ extension ORBMapViewController {
         
         rootView.switchTrackingModeButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
-            switch self.viewModel.locationManager.authorizationStatus {
-            case .authorizedAlways, .authorizedWhenInUse:
-                self.switchTrackingMode()
-            default:
-                self.viewModel.requestAuthorization()
-                return
+            
+            self.viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
+                guard let self else { return }
+                switch authorizationCase {
+                case .notDetermined:
+                    return
+                case .fullAccuracy:
+                    self.switchTrackingMode()
+                case .reducedAccuracy:
+                    self.switchTrackingMode()
+                case .denied, .restricted:
+                    self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationUnauthorizedMessage)
+                case .servicesDisabled:
+                    self.viewModel.locationServicesDisabledRelay.accept(())
+                }
             }
         }.disposed(by: disposeBag)
         
@@ -218,10 +241,21 @@ extension ORBMapViewController {
     private func setupTooltipAction() {
         rootView.tooltip.exploreButton.rx.tap.bind(onNext: { [weak self] _ in
             guard let self else { return }
-            if CLLocationManager.locationServicesEnabled() {
-                self.viewModel.authenticatePlaceAdventure(placeInfo: selectedMarker!.placeInfo)
-            } else {
-                viewModel.locationServiceDisabledRelay.accept(())
+            
+            self.viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
+                guard let self else { return }
+                switch authorizationCase {
+                case .notDetermined:
+                    return
+                case .fullAccuracy:
+                    self.viewModel.authenticatePlaceAdventure(placeInfo: selectedMarker!.placeInfo)
+                case .reducedAccuracy:
+                    self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationReducedAccuracyMessage)
+                case .denied, .restricted:
+                    self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationUnauthorizedAdventureMessage)
+                case .servicesDisabled:
+                    self.viewModel.locationServicesDisabledRelay.accept(())
+                }
             }
         }).disposed(by: disposeBag)
         
@@ -276,8 +310,11 @@ extension ORBMapViewController {
         cameraUpdate.reason = reason
         cameraUpdate.animation = .easeOut
         cameraUpdate.animationDuration = animationDuration
-        rootView.naverMapView.mapView.moveCamera(cameraUpdate) { isCancelled in
-            completion?(isCancelled)
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.rootView.naverMapView.mapView.moveCamera(cameraUpdate) { isCancelled in
+                completion?(isCancelled)
+            }
         }
     }
     
@@ -449,6 +486,13 @@ extension ORBMapViewController {
         tooltipHidingAnimator.startAnimation()
     }
     
+    private func setLocationOverlayHiddenState(to isHidden: Bool) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.rootView.naverMapView.mapView.locationOverlay.hidden = isHidden
+        }
+    }
+    
 }
 
 //MARK: - NMFMapViewCameraDelegate
@@ -541,42 +585,37 @@ extension ORBMapViewController: CLLocationManagerDelegate {
         let currentHeading = newHeading.trueHeading
         
         rootView.naverMapView.mapView.locationOverlay.heading = currentHeading
-        let orangeLocationOverlayImage = rootView.locationOverlayImage
-        rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+        let purpleLocationOverlayImage = rootView.locationOverlayImage
+        rootView.naverMapView.mapView.locationOverlay.icon = purpleLocationOverlayImage
         
         guard viewModel.isCompassMode else { return }
         let cameraUpdate = NMFCameraUpdate(heading: currentHeading)
         cameraUpdate.reason = 10
         cameraUpdate.animation = .easeOut
         rootView.naverMapView.mapView.moveCamera(cameraUpdate)
-        rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+        rootView.naverMapView.mapView.locationOverlay.icon = purpleLocationOverlayImage
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-            
-            // 가족 공유 등의 기능에서 부모 혹은 보호자가 앱을 사용할 수 없도록 제한했을 때
-        case .restricted:
-            viewModel.shouldRequestLocationAuthorization.accept(())
-            
-            /*
-             - 사용자가 앱에 위치 사용 권한을 허용하지 않은 경우
-             - 위치 서비스를 끈 경우
-             - 비행기 모드로 인해 위치 서비스 사용이 불가한 경우
-             */
-        case .denied:
-            if CLLocationManager.locationServicesEnabled() {
-                viewModel.shouldRequestLocationAuthorization.accept(())
-            } else {
-                viewModel.locationServiceDisabledRelay.accept(())
+        viewModel.checkLocationAuthorizationStatus { authorizationCase in
+            switch authorizationCase {
+            case .notDetermined, .reducedAccuracy:
+                return
+            case .fullAccuracy:
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    self.hideTooltip()
+                    self.focusToMyPosition()
+                    self.rootView.naverMapView.mapView.positionMode = .direction
+                    self.setLocationOverlayHiddenState(to: false)
+                }
+            case .denied, .restricted:
+                self.showToast(message: AlertMessage.locationUnauthorizedAdventureMessage, inset: 66)
+                self.setLocationOverlayHiddenState(to: true)
+            case .servicesDisabled:
+                self.viewModel.locationServicesDisabledRelay.accept(())
+                self.setLocationOverlayHiddenState(to: true)
             }
-        case .authorizedAlways, .authorizedWhenInUse:
-            focusToMyPosition()
-            rootView.naverMapView.mapView.positionMode = .direction
-        @unknown default:
-            return
         }
     }
     
