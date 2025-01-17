@@ -21,6 +21,7 @@ class PlaceListViewController: UIViewController {
     var pageViewController: UIPageViewController {
         rootView.pageViewController
     }
+    var distanceCursor: Double?
     
     let operationQueue = OperationQueue()
     
@@ -115,16 +116,24 @@ extension PlaceListViewController {
         )
         
         rootView.pageViewController.view.startLoading(withoutShading: true)
-        placeService.getRegisteredPlace(requestDTO: placeRequestDTO) { [weak self] result in
+        
+        NetworkService.shared.placeService.getRegisteredListPlaces(
+            latitude: currentCoordinate.latitude,
+            longitude: currentCoordinate.longitude,
+            limit: 30,
+            cursorDistance: distanceCursor
+        ) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success(let response):
-                guard let responsePlaceArray = response?.data.places else { return }
-                places = responsePlaceArray
-                rootView.pageViewController.view.stopLoading()
-
+                guard let responsePlaces = response?.data.places else { return }
+                
+                places = responsePlaces
+                
                 self.rootView.allPlaceListCollectionView.reloadData()
                 self.rootView.placeNeverVisitedListCollectionView.reloadData()
+                
+                rootView.pageViewController.view.stopLoading()
                 
                 self.rootView.segmentedControl.isUserInteractionEnabled = true
                 self.rootView.pageViewController.view.isUserInteractionEnabled = true
