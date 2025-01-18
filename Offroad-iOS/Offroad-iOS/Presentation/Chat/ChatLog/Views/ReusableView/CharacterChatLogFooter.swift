@@ -9,10 +9,13 @@ import UIKit
 
 class CharacterChatLogFooter: UICollectionReusableView {
     
-    //MARK: - UI Properties
+    //MARK: - Properties
     
     private let verticalFlipTransform = CGAffineTransform(scaleX: 1, y: -1)
     
+    //MARK: - UI Properties
+    
+    let contentView = UIView()
     let dateLabel = UILabel()
     private let separator = UIView()
     
@@ -28,11 +31,6 @@ class CharacterChatLogFooter: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        transform = verticalFlipTransform
-        super.layoutSubviews()
-    }
-    
 }
 
 extension CharacterChatLogFooter {
@@ -40,6 +38,11 @@ extension CharacterChatLogFooter {
     //MARK: - Layout Func
     
     private func setupLayout() {
+        contentView.transform = verticalFlipTransform
+        contentView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         dateLabel.snp.makeConstraints { make in
             make.centerX.top.equalToSuperview()
             make.height.equalTo(19)
@@ -67,6 +70,7 @@ extension CharacterChatLogFooter {
     }
     
     private func setupHierarchy() {
-        addSubviews(dateLabel, separator)
+        addSubview(contentView)
+        contentView.addSubviews(dateLabel, separator)
     }
 }

@@ -66,6 +66,8 @@ extension CharacterChatLogCell {
     //MARK: - Layout Func
     
     private func setupLayout() {
+        contentView.transform = verticalFlipTransform
+        
         characternameLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
         characternameLabel.snp.makeConstraints { make in
             make.bottom.lessThanOrEqualToSuperview().offset(-14)
@@ -84,7 +86,6 @@ extension CharacterChatLogCell {
     //MARK: - Private Func
     
     private func setupStyle() {
-        contentView.transform = verticalFlipTransform
         chatBubbleView.backgroundColor = .main(.main3)
         chatBubbleView.roundCorners(cornerRadius: 14)
         chatBubbleView.layer.borderColor = UIColor.neutral(.btnInactive).cgColor
