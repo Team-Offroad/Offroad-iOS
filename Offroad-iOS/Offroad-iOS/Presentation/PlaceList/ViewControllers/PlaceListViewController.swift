@@ -13,25 +13,25 @@ class PlaceListViewController: UIViewController {
     
     //MARK: - Properties
     
-    let locationManager = CLLocationManager()
-    var places: [RegisteredPlaceInfo] = []
-    var unvisitedPlaces: [RegisteredPlaceInfo] { places.filter { $0.visitCount == 0 } }
-    var currentCoordinate: CLLocationCoordinate2D {
+    private let locationManager = CLLocationManager()
+    private var places: [RegisteredPlaceInfo] = []
+    private var unvisitedPlaces: [RegisteredPlaceInfo] { places.filter { $0.visitCount == 0 } }
+    private var currentCoordinate: CLLocationCoordinate2D {
         // 사용자 위치 불러올 수 없을 시 초기 위치 설정
         // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
         locationManager.location?.coordinate ?? .init(latitude: 37.5716229, longitude: 126.9767879)
     }
-    var pageViewController: UIPageViewController {
+    private var pageViewController: UIPageViewController {
         rootView.pageViewController
     }
-    var distanceCursor: Double?
+    private var distanceCursor: Double?
     
-    let operationQueue = OperationQueue()
+    private let operationQueue = OperationQueue()
     
     //MARK: - UI Properties
     
-    let rootView = PlaceListView()
-    lazy var viewControllerList: [UIViewController] = [
+    private let rootView = PlaceListView()
+    private lazy var viewControllerList: [UIViewController] = [
         PlaceListCollectionViewController(collectionView: rootView.unvisitedPlacesCollectionView),
         PlaceListCollectionViewController(collectionView: rootView.allPlacesCollectionView)
     ]
