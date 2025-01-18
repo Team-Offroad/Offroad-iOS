@@ -103,10 +103,12 @@ extension PlaceListView {
         unvisitedPlacesCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
         unvisitedPlacesCollectionView.backgroundColor = .primary(.listBg)
         unvisitedPlacesCollectionView.indicatorStyle = .black
+        unvisitedPlacesCollectionView.setEmptyStateMessage(EmptyCaseMessage.unvisitedPlaceList)
         
         allPlacesCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
         allPlacesCollectionView.backgroundColor = .primary(.listBg)
         allPlacesCollectionView.indicatorStyle = .black
+        allPlacesCollectionView.setEmptyStateMessage(EmptyCaseMessage.placeList)
     }
     
     private func setupHierarchy() {
