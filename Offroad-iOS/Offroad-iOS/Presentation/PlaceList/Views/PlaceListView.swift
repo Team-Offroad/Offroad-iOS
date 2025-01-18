@@ -35,7 +35,7 @@ class PlaceListView: UIView {
         layout.sectionInset = .init(
             top: collectionViewVerticalInset,
             left: collectionViewHorizontalInset,
-            bottom: collectionViewVerticalInset,
+            bottom: 40,
             right: collectionViewHorizontalInset
         )
         layout.minimumLineSpacing = 16
@@ -104,11 +104,13 @@ extension PlaceListView {
         unvisitedPlacesCollectionView.backgroundColor = .primary(.listBg)
         unvisitedPlacesCollectionView.indicatorStyle = .black
         unvisitedPlacesCollectionView.setEmptyStateMessage(EmptyCaseMessage.unvisitedPlaceList)
+        unvisitedPlacesCollectionView.contentInsetAdjustmentBehavior = .never
         
         allPlacesCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
         allPlacesCollectionView.backgroundColor = .primary(.listBg)
         allPlacesCollectionView.indicatorStyle = .black
         allPlacesCollectionView.setEmptyStateMessage(EmptyCaseMessage.placeList)
+        allPlacesCollectionView.contentInsetAdjustmentBehavior = .never
     }
     
     private func setupHierarchy() {
