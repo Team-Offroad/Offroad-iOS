@@ -14,9 +14,8 @@ class PlaceListViewController: UIViewController {
     //MARK: - Properties
     
     let locationManager = CLLocationManager()
-    let placeService = RegisteredPlaceService()
     var places: [RegisteredPlaceInfo] = []
-    var placesNeverVisited: [RegisteredPlaceInfo] { places.filter { $0.visitCount == 0 } }
+    var unvisitedPlaces: [RegisteredPlaceInfo] { places.filter { $0.visitCount == 0 } }
     var currentCoordinate: CLLocationCoordinate2D {
         // 사용자 위치 불러올 수 없을 시 초기 위치 설정
         // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
@@ -33,8 +32,8 @@ class PlaceListViewController: UIViewController {
     
     let rootView = PlaceListView()
     lazy var viewControllerList: [UIViewController] = [
-        PlaceListCollectionViewController(collectionView: rootView.placeNeverVisitedListCollectionView),
-        PlaceListCollectionViewController(collectionView: rootView.allPlaceListCollectionView)
+        PlaceListCollectionViewController(collectionView: rootView.unvisitedPlacesCollectionView),
+        PlaceListCollectionViewController(collectionView: rootView.allPlacesCollectionView)
     ]
     
     //MARK: - Life Cycle
@@ -79,11 +78,11 @@ extension PlaceListViewController {
     }
     
     private func setupCollectionView() {
-        rootView.placeNeverVisitedListCollectionView.register(
+        rootView.unvisitedPlacesCollectionView.register(
             PlaceCollectionViewCell.self,
             forCellWithReuseIdentifier: PlaceCollectionViewCell.className
         )
-        rootView.allPlaceListCollectionView.register(
+        rootView.allPlacesCollectionView.register(
             PlaceCollectionViewCell.self,
             forCellWithReuseIdentifier: PlaceCollectionViewCell.className
         )
@@ -92,11 +91,11 @@ extension PlaceListViewController {
     private func setupDelegates() {
         rootView.segmentedControl.delegate = self
         
-        rootView.placeNeverVisitedListCollectionView.dataSource = self
-        rootView.placeNeverVisitedListCollectionView.delegate = self
+        rootView.unvisitedPlacesCollectionView.dataSource = self
+        rootView.unvisitedPlacesCollectionView.delegate = self
         
-        rootView.allPlaceListCollectionView.dataSource = self
-        rootView.allPlaceListCollectionView.delegate = self
+        rootView.allPlacesCollectionView.dataSource = self
+        rootView.allPlacesCollectionView.delegate = self
         
         rootView.pageViewController.dataSource = self
         rootView.pageViewController.delegate = self
@@ -107,8 +106,8 @@ extension PlaceListViewController {
         if distanceCursor == nil {
             rootView.pageViewController.view.startLoading(withoutShading: true)
         } else {
-            rootView.placeNeverVisitedListCollectionView.startScrollLoading(direction: .bottom)
-            rootView.allPlaceListCollectionView.startScrollLoading(direction: .bottom)
+            rootView.unvisitedPlacesCollectionView.startScrollLoading(direction: .bottom)
+            rootView.allPlacesCollectionView.startScrollLoading(direction: .bottom)
         }
         
         NetworkService.shared.placeService.getRegisteredListPlaces(
@@ -121,8 +120,8 @@ extension PlaceListViewController {
             
             defer {
                 rootView.pageViewController.view.stopLoading()
-                rootView.placeNeverVisitedListCollectionView.stopScrollLoading(direction: .bottom)
-                rootView.allPlaceListCollectionView.stopScrollLoading(direction: .bottom)
+                rootView.unvisitedPlacesCollectionView.stopScrollLoading(direction: .bottom)
+                rootView.allPlacesCollectionView.stopScrollLoading(direction: .bottom)
                 
                 self.rootView.segmentedControl.isUserInteractionEnabled = true
                 self.rootView.pageViewController.view.isUserInteractionEnabled = true
@@ -141,18 +140,18 @@ extension PlaceListViewController {
                         return IndexPath(item: self.places.count + $0, section: 0)
                     }
                 
-                let newPlacesNeverVistedCount = responsePlaces.filter({ $0.visitCount == 0 }).count
-                let newIndexPathsForNeverVisted: [IndexPath] = (0..<newPlacesNeverVistedCount)
+                let newUnvisitedPlacesCount = responsePlaces.filter({ $0.visitCount == 0 }).count
+                let newIndexPathsForUnvisted: [IndexPath] = (0..<newUnvisitedPlacesCount)
                     .map { [weak self] in
                         guard let self else { return [] }
-                        return IndexPath(item: self.placesNeverVisited.count + $0, section: 0)
+                        return IndexPath(item: self.unvisitedPlaces.count + $0, section: 0)
                     }
                 
                 places.append(contentsOf: responsePlaces)
                 distanceCursor = responsePlaces.last?.distanceFromUser
                 
-                self.rootView.allPlaceListCollectionView.insertItems(at: newIndexPathsForAllPlaces)
-                self.rootView.placeNeverVisitedListCollectionView.insertItems(at: newIndexPathsForNeverVisted)
+                self.rootView.allPlacesCollectionView.insertItems(at: newIndexPathsForAllPlaces)
+                self.rootView.unvisitedPlacesCollectionView.insertItems(at: newIndexPathsForUnvisted)
                 
             default:
                 return
@@ -201,8 +200,8 @@ extension PlaceListViewController: ORBSegmentedControlDelegate {
 extension PlaceListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == rootView.placeNeverVisitedListCollectionView {
-            return placesNeverVisited.count
+        if collectionView == rootView.unvisitedPlacesCollectionView {
+            return unvisitedPlaces.count
         } else {
             return places.count
         }
@@ -214,9 +213,9 @@ extension PlaceListViewController: UICollectionViewDataSource {
             for: indexPath
         ) as? PlaceCollectionViewCell else { fatalError("cell dequeing Failed!") }
         
-        if collectionView == rootView.placeNeverVisitedListCollectionView {
-            cell.configureCell(with: placesNeverVisited[indexPath.item], showingVisitingCount: false)
-        } else if collectionView == rootView.allPlaceListCollectionView {
+        if collectionView == rootView.unvisitedPlacesCollectionView {
+            cell.configureCell(with: unvisitedPlaces[indexPath.item], showingVisitingCount: false)
+        } else if collectionView == rootView.allPlacesCollectionView {
             cell.configureCell(with: places[indexPath.item], showingVisitingCount: true)
         }
         return cell
@@ -255,10 +254,10 @@ extension PlaceListViewController: UICollectionViewDelegate {
     ) {
         
         var shouldLoadMorePlaces: Bool {
-            (collectionView == rootView.placeNeverVisitedListCollectionView
-             && indexPath.item == placesNeverVisited.count - 1)
+            (collectionView == rootView.unvisitedPlacesCollectionView
+             && indexPath.item == unvisitedPlaces.count - 1)
             ||
-            (collectionView == rootView.allPlaceListCollectionView
+            (collectionView == rootView.allPlacesCollectionView
              && indexPath.item == places.count - 1)
         }
         

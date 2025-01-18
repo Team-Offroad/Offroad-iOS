@@ -22,8 +22,8 @@ class PlaceListView: UIView {
     private let separator = UIView()
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     
-    var placeNeverVisitedListCollectionView: ScrollLoadingCollectionView!
-    var allPlaceListCollectionView: ScrollLoadingCollectionView!
+    var unvisitedPlacesCollectionView: ScrollLoadingCollectionView!
+    var allPlacesCollectionView: ScrollLoadingCollectionView!
     
     private var layoutMaker: UICollectionViewFlowLayout {
         let collectionViewHorizontalInset: CGFloat = 24
@@ -100,13 +100,13 @@ extension PlaceListView {
             view.backgroundColor = .grayscale(.gray100)
         }
         
-        placeNeverVisitedListCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
-        placeNeverVisitedListCollectionView.backgroundColor = .primary(.listBg)
-        placeNeverVisitedListCollectionView.indicatorStyle = .black
+        unvisitedPlacesCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
+        unvisitedPlacesCollectionView.backgroundColor = .primary(.listBg)
+        unvisitedPlacesCollectionView.indicatorStyle = .black
         
-        allPlaceListCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
-        allPlaceListCollectionView.backgroundColor = .primary(.listBg)
-        allPlaceListCollectionView.indicatorStyle = .black
+        allPlacesCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
+        allPlacesCollectionView.backgroundColor = .primary(.listBg)
+        allPlacesCollectionView.indicatorStyle = .black
     }
     
     private func setupHierarchy() {
