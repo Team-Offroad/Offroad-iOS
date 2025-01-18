@@ -14,8 +14,10 @@ class PlaceListViewController: UIViewController {
     //MARK: - Properties
     
     private let locationManager = CLLocationManager()
-    private var places: [RegisteredPlaceInfo] = []
-    private var unvisitedPlaces: [RegisteredPlaceInfo] { places.filter { $0.visitCount == 0 } }
+    private var places: [RegisteredPlaceInfo] = [] {
+        didSet { unvisitedPlaces = places.filter { $0.visitCount == 0 } }
+    }
+    private var unvisitedPlaces: [RegisteredPlaceInfo] = []// { places.filter { $0.visitCount == 0 } }
     private var currentCoordinate: CLLocationCoordinate2D {
         // 사용자 위치 불러올 수 없을 시 초기 위치 설정
         // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
@@ -147,11 +149,22 @@ extension PlaceListViewController {
                         return IndexPath(item: self.unvisitedPlaces.count + $0, section: 0)
                     }
                 
-                places.append(contentsOf: responsePlaces)
                 distanceCursor = responsePlaces.last?.distanceFromUser
+                places.append(contentsOf: responsePlaces)
                 
-                self.rootView.allPlacesCollectionView.insertItems(at: newIndexPathsForAllPlaces)
-                self.rootView.unvisitedPlacesCollectionView.insertItems(at: newIndexPathsForUnvisted)
+                /*
+                 MARK: iOS 17 버전의 시뮬레이터에서 collectionView에 insertItems를 적용하니 Invalid Batch Updates 에러가 발생하는 것을 확인하였음.
+                 앱의 자연스러운 동작을 위해서는 insertItems를 사용하는 것이 좋으니 iOS 18에서는 insertItems를 사용하되,
+                 iOS 17까지의 버전에서는 에러를 막기 위해 reloadData()를 사용.
+                 당장 문제의 원인을 찾지는 못했으나 지속해서 찾아볼 예정.
+                 */
+                if #available(iOS 18, *) {
+                    self.rootView.allPlacesCollectionView.insertItems(at: newIndexPathsForAllPlaces)
+                    self.rootView.unvisitedPlacesCollectionView.insertItems(at: newIndexPathsForUnvisted)
+                } else {
+                    self.rootView.allPlacesCollectionView.reloadData()
+                    self.rootView.unvisitedPlacesCollectionView.reloadData()
+                }
                 
             default:
                 return
