@@ -72,10 +72,6 @@ extension PlaceListViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc private func refreshCollectionView() {
-        reloadCollectionViewData(limit: 100, isBounded: false)
-    }
-    
     //MARK: - Private Func
         
     private func setupButtonsActions() {
