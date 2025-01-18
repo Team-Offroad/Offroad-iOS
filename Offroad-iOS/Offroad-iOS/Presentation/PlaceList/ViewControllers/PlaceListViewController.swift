@@ -51,7 +51,7 @@ class PlaceListViewController: UIViewController {
         setupDelegates()
         setPageViewControllerPage(to: 0)
         
-        reloadCollectionViewData(limit: 100, isBounded: false)
+        loadAdditionalPlaces(limit: 12)
         rootView.segmentedControl.selectSegment(index: 0)
     }
     
@@ -102,34 +102,59 @@ extension PlaceListViewController {
         rootView.pageViewController.delegate = self
     }
     
-    private func reloadCollectionViewData(coordinate: CLLocationCoordinate2D? = nil, limit: Int, isBounded: Bool) {
+    private func loadAdditionalPlaces(limit: Int) {
         rootView.segmentedControl.isUserInteractionEnabled = false
-        rootView.pageViewController.view.isUserInteractionEnabled = false
-        rootView.pageViewController.view.startLoading(withoutShading: true)
+        if distanceCursor == nil {
+            rootView.pageViewController.view.startLoading(withoutShading: true)
+        } else {
+            rootView.placeNeverVisitedListCollectionView.startScrollLoading(direction: .bottom)
+            rootView.allPlaceListCollectionView.startScrollLoading(direction: .bottom)
+        }
         
         NetworkService.shared.placeService.getRegisteredListPlaces(
             latitude: currentCoordinate.latitude,
             longitude: currentCoordinate.longitude,
-            limit: 30,
+            limit: limit,
             cursorDistance: distanceCursor
         ) { [weak self] result in
             guard let self else { return }
-            switch result {
-            case .success(let response):
-                guard let responsePlaces = response?.data.places else { return }
-                
-                places = responsePlaces
-                
-                self.rootView.allPlaceListCollectionView.reloadData()
-                self.rootView.placeNeverVisitedListCollectionView.reloadData()
-                
+            
+            defer {
                 rootView.pageViewController.view.stopLoading()
+                rootView.placeNeverVisitedListCollectionView.stopScrollLoading(direction: .bottom)
+                rootView.allPlaceListCollectionView.stopScrollLoading(direction: .bottom)
                 
                 self.rootView.segmentedControl.isUserInteractionEnabled = true
                 self.rootView.pageViewController.view.isUserInteractionEnabled = true
+            }
+            
+            switch result {
+            case .success(let response):
+                guard let responsePlaces = response?.data.places else { return }
+                guard responsePlaces.count != 0 else {
+                    return
+                }
+                
+                let newIndexPathsForAllPlaces: [IndexPath] = (0..<responsePlaces.count)
+                    .map { [weak self] in
+                        guard let self else { return [] }
+                        return IndexPath(item: self.places.count + $0, section: 0)
+                    }
+                
+                let newPlacesNeverVistedCount = responsePlaces.filter({ $0.visitCount == 0 }).count
+                let newIndexPathsForNeverVisted: [IndexPath] = (0..<newPlacesNeverVistedCount)
+                    .map { [weak self] in
+                        guard let self else { return [] }
+                        return IndexPath(item: self.placesNeverVisited.count + $0, section: 0)
+                    }
+                
+                places.append(contentsOf: responsePlaces)
+                distanceCursor = responsePlaces.last?.distanceFromUser
+                
+                self.rootView.allPlaceListCollectionView.insertItems(at: newIndexPathsForAllPlaces)
+                self.rootView.placeNeverVisitedListCollectionView.insertItems(at: newIndexPathsForNeverVisted)
                 
             default:
-                rootView.pageViewController.view.stopLoading()
                 return
             }
         }
@@ -221,6 +246,25 @@ extension PlaceListViewController: UICollectionViewDelegate {
         operationQueue.addOperation(animationOperation)
         return false
     }
+    
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        
+        var shouldLoadMorePlaces: Bool {
+            (collectionView == rootView.placeNeverVisitedListCollectionView
+             && indexPath.item == placesNeverVisited.count - 1)
+            ||
+            (collectionView == rootView.allPlaceListCollectionView
+             && indexPath.item == places.count - 1)
+        }
+        
+        if shouldLoadMorePlaces { loadAdditionalPlaces(limit: 12) }
+    }
+    
     
 }
 

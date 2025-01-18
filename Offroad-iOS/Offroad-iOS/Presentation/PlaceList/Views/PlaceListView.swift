@@ -22,8 +22,8 @@ class PlaceListView: UIView {
     private let separator = UIView()
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     
-    var placeNeverVisitedListCollectionView: UICollectionView!
-    var allPlaceListCollectionView: UICollectionView!
+    var placeNeverVisitedListCollectionView: ScrollLoadingCollectionView!
+    var allPlaceListCollectionView: ScrollLoadingCollectionView!
     
     private var layoutMaker: UICollectionViewFlowLayout {
         let collectionViewHorizontalInset: CGFloat = 24
@@ -100,11 +100,11 @@ extension PlaceListView {
             view.backgroundColor = .grayscale(.gray100)
         }
         
-        placeNeverVisitedListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
+        placeNeverVisitedListCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
         placeNeverVisitedListCollectionView.backgroundColor = .primary(.listBg)
         placeNeverVisitedListCollectionView.indicatorStyle = .black
         
-        allPlaceListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
+        allPlaceListCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
         allPlaceListCollectionView.backgroundColor = .primary(.listBg)
         allPlaceListCollectionView.indicatorStyle = .black
     }
