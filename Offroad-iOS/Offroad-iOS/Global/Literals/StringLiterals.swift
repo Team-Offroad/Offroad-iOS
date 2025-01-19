@@ -29,8 +29,8 @@ struct AlertMessage {
     static let locationUnauthorizedTitle = "위치 서비스 설정"
     static let locationUnauthorizedMessage = "위치 확인을 위해서는 설정에서 위치 접근을 허용해 주세요."
     static let locationUnauthorizedAdventureMessage = "위치정보 사용 동의 후 이용 가능합니다."
-    static let locationServicesDisabledMessage = "위치 기능이 비활성화되어 있습니다.\n탐험을 인증하기 위해서는 위치 기능을 활성화해 주세요."
-    static let locationReducedAccuracyMessage = "\"정확한 위치\" 기능이 꺼져 있습니다. 탐험을 위해서는 정확한 위치 접근을 허용해 주세요."
+    static let locationServicesDisabledMessage = "모험가님의 위치를 찾을 수 없어요.\n탐험을 위해서 위치 기능을 활성화해주세요."
+    static let locationReducedAccuracyMessage = "모험가님의 정확한 위치를 찾을 수 없어요.\n탐험을 위해서 정확한 위치 접근 권한을 허용해주세요."
 }
 
 struct LoadingMessage {
