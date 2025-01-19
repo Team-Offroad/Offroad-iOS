@@ -17,12 +17,12 @@ enum buttonState {
 /// - Parameter state: button의 활성화 여부
 /// - Parameter title: button의 title에 들어갈 문구
 /// > 사용 예시 :  `private let button: StateToggleButton = StateToggleButton(state: .isEnabled, title: "다음")`
-final class StateToggleButton: UIButton {
+final class StateToggleButton: ShrinkableButton {
     
     // MARK: - Life Cycle
 
     init(state: buttonState, title: String) {
-        super.init(frame: .zero)
+        super.init(shrinkScale: 0.95)
         
         setupStyle(forState: state, forTitle: title)
     }
