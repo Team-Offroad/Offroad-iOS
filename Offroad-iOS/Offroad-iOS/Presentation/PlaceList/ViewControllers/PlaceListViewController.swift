@@ -13,23 +13,29 @@ class PlaceListViewController: UIViewController {
     
     //MARK: - Properties
     
-    let locationManager = CLLocationManager()
-    let placeService = RegisteredPlaceService()
-    var places: [RegisteredPlaceInfo] = []
-    var placesNeverVisited: [RegisteredPlaceInfo] { places.filter { $0.visitCount == 0 } }
-    var currentCoordinate: CLLocationCoordinate2D? { locationManager.location?.coordinate }
-    var pageViewController: UIPageViewController {
+    private let locationManager = CLLocationManager()
+    private var places: [RegisteredPlaceInfo] = [] {
+        didSet { unvisitedPlaces = places.filter { $0.visitCount == 0 } }
+    }
+    private var unvisitedPlaces: [RegisteredPlaceInfo] = []// { places.filter { $0.visitCount == 0 } }
+    private var currentCoordinate: CLLocationCoordinate2D {
+        // 사용자 위치 불러올 수 없을 시 초기 위치 설정
+        // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
+        locationManager.location?.coordinate ?? .init(latitude: 37.5716229, longitude: 126.9767879)
+    }
+    private var pageViewController: UIPageViewController {
         rootView.pageViewController
     }
+    private var distanceCursor: Double?
     
-    let operationQueue = OperationQueue()
+    private let operationQueue = OperationQueue()
     
     //MARK: - UI Properties
     
-    let rootView = PlaceListView()
-    lazy var viewControllerList: [UIViewController] = [
-        PlaceListCollectionViewController(collectionView: rootView.placeNeverVisitedListCollectionView),
-        PlaceListCollectionViewController(collectionView: rootView.allPlaceListCollectionView)
+    private let rootView = PlaceListView()
+    private lazy var viewControllerList: [UIViewController] = [
+        PlaceListCollectionViewController(collectionView: rootView.unvisitedPlacesCollectionView),
+        PlaceListCollectionViewController(collectionView: rootView.allPlacesCollectionView)
     ]
     
     //MARK: - Life Cycle
@@ -46,7 +52,7 @@ class PlaceListViewController: UIViewController {
         setupDelegates()
         setPageViewControllerPage(to: 0)
         
-        reloadCollectionViewData(limit: 100, isBounded: false)
+        loadAdditionalPlaces(limit: 12)
         rootView.segmentedControl.selectSegment(index: 0)
     }
     
@@ -67,10 +73,6 @@ extension PlaceListViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc private func refreshCollectionView() {
-        reloadCollectionViewData(limit: 100, isBounded: false)
-    }
-    
     //MARK: - Private Func
         
     private func setupButtonsActions() {
@@ -78,11 +80,11 @@ extension PlaceListViewController {
     }
     
     private func setupCollectionView() {
-        rootView.placeNeverVisitedListCollectionView.register(
+        rootView.unvisitedPlacesCollectionView.register(
             PlaceCollectionViewCell.self,
             forCellWithReuseIdentifier: PlaceCollectionViewCell.className
         )
-        rootView.allPlaceListCollectionView.register(
+        rootView.allPlacesCollectionView.register(
             PlaceCollectionViewCell.self,
             forCellWithReuseIdentifier: PlaceCollectionViewCell.className
         )
@@ -91,46 +93,80 @@ extension PlaceListViewController {
     private func setupDelegates() {
         rootView.segmentedControl.delegate = self
         
-        rootView.placeNeverVisitedListCollectionView.dataSource = self
-        rootView.placeNeverVisitedListCollectionView.delegate = self
+        rootView.unvisitedPlacesCollectionView.dataSource = self
+        rootView.unvisitedPlacesCollectionView.delegate = self
         
-        rootView.allPlaceListCollectionView.dataSource = self
-        rootView.allPlaceListCollectionView.delegate = self
+        rootView.allPlacesCollectionView.dataSource = self
+        rootView.allPlacesCollectionView.delegate = self
         
         rootView.pageViewController.dataSource = self
         rootView.pageViewController.delegate = self
     }
     
-    private func reloadCollectionViewData(coordinate: CLLocationCoordinate2D? = nil, limit: Int, isBounded: Bool) {
+    private func loadAdditionalPlaces(limit: Int) {
         rootView.segmentedControl.isUserInteractionEnabled = false
-        rootView.pageViewController.view.isUserInteractionEnabled = false
-        // 사용자 위치 불러올 수 없을 시 초기 위치 설정
-        // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
-        let currentCoordinate = currentCoordinate ?? .init(latitude: 37.5716229, longitude: 126.9767879)
-        let placeRequestDTO = RegisteredPlaceRequestDTO(
-            currentLatitude: currentCoordinate.latitude,
-            currentLongitude: currentCoordinate.longitude,
-            limit: limit,
-            isBounded: isBounded
-        )
+        if distanceCursor == nil {
+            rootView.pageViewController.view.startLoading(withoutShading: true)
+        } else {
+            rootView.unvisitedPlacesCollectionView.startScrollLoading(direction: .bottom)
+            rootView.allPlacesCollectionView.startScrollLoading(direction: .bottom)
+        }
         
-        rootView.pageViewController.view.startLoading(withoutShading: true)
-        placeService.getRegisteredPlace(requestDTO: placeRequestDTO) { [weak self] result in
+        NetworkService.shared.placeService.getRegisteredListPlaces(
+            latitude: currentCoordinate.latitude,
+            longitude: currentCoordinate.longitude,
+            limit: limit,
+            cursorDistance: distanceCursor
+        ) { [weak self] result in
             guard let self else { return }
-            switch result {
-            case .success(let response):
-                guard let responsePlaceArray = response?.data.places else { return }
-                places = responsePlaceArray
+            
+            defer {
                 rootView.pageViewController.view.stopLoading()
-
-                self.rootView.allPlaceListCollectionView.reloadData()
-                self.rootView.placeNeverVisitedListCollectionView.reloadData()
+                rootView.unvisitedPlacesCollectionView.stopScrollLoading(direction: .bottom)
+                rootView.allPlacesCollectionView.stopScrollLoading(direction: .bottom)
                 
                 self.rootView.segmentedControl.isUserInteractionEnabled = true
                 self.rootView.pageViewController.view.isUserInteractionEnabled = true
+            }
+            
+            switch result {
+            case .success(let response):
+                guard let responsePlaces = response?.data.places else { return }
+                guard responsePlaces.count != 0 else {
+                    return
+                }
+                
+                let newIndexPathsForAllPlaces: [IndexPath] = (0..<responsePlaces.count)
+                    .map { [weak self] in
+                        guard let self else { return [] }
+                        return IndexPath(item: self.places.count + $0, section: 0)
+                    }
+                
+                let newUnvisitedPlacesCount = responsePlaces.filter({ $0.visitCount == 0 }).count
+                let newIndexPathsForUnvisted: [IndexPath] = (0..<newUnvisitedPlacesCount)
+                    .map { [weak self] in
+                        guard let self else { return [] }
+                        return IndexPath(item: self.unvisitedPlaces.count + $0, section: 0)
+                    }
+                
+                distanceCursor = responsePlaces.last?.distanceFromUser
+                places.append(contentsOf: responsePlaces)
+                
+                /*
+                 MARK: iOS 17 버전의 시뮬레이터에서 collectionView에 insertItems를 적용하니 Invalid Batch Updates 에러가 발생하는 것을 확인하였음.
+                 앱의 자연스러운 동작을 위해서는 insertItems를 사용하는 것이 좋으니 iOS 18에서는 insertItems를 사용하되,
+                 iOS 17까지의 버전에서는 에러를 막기 위해 reloadData()를 사용.
+                 당장 문제의 원인을 찾지는 못했으나 지속해서 찾아볼 예정.
+                 */
+                if #available(iOS 18, *) {
+                    self.rootView.allPlacesCollectionView.insertItems(at: newIndexPathsForAllPlaces)
+                    self.rootView.unvisitedPlacesCollectionView.insertItems(at: newIndexPathsForUnvisted)
+                } else {
+                    self.rootView.allPlacesCollectionView.reloadData()
+                    self.rootView.unvisitedPlacesCollectionView.reloadData()
+                }
                 
             default:
-                rootView.pageViewController.view.stopLoading()
                 return
             }
         }
@@ -177,8 +213,8 @@ extension PlaceListViewController: ORBSegmentedControlDelegate {
 extension PlaceListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == rootView.placeNeverVisitedListCollectionView {
-            return placesNeverVisited.count
+        if collectionView == rootView.unvisitedPlacesCollectionView {
+            return unvisitedPlaces.count
         } else {
             return places.count
         }
@@ -190,9 +226,9 @@ extension PlaceListViewController: UICollectionViewDataSource {
             for: indexPath
         ) as? PlaceCollectionViewCell else { fatalError("cell dequeing Failed!") }
         
-        if collectionView == rootView.placeNeverVisitedListCollectionView {
-            cell.configureCell(with: placesNeverVisited[indexPath.item], showingVisitingCount: false)
-        } else if collectionView == rootView.allPlaceListCollectionView {
+        if collectionView == rootView.unvisitedPlacesCollectionView {
+            cell.configureCell(with: unvisitedPlaces[indexPath.item], showingVisitingCount: false)
+        } else if collectionView == rootView.allPlacesCollectionView {
             cell.configureCell(with: places[indexPath.item], showingVisitingCount: true)
         }
         return cell
@@ -222,6 +258,25 @@ extension PlaceListViewController: UICollectionViewDelegate {
         operationQueue.addOperation(animationOperation)
         return false
     }
+    
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) {
+        
+        var shouldLoadMorePlaces: Bool {
+            (collectionView == rootView.unvisitedPlacesCollectionView
+             && indexPath.item == unvisitedPlaces.count - 1)
+            ||
+            (collectionView == rootView.allPlacesCollectionView
+             && indexPath.item == places.count - 1)
+        }
+        
+        if shouldLoadMorePlaces { loadAdditionalPlaces(limit: 12) }
+    }
+    
     
 }
 

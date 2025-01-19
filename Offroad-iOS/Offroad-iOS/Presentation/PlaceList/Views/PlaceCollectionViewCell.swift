@@ -11,18 +11,18 @@ class PlaceCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Properties
     
-    let collectionViewHorizontalSectionInset: CGFloat = 24
-    lazy var widthConstraint = contentView.widthAnchor.constraint(
+    private let collectionViewHorizontalSectionInset: CGFloat = 24
+    private lazy var widthConstraint = contentView.widthAnchor.constraint(
         equalToConstant: UIScreen.current.bounds.width - collectionViewHorizontalSectionInset * 2
     )
-    lazy var expandedBottomConstraint = placeDescriptionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
-    lazy var shrinkedBottomConstraint = addressLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
+    private lazy var expandedBottomConstraint = placeDescriptionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
+    private lazy var shrinkedBottomConstraint = addressLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
     
-    lazy var descriptionLabelTrailingConstraintToSeparator = placeDescriptionLabel.trailingAnchor.constraint(
+    private lazy var descriptionLabelTrailingConstraintToSeparator = placeDescriptionLabel.trailingAnchor.constraint(
         equalTo: placeDesctiprionSeparator.leadingAnchor,
         constant: -10
     )
-    lazy var descriptionLabelTrailingConstraintToSuperView = placeDescriptionLabel.trailingAnchor.constraint(
+    private lazy var descriptionLabelTrailingConstraintToSuperView = placeDescriptionLabel.trailingAnchor.constraint(
         equalTo: placeDescriptionView.trailingAnchor,
         constant: -12
     )

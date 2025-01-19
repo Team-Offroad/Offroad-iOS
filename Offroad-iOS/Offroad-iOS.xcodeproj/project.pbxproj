@@ -34,7 +34,6 @@
 		4E08B95B2C5E4F860082EFB8 /* ORBSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B95A2C5E4F860082EFB8 /* ORBSegmentedControl.swift */; };
 		4E08B95F2C5E53C10082EFB8 /* ORBSegmentedControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B95E2C5E53C10082EFB8 /* ORBSegmentedControlButton.swift */; };
 		4E08B9622C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9612C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift */; };
-		4E08B9652C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9642C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift */; };
 		4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */; };
 		4E09BF572C48A5B7009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */; };
 		4E0C69692C4724A100B6453E /* ORBNMFMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69682C4724A100B6453E /* ORBNMFMarker.swift */; };
@@ -334,7 +333,6 @@
 		4E08B95A2C5E4F860082EFB8 /* ORBSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBSegmentedControl.swift; sourceTree = "<group>"; };
 		4E08B95E2C5E53C10082EFB8 /* ORBSegmentedControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBSegmentedControlButton.swift; sourceTree = "<group>"; };
 		4E08B9612C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCollectionViewCell.swift; sourceTree = "<group>"; };
-		4E08B9642C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListDummyDataManager.swift; sourceTree = "<group>"; };
 		4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationRequestDTO.swift; sourceTree = "<group>"; };
 		4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationResponsetDTO.swift; sourceTree = "<group>"; };
 		4E0C69682C4724A100B6453E /* ORBNMFMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBNMFMarker.swift; sourceTree = "<group>"; };
@@ -953,7 +951,6 @@
 		4E0394762C2AA721007F0517 /* PlaceList */ = {
 			isa = PBXGroup;
 			children = (
-				4E08B9632C5E8EB70082EFB8 /* Models */,
 				4E08B9552C5DF07F0082EFB8 /* Views */,
 				4E08B9542C5DF0780082EFB8 /* ViewControllers */,
 			);
@@ -1110,14 +1107,6 @@
 				4E08B9612C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		4E08B9632C5E8EB70082EFB8 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				4E08B9642C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		4E1E94142C3AC25000A7B08A /* ViewControllers */ = {
@@ -2909,7 +2898,6 @@
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
 				D0E796372C4536F4005B47A5 /* CharacterService.swift in Sources */,
 				8791EDF62C7E121400E7F8B9 /* CouponListViewController.swift in Sources */,
-				4E08B9652C5E8ECE0082EFB8 /* PlaceListDummyDataManager.swift in Sources */,
 				4E3A32712CE51176007228D0 /* CharacterChatPostResponseDTO.swift in Sources */,
 				4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */,
 				D0E796242C453360005B47A5 /* ProfileService.swift in Sources */,

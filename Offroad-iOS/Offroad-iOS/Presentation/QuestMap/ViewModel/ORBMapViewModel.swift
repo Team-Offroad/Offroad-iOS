@@ -115,14 +115,11 @@ extension ORBMapViewModel {
     
     func updateRegisteredPlaces(at target: NMGLatLng) {
         startLoading.accept(())
-        let requestPlaceDTO = RegisteredPlaceRequestDTO(
-            currentLatitude: target.lat,
-            currentLongitude: target.lng,
-            limit: 100,
-            isBounded: false
-        )
-        
-        NetworkService.shared.placeService.getRegisteredPlace(requestDTO: requestPlaceDTO) { [weak self] response in
+        NetworkService.shared.placeService.getRegisteredMapPlaces(
+            latitude: target.lat,
+            longitude: target.lng,
+            limit: 100
+        ) { [weak self] response in
             guard let self else { return }
             self.stopLoading.accept(())
             switch response {

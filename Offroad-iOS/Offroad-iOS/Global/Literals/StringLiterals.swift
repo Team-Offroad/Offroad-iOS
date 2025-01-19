@@ -41,8 +41,8 @@ struct LoadingMessage {
 }
 
 struct EmptyCaseMessage {
-    static let unvisitedPlaces = "대단해요! 근처에 있는 곳은 모두 탐험했어요.\n다른 곳을 둘러보세요!"
-    static let vistedPlaces = "근처에 탐험할 수 있는 장소가 없어요."
+    static let unvisitedPlaceList = "대단해요! 근처에 있는 곳은 모두 탐험했어요.\n다른 곳을 둘러보세요!"
+    static let placeList = "근처에 탐험할 수 있는 장소가 없어요."
     static let availableCoupons = "사용 가능한 쿠폰이 없어요.\n퀘스트를 클리어하고 쿠폰을 획득해 보세요!"
     static let usedCoupons = "사용 완료한 쿠폰이 없어요.\n획득한 쿠폰을 사용해 보세요!"
     static let activeQuests = "진행 중인 퀘스트가 없어요.\n탐험을 시작하고 퀘스트를 클리어해 보세요!"
