@@ -23,7 +23,7 @@ class ORBMapView: UIView {
     let markerTapBlocker = UIView()
     let shadingView = UIView()
     let tooltip: PlaceInfoTooltip = .init()
-    let reloadPlaceButton = ShrinkableButton(shrinkScale: 0.95)
+    let reloadPlaceButton = ShrinkableButton()
     let switchTrackingModeButton = UIButton()
     let listButtonStackView = UIStackView()
     let questListButton = ORBMapListButton(image: .iconListBullet, title: "퀘스트 목록")

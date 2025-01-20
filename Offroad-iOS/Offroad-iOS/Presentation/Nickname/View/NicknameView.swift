@@ -42,7 +42,7 @@ final class NicknameView: UIView {
         $0.resignFirstResponder()
     }
     
-    let checkButton = ShrinkableButton(shrinkScale: 0.95).then {
+    let checkButton = ShrinkableButton().then {
         $0.setTitle("중복확인", for: .normal)
         $0.titleLabel?.textAlignment = .center
         $0.titleLabel?.font = UIFont.offroad(style: .iosBtnSmall)

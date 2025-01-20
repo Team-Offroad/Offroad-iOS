@@ -25,8 +25,8 @@ final class TermsConsentPopupView: UIView {
     private let contentView = UIView()
     private let contentScrollView = UIScrollView()
     private let contentStackView = UIStackView()
-    let disagreeButton = ShrinkableButton(shrinkScale: 0.95)
-    let agreeButton = ShrinkableButton(shrinkScale: 0.95)
+    let disagreeButton = ShrinkableButton()
+    let agreeButton = ShrinkableButton()
     private let buttonStackView = UIStackView()
     
     // MARK: - Life Cycle

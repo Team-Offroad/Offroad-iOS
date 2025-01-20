@@ -38,12 +38,12 @@ class CharacterChatLogView: UIView {
     private let customNavigationTitleLabel = UILabel()
     
     lazy var chatLogCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layout)
-    let chatButton = ShrinkableButton()
+    let chatButton = ShrinkableButton(shrinkScale: 0.9)
     
     let userChatBoundsView = UIView()
     let userChatView = UIView()
     let userChatInputView = UITextView()
-    let sendButton = ShrinkableButton()
+    let sendButton = ShrinkableButton(shrinkScale: 0.9)
     let loadingAnimationView = LottieAnimationView(name: "loading2")
     let keyboardBackgroundView = UIView().then { $0.backgroundColor = .primary(.white) }
     
