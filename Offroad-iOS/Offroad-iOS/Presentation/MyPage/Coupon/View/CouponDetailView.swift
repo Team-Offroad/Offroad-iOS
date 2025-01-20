@@ -120,6 +120,7 @@ final class CouponDetailView: UIScrollView {
     //MARK: - Private Func
     
     private func setupStyle() {
+        delaysContentTouches = false
         showsVerticalScrollIndicator = false
         backgroundColor = UIColor.primary(.listBg)
     }
