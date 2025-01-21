@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ShrinkableButton: UIButton, ORBTouchFeedback {
+class ShrinkableButton: UIButton, Shrinkable {
     
     //MARK: - Properties
     
