@@ -12,7 +12,7 @@ class PlaceListCollectionViewController: UIViewController {
     
     //MARK: - UI Properties
     
-    let collectionView: UICollectionView
+    private let collectionView: UICollectionView
     
     //MARK: - Life Cycle
     
