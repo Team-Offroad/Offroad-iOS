@@ -12,7 +12,8 @@ import NMapsMap
 
 enum PlaceAPI {
     case getRegisteredPlaces(requestDTO: RegisteredPlaceRequestDTO)
-//    case getRegisteredPlaces(coordinate: CLLocationCoordinate2D, limit: Int, isBounded: Bool)
+    case getRegisteredMapPlaces(latitude: Double, longitude: Double, limit: Int)
+    case getRegisteredListPlaces(latitude: Double, longitude: Double, limit: Int, cursorDistance: Double?)
 }
 
 extension PlaceAPI: BaseTargetType {
@@ -36,6 +37,18 @@ extension PlaceAPI: BaseTargetType {
                 "limit": dto.limit,
                 "isBounded": dto.isBounded
             ]
+        case .getRegisteredMapPlaces(latitude: let latitude, longitude: let longitude, limit: let limit):
+            return [
+                "currentLatitude": latitude,
+                "currentLongitude": longitude,
+                "limit": limit
+            ]
+        case .getRegisteredListPlaces(latitude: let latitude, longitude: let longitude, limit: let limit, cursorDistance: let cursorDistance):
+            var dict: [String: Any] = ["currentLatitude": latitude,
+                                       "currentLongitude": longitude,
+                                       "limit": limit]
+            if let cursorDistance { dict["cursorDistance"] = cursorDistance }
+            return dict
         }
     }
     
@@ -43,12 +56,16 @@ extension PlaceAPI: BaseTargetType {
         switch self {
         case .getRegisteredPlaces:
             return "/places"
+        case .getRegisteredMapPlaces:
+            return "/places/map"
+        case .getRegisteredListPlaces:
+            return "/places/list"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getRegisteredPlaces:
+        case .getRegisteredPlaces, .getRegisteredMapPlaces, .getRegisteredListPlaces:
             return .get
         }
     }
@@ -60,6 +77,12 @@ extension PlaceAPI: BaseTargetType {
                 parameters: parameter ?? [:],
                 encoding: URLEncoding.queryString
             )
+        case .getRegisteredMapPlaces:
+            return .requestParameters(
+                parameters: parameter ?? [:],
+                encoding: URLEncoding.queryString)
+        case .getRegisteredListPlaces:
+            return .requestParameters(parameters: parameter ?? [:], encoding: URLEncoding.queryString)
         }
     }
 }

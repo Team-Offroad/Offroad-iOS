@@ -22,8 +22,8 @@ class PlaceListView: UIView {
     private let separator = UIView()
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     
-    var placeNeverVisitedListCollectionView: UICollectionView!
-    var allPlaceListCollectionView: UICollectionView!
+    var unvisitedPlacesCollectionView: ScrollLoadingCollectionView!
+    var allPlacesCollectionView: ScrollLoadingCollectionView!
     
     private var layoutMaker: UICollectionViewFlowLayout {
         let collectionViewHorizontalInset: CGFloat = 24
@@ -35,7 +35,7 @@ class PlaceListView: UIView {
         layout.sectionInset = .init(
             top: collectionViewVerticalInset,
             left: collectionViewHorizontalInset,
-            bottom: collectionViewVerticalInset,
+            bottom: 40,
             right: collectionViewHorizontalInset
         )
         layout.minimumLineSpacing = 16
@@ -100,13 +100,17 @@ extension PlaceListView {
             view.backgroundColor = .grayscale(.gray100)
         }
         
-        placeNeverVisitedListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
-        placeNeverVisitedListCollectionView.backgroundColor = .primary(.listBg)
-        placeNeverVisitedListCollectionView.indicatorStyle = .black
+        unvisitedPlacesCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
+        unvisitedPlacesCollectionView.backgroundColor = .primary(.listBg)
+        unvisitedPlacesCollectionView.indicatorStyle = .black
+        unvisitedPlacesCollectionView.setEmptyStateMessage(EmptyCaseMessage.unvisitedPlaceList)
+        unvisitedPlacesCollectionView.contentInsetAdjustmentBehavior = .never
         
-        allPlaceListCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutMaker)
-        allPlaceListCollectionView.backgroundColor = .primary(.listBg)
-        allPlaceListCollectionView.indicatorStyle = .black
+        allPlacesCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
+        allPlacesCollectionView.backgroundColor = .primary(.listBg)
+        allPlacesCollectionView.indicatorStyle = .black
+        allPlacesCollectionView.setEmptyStateMessage(EmptyCaseMessage.placeList)
+        allPlacesCollectionView.contentInsetAdjustmentBehavior = .never
     }
     
     private func setupHierarchy() {
