@@ -27,13 +27,15 @@ extension UIButton {
     
     /// UIButton의 state에 따른 배경색을 설정하는 메서드
     /// - Parameters:
-    ///   - normal: normal일 때의 font
-    ///   - highlighted: highlighted 됐을 때의 배경색
-    ///   - focused: focused 됐을 떄의 배경색
-    ///   - selected: selected 됐을 때의 배경색
-    ///   - disabled: disabled 됐을 떄의 배경색
+    ///   - normal: `normal` 상태일 때 배경색
+    ///   - highlighted: `highlighted` 상태일 때 배경색
+    ///   - focused: `focused` 상태일 때 배경색
+    ///   - selected: `selected` 상태일 때 배경색
+    ///   - disabled: `disabled` 상태일 때 배경색
+    ///   - highlightedAndSelected:`highlighted`와 `selected`가 중첩 상태일 때 배경색.
+    ///   - disabledAndSelected: `disabled`와 `selected`가 중첩 상태일 때 배경색.
     /// - Description
-    /// normal을 제외한 나머지 매개변수은 매개변수의 값이 nil일 경우 normal의 값이 할당됨.
+    /// `normal`을 제외한 나머지 매개변수은 매개변수의 값이 `nil`일 경우 `normal`의 값이 할당됨.
     func configureBackgroundColorWhen(
         normal: UIColor,
         highlighted: UIColor? = nil,
@@ -74,15 +76,17 @@ extension UIButton {
         self.configuration = newConfiguration
     }
     
-    /// UIButton의 state에 따른 title의 font를 설정하는 메서드.
+    /// `UIButton`의 `state`에 따른 `title`의 `font`를 설정하는 메서드.
     /// - Parameters:
-    ///   - normal: normal일 때의 폰트.
-    ///   - highlighted: highlight 됐을 때의 폰트.
-    ///   - focused: focused 됐을 때의 폰트.
-    ///   - selected: selected 됐을 때의 폰트.
-    ///   - disabled: disabled 됐을 때의 폰트.
+    ///   - normal: `normal` 상태일 때 title의 폰트.
+    ///   - highlighted: `highlighted` 상태일 때 title의 폰트.
+    ///   - focused: `focused` 상태일 때 title의 폰트.
+    ///   - selected: `selected` 상태일 때 title의 폰트.
+    ///   - disabled: `disabled` 상태일 때 title의 폰트.
+    ///   - highlightedAndSelected:`highlighted`와 `selected`가 중첩 상태일 때 title의 폰트.
+    ///   - disabledAndSelected: `disabled`와 `selected`가 중첩 상태일 때 title의 폰트.
     /// - Description
-    /// normal을 제외한 나머지 매개변수은 매개변수의 값이 nil일 경우 normal의 값이 할당됨.
+    /// `normal`을 제외한 나머지 매개변수은 매개변수의 값이 `nil`일 경우 `normal`의 값이 할당됨.
     func configureTitleFontWhen(
         normal: UIFont,
         highlighted: UIFont? = nil,

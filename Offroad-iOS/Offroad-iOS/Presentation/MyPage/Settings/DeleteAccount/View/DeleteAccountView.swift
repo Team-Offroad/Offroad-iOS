@@ -20,7 +20,7 @@ final class DeleteAccountView: UIView {
     let deleteAccountMessageLabel = UILabel()
     let deleteAccountMessageTextField = UITextField()
     private let deleteAccountMessageStackView = UIStackView()
-    let cancleButton = UIButton()
+    let cancleButton = ShrinkableButton()
     let deleteAccountButton = StateToggleButton(state: .isDisabled, title: "탈퇴")
     private let buttonStackView = UIStackView()
     private let mainStackView = UIStackView()

@@ -98,13 +98,13 @@
 		4EB32BEC2C67A39B003F98F2 /* QuestListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */; };
 		4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE34912C3FC73C006DB244 /* QuestQRViewController.swift */; };
 		4EBE34942C3FC749006DB244 /* QuestQRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE34932C3FC749006DB244 /* QuestQRView.swift */; };
-		4EC15AC12D2A74B200BC5826 /* ORBTouchFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC15AC02D2A74B200BC5826 /* ORBTouchFeedback.swift */; };
+		4EC15AC12D2A74B200BC5826 /* Shrinkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC15AC02D2A74B200BC5826 /* Shrinkable.swift */; };
 		4EC15AC32D2A76EA00BC5826 /* ShrinkableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC15AC22D2A76EA00BC5826 /* ShrinkableButton.swift */; };
 		4EC15ACD2D2AA3A700BC5826 /* ShrinkableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC15ACC2D2AA3A700BC5826 /* ShrinkableCollectionViewCell.swift */; };
 		4EC3EC932CA9049F008139BE /* CouponCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC3EC922CA9049F008139BE /* CouponCollectionViewController.swift */; };
 		4EC3EC952CA91A0C008139BE /* PlaceListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC3EC942CA91A0C008139BE /* PlaceListCollectionViewController.swift */; };
-		4EC4A1FE2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */; };
 		4EC4A1ED2D24380700A8C130 /* CustomIntensityBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1EC2D24380700A8C130 /* CustomIntensityBlurView.swift */; };
+		4EC4A1FE2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */; };
 		4EC6F0A62CF4747400895A87 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */; };
 		4ECCC95E2CC80088002B9C4F /* ORBToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */; };
 		4ECEEA6E2CB2C15E0029369A /* ORBTabBarShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */; };
@@ -394,13 +394,13 @@
 		4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListCollectionViewCell.swift; sourceTree = "<group>"; };
 		4EBE34912C3FC73C006DB244 /* QuestQRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestQRViewController.swift; sourceTree = "<group>"; };
 		4EBE34932C3FC749006DB244 /* QuestQRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestQRView.swift; sourceTree = "<group>"; };
-		4EC15AC02D2A74B200BC5826 /* ORBTouchFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBTouchFeedback.swift; sourceTree = "<group>"; };
+		4EC15AC02D2A74B200BC5826 /* Shrinkable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shrinkable.swift; sourceTree = "<group>"; };
 		4EC15AC22D2A76EA00BC5826 /* ShrinkableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShrinkableButton.swift; sourceTree = "<group>"; };
 		4EC15ACC2D2AA3A700BC5826 /* ShrinkableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShrinkableCollectionViewCell.swift; sourceTree = "<group>"; };
 		4EC3EC922CA9049F008139BE /* CouponCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponCollectionViewController.swift; sourceTree = "<group>"; };
 		4EC3EC942CA91A0C008139BE /* PlaceListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCollectionViewController.swift; sourceTree = "<group>"; };
-		4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewCouponRedemptionFailure.swift; sourceTree = "<group>"; };
 		4EC4A1EC2D24380700A8C130 /* CustomIntensityBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIntensityBlurView.swift; sourceTree = "<group>"; };
+		4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewCouponRedemptionFailure.swift; sourceTree = "<group>"; };
 		4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastView.swift; sourceTree = "<group>"; };
 		4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBTabBarShapeView.swift; sourceTree = "<group>"; };
@@ -770,7 +770,7 @@
 			isa = PBXGroup;
 			children = (
 				4EFD004F2CCB4C25005C294D /* SVGFetchable.swift */,
-				4EC15AC02D2A74B200BC5826 /* ORBTouchFeedback.swift */,
+				4EC15AC02D2A74B200BC5826 /* Shrinkable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -2844,7 +2844,7 @@
 				D0E796592C455100005B47A5 /* EmblemAPI.swift in Sources */,
 				D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */,
 				D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */,
-				4EC15AC12D2A74B200BC5826 /* ORBTouchFeedback.swift in Sources */,
+				4EC15AC12D2A74B200BC5826 /* Shrinkable.swift in Sources */,
 				4E0394312C2A9DCE007F0517 /* ViewController.swift in Sources */,
 				4EFC7D3F2D06CB130068367E /* ScrollLoadingCollectionView.swift in Sources */,
 				4E46E5F72CB997B4000A1EEE /* ORBToastManager.swift in Sources */,

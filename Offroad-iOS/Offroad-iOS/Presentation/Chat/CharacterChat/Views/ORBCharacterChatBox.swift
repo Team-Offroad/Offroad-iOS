@@ -30,8 +30,8 @@ class ORBCharacterChatBox: UIControl {
     let characterNameLabel = UILabel()
     let messageLabel = UILabel()
     let loadingAnimationView = LottieAnimationView(name: "loading2")
-    let chevronImageButton = ShrinkableButton()
-    let replyButton = ShrinkableButton()
+    let chevronImageButton = ShrinkableButton(shrinkScale: 0.9)
+    let replyButton = ShrinkableButton(shrinkScale: 0.9)
     
     lazy var messageLabelTrailingConstraintToChevronImageButton = messageLabel.trailingAnchor.constraint(
         equalTo: chevronImageButton.leadingAnchor,

@@ -256,8 +256,10 @@ extension ORBCharacterChatViewController {
             guard let self else { return }
             if textContentHeight >= 30 {
                 self.updateChatInputViewHeight(height: (19.0*2) + (9.0*2))
+                self.rootView.userChatInputView.showsVerticalScrollIndicator = true
             } else {
                 self.updateChatInputViewHeight(height: 19.0 + (9*2))
+                self.rootView.userChatInputView.showsVerticalScrollIndicator = false
             }
             self.rootView.updateConstraints()
             self.rootView.layoutIfNeeded()
@@ -441,7 +443,7 @@ extension ORBCharacterChatViewController {
     }
     
     func updateChatInputViewHeight(height: CGFloat) {
-        print(#function)
+        userChatInputViewHeightAnimator.stopAnimation(true)
         userChatInputViewHeightAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.userChatInputViewHeightConstraint.constant = height

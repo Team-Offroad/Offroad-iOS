@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ShrinkableCollectionViewCell: UICollectionViewCell, ORBTouchFeedback {
+class ShrinkableCollectionViewCell: UICollectionViewCell, Shrinkable {
     
     //MARK: - Properties
     

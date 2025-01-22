@@ -1,5 +1,5 @@
 //
-//  ORBTouchFeedback.swift
+//  Shrinkable.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 1/5/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ORBTouchFeedback {
+protocol Shrinkable {
     
     var shrinkingAnimator: UIViewPropertyAnimator { get }
     
@@ -16,7 +16,7 @@ protocol ORBTouchFeedback {
     
 }
 
-extension ORBTouchFeedback where Self: UIView {
+extension Shrinkable where Self: UIView {
     
     func shrink(scale: CGFloat) {
         shrinkingAnimator.stopAnimation(true)

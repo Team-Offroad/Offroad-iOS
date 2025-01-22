@@ -351,18 +351,11 @@ extension CharacterChatLogViewController {
                 guard let self else { return }
                 if textContentHeight >= 30 {
                     self.updateChatInputViewHeight(height: (19.0*2) + (9.0*2))
-                    UIView.animate(
-                        withDuration: 0.3,
-                        delay: 0,
-                        usingSpringWithDamping: 1,
-                        initialSpringVelocity: 1
-                    ) { [weak self] in
-                    guard let self else { return }
-                    self.rootView.chatLogCollectionView.contentInset.top = self.rootView.keyboardLayoutGuide.layoutFrame.height + self.rootView.userChatView.frame.height + 16.0
-                        self.scrollToFirstCell(at: .top, animated: false)
+                    self.rootView.userChatInputView.showsVerticalScrollIndicator = true
+                } else {
+                    self.updateChatInputViewHeight(height: 19.0 + (9*2))
+                    self.rootView.userChatInputView.showsVerticalScrollIndicator = false
                 }
-            } else {
-                self.updateChatInputViewHeight(height: 19.0 + (9*2))
                 UIView.animate(
                     withDuration: 0.3,
                     delay: 0,
@@ -373,10 +366,9 @@ extension CharacterChatLogViewController {
                     self.rootView.chatLogCollectionView.contentInset.top = self.rootView.keyboardLayoutGuide.layoutFrame.height + self.rootView.userChatView.frame.height + 16.0
                     self.scrollToFirstCell(at: .top, animated: false)
                 }
-            }
-            self.rootView.updateConstraints()
-            self.rootView.layoutIfNeeded()
-        }).disposed(by: disposeBag)
+                self.rootView.updateConstraints()
+                self.rootView.layoutIfNeeded()
+            }).disposed(by: disposeBag)
         
         patchChatReadRelay.subscribe(onNext: { [weak self] characterId in
             guard let self else { return }
@@ -452,7 +444,7 @@ extension CharacterChatLogViewController {
     }
     
     private func updateChatInputViewHeight(height: CGFloat) {
-        print(#function)
+        userChatInputViewHeightAnimator.stopAnimation(true)
         userChatInputViewHeightAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.userChatInputViewHeightConstraint.constant = height
