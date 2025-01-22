@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ShrinkableButton: UIButton, ORBTouchFeedback {
+class ShrinkableButton: UIButton, Shrinkable {
     
     //MARK: - Properties
     
@@ -30,14 +30,14 @@ class ShrinkableButton: UIButton, ORBTouchFeedback {
     ///
     /// `shrinkScale` 속성을 임의로 초기화하고 싶은 경우, 다른 지정생성자인 `init(shrinkScale:)`를 사용하세요.
     override init(frame: CGRect) {
-        self.shrinkScale = 0.9
+        self.shrinkScale = 0.95
         super.init(frame: frame)
         
         setupActions()
     }
     
     /// `shrinkScale` 속성을 임의의 값으로 초기화하는 지정생성자
-    /// - Parameter shrinkScale: 손가락이 버튼에 닿을 때 축소될 비율에 해당하는 속성. 다른 지정생성자인 `init(frame:)`를 사용하는 경우 0.9로 설정됨.
+    /// - Parameter shrinkScale: 손가락이 버튼에 닿을 때 축소될 비율에 해당하는 속성. 다른 지정생성자인 `init(frame:)`를 사용하는 경우 0.95로 설정됨.
     init(shrinkScale: CGFloat) {
         self.shrinkScale = shrinkScale
         super.init(frame: .zero)

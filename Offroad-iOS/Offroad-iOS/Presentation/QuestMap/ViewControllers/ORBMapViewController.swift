@@ -61,6 +61,7 @@ class ORBMapViewController: OffroadTabBarViewController {
         setupGestureRecognizers()
         rootView.naverMapView.mapView.positionMode = .direction
         locationManager.startUpdatingHeading()
+        rootView.naverMapView.mapView.moveCamera(.init(heading: 0))
         viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
             guard let self else { return }
             if authorizationCase != .fullAccuracy && authorizationCase != .reducedAccuracy {
@@ -193,6 +194,7 @@ extension ORBMapViewController {
                 MyInfoManager.shared.didSuccessAdventure.accept(())
             }
             self.view.stopLoading()
+            if locationValidation && isFirstVisitToday { self.hideTooltip() }
             self.popupAdventureResult(isValidLocation: locationValidation,
                                       image: image,
                                       completeQuests: completeQuests,

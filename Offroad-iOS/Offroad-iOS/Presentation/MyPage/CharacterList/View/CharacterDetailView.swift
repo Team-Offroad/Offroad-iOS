@@ -34,7 +34,7 @@ class CharacterDetailView: UIView, SVGFetchable {
     private let titleLabel = UILabel()
     let crownBadgeImageView = UIImageView(image: .imgCrownTag)
     private let detailLabel = UILabel()
-    let selectButton = UIButton()
+    let selectButton = ShrinkableButton()
     private let characterMotionView = UIView()
     
     private var layoutMaker: UICollectionViewFlowLayout {
@@ -299,6 +299,7 @@ extension CharacterDetailView {
             button.roundCorners(cornerRadius: 20)
             button.setTitleColor(.primary(.white), for: .normal)
             button.setTitleColor(.primary(.white), for: .disabled)
+            button.setTitleColor(.primary(.white), for: .highlighted)
             button.setTitle("대표 캐릭터로 선택하기", for: .normal)
             button.setTitle("이미 선택된 캐릭터에요", for: .disabled)
         }
