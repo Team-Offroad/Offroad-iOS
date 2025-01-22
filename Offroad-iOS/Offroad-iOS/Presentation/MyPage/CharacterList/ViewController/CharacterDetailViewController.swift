@@ -105,6 +105,7 @@ extension CharacterDetailViewController {
         rootView.chatLogButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
             guard let orbNavigationController = navigationController as? ORBNavigationController else { return }
+            rootView.scrollView.setContentOffset(rootView.scrollView.contentOffset, animated: false)
             orbNavigationController.pushChatLogViewController(characterId: viewModel.characterId)
         }).disposed(by: disposeBag)
         
