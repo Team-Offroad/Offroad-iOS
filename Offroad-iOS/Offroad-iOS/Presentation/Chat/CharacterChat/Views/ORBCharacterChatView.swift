@@ -150,7 +150,6 @@ extension ORBCharacterChatView {
             textView.isSelectable = false
             textView.textContainerInset = .zero
             textView.textContainer.lineFragmentPadding = 0
-            textView.showsVerticalScrollIndicator = false
         }
         userChatInputView.do { textView in
             textView.textColor = .main(.main2)
@@ -160,6 +159,7 @@ extension ORBCharacterChatView {
             textView.textContainerInset = .init(top: 0, left: 20, bottom: 0, right: 20)
             textView.textContainer.lineFragmentPadding = 0
             textView.showsVerticalScrollIndicator = false
+            textView.verticalScrollIndicatorInsets = .init(top: 4, left: 0, bottom: 4, right: 10)
             textView.roundCorners(cornerRadius: 12)
         }
         keyboardBackgroundView.do { view in

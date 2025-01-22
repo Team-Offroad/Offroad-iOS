@@ -18,8 +18,8 @@ final class LogoutView: UIView {
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let labelStackView = UIStackView()
-    let noButton = UIButton()
-    let yesButton = UIButton()
+    let noButton = ShrinkableButton()
+    let yesButton = ShrinkableButton()
     private let buttonStackView = UIStackView()
         
     // MARK: - Life Cycle

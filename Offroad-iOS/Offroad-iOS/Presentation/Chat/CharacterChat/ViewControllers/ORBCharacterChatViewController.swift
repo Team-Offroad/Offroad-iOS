@@ -256,7 +256,7 @@ extension ORBCharacterChatViewController {
     }
     
     func updateChatInputViewHeight(height: CGFloat) {
-        print(#function)
+        userChatInputViewHeightAnimator.stopAnimation(true)
         userChatInputViewHeightAnimator.addAnimations { [weak self] in
             guard let self else { return }
             self.rootView.userChatInputViewHeightConstraint.constant = height

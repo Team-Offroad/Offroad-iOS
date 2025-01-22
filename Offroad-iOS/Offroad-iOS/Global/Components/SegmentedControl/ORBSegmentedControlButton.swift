@@ -9,24 +9,12 @@ import UIKit
 
 final class ORBSegmentedControlButton: ShrinkableButton {
     
-    //MARK: - Properties
-    
-    //버튼 선택 시 글자 색 변경
-    override var isSelected: Bool {
-        didSet {
-            let textColor: UIColor = isSelected ? .main(.main2) : .grayscale(.gray300)
-            self.titleLabel?.font = isSelected ? .offroad(style: .iosTooltipTitle) : .offroad(style: .iosTabbarMedi)
-            self.setTitleColor(textColor, for: .normal)
-        }
-    }
-    
     //MARK: - Life Cycle
     
     private override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(shrinkScale: 0.9)
         
-        self.titleLabel?.font = UIFont.pretendardFont(ofSize: 18, weight: .medium)
-        self.shrinkWhenSelected = false
+        setupStyle()
     }
     
     required init?(coder: NSCoder) {
@@ -37,6 +25,40 @@ final class ORBSegmentedControlButton: ShrinkableButton {
         self.init(frame: .zero)
         self.setTitle(title, for: .normal)
         self.tag = tag
+    }
+    
+}
+
+extension ORBSegmentedControlButton {
+    
+    //MARK: - Private Func
+    
+    private func setupStyle() {
+        
+        roundCorners(cornerRadius: 10)
+        
+        configureBackgroundColorWhen(
+            normal: .clear,
+            highlighted: .primary(.black).withAlphaComponent(0.08),
+            highlightedAndSelected: .clear
+        )
+        
+        let transformer = UIConfigurationTextAttributesTransformer { [weak self] incoming in
+            guard let self else { return incoming }
+            var outgoing = incoming
+            
+            switch self.state {
+            case .selected, .init(rawValue: 5):
+                outgoing.foregroundColor = .main(.main2)
+                outgoing.font = .offroad(style: .iosTooltipTitle)
+            default:
+                outgoing.foregroundColor = .grayscale(.gray300)
+                outgoing.font = .offroad(style: .iosTabbarMedi)
+            }
+            return outgoing
+        }
+        
+        configuration?.titleTextAttributesTransformer = transformer
     }
     
 }

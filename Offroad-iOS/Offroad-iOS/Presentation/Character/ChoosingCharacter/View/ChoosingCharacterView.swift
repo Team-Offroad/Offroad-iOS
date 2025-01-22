@@ -76,7 +76,7 @@ final class ChoosingCharacterView: UIView {
         $0.font = UIFont.offroad(style: .iosText)
     }
     
-    let selectButton = UIButton().then {
+    let selectButton = ShrinkableButton().then {
         $0.setTitle("선택", for: .normal)
         $0.setBackgroundColor(.main(.main2), for: .normal)
         $0.titleLabel?.textAlignment = .center
