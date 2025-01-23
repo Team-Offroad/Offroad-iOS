@@ -57,7 +57,6 @@ extension LoginView {
             $0.titleLabel?.font = .offroad(style: .bothLogin)
             $0.backgroundColor = .primary(.kakao)
             $0.roundCorners(cornerRadius: 5)
-            $0.isHidden = true
         }
         
         appleLoginButton.do {
