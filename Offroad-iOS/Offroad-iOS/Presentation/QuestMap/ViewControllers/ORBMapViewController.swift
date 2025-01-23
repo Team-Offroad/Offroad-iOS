@@ -342,6 +342,22 @@ extension ORBMapViewController {
         }
     }
     
+    private func setCameraPosition(to newPosition: NMFCameraPosition,
+                                   // NAVER Map iOS SDK에서 지정하는 기본값이 0.2
+                                   animationDuration: TimeInterval = 0.2,
+                                   reason: Int32 = Int32(NMFMapChangedByDeveloper),
+                                   completion: ((Bool) -> Void)? = nil
+    ) {
+        let cameraUpdate = NMFCameraUpdate(position: newPosition)
+        cameraUpdate.reason = reason
+        cameraUpdate.animation = .easeOut
+        cameraUpdate.animationDuration = animationDuration
+        rootView.naverMapView.mapView.moveCamera(cameraUpdate) { isCancelled in
+            completion?(isCancelled)
+        }
+    }
+    
+    
     /// 마커를 탭 시 동작할 함수
     ///- Parameters overlay: 탭 이벤트를 받아서 전달하는 NMFOverlay
     /// - Returns: `true`를 반환할 경우 마커를 탭 시 메서드를 실행. 그렇지 않을 경우 `NMFMapView`까지 이벤트가 전달되어 `NMFMapViewTouchDelegate`의 `mapView(_:didTapMap:point:)`가  호출됩니다.
@@ -366,7 +382,15 @@ extension ORBMapViewController {
                                             at: mapFrame,
                                             tooltipSize: rootView.tooltip.frame.size,
                                             contentInset: 20)
-        moveCamera(scrollBy: delta, animationDuration: 0.3)
+        let newPosition = NMFCameraPosition(marker.position,
+                                            zoom: rootView.naverMapView.mapView.zoomLevel,
+                                            tilt: 0,
+                                            heading: rootView.naverMapView.mapView.cameraPosition.heading)
+        if rootView.naverMapView.mapView.cameraPosition.tilt > 30 {
+            setCameraPosition(to: newPosition, animationDuration: 0.3)
+        } else {
+            moveCamera(scrollBy: delta, animationDuration: 0.3)
+        }
         return true
     }
     
