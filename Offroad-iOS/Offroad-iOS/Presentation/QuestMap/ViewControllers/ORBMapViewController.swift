@@ -345,18 +345,18 @@ extension ORBMapViewController {
     private func setCameraPosition(to newPosition: NMFCameraPosition,
                                    // NAVER Map iOS SDK에서 지정하는 기본값이 0.2
                                    animationDuration: TimeInterval = 0.2,
+                                   animationCurve: NMFCameraUpdateAnimation = .easeOut,
                                    reason: Int32 = Int32(NMFMapChangedByDeveloper),
                                    completion: ((Bool) -> Void)? = nil
     ) {
         let cameraUpdate = NMFCameraUpdate(position: newPosition)
         cameraUpdate.reason = reason
-        cameraUpdate.animation = .easeOut
+        cameraUpdate.animation = animationCurve
         cameraUpdate.animationDuration = animationDuration
         rootView.naverMapView.mapView.moveCamera(cameraUpdate) { isCancelled in
             completion?(isCancelled)
         }
     }
-    
     
     /// 마커를 탭 시 동작할 함수
     ///- Parameters overlay: 탭 이벤트를 받아서 전달하는 NMFOverlay
@@ -377,18 +377,19 @@ extension ORBMapViewController {
         rootView.tooltipAnchorPoint = markerPoint!
         showTooltip()
         
-        let mapFrame = rootView.naverMapView.mapView.frame
-        let delta = viewModel.caculateDeltaToShowTooltip(point: point,
-                                            at: mapFrame,
-                                            tooltipSize: rootView.tooltip.frame.size,
-                                            contentInset: 20)
-        let newPosition = NMFCameraPosition(marker.position,
-                                            zoom: rootView.naverMapView.mapView.zoomLevel,
-                                            tilt: 0,
-                                            heading: rootView.naverMapView.mapView.cameraPosition.heading)
-        if rootView.naverMapView.mapView.cameraPosition.tilt > 30 {
-            setCameraPosition(to: newPosition, animationDuration: 0.3)
+        let tilt = rootView.naverMapView.mapView.cameraPosition.tilt
+        if tilt > 30 {
+            let newPosition = NMFCameraPosition(marker.position,
+                                                zoom: rootView.naverMapView.mapView.zoomLevel,
+                                                tilt: 0,
+                                                heading: rootView.naverMapView.mapView.cameraPosition.heading)
+            setCameraPosition(to: newPosition, animationDuration: 0.4, animationCurve: tilt > 45 ? .fly : .easeOut)
         } else {
+            let mapSize = rootView.naverMapView.mapView.frame.size
+            let delta = viewModel.caculateDeltaToShowTooltip(point: point,
+                                                             at: mapSize,
+                                                             tooltipSize: rootView.tooltip.frame.size,
+                                                             contentInset: 20)
             moveCamera(scrollBy: delta, animationDuration: 0.3)
         }
         return true
