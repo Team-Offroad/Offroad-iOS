@@ -169,8 +169,6 @@ extension ORBMapView {
             view.backgroundColor = .grayscale(.gray100)
         }
         
-        naverMapView.mapView.allowsTilting = false
-        
         shadingView.do { view in
             view.isUserInteractionEnabled = false
         }
