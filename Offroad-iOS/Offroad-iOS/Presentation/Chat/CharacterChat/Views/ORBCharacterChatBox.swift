@@ -270,4 +270,10 @@ extension ORBCharacterChatBox {
         }
     }
     
+    func configureContents(character name: String, message: String, mode: ChatBoxMode, animated: Bool) {
+        characterNameLabel.text = name + " :"
+        messageLabel.text = message
+        changeChatBoxMode(to: mode, animated: animated)
+    }
+    
 }

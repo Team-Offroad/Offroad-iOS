@@ -157,7 +157,7 @@ extension ORBCharacterChatViewController {
                     return
                 }
                 let characterChatResponse = dto.data.content
-                self.configureCharacterChatBox(character: MyInfoManager.shared.representativeCharacterName ?? "", message: characterChatResponse, mode: .withoutReplyButtonShrinked, animated: true)
+                self.rootView.characterChatBox.configureContents(character: MyInfoManager.shared.representativeCharacterName ?? "", message: characterChatResponse, mode: .withoutReplyButtonShrinked, animated: true)
             case .requestErr:
                 self.showToast(message: "requestError occurred", inset: 66)
                 self.hideCharacterChatBox()
@@ -273,12 +273,6 @@ extension ORBCharacterChatViewController {
         userChatDisplayViewHeightAnimator.startAnimation()
     }
     
-    func configureCharacterChatBox(character name: String, message: String, mode: ChatBoxMode, animated: Bool) {
-        rootView.characterChatBox.characterNameLabel.text = name + " :"
-        rootView.characterChatBox.messageLabel.text = message
-        rootView.characterChatBox.changeChatBoxMode(to: mode, animated: animated)
-    }
-    
 }
 
 //MARK: - 채팅창 입력 설정 관련 함수
@@ -290,7 +284,12 @@ extension ORBCharacterChatViewController {
             guard let self else { return }
             self.postCharacterChat(message: self.rootView.userChatInputView.text)
             // 로티 뜨도록 구현
-            self.configureCharacterChatBox(character: MyInfoManager.shared.representativeCharacterName ?? "", message: "", mode: .loading, animated: true)
+            self.rootView.characterChatBox.configureContents(
+                character: MyInfoManager.shared.representativeCharacterName ?? "",
+                message: "",
+                mode: .loading,
+                animated: true
+            )
             self.showCharacterChatBox(isAutoDismiss: false)
             self.rootView.userChatDisplayView.text = self.rootView.userChatInputView.text.trimmingCharacters(in: .whitespacesAndNewlines)
             self.rootView.userChatDisplayView.bounds.origin.y = -(self.rootView.userChatDisplayView.bounds.height)
