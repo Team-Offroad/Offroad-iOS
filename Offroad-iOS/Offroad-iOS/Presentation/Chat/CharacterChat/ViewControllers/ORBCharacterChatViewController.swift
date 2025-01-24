@@ -412,7 +412,6 @@ extension ORBCharacterChatViewController {
     }
     
     private func setupGestures() {
-        panGesture.delegate = self
         rootView.characterChatBox.addGestureRecognizer(panGesture)
     }
     
@@ -486,14 +485,4 @@ extension ORBCharacterChatViewController {
             rootView.characterChatBox.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
         }.disposed(by: disposeBag)
     }
-}
-
-//MARK: - UIGestureRecognizerDelegate
-
-extension ORBCharacterChatViewController: UIGestureRecognizerDelegate {
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
 }
