@@ -260,7 +260,7 @@ extension ORBCharacterChatViewController {
     
 }
 
-//MARK: - 채팅창 입력 설정 관련 함수
+//MARK: - 채팅창 입력 관련 함수
 
 extension ORBCharacterChatViewController {
     
@@ -339,11 +339,51 @@ extension ORBCharacterChatViewController {
     }
 }
 
-//MARK: - 채팅 박스 설정 관련 함수
+//MARK: - 채팅 박스 관련 함수
 
 extension ORBCharacterChatViewController {
     
     //MARK: - Private Func
+    
+    private func setupChatBox() {
+        setupPanGestures()
+        setupTouchActions()
+        
+        characterChatBox.chevronImageButton.rx.controlEvent(.touchDown).bind(onNext: { [weak self] in
+            guard let self else { return }
+            self.stopAutoHide()
+        }).disposed(by: disposeBag)
+        
+        characterChatBox.chevronImageButton.rx.controlEvent([.touchUpInside, .touchUpOutside])
+            .bind(onNext: { [weak self] in
+                guard let self else { return }
+                let hasReplyButton = self.characterChatBox.mode == .withReplyButtonShrinked
+                || self.characterChatBox.mode == .withReplyButtonExpanded
+                if hasReplyButton {
+                    self.startAutoHide()
+                }
+            }).disposed(by: disposeBag)
+        
+        characterChatBox.replyButton.rx.tap.bind { [weak self] in
+            guard let self else { return }
+            self.stopAutoHide()
+            self.rootView.window?.makeKeyAndVisible()
+            if self.rootView.userChatInputView.becomeFirstResponder() {
+                self.patchChatReadRelay.accept(())
+            }
+            self.characterChatBox.isHidden = false
+            self.rootView.userChatView.isHidden = false
+            self.rootView.endChatButton.isHidden = false
+            self.characterChatBox.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+        }.disposed(by: disposeBag)
+    }
+    
+    private func setupPanGestures() {
+        characterChatBox.addGestureRecognizer(panGesture)
+        panGesture.rx.event.subscribe(onNext: { [weak self] gesture in
+            self?.panGestureHandler(sender: gesture)
+        }).disposed(by: disposeBag)
+    }
     
     private func panGestureHandler(sender: UIPanGestureRecognizer) {
         let hasReplyButton = characterChatBox.mode == .withReplyButtonShrinked
@@ -383,14 +423,7 @@ extension ORBCharacterChatViewController {
         }
     }
     
-    private func setupGestures() {
-        characterChatBox.addGestureRecognizer(panGesture)
-        panGesture.rx.event.subscribe(onNext: { [weak self] gesture in
-            self?.panGestureHandler(sender: gesture)
-        }).disposed(by: disposeBag)
-    }
-    
-    private func setupTargets() {
+    private func setupTouchActions() {
         characterChatBox.rx.controlEvent([.touchDown]).subscribe(onNext: { [weak self] in
             self?.stopAutoHide()
             self?.characterChatBox.shrink()
@@ -426,36 +459,4 @@ extension ORBCharacterChatViewController {
         hideWorkItem?.cancel()
     }
     
-    private func setupChatBox() {
-        setupGestures()
-        setupTargets()
-        
-        characterChatBox.chevronImageButton.rx.controlEvent(.touchDown).bind(onNext: { [weak self] in
-            guard let self else { return }
-            self.stopAutoHide()
-        }).disposed(by: disposeBag)
-        
-        characterChatBox.chevronImageButton.rx.controlEvent([.touchUpInside, .touchUpOutside])
-            .bind(onNext: { [weak self] in
-                guard let self else { return }
-                let hasReplyButton = self.characterChatBox.mode == .withReplyButtonShrinked
-                || self.characterChatBox.mode == .withReplyButtonExpanded
-                if hasReplyButton {
-                    self.startAutoHide()
-                }
-            }).disposed(by: disposeBag)
-        
-        characterChatBox.replyButton.rx.tap.bind { [weak self] in
-            guard let self else { return }
-            self.stopAutoHide()
-            self.rootView.window?.makeKeyAndVisible()
-            if self.rootView.userChatInputView.becomeFirstResponder() {
-                self.patchChatReadRelay.accept(())
-            }
-            self.characterChatBox.isHidden = false
-            self.rootView.userChatView.isHidden = false
-            self.rootView.endChatButton.isHidden = false
-            self.characterChatBox.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
-        }.disposed(by: disposeBag)
-    }
 }
