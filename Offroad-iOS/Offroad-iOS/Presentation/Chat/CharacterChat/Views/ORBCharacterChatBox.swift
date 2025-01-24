@@ -8,6 +8,8 @@
 import UIKit
 
 import Lottie
+import RxSwift
+import RxCocoa
 
 enum ChatBoxMode {
     /// 답장하기 버튼이 있고, 접혀 있을 때 - 캐릭터로부터 선톡이 왔을 때 사용자가 chenvron 버튼 짝수(0 포함) 번 탭했을 때
@@ -25,6 +27,7 @@ enum ChatBoxMode {
 class ORBCharacterChatBox: UIControl {
     
     var mode: ChatBoxMode
+    var disposeBag = DisposeBag()
     
     private let modeChangingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     let shrinkBehaviorAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
@@ -53,6 +56,7 @@ class ORBCharacterChatBox: UIControl {
         setupHierarchy()
         setupLayout()
         setupAdditionalLayout(mode: mode)
+        setupActions()
     }
     
     required init?(coder: NSCoder) {
@@ -193,6 +197,21 @@ extension ORBCharacterChatBox {
     
     private func setupHierarchy() {
         addSubviews(characterNameLabel, messageLabel, loadingAnimationView, chevronImageButton, replyButton)
+    }
+    
+    private func setupActions() {
+        chevronImageButton.rx.tap.bind { [weak self] in
+            guard let self else { return }
+            if mode == .withReplyButtonShrinked {
+                changeChatBoxMode(to: .withReplyButtonExpanded, animated: true)
+            } else if mode == .withReplyButtonExpanded {
+                changeChatBoxMode(to: .withReplyButtonShrinked, animated: true)
+            } else if mode == .withoutReplyButtonShrinked {
+                changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+            } else if mode == .withoutReplyButtonExpanded {
+                changeChatBoxMode(to: .withoutReplyButtonShrinked, animated: true)
+            }
+        }.disposed(by: disposeBag)
     }
     
     //MARK: - Func

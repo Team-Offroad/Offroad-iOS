@@ -446,19 +446,6 @@ extension ORBCharacterChatViewController {
                 }
             }).disposed(by: disposeBag)
         
-        characterChatBox.chevronImageButton.rx.tap.bind { [weak self] in
-            guard let self else { return }
-            if self.characterChatBox.mode == .withReplyButtonShrinked {
-                self.characterChatBox.changeChatBoxMode(to: .withReplyButtonExpanded, animated: true)
-            } else if self.characterChatBox.mode == .withReplyButtonExpanded {
-                self.characterChatBox.changeChatBoxMode(to: .withReplyButtonShrinked, animated: true)
-            } else if self.characterChatBox.mode == .withoutReplyButtonShrinked {
-                self.characterChatBox.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
-            } else if self.characterChatBox.mode == .withoutReplyButtonExpanded {
-                self.characterChatBox.changeChatBoxMode(to: .withoutReplyButtonShrinked, animated: true)
-            }
-        }.disposed(by: disposeBag)
-        
         characterChatBox.replyButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             self.stopAutoHide()
