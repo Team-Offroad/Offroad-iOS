@@ -37,7 +37,6 @@ class ORBCharacterChatViewController: UIViewController {
     
     var isCharacterChatBoxShown: Bool = false
     let characterChatBoxPositionAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
-    let characterChatBoxModeChangingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     lazy var panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureHandler))
     private var hideWorkItem: DispatchWorkItem?
     
@@ -277,26 +276,7 @@ extension ORBCharacterChatViewController {
     func configureCharacterChatBox(character name: String, message: String, mode: ChatBoxMode, animated: Bool) {
         rootView.characterChatBox.characterNameLabel.text = name + " :"
         rootView.characterChatBox.messageLabel.text = message
-        changeChatBoxMode(to: mode, animated: animated)
-    }
-    
-    func changeChatBoxMode(to mode: ChatBoxMode, animated: Bool) {
-        characterChatBoxModeChangingAnimator.stopAnimation(true)
-        rootView.characterChatBox.mode = mode
-        rootView.characterChatBox.chevronImageButton.isHidden = (mode == .loading)
-        if animated {
-            characterChatBoxModeChangingAnimator.addAnimations { [weak self] in
-                guard let self else { return }
-                self.rootView.characterChatBox.setupHiddenState(mode: mode)
-                self.rootView.characterChatBox.setupAdditionalLayout(mode: mode)
-                self.rootView.layoutIfNeeded()
-            }
-            characterChatBoxModeChangingAnimator.startAnimation()
-        } else {
-            rootView.characterChatBox.setupHiddenState(mode: mode)
-            rootView.characterChatBox.setupAdditionalLayout(mode: mode)
-            rootView.layoutIfNeeded()
-        }
+        rootView.characterChatBox.changeChatBoxMode(to: mode, animated: animated)
     }
     
 }
@@ -484,13 +464,13 @@ extension ORBCharacterChatViewController {
         rootView.characterChatBox.chevronImageButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             if self.rootView.characterChatBox.mode == .withReplyButtonShrinked {
-                self.changeChatBoxMode(to: .withReplyButtonExpanded, animated: true)
+                rootView.characterChatBox.changeChatBoxMode(to: .withReplyButtonExpanded, animated: true)
             } else if self.rootView.characterChatBox.mode == .withReplyButtonExpanded {
-                self.changeChatBoxMode(to: .withReplyButtonShrinked, animated: true)
+                rootView.characterChatBox.changeChatBoxMode(to: .withReplyButtonShrinked, animated: true)
             } else if self.rootView.characterChatBox.mode == .withoutReplyButtonShrinked {
-                self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+                rootView.characterChatBox.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
             } else if self.rootView.characterChatBox.mode == .withoutReplyButtonExpanded {
-                self.changeChatBoxMode(to: .withoutReplyButtonShrinked, animated: true)
+                rootView.characterChatBox.changeChatBoxMode(to: .withoutReplyButtonShrinked, animated: true)
             }
         }.disposed(by: disposeBag)
         
@@ -504,7 +484,7 @@ extension ORBCharacterChatViewController {
             self.rootView.characterChatBox.isHidden = false
             self.rootView.userChatView.isHidden = false
             self.rootView.endChatButton.isHidden = false
-            self.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+            rootView.characterChatBox.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
         }.disposed(by: disposeBag)
     }
 }

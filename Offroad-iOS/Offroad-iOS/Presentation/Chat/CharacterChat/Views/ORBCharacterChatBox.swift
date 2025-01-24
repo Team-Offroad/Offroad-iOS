@@ -26,6 +26,7 @@ class ORBCharacterChatBox: UIControl {
     
     var mode: ChatBoxMode
     
+    private let modeChangingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     let shrinkBehaviorAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     let characterNameLabel = UILabel()
     let messageLabel = UILabel()
@@ -247,6 +248,25 @@ extension ORBCharacterChatBox {
             chevronImageButton.imageView?.transform = .identity
             loadingAnimationView.isHidden = false
             loadingAnimationView.play()
+        }
+    }
+    
+    func changeChatBoxMode(to mode: ChatBoxMode, animated: Bool) {
+        modeChangingAnimator.stopAnimation(true)
+        self.mode = mode
+        chevronImageButton.isHidden = (mode == .loading)
+        if animated {
+            modeChangingAnimator.addAnimations { [weak self] in
+                guard let self else { return }
+                setupHiddenState(mode: mode)
+                setupAdditionalLayout(mode: mode)
+                superview?.layoutIfNeeded()
+            }
+            modeChangingAnimator.startAnimation()
+        } else {
+            setupHiddenState(mode: mode)
+            setupAdditionalLayout(mode: mode)
+            superview?.layoutIfNeeded()
         }
     }
     
