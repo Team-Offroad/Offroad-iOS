@@ -37,7 +37,7 @@ class ORBCharacterChatViewController: UIViewController {
     
     var isCharacterChatBoxShown: Bool = false
     let characterChatBoxPositionAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
-    lazy var panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureHandler))
+    lazy var panGesture = UIPanGestureRecognizer()
     private var hideWorkItem: DispatchWorkItem?
     private var characterChatBox: ORBCharacterChatBox { rootView.characterChatBox }
     
@@ -343,9 +343,9 @@ extension ORBCharacterChatViewController {
 
 extension ORBCharacterChatViewController {
     
-    // MARK: - @objc Func
+    //MARK: - Private Func
     
-    @objc private func panGestureHandler(sender: UIPanGestureRecognizer) {
+    private func panGestureHandler(sender: UIPanGestureRecognizer) {
         let hasReplyButton = characterChatBox.mode == .withReplyButtonShrinked
         || characterChatBox.mode == .withReplyButtonExpanded
         switch sender.state {
@@ -382,34 +382,33 @@ extension ORBCharacterChatViewController {
             characterChatBox.transform = CGAffineTransform.identity
         }
     }
-
-    @objc private func shrinkChatBox() {
-        stopAutoHide()
-        characterChatBox.shrink()
-    }
-    
-    @objc private func touchUpOutside(event: UIControl.Event) {
-        characterChatBox.expand()
-    }
-    
-    @objc private func touchUpInside() {
-        characterChatBox.expand()
-        guard characterChatBox.mode != .loading else { return }
-        patchChatReadRelay.accept(())
-        ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController
-            .onNext(MyInfoManager.shared.representativeCharacterID)
-    }
-    
-    //MARK: - Private Func
     
     private func setupGestures() {
         characterChatBox.addGestureRecognizer(panGesture)
+        panGesture.rx.event.subscribe(onNext: { [weak self] gesture in
+            self?.panGestureHandler(sender: gesture)
+        }).disposed(by: disposeBag)
     }
     
     private func setupTargets() {
-        characterChatBox.addTarget(self, action: #selector(shrinkChatBox), for: [.touchDown])
-        characterChatBox.addTarget(self, action: #selector(touchUpOutside), for: [.touchUpOutside, .touchCancel])
-        characterChatBox.addTarget(self, action: #selector(touchUpInside), for: .touchUpInside)
+        characterChatBox.rx.controlEvent([.touchDown]).subscribe(onNext: { [weak self] in
+            self?.stopAutoHide()
+            self?.characterChatBox.shrink()
+        }).disposed(by: disposeBag)
+        
+        characterChatBox.rx.controlEvent([.touchUpOutside, .touchCancel]).subscribe(onNext: { [weak self] in
+            self?.characterChatBox.expand()
+        }).disposed(by: disposeBag)
+        
+        characterChatBox.rx.controlEvent(.touchUpInside).subscribe(onNext: { [weak self] in
+            guard let self else { return }
+            self.characterChatBox.expand()
+            guard self.characterChatBox.mode != .loading else { return }
+            self.patchChatReadRelay.accept(())
+            ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController
+                .onNext(MyInfoManager.shared.representativeCharacterID)
+        }).disposed(by: disposeBag)
+        
     }
     
     private func startAutoHide() {
