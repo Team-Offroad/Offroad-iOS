@@ -147,7 +147,7 @@ extension HomeViewController {
                 self.rootView.chatUnreadDotView.isHidden = dto.data.doesAllRead
                 self.lastUnreadChatInfo = dto.data.doesAllRead ? nil : dto.data
             case .serverErr(_):
-                showToast(message: "서버에 문제가 있는 것 같아요. 잠시 후 다시 시도해주세요.", inset: 66)
+                showToast(message: "서버에 문제가 있는 것 같아요. 잠시 후 다시 시도해 주세요.", inset: 66)
             default:
                 showToast(message: ErrorMessages.networkError, inset: 66)
             }

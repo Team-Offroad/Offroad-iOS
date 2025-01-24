@@ -158,24 +158,6 @@ extension ORBCharacterChatViewController {
                 }
                 let characterChatResponse = dto.data.content
                 self.characterChatBox.configureContents(character: MyInfoManager.shared.representativeCharacterName ?? "", message: characterChatResponse, mode: .withoutReplyButtonShrinked, animated: true)
-            case .requestErr:
-                self.showToast(message: "requestError occurred", inset: 66)
-                self.hideCharacterChatBox()
-            case .unAuthentication:
-                self.showToast(message: "unAuthentication Error occurred", inset: 66)
-                self.hideCharacterChatBox()
-            case .unAuthorization:
-                self.showToast(message: "unAuthorized Error occurred", inset: 66)
-                self.hideCharacterChatBox()
-            case .apiArr:
-                self.showToast(message: "api Error occurred", inset: 66)
-                self.hideCharacterChatBox()
-            case .pathErr:
-                self.showToast(message: "path Error occurred", inset: 66)
-                self.hideCharacterChatBox()
-            case .registerErr:
-                self.showToast(message: "register Error occurred", inset: 66)
-                self.hideCharacterChatBox()
             case .networkFail:
                 self.showToast(message: ErrorMessages.networkError, inset: 66)
                 self.hideCharacterChatBox()
@@ -184,6 +166,9 @@ extension ORBCharacterChatViewController {
                 self.hideCharacterChatBox()
             case .decodeErr:
                 self.showToast(message: "decode Error occurred", inset: 66)
+                self.hideCharacterChatBox()
+            default:
+                self.showToast(message: "알 수 없는 에러가 발생했어요. 잠시 후 다시 시도해 주세요.", inset: 66)
                 self.hideCharacterChatBox()
             }
             self.isCharacterResponding.accept(false)
