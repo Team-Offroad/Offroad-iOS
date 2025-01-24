@@ -347,7 +347,24 @@ extension ORBCharacterChatViewController {
     
     private func setupChatBox() {
         setupPanGestures()
-        setupTouchActions()
+        
+        characterChatBox.rx.controlEvent([.touchDown]).subscribe(onNext: { [weak self] in
+            self?.stopAutoHide()
+            self?.characterChatBox.shrink()
+        }).disposed(by: disposeBag)
+        
+        characterChatBox.rx.controlEvent([.touchUpOutside, .touchCancel]).subscribe(onNext: { [weak self] in
+            self?.characterChatBox.expand()
+        }).disposed(by: disposeBag)
+        
+        characterChatBox.rx.controlEvent(.touchUpInside).subscribe(onNext: { [weak self] in
+            guard let self else { return }
+            self.characterChatBox.expand()
+            guard self.characterChatBox.mode != .loading else { return }
+            self.patchChatReadRelay.accept(())
+            ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController
+                .onNext(MyInfoManager.shared.representativeCharacterID)
+        }).disposed(by: disposeBag)
         
         characterChatBox.chevronImageButton.rx.controlEvent(.touchDown).bind(onNext: { [weak self] in
             guard let self else { return }
@@ -421,27 +438,6 @@ extension ORBCharacterChatViewController {
         @unknown default:
             characterChatBox.transform = CGAffineTransform.identity
         }
-    }
-    
-    private func setupTouchActions() {
-        characterChatBox.rx.controlEvent([.touchDown]).subscribe(onNext: { [weak self] in
-            self?.stopAutoHide()
-            self?.characterChatBox.shrink()
-        }).disposed(by: disposeBag)
-        
-        characterChatBox.rx.controlEvent([.touchUpOutside, .touchCancel]).subscribe(onNext: { [weak self] in
-            self?.characterChatBox.expand()
-        }).disposed(by: disposeBag)
-        
-        characterChatBox.rx.controlEvent(.touchUpInside).subscribe(onNext: { [weak self] in
-            guard let self else { return }
-            self.characterChatBox.expand()
-            guard self.characterChatBox.mode != .loading else { return }
-            self.patchChatReadRelay.accept(())
-            ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController
-                .onNext(MyInfoManager.shared.representativeCharacterID)
-        }).disposed(by: disposeBag)
-        
     }
     
     private func startAutoHide() {
