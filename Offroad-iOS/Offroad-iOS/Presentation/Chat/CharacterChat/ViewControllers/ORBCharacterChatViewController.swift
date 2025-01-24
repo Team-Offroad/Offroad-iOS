@@ -107,7 +107,6 @@ extension ORBCharacterChatViewController {
     }
     
     private func bindData() {
-        
         ORBCharacterChatManager.shared.shouldMakeKeyboardBackgroundTransparent
             .subscribe(onNext: { [weak self] isTransparent in
                 guard let self else { return }
@@ -280,6 +279,8 @@ extension ORBCharacterChatViewController {
 
 extension ORBCharacterChatViewController {
     
+    //MARK: - Private Func
+    
     private func setupChatInput() {
         rootView.sendButton.rx.tap.bind { [weak self] in
             guard let self else { return }
@@ -357,6 +358,8 @@ extension ORBCharacterChatViewController {
 
 extension ORBCharacterChatViewController {
     
+    // MARK: - @objc Func
+    
     @objc private func panGestureHandler(sender: UIPanGestureRecognizer) {
         let hasReplyButton = characterChatBox.mode == .withReplyButtonShrinked
         || characterChatBox.mode == .withReplyButtonExpanded
@@ -411,6 +414,8 @@ extension ORBCharacterChatViewController {
         ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController
             .onNext(MyInfoManager.shared.representativeCharacterID)
     }
+    
+    //MARK: - Private Func
     
     private func setupGestures() {
         characterChatBox.addGestureRecognizer(panGesture)
