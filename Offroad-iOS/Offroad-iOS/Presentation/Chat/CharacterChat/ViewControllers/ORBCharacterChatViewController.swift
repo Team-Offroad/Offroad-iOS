@@ -208,7 +208,7 @@ extension ORBCharacterChatViewController {
         }
         characterChatBoxPositionAnimator.startAnimation()
         if isAutoDismiss {
-            scheduleAutoHide()
+            startAutoHide()
         }
     }
     
@@ -387,7 +387,7 @@ extension ORBCharacterChatViewController {
             } else {
                 showCharacterChatBox(isAutoDismiss: false)
                 if hasReplyButton {
-                    restartAutoHide()
+                    startAutoHide()
                 }
             }
         @unknown default:
@@ -422,7 +422,7 @@ extension ORBCharacterChatViewController {
         characterChatBox.addTarget(self, action: #selector(touchUpInside), for: .touchUpInside)
     }
     
-    private func scheduleAutoHide() {
+    private func startAutoHide() {
         hideWorkItem?.cancel()
         hideWorkItem = DispatchWorkItem(block: { [weak self] in
             guard let self else { return }
@@ -435,10 +435,6 @@ extension ORBCharacterChatViewController {
     
     private func stopAutoHide() {
         hideWorkItem?.cancel()
-    }
-    
-    private func restartAutoHide() {
-        scheduleAutoHide()
     }
     
     private func setupChatBox() {
@@ -456,7 +452,7 @@ extension ORBCharacterChatViewController {
                 let hasReplyButton = self.characterChatBox.mode == .withReplyButtonShrinked
                 || self.characterChatBox.mode == .withReplyButtonExpanded
                 if hasReplyButton {
-                    self.restartAutoHide()
+                    self.startAutoHide()
                 }
             }).disposed(by: disposeBag)
         
