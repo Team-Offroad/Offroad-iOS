@@ -22,7 +22,7 @@ class CharacterDetailView: UIView, SVGFetchable {
     let customNavigationBar = UIView()
     let customBackButton = NavigationPopButton()
     let chatLogButton = ShrinkableButton(shrinkScale: 0.93)
-    private let scrollView = UIScrollView()
+    let scrollView = UIScrollView()
     private let contentView = UIView()
     let characterImageView = UIImageView()
     private let labelView = UIView()

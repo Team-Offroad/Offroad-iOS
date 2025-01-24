@@ -9,7 +9,6 @@ import UIKit
 
 class ORBCharacterChatWindow: UIWindow {
     
-    
     override init(windowScene: UIWindowScene) {
         super.init(windowScene: windowScene)
         rootViewController = ORBCharacterChatViewController()
