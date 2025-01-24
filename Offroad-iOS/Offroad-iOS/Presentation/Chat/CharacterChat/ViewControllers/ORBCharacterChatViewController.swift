@@ -39,6 +39,7 @@ class ORBCharacterChatViewController: UIViewController {
     let characterChatBoxPositionAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     lazy var panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureHandler))
     private var hideWorkItem: DispatchWorkItem?
+    private var characterChatBox: ORBCharacterChatBox { rootView.characterChatBox }
     
     //MARK: - Life Cycle
     
@@ -157,7 +158,7 @@ extension ORBCharacterChatViewController {
                     return
                 }
                 let characterChatResponse = dto.data.content
-                self.rootView.characterChatBox.configureContents(character: MyInfoManager.shared.representativeCharacterName ?? "", message: characterChatResponse, mode: .withoutReplyButtonShrinked, animated: true)
+                self.characterChatBox.configureContents(character: MyInfoManager.shared.representativeCharacterName ?? "", message: characterChatResponse, mode: .withoutReplyButtonShrinked, animated: true)
             case .requestErr:
                 self.showToast(message: "requestError occurred", inset: 66)
                 self.hideCharacterChatBox()
@@ -194,14 +195,14 @@ extension ORBCharacterChatViewController {
     
     func showCharacterChatBox(isAutoDismiss: Bool = true) {
         isCharacterChatBoxShown = true
-        rootView.characterChatBox.isHidden = false
+        characterChatBox.isHidden = false
         panGesture.isEnabled = true
         rootView.layoutIfNeeded()
         characterChatBoxPositionAnimator.stopAnimation(true)
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
             guard let self else { return }
             // pagGesture로 변경된 (세로)위치 원상복구
-            self.rootView.characterChatBox.transform = CGAffineTransform.identity
+            self.characterChatBox.transform = CGAffineTransform.identity
             self.rootView.characterChatBoxTopConstraint.constant = view.safeAreaInsets.top + 27
             self.rootView.layoutIfNeeded()
         }
@@ -218,18 +219,18 @@ extension ORBCharacterChatViewController {
         characterChatBoxPositionAnimator.addAnimations { [weak self] in
             guard let self else { return }
             // pagGesture로 변경된 (세로)위치 원상복구
-            self.rootView.characterChatBox.transform = CGAffineTransform.identity
+            self.characterChatBox.transform = CGAffineTransform.identity
             self.rootView.characterChatBoxTopConstraint.constant
-            = -self.rootView.characterChatBox.frame.height
+            = -self.characterChatBox.frame.height
             self.rootView.layoutIfNeeded()
         }
         characterChatBoxPositionAnimator.addCompletion { [weak self] _ in
             guard let self else { return }
-            self.rootView.characterChatBox.characterNameLabel.text = ""
-            self.rootView.characterChatBox.loadingAnimationView.stop()
-            self.rootView.characterChatBox.loadingAnimationView.isHidden = true
-            self.rootView.characterChatBox.messageLabel.isHidden = false
-            self.rootView.characterChatBox.messageLabel.text = ""
+            self.characterChatBox.characterNameLabel.text = ""
+            self.characterChatBox.loadingAnimationView.stop()
+            self.characterChatBox.loadingAnimationView.isHidden = true
+            self.characterChatBox.messageLabel.isHidden = false
+            self.characterChatBox.messageLabel.text = ""
         }
         characterChatBoxPositionAnimator.startAnimation()
     }
@@ -284,7 +285,7 @@ extension ORBCharacterChatViewController {
             guard let self else { return }
             self.postCharacterChat(message: self.rootView.userChatInputView.text)
             // 로티 뜨도록 구현
-            self.rootView.characterChatBox.configureContents(
+            self.characterChatBox.configureContents(
                 character: MyInfoManager.shared.representativeCharacterName ?? "",
                 message: "",
                 mode: .loading,
@@ -357,8 +358,8 @@ extension ORBCharacterChatViewController {
 extension ORBCharacterChatViewController {
     
     @objc private func panGestureHandler(sender: UIPanGestureRecognizer) {
-        let hasReplyButton = rootView.characterChatBox.mode == .withReplyButtonShrinked
-        || rootView.characterChatBox.mode == .withReplyButtonExpanded
+        let hasReplyButton = characterChatBox.mode == .withReplyButtonShrinked
+        || characterChatBox.mode == .withReplyButtonExpanded
         switch sender.state {
         case .possible, .began:
             stopAutoHide()
@@ -367,17 +368,17 @@ extension ORBCharacterChatViewController {
             let verticalPosition = sender.translation(in: rootView).y
             if verticalPosition < 0, hasReplyButton {
                 let transform = CGAffineTransform(translationX: 0, y: verticalPosition)
-                rootView.characterChatBox.transform = transform
+                characterChatBox.transform = transform
                 
             } else if verticalPosition < 0, !hasReplyButton {
                 let maximumDragDistance: CGFloat = 15
                 let transform = CGAffineTransform(translationX: 0, y: -maximumDragDistance * (1 - exp(-0.5 * -verticalPosition / maximumDragDistance)))
-                rootView.characterChatBox.transform = transform
+                characterChatBox.transform = transform
                 
             } else if verticalPosition > 0 {
                 let maximumDragDistance: CGFloat = hasReplyButton ? 60 : 15
                 let transform = CGAffineTransform(translationX: 0, y: maximumDragDistance * (1 - exp(-0.5 * verticalPosition / maximumDragDistance)))
-                rootView.characterChatBox.transform = transform
+                characterChatBox.transform = transform
                 
             }
         case .ended, .cancelled, .failed:
@@ -390,35 +391,35 @@ extension ORBCharacterChatViewController {
                 }
             }
         @unknown default:
-            rootView.characterChatBox.transform = CGAffineTransform.identity
+            characterChatBox.transform = CGAffineTransform.identity
         }
     }
 
     @objc private func shrinkChatBox() {
         stopAutoHide()
-        rootView.characterChatBox.shrink()
+        characterChatBox.shrink()
     }
     
     @objc private func touchUpOutside(event: UIControl.Event) {
-        rootView.characterChatBox.expand()
+        characterChatBox.expand()
     }
     
     @objc private func touchUpInside() {
-        rootView.characterChatBox.expand()
-        guard rootView.characterChatBox.mode != .loading else { return }
+        characterChatBox.expand()
+        guard characterChatBox.mode != .loading else { return }
         patchChatReadRelay.accept(())
         ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController
             .onNext(MyInfoManager.shared.representativeCharacterID)
     }
     
     private func setupGestures() {
-        rootView.characterChatBox.addGestureRecognizer(panGesture)
+        characterChatBox.addGestureRecognizer(panGesture)
     }
     
     private func setupTargets() {
-        rootView.characterChatBox.addTarget(self, action: #selector(shrinkChatBox), for: [.touchDown])
-        rootView.characterChatBox.addTarget(self, action: #selector(touchUpOutside), for: [.touchUpOutside, .touchCancel])
-        rootView.characterChatBox.addTarget(self, action: #selector(touchUpInside), for: .touchUpInside)
+        characterChatBox.addTarget(self, action: #selector(shrinkChatBox), for: [.touchDown])
+        characterChatBox.addTarget(self, action: #selector(touchUpOutside), for: [.touchUpOutside, .touchCancel])
+        characterChatBox.addTarget(self, action: #selector(touchUpInside), for: .touchUpInside)
     }
     
     private func scheduleAutoHide() {
@@ -444,45 +445,45 @@ extension ORBCharacterChatViewController {
         setupGestures()
         setupTargets()
         
-        rootView.characterChatBox.chevronImageButton.rx.controlEvent(.touchDown).bind(onNext: { [weak self] in
+        characterChatBox.chevronImageButton.rx.controlEvent(.touchDown).bind(onNext: { [weak self] in
             guard let self else { return }
             self.stopAutoHide()
         }).disposed(by: disposeBag)
         
-        rootView.characterChatBox.chevronImageButton.rx.controlEvent([.touchUpInside, .touchUpOutside])
+        characterChatBox.chevronImageButton.rx.controlEvent([.touchUpInside, .touchUpOutside])
             .bind(onNext: { [weak self] in
                 guard let self else { return }
-                let hasReplyButton = self.rootView.characterChatBox.mode == .withReplyButtonShrinked
-                || self.rootView.characterChatBox.mode == .withReplyButtonExpanded
+                let hasReplyButton = self.characterChatBox.mode == .withReplyButtonShrinked
+                || self.characterChatBox.mode == .withReplyButtonExpanded
                 if hasReplyButton {
                     self.restartAutoHide()
                 }
             }).disposed(by: disposeBag)
         
-        rootView.characterChatBox.chevronImageButton.rx.tap.bind { [weak self] in
+        characterChatBox.chevronImageButton.rx.tap.bind { [weak self] in
             guard let self else { return }
-            if self.rootView.characterChatBox.mode == .withReplyButtonShrinked {
-                rootView.characterChatBox.changeChatBoxMode(to: .withReplyButtonExpanded, animated: true)
-            } else if self.rootView.characterChatBox.mode == .withReplyButtonExpanded {
-                rootView.characterChatBox.changeChatBoxMode(to: .withReplyButtonShrinked, animated: true)
-            } else if self.rootView.characterChatBox.mode == .withoutReplyButtonShrinked {
-                rootView.characterChatBox.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
-            } else if self.rootView.characterChatBox.mode == .withoutReplyButtonExpanded {
-                rootView.characterChatBox.changeChatBoxMode(to: .withoutReplyButtonShrinked, animated: true)
+            if self.characterChatBox.mode == .withReplyButtonShrinked {
+                self.characterChatBox.changeChatBoxMode(to: .withReplyButtonExpanded, animated: true)
+            } else if self.characterChatBox.mode == .withReplyButtonExpanded {
+                self.characterChatBox.changeChatBoxMode(to: .withReplyButtonShrinked, animated: true)
+            } else if self.characterChatBox.mode == .withoutReplyButtonShrinked {
+                self.characterChatBox.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+            } else if self.characterChatBox.mode == .withoutReplyButtonExpanded {
+                self.characterChatBox.changeChatBoxMode(to: .withoutReplyButtonShrinked, animated: true)
             }
         }.disposed(by: disposeBag)
         
-        rootView.characterChatBox.replyButton.rx.tap.bind { [weak self] in
+        characterChatBox.replyButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             self.stopAutoHide()
             self.rootView.window?.makeKeyAndVisible()
             if self.rootView.userChatInputView.becomeFirstResponder() {
                 self.patchChatReadRelay.accept(())
             }
-            self.rootView.characterChatBox.isHidden = false
+            self.characterChatBox.isHidden = false
             self.rootView.userChatView.isHidden = false
             self.rootView.endChatButton.isHidden = false
-            rootView.characterChatBox.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+            self.characterChatBox.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
         }.disposed(by: disposeBag)
     }
 }
