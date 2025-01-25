@@ -175,89 +175,6 @@ extension ORBCharacterChatViewController {
         }
     }
     
-    //MARK: - Func
-    
-    func showCharacterChatBox(isAutoDismiss: Bool = true) {
-        isCharacterChatBoxShown = true
-        characterChatBox.isHidden = false
-        panGesture.isEnabled = true
-        rootView.layoutIfNeeded()
-        characterChatBoxPositionAnimator.stopAnimation(true)
-        characterChatBoxPositionAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            // pagGesture로 변경된 (세로)위치 원상복구
-            self.characterChatBox.transform = CGAffineTransform.identity
-            self.rootView.characterChatBoxTopConstraint.constant = view.safeAreaInsets.top + 27
-            self.rootView.layoutIfNeeded()
-        }
-        characterChatBoxPositionAnimator.startAnimation()
-        if isAutoDismiss {
-            startAutoHide()
-        }
-    }
-    
-    func hideCharacterChatBox() {
-        panGesture.isEnabled = false
-        isCharacterChatBoxShown = false
-        characterChatBoxPositionAnimator.stopAnimation(true)
-        characterChatBoxPositionAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            // pagGesture로 변경된 (세로)위치 원상복구
-            self.characterChatBox.transform = CGAffineTransform.identity
-            self.rootView.characterChatBoxTopConstraint.constant
-            = -self.characterChatBox.frame.height
-            self.rootView.layoutIfNeeded()
-        }
-        characterChatBoxPositionAnimator.addCompletion { [weak self] _ in
-            guard let self else { return }
-            self.characterChatBox.characterNameLabel.text = ""
-            self.characterChatBox.loadingAnimationView.stop()
-            self.characterChatBox.loadingAnimationView.isHidden = true
-            self.characterChatBox.messageLabel.isHidden = false
-            self.characterChatBox.messageLabel.text = ""
-        }
-        characterChatBoxPositionAnimator.startAnimation()
-    }
-    
-    func hideUserChatInputView() {
-        rootView.layoutIfNeeded()
-        guard isUserChatInputViewShown else { return }
-        let inputViewHeight = rootView.userChatView.frame.height
-        isUserChatInputViewShown = false
-        // 48: 채팅 종료 버튼과 그 아래의 padding 값의 합
-        updateChatInputViewPosition(bottomInset: -(48 + inputViewHeight))
-    }
-    
-    func updateChatInputViewPosition(bottomInset: CGFloat) {
-        userChatViewAnimator.stopAnimation(true)
-        rootView.layoutIfNeeded()
-        userChatViewAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.rootView.userChatViewBottomConstraint.constant = -bottomInset
-            self.rootView.layoutIfNeeded()
-        }
-        userChatViewAnimator.startAnimation()
-    }
-    
-    func updateChatInputViewHeight(height: CGFloat) {
-        userChatInputViewHeightAnimator.stopAnimation(true)
-        userChatInputViewHeightAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.rootView.userChatInputViewHeightConstraint.constant = height
-            self.rootView.layoutIfNeeded()
-        }
-        userChatInputViewHeightAnimator.startAnimation()
-    }
-    
-    func updateChatDisplayViewHeight(height: CGFloat) {
-        userChatDisplayViewHeightAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.rootView.userChatDisplayViewHeightConstraint.constant = height
-            self.rootView.layoutIfNeeded()
-        }
-        userChatDisplayViewHeightAnimator.startAnimation()
-    }
-    
 }
 
 //MARK: - 채팅창 입력 관련 함수
@@ -337,6 +254,48 @@ extension ORBCharacterChatViewController {
             self.rootView.layoutIfNeeded()
         }).disposed(by: disposeBag)
     }
+    
+    //MARK: - Func
+    
+    func hideUserChatInputView() {
+        rootView.layoutIfNeeded()
+        guard isUserChatInputViewShown else { return }
+        let inputViewHeight = rootView.userChatView.frame.height
+        isUserChatInputViewShown = false
+        // 48: 채팅 종료 버튼과 그 아래의 padding 값의 합
+        updateChatInputViewPosition(bottomInset: -(48 + inputViewHeight))
+    }
+    
+    func updateChatInputViewPosition(bottomInset: CGFloat) {
+        userChatViewAnimator.stopAnimation(true)
+        rootView.layoutIfNeeded()
+        userChatViewAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.userChatViewBottomConstraint.constant = -bottomInset
+            self.rootView.layoutIfNeeded()
+        }
+        userChatViewAnimator.startAnimation()
+    }
+    
+    func updateChatInputViewHeight(height: CGFloat) {
+        userChatInputViewHeightAnimator.stopAnimation(true)
+        userChatInputViewHeightAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.userChatInputViewHeightConstraint.constant = height
+            self.rootView.layoutIfNeeded()
+        }
+        userChatInputViewHeightAnimator.startAnimation()
+    }
+    
+    func updateChatDisplayViewHeight(height: CGFloat) {
+        userChatDisplayViewHeightAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.rootView.userChatDisplayViewHeightConstraint.constant = height
+            self.rootView.layoutIfNeeded()
+        }
+        userChatDisplayViewHeightAnimator.startAnimation()
+    }
+    
 }
 
 //MARK: - 채팅 박스 관련 함수
@@ -453,6 +412,50 @@ extension ORBCharacterChatViewController {
     
     private func stopAutoHide() {
         hideWorkItem?.cancel()
+    }
+    
+    //MARK: - Func
+    
+    func showCharacterChatBox(isAutoDismiss: Bool = true) {
+        isCharacterChatBoxShown = true
+        characterChatBox.isHidden = false
+        panGesture.isEnabled = true
+        rootView.layoutIfNeeded()
+        characterChatBoxPositionAnimator.stopAnimation(true)
+        characterChatBoxPositionAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            // pagGesture로 변경된 (세로)위치 원상복구
+            self.characterChatBox.transform = CGAffineTransform.identity
+            self.rootView.characterChatBoxTopConstraint.constant = view.safeAreaInsets.top + 27
+            self.rootView.layoutIfNeeded()
+        }
+        characterChatBoxPositionAnimator.startAnimation()
+        if isAutoDismiss {
+            startAutoHide()
+        }
+    }
+    
+    func hideCharacterChatBox() {
+        panGesture.isEnabled = false
+        isCharacterChatBoxShown = false
+        characterChatBoxPositionAnimator.stopAnimation(true)
+        characterChatBoxPositionAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            // pagGesture로 변경된 (세로)위치 원상복구
+            self.characterChatBox.transform = CGAffineTransform.identity
+            self.rootView.characterChatBoxTopConstraint.constant
+            = -self.characterChatBox.frame.height
+            self.rootView.layoutIfNeeded()
+        }
+        characterChatBoxPositionAnimator.addCompletion { [weak self] _ in
+            guard let self else { return }
+            self.characterChatBox.characterNameLabel.text = ""
+            self.characterChatBox.loadingAnimationView.stop()
+            self.characterChatBox.loadingAnimationView.isHidden = true
+            self.characterChatBox.messageLabel.isHidden = false
+            self.characterChatBox.messageLabel.text = ""
+        }
+        characterChatBoxPositionAnimator.startAnimation()
     }
     
 }
