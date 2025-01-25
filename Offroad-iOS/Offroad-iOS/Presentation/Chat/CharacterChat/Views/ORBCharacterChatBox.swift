@@ -24,13 +24,13 @@ enum ChatBoxMode {
     case loading
 }
 
-class ORBCharacterChatBox: UIControl {
+class ORBCharacterChatBox: UIControl, Shrinkable {
     
     var mode: ChatBoxMode
     var disposeBag = DisposeBag()
     
     private let modeChangingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
-    let shrinkBehaviorAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
+    let shrinkingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     let characterNameLabel = UILabel()
     let messageLabel = UILabel()
     let loadingAnimationView = LottieAnimationView(name: "loading2")
@@ -215,25 +215,6 @@ extension ORBCharacterChatBox {
     }
     
     //MARK: - Func
-    
-    func shrink() {
-        shrinkBehaviorAnimator.stopAnimation(true)
-        shrinkBehaviorAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            let shrinkTransform = CGAffineTransform(scaleX: 0.97, y: 0.97)
-            self.transform = shrinkTransform
-        }
-        shrinkBehaviorAnimator.startAnimation()
-    }
-    
-    func expand() {
-        shrinkBehaviorAnimator.stopAnimation(true)
-        shrinkBehaviorAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            transform = CGAffineTransform.identity
-        }
-        shrinkBehaviorAnimator.startAnimation()
-    }
     
     func setupHiddenState(mode: ChatBoxMode) {
         switch mode {

@@ -306,16 +306,16 @@ extension ORBCharacterChatViewController {
         
         characterChatBox.rx.controlEvent([.touchDown]).subscribe(onNext: { [weak self] in
             self?.stopAutoHide()
-            self?.characterChatBox.shrink()
+            self?.characterChatBox.shrink(scale: 0.97)
         }).disposed(by: disposeBag)
         
         characterChatBox.rx.controlEvent([.touchUpOutside, .touchCancel]).subscribe(onNext: { [weak self] in
-            self?.characterChatBox.expand()
+            self?.characterChatBox.restore()
         }).disposed(by: disposeBag)
         
         characterChatBox.rx.controlEvent(.touchUpInside).subscribe(onNext: { [weak self] in
             guard let self else { return }
-            self.characterChatBox.expand()
+            self.characterChatBox.restore()
             guard self.characterChatBox.mode != .loading else { return }
             self.patchChatReadRelay.accept(())
             ORBCharacterChatManager.shared.shouldPushCharacterChatLogViewController
