@@ -98,11 +98,8 @@ extension ORBCharacterChatViewController {
         label.numberOfLines = 0
         label.font = font
         label.text = text
-        
         // 너비를 제한한 크기 계산
         let fittingSize = label.sizeThatFits(CGSize(width: maxSize.width, height: maxSize.height))
-
-        // 결과 출력
         return fittingSize
     }
     
