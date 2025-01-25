@@ -30,6 +30,7 @@ class ORBNMFMarker: NMFMarker {
         )
         self.iconImage = iconImage
         self.anchor = .init(x: 0.5, y: 1)
+        self.iconPerspectiveEnabled = true
     }
     
 }
