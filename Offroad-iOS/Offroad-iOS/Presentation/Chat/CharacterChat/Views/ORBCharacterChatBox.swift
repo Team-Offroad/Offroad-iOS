@@ -203,13 +203,13 @@ extension ORBCharacterChatBox {
         chevronImageButton.rx.tap.bind { [weak self] in
             guard let self else { return }
             if mode == .withReplyButtonShrinked {
-                changeChatBoxMode(to: .withReplyButtonExpanded, animated: true)
+                changeMode(to: .withReplyButtonExpanded, animated: true)
             } else if mode == .withReplyButtonExpanded {
-                changeChatBoxMode(to: .withReplyButtonShrinked, animated: true)
+                changeMode(to: .withReplyButtonShrinked, animated: true)
             } else if mode == .withoutReplyButtonShrinked {
-                changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+                changeMode(to: .withoutReplyButtonExpanded, animated: true)
             } else if mode == .withoutReplyButtonExpanded {
-                changeChatBoxMode(to: .withoutReplyButtonShrinked, animated: true)
+                changeMode(to: .withoutReplyButtonShrinked, animated: true)
             }
         }.disposed(by: disposeBag)
     }
@@ -270,7 +270,7 @@ extension ORBCharacterChatBox {
         }
     }
     
-    func changeChatBoxMode(to mode: ChatBoxMode, animated: Bool) {
+    func changeMode(to mode: ChatBoxMode, animated: Bool) {
         modeChangingAnimator.stopAnimation(true)
         self.mode = mode
         chevronImageButton.isHidden = (mode == .loading)
@@ -292,7 +292,7 @@ extension ORBCharacterChatBox {
     func configureContents(character name: String, message: String, mode: ChatBoxMode, animated: Bool) {
         characterNameLabel.text = name + " :"
         messageLabel.text = message
-        changeChatBoxMode(to: mode, animated: animated)
+        changeMode(to: mode, animated: animated)
     }
     
 }

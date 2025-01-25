@@ -350,7 +350,7 @@ extension ORBCharacterChatViewController {
             self.characterChatBox.isHidden = false
             self.rootView.userChatView.isHidden = false
             self.rootView.endChatButton.isHidden = false
-            self.characterChatBox.changeChatBoxMode(to: .withoutReplyButtonExpanded, animated: true)
+            self.characterChatBox.changeMode(to: .withoutReplyButtonExpanded, animated: true)
         }.disposed(by: disposeBag)
     }
     
