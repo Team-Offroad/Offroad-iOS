@@ -8,6 +8,8 @@
 import UIKit
 
 import Lottie
+import RxSwift
+import RxCocoa
 
 enum ChatBoxMode {
     /// 답장하기 버튼이 있고, 접혀 있을 때 - 캐릭터로부터 선톡이 왔을 때 사용자가 chenvron 버튼 짝수(0 포함) 번 탭했을 때
@@ -22,11 +24,13 @@ enum ChatBoxMode {
     case loading
 }
 
-class ORBCharacterChatBox: UIControl {
+class ORBCharacterChatBox: UIControl, Shrinkable {
     
     var mode: ChatBoxMode
+    var disposeBag = DisposeBag()
     
-    let shrinkBehaviorAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
+    private let modeChangingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
+    let shrinkingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     let characterNameLabel = UILabel()
     let messageLabel = UILabel()
     let loadingAnimationView = LottieAnimationView(name: "loading2")
@@ -52,6 +56,7 @@ class ORBCharacterChatBox: UIControl {
         setupHierarchy()
         setupLayout()
         setupAdditionalLayout(mode: mode)
+        setupActions()
     }
     
     required init?(coder: NSCoder) {
@@ -194,26 +199,22 @@ extension ORBCharacterChatBox {
         addSubviews(characterNameLabel, messageLabel, loadingAnimationView, chevronImageButton, replyButton)
     }
     
+    private func setupActions() {
+        chevronImageButton.rx.tap.bind { [weak self] in
+            guard let self else { return }
+            if mode == .withReplyButtonShrinked {
+                changeMode(to: .withReplyButtonExpanded, animated: true)
+            } else if mode == .withReplyButtonExpanded {
+                changeMode(to: .withReplyButtonShrinked, animated: true)
+            } else if mode == .withoutReplyButtonShrinked {
+                changeMode(to: .withoutReplyButtonExpanded, animated: true)
+            } else if mode == .withoutReplyButtonExpanded {
+                changeMode(to: .withoutReplyButtonShrinked, animated: true)
+            }
+        }.disposed(by: disposeBag)
+    }
+    
     //MARK: - Func
-    
-    func shrink() {
-        shrinkBehaviorAnimator.stopAnimation(true)
-        shrinkBehaviorAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            let shrinkTransform = CGAffineTransform(scaleX: 0.97, y: 0.97)
-            self.transform = shrinkTransform
-        }
-        shrinkBehaviorAnimator.startAnimation()
-    }
-    
-    func expand() {
-        shrinkBehaviorAnimator.stopAnimation(true)
-        shrinkBehaviorAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            transform = CGAffineTransform.identity
-        }
-        shrinkBehaviorAnimator.startAnimation()
-    }
     
     func setupHiddenState(mode: ChatBoxMode) {
         switch mode {
@@ -248,6 +249,31 @@ extension ORBCharacterChatBox {
             loadingAnimationView.isHidden = false
             loadingAnimationView.play()
         }
+    }
+    
+    func changeMode(to mode: ChatBoxMode, animated: Bool) {
+        modeChangingAnimator.stopAnimation(true)
+        self.mode = mode
+        chevronImageButton.isHidden = (mode == .loading)
+        if animated {
+            modeChangingAnimator.addAnimations { [weak self] in
+                guard let self else { return }
+                setupHiddenState(mode: mode)
+                setupAdditionalLayout(mode: mode)
+                superview?.layoutIfNeeded()
+            }
+            modeChangingAnimator.startAnimation()
+        } else {
+            setupHiddenState(mode: mode)
+            setupAdditionalLayout(mode: mode)
+            superview?.layoutIfNeeded()
+        }
+    }
+    
+    func configureContents(character name: String, message: String, mode: ChatBoxMode, animated: Bool) {
+        characterNameLabel.text = name + " :"
+        messageLabel.text = message
+        changeMode(to: mode, animated: animated)
     }
     
 }
