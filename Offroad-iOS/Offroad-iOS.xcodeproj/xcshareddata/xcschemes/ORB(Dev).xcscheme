@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4E0394282C2A9DCE007F0517"
-               BuildableName = "Offroad-iOS.app"
-               BlueprintName = "Offroad-iOS"
+               BuildableName = "ORB.app"
+               BlueprintName = "ORB"
                ReferencedContainer = "container:Offroad-iOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,12 +44,21 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4E0394282C2A9DCE007F0517"
-            BuildableName = "Offroad-iOS.app"
-            BlueprintName = "Offroad-iOS"
+            BlueprintIdentifier = "4E4F314A2D4718F400C3B2FF"
+            BuildableName = "ORB(Dev).app"
+            BlueprintName = "ORB(Dev)"
             ReferencedContainer = "container:Offroad-iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "4E0394282C2A9DCE007F0517"
+            BuildableName = "ORB.app"
+            BlueprintName = "ORB"
+            ReferencedContainer = "container:Offroad-iOS.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -62,8 +71,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E0394282C2A9DCE007F0517"
-            BuildableName = "Offroad-iOS.app"
-            BlueprintName = "Offroad-iOS"
+            BuildableName = "ORB.app"
+            BlueprintName = "ORB"
             ReferencedContainer = "container:Offroad-iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
