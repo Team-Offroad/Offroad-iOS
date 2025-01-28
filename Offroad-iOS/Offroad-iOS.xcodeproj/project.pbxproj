@@ -329,7 +329,6 @@
 		4E4F32652D4718F400C3B2FF /* Pods_Offroad_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 197CEEAC334A0A510C4EBC1E /* Pods_Offroad_iOS.framework */; };
 		4E4F32672D4718F400C3B2FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E0394372C2A9DCF007F0517 /* LaunchScreen.storyboard */; };
 		4E4F32682D4718F400C3B2FF /* loading1.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E9900862CE0768B007EEFF7 /* loading1.json */; };
-		4E4F32692D4718F400C3B2FF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0600BE12CE6192300D8F1D6 /* GoogleService-Info.plist */; };
 		4E4F326A2D4718F400C3B2FF /* loading2.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E9900872CE0768B007EEFF7 /* loading2.json */; };
 		4E4F326B2D4718F400C3B2FF /* Optician-Sans.otf in Resources */ = {isa = PBXBuildFile; fileRef = D06D26B82C3BA91900E79F25 /* Optician-Sans.otf */; };
 		4E4F326C2D4718F400C3B2FF /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D392C31271E006A1493 /* Pretendard-Light.otf */; };
@@ -357,6 +356,7 @@
 		4E700C852CB3CA1E00C664C2 /* ORBOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */; };
 		4E7A609F2D1C698F0079007C /* ORBMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
+		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
 		4E99007C2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */; };
 		4E99007E2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */; };
 		4E9900802CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */; };
@@ -657,6 +657,7 @@
 		4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBOverlayViewController.swift; sourceTree = "<group>"; };
 		4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapViewController.swift; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info_Dev.plist"; sourceTree = "<group>"; };
 		4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatWindow.swift; sourceTree = "<group>"; };
 		4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatManager.swift; sourceTree = "<group>"; };
 		4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatViewController.swift; sourceTree = "<group>"; };
@@ -1066,6 +1067,7 @@
 				4E03943A2C2A9DCF007F0517 /* Info.plist */,
 				4E4F327B2D4718F400C3B2FF /* Info_Dev.plist */,
 				D0600BE12CE6192300D8F1D6 /* GoogleService-Info.plist */,
+				4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2961,7 +2963,6 @@
 			files = (
 				4E4F32672D4718F400C3B2FF /* LaunchScreen.storyboard in Resources */,
 				4E4F32682D4718F400C3B2FF /* loading1.json in Resources */,
-				4E4F32692D4718F400C3B2FF /* GoogleService-Info.plist in Resources */,
 				4E4F326A2D4718F400C3B2FF /* loading2.json in Resources */,
 				4E4F326B2D4718F400C3B2FF /* Optician-Sans.otf in Resources */,
 				4E4F326C2D4718F400C3B2FF /* Pretendard-Light.otf in Resources */,
@@ -2970,6 +2971,7 @@
 				4E4F326F2D4718F400C3B2FF /* Pretendard-Medium.otf in Resources */,
 				4E4F32702D4718F400C3B2FF /* Pretendard-Regular.otf in Resources */,
 				4E4F32712D4718F400C3B2FF /* Pretendard-Bold.otf in Resources */,
+				4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */,
 				4E4F32722D4718F400C3B2FF /* Pretendard-SemiBold.otf in Resources */,
 				4E4F32732D4718F400C3B2FF /* Pretendard-Black.otf in Resources */,
 				4E4F32742D4718F400C3B2FF /* Assets.xcassets in Resources */,
