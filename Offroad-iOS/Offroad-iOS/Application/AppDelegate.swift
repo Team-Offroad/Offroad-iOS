@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // NetworkMonitoringManager 싱글톤 객체 생성
         let _ = NetworkMonitoringManager.shared
         
-#if DevTarget
+        #if DevTarget
         let filePath = Bundle.main.path(forResource: "GoogleService-Info_Dev", ofType: "plist")
         if let filePath, let options = FirebaseOptions(contentsOfFile: filePath) {
             FirebaseApp.configure(options: options)
@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         #else
         FirebaseApp.configure()
-#endif
+        #endif
         
         
         
