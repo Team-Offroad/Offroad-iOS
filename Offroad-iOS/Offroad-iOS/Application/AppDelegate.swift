@@ -27,14 +27,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // NetworkMonitoringManager 싱글톤 객체 생성
         let _ = NetworkMonitoringManager.shared
         
+        // 개발용 앱인 경우 'GoogleService-Info_Dev.plist' 파일을 사용하여 FirebaseApp을 configure
         #if DevTarget
         let filePath = Bundle.main.path(forResource: "GoogleService-Info_Dev", ofType: "plist")
         if let filePath, let options = FirebaseOptions(contentsOfFile: filePath) {
             FirebaseApp.configure(options: options)
         } else {
+            // 개발용 앱에서만 문제 발생 시 fataError 발생(앱 강제종료)
             fatalError("GoogleService-Info.plist not found.")
         }
         #else
+        // 배포용 앱인 경우 'GoogleService-Info.plist' 파일을 사용하여 FirebaseApp을 configure (기본값)
         FirebaseApp.configure()
         #endif
         
