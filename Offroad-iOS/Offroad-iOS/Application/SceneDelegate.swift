@@ -33,6 +33,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let pushType = PushNotificationRedirectModel(data: data ?? nil, category: category)
             self.window?.rootViewController = SplashViewController(pushType: pushType)
         }
+        
+        #if DevTarget
+        ORBToastManager.shared.showToast(message: "이 애플리케이션은 개발용 애플리케이션입니다.", inset: 30)
+        #endif
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
