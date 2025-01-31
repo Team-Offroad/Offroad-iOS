@@ -9,7 +9,8 @@ import UIKit
 
 class ConsoleLogView: UIView {
     
-    let floatingButton = ShrinkableButton(shrinkScale: 0.9)
+//    let floatingButton = ShrinkableButton(shrinkScale: 0.9)
+    let floatingButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
