@@ -9,14 +9,13 @@ import UIKit
 
 class ConsoleLogView: UIView {
     
-    let floatingButton = UIButton()
+    let floatingButton = ShrinkableButton(shrinkScale: 0.9)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setupStyle()
         setupHierarchy()
-        setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -32,11 +31,11 @@ extension ConsoleLogView {
     
     private func setupStyle() {
         floatingButton.do { button in
-            button.setTitle("🐞", for: .normal)
+            button.setTitle("🛠️", for: .normal)
             button.backgroundColor = UIColor.black.withAlphaComponent(0.7)
             button.setTitleColor(.white, for: .normal)
-            button.layer.cornerRadius = 25
-            button.frame = CGRect(x: 20, y: 100, width: 50, height: 50)
+            button.roundCorners(cornerRadius: 30)
+            button.frame = CGRect(x: 20, y: 100, width: 60, height: 60)
         }
     }
     
@@ -44,11 +43,6 @@ extension ConsoleLogView {
     
     private func setupHierarchy() {
         addSubview(floatingButton)
-    }
-    
-    private func setupLayout() {
-        
-    }
-    
+    }    
     
 }
