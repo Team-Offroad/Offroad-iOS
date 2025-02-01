@@ -13,7 +13,9 @@ import RxCocoa
 class ConsoleLogViewController: UIViewController {
     
     var disposeBag = DisposeBag()
-    private var animator: UIDynamicAnimator?
+    var isLogTextViewShown: Bool = false
+    private let logTextViewAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    private var dynamicAnimator: UIDynamicAnimator?
     private var dynamicBehavior: UIDynamicItemBehavior?
     private var collisionBehavior: UICollisionBehavior?
     
@@ -30,7 +32,7 @@ class ConsoleLogViewController: UIViewController {
         
         setupGestures()
         setupActions()
-        animator = UIDynamicAnimator(referenceView: view)
+        dynamicAnimator = UIDynamicAnimator(referenceView: view)
     }
     
 }
@@ -51,7 +53,7 @@ extension ConsoleLogViewController {
         
         switch sender.state {
         case .began:
-            animator?.removeAllBehaviors()
+            dynamicAnimator?.removeAllBehaviors()
         case .changed:
             // floatingButton 한 변의 길이: 60
             rootView.floatingButton.center = CGPoint(
@@ -79,6 +81,12 @@ extension ConsoleLogViewController {
     
     private func floatingButtonAction() {
         print("floatingButton action")
+//        let isLogTextViewShown = !rootView.logTextView.isHidden
+        if isLogTextViewShown {
+            self.hideLogTextView()
+        } else {
+            self.showLogTextView()
+        }
     }
     
     private func applyInertiaEffect(velocity: CGPoint) {
@@ -87,7 +95,7 @@ extension ConsoleLogViewController {
         dynamic.resistance = 15.0
         dynamic.elasticity = 0.3
         dynamic.allowsRotation = false
-        animator?.addBehavior(dynamic)
+        dynamicAnimator?.addBehavior(dynamic)
         dynamicBehavior = dynamic
         
         let inset: CGFloat = 20
@@ -109,8 +117,37 @@ extension ConsoleLogViewController {
                               from: CGPoint(x: boundaryFrame.minX, y: boundaryFrame.maxY),
                               to: CGPoint(x: boundaryFrame.maxX, y: boundaryFrame.maxY))
         
-        animator?.addBehavior(collision)
+        dynamicAnimator?.addBehavior(collision)
         collisionBehavior = collision
+    }
+    
+    private func showLogTextView() {
+        logTextViewAnimator.stopAnimation(true)
+        rootView.logTextView.isHidden = false
+        isLogTextViewShown = true
+        let transform = CGAffineTransform.identity
+        logTextViewAnimator.addAnimations { [weak self] in
+            self?.rootView.logTextView.transform = transform
+            self?.rootView.logTextView.alpha = 1
+        }
+        logTextViewAnimator.addCompletion { [weak self] _ in
+            self?.rootView.logTextView.layoutIfNeeded()
+        }
+        logTextViewAnimator.startAnimation()
+    }
+    
+    private func hideLogTextView() {
+        logTextViewAnimator.stopAnimation(true)
+        isLogTextViewShown = false
+        let transform = CGAffineTransform(scaleX: 1, y: 0.1)
+        logTextViewAnimator.addAnimations { [weak self] in
+            self?.rootView.logTextView.transform = transform
+            self?.rootView.logTextView.alpha = 0
+        }
+        logTextViewAnimator.addCompletion { [weak self] _ in
+            self?.rootView.logTextView.isHidden = true
+        }
+        logTextViewAnimator.startAnimation()
     }
     
 }
