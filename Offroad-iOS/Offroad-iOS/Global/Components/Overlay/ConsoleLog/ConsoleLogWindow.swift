@@ -25,7 +25,7 @@ class ConsoleLogWindow: UIWindow {
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {        
         if consoleLogViewController.rootView.floatingButton.frame.contains(point) ||
-            consoleLogViewController.rootView.logTextView.frame.contains(point) {
+            consoleLogViewController.rootView.floatingView.frame.contains(point) {
             return super.hitTest(point, with: event)
         } else {
             return nil

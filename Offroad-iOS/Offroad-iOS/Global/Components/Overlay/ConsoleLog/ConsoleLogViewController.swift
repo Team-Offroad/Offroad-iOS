@@ -13,8 +13,8 @@ import RxCocoa
 class ConsoleLogViewController: UIViewController {
     
     var disposeBag = DisposeBag()
-    var isLogTextViewShown: Bool = false
-    private let logTextViewAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    private var isfloatingViewShown: Bool = false
+    private let floatingViewShowingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     private var dynamicAnimator: UIDynamicAnimator?
     private var dynamicBehavior: UIDynamicItemBehavior?
     private var collisionBehavior: UICollisionBehavior?
@@ -82,7 +82,7 @@ extension ConsoleLogViewController {
     private func floatingButtonAction() {
         print("floatingButton action")
 //        let isLogTextViewShown = !rootView.logTextView.isHidden
-        if isLogTextViewShown {
+        if isfloatingViewShown {
             self.hideLogTextView()
         } else {
             self.showLogTextView()
@@ -122,32 +122,32 @@ extension ConsoleLogViewController {
     }
     
     private func showLogTextView() {
-        logTextViewAnimator.stopAnimation(true)
-        rootView.logTextView.isHidden = false
-        isLogTextViewShown = true
+        floatingViewShowingAnimator.stopAnimation(true)
+        rootView.floatingView.isHidden = false
+        isfloatingViewShown = true
         let transform = CGAffineTransform.identity
-        logTextViewAnimator.addAnimations { [weak self] in
-            self?.rootView.logTextView.transform = transform
-            self?.rootView.logTextView.alpha = 1
+        floatingViewShowingAnimator.addAnimations { [weak self] in
+            self?.rootView.floatingView.transform = transform
+            self?.rootView.floatingView.alpha = 1
         }
-        logTextViewAnimator.addCompletion { [weak self] _ in
-            self?.rootView.logTextView.layoutIfNeeded()
+        floatingViewShowingAnimator.addCompletion { [weak self] _ in
+            self?.rootView.floatingView.layoutIfNeeded()
         }
-        logTextViewAnimator.startAnimation()
+        floatingViewShowingAnimator.startAnimation()
     }
     
     private func hideLogTextView() {
-        logTextViewAnimator.stopAnimation(true)
-        isLogTextViewShown = false
+        floatingViewShowingAnimator.stopAnimation(true)
+        isfloatingViewShown = false
         let transform = CGAffineTransform(scaleX: 1, y: 0.1)
-        logTextViewAnimator.addAnimations { [weak self] in
-            self?.rootView.logTextView.transform = transform
-            self?.rootView.logTextView.alpha = 0
+        floatingViewShowingAnimator.addAnimations { [weak self] in
+            self?.rootView.floatingView.transform = transform
+            self?.rootView.floatingView.alpha = 0
         }
-        logTextViewAnimator.addCompletion { [weak self] _ in
-            self?.rootView.logTextView.isHidden = true
+        floatingViewShowingAnimator.addCompletion { [weak self] _ in
+            self?.rootView.floatingView.isHidden = true
         }
-        logTextViewAnimator.startAnimation()
+        floatingViewShowingAnimator.startAnimation()
     }
     
 }

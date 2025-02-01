@@ -10,6 +10,8 @@ import UIKit
 class ConsoleLogView: UIView {
     
 //    let floatingButton = ShrinkableButton(shrinkScale: 0.9)
+    let floatingView = UIView()
+    let floatingViewGrabber = UIView()
     let floatingButton = UIButton()
     let logTextView = UITextView()
     
@@ -40,42 +42,67 @@ extension ConsoleLogView {
             button.frame = CGRect(x: 20, y: 100, width: 60, height: 60)
         }
         
+        floatingView.do { view in
+            view.backgroundColor = .black.withAlphaComponent(0.3)
+            view.isHidden = true
+            view.roundCorners(cornerRadius: 20)
+            view.layer.cornerCurve = .continuous
+            let transform = CGAffineTransform(scaleX: 1, y: 0.1)
+            view.transform = transform
+        }
+        
+        floatingViewGrabber.do { view in
+            view.backgroundColor = .black.withAlphaComponent(0.4)
+            view.roundCorners(cornerRadius: 3)
+        }
+        
         logTextView.do { textView in
             textView.backgroundColor = .black.withAlphaComponent(0.6)
-            textView.isHidden = true
             textView.isEditable = false
             textView.isSelectable = false
             textView.delegate = self
             textView.font = .systemFont(ofSize: 14)
             textView.textColor = .white
-            textView.contentInset = .init(top: 5, left: 5, bottom: 5, right: 5)
-            textView.roundCorners(cornerRadius: 20)
-            textView.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            let transform = CGAffineTransform(scaleX: 1, y: 0.1)
-            textView.transform = transform
+            textView.contentInset = .init(top: 2, left: 5, bottom: 2, right: 5)
+            textView.roundCorners(cornerRadius: 16)
+            textView.layer.cornerCurve = .continuous
         }
     }
     
     // MARK: - Private Func
     
     private func setupHierarchy() {
-        addSubviews(logTextView, floatingButton)
+        floatingView.addSubviews(logTextView, floatingViewGrabber)
+        addSubviews(floatingView, floatingButton)
     }
     
     private func setupLayout() {
+        
+        floatingViewGrabber.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().inset(7)
+            make.width.equalTo(90)
+            make.height.equalTo(6)
+        }
+        
         if #available(iOS 16.0, *) {
-            logTextView.anchorPoint = .init(x: 0.5, y: 0)
-            logTextView.snp.makeConstraints { make in
+            floatingView.anchorPoint = .init(x: 0.5, y: 0)
+            floatingView.snp.makeConstraints { make in
                 make.centerY.equalTo(safeAreaLayoutGuide.snp.top)
                 make.horizontalEdges.equalToSuperview().inset(20)
-                make.height.equalTo(100)
+                make.height.equalTo(200)
             }
         } else {
-            logTextView.snp.makeConstraints { make in
+            floatingView.snp.makeConstraints { make in
                 make.top.equalTo(safeAreaLayoutGuide)
                 make.horizontalEdges.equalToSuperview().inset(20)
-                make.height.equalTo(100)
+                make.height.equalTo(200)
             }
+        }
+        
+        logTextView.snp.makeConstraints { make in
+            make.top.equalTo(floatingViewGrabber.snp.bottom).offset(7)
+            make.horizontalEdges.bottom.equalToSuperview().inset(5)
         }
     }
     
