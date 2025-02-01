@@ -37,6 +37,8 @@
 		4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */; };
 		4E09BF572C48A5B7009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */; };
 		4E0C69692C4724A100B6453E /* ORBNMFMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69682C4724A100B6453E /* ORBNMFMarker.swift */; };
+		4E1CFDEF2D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */; };
+		4E1CFDF02D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */; };
 		4E1E94112C39870700A7B08A /* ColorLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94102C39870700A7B08A /* ColorLiterals.swift */; };
 		4E1E94132C398C4200A7B08A /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94122C398C4200A7B08A /* String+.swift */; };
 		4E1E94192C3AC27C00A7B08A /* ORBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* ORBMapView.swift */; };
@@ -614,6 +616,7 @@
 		4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationRequestDTO.swift; sourceTree = "<group>"; };
 		4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationResponsetDTO.swift; sourceTree = "<group>"; };
 		4E0C69682C4724A100B6453E /* ORBNMFMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBNMFMarker.swift; sourceTree = "<group>"; };
+		4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintLogInDevApp.swift; sourceTree = "<group>"; };
 		4E1E94102C39870700A7B08A /* ColorLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiterals.swift; sourceTree = "<group>"; };
 		4E1E94122C398C4200A7B08A /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		4E1E94182C3AC27C00A7B08A /* ORBMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapView.swift; sourceTree = "<group>"; };
@@ -1707,6 +1710,7 @@
 				4EA5F4EF2D4C970600A59AB1 /* ConsoleLogWindow.swift */,
 				4EA5F4F22D4C975C00A59AB1 /* ConsoleLogViewController.swift */,
 				4EA5F4F42D4C977300A59AB1 /* ConsoleLogView.swift */,
+				4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */,
 			);
 			path = ConsoleLog;
 			sourceTree = "<group>";
@@ -3162,6 +3166,7 @@
 				4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */,
 				4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */,
 				D0E7966C2C457D64005B47A5 /* AdventureInfoResponseDTO.swift in Sources */,
+				4E1CFDF02D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* ORBMapView.swift in Sources */,
 				4EFCDFE32C92C1F1006DEBB6 /* ORBAlertButton.swift in Sources */,
 				4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */,
@@ -3533,6 +3538,7 @@
 				4E4F31CC2D4718F400C3B2FF /* ColorLiterals.swift in Sources */,
 				4E4F31CD2D4718F400C3B2FF /* BaseTargetType.swift in Sources */,
 				4E4F31CE2D4718F400C3B2FF /* RegisteredPlaceRequestDTO.swift in Sources */,
+				4E1CFDEF2D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */,
 				4E4F31CF2D4718F400C3B2FF /* ProfileAPI.swift in Sources */,
 				4E4F31D02D4718F400C3B2FF /* EmblemAPI.swift in Sources */,
 				4E4F31D12D4718F400C3B2FF /* TermsListTableViewCell.swift in Sources */,

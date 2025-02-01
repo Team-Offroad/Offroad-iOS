@@ -61,7 +61,7 @@ extension ConsoleLogView {
             textView.isEditable = false
             textView.isSelectable = false
             textView.delegate = self
-            textView.font = .systemFont(ofSize: 14)
+            textView.font = .systemFont(ofSize: 10)
             textView.textColor = .white
             textView.contentInset = .init(top: 2, left: 5, bottom: 2, right: 5)
             textView.roundCorners(cornerRadius: 16)
@@ -90,13 +90,13 @@ extension ConsoleLogView {
             floatingView.snp.makeConstraints { make in
                 make.centerY.equalTo(safeAreaLayoutGuide.snp.top)
                 make.horizontalEdges.equalToSuperview().inset(20)
-                make.height.equalTo(200)
+                make.height.equalTo(300)
             }
         } else {
             floatingView.snp.makeConstraints { make in
                 make.top.equalTo(safeAreaLayoutGuide)
                 make.horizontalEdges.equalToSuperview().inset(20)
-                make.height.equalTo(200)
+                make.height.equalTo(300)
             }
         }
         

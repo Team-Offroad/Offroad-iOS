@@ -150,4 +150,10 @@ extension ConsoleLogViewController {
         floatingViewShowingAnimator.startAnimation()
     }
     
+    //MARK: - Func
+    
+    func printLog(_ log: String) {
+        rootView.logTextView.text = "\(log)"
+    }
+    
 }
