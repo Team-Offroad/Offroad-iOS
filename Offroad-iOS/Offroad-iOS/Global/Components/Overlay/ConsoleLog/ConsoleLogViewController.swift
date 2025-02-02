@@ -97,7 +97,7 @@ extension ConsoleLogViewController {
             
             // floatingView의 높이: 300, floatingView의 위 아래 최소 padding 값: 5
             let finalPosition =
-            min(rootView.safeAreaLayoutGuide.layoutFrame.height - 300 - 5,
+            min(rootView.safeAreaLayoutGuide.layoutFrame.height - 250 - 5,
                 max(5, rootView.floatingViewTopConstraintToSafeArea.constant + verticalPosition + vertialVelocity / 5))
             
             floatingViewDeceleratingAnimator.addAnimations { [weak self] in
