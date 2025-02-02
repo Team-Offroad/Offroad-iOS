@@ -9,9 +9,15 @@ import Foundation
 
 class ConsoleLogManager {
     
+    //MARK: Type Properties
+    
     static let shared = ConsoleLogManager()
     
+    //MARK: - Properties
+    
     let consoleLogWindow = ConsoleLogWindow()
+    
+    //MARK: - Life Cycle
     
     private init() { }
     

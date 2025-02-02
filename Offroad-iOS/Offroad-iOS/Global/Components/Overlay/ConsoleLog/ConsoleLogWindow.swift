@@ -9,7 +9,11 @@ import UIKit
 
 class ConsoleLogWindow: UIWindow {
     
+    //MARK: - Properties
+    
     let consoleLogViewController = ConsoleLogViewController()
+    
+    //MARK: - Life Cycle
     
     init() {
         super.init(windowScene: UIWindowScene.current)
@@ -23,7 +27,13 @@ class ConsoleLogWindow: UIWindow {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {        
+}
+
+extension ConsoleLogWindow {
+    
+    //MARK: - Func
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if consoleLogViewController.rootView.floatingButton.frame.contains(point) ||
             consoleLogViewController.rootView.floatingView.frame.contains(point) {
             return super.hitTest(point, with: event)

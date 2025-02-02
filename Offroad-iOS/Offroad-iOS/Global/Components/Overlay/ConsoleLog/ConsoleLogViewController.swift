@@ -12,6 +12,8 @@ import RxCocoa
 
 class ConsoleLogViewController: UIViewController {
     
+    //MARK: - Properties
+    
     var disposeBag = DisposeBag()
     private var isfloatingViewShown: Bool = false
     private let floatingViewShowingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
@@ -20,10 +22,11 @@ class ConsoleLogViewController: UIViewController {
     private var dynamicBehavior: UIDynamicItemBehavior?
     private var collisionBehavior: UICollisionBehavior?
     
-    
     let rootView = ConsoleLogView()
     private let floatingButtonPanGesture = UIPanGestureRecognizer()
     private let floatinViewPanGesture = UIPanGestureRecognizer()
+    
+    //MARK: - Life Cycle
     
     override func loadView() {
         view = rootView
@@ -79,7 +82,6 @@ extension ConsoleLogViewController {
         sender.setTranslation(.zero, in: view)
     }
     
-    
     private func panGestureHandler(sender: UIPanGestureRecognizer) {
         floatingViewDeceleratingAnimator.stopAnimation(true)
         let verticalPosition = sender.translation(in: rootView).y
@@ -119,12 +121,10 @@ extension ConsoleLogViewController {
     }
     
     private func floatingButtonAction() {
-        print("floatingButton action")
-//        let isLogTextViewShown = !rootView.logTextView.isHidden
         if isfloatingViewShown {
-            self.hideLogTextView()
+            self.hide()
         } else {
-            self.showLogTextView()
+            self.showLog()
         }
     }
     
@@ -160,7 +160,7 @@ extension ConsoleLogViewController {
         collisionBehavior = collision
     }
     
-    private func showLogTextView() {
+    private func showLog() {
         floatingViewShowingAnimator.stopAnimation(true)
         rootView.floatingView.isHidden = false
         isfloatingViewShown = true
@@ -175,7 +175,7 @@ extension ConsoleLogViewController {
         floatingViewShowingAnimator.startAnimation()
     }
     
-    private func hideLogTextView() {
+    private func hide() {
         floatingViewShowingAnimator.stopAnimation(true)
         isfloatingViewShown = false
         let transform = CGAffineTransform(scaleX: 1, y: 0.1)
