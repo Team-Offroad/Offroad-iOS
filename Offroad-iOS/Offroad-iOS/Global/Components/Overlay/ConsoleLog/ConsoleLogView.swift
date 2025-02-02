@@ -59,7 +59,7 @@ extension ConsoleLogView {
         floatingViewTopConstraintToSafeArea.isActive = true
         floatingView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(5)
-            make.height.equalTo(300)
+            make.height.equalTo(250)
         }
         
         logTextView.snp.makeConstraints { make in
@@ -72,11 +72,14 @@ extension ConsoleLogView {
     
     private func setupStyle() {
         floatingButton.do { button in
-            button.setTitle("🛠️", for: .normal)
+            button.setTitle("💬", for: .normal)
             button.backgroundColor = UIColor.black.withAlphaComponent(0.7)
             button.setTitleColor(.white, for: .normal)
             button.roundCorners(cornerRadius: 30)
-            button.frame = CGRect(x: 20, y: 100, width: 60, height: 60)
+            button.frame = CGRect(x: UIScreen.currentScreenSize.width - 20 - 60,
+                                  y: UIScreen.currentScreenSize.height * 3/4,
+                                  width: 60,
+                                  height: 60)
         }
         
         floatingView.do { view in

@@ -49,17 +49,17 @@ extension ConsoleLogViewController {
     private func setupGestures() {
         rootView.floatingButton.addGestureRecognizer(floatingButtonPanGesture)
         floatingButtonPanGesture.rx.event.subscribe(onNext: { [weak self] gesture in
-            self?.panGestureAction(sender: gesture)
+            self?.floatingButtonPanGestureHandler(sender: gesture)
         }).disposed(by: disposeBag)
         
         rootView.floatingViewGrabberTouchArea.addGestureRecognizer(floatinViewPanGesture)
         floatinViewPanGesture.rx.event.subscribe(onNext: { [weak self] gesture in
-            self?.panGestureHandler(sender: gesture)
+            self?.floatingViewPanGestureHandler(sender: gesture)
         }).disposed(by: disposeBag)
         
     }
     
-    private func panGestureAction(sender: UIPanGestureRecognizer) {
+    private func floatingButtonPanGestureHandler(sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: view)
         
         switch sender.state {
@@ -82,7 +82,7 @@ extension ConsoleLogViewController {
         sender.setTranslation(.zero, in: view)
     }
     
-    private func panGestureHandler(sender: UIPanGestureRecognizer) {
+    private func floatingViewPanGestureHandler(sender: UIPanGestureRecognizer) {
         floatingViewDeceleratingAnimator.stopAnimation(true)
         let verticalPosition = sender.translation(in: rootView).y
         let initialTopConstraint = rootView.floatingViewTopConstraintToSafeArea.constant
@@ -106,7 +106,6 @@ extension ConsoleLogViewController {
                 self.rootView.layoutIfNeeded()
             }
             floatingViewDeceleratingAnimator.startAnimation()
-            break
         default:
             break
         }
@@ -122,12 +121,13 @@ extension ConsoleLogViewController {
     
     private func floatingButtonAction() {
         if isfloatingViewShown {
-            self.hide()
+            self.shrinkFloatingView()
         } else {
-            self.showLog()
+            self.spreadFloatingView()
         }
     }
     
+    // 버튼의 드래그가 끝난 후 부드럽게 감속하는 효과를 주고 버튼이 멈출 경계를 설정하는 함수
     private func applyInertiaEffect(velocity: CGPoint) {
         let dynamic = UIDynamicItemBehavior(items: [rootView.floatingButton])
         dynamic.addLinearVelocity(velocity, for: rootView.floatingButton)
@@ -160,7 +160,7 @@ extension ConsoleLogViewController {
         collisionBehavior = collision
     }
     
-    private func showLog() {
+    private func spreadFloatingView() {
         floatingViewShowingAnimator.stopAnimation(true)
         rootView.floatingView.isHidden = false
         isfloatingViewShown = true
@@ -175,7 +175,7 @@ extension ConsoleLogViewController {
         floatingViewShowingAnimator.startAnimation()
     }
     
-    private func hide() {
+    private func shrinkFloatingView() {
         floatingViewShowingAnimator.stopAnimation(true)
         isfloatingViewShown = false
         let transform = CGAffineTransform(scaleX: 1, y: 0.1)
