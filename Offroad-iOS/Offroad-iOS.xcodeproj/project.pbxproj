@@ -356,6 +356,7 @@
 		4E700C852CB3CA1E00C664C2 /* ORBOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */; };
 		4E7A609F2D1C698F0079007C /* ORBMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
+		4E909FAE2D4FE8220066FC3C /* LogPrinter in Frameworks */ = {isa = PBXBuildFile; productRef = 4E909FAD2D4FE8220066FC3C /* LogPrinter */; };
 		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
 		4E99007C2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */; };
 		4E99007E2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */; };
@@ -656,6 +657,7 @@
 		4E66593C2CECA0CE0024ABEE /* StringLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLiterals.swift; sourceTree = "<group>"; };
 		4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBOverlayViewController.swift; sourceTree = "<group>"; };
 		4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapViewController.swift; sourceTree = "<group>"; };
+		4E909FAC2D4FE6970066FC3C /* LogPrinter */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LogPrinter; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info_Dev.plist"; sourceTree = "<group>"; };
 		4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatWindow.swift; sourceTree = "<group>"; };
@@ -919,6 +921,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E909FAE2D4FE8220066FC3C /* LogPrinter in Frameworks */,
 				4E4F32572D4718F400C3B2FF /* FirebaseAnalytics in Frameworks */,
 				4E4F32582D4718F400C3B2FF /* SVGKit in Frameworks */,
 				4E4F32592D4718F400C3B2FF /* Kingfisher in Frameworks */,
@@ -951,6 +954,7 @@
 		4E0394202C2A9DCE007F0517 = {
 			isa = PBXGroup;
 			children = (
+				4E909FAC2D4FE6970066FC3C /* LogPrinter */,
 				4E4F31482D4717B100C3B2FF /* SecretConfig.xcconfig */,
 				4E4F31442D4716F500C3B2FF /* SecretConfig_Dev.xcconfig */,
 				D0C6FD142CE6633500517480 /* NotificationServiceExtension.entitlements */,
@@ -2831,6 +2835,7 @@
 				4E4F315E2D4718F400C3B2FF /* RxRelay */,
 				4E4F315F2D4718F400C3B2FF /* FirebaseAnalytics */,
 				4E4F31612D4718F400C3B2FF /* FirebaseMessaging */,
+				4E909FAD2D4FE8220066FC3C /* LogPrinter */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E4F327A2D4718F400C3B2FF /* ORB(Dev).app */;
@@ -4475,6 +4480,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E8B478D2C382A4800D9B8EE /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
+		};
+		4E909FAD2D4FE8220066FC3C /* LogPrinter */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LogPrinter;
 		};
 		D0600BD72CE50AE600D8F1D6 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

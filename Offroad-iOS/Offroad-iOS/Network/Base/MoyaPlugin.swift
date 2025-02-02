@@ -8,6 +8,7 @@
 import Foundation
 
 import Moya
+import LogPrinter
 
 final class MoyaPlugin: PluginType {
     
@@ -30,6 +31,7 @@ final class MoyaPlugin: PluginType {
         }
         log.append("=========================== END \(method) ===========================")
         print(log)
+        printLog(log)
     }
 
     // MARK: - Response
@@ -56,6 +58,7 @@ final class MoyaPlugin: PluginType {
         }
         log.append("=========================== END HTTP ===========================")
         print(log)
+        printLog(log)
     }
 
     func onFail(_ error: MoyaError) {
@@ -68,7 +71,16 @@ final class MoyaPlugin: PluginType {
         log.append("\(error.failureReason ?? error.errorDescription ?? "unknown error")\n")
         log.append("<-- END HTTP")
         print(log)
+        printLog(log)
         
         ORBToastManager.shared.showToast(message: ErrorMessages.networkError, inset: 54)
     }
+}
+
+func printLog(_ log: String) {
+    #if DevTarget
+    LogPrinter.printLog(log)
+    #else
+    return
+    #endif
 }
