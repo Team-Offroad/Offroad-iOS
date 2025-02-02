@@ -15,13 +15,15 @@ class ConsoleLogViewController: UIViewController {
     var disposeBag = DisposeBag()
     private var isfloatingViewShown: Bool = false
     private let floatingViewShowingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    private let floatingViewDeceleratingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     private var dynamicAnimator: UIDynamicAnimator?
     private var dynamicBehavior: UIDynamicItemBehavior?
     private var collisionBehavior: UICollisionBehavior?
     
     
     let rootView = ConsoleLogView()
-    let panGesture = UIPanGestureRecognizer()
+    private let floatingButtonPanGesture = UIPanGestureRecognizer()
+    private let floatinViewPanGesture = UIPanGestureRecognizer()
     
     override func loadView() {
         view = rootView
@@ -42,10 +44,16 @@ extension ConsoleLogViewController {
     //MARK: - Private Func
     
     private func setupGestures() {
-        rootView.floatingButton.addGestureRecognizer(panGesture)
-        panGesture.rx.event.subscribe(onNext: { [weak self] gesture in
+        rootView.floatingButton.addGestureRecognizer(floatingButtonPanGesture)
+        floatingButtonPanGesture.rx.event.subscribe(onNext: { [weak self] gesture in
             self?.panGestureAction(sender: gesture)
         }).disposed(by: disposeBag)
+        
+        rootView.floatingViewGrabberTouchArea.addGestureRecognizer(floatinViewPanGesture)
+        floatinViewPanGesture.rx.event.subscribe(onNext: { [weak self] gesture in
+            self?.panGestureHandler(sender: gesture)
+        }).disposed(by: disposeBag)
+        
     }
     
     private func panGestureAction(sender: UIPanGestureRecognizer) {
@@ -69,6 +77,37 @@ extension ConsoleLogViewController {
         }
         
         sender.setTranslation(.zero, in: view)
+    }
+    
+    
+    private func panGestureHandler(sender: UIPanGestureRecognizer) {
+        floatingViewDeceleratingAnimator.stopAnimation(true)
+        let verticalPosition = sender.translation(in: rootView).y
+        let initialTopConstraint = rootView.floatingViewTopConstraintToSafeArea.constant
+        switch sender.state {
+        case .possible, .began:
+            break
+        case .changed:
+            rootView.floatingViewTopConstraintToSafeArea.constant = initialTopConstraint + verticalPosition
+            sender.setTranslation(.zero, in: rootView)
+        case .ended, .cancelled, .failed:
+            let vertialVelocity = sender.velocity(in: rootView).y
+            
+            // floatingView의 높이: 300, floatingView의 위 아래 최소 padding 값: 5
+            let finalPosition =
+            min(rootView.safeAreaLayoutGuide.layoutFrame.height - 300 - 5,
+                max(5, rootView.floatingViewTopConstraintToSafeArea.constant + verticalPosition + vertialVelocity / 5))
+            
+            floatingViewDeceleratingAnimator.addAnimations { [weak self] in
+                guard let self else { return }
+                self.rootView.floatingViewTopConstraintToSafeArea.constant = finalPosition
+                self.rootView.layoutIfNeeded()
+            }
+            floatingViewDeceleratingAnimator.startAnimation()
+            break
+        default:
+            break
+        }
     }
     
     private func setupActions() {
@@ -146,6 +185,7 @@ extension ConsoleLogViewController {
         }
         floatingViewShowingAnimator.addCompletion { [weak self] _ in
             self?.rootView.floatingView.isHidden = true
+            self?.view.window?.resignKey()
         }
         floatingViewShowingAnimator.startAnimation()
     }

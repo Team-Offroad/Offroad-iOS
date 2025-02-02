@@ -12,8 +12,11 @@ class ConsoleLogView: UIView {
 //    let floatingButton = ShrinkableButton(shrinkScale: 0.9)
     let floatingView = UIView()
     let floatingViewGrabber = UIView()
+    let floatingViewGrabberTouchArea = UIView()
     let floatingButton = UIButton()
     let logTextView = UITextView()
+    
+    lazy var floatingViewTopConstraintToSafeArea = floatingView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 5)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,6 +54,11 @@ extension ConsoleLogView {
             view.transform = transform
         }
         
+        floatingViewGrabberTouchArea.do({ view in
+            view.backgroundColor = .clear
+            view.isUserInteractionEnabled = true
+        })
+        
         floatingViewGrabber.do { view in
             view.backgroundColor = .black.withAlphaComponent(0.4)
             view.roundCorners(cornerRadius: 3)
@@ -72,7 +80,7 @@ extension ConsoleLogView {
     // MARK: - Private Func
     
     private func setupHierarchy() {
-        floatingView.addSubviews(logTextView, floatingViewGrabber)
+        floatingView.addSubviews(logTextView, floatingViewGrabber, floatingViewGrabberTouchArea)
         addSubviews(floatingView, floatingButton)
     }
     
@@ -80,28 +88,26 @@ extension ConsoleLogView {
         
         floatingViewGrabber.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().inset(7)
+            make.top.equalToSuperview().inset(8)
             make.width.equalTo(90)
             make.height.equalTo(6)
         }
         
-        if #available(iOS 16.0, *) {
-            floatingView.anchorPoint = .init(x: 0.5, y: 0)
-            floatingView.snp.makeConstraints { make in
-                make.centerY.equalTo(safeAreaLayoutGuide.snp.top)
-                make.horizontalEdges.equalToSuperview().inset(20)
-                make.height.equalTo(300)
-            }
-        } else {
-            floatingView.snp.makeConstraints { make in
-                make.top.equalTo(safeAreaLayoutGuide)
-                make.horizontalEdges.equalToSuperview().inset(20)
-                make.height.equalTo(300)
-            }
+        floatingViewGrabberTouchArea.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview()
+            make.width.equalTo(90)
+            make.bottom.equalTo(logTextView.snp.top).offset(5)
+        }
+        
+        floatingViewTopConstraintToSafeArea.isActive = true
+        floatingView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(5)
+            make.height.equalTo(300)
         }
         
         logTextView.snp.makeConstraints { make in
-            make.top.equalTo(floatingViewGrabber.snp.bottom).offset(7)
+            make.top.equalTo(floatingViewGrabber.snp.bottom).offset(8)
             make.horizontalEdges.bottom.equalToSuperview().inset(5)
         }
     }
