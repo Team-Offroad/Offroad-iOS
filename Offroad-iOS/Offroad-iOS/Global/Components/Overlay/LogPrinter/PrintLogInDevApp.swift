@@ -12,6 +12,7 @@ import LogPrinter
  */
 func printLog(_ log: String) {
     #if DevTarget
+    //LogPrinterManager.shared.printLog(log)
     LogPrinter.printLog(log)
     #else
     return

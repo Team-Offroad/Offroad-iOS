@@ -1,5 +1,5 @@
 //
-//  ConsoleLogViewController.swift
+//  LogPrinterViewController.swift
 //  ORB(Dev)
 //
 //  Created by 김민성 on 1/31/25.
@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ConsoleLogViewController: UIViewController {
+class LogPrinterViewController: UIViewController {
     
     //MARK: - Properties
     
@@ -22,7 +22,7 @@ class ConsoleLogViewController: UIViewController {
     private var dynamicBehavior: UIDynamicItemBehavior?
     private var collisionBehavior: UICollisionBehavior?
     
-    let rootView = ConsoleLogView()
+    let rootView = LogPrinterView()
     private let floatingButtonPanGesture = UIPanGestureRecognizer()
     private let floatinViewPanGesture = UIPanGestureRecognizer()
     
@@ -42,7 +42,7 @@ class ConsoleLogViewController: UIViewController {
     
 }
 
-extension ConsoleLogViewController {
+extension LogPrinterViewController {
     
     //MARK: - Private Func
     
