@@ -36,7 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         #if DevTarget
         ORBToastManager.shared.showToast(message: "이 애플리케이션은 개발용 애플리케이션입니다.", inset: 30)
-        ConsoleLogManager.shared
+        LogPrinterManager.shared
         #endif
     }
     

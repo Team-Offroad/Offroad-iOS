@@ -10,7 +10,7 @@
  */
 func printLog(_ log: String) {
     #if DevTarget
-    ConsoleLogManager.shared.printLog(log)
+    LogPrinterManager.shared.printLog(log)
     #else
     return
     #endif
