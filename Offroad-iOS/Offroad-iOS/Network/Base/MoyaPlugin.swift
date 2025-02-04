@@ -16,6 +16,7 @@ final class MoyaPlugin: PluginType {
     func willSend(_ request: RequestType, target: TargetType) {
         guard let httpRequest = request.request else {
             print("--> ❌❌❌유효하지 않은 요청❌❌❌")
+            printLog("--> ❌❌❌유효하지 않은 요청❌❌❌")
             return
         }
         let url = httpRequest.description
@@ -30,6 +31,7 @@ final class MoyaPlugin: PluginType {
         }
         log.append("=========================== END \(method) ===========================")
         print(log)
+        printLog(log)
     }
 
     // MARK: - Response
@@ -56,6 +58,7 @@ final class MoyaPlugin: PluginType {
         }
         log.append("=========================== END HTTP ===========================")
         print(log)
+        printLog(log)
     }
 
     func onFail(_ error: MoyaError) {
@@ -68,6 +71,7 @@ final class MoyaPlugin: PluginType {
         log.append("\(error.failureReason ?? error.errorDescription ?? "unknown error")\n")
         log.append("<-- END HTTP")
         print(log)
+        printLog(log)
         
         ORBToastManager.shared.showToast(message: ErrorMessages.networkError, inset: 54)
     }
