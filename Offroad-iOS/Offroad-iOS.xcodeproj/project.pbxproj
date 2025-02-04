@@ -367,10 +367,10 @@
 		4E9900882CE0768B007EEFF7 /* loading1.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E9900862CE0768B007EEFF7 /* loading1.json */; };
 		4E9900892CE0768B007EEFF7 /* loading2.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E9900872CE0768B007EEFF7 /* loading2.json */; };
 		4E99008B2CE0CB61007EEFF7 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */; };
-		4EA5F4EE2D4C96BD00A59AB1 /* ConsoleLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4EC2D4C96BD00A59AB1 /* ConsoleLogManager.swift */; };
-		4EA5F4F12D4C970600A59AB1 /* ConsoleLogWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4EF2D4C970600A59AB1 /* ConsoleLogWindow.swift */; };
-		4EA5F4F32D4C975C00A59AB1 /* ConsoleLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4F22D4C975C00A59AB1 /* ConsoleLogViewController.swift */; };
-		4EA5F4F52D4C977300A59AB1 /* ConsoleLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4F42D4C977300A59AB1 /* ConsoleLogView.swift */; };
+		4EA5F4EE2D4C96BD00A59AB1 /* LogPrinterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4EC2D4C96BD00A59AB1 /* LogPrinterManager.swift */; };
+		4EA5F4F12D4C970600A59AB1 /* LogPrinterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4EF2D4C970600A59AB1 /* LogPrinterWindow.swift */; };
+		4EA5F4F32D4C975C00A59AB1 /* LogPrinterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4F22D4C975C00A59AB1 /* LogPrinterViewController.swift */; };
+		4EA5F4F52D4C977300A59AB1 /* LogPrinterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4F42D4C977300A59AB1 /* LogPrinterView.swift */; };
 		4EA90AC62C4521C50046A6E1 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */; };
 		4EADB9712CC9518000930140 /* CharacterDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EADB9702CC9518000930140 /* CharacterDetailViewModel.swift */; };
 		4EB32BE72C67A2B0003F98F2 /* QuestListViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */; };
@@ -673,10 +673,10 @@
 		4E9900862CE0768B007EEFF7 /* loading1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = loading1.json; sourceTree = "<group>"; };
 		4E9900872CE0768B007EEFF7 /* loading2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = loading2.json; sourceTree = "<group>"; };
 		4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
-		4EA5F4EC2D4C96BD00A59AB1 /* ConsoleLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleLogManager.swift; sourceTree = "<group>"; };
-		4EA5F4EF2D4C970600A59AB1 /* ConsoleLogWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleLogWindow.swift; sourceTree = "<group>"; };
-		4EA5F4F22D4C975C00A59AB1 /* ConsoleLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleLogViewController.swift; sourceTree = "<group>"; };
-		4EA5F4F42D4C977300A59AB1 /* ConsoleLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleLogView.swift; sourceTree = "<group>"; };
+		4EA5F4EC2D4C96BD00A59AB1 /* LogPrinterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPrinterManager.swift; sourceTree = "<group>"; };
+		4EA5F4EF2D4C970600A59AB1 /* LogPrinterWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPrinterWindow.swift; sourceTree = "<group>"; };
+		4EA5F4F22D4C975C00A59AB1 /* LogPrinterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPrinterViewController.swift; sourceTree = "<group>"; };
+		4EA5F4F42D4C977300A59AB1 /* LogPrinterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPrinterView.swift; sourceTree = "<group>"; };
 		4EA90AC52C4521C50046A6E1 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		4EADB9702CC9518000930140 /* CharacterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewModel.swift; sourceTree = "<group>"; };
 		4EB32BE62C67A2B0003F98F2 /* QuestListViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListViewControllers.swift; sourceTree = "<group>"; };
@@ -1703,16 +1703,16 @@
 			path = Lotties;
 			sourceTree = "<group>";
 		};
-		4EA5F4EB2D4C960500A59AB1 /* ConsoleLog */ = {
+		4EA5F4EB2D4C960500A59AB1 /* LogPrinter */ = {
 			isa = PBXGroup;
 			children = (
-				4EA5F4EC2D4C96BD00A59AB1 /* ConsoleLogManager.swift */,
-				4EA5F4EF2D4C970600A59AB1 /* ConsoleLogWindow.swift */,
-				4EA5F4F22D4C975C00A59AB1 /* ConsoleLogViewController.swift */,
-				4EA5F4F42D4C977300A59AB1 /* ConsoleLogView.swift */,
+				4EA5F4EC2D4C96BD00A59AB1 /* LogPrinterManager.swift */,
+				4EA5F4EF2D4C970600A59AB1 /* LogPrinterWindow.swift */,
+				4EA5F4F22D4C975C00A59AB1 /* LogPrinterViewController.swift */,
+				4EA5F4F42D4C977300A59AB1 /* LogPrinterView.swift */,
 				4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */,
 			);
-			path = ConsoleLog;
+			path = LogPrinter;
 			sourceTree = "<group>";
 		};
 		4EA90AC42C4521AF0046A6E1 /* ViewControllers */ = {
@@ -1890,7 +1890,7 @@
 		4EFCDFDB2C92B647006DEBB6 /* Overlay */ = {
 			isa = PBXGroup;
 			children = (
-				4EA5F4EB2D4C960500A59AB1 /* ConsoleLog */,
+				4EA5F4EB2D4C960500A59AB1 /* LogPrinter */,
 				4E3A32872CE733D4007228D0 /* Loading */,
 				4E700C812CB3C99900C664C2 /* Toast */,
 				4E700C802CB3C95E00C664C2 /* Alert */,
@@ -3456,7 +3456,7 @@
 				4E4F317D2D4718F400C3B2FF /* CustomIntensityBlurView.swift in Sources */,
 				4E4F317E2D4718F400C3B2FF /* KakaoAuthManager.swift in Sources */,
 				4E4F317F2D4718F400C3B2FF /* MarketingConsentRequestDTO.swift in Sources */,
-				4EA5F4F52D4C977300A59AB1 /* ConsoleLogView.swift in Sources */,
+				4EA5F4F52D4C977300A59AB1 /* LogPrinterView.swift in Sources */,
 				4E4F31802D4718F400C3B2FF /* CharacterChatLogViewModel.swift in Sources */,
 				4E4F31812D4718F400C3B2FF /* LogoutView.swift in Sources */,
 				4E4F31822D4718F400C3B2FF /* MyPageCustomButton.swift in Sources */,
@@ -3470,7 +3470,7 @@
 				4E4F318A2D4718F400C3B2FF /* CharacterDetailViewController.swift in Sources */,
 				4E4F318B2D4718F400C3B2FF /* CharacterChatReadGetResponseDTO.swift in Sources */,
 				4E4F318C2D4718F400C3B2FF /* UserInfoResponseDTO.swift in Sources */,
-				4EA5F4EE2D4C96BD00A59AB1 /* ConsoleLogManager.swift in Sources */,
+				4EA5F4EE2D4C96BD00A59AB1 /* LogPrinterManager.swift in Sources */,
 				4E4F318D2D4718F400C3B2FF /* CharacterDetailCell.swift in Sources */,
 				4E4F318E2D4718F400C3B2FF /* QuestService.swift in Sources */,
 				4E4F318F2D4718F400C3B2FF /* MoyaPlugin.swift in Sources */,
@@ -3507,7 +3507,7 @@
 				4E4F31AE2D4718F400C3B2FF /* QuestListCollectionViewCell.swift in Sources */,
 				4E4F31AF2D4718F400C3B2FF /* UIScreen+.swift in Sources */,
 				4E4F31B02D4718F400C3B2FF /* CouponRedemptionRequestDTO.swift in Sources */,
-				4EA5F4F12D4C970600A59AB1 /* ConsoleLogWindow.swift in Sources */,
+				4EA5F4F12D4C970600A59AB1 /* LogPrinterWindow.swift in Sources */,
 				4E4F31B12D4718F400C3B2FF /* ShrinkableCollectionViewCell.swift in Sources */,
 				4E4F31B22D4718F400C3B2FF /* ORBAlertBackgroundView.swift in Sources */,
 				4E4F31B32D4718F400C3B2FF /* CouponRedemptionResponseDTO.swift in Sources */,
@@ -3610,7 +3610,7 @@
 				4E4F32132D4718F400C3B2FF /* ChangeEmblemResponseDTO.swift in Sources */,
 				4E4F32142D4718F400C3B2FF /* ORBNMFMarker.swift in Sources */,
 				4E4F32152D4718F400C3B2FF /* CustomRecentProgressView.swift in Sources */,
-				4EA5F4F32D4C975C00A59AB1 /* ConsoleLogViewController.swift in Sources */,
+				4EA5F4F32D4C975C00A59AB1 /* LogPrinterViewController.swift in Sources */,
 				4E4F32162D4718F400C3B2FF /* DeleteAccountViewController.swift in Sources */,
 				4E4F32172D4718F400C3B2FF /* TermsConsentPopupViewController.swift in Sources */,
 				4E4F32182D4718F400C3B2FF /* NoticeResponseDTO.swift in Sources */,

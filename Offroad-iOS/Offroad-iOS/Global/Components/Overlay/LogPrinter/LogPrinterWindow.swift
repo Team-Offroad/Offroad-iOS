@@ -1,5 +1,5 @@
 //
-//  ConsoleLogWindow.swift
+//  LogPrinterWindow.swift
 //  ORB(Dev)
 //
 //  Created by 김민성 on 1/31/25.
@@ -7,18 +7,18 @@
 
 import UIKit
 
-class ConsoleLogWindow: UIWindow {
+class LogPrinterWindow: UIWindow {
     
     //MARK: - Properties
     
-    let consoleLogViewController = ConsoleLogViewController()
+    let logPrinterViewController = LogPrinterViewController()
     
     //MARK: - Life Cycle
     
     init() {
         super.init(windowScene: UIWindowScene.current)
         
-        rootViewController = consoleLogViewController
+        rootViewController = logPrinterViewController
         windowLevel = UIWindow.Level.alert + 2
         isHidden = false
     }
@@ -29,13 +29,13 @@ class ConsoleLogWindow: UIWindow {
     
 }
 
-extension ConsoleLogWindow {
+extension LogPrinterWindow {
     
     //MARK: - Func
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        if consoleLogViewController.rootView.floatingButton.frame.contains(point) ||
-            consoleLogViewController.rootView.floatingView.frame.contains(point) {
+        if logPrinterViewController.rootView.floatingButton.frame.contains(point) ||
+            logPrinterViewController.rootView.floatingView.frame.contains(point) {
             return super.hitTest(point, with: event)
         } else {
             return nil

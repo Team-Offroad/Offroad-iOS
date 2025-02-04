@@ -1,5 +1,5 @@
 //
-//  ConsoleLogView.swift
+//  LogPrinterView.swift
 //  ORB(Dev)
 //
 //  Created by 김민성 on 1/31/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ConsoleLogView: UIView {
+class LogPrinterView: UIView {
     
     //MARK: - Properties
     
@@ -37,7 +37,7 @@ class ConsoleLogView: UIView {
     
 }
 
-extension ConsoleLogView {
+extension LogPrinterView {
     
     // MARK: - Layout Func
     
