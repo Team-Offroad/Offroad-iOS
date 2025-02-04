@@ -8,7 +8,6 @@
 import Foundation
 
 import Moya
-import LogPrinter
 
 final class MoyaPlugin: PluginType {
     
@@ -76,12 +75,4 @@ final class MoyaPlugin: PluginType {
         
         ORBToastManager.shared.showToast(message: ErrorMessages.networkError, inset: 54)
     }
-}
-
-func printLog(_ log: String) {
-    #if DevTarget
-    LogPrinter.printLog(log)
-    #else
-    return
-    #endif
 }

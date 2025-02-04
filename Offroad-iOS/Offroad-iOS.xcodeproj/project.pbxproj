@@ -387,6 +387,7 @@
 		4EC4A1ED2D24380700A8C130 /* CustomIntensityBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1EC2D24380700A8C130 /* CustomIntensityBlurView.swift */; };
 		4EC4A1FE2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */; };
 		4EC6F0A62CF4747400895A87 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */; };
+		4EC776FD2D5251520011EEE8 /* LogPrinter in Frameworks */ = {isa = PBXBuildFile; productRef = 4EC776FC2D5251520011EEE8 /* LogPrinter */; };
 		4ECCC95E2CC80088002B9C4F /* ORBToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */; };
 		4ECEEA6E2CB2C15E0029369A /* ORBTabBarShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */; };
 		4EDC3D412C31271F006A1493 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */; };
@@ -894,6 +895,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EC776FD2D5251520011EEE8 /* LogPrinter in Frameworks */,
 				D0600BD82CE50AE600D8F1D6 /* FirebaseAnalytics in Frameworks */,
 				D063E9852C492D6700434A09 /* SVGKit in Frameworks */,
 				4E0394CE2C2AB762007F0517 /* Kingfisher in Frameworks */,
@@ -2785,6 +2787,7 @@
 				4E56F5552C99ACD300EEE677 /* RxRelay */,
 				D0600BD72CE50AE600D8F1D6 /* FirebaseAnalytics */,
 				D0600BD92CE50CF900D8F1D6 /* FirebaseMessaging */,
+				4EC776FC2D5251520011EEE8 /* LogPrinter */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E0394292C2A9DCE007F0517 /* ORB.app */;
@@ -4512,6 +4515,10 @@
 			productName = Lottie;
 		};
 		4E909FAD2D4FE8220066FC3C /* LogPrinter */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = LogPrinter;
+		};
+		4EC776FC2D5251520011EEE8 /* LogPrinter */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = LogPrinter;
 		};
