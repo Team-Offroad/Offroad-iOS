@@ -1703,7 +1703,7 @@
 			path = Lotties;
 			sourceTree = "<group>";
 		};
-		4EA5F4EB2D4C960500A59AB1 /* ConsoleLog */ = {
+		4EA5F4EB2D4C960500A59AB1 /* LogPrinter */ = {
 			isa = PBXGroup;
 			children = (
 				4EA5F4EC2D4C96BD00A59AB1 /* LogPrinterManager.swift */,
@@ -1712,7 +1712,7 @@
 				4EA5F4F42D4C977300A59AB1 /* LogPrinterView.swift */,
 				4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */,
 			);
-			path = ConsoleLog;
+			path = LogPrinter;
 			sourceTree = "<group>";
 		};
 		4EA90AC42C4521AF0046A6E1 /* ViewControllers */ = {
@@ -1890,7 +1890,7 @@
 		4EFCDFDB2C92B647006DEBB6 /* Overlay */ = {
 			isa = PBXGroup;
 			children = (
-				4EA5F4EB2D4C960500A59AB1 /* ConsoleLog */,
+				4EA5F4EB2D4C960500A59AB1 /* LogPrinter */,
 				4E3A32872CE733D4007228D0 /* Loading */,
 				4E700C812CB3C99900C664C2 /* Toast */,
 				4E700C802CB3C95E00C664C2 /* Alert */,
