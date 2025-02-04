@@ -112,7 +112,8 @@ class CouponDetailViewController: UIViewController {
             switch result {
             case .success(let response):
                 guard let response else { return }
-                print("쿠폰 사용 결과: " + "\(response.data.success)")
+                print("쿠폰 사용 결과: \(response.data.success)")
+                printLog("쿠폰 사용 결과: \(response.data.success)")
                 self.afterCouponRedemptionRelay.accept(response.data.success)
             default:
                 self.afterCouponRedemptionRelay.accept(false)

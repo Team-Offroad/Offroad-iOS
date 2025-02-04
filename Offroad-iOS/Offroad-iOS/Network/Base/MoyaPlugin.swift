@@ -17,6 +17,7 @@ final class MoyaPlugin: PluginType {
     func willSend(_ request: RequestType, target: TargetType) {
         guard let httpRequest = request.request else {
             print("--> ❌❌❌유효하지 않은 요청❌❌❌")
+            printLog("--> ❌❌❌유효하지 않은 요청❌❌❌")
             return
         }
         let url = httpRequest.description

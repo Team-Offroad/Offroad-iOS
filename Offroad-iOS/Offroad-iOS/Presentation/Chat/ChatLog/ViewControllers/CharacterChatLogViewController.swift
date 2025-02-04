@@ -315,11 +315,13 @@ extension CharacterChatLogViewController {
                 self.userChatInputViewTextInputViewHeightRelay.accept(self.rootView.userChatInputView.textInputView.bounds.height)
                 if text.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
                     print("입력된 텍스트: \(text)")
+                    printLog("입력된 텍스트: \(text)")
                     self.rootView.loadingAnimationView.isHidden = false
                     self.rootView.loadingAnimationView.play()
                     self.isTextViewEmpty.accept(false)
                 } else {
                     print("입력된 텍스트 없음")
+                    printLog("입력된 텍스트 없음")
                     self.rootView.loadingAnimationView.currentProgress = 0
                     self.rootView.loadingAnimationView.pause()
                     self.rootView.loadingAnimationView.isHidden = true
