@@ -15,7 +15,7 @@ class LogPrinterViewController: UIViewController {
     //MARK: - Properties
     
     var disposeBag = DisposeBag()
-    private var isfloatingViewShown: Bool = false
+    var isfloatingViewShown: Bool = false
     private let floatingViewShowingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     private let floatingViewDeceleratingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 1)
     private var dynamicAnimator: UIDynamicAnimator?

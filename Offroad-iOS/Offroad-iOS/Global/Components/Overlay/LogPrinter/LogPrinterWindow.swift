@@ -35,7 +35,8 @@ extension LogPrinterWindow {
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if logPrinterViewController.rootView.floatingButton.frame.contains(point) ||
-            logPrinterViewController.rootView.floatingView.frame.contains(point) {
+            (logPrinterViewController.isfloatingViewShown &&
+             logPrinterViewController.rootView.floatingView.frame.contains(point)) {
             return super.hitTest(point, with: event)
         } else {
             return nil
