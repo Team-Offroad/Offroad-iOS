@@ -40,6 +40,10 @@ class ORBMapViewController: OffroadTabBarViewController {
         rootView.naverMapView.mapView.cameraPosition.target
     }
     
+    private lazy var mapHelper = ORBMapHelper(map: rootView.naverMapView.mapView)
+    private lazy var tooltipHelper = PlaceInfoTooltipHelper(tooltip: rootView.tooltip,
+                                                            shadingView: rootView.shadingView)
+    
     //MARK: - Life Cycle
     
     override func loadView() {
@@ -61,7 +65,7 @@ class ORBMapViewController: OffroadTabBarViewController {
             if authorizationCase != .fullAccuracy && authorizationCase != .reducedAccuracy {
                 // 사용자 위치 불러올 수 없을 시 초기 위치 설정
                 // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
-                self.rootView.moveCamera(scrollTo: .init(lat: 37.5716229, lng: 126.9767879), animationDuration: 0)
+                mapHelper.moveCamera(scrollTo: .init(lat: 37.5716229, lng: 126.9767879), animationDuration: 0)
                 self.viewModel.updateRegisteredPlaces(at: .init(lat: 37.5716229, lng: 126.9767879))
             }
         }
@@ -278,13 +282,13 @@ extension ORBMapViewController {
     
     private func focusToMarker(_ marker: NMFMarker) {
         let markerLatLng = NMGLatLng(lat: marker.position.lat, lng: marker.position.lng)
-        rootView.moveCamera(scrollTo: markerLatLng, reason: 20)
+        mapHelper.moveCamera(scrollTo: markerLatLng, reason: 20)
     }
     
     private func focusToMyPosition(completion: ((Bool) -> Void)? = nil) {
         guard let currentCoord = locationManager.location?.coordinate else { return }
         let currentLatLng = NMGLatLng(lat: currentCoord.latitude, lng: currentCoord.longitude)
-        rootView.moveCamera(scrollTo: currentLatLng, reason: 1) { isCancelled in
+        mapHelper.moveCamera(scrollTo: currentLatLng, reason: 1) { isCancelled in
             completion?(isCancelled)
         }
     }
@@ -293,7 +297,7 @@ extension ORBMapViewController {
     ///- Parameters overlay: 탭 이벤트를 받아서 전달하는 NMFOverlay
     /// - Returns: `true`를 반환할 경우 마커를 탭 시 메서드를 실행. 그렇지 않을 경우 `NMFMapView`까지 이벤트가 전달되어 `NMFMapViewTouchDelegate`의 `mapView(_:didTapMap:point:)`가  호출됩니다.
     private func markerTouchHandler(overlay: NMFOverlay) -> Bool {
-        guard !rootView.isTooltipShown else { return false }
+        guard !tooltipHelper.isTooltipShown else { return false }
         guard let marker = overlay as? ORBNMFMarker else { return false }
         let projection = rootView.naverMapView.mapView.projection
         let point = projection.point(from: marker.position)
@@ -310,14 +314,14 @@ extension ORBMapViewController {
         
         let tilt = rootView.naverMapView.mapView.cameraPosition.tilt
         if tilt > 30 {
-            rootView.moveCamera(scrollTo: marker.position, animationCurve: .fly, animationDuration: 0.5)
+            mapHelper.moveCamera(scrollTo: marker.position, animationCurve: .fly, animationDuration: 0.5)
         } else {
             let mapSize = rootView.naverMapView.mapView.frame.size
             let delta = viewModel.caculateDeltaToShowTooltip(point: point,
                                                              at: mapSize,
                                                              tooltipSize: rootView.tooltip.frame.size,
                                                              contentInset: 20)
-            rootView.moveCamera(scrollBy: delta, animationDuration: 0.3)
+            mapHelper.moveCamera(scrollBy: delta, animationDuration: 0.3)
         }
         return true
     }
@@ -394,10 +398,14 @@ extension ORBMapViewController {
         present(questCompleteAlertController, animated: true)
     }
     
-    private func showTooltip() { rootView.showTooltip() }
+    private func showTooltip() {
+        tooltipHelper.showTooltip()
+        rootView.compass.isHidden = true
+    }
     
     private func hideTooltip() {
-        rootView.hideTooltip { [weak self] in self?.selectedMarker = nil }
+        tooltipHelper.hideTooltip { [weak self] in self?.selectedMarker = nil }
+        rootView.compass.isHidden = false
     }
     
 }
