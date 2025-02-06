@@ -40,12 +40,6 @@ class ORBMapViewController: OffroadTabBarViewController {
         rootView.naverMapView.mapView.cameraPosition.target
     }
     
-    var isTooltipShown: Bool = false
-    private let shadingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    private let tooltipTransparencyAnimator = UIViewPropertyAnimator(duration: 0.2, dampingRatio: 1)
-    private let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.8)
-    private let tooltipHidingAnimator = UIViewPropertyAnimator(duration: 0.25, dampingRatio: 1)
-    
     //MARK: - Life Cycle
     
     override func loadView() {
@@ -350,7 +344,7 @@ extension ORBMapViewController {
     ///- Parameters overlay: 탭 이벤트를 받아서 전달하는 NMFOverlay
     /// - Returns: `true`를 반환할 경우 마커를 탭 시 메서드를 실행. 그렇지 않을 경우 `NMFMapView`까지 이벤트가 전달되어 `NMFMapViewTouchDelegate`의 `mapView(_:didTapMap:point:)`가  호출됩니다.
     private func markerTouchHandler(overlay: NMFOverlay) -> Bool {
-        guard !isTooltipShown else { return false }
+        guard !rootView.isTooltipShown else { return false }
         guard let marker = overlay as? ORBNMFMarker else { return false }
         let projection = rootView.naverMapView.mapView.projection
         let point = projection.point(from: marker.position)
@@ -438,63 +432,10 @@ extension ORBMapViewController {
         present(alertController, animated: true)
     }
     
-    private func showTooltip(completion: (() -> Void)? = nil) {
-        rootView.tooltip.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-        rootView.tooltip.alpha = 0
-        rootView.layoutIfNeeded()
-        tooltipHidingAnimator.stopAnimation(true)
-        
-        shadingAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.rootView.shadingView.backgroundColor = .blackOpacity(.black25)
-        }
-        tooltipTransparencyAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.rootView.tooltip.alpha = 1
-        }
-        tooltipShowingAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.rootView.tooltip.transform = .identity
-            self.rootView.layoutIfNeeded()
-        }
-        tooltipShowingAnimator.addCompletion { _ in
-            completion?()
-        }
-        isTooltipShown = true
-        rootView.compass.isHidden = true
-        rootView.shadingView.isUserInteractionEnabled = true
-        tooltipTransparencyAnimator.startAnimation()
-        shadingAnimator.startAnimation()
-        tooltipShowingAnimator.startAnimation()
-    }
+    private func showTooltip() { rootView.showTooltip() }
     
-    private func hideTooltip(completion: (() -> Void)? = nil) {
-        guard isTooltipShown else { return }
-        tooltipShowingAnimator.stopAnimation(true)
-        
-        shadingAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.rootView.shadingView.backgroundColor = .clear
-        }
-        tooltipHidingAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.rootView.tooltip.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
-        }
-        tooltipHidingAnimator.addAnimations({ [weak self] in
-            guard let self else { return }
-            self.rootView.tooltip.alpha = 0
-        }, delayFactor: 0.3)
-        tooltipHidingAnimator.addCompletion { [weak self] _ in
-            guard let self else { return }
-            self.rootView.tooltip.configure(with: nil)
-            self.selectedMarker = nil
-            self.rootView.shadingView.isUserInteractionEnabled = false
-            completion?()
-        }
-        isTooltipShown = false
-        rootView.compass.isHidden = false
-        shadingAnimator.startAnimation()
-        tooltipHidingAnimator.startAnimation()
+    private func hideTooltip() {
+        rootView.hideTooltip { [weak self] in self?.selectedMarker = nil }
     }
     
     private func setLocationOverlayHiddenState(to isHidden: Bool) {

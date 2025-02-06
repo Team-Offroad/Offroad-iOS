@@ -38,6 +38,12 @@ class ORBMapView: UIView {
     lazy var tooltipCenterYConstraint = tooltip.centerYAnchor.constraint(equalTo: self.topAnchor, constant: 0)
     lazy var tooltipCenterXConstraint = tooltip.centerXAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
     
+    var isTooltipShown: Bool = false
+    private let shadingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    private let tooltipTransparencyAnimator = UIViewPropertyAnimator(duration: 0.2, dampingRatio: 1)
+    private let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.8)
+    private let tooltipHidingAnimator = UIViewPropertyAnimator(duration: 0.25, dampingRatio: 1)
+    
     var tooltipAnchorPoint: CGPoint = .zero {
         didSet {
             updateTooltipPosition()
@@ -259,6 +265,58 @@ extension ORBMapView {
         default:
             break
         }
+    }
+    
+    func showTooltip(completion: (() -> Void)? = nil) {
+        tooltip.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        tooltip.alpha = 0
+        layoutIfNeeded()
+        tooltipHidingAnimator.stopAnimation(true)
+        
+        shadingAnimator.addAnimations { [weak self] in
+            self?.shadingView.backgroundColor = .blackOpacity(.black25)
+        }
+        tooltipTransparencyAnimator.addAnimations { [weak self] in
+            self?.tooltip.alpha = 1
+        }
+        tooltipShowingAnimator.addAnimations { [weak self] in
+            self?.tooltip.transform = .identity
+            self?.layoutIfNeeded()
+        }
+        tooltipShowingAnimator.addCompletion { _ in
+            completion?()
+        }
+        
+        isTooltipShown = true
+        compass.isHidden = true
+        shadingView.isUserInteractionEnabled = true
+        tooltipTransparencyAnimator.startAnimation()
+        shadingAnimator.startAnimation()
+        tooltipShowingAnimator.startAnimation()
+    }
+    
+    func hideTooltip(completion: (() -> Void)? = nil) {
+        guard isTooltipShown else { return }
+        tooltipShowingAnimator.stopAnimation(true)
+        
+        shadingAnimator.addAnimations { [weak self] in
+            self?.shadingView.backgroundColor = .clear
+        }
+        tooltipHidingAnimator.addAnimations { [weak self] in
+            self?.tooltip.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
+        }
+        tooltipHidingAnimator.addAnimations({ [weak self] in
+            self?.tooltip.alpha = 0
+        }, delayFactor: 0.3)
+        tooltipHidingAnimator.addCompletion { [weak self] _ in
+            self?.tooltip.configure(with: nil)
+            self?.shadingView.isUserInteractionEnabled = false
+            completion?()
+        }
+        isTooltipShown = false
+        compass.isHidden = false
+        shadingAnimator.startAnimation()
+        tooltipHidingAnimator.startAnimation()
     }
     
 }
