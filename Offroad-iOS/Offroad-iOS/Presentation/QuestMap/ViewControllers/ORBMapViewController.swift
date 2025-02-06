@@ -328,7 +328,9 @@ extension ORBMapViewController {
         completeQuests: [CompleteQuest]?,
         isFirstVisitToday: Bool
     ) {
-        let title: String = (isValidLocation && isFirstVisitToday) ? AlertMessage.adventureSuccessTitle : AlertMessage.adventureFailureTitle
+        let title: String = (isValidLocation && isFirstVisitToday
+                             ? AlertMessage.adventureSuccessTitle
+                             : AlertMessage.adventureFailureTitle)
         let message: String
         let buttonTitle: String
         
@@ -352,40 +354,44 @@ extension ORBMapViewController {
         alertController.configureExplorationResultImage { $0.image = image }
         alertController.configureMessageLabel {
             $0.highlightText(targetText: "위치", font: .offroad(style: .iosTextBold))
-            $0.highlightText(targetText: "한 번", font: .offroad(style: .iosTextBold))
             $0.highlightText(targetText: "내일 다시", font: .offroad(style: .iosTextBold))
+            if isValidLocation && !isFirstVisitToday {
+                $0.highlightText(targetText: "한 번", font: .offroad(style: .iosTextBold))
+            }
         }
         alertController.xButton.isHidden = true
         let okAction = ORBAlertAction(title: buttonTitle, style: .default) { [weak self] _ in
-            guard let self else { return }
-            if isValidLocation && isFirstVisitToday {
-                self.tabBarController?.selectedIndex = 0
+            guard isValidLocation && isFirstVisitToday else { return }
+            self?.tabBarController?.selectedIndex = 0
+            if let completeQuests {
+                self?.popupQuestCompletion(completeQuests: completeQuests)
             }
-            
-            guard let completeQuests, isValidLocation else { return }
-            let message: String
-            if completeQuests.count <= 0 {
-                return
-            } else if completeQuests.count == 1 {
-                message = AlertMessage.completeSingleQuestMessage(questName: completeQuests.first!.name)
-            } else { //if completeQuests.count > 1
-                message = AlertMessage.completeMultipleQuestsMessage(
-                    firstQuestName: completeQuests.first!.name,
-                    questCount: completeQuests.count
-                )
-            }
-            let questCompleteAlertController = ORBAlertController(
-                title: AlertMessage.completeQuestsTitle,
-                message: message,
-                type: .normal
-            )
-            questCompleteAlertController.xButton.isHidden = true
-            let action = ORBAlertAction(title: "확인", style: .default) { _ in return }
-            questCompleteAlertController.addAction(action)
-            present(questCompleteAlertController, animated: true)
         }
         alertController.addAction(okAction)
         present(alertController, animated: true)
+    }
+    
+    private func popupQuestCompletion(completeQuests: [CompleteQuest]) {
+        let message: String
+        if completeQuests.count <= 0 {
+            return
+        } else if completeQuests.count == 1 {
+            message = AlertMessage.completeSingleQuestMessage(questName: completeQuests.first!.name)
+        } else { //if completeQuests.count > 1
+            message = AlertMessage.completeMultipleQuestsMessage(
+                firstQuestName: completeQuests.first!.name,
+                questCount: completeQuests.count
+            )
+        }
+        let questCompleteAlertController = ORBAlertController(
+            title: AlertMessage.completeQuestsTitle,
+            message: message,
+            type: .normal
+        )
+        questCompleteAlertController.xButton.isHidden = true
+        let action = ORBAlertAction(title: "확인", style: .default) { _ in return }
+        questCompleteAlertController.addAction(action)
+        present(questCompleteAlertController, animated: true)
     }
     
     private func showTooltip() { rootView.showTooltip() }
