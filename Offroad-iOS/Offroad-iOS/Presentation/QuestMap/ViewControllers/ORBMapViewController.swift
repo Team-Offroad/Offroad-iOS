@@ -438,13 +438,6 @@ extension ORBMapViewController {
         rootView.hideTooltip { [weak self] in self?.selectedMarker = nil }
     }
     
-    private func setLocationOverlayHiddenState(to isHidden: Bool) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            self.rootView.naverMapView.mapView.locationOverlay.hidden = isHidden
-        }
-    }
-    
 }
 
 //MARK: - NMFMapViewCameraDelegate
@@ -549,6 +542,13 @@ extension ORBMapViewController: CLLocationManagerDelegate {
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        
+        func setLocationOverlayHiddenState(to isHidden: Bool) {
+            DispatchQueue.main.async { [weak self] in
+                self?.rootView.naverMapView.mapView.locationOverlay.hidden = isHidden
+            }
+        }
+        
         viewModel.checkLocationAuthorizationStatus { authorizationCase in
             switch authorizationCase {
             case .notDetermined, .reducedAccuracy:
@@ -559,14 +559,14 @@ extension ORBMapViewController: CLLocationManagerDelegate {
                     self.hideTooltip()
                     self.focusToMyPosition()
                     self.rootView.naverMapView.mapView.positionMode = .direction
-                    self.setLocationOverlayHiddenState(to: false)
+                    setLocationOverlayHiddenState(to: false)
                 }
             case .denied, .restricted:
                 self.showToast(message: AlertMessage.locationUnauthorizedAdventureMessage, inset: 66)
-                self.setLocationOverlayHiddenState(to: true)
+                setLocationOverlayHiddenState(to: true)
             case .servicesDisabled:
                 self.viewModel.locationServicesDisabledRelay.accept(())
-                self.setLocationOverlayHiddenState(to: true)
+                setLocationOverlayHiddenState(to: true)
             }
         }
     }
