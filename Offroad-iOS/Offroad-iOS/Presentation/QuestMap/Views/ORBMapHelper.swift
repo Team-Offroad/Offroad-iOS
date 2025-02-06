@@ -13,7 +13,7 @@ final class ORBMapHelper {
     
     //MARK: - Properties
     
-    let mapView: NMFMapView
+    unowned let mapView: NMFMapView
     
     //MARK: - Life Cycle
     

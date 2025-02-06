@@ -11,7 +11,7 @@ final class PlaceInfoTooltipHelper {
     
     //MARK: - Properties
     
-    let tooltip: PlaceInfoTooltip
+    unowned let tooltip: PlaceInfoTooltip
     let shadingView: UIView
     
     var isTooltipShown: Bool = false
