@@ -418,11 +418,18 @@ extension ORBMapViewController {
             if completeQuests.count <= 0 {
                 return
             } else if completeQuests.count == 1 {
-                message = "퀘스트 '\(completeQuests.first!.name)'을(를) 클리어했어요! 마이페이지에서 보상을 확인해보세요."
+                message = AlertMessage.completeSingleQuestMessage(questName: completeQuests.first!.name)
             } else { //if completeQuests.count > 1
-                message = "퀘스트 '\(completeQuests.first!.name)' 외 \(completeQuests.count-1)개를 클리어했어요! 마이페이지에서 보상을 확인해보세요."
+                message = AlertMessage.completeMultipleQuestsMessage(
+                    firstQuestName: completeQuests.first!.name,
+                    questCount: completeQuests.count
+                )
             }
-            let questCompleteAlertController = ORBAlertController(title: "퀘스트 성공 !", message: message, type: .normal)
+            let questCompleteAlertController = ORBAlertController(
+                title: AlertMessage.completeQuestsTitle,
+                message: message,
+                type: .normal
+            )
             questCompleteAlertController.xButton.isHidden = true
             let action = ORBAlertAction(title: "확인", style: .default) { _ in return }
             questCompleteAlertController.addAction(action)
