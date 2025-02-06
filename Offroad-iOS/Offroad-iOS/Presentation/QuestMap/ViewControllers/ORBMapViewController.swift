@@ -192,7 +192,7 @@ extension ORBMapViewController {
                 MyInfoManager.shared.didSuccessAdventure.accept(())
             }
             self.view.stopLoading()
-            if locationValidation && isFirstVisitToday { self.hideTooltip() }
+            if locationValidation && isFirstVisitToday { self.hideTooltipFromMap() }
             self.popupAdventureResult(isValidLocation: locationValidation,
                                       image: image,
                                       completeQuests: completeQuests,
@@ -204,7 +204,7 @@ extension ORBMapViewController {
             self.rootView.reloadPlaceButton.isEnabled = false
             try? self.viewModel.markersSubject.value().forEach({ marker in marker.mapView = nil })
             self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
-            self.hideTooltip()
+            self.hideTooltipFromMap()
         }.disposed(by: disposeBag)
         
         rootView.switchTrackingModeButton.rx.tap.bind { [weak self] _ in
@@ -261,7 +261,7 @@ extension ORBMapViewController {
         
         rootView.tooltip.closeButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
-            self.hideTooltip()
+            self.hideTooltipFromMap()
         }).disposed(by: disposeBag)
     }
     
@@ -275,7 +275,7 @@ extension ORBMapViewController {
         let tapGestureRecognizer = UITapGestureRecognizer()
         tapGestureRecognizer.rx.event.subscribe(onNext: { [weak self] gesture in
             guard let self else { return }
-            self.hideTooltip()
+            self.hideTooltipFromMap()
         }).disposed(by: disposeBag)
         rootView.shadingView.addGestureRecognizer(tapGestureRecognizer)
     }
@@ -310,7 +310,7 @@ extension ORBMapViewController {
         // 툴팁 보이기
         rootView.tooltip.configure(with: marker.placeInfo)
         rootView.tooltipAnchorPoint = markerPoint!
-        showTooltip()
+        showTooltipOnMap()
         
         let tilt = rootView.naverMapView.mapView.cameraPosition.tilt
         if tilt > 30 {
@@ -398,12 +398,12 @@ extension ORBMapViewController {
         present(questCompleteAlertController, animated: true)
     }
     
-    private func showTooltip() {
+    private func showTooltipOnMap() {
         tooltipHelper.showTooltip()
         rootView.compass.isHidden = true
     }
     
-    private func hideTooltip() {
+    private func hideTooltipFromMap() {
         tooltipHelper.hideTooltip { [weak self] in self?.selectedMarker = nil }
         rootView.compass.isHidden = false
     }
@@ -444,7 +444,7 @@ extension ORBMapViewController: NMFMapViewCameraDelegate {
             
             guard selectedMarker != nil else { return }
             // 툴팁 숨기기
-            hideTooltip()
+            hideTooltipFromMap()
         default:
             return
         }
@@ -486,7 +486,7 @@ extension ORBMapViewController: NMFMapViewTouchDelegate {
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         if selectedMarker != nil {
             // 툴팁 숨김처리
-            hideTooltip()
+            hideTooltipFromMap()
         }
     }
     
@@ -526,7 +526,7 @@ extension ORBMapViewController: CLLocationManagerDelegate {
             case .fullAccuracy:
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
-                    self.hideTooltip()
+                    self.hideTooltipFromMap()
                     self.focusToMyPosition()
                     self.rootView.naverMapView.mapView.positionMode = .direction
                     setLocationOverlayHiddenState(to: false)
