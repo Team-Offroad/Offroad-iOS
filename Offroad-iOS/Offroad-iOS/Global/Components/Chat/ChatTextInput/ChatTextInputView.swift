@@ -50,7 +50,7 @@ public class ChatTextInputView: UIView {
     
 }
 
-extension ChatTextInputView {
+public extension ChatTextInputView {
     
     //MARK: - Layout Func
     
