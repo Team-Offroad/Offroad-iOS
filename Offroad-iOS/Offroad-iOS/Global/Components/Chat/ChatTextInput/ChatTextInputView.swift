@@ -146,10 +146,10 @@ extension ChatTextInputView {
             self.hidingAnimator.stopAnimation(true)
             self.showingAnimator.stopAnimation(true)
             if animated {
-                self.showingAnimator.addAnimations { [weak self] in self?.isHidden = false }
+                self.showingAnimator.addAnimations { [weak self] in self?.alpha = 1 }
                 self.showingAnimator.startAnimation()
             } else {
-                self.isHidden = false
+                self.alpha = 1
             }
         }
     }
@@ -160,11 +160,11 @@ extension ChatTextInputView {
             self.showingAnimator.stopAnimation(true)
             self.hidingAnimator.stopAnimation(true)
             if animated {
-                hidingAnimator.addAnimations { [weak self] in self?.isHidden = true }
+                hidingAnimator.addAnimations { [weak self] in self?.alpha = 0 }
                 hidingAnimator.addCompletion { _ in completion?() }
                 hidingAnimator.startAnimation()
             } else {
-                self.isHidden = true
+                self.alpha = 0
             }
         }
     }
@@ -177,9 +177,7 @@ extension ChatTextInputView {
     }
     
     func endChat() {
-        hide() { [weak self] in
-            self?.userChatInputView.text = ""
-        }
+        hide()
         userChatInputView.resignFirstResponder()
     }
     
