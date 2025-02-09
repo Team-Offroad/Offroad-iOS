@@ -154,6 +154,7 @@ extension CharacterChatLogViewController {
     }
     
     @objc private func tapGestureHandler(_ sender: UITapGestureRecognizer) {
+        showTabBar()
         rootView.chatTextInputView.endChat()
     }
     
@@ -275,6 +276,8 @@ extension CharacterChatLogViewController {
     private func bindData() {
         rootView.chatButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
+            self.hideTabBar()
+            self.hideChatButton()
             self.rootView.chatTextInputView.startChat()
         }).disposed(by: disposeBag)
         
@@ -490,6 +493,21 @@ extension CharacterChatLogViewController {
         }
     }
     
+    private func hideTabBar() {
+        guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
+        tabBarController.hideTabBarAnimation() {
+            self.additionalSafeAreaInsets.bottom -= tabBarController.tabBarHeight
+        }
+    }
+    
+    private func showTabBar() {
+        guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
+        tabBarController.showTabBarAnimation() {
+            self.additionalSafeAreaInsets.bottom += tabBarController.tabBarHeight
+            tabBarController.enableTabBarInteraction()
+        }
+    }
+    
 }
 
 //MARK: - UIScrollViewDelegate
@@ -497,6 +515,7 @@ extension CharacterChatLogViewController {
 extension CharacterChatLogViewController: UIScrollViewDelegate {
     
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        showTabBar()
         rootView.chatTextInputView.endChat()
         isScrollingToTop = true
         // custom ScrollToTop 동작

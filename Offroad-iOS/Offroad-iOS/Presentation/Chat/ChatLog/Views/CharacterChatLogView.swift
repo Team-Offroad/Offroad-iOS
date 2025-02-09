@@ -151,8 +151,7 @@ extension CharacterChatLogView {
             view.layer.shadowOffset = .zero
             view.layer.shadowOpacity = 0.1
             view.layer.shadowRadius = 10
-            view.layer.masksToBounds = false
-            
+            view.layer.masksToBounds = false   
         }
     }
     
