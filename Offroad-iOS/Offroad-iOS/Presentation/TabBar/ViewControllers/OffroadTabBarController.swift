@@ -176,7 +176,7 @@ extension OffroadTabBarController {
     
     // MARK: - Func
     
-    func hideTabBarAnimation(delayFactor: CGFloat = 0) {
+    func hideTabBarAnimation(delayFactor: CGFloat = 0, completion: (() -> Void)? = nil) {
         isTabBarShown = false
         disableTabBarInteraction()
         view.layoutIfNeeded()
@@ -186,11 +186,12 @@ extension OffroadTabBarController {
         }, delayFactor: delayFactor)
         hideTabBarAnimator.addCompletion { _ in
             self.tabBar.isHidden = true
+            completion?()
         }
         hideTabBarAnimator.startAnimation()
     }
     
-    func showTabBarAnimation(delayFactor: CGFloat = 0) {
+    func showTabBarAnimation(delayFactor: CGFloat = 0, completion: (() -> Void)? = nil) {
         guard !isTabBarShown else { return }
         disableTabBarInteraction()
         if tabBar.isHidden {
@@ -205,6 +206,7 @@ extension OffroadTabBarController {
         showTabBarAnimator.addCompletion { [weak self] _ in
             guard let self else { return }
             self.isTabBarShown = true
+            completion?()
         }
         showTabBarAnimator.startAnimation()
     }
