@@ -369,6 +369,8 @@
 		4E99008B2CE0CB61007EEFF7 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */; };
 		4EA272322D5793BA00F64B20 /* ChatTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272312D5793BA00F64B20 /* ChatTextInputView.swift */; };
 		4EA272332D5793BA00F64B20 /* ChatTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272312D5793BA00F64B20 /* ChatTextInputView.swift */; };
+		4EA272552D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272542D58E27300F64B20 /* ChatTextDisplayView.swift */; };
+		4EA272562D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272542D58E27300F64B20 /* ChatTextDisplayView.swift */; };
 		4EA5F4EE2D4C96BD00A59AB1 /* LogPrinterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4EC2D4C96BD00A59AB1 /* LogPrinterManager.swift */; };
 		4EA5F4F12D4C970600A59AB1 /* LogPrinterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4EF2D4C970600A59AB1 /* LogPrinterWindow.swift */; };
 		4EA5F4F32D4C975C00A59AB1 /* LogPrinterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4F22D4C975C00A59AB1 /* LogPrinterViewController.swift */; };
@@ -676,6 +678,7 @@
 		4E9900872CE0768B007EEFF7 /* loading2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = loading2.json; sourceTree = "<group>"; };
 		4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		4EA272312D5793BA00F64B20 /* ChatTextInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextInputView.swift; sourceTree = "<group>"; };
+		4EA272542D58E27300F64B20 /* ChatTextDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextDisplayView.swift; sourceTree = "<group>"; };
 		4EA5F4EC2D4C96BD00A59AB1 /* LogPrinterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPrinterManager.swift; sourceTree = "<group>"; };
 		4EA5F4EF2D4C970600A59AB1 /* LogPrinterWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPrinterWindow.swift; sourceTree = "<group>"; };
 		4EA5F4F22D4C975C00A59AB1 /* LogPrinterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPrinterViewController.swift; sourceTree = "<group>"; };
@@ -1709,6 +1712,7 @@
 		4EA2722B2D578D5A00F64B20 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				4EA272532D58E25000F64B20 /* ChatTextDisplay */,
 				4EA2722D2D578D8200F64B20 /* ChatTextInput */,
 			);
 			path = Chat;
@@ -1720,6 +1724,14 @@
 				4EA272312D5793BA00F64B20 /* ChatTextInputView.swift */,
 			);
 			path = ChatTextInput;
+			sourceTree = "<group>";
+		};
+		4EA272532D58E25000F64B20 /* ChatTextDisplay */ = {
+			isa = PBXGroup;
+			children = (
+				4EA272542D58E27300F64B20 /* ChatTextDisplayView.swift */,
+			);
+			path = ChatTextDisplay;
 			sourceTree = "<group>";
 		};
 		4EA5F4EB2D4C960500A59AB1 /* LogPrinter */ = {
@@ -3405,6 +3417,7 @@
 				D064669F2C898E9D00CF10FD /* EmblemListResponseDTO.swift in Sources */,
 				D03C835E2C61E44700F3094D /* TokenIntercepter.swift in Sources */,
 				4E03942F2C2A9DCE007F0517 /* SceneDelegate.swift in Sources */,
+				4EA272562D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */,
 				4E3A32692CE510DF007228D0 /* CharacterChatAPI.swift in Sources */,
 				4EFC7D252D066D110068367E /* ScrollLoading.swift in Sources */,
 				D0E7961E2C45280F005B47A5 /* SocialLoginResponseDTO.swift in Sources */,
@@ -3476,6 +3489,7 @@
 				4E4F316B2D4718F400C3B2FF /* ORBMapView.swift in Sources */,
 				4E4F317D2D4718F400C3B2FF /* CustomIntensityBlurView.swift in Sources */,
 				4E4F317E2D4718F400C3B2FF /* KakaoAuthManager.swift in Sources */,
+				4EA272552D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */,
 				4E4F317F2D4718F400C3B2FF /* MarketingConsentRequestDTO.swift in Sources */,
 				4EA5F4F52D4C977300A59AB1 /* LogPrinterView.swift in Sources */,
 				4E4F31802D4718F400C3B2FF /* CharacterChatLogViewModel.swift in Sources */,
