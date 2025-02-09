@@ -15,11 +15,14 @@ public class ChatTextInputView: UIView {
     
     //MARK: - Properties
     
+    var isSendAllowed: Bool = true
     var inputTextRelay = PublishRelay<String>()
     var sendingTextRelay = PublishRelay<String>()
     
     private let userChatInputViewHeightRelay = PublishRelay<CGFloat>()
     private let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
+    private let showingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
+    private let hidingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     
     private var disposeBag = DisposeBag()
     
@@ -38,14 +41,12 @@ public class ChatTextInputView: UIView {
         setupStyle()
         setupHierarchy()
         setupLayout()
-        
         setupActions()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
 }
 
@@ -56,8 +57,9 @@ extension ChatTextInputView {
     private func setupLayout() {
         userChatInputViewHeightConstraint.isActive = true
         userChatInputView.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview().inset(16)
+            make.top.equalToSuperview().inset(16)
             make.leading.equalToSuperview().inset(24)
+            make.bottom.equalTo(keyboardLayoutGuide.snp.top).offset(-16)
         }
         
         sendButton.snp.makeConstraints { make in
@@ -98,24 +100,33 @@ extension ChatTextInputView {
     private func setupActions() {
         // 텍스트가 변할 때마다 외부로 텍스트 방출
         userChatInputView.rx.text.orEmpty.bind(to: inputTextRelay).disposed(by: disposeBag)
-        // 텍스트가 변할 때마다 줄 수를 바탕으로 텍스트뷰의 높이 설정
+        // 텍스트가 변화를 구독
         userChatInputView.rx.text.orEmpty
             .asDriver()
             .drive(onNext: { [weak self] text in
                 guard let self else { return }
+                
+                // 입력창이 비어있으면 전송 버튼 비활성화
+                self.sendButton.isEnabled =
+                !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && isSendAllowed
+                
+                // 텍스트 줄 수에 따라 입력창 높이 설정
                 let textContentHeight = self.userChatInputView.textInputView.bounds.height
                 let isMultiline: Bool = textContentHeight > 30
                 let shortHeight: CGFloat = 19.0 + (9*2)
                 let longHeight: CGFloat = (19.0*2) + (9.0*2)
                 self.updateChatInputViewHeight(height: isMultiline ? longHeight : shortHeight)
+                self.userChatInputView.showsVerticalScrollIndicator = isMultiline
                 self.layoutIfNeeded()
             }).disposed(by: disposeBag)
         
-        // sendButton을 탭할 경우 외부로 현재 입력된 텍스트 방출
+        // sendButton의 탭 이벤트 구독
         sendButton.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let self else { return }
             let currentText = self.userChatInputView.text ?? ""
             guard !currentText.isEmpty else { return }
+            self.userChatInputView.text = ""
+            self.sendButton.isEnabled = false
             sendingTextRelay.accept(currentText)
         }).disposed(by: disposeBag)
     }
@@ -129,14 +140,46 @@ extension ChatTextInputView {
         userChatInputViewHeightAnimator.startAnimation()
     }
     
+    private func show(animated: Bool = true) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.hidingAnimator.stopAnimation(true)
+            self.showingAnimator.stopAnimation(true)
+            if animated {
+                self.showingAnimator.addAnimations { [weak self] in self?.isHidden = false }
+                self.showingAnimator.startAnimation()
+            } else {
+                self.isHidden = false
+            }
+        }
+    }
+    
+    private func hide(animated: Bool = true, completion: (() -> Void)? = nil) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.showingAnimator.stopAnimation(true)
+            self.hidingAnimator.stopAnimation(true)
+            if animated {
+                hidingAnimator.addAnimations { [weak self] in self?.isHidden = true }
+                hidingAnimator.addCompletion { _ in completion?() }
+                hidingAnimator.startAnimation()
+            } else {
+                self.isHidden = true
+            }
+        }
+    }
     
     //MARK: - Func
     
     func startChat() {
+        show()
         userChatInputView.becomeFirstResponder()
     }
     
     func endChat() {
+        hide() { [weak self] in
+            self?.userChatInputView.text = ""
+        }
         userChatInputView.resignFirstResponder()
     }
     
