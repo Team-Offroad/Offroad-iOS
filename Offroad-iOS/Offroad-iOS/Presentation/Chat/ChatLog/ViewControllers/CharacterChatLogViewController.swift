@@ -145,7 +145,7 @@ extension CharacterChatLogViewController {
         rootView.layoutIfNeeded()
         rootView.setChatCollectionViewInset(inset: rootView.chatTextInputView.frame.height + 16)
         UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.scrollToFirstCell(at: .top, animated: false)
+            self?.scrollToFirstCell(at: .bottom, animated: false)
         }
     }
     

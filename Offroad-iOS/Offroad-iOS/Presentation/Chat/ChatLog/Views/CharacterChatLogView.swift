@@ -147,6 +147,12 @@ extension CharacterChatLogView {
         chatTextInputView.do { view in
             view.alpha = 0
             view.roundCorners(cornerRadius: 18, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
+            view.layer.shadowColor = UIColor.primary(.black).cgColor
+            view.layer.shadowOffset = .zero
+            view.layer.shadowOpacity = 0.1
+            view.layer.shadowRadius = 10
+            view.layer.masksToBounds = false
+            
         }
     }
     

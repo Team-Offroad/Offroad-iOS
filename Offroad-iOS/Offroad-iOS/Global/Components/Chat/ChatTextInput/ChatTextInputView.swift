@@ -16,10 +16,10 @@ public class ChatTextInputView: UIView {
     //MARK: - Properties
     
     var isSendingAllowed: Bool = true
-    var inputTextRelay = PublishRelay<String>()
-    var sendingTextRelay = PublishRelay<String>()
     
-    private let userChatInputViewHeightRelay = PublishRelay<CGFloat>()
+    let inputTextRelay = PublishRelay<String>()
+    let sendingTextRelay = PublishRelay<String>()
+    
     private let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     private let showingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private let hidingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
