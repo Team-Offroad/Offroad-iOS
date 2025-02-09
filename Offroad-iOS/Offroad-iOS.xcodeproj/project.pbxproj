@@ -367,6 +367,8 @@
 		4E9900882CE0768B007EEFF7 /* loading1.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E9900862CE0768B007EEFF7 /* loading1.json */; };
 		4E9900892CE0768B007EEFF7 /* loading2.json in Resources */ = {isa = PBXBuildFile; fileRef = 4E9900872CE0768B007EEFF7 /* loading2.json */; };
 		4E99008B2CE0CB61007EEFF7 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */; };
+		4EA272412D5855E700F64B20 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA272402D5855E700F64B20 /* AmplitudeSwift */; };
+		4EA272432D58560B00F64B20 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA272422D58560B00F64B20 /* AmplitudeSwift */; };
 		4EA5F4EE2D4C96BD00A59AB1 /* LogPrinterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4EC2D4C96BD00A59AB1 /* LogPrinterManager.swift */; };
 		4EA5F4F12D4C970600A59AB1 /* LogPrinterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4EF2D4C970600A59AB1 /* LogPrinterWindow.swift */; };
 		4EA5F4F32D4C975C00A59AB1 /* LogPrinterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4F22D4C975C00A59AB1 /* LogPrinterViewController.swift */; };
@@ -892,6 +894,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EA272432D58560B00F64B20 /* AmplitudeSwift in Frameworks */,
 				D0600BD82CE50AE600D8F1D6 /* FirebaseAnalytics in Frameworks */,
 				D063E9852C492D6700434A09 /* SVGKit in Frameworks */,
 				4E0394CE2C2AB762007F0517 /* Kingfisher in Frameworks */,
@@ -930,6 +933,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EA272412D5855E700F64B20 /* AmplitudeSwift in Frameworks */,
 				4E4F32572D4718F400C3B2FF /* FirebaseAnalytics in Frameworks */,
 				4E4F32582D4718F400C3B2FF /* SVGKit in Frameworks */,
 				4E4F32592D4718F400C3B2FF /* Kingfisher in Frameworks */,
@@ -2781,6 +2785,7 @@
 				4E56F5552C99ACD300EEE677 /* RxRelay */,
 				D0600BD72CE50AE600D8F1D6 /* FirebaseAnalytics */,
 				D0600BD92CE50CF900D8F1D6 /* FirebaseMessaging */,
+				4EA272422D58560B00F64B20 /* AmplitudeSwift */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E0394292C2A9DCE007F0517 /* ORB.app */;
@@ -2855,6 +2860,7 @@
 				4E4F315E2D4718F400C3B2FF /* RxRelay */,
 				4E4F315F2D4718F400C3B2FF /* FirebaseAnalytics */,
 				4E4F31612D4718F400C3B2FF /* FirebaseMessaging */,
+				4EA272402D5855E700F64B20 /* AmplitudeSwift */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E4F327A2D4718F400C3B2FF /* ORB(Dev).app */;
@@ -2928,6 +2934,7 @@
 				D063E9832C492D6700434A09 /* XCRemoteSwiftPackageReference "SVGKit" */,
 				4E56F5522C99ACD300EEE677 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				D0600BD62CE50AE600D8F1D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */,
 			);
 			productRefGroup = 4E03942A2C2A9DCE007F0517 /* Products */;
 			projectDirPath = "";
@@ -4367,6 +4374,14 @@
 				minimumVersion = 4.4.3;
 			};
 		};
+		4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/amplitude/Amplitude-Swift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		D0600BD62CE50AE600D8F1D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -4505,6 +4520,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E8B478D2C382A4800D9B8EE /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
+		};
+		4EA272402D5855E700F64B20 /* AmplitudeSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
+			productName = AmplitudeSwift;
+		};
+		4EA272422D58560B00F64B20 /* AmplitudeSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
+			productName = AmplitudeSwift;
 		};
 		D0600BD72CE50AE600D8F1D6 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
