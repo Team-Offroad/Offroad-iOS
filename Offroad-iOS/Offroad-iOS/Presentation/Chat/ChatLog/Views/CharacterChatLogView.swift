@@ -13,6 +13,7 @@ class CharacterChatLogView: UIView {
     
     //MARK: - Properties
     
+    private let collectionViewInsetAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private let verticalFlipTransform = CGAffineTransform(scaleX: 1, y: -1)
     
     private var layout: UICollectionViewLayout {
@@ -37,8 +38,6 @@ class CharacterChatLogView: UIView {
     
     lazy var chatLogCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layout)
     let chatButton = ShrinkableButton(shrinkScale: 0.9)
-    let keyboardBackgroundView = UIView().then { $0.backgroundColor = .primary(.white) }
-    
     let chatTextInputView = ChatTextInputView()
     
     
@@ -107,11 +106,6 @@ extension CharacterChatLogView {
             make.height.equalTo(40)
         }
         
-        keyboardBackgroundView.snp.makeConstraints { make in
-            make.top.equalTo(keyboardLayoutGuide)
-            make.horizontalEdges.bottom.equalToSuperview()
-        }
-        
         chatTextInputView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -135,7 +129,6 @@ extension CharacterChatLogView {
         chatLogCollectionView.do { collectionView in
             collectionView.backgroundColor = .clear
             collectionView.contentInsetAdjustmentBehavior = .never
-            collectionView.keyboardDismissMode = .onDrag
             collectionView.transform = verticalFlipTransform
         }
         
@@ -151,10 +144,8 @@ extension CharacterChatLogView {
             button.configuration?.baseForegroundColor = .primary(.white)
         }
         
-        keyboardBackgroundView.isHidden = true
-        
         chatTextInputView.do { view in
-            view.isHidden = true
+            view.alpha = 0
             view.roundCorners(cornerRadius: 18, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         }
     }
@@ -167,10 +158,23 @@ extension CharacterChatLogView {
             customNavigationBar,
             chatLogCollectionView,
             chatButton,
-            keyboardBackgroundView,
             chatTextInputView
         )
         customNavigationBar.addSubviews(backButton, customNavigationTitleLabel)
+    }
+    
+    //MARK: - Func
+    
+    func setChatCollectionViewInset(inset: CGFloat, animated: Bool = true) {
+        collectionViewInsetAnimator.stopAnimation(true)
+        if animated {
+            collectionViewInsetAnimator.addAnimations { [weak self] in
+                self?.chatLogCollectionView.contentInset.top = inset
+            }
+            collectionViewInsetAnimator.startAnimation()
+        } else {
+            chatLogCollectionView.contentInset.top = inset
+        }
     }
     
 }

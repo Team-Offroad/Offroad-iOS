@@ -37,11 +37,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private var didGetAllChatLog: Bool = false
     private var isScrollingToTop: Bool = false
     
-    // userChatInputView의 textInputView의 height를 전달
-    private let userChatInputViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
-    private let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     private let isCharacterResponding = BehaviorRelay<Bool>(value: false)
-//    private let isTextViewEmpty = BehaviorRelay<Bool>(value: true)
     private let patchChatReadRelay = PublishRelay<Int?>()
     
     /// 채팅 로그 뷰가 떠 있을 때 캐릭터 채팅 푸시 알림이 오면 캐릭터 채팅 내용을 전달
@@ -146,28 +142,15 @@ extension CharacterChatLogViewController {
     }
     
     @objc private func keyboardWillShow(notification: Notification) {
-        guard !isKeyboardShown else { return }
-        isKeyboardShown = true
+        rootView.layoutIfNeeded()
+        rootView.setChatCollectionViewInset(inset: rootView.chatTextInputView.frame.height + 16)
         UIView.animate(withDuration: 0.5) { [weak self] in
-            guard let self else { return }
-            rootView.chatLogCollectionView.contentInsetAdjustmentBehavior = .never
-            rootView.chatLogCollectionView.contentInset.top = rootView.chatTextInputView.frame.height + 16
-            self.scrollToFirstCell(at: .top, animated: false)
-            rootView.layoutIfNeeded()
+            self?.scrollToFirstCell(at: .top, animated: false)
         }
     }
     
     @objc private func keyboardWillHide(notification: Notification) {
-        guard isKeyboardShown else { return }
-        isKeyboardShown = false
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            guard let self else { return }
-            rootView.chatLogCollectionView.contentInsetAdjustmentBehavior = .never
-            rootView.chatLogCollectionView.contentInset.top = 135 + rootView.safeAreaInsets.bottom
-            rootView.layoutIfNeeded()
-        }
-        
-        rootView.chatTextInputView.endChat()
+        rootView.setChatCollectionViewInset(inset: 135 + rootView.safeAreaInsets.bottom)
     }
     
     @objc private func tapGestureHandler(_ sender: UITapGestureRecognizer) {
@@ -290,13 +273,6 @@ extension CharacterChatLogViewController {
     }
     
     private func bindData() {
-        ORBCharacterChatManager.shared.shouldMakeKeyboardBackgroundTransparent
-            .subscribe(onNext: { [weak self] isTransparent in
-                guard let self else { return }
-                guard self.rootView.keyboardBackgroundView.frame.height > rootView.safeAreaInsets.bottom else { return }
-                self.rootView.keyboardBackgroundView.isHidden = isTransparent
-            }).disposed(by: disposeBag)
-        
         rootView.chatButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
             self.rootView.chatTextInputView.startChat()
