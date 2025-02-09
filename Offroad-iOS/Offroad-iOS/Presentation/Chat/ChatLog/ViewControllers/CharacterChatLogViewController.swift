@@ -41,7 +41,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private let userChatInputViewTextInputViewHeightRelay = PublishRelay<CGFloat>()
     private let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     private let isCharacterResponding = BehaviorRelay<Bool>(value: false)
-    private let isTextViewEmpty = BehaviorRelay<Bool>(value: true)
+//    private let isTextViewEmpty = BehaviorRelay<Bool>(value: true)
     private let patchChatReadRelay = PublishRelay<Int?>()
     
     /// 채팅 로그 뷰가 떠 있을 때 캐릭터 채팅 푸시 알림이 오면 캐릭터 채팅 내용을 전달
@@ -127,7 +127,6 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         super.viewWillDisappear(animated)
         
         rootView.backgroundView.isHidden = true
-        rootView.userChatInputView.resignFirstResponder()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -149,14 +148,10 @@ extension CharacterChatLogViewController {
     @objc private func keyboardWillShow(notification: Notification) {
         guard !isKeyboardShown else { return }
         isKeyboardShown = true
-        guard rootView.userChatInputView.isFirstResponder else { return }
-        rootView.userChatBoundsView.isUserInteractionEnabled = true
-        rootView.userChatView.isUserInteractionEnabled = true
         UIView.animate(withDuration: 0.5) { [weak self] in
             guard let self else { return }
-            rootView.userChatBoundsView.bounds.origin.y = 0
             rootView.chatLogCollectionView.contentInsetAdjustmentBehavior = .never
-            rootView.chatLogCollectionView.contentInset.top = rootView.keyboardLayoutGuide.layoutFrame.height + rootView.userChatView.frame.height + 16
+            rootView.chatLogCollectionView.contentInset.top = rootView.chatTextInputView.frame.height + 16
             self.scrollToFirstCell(at: .top, animated: false)
             rootView.layoutIfNeeded()
         }
@@ -165,19 +160,18 @@ extension CharacterChatLogViewController {
     @objc private func keyboardWillHide(notification: Notification) {
         guard isKeyboardShown else { return }
         isKeyboardShown = false
-        rootView.userChatBoundsView.isUserInteractionEnabled = false
-        rootView.userChatView.isUserInteractionEnabled = false
         UIView.animate(withDuration: 0.5) { [weak self] in
             guard let self else { return }
-            rootView.userChatBoundsView.bounds.origin.y = -(rootView.safeAreaInsets.bottom + rootView.userChatView.frame.height)
             rootView.chatLogCollectionView.contentInsetAdjustmentBehavior = .never
             rootView.chatLogCollectionView.contentInset.top = 135 + rootView.safeAreaInsets.bottom
             rootView.layoutIfNeeded()
         }
+        
+        rootView.chatTextInputView.endChat()
     }
     
     @objc private func tapGestureHandler(_ sender: UITapGestureRecognizer) {
-        rootView.userChatInputView.resignFirstResponder()
+        rootView.chatTextInputView.endChat()
     }
     
     //MARK: - Private Func
@@ -305,72 +299,23 @@ extension CharacterChatLogViewController {
         
         rootView.chatButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
-            self.rootView.userChatInputView.becomeFirstResponder()
+            self.rootView.chatTextInputView.startChat()
         }).disposed(by: disposeBag)
         
-        rootView.userChatInputView.rx.text.orEmpty
-            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .default))
-            .subscribe(onNext: { [weak self] text in
-                guard let self else { return }
-                self.userChatInputViewTextInputViewHeightRelay.accept(self.rootView.userChatInputView.textInputView.bounds.height)
-                if text.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
-                    print("입력된 텍스트: \(text)")
-                    printLog("입력된 텍스트: \(text)")
-                    self.rootView.loadingAnimationView.isHidden = false
-                    self.rootView.loadingAnimationView.play()
-                    self.isTextViewEmpty.accept(false)
-                } else {
-                    print("입력된 텍스트 없음")
-                    printLog("입력된 텍스트 없음")
-                    self.rootView.loadingAnimationView.currentProgress = 0
-                    self.rootView.loadingAnimationView.pause()
-                    self.rootView.loadingAnimationView.isHidden = true
-                    self.isTextViewEmpty.accept(true)
-                }
-            }).disposed(by: disposeBag)
-        
-        rootView.sendButton.rx.tap.bind(
-            onNext: { [weak self] in
-                guard let self else { return }
-                let userMessage = self.rootView.userChatInputView.text
-                self.rootView.sendButton.isEnabled = false
-                // 사용자 채팅 버블 추가
-                self.sendChatBubble(isUserChat: true, text: self.rootView.userChatInputView.text, isLoading: false) {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+        rootView.chatTextInputView.sendingTextRelay.subscribe(onNext: { [weak self] sendingText in
+            guard let self else { return }
+            // 사용자 채팅 버블 추가
+            self.sendChatBubble(isUserChat: true, text: sendingText, isLoading: false) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                    guard let self else { return }
+                    // 캐릭터 셀 추가
+                    self.sendChatBubble(isUserChat: false, text: "", isLoading: true) { [weak self] in
                         guard let self else { return }
-                        // 캐릭터 셀 추가
-                        self.sendChatBubble(isUserChat: false, text: "", isLoading: true) { [weak self] in
-                            guard let self else { return }
-                            self.postCharacterChat(characterId: characterId, message: userMessage!)
-                        }
+                        self.postCharacterChat(characterId: characterId, message: sendingText)
                     }
                 }
-                self.rootView.userChatInputView.text = ""
-            }).disposed(by: disposeBag)
-        
-        userChatInputViewTextInputViewHeightRelay.subscribe(
-            onNext: { [weak self] textContentHeight in
-                guard let self else { return }
-                if textContentHeight >= 30 {
-                    self.updateChatInputViewHeight(height: (19.0*2) + (9.0*2))
-                    self.rootView.userChatInputView.showsVerticalScrollIndicator = true
-                } else {
-                    self.updateChatInputViewHeight(height: 19.0 + (9*2))
-                    self.rootView.userChatInputView.showsVerticalScrollIndicator = false
-                }
-                UIView.animate(
-                    withDuration: 0.3,
-                    delay: 0,
-                    usingSpringWithDamping: 1,
-                    initialSpringVelocity: 1
-                ) { [weak self] in
-                    guard let self else { return }
-                    self.rootView.chatLogCollectionView.contentInset.top = self.rootView.keyboardLayoutGuide.layoutFrame.height + self.rootView.userChatView.frame.height + 16.0
-                    self.scrollToFirstCell(at: .top, animated: false)
-                }
-                self.rootView.updateConstraints()
-                self.rootView.layoutIfNeeded()
-            }).disposed(by: disposeBag)
+            }
+        }).disposed(by: disposeBag)
         
         patchChatReadRelay.subscribe(onNext: { [weak self] characterId in
             guard let self else { return }
@@ -391,11 +336,8 @@ extension CharacterChatLogViewController {
                 }
             }).disposed(by: disposeBag)
         
-        Observable.combineLatest(isCharacterResponding, isTextViewEmpty)
-            .map { return (!$0 && !$1) }
-            .subscribe { [weak self] shouldEnableSendButton in
-                guard let self else { return }
-                self.rootView.sendButton.isEnabled = shouldEnableSendButton
+        isCharacterResponding.subscribe { [weak self] isCharacterResponding in
+                self?.rootView.chatTextInputView.isSendingAllowed = !isCharacterResponding
             }.disposed(by: disposeBag)
         
         characterChatPushedRelay.subscribe(onNext: { [weak self] message in
@@ -443,16 +385,6 @@ extension CharacterChatLogViewController {
             at: IndexPath(item: 0, section: 0)
         ) != nil else { return }
         rootView.chatLogCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: scrollPosition, animated: animated)
-    }
-    
-    private func updateChatInputViewHeight(height: CGFloat) {
-        userChatInputViewHeightAnimator.stopAnimation(true)
-        userChatInputViewHeightAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.rootView.userChatInputViewHeightConstraint.constant = height
-            self.rootView.layoutIfNeeded()
-        }
-        userChatInputViewHeightAnimator.startAnimation()
     }
     
     private func sendChatBubble(isUserChat: Bool, text: String, isLoading: Bool, completion: (() -> Void)? = nil) {
@@ -589,7 +521,7 @@ extension CharacterChatLogViewController {
 extension CharacterChatLogViewController: UIScrollViewDelegate {
     
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        rootView.userChatInputView.resignFirstResponder()
+        rootView.chatTextInputView.endChat()
         isScrollingToTop = true
         // custom ScrollToTop 동작
         scrollToLastCell(animated: true)

@@ -25,8 +25,6 @@ class CharacterChatLogView: UIView {
     }
     
     lazy var chatButtonBottomConstraint = chatButton.bottomAnchor.constraint(equalTo: bottomAnchor)
-    lazy var userChatInputViewHeightConstraint = userChatInputView.heightAnchor.constraint(equalToConstant: 40)
-//    lazy var userChatViewBottomConstraint = userChatView.bottomAnchor.constraint(equalTo: keyboardLayoutGuide.topAnchor)
     
     //MARK: - UI Properties
     
@@ -39,13 +37,10 @@ class CharacterChatLogView: UIView {
     
     lazy var chatLogCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layout)
     let chatButton = ShrinkableButton(shrinkScale: 0.9)
-    
-    let userChatBoundsView = UIView()
-    let userChatView = UIView()
-    let userChatInputView = UITextView()
-    let sendButton = ShrinkableButton(shrinkScale: 0.9)
-    let loadingAnimationView = LottieAnimationView(name: "loading2")
     let keyboardBackgroundView = UIView().then { $0.backgroundColor = .primary(.white) }
+    
+    let chatTextInputView = ChatTextInputView()
+    
     
     //MARK: - Life Cycle
     
@@ -112,31 +107,14 @@ extension CharacterChatLogView {
             make.height.equalTo(40)
         }
         
-        userChatBoundsView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(keyboardLayoutGuide.snp.top)
-        }
-        
-        userChatView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        userChatInputViewHeightConstraint.isActive = true
-        userChatInputView.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview().inset(16)
-            make.leading.equalToSuperview().inset(24)
-        }
-        
-        sendButton.snp.makeConstraints { make in
-            make.centerY.equalTo(userChatInputView)
-            make.leading.equalTo(userChatInputView.snp.trailing).offset(7)
-            make.trailing.equalToSuperview().inset(24)
-            make.size.equalTo(40)
-        }
-        
         keyboardBackgroundView.snp.makeConstraints { make in
-            make.top.equalTo(userChatBoundsView.snp.bottom)
+            make.top.equalTo(keyboardLayoutGuide)
             make.horizontalEdges.bottom.equalToSuperview()
+        }
+        
+        chatTextInputView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
     }
     
@@ -173,33 +151,12 @@ extension CharacterChatLogView {
             button.configuration?.baseForegroundColor = .primary(.white)
         }
         
-        userChatBoundsView.do { view in
-            view.isUserInteractionEnabled = true
-            view.bounds.origin.y = -(200)
-        }
+        keyboardBackgroundView.isHidden = true
         
-        userChatView.do { view in
-            view.backgroundColor = .primary(.white)
+        chatTextInputView.do { view in
+            view.isHidden = true
             view.roundCorners(cornerRadius: 18, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         }
-        
-        userChatInputView.do { textView in
-            textView.textColor = .main(.main2)
-            textView.font = .offroad(style: .iosTextAuto)
-            textView.backgroundColor = .neutral(.btnInactive)
-            textView.contentInset = .init(top: 9, left: 0, bottom: 9, right: 0)
-            textView.textContainerInset = .init(top: 0, left: 20, bottom: 0, right: 20)
-            textView.textContainer.lineFragmentPadding = 0
-            textView.showsVerticalScrollIndicator = false
-            textView.verticalScrollIndicatorInsets = .init(top: 4, left: 0, bottom: 4, right: 10)
-            textView.roundCorners(cornerRadius: 12)
-        }
-        
-        sendButton.do { button in
-            button.setImage(.icnChatViewSendButton, for: .normal)
-        }
-        
-        keyboardBackgroundView.isHidden = true
     }
     
     private func setupHierarchy() {
@@ -210,12 +167,10 @@ extension CharacterChatLogView {
             customNavigationBar,
             chatLogCollectionView,
             chatButton,
-            userChatBoundsView,
-            keyboardBackgroundView
+            keyboardBackgroundView,
+            chatTextInputView
         )
         customNavigationBar.addSubviews(backButton, customNavigationTitleLabel)
-        userChatBoundsView.addSubview(userChatView)
-        userChatView.addSubviews(userChatInputView, sendButton)
     }
     
 }

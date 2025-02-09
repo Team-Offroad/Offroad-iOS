@@ -15,7 +15,7 @@ public class ChatTextInputView: UIView {
     
     //MARK: - Properties
     
-    var isSendAllowed: Bool = true
+    var isSendingAllowed: Bool = true
     var inputTextRelay = PublishRelay<String>()
     var sendingTextRelay = PublishRelay<String>()
     
@@ -74,7 +74,6 @@ extension ChatTextInputView {
     
     private func setupStyle() {
         backgroundColor = .primary(.white)
-//        roundCorners(cornerRadius: 18, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         
         userChatInputView.do { textView in
             textView.textColor = .main(.main2)
@@ -108,7 +107,7 @@ extension ChatTextInputView {
                 
                 // 입력창이 비어있으면 전송 버튼 비활성화
                 self.sendButton.isEnabled =
-                !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && isSendAllowed
+                !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && isSendingAllowed
                 
                 // 텍스트 줄 수에 따라 입력창 높이 설정
                 let textContentHeight = self.userChatInputView.textInputView.bounds.height
@@ -126,6 +125,7 @@ extension ChatTextInputView {
             let currentText = self.userChatInputView.text ?? ""
             guard !currentText.isEmpty else { return }
             self.userChatInputView.text = ""
+            self.isSendingAllowed = false
             self.sendButton.isEnabled = false
             sendingTextRelay.accept(currentText)
         }).disposed(by: disposeBag)
