@@ -22,9 +22,25 @@ class ORBCharacterChatWindow: UIWindow {
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let chatViewController = rootViewController as! ORBCharacterChatViewController
-        if chatViewController.rootView.characterChatBox.frame.contains(point) ||
-            chatViewController.rootView.userChatView.frame.contains(point) ||
-            chatViewController.rootView.endChatButton.frame.contains(point) {
+        let isCharacterChatBoxShown = chatViewController.isCharacterChatBoxShown
+        let isChatTextInputViewShown = chatViewController.isChatTextInputViewShown
+        let characterChatBox = chatViewController.rootView.characterChatBox
+        let chatTextInputView = chatViewController.rootView.chatTextInputView
+        let chatTextDisplayView = chatViewController.rootView.chatTextDisplayView
+        let endChatButton = chatViewController.rootView.endChatButton
+        
+        // 캐릭터 채팅 박스를 터치한 경우
+        let isChatBoxTouchAllowed = (isCharacterChatBoxShown && characterChatBox.frame.contains(point))
+        
+        // 사용자 채팅 입력 영역을 터치한 경우
+        let isTextInputViewTouchAllowed = (
+            isChatTextInputViewShown && (chatTextInputView.frame.contains(point) ||
+                                         chatTextDisplayView.frame.contains(point) ||
+                                         endChatButton.frame.contains(point))
+        )
+        
+        // 사용자가 지정된 영역을 터치했을 때만 터치 인식. 그 외에는 다음 window로 터치 이벤트 전달.
+        if isChatBoxTouchAllowed || isTextInputViewTouchAllowed {
             return super.hitTest(point, with: event)
         } else {
             return nil

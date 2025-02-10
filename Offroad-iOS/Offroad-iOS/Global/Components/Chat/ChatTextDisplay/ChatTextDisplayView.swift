@@ -119,8 +119,20 @@ public extension ChatTextDisplayView {
         }).disposed(by: disposeBag)
         
         displayTextRelay.subscribe(onNext: { [weak self] displayText in
-            self?.stopDisplayLoading()
-            self?.userChatDisplayView.text = displayText
+            guard let self else { return }
+            self.stopDisplayLoading()
+            self.userChatDisplayView.text = displayText
+            // userChatDisplayView에 텍스트를 띄울 때 아래에서 올라오도록 구현
+            self.userChatDisplayView.bounds.origin.y = -(self.bounds.height)
+            UIView.animate(
+                withDuration: 0.3,
+                delay: 0,
+                usingSpringWithDamping: 1,
+                initialSpringVelocity: 1
+            ) { [weak self] in
+                self?.userChatDisplayView.bounds.origin.y = 0
+                self?.layoutIfNeeded()
+            }
         }).disposed(by: disposeBag)
     }
     

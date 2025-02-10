@@ -26,19 +26,17 @@ final class ORBCharacterChatManager {
     
     //MARK: - UI Properties
     
-    var chatWindow = ORBCharacterChatWindow(windowScene: UIWindowScene.current)
+    private var chatWindow = ORBCharacterChatWindow(windowScene: UIWindowScene.current)
     var chatViewController: ORBCharacterChatViewController {
         chatWindow.rootViewController as! ORBCharacterChatViewController
     }
-    var characterChatBox: ORBCharacterChatBox { chatViewController.rootView.characterChatBox }
-    var userChatView: UIView { chatViewController.rootView.userChatView }
-    var endChatButton: UIButton { chatViewController.rootView.endChatButton }
+    private var characterChatBox: ORBCharacterChatBox { chatViewController.rootView.characterChatBox }
+    private var endChatButton: UIButton { chatViewController.rootView.endChatButton }
     
     //MARK: - Life Cycle
     
     private init() {
         characterChatBox.isHidden = true
-        userChatView.isHidden = true
         endChatButton.isHidden = true
     }
     
@@ -58,16 +56,11 @@ extension ORBCharacterChatManager {
     
     func startChat() {
         chatWindow.makeKeyAndVisible()
-        userChatView.isHidden = false
-        endChatButton.isHidden = false
-        self.chatViewController.rootView.userChatInputView.becomeFirstResponder()
+        self.chatViewController.startChat()
     }
     
     func endChat() {
-        chatViewController.hideUserChatInputView()
-        chatViewController.rootView.userChatInputView.resignFirstResponder()
-        chatViewController.rootView.userChatInputView.text = ""
-        chatViewController.rootView.userChatDisplayView.text = ""
+        chatViewController.endChat()
         hideCharacterChatBox()
     }
     
