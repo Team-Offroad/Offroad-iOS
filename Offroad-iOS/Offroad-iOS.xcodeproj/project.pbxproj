@@ -388,6 +388,10 @@
 		4EC6F0A62CF4747400895A87 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */; };
 		4ECCC95E2CC80088002B9C4F /* ORBToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */; };
 		4ECEEA6E2CB2C15E0029369A /* ORBTabBarShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */; };
+		4EDB392B2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */; };
+		4EDB392C2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */; };
+		4EDB392E2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392D2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift */; };
+		4EDB392F2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392D2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift */; };
 		4EDC3D412C31271F006A1493 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */; };
 		4EDC3D422C31271F006A1493 /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D392C31271E006A1493 /* Pretendard-Light.otf */; };
 		4EDC3D432C31271F006A1493 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D3A2C31271E006A1493 /* Pretendard-Regular.otf */; };
@@ -694,6 +698,8 @@
 		4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastView.swift; sourceTree = "<group>"; };
 		4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBTabBarShapeView.swift; sourceTree = "<group>"; };
+		4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapHelper.swift; sourceTree = "<group>"; };
+		4EDB392D2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTooltipHelper.swift; sourceTree = "<group>"; };
 		4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		4EDC3D392C31271E006A1493 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		4EDC3D3A2C31271E006A1493 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
@@ -1436,6 +1442,7 @@
 			isa = PBXGroup;
 			children = (
 				4E1E94182C3AC27C00A7B08A /* ORBMapView.swift */,
+				4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1612,6 +1619,7 @@
 			isa = PBXGroup;
 			children = (
 				4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */,
+				4EDB392D2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift */,
 			);
 			path = PlaceInfoTooltip;
 			sourceTree = "<group>";
@@ -3187,6 +3195,8 @@
 				4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* ORBMapView.swift in Sources */,
 				4EC4A1ED2D24380700A8C130 /* CustomIntensityBlurView.swift in Sources */,
+				4EDB392C2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */,
+				4EDB392E2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */,
 				D004F8CF2CB4DDE600D5A2CD /* KakaoAuthManager.swift in Sources */,
 				D06466AC2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift in Sources */,
 				4E3A32A42CE8E353007228D0 /* CharacterChatLogViewModel.swift in Sources */,
@@ -3433,6 +3443,7 @@
 				4E4F31672D4718F400C3B2FF /* LogoutViewController.swift in Sources */,
 				4E4F31682D4718F400C3B2FF /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */,
 				4E4F31692D4718F400C3B2FF /* OffroadTabBarViewController.swift in Sources */,
+				4EDB392B2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */,
 				4E4F316A2D4718F400C3B2FF /* AdventureInfoResponseDTO.swift in Sources */,
 				4E4F316B2D4718F400C3B2FF /* ORBMapView.swift in Sources */,
 				4E4F316C2D4718F400C3B2FF /* ORBAlertButton.swift in Sources */,
@@ -3463,6 +3474,7 @@
 				4E4F31832D4718F400C3B2FF /* CouponListResponseDTO.swift in Sources */,
 				4E4F31842D4718F400C3B2FF /* NicknameView.swift in Sources */,
 				4E4F31852D4718F400C3B2FF /* ORBAlertViewBaseUI.swift in Sources */,
+				4EDB392F2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */,
 				4E4F31862D4718F400C3B2FF /* PushNotificationService.swift in Sources */,
 				4E4F31872D4718F400C3B2FF /* UIButton+.swift in Sources */,
 				4E4F31882D4718F400C3B2FF /* ORBMapViewModel.swift in Sources */,
