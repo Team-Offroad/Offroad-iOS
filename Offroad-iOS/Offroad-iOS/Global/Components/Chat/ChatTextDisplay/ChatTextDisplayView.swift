@@ -139,7 +139,7 @@ public extension ChatTextDisplayView {
     private func updateChatDisplayViewHeight(height: CGFloat, animated: Bool = true) {
         userChatDisplayViewHeightAnimator.stopAnimation(true)
         userChatDisplayViewHeightAnimator.addAnimations { [weak self] in
-            self?.userChatDisplayViewHeightConstraint.constant = height
+            self?.userChatDisplayViewHeightConstraint.constant = height >= 30 ? 40 : 20
             self?.superview?.layoutIfNeeded()
         }
         userChatDisplayViewHeightAnimator.startAnimation()
