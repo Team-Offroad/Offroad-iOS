@@ -258,10 +258,16 @@ extension ORBAlertController {
         configure(defaultTextField!)
     }
     
+    /**
+     alert controller의 `messageLabel`의 속성을 변경하는 함수.
+     */
     func configureMessageLabel(_ configure: (UILabel) -> Void) {
         configure(self.rootView.alertView.messageLabel)
     }
     
+    /**
+     alert controller의 `subMessageLabel`의 속성을 변경하는 함수.
+     */
     func configureSubMessagelabel(_ configure: (UILabel) -> Void) {
         guard let alertViewTextFieldWithSubMessage = rootView.alertView as? ORBAlertViewTextFieldWithSubMessage else { return }
         configure(alertViewTextFieldWithSubMessage.subMessageLabel)
@@ -272,6 +278,10 @@ extension ORBAlertController {
         configure(alertViewScrollableContent.scrollableContentView)
     }
     
+    /**
+     alert controller의 `rootView` 타입이 `ORBAlertViewExplorationResult`인 경우 배경 이미지를 설정하는 함수.
+     alert controller의 `rootView` 타입이 `ORBAlertViewExplorationResult`가 아닌 경우, 이 함수는 아무런 동작도 하지 않는다.
+     */
     func configureExplorationResultImage(_ configure: (UIImageView) -> Void) {
         guard let alertViewExplorationResult = rootView.alertView as? ORBAlertViewExplorationResult else { return }
         configure(alertViewExplorationResult.explorationResultImageView)
