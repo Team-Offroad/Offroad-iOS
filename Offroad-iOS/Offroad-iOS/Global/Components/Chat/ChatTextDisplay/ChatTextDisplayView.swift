@@ -72,7 +72,7 @@ public extension ChatTextDisplayView {
             make.top.equalTo(meLabel)
             make.leading.equalTo(meLabel.snp.trailing).offset(10)
             make.trailing.equalToSuperview().inset(24)
-            make.bottom.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview()
         }
     }
     
@@ -139,7 +139,7 @@ public extension ChatTextDisplayView {
         displayTextRelay.accept(text)
     }
     
-    func displayLoading() {
+    func startDisplayLoading() {
         userChatDisplayView.isHidden = true
         userChatDisplayView.text = ""
         loadingAnimationView.isHidden = false
@@ -168,16 +168,20 @@ public extension ChatTextDisplayView {
         }
     }
     
-    func hide(animated: Bool = true, completion: (() -> Void)? = nil) {
+    func hide(erase: Bool = false, animated: Bool = true, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             self.showingAnimator.stopAnimation(true)
             self.hidingAnimator.stopAnimation(true)
             if animated {
                 hidingAnimator.addAnimations { [weak self] in self?.alpha = 0 }
-                hidingAnimator.addCompletion { _ in completion?() }
+                hidingAnimator.addCompletion { [weak self] _ in
+                    if erase { self?.userChatDisplayView.text = "" }
+                    completion?()
+                }
                 hidingAnimator.startAnimation()
             } else {
+                if erase { userChatDisplayView.text = "" }
                 self.alpha = 0
             }
         }

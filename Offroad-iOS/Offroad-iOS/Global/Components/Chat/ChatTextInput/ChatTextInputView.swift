@@ -176,8 +176,11 @@ public extension ChatTextInputView {
         userChatInputView.becomeFirstResponder()
     }
     
-    func endChat() {
-        hide()
+    func endChat(erase: Bool = false, completion: (() -> Void)? = nil) {
+        hide { [weak self] in
+            if erase { self?.userChatInputView.text = "" }
+            completion?()
+        }
         userChatInputView.resignFirstResponder()
     }
     
