@@ -84,6 +84,7 @@ public extension ChatTextInputView {
             textView.textContainer.lineFragmentPadding = 0
             textView.showsVerticalScrollIndicator = false
             textView.verticalScrollIndicatorInsets = .init(top: 4, left: 0, bottom: 4, right: 10)
+            textView.indicatorStyle = .black
             textView.roundCorners(cornerRadius: 12)
         }
         

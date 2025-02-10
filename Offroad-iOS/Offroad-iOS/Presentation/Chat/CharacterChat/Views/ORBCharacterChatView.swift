@@ -62,7 +62,8 @@ extension ORBCharacterChatView {
         
         chatTextDisplayView.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(chatTextInputView)
-            make.bottom.equalTo(chatTextInputView.snp.top)
+            // 두 뷰를 딱 붙여놓으니, 애니메이션 과정에서 경계선이 약간 보이는 문제가 있어 1포인트만큼 겹쳐놓았음.
+            make.bottom.equalTo(chatTextInputView.snp.top).offset(1)
         }
         
         endChatButton.snp.makeConstraints { make in

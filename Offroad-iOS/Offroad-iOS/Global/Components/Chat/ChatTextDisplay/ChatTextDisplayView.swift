@@ -103,6 +103,7 @@ public extension ChatTextDisplayView {
             textView.isSelectable = false
             textView.textContainerInset = .zero
             textView.textContainer.lineFragmentPadding = 0
+            textView.indicatorStyle = .black
         }
     }
     
