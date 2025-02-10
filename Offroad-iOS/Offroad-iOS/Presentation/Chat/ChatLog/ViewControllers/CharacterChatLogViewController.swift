@@ -144,9 +144,10 @@ extension CharacterChatLogViewController {
     @objc private func keyboardWillShow(notification: Notification) {
         rootView.layoutIfNeeded()
         rootView.setChatCollectionViewInset(inset: rootView.chatTextInputView.frame.height + 16)
-        UIView.animate(withDuration: 0.5) { [weak self] in
-            self?.scrollToFirstCell(at: .bottom, animated: false)
-        }
+        rootView.chatLogCollectionView.setContentOffset(
+            .init(x: 0, y: -(rootView.chatTextInputView.frame.height + 16)),
+            animated: false
+        )
     }
     
     @objc private func keyboardWillHide(notification: Notification) {
