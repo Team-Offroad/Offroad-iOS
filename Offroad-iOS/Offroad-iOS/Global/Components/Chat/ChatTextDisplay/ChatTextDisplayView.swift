@@ -176,12 +176,12 @@ public extension ChatTextDisplayView {
             if animated {
                 hidingAnimator.addAnimations { [weak self] in self?.alpha = 0 }
                 hidingAnimator.addCompletion { [weak self] _ in
-                    if erase { self?.userChatDisplayView.text = "" }
+                    if erase { self?.displayTextRelay.accept("") }
                     completion?()
                 }
                 hidingAnimator.startAnimation()
             } else {
-                if erase { userChatDisplayView.text = "" }
+                if erase { displayTextRelay.accept("") }
                 self.alpha = 0
             }
         }
