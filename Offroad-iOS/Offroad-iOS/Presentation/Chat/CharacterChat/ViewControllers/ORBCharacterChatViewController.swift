@@ -141,6 +141,15 @@ extension ORBCharacterChatViewController {
     //MARK: - Private Func
     
     private func setupChatTextActions() {
+        rootView.chatTextInputView.onTextInput.subscribe(onNext: { [weak self] inputText in
+            guard let self else { return }
+            if !inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                self.rootView.chatTextDisplayView.startDisplayLoading()
+            } else {
+                self.rootView.chatTextDisplayView.stopDisplayLoading()
+            }
+        }).disposed(by: disposeBag)
+        
         rootView.chatTextInputView.onSendingText.subscribe(onNext: { [weak self] sendingText in
             guard let self else { return }
             self.postCharacterChat(message: sendingText)
@@ -154,16 +163,6 @@ extension ORBCharacterChatViewController {
             self.showCharacterChatBox(isAutoDismiss: false)
             self.rootView.chatTextDisplayView.display(text: sendingText.trimmingCharacters(in: .whitespacesAndNewlines))
         }).disposed(by: disposeBag)
-        
-        rootView.chatTextInputView.onTextInput.subscribe(onNext: { [weak self] inputText in
-            guard let self else { return }
-            if !inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                self.rootView.chatTextDisplayView.startDisplayLoading()
-            } else {
-                self.rootView.chatTextDisplayView.stopDisplayLoading()
-            }
-        }).disposed(by: disposeBag)
-        
     }
     
     //MARK: - Func
