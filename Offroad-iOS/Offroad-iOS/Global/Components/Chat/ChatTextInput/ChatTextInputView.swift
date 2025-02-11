@@ -15,6 +15,8 @@ public class ChatTextInputView: UIView {
     
     //MARK: - Properties
     
+    var onTextInput: Observable<String> { inputTextRelay.asObservable() }
+    var onSendingText: Observable<String> { sendingTextRelay.asObservable() }
     var isSendingAllowed: Bool = true {
         didSet {
             let isTextViewEmpty = userChatInputView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -24,9 +26,8 @@ public class ChatTextInputView: UIView {
         }
     }
     
-    let inputTextRelay = PublishRelay<String>()
-    let sendingTextRelay = PublishRelay<String>()
-    
+    private let inputTextRelay = PublishRelay<String>()
+    private let sendingTextRelay = PublishRelay<String>()
     private let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     private let showingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private let hidingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)

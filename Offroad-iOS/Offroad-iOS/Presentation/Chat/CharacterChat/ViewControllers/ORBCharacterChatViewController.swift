@@ -141,9 +141,7 @@ extension ORBCharacterChatViewController {
     //MARK: - Private Func
     
     private func setupChatTextActions() {
-        
-        // 채팅 전송 시(chatTextInputView에서 sendingText를 방출 시) 동작 구현
-        rootView.chatTextInputView.sendingTextRelay.subscribe(onNext: { [weak self] sendingText in
+        rootView.chatTextInputView.onSendingText.subscribe(onNext: { [weak self] sendingText in
             guard let self else { return }
             self.postCharacterChat(message: sendingText)
             // 캐릭터 응답 로티 뜨도록 구현
@@ -157,7 +155,7 @@ extension ORBCharacterChatViewController {
             self.rootView.chatTextDisplayView.display(text: sendingText.trimmingCharacters(in: .whitespacesAndNewlines))
         }).disposed(by: disposeBag)
         
-        rootView.chatTextInputView.inputTextRelay.subscribe(onNext: { [weak self] inputText in
+        rootView.chatTextInputView.onTextInput.subscribe(onNext: { [weak self] inputText in
             guard let self else { return }
             if !inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 self.rootView.chatTextDisplayView.startDisplayLoading()

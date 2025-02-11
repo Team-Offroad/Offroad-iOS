@@ -288,7 +288,7 @@ extension CharacterChatLogViewController {
             self.rootView.chatTextInputView.startChat()
         }).disposed(by: disposeBag)
         
-        rootView.chatTextInputView.sendingTextRelay.subscribe(onNext: { [weak self] sendingText in
+        rootView.chatTextInputView.onSendingText.subscribe(onNext: { [weak self] sendingText in
             guard let self else { return }
             // 사용자 채팅 버블 추가
             self.sendChatBubble(isUserChat: true, text: sendingText, isLoading: false) {
