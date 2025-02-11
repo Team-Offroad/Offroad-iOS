@@ -56,7 +56,7 @@ extension ORBCharacterChatManager {
     
     func startChat() {
         chatWindow.makeKeyAndVisible()
-        self.chatViewController.startChat()
+        chatViewController.startChat()
     }
     
     func endChat() {

@@ -322,6 +322,7 @@ extension ORBCharacterChatViewController {
     }
     
     func hideCharacterChatBox() {
+        let chatBoxHeight = characterChatBox.frame.height
         panGesture.isEnabled = false
         isCharacterChatBoxShown = false
         characterChatBoxPositionAnimator.stopAnimation(true)
@@ -329,8 +330,7 @@ extension ORBCharacterChatViewController {
             guard let self else { return }
             // pagGesture로 변경된 (세로)위치 원상복구
             self.characterChatBox.transform = CGAffineTransform.identity
-            self.rootView.characterChatBoxTopConstraint.constant
-            = -self.characterChatBox.frame.height
+            self.rootView.characterChatBoxTopConstraint.constant = -max(60, chatBoxHeight)
             self.rootView.layoutIfNeeded()
         }
         characterChatBoxPositionAnimator.addCompletion { [weak self] _ in
