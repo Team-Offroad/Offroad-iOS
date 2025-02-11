@@ -57,7 +57,9 @@ public class ChatTextInputView: UIView {
     
 }
 
-public extension ChatTextInputView {
+//MARK: - Private Extensions
+
+private extension ChatTextInputView {
     
     //MARK: - Layout Func
     
@@ -176,6 +178,12 @@ public extension ChatTextInputView {
             }
         }
     }
+    
+}
+
+//MARK: - Public Extensions
+
+public extension ChatTextInputView {
     
     //MARK: - Func
     

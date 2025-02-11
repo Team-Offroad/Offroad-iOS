@@ -48,7 +48,9 @@ public class ChatTextDisplayView: UIView {
     
 }
 
-public extension ChatTextDisplayView {
+//MARK: - Private Extensions
+
+private extension ChatTextDisplayView {
     
     //MARK: - Layout Func
     
@@ -145,6 +147,12 @@ public extension ChatTextDisplayView {
         }
         userChatDisplayViewHeightAnimator.startAnimation()
     }
+    
+}
+
+//MARK: - Public Extensions
+
+public extension ChatTextDisplayView {
     
     //MARK: - Func
     
