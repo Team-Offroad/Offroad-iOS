@@ -15,8 +15,15 @@ public class ChatTextInputView: UIView {
     
     //MARK: - Properties
     
+    /// 입력창에 텍스트가 바뀔 때마다 입력된 텍스트를 방출하는 `Observable` 스트림.
     var onTextInput: Observable<String> { inputTextRelay.asObservable() }
+    /// 사용자가 전송 버튼을 눌렀을 때 입력된 텍스트를 방출하는 `Observable` 스트림.
     var onSendingText: Observable<String> { sendingTextRelay.asObservable() }
+    /// 현재 텍스트 전송이 가능한지 여부를 나타내는 속성.
+    ///
+    /// `true`인 경우, 텍스트 입력창이 비어있지 않을 때 전송 버튼이 활성화됨.
+    ///
+    /// `false` 인 경우, 텍스트 입력창이 비어있지 않아도 전송 버튼이 비활성화됨.
     var isSendingAllowed: Bool = true {
         didSet {
             let isTextViewEmpty = userChatInputView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -188,11 +195,17 @@ public extension ChatTextInputView {
     
     //MARK: - Func
     
+    /// 채팅을 시작하는 함수.
+    /// - 채팅 입력창을 화면에 표시하고 `firstResponder`로 설정함.
     func startChat() {
         show()
         userChatInputView.becomeFirstResponder()
     }
     
+    /// 채팅을 종료하는 함수. 화면에서 채팅 입력창을 숨기고 `firstResponder`를 resign함.
+    /// - Parameters:
+    ///   - erase: 화면에서 숨겨진 후 입력창에 입력된 텍스트를 제거할 지 여부. `true`를 할당하면 완전히 숨겨진 후 텍스트를 지우고, `false`를 할당하면 숨겨진 후에도 텍스트를 유지하여 다음 표시 때 입력된 텍스트를 여전히 띄움.
+    ///   - completion: 숨겨진 후 실행할 콜백 함수. 매개변수가 없는 클로저 타입임.
     func endChat(erase: Bool = false, completion: (() -> Void)? = nil) {
         hide { [weak self] in
             if erase { self?.userChatInputView.text = "" }

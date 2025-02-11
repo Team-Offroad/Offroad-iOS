@@ -156,10 +156,15 @@ public extension ChatTextDisplayView {
     
     //MARK: - Func
     
+    
+    /// 표시창에 주어진 텍스트를 표시함.
+    /// 표시창에 텍스트를 띄울 때 아래에서 올라오는 애니메이션이 적용됨.
+    /// - Parameter text: 표시할 텍스트
     func display(text: String) {
         displayTextRelay.accept(text)
     }
     
+    /// 현재 표시중이 텍스트를 가리고 로딩 애니메이션을 띄움
     func startDisplayLoading() {
         userChatDisplayView.isHidden = true
         userChatDisplayView.text = ""
@@ -167,6 +172,8 @@ public extension ChatTextDisplayView {
         loadingAnimationView.play()
     }
     
+    /// 현재 로딩중인 애니메이션을 중지 및 숨기고 기존에 표시되었던 텍스트를 표시.
+    /// 이 때에는 아래에서 위로 올라오는 애니메이션이 적용되지 않음.
     func stopDisplayLoading() {
         loadingAnimationView.currentProgress = 0
         loadingAnimationView.pause()
@@ -175,6 +182,8 @@ public extension ChatTextDisplayView {
         userChatDisplayView.isHidden = false
     }
     
+    /// 화면에 표시창을 나타내는 함수. `animated` 매개변수에 `true`를 할당할 경우, fade-in 애니메이션이 적용됨.
+    /// - Parameter animated: fade-in 애니메이션 적용 여부
     func show(animated: Bool = true) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
@@ -189,6 +198,11 @@ public extension ChatTextDisplayView {
         }
     }
     
+    /// 화면에서 표시창을 숨기는 함수.
+    /// - Parameters:
+    ///   - erase: 화면에서 숨겨진 후 표시하고 있던 텍스트를 제거할 지 여부. `true`를 할당하면 완전히 숨겨진 후 텍스트를 지우고, `false`를 할당하면 숨겨진 후에도 텍스트를 유지하여 다음 표시 때 텍스트를 여전히 띄움.
+    ///   - animated: 숨겨질 때 fade-out 애니메이션을 적용할 지 여부.
+    ///   - completion: 숨겨진 후 실행할 콜백 함수. 매개변수가 없는 클로저 타입임.
     func hide(erase: Bool = false, animated: Bool = true, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
