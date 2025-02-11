@@ -15,7 +15,14 @@ public class ChatTextInputView: UIView {
     
     //MARK: - Properties
     
-    var isSendingAllowed: Bool = true
+    var isSendingAllowed: Bool = true {
+        didSet {
+            let isTextViewEmpty = userChatInputView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            if isSendingAllowed && !isTextViewEmpty {
+                    sendButton.isEnabled = true
+            }
+        }
+    }
     
     let inputTextRelay = PublishRelay<String>()
     let sendingTextRelay = PublishRelay<String>()
