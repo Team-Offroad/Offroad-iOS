@@ -22,9 +22,6 @@ class PlaceListView: UIView {
     private let separator = UIView()
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     
-    var unvisitedPlacesCollectionView: ScrollLoadingCollectionView!
-    var allPlacesCollectionView: ScrollLoadingCollectionView!
-    
     private var layoutMaker: UICollectionViewFlowLayout {
         let collectionViewHorizontalInset: CGFloat = 24
         let collectionViewVerticalInset: CGFloat = 20
@@ -81,10 +78,10 @@ extension PlaceListView {
         customBackButton.do { button in
             var configuration = UIButton.Configuration.plain()
             configuration.titleTextAttributesTransformer = transformer
-            // 지금은 SFSymbol 사용, 추후 변경 예정
-            configuration.image = .init(systemName: "chevron.left")?.withTintColor(.main(.main2))
+            configuration.image = .backBarButton
             configuration.baseForegroundColor = .main(.main2)
-            configuration.imagePadding = 10
+            configuration.imagePadding = 0
+            configuration.contentInsets = .zero
             configuration.title = "탐험"
             
             button.configuration = configuration
@@ -99,18 +96,6 @@ extension PlaceListView {
         separator.do { view in
             view.backgroundColor = .grayscale(.gray100)
         }
-        
-        unvisitedPlacesCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
-        unvisitedPlacesCollectionView.backgroundColor = .primary(.listBg)
-        unvisitedPlacesCollectionView.indicatorStyle = .black
-        unvisitedPlacesCollectionView.setEmptyStateMessage(EmptyCaseMessage.unvisitedPlaceList)
-        unvisitedPlacesCollectionView.contentInsetAdjustmentBehavior = .never
-        
-        allPlacesCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layoutMaker)
-        allPlacesCollectionView.backgroundColor = .primary(.listBg)
-        allPlacesCollectionView.indicatorStyle = .black
-        allPlacesCollectionView.setEmptyStateMessage(EmptyCaseMessage.placeList)
-        allPlacesCollectionView.contentInsetAdjustmentBehavior = .never
     }
     
     private func setupHierarchy() {
