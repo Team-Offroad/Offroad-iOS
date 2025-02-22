@@ -15,6 +15,8 @@ final class DiaryTimeViewController: UIViewController {
     
     private let timeStrings = (1...12).map { "\($0)" }
     private let timePeriods = ["AM", "PM"]
+    
+    private var selectedTime = Int()
 
     // MARK: - Life Cycle
     
@@ -41,22 +43,25 @@ final class DiaryTimeViewController: UIViewController {
     }
 }
 
-extension DiaryTimeViewController {
+private extension DiaryTimeViewController {
     
     // MARK: - Private Method
     
-    private func setupDelegate() {
+    func setupDelegate() {
         rootView.timePickerView.delegate = self
         rootView.timePickerView.dataSource = self
     }
     
-    private func setupTarget() {
+    func setupTarget() {
         rootView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
+}
     
+@objc private extension DiaryTimeViewController {
+
     // MARK: - @objc Method
     
-    @objc private func backButtonTapped() {
+    func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
 }
