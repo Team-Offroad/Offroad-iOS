@@ -531,6 +531,8 @@
 		D06D26DA2C3FE1C700E79F25 /* TitlePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */; };
 		D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */; };
 		D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */; };
+		D0930BB72D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */; };
+		D0930BB82D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */; };
 		D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */; };
 		D0BD451F2CC77C3200128E74 /* MyPageCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */; };
 		D0C6FD132CE6561400517480 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D0C6FD122CE6561400517480 /* FirebaseMessaging */; };
@@ -842,6 +844,7 @@
 		D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupViewController.swift; sourceTree = "<group>"; };
 		D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupView.swift; sourceTree = "<group>"; };
 		D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionViewCell.swift; sourceTree = "<group>"; };
+		D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewMessageOnly.swift; sourceTree = "<group>"; };
 		D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChoosingResponseDTO.swift; sourceTree = "<group>"; };
 		D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCustomButton.swift; sourceTree = "<group>"; };
 		D0C6FD092CE6551C00517480 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1918,6 +1921,7 @@
 			children = (
 				4EF6B03C2CC3EA9800066640 /* ORBAlertBaseView.swift */,
 				4EF6B0372CC3E7A900066640 /* ORBAlertViewNormal.swift */,
+				D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */,
 				4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */,
 				4EF6B03E2CC3EEFE00066640 /* ORBAlertViewTextField.swift */,
 				4EF6B0402CC3F1B900066640 /* ORBAlertViewTextFieldWithSubMessage.swift */,
@@ -3477,6 +3481,7 @@
 				4E393C9A2C48C9A6003403EC /* QuestResultViewController.swift in Sources */,
 				4E416CE82C45DBE200CF6AB4 /* ORBPlaceCategory.swift in Sources */,
 				D0EAF21B2C3B026500566543 /* SplashViewController.swift in Sources */,
+				D0930BB72D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift in Sources */,
 				4EFA808B2C3E79E800876D05 /* ORBMapListButton.swift in Sources */,
 				4E58FC002C7DFE78002A951B /* QuestListAPI.swift in Sources */,
 				D00A48962C783988008B286A /* TermsConsentViewController.swift in Sources */,
@@ -3676,6 +3681,7 @@
 				4E4F31FC2D4718F400C3B2FF /* BirthViewController.swift in Sources */,
 				4E4F31FD2D4718F400C3B2FF /* ORBAlertViewTextFieldWithSubMessage.swift in Sources */,
 				4E4F31FE2D4718F400C3B2FF /* LoadingView.swift in Sources */,
+				D0930BB82D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift in Sources */,
 				4E4F31FF2D4718F400C3B2FF /* KeychainManager.swift in Sources */,
 				4E4F32002D4718F400C3B2FF /* NoticeService.swift in Sources */,
 				4E4F32012D4718F400C3B2FF /* ORBPopup.swift in Sources */,
