@@ -389,6 +389,8 @@
 		4EC3EC952CA91A0C008139BE /* PlaceListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC3EC942CA91A0C008139BE /* PlaceListCollectionViewController.swift */; };
 		4EC4A1ED2D24380700A8C130 /* CustomIntensityBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1EC2D24380700A8C130 /* CustomIntensityBlurView.swift */; };
 		4EC4A1FE2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */; };
+		4EC611632D5F167300B09E23 /* PlaceListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */; };
+		4EC611642D5F167300B09E23 /* PlaceListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */; };
 		4EC6F0A62CF4747400895A87 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */; };
 		4ECCC95E2CC80088002B9C4F /* ORBToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */; };
 		4ECEEA6E2CB2C15E0029369A /* ORBTabBarShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */; };
@@ -705,6 +707,7 @@
 		4EC3EC942CA91A0C008139BE /* PlaceListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCollectionViewController.swift; sourceTree = "<group>"; };
 		4EC4A1EC2D24380700A8C130 /* CustomIntensityBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIntensityBlurView.swift; sourceTree = "<group>"; };
 		4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewCouponRedemptionFailure.swift; sourceTree = "<group>"; };
+		4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCollectionView.swift; sourceTree = "<group>"; };
 		4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastView.swift; sourceTree = "<group>"; };
 		4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBTabBarShapeView.swift; sourceTree = "<group>"; };
@@ -1439,6 +1442,7 @@
 			children = (
 				4E08B9582C5DF0B20082EFB8 /* PlaceListView.swift */,
 				4E08B9612C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift */,
+				4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3286,6 +3290,7 @@
 				D0E796632C4553F0005B47A5 /* RefreshTokenResponseDTO.swift in Sources */,
 				D00A48622C633947008B286A /* SettingView.swift in Sources */,
 				4E46E5FD2CBA483D000A1EEE /* UIViewController+.swift in Sources */,
+				4EC611632D5F167300B09E23 /* PlaceListCollectionView.swift in Sources */,
 				D064669C2C86FCE800CF10FD /* DeleteAccountView.swift in Sources */,
 				D0E7960A2C4522CF005B47A5 /* NetworkService.swift in Sources */,
 				D00A48772C634530008B286A /* SettingBaseView.swift in Sources */,
@@ -3594,6 +3599,7 @@
 				4E4F31B22D4718F400C3B2FF /* ORBAlertBackgroundView.swift in Sources */,
 				4E4F31B32D4718F400C3B2FF /* CouponRedemptionResponseDTO.swift in Sources */,
 				4E4F31B42D4718F400C3B2FF /* AuthAPI.swift in Sources */,
+				4EC611642D5F167300B09E23 /* PlaceListCollectionView.swift in Sources */,
 				4E4F31B52D4718F400C3B2FF /* CharacterChoosingResponseDTO.swift in Sources */,
 				4E4F31B62D4718F400C3B2FF /* FontLiterals.swift in Sources */,
 				4E4F31B72D4718F400C3B2FF /* UIScrollView+.swift in Sources */,

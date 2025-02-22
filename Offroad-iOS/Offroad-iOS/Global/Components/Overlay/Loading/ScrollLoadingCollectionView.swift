@@ -9,7 +9,7 @@ import UIKit
 
 import Lottie
 
-final class ScrollLoadingCollectionView: EmptyStateCollectionView, ScrollLoading {
+class ScrollLoadingCollectionView: EmptyStateCollectionView, ScrollLoading {
     
     var topLoadingAnimationView: Lottie.LottieAnimationView = LottieAnimationView(name: "loading1")
     var leftLoadingAnimationView: Lottie.LottieAnimationView = LottieAnimationView(name: "loading1")
