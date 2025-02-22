@@ -62,7 +62,18 @@ private extension DiaryTimeViewController {
     // MARK: - @objc Method
     
     func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
+        let alertController = ORBAlertController(message: "일기 시간 설정을 저장하지 않고\n나가시겠어요?", type: .messageOnly)
+        alertController.configureMessageLabel{ label in
+            label.setLineHeight(percentage: 150)
+        }
+        alertController.xButton.isHidden = true
+        let cancelAction = ORBAlertAction(title: "아니요", style: .cancel) { _ in return }
+        let okAction = ORBAlertAction(title: "네", style: .default) { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        present(alertController, animated: true)
     }
 }
 
