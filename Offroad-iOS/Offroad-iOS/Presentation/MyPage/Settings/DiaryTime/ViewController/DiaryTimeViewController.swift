@@ -13,7 +13,7 @@ final class DiaryTimeViewController: UIViewController {
     
     private let rootView = DiaryTimeView()
     
-    private let timeStrings = (1...12).map { "\($0)" }
+    private let times = (1...12).map { $0 }
     private let timePeriods = ["AM", "PM"]
     
     private var selectedTime = Int()
@@ -54,6 +54,7 @@ private extension DiaryTimeViewController {
     
     func setupTarget() {
         rootView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        rootView.completeButton.addTarget(self, action: #selector(completeTapped), for: .touchUpInside)
     }
 }
     
@@ -75,6 +76,27 @@ private extension DiaryTimeViewController {
         alertController.addAction(okAction)
         present(alertController, animated: true)
     }
+    
+    func completeTapped() {
+        let selectedTime = times[rootView.timePickerView.selectedRow(inComponent: 0)]
+        let selectedTimePeriod = timePeriods[rootView.timePickerView.selectedRow(inComponent: 1)]
+        
+//        서버 통신 시에 전송할 값
+//        let convertedTime = selectedTime == 12 ? 0 : selectedTime
+//        let selectedTimeResult = selectedTimePeriod == "AM" ? convertedTime : convertedTime + 12
+//        print(selectedTimeResult)
+
+        let alertController = ORBAlertController(title: "\(selectedTimePeriod == "AM" ? "오전" : "오후") \(selectedTime)시", message: "매일 이 시간에 일기를 받으시겠어요?", type: .normal)
+        alertController.configureMessageLabel{ label in
+            label.setLineHeight(percentage: 150)
+        }
+        alertController.xButton.isHidden = true
+        let cancelAction = ORBAlertAction(title: "아니요", style: .cancel) { _ in return }
+        let okAction = ORBAlertAction(title: "네", style: .default) { _ in return }
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        present(alertController, animated: true)
+    }
 }
 
 extension DiaryTimeViewController: UIPickerViewDataSource {
@@ -84,7 +106,7 @@ extension DiaryTimeViewController: UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if component == 0 {
-            return timeStrings.count
+            return times.count
         } else {
             return timePeriods.count
         }
@@ -112,7 +134,7 @@ extension DiaryTimeViewController: UIPickerViewDelegate {
         }
         
         if component == 0  {
-            label.text = "\(timeStrings[row])        00"
+            label.text = "\(times[row])        00"
         } else {
             label.text = timePeriods[row]
         }

@@ -27,7 +27,7 @@ final class DiaryTimeView: UIView {
     private let checkCircleImageView = UIImageView(image: UIImage(resource: .iconCheckCircle))
     private let descriptionLabel1 = UILabel()
     private let descriptionLabel2 = UILabel()
-    private let completeButton = ShrinkableButton()
+    let completeButton = ShrinkableButton()
     
     // MARK: - Life Cycle
     
