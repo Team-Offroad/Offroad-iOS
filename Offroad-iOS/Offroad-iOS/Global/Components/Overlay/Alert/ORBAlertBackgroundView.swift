@@ -65,7 +65,7 @@ extension ORBAlertBackgroundView {
     private func setupLayout() {
         alertView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(22.5)
-            make.height.greaterThanOrEqualTo(238)
+            make.height.greaterThanOrEqualTo(172)
         }
         alertViewCenterYCosntraint.isActive = true
     }

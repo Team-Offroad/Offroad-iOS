@@ -41,7 +41,7 @@ final class ORBAlertViewNormal: ORBAlertBaseView, ORBAlertViewBaseUI {
             make.leading.equalToSuperview().inset(leftInset)
             make.trailing.equalToSuperview().inset(rightInset)
             make.bottom.equalToSuperview().inset(bottomInset)
-            make.height.greaterThanOrEqualTo(182)
+            make.height.greaterThanOrEqualTo(116)
         }
         
         contentStackView.snp.makeConstraints { make in
@@ -53,8 +53,11 @@ final class ORBAlertViewNormal: ORBAlertBaseView, ORBAlertViewBaseUI {
         spacerView2.setContentHuggingPriority(.init(0), for: .vertical)
         spacerView1.setContentCompressionResistancePriority(.init(999), for: .vertical)
         spacerView2.setContentCompressionResistancePriority(.init(999), for: .vertical)
+        spacerView1.snp.makeConstraints { make in
+            make.height.equalTo(12)
+        }
         spacerView2.snp.makeConstraints { make in
-            make.height.equalTo(spacerView1)
+            make.height.equalTo(24)
         }
     }
     
