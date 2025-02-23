@@ -489,8 +489,6 @@
 		D03C83622C620AF100F3094D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C83612C620AF100F3094D /* MyPageView.swift */; };
 		D05B70D22D63257800A1E206 /* DiaryTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D02D63257000A1E206 /* DiaryTimeView.swift */; };
 		D05B70D52D63286800A1E206 /* DiaryTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D32D63285F00A1E206 /* DiaryTimeViewController.swift */; };
-		D05B70D62D63B69F00A1E206 /* DiaryTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D02D63257000A1E206 /* DiaryTimeView.swift */; };
-		D05B70D72D63B6A300A1E206 /* DiaryTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D32D63285F00A1E206 /* DiaryTimeViewController.swift */; };
 		D05C31DC2CDB4441004761A7 /* ShareableImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05C31DB2CDB4440004761A7 /* ShareableImageProvider.swift */; };
 		D05C31DF2CDEB574004761A7 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05C31DE2CDEB55A004761A7 /* AppUtility.swift */; };
 		D0600BD82CE50AE600D8F1D6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D0600BD72CE50AE600D8F1D6 /* FirebaseAnalytics */; };
@@ -3371,7 +3369,6 @@
 				D0E796202C4532A6005B47A5 /* ErrorResponseDTO.swift in Sources */,
 				D0E796332C453615005B47A5 /* NicknameCheckResponseDTO.swift in Sources */,
 				D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */,
-				D05B70D72D63B6A300A1E206 /* DiaryTimeViewController.swift in Sources */,
 				4EFCDFE12C92BD93006DEBB6 /* ORBAlertType.swift in Sources */,
 				4E99007E2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift in Sources */,
 				4EF833EC2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift in Sources */,
@@ -3463,7 +3460,6 @@
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
 				8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */,
 				D00A488C2C7830F3008B286A /* TermsConsentPopupView.swift in Sources */,
-				D05B70D62D63B69F00A1E206 /* DiaryTimeView.swift in Sources */,
 				4E9900802CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift in Sources */,
 				8792D0242C3F0843002051AC /* ChoosingCharacterCell.swift in Sources */,
 				4E08B95F2C5E53C10082EFB8 /* ORBSegmentedControlButton.swift in Sources */,
