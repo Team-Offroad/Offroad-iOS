@@ -91,7 +91,7 @@ extension SettingViewController: UICollectionViewDelegateFlowLayout {
             let diaryTimeViewController = DiaryTimeViewController()
             self.navigationController?.pushViewController(diaryTimeViewController, animated: true)
         case 2, 3, 4:
-            let redirectionURL = NSURL(string: redirectionURLStrings[indexPath.item - 1])
+            let redirectionURL = NSURL(string: redirectionURLStrings[indexPath.item - 2])
             let safariViewController = SFSafariViewController(url: (redirectionURL ?? NSURL()) as URL)
             self.present(safariViewController, animated: true, completion: nil)
         case 5:
