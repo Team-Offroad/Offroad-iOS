@@ -16,8 +16,6 @@ final class DiaryTimeViewController: UIViewController {
     private let times = (1...12).map { $0 }
     private let timePeriods = ["AM", "PM"]
     
-    private var selectedTime = Int()
-
     // MARK: - Life Cycle
     
     override func loadView() {
