@@ -18,7 +18,7 @@ final class MyPageView: UIView {
 
     //MARK: - UI Properties
     
-    private let myPageScrollView = UIScrollView()
+    private let myPageScrollView = MyPageScrollView()
     private let myPageContentView = UIView()
     private let nicknameLabel = UILabel()
     private let descriptionLabel = UILabel()
@@ -70,6 +70,7 @@ extension MyPageView {
             $0.backgroundColor = .clear
             $0.showsVerticalScrollIndicator = false
             $0.delaysContentTouches = false
+            $0.canCancelContentTouches = true
         }
         
         myPageContentView.do {

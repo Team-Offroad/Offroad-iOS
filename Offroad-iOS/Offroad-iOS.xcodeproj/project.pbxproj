@@ -469,6 +469,8 @@
 		D004F8582CA12B1500D5A2CD /* NoticeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8572CA12B1000D5A2CD /* NoticeAPI.swift */; };
 		D004F85A2CA12B2200D5A2CD /* NoticeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8592CA12B1C00D5A2CD /* NoticeService.swift */; };
 		D004F8CF2CB4DDE600D5A2CD /* KakaoAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8CE2CB4DDD800D5A2CD /* KakaoAuthManager.swift */; };
+		D006EA312D6DB3C4004D3D95 /* MyPageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D006EA302D6DB3BC004D3D95 /* MyPageScrollView.swift */; };
+		D006EA322D6DB3C4004D3D95 /* MyPageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D006EA302D6DB3BC004D3D95 /* MyPageScrollView.swift */; };
 		D00A48622C633947008B286A /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48612C633947008B286A /* SettingView.swift */; };
 		D00A48642C633959008B286A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48632C633959008B286A /* SettingViewController.swift */; };
 		D00A486A2C633EF2008B286A /* SettingBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48692C633EF2008B286A /* SettingBaseModel.swift */; };
@@ -785,6 +787,7 @@
 		D004F8572CA12B1000D5A2CD /* NoticeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeAPI.swift; sourceTree = "<group>"; };
 		D004F8592CA12B1C00D5A2CD /* NoticeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeService.swift; sourceTree = "<group>"; };
 		D004F8CE2CB4DDD800D5A2CD /* KakaoAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoAuthManager.swift; sourceTree = "<group>"; };
+		D006EA302D6DB3BC004D3D95 /* MyPageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageScrollView.swift; sourceTree = "<group>"; };
 		D00A48612C633947008B286A /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		D00A48632C633959008B286A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		D00A48692C633EF2008B286A /* SettingBaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingBaseModel.swift; sourceTree = "<group>"; };
@@ -2500,6 +2503,7 @@
 		D0BD451D2CC77C2300128E74 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				D006EA302D6DB3BC004D3D95 /* MyPageScrollView.swift */,
 				D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */,
 			);
 			path = Component;
@@ -3391,6 +3395,7 @@
 				4E46E5F92CB99944000A1EEE /* ORBToastWindow.swift in Sources */,
 				4EEA82FC2CE3907C0062F0DE /* CharacterChatLogView.swift in Sources */,
 				4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */,
+				D006EA322D6DB3C4004D3D95 /* MyPageScrollView.swift in Sources */,
 				4E0394E12C2AC059007F0517 /* NSObject+.swift in Sources */,
 				D0E796502C453B47005B47A5 /* AdventureService.swift in Sources */,
 				4E08B95B2C5E4F860082EFB8 /* ORBSegmentedControl.swift in Sources */,
@@ -3601,6 +3606,7 @@
 				4E4F31B32D4718F400C3B2FF /* CouponRedemptionResponseDTO.swift in Sources */,
 				4E4F31B42D4718F400C3B2FF /* AuthAPI.swift in Sources */,
 				4EC611642D5F167300B09E23 /* PlaceListCollectionView.swift in Sources */,
+				D006EA312D6DB3C4004D3D95 /* MyPageScrollView.swift in Sources */,
 				4E4F31B52D4718F400C3B2FF /* CharacterChoosingResponseDTO.swift in Sources */,
 				4E4F31B62D4718F400C3B2FF /* FontLiterals.swift in Sources */,
 				4E4F31B72D4718F400C3B2FF /* UIScrollView+.swift in Sources */,
