@@ -48,19 +48,18 @@ private extension DiaryTimeViewController {
     func setupDelegate() {
         rootView.timePickerView.delegate = self
         rootView.timePickerView.dataSource = self
+        
+        if let navigationController = self.navigationController {
+            navigationController.interactivePopGestureRecognizer?.delegate = self
+        }
     }
     
     func setupTarget() {
         rootView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         rootView.completeButton.addTarget(self, action: #selector(completeTapped), for: .touchUpInside)
     }
-}
     
-@objc private extension DiaryTimeViewController {
-
-    // MARK: - @objc Method
-    
-    func backButtonTapped() {
+    func showExitAlertView() {
         let alertController = ORBAlertController(message: "일기 시간 설정을 저장하지 않고\n나가시겠어요?", type: .messageOnly)
         alertController.configureMessageLabel{ label in
             label.setLineHeight(percentage: 150)
@@ -72,7 +71,17 @@ private extension DiaryTimeViewController {
         }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
+        
         present(alertController, animated: true)
+    }
+}
+    
+@objc private extension DiaryTimeViewController {
+
+    // MARK: - @objc Method
+    
+    func backButtonTapped() {
+        showExitAlertView()
     }
     
     func completeTapped() {
@@ -94,6 +103,13 @@ private extension DiaryTimeViewController {
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         present(alertController, animated: true)
+    }
+}
+
+extension DiaryTimeViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        showExitAlertView()
+        return false
     }
 }
 
