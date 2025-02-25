@@ -35,6 +35,7 @@ final class MyPageView: UIView {
     private let completedQuestsCountLabel = UILabel()
     private let visitedPlacesCountLabel = UILabel()
     private let dividerView = UIView()
+    let diaryButton = MyPageCustomButton(titleString: "일기", backgroundImage: .btnDiary)
     let characterButton = MyPageCustomButton(titleString: "획득 캐릭터", backgroundImage: .btnCharacter)
     let couponButton = MyPageCustomButton(titleString: "획득 쿠폰", backgroundImage: .btnCoupon)
     let titleButton = MyPageCustomButton(titleString: "획득 칭호", backgroundImage: .btnTitle)
@@ -154,7 +155,7 @@ extension MyPageView {
             $0.backgroundColor = .primary(.stroke)
         }
         
-        [characterButton, couponButton, titleButton, settingButton].forEach {
+        [diaryButton, characterButton, couponButton, titleButton, settingButton].forEach {
             $0.roundCorners(cornerRadius: 10)
         }
         
@@ -201,7 +202,11 @@ extension MyPageView {
         
         horizontalStackView1.addArrangedSubviews(characterButton, couponButton)
         horizontalStackView2.addArrangedSubviews(titleButton, settingButton)
+        #if DevTarget
+        verticalStackView.addArrangedSubviews(diaryButton, horizontalStackView1, horizontalStackView2)
+        #else
         verticalStackView.addArrangedSubviews(horizontalStackView1, horizontalStackView2)
+        #endif
     }
     
     private func setupLayout() {
@@ -280,7 +285,11 @@ extension MyPageView {
         verticalStackView.snp.makeConstraints {
             $0.top.equalTo(questPlaceBackgroundView.snp.bottom).offset(18)
             $0.horizontalEdges.equalToSuperview().inset(24)
+            #if DevTarget
+            $0.height.equalTo((backgroundViewWidth - 24) * 444 / 345)
+            #else
             $0.height.equalTo((backgroundViewWidth - 24) * 291 / 345)
+            #endif
         }
     }
     
