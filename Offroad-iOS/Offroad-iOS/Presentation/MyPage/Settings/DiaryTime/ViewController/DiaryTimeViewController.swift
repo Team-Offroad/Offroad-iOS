@@ -39,6 +39,12 @@ final class DiaryTimeViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         rootView.timePickerView.subviews[1].isHidden = true
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+    }
 }
 
 private extension DiaryTimeViewController {
@@ -49,9 +55,7 @@ private extension DiaryTimeViewController {
         rootView.timePickerView.delegate = self
         rootView.timePickerView.dataSource = self
         
-        if let navigationController = self.navigationController {
-            navigationController.interactivePopGestureRecognizer?.delegate = self
-        }
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     func setupTarget() {
