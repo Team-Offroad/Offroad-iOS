@@ -212,7 +212,7 @@ extension MyPageView {
     
     private func setupLayout() {
         myPageScrollView.snp.makeConstraints {
-            $0.edges.equalTo(safeAreaLayoutGuide)
+            $0.edges.equalToSuperview()
         }
         
         myPageContentView.snp.makeConstraints {
