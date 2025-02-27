@@ -533,6 +533,8 @@
 		D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */; };
 		D0930BB72D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */; };
 		D0930BB82D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */; };
+		D09A196F2D70589900B07FC2 /* TimePeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A196E2D70589500B07FC2 /* TimePeriod.swift */; };
+		D09A19702D7058D500B07FC2 /* TimePeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A196E2D70589500B07FC2 /* TimePeriod.swift */; };
 		D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */; };
 		D0BD451F2CC77C3200128E74 /* MyPageCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */; };
 		D0C6FD132CE6561400517480 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D0C6FD122CE6561400517480 /* FirebaseMessaging */; };
@@ -846,6 +848,7 @@
 		D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupView.swift; sourceTree = "<group>"; };
 		D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewMessageOnly.swift; sourceTree = "<group>"; };
+		D09A196E2D70589500B07FC2 /* TimePeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePeriod.swift; sourceTree = "<group>"; };
 		D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChoosingResponseDTO.swift; sourceTree = "<group>"; };
 		D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCustomButton.swift; sourceTree = "<group>"; };
 		D0C6FD092CE6551C00517480 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2309,6 +2312,7 @@
 		D05B70CD2D63236100A1E206 /* DiaryTime */ = {
 			isa = PBXGroup;
 			children = (
+				D09A196D2D70589000B07FC2 /* Enum */,
 				D05B70CE2D63253100A1E206 /* View */,
 				D05B70CF2D63253700A1E206 /* ViewController */,
 			);
@@ -2498,6 +2502,14 @@
 				D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		D09A196D2D70589000B07FC2 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				D09A196E2D70589500B07FC2 /* TimePeriod.swift */,
+			);
+			path = Enum;
 			sourceTree = "<group>";
 		};
 		D0BD451D2CC77C2300128E74 /* Component */ = {
@@ -3354,6 +3366,7 @@
 				4E1E94112C39870700A7B08A /* ColorLiterals.swift in Sources */,
 				D0E796012C45222D005B47A5 /* BaseTargetType.swift in Sources */,
 				D0E7964A2C4539CE005B47A5 /* RegisteredPlaceRequestDTO.swift in Sources */,
+				D09A19702D7058D500B07FC2 /* TimePeriod.swift in Sources */,
 				D0E796222C45334D005B47A5 /* ProfileAPI.swift in Sources */,
 				D0E796592C455100005B47A5 /* EmblemAPI.swift in Sources */,
 				D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */,
@@ -3695,6 +3708,7 @@
 				4E4F32072D4718F400C3B2FF /* CharacterService.swift in Sources */,
 				4E4F32082D4718F400C3B2FF /* CouponListViewController.swift in Sources */,
 				4E4F32092D4718F400C3B2FF /* CharacterChatPostResponseDTO.swift in Sources */,
+				D09A196F2D70589900B07FC2 /* TimePeriod.swift in Sources */,
 				4E4F320A2D4718F400C3B2FF /* UIImage+.swift in Sources */,
 				4E4F320B2D4718F400C3B2FF /* ProfileService.swift in Sources */,
 				4E4F320C2D4718F400C3B2FF /* CharacterDetailViewModel.swift in Sources */,
