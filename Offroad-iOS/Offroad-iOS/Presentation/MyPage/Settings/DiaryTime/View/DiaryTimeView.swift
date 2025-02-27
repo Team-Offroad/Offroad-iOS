@@ -185,7 +185,7 @@ extension DiaryTimeView {
         }
         
         colonLabel.snp.makeConstraints {
-            $0.centerX.equalTo(timePickerView.snp.centerX).offset(-32)
+            $0.centerX.equalTo(timePickerView.snp.centerX).offset(-31)
             $0.centerY.equalTo(timePickerView.snp.centerY).offset(-2)
         }
         
