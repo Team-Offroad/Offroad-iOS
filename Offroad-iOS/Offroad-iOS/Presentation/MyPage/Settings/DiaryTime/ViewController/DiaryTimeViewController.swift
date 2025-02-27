@@ -13,8 +13,8 @@ final class DiaryTimeViewController: UIViewController {
     
     private let rootView = DiaryTimeView()
     
-    private let times = (1...12).map { $0 }
-    private let timePeriods = ["AM", "PM"]
+    private let times = Array(1...12)
+    private let timePeriods = TimePeriod.allCases
     
     // MARK: - Life Cycle
     
@@ -64,7 +64,7 @@ private extension DiaryTimeViewController {
     }
     
     func showExitAlertView() {
-        let alertController = ORBAlertController(message: "일기 시간 설정을 저장하지 않고\n나가시겠어요?", type: .messageOnly)
+        let alertController = ORBAlertController(message: AlertMessage.diaryTimeUnsavedExitMessage, type: .messageOnly)
         alertController.configureMessageLabel{ label in
             label.setLineHeight(percentage: 150)
         }
@@ -97,7 +97,7 @@ private extension DiaryTimeViewController {
 //        let selectedTimeResult = selectedTimePeriod == "AM" ? convertedTime : convertedTime + 12
 //        print(selectedTimeResult)
 
-        let alertController = ORBAlertController(title: "\(selectedTimePeriod == "AM" ? "오전" : "오후") \(selectedTime)시", message: "매일 이 시간에 일기를 받으시겠어요?", type: .normal)
+        let alertController = ORBAlertController(title: AlertMessage.diaryTimeSettinTitle(selectedTimePeriod: selectedTimePeriod, selectedTime: selectedTime), message: AlertMessage.diaryTimeSettingMessage, type: .normal)
         alertController.configureMessageLabel{ label in
             label.setLineHeight(percentage: 150)
         }
@@ -154,7 +154,7 @@ extension DiaryTimeViewController: UIPickerViewDelegate {
         if component == 0  {
             label.text = "\(times[row])        00"
         } else {
-            label.text = timePeriods[row]
+            label.text = timePeriods[row].rawValue
         }
         
         return label
