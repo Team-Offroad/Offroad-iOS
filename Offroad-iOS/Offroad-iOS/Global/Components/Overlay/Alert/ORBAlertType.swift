@@ -14,6 +14,11 @@ enum ORBAlertType {
     case normal
     
     /**
+     제목 없이 설명, 버튼만 갖는 형태
+     */
+    case messageOnly
+    
+    /**
      텍스트 입력 창이 들어가는 형태
      text field의 위치는 button 바로 상단에 위치하며,
      text field의 위치를 다른 곳에 배치하고 싶을 경우,

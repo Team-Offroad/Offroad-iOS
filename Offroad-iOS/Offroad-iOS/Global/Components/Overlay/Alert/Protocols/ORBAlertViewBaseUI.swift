@@ -29,7 +29,7 @@ extension ORBAlertViewBaseUI {
     
     var topInset: CGFloat {
         switch type {
-        case .normal, .couponRedemptionFailure, .textField, .textFieldWithSubMessage, .custom:
+        case .normal, .messageOnly, .couponRedemptionFailure, .textField, .textFieldWithSubMessage, .custom:
             28
         case .scrollableContent, .explorationResult, .acquiredEmblem:
             38
@@ -38,7 +38,7 @@ extension ORBAlertViewBaseUI {
     
     var leftInset: CGFloat {
         switch type {
-        case .normal, .couponRedemptionFailure, .textField, .textFieldWithSubMessage, .scrollableContent, .explorationResult, .custom:
+        case .normal, .messageOnly, .couponRedemptionFailure, .textField, .textFieldWithSubMessage, .scrollableContent, .explorationResult, .custom:
             46
         case .acquiredEmblem:
             24
@@ -47,7 +47,7 @@ extension ORBAlertViewBaseUI {
     
     var rightInset: CGFloat {
         switch type {
-        case .normal, .couponRedemptionFailure, .textField, .textFieldWithSubMessage, .scrollableContent, .explorationResult, .custom:
+        case .normal, .messageOnly, .couponRedemptionFailure, .textField, .textFieldWithSubMessage, .scrollableContent, .explorationResult, .custom:
             46
         case .acquiredEmblem:
             24
@@ -56,7 +56,7 @@ extension ORBAlertViewBaseUI {
     
     var bottomInset: CGFloat {
         switch type {
-        case .normal, .couponRedemptionFailure, .textField, .textFieldWithSubMessage, .custom:
+        case .normal, .messageOnly, .couponRedemptionFailure, .textField, .textFieldWithSubMessage, .custom:
             28
         case .scrollableContent, .explorationResult:
             38

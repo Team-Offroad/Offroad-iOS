@@ -81,6 +81,38 @@ extension SettingViewController: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegateFlowLayout
 
 extension SettingViewController: UICollectionViewDelegateFlowLayout {
+    #if DevTarget
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.item {
+        case 0:
+            let noticeViewController = NoticeViewController()
+            self.navigationController?.pushViewController(noticeViewController, animated: true)
+        case 1:
+            let diaryTimeViewController = DiaryTimeViewController()
+            self.navigationController?.pushViewController(diaryTimeViewController, animated: true)
+        case 2, 3, 4:
+            let redirectionURL = NSURL(string: redirectionURLStrings[indexPath.item - 2])
+            let safariViewController = SFSafariViewController(url: (redirectionURL ?? NSURL()) as URL)
+            self.present(safariViewController, animated: true, completion: nil)
+        case 5:
+            let marketingConsentViewController = MarketingConsentViewController()
+            marketingConsentViewController.modalPresentationStyle = .overCurrentContext
+            self.present(marketingConsentViewController, animated: false)
+        case 6:
+            let customerInquiryViewController = CustomerInquiryViewController()
+            self.navigationController?.pushViewController(customerInquiryViewController, animated: true)
+        case 7:
+            let logoutViewController = LogoutViewController()
+            logoutViewController.modalPresentationStyle = .overCurrentContext
+            self.present(logoutViewController, animated: false)
+        case 8:
+            let deleteAccountViewController = DeleteAccountViewController()
+            deleteAccountViewController.modalPresentationStyle = .overCurrentContext
+            self.present(deleteAccountViewController, animated: false)
+        default: break
+        }
+    }
+    #else
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.item {
         case 0:
@@ -108,4 +140,5 @@ extension SettingViewController: UICollectionViewDelegateFlowLayout {
         default: break
         }
     }
+    #endif
 }
