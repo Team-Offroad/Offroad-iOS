@@ -538,6 +538,8 @@
 		D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */; };
 		D0BD451F2CC77C3200128E74 /* MyPageCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */; };
 		D0C6FD132CE6561400517480 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D0C6FD122CE6561400517480 /* FirebaseMessaging */; };
+		D0CF2E042D772570000334B5 /* Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CF2E032D772570000334B5 /* Info_Dev.plist */; };
+		D0CF2E052D772570000334B5 /* Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CF2E032D772570000334B5 /* Info_Dev.plist */; };
 		D0E6BE902CED2827006CDAA8 /* PushNotificationRedirectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E6BE8F2CED2815006CDAA8 /* PushNotificationRedirectModel.swift */; };
 		D0E795FC2C447511005B47A5 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */; };
 		D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FE2C44FC2C005B47A5 /* UserModel.swift */; };
@@ -669,7 +671,6 @@
 		4E4F31442D4716F500C3B2FF /* SecretConfig_Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretConfig_Dev.xcconfig; sourceTree = "<group>"; };
 		4E4F31482D4717B100C3B2FF /* SecretConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretConfig.xcconfig; sourceTree = "<group>"; };
 		4E4F327A2D4718F400C3B2FF /* ORB(Dev).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ORB(Dev).app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E4F327B2D4718F400C3B2FF /* Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info_Dev.plist; path = "/Users/kimminsung/development/Team-Offroad/ORB-iOS/Offroad-iOS/Offroad-iOS/Global/Resources/Info_Dev.plist"; sourceTree = "<absolute>"; };
 		4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationTransitionDelegate.swift; sourceTree = "<group>"; };
 		4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationAnimator.swift; sourceTree = "<group>"; };
 		4E56F54B2C995BA800EEE677 /* ORBAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewModel.swift; sourceTree = "<group>"; };
@@ -853,6 +854,7 @@
 		D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCustomButton.swift; sourceTree = "<group>"; };
 		D0C6FD092CE6551C00517480 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C6FD142CE6633500517480 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		D0CF2E032D772570000334B5 /* Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info_Dev.plist; sourceTree = "<group>"; };
 		D0E6BE8F2CED2815006CDAA8 /* PushNotificationRedirectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationRedirectModel.swift; sourceTree = "<group>"; };
 		D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		D0E795FE2C44FC2C005B47A5 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -1102,7 +1104,7 @@
 				4E0394352C2A9DCF007F0517 /* Assets.xcassets */,
 				4EDC3D372C3126FC006A1493 /* Fonts */,
 				4E03943A2C2A9DCF007F0517 /* Info.plist */,
-				4E4F327B2D4718F400C3B2FF /* Info_Dev.plist */,
+				D0CF2E032D772570000334B5 /* Info_Dev.plist */,
 				D0600BE12CE6192300D8F1D6 /* GoogleService-Info.plist */,
 				4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */,
 			);
@@ -3043,6 +3045,7 @@
 			files = (
 				4E0394392C2A9DCF007F0517 /* LaunchScreen.storyboard in Resources */,
 				4E9900882CE0768B007EEFF7 /* loading1.json in Resources */,
+				D0CF2E042D772570000334B5 /* Info_Dev.plist in Resources */,
 				D0600BE22CE6192300D8F1D6 /* GoogleService-Info.plist in Resources */,
 				4E9900892CE0768B007EEFF7 /* loading2.json in Resources */,
 				D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */,
@@ -3079,6 +3082,7 @@
 			files = (
 				4E4F32672D4718F400C3B2FF /* LaunchScreen.storyboard in Resources */,
 				4E4F32682D4718F400C3B2FF /* loading1.json in Resources */,
+				D0CF2E052D772570000334B5 /* Info_Dev.plist in Resources */,
 				4E4F326A2D4718F400C3B2FF /* loading2.json in Resources */,
 				4E4F326B2D4718F400C3B2FF /* Optician-Sans.otf in Resources */,
 				4E4F326C2D4718F400C3B2FF /* Pretendard-Light.otf in Resources */,
