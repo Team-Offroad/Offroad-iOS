@@ -487,6 +487,8 @@
 		D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48982C7F04CF008B286A /* TermsListTableViewCell.swift */; };
 		D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */; };
 		D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB102C4054D20048B6DF /* TitleModel.swift */; };
+		D02232042D762DDD00DA6968 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02232032D762DD800DA6968 /* DiaryViewController.swift */; };
+		D02232072D762DE600DA6968 /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02232062D762DE400DA6968 /* DiaryView.swift */; };
 		D03C835E2C61E44700F3094D /* TokenIntercepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C835D2C61E44700F3094D /* TokenIntercepter.swift */; };
 		D03C83622C620AF100F3094D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C83612C620AF100F3094D /* MyPageView.swift */; };
 		D05B70D22D63257800A1E206 /* DiaryTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D02D63257000A1E206 /* DiaryTimeView.swift */; };
@@ -807,6 +809,8 @@
 		D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateToggleButton.swift; sourceTree = "<group>"; };
 		D018BB102C4054D20048B6DF /* TitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleModel.swift; sourceTree = "<group>"; };
 		D018BB1B2C43E4740048B6DF /* Offroad-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Offroad-iOS.entitlements"; sourceTree = "<group>"; };
+		D02232032D762DD800DA6968 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
+		D02232062D762DE400DA6968 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
 		D03C835D2C61E44700F3094D /* TokenIntercepter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenIntercepter.swift; sourceTree = "<group>"; };
 		D03C83612C620AF100F3094D /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		D05B70D02D63257000A1E206 /* DiaryTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTimeView.swift; sourceTree = "<group>"; };
@@ -1193,6 +1197,7 @@
 				87E0468E2C3CE6D5002D12C2 /* Nickname */,
 				4E0394842C2AA9DB007F0517 /* Character */,
 				4E0394722C2AA6C5007F0517 /* Home */,
+				D02232002D762DBA00DA6968 /* Diary */,
 				4E0394732C2AA6DB007F0517 /* QuestMap */,
 				4E0394742C2AA70C007F0517 /* QuestQR */,
 				4E393C962C48C97C003403EC /* QuestResult */,
@@ -2299,6 +2304,31 @@
 				4EC15AC22D2A76EA00BC5826 /* ShrinkableButton.swift */,
 			);
 			path = CustomButton;
+			sourceTree = "<group>";
+		};
+		D02232002D762DBA00DA6968 /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+				D02232022D762DD100DA6968 /* View */,
+				D02232012D762DCB00DA6968 /* ViewController */,
+			);
+			path = Diary;
+			sourceTree = "<group>";
+		};
+		D02232012D762DCB00DA6968 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D02232032D762DD800DA6968 /* DiaryViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D02232022D762DD100DA6968 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D02232062D762DE400DA6968 /* DiaryView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		D03C835F2C620AC800F3094D /* View */ = {
@@ -3579,8 +3609,10 @@
 				4E4F318D2D4718F400C3B2FF /* CharacterDetailCell.swift in Sources */,
 				4E4F318E2D4718F400C3B2FF /* QuestService.swift in Sources */,
 				4E4F318F2D4718F400C3B2FF /* MoyaPlugin.swift in Sources */,
+				D02232072D762DE600DA6968 /* DiaryView.swift in Sources */,
 				4E4F31902D4718F400C3B2FF /* ORBAlertViewExplorationResult.swift in Sources */,
 				4E4F31912D4718F400C3B2FF /* NoticeView.swift in Sources */,
+				D02232042D762DDD00DA6968 /* DiaryViewController.swift in Sources */,
 				4E4F31922D4718F400C3B2FF /* UIImageView+.swift in Sources */,
 				4E4F31932D4718F400C3B2FF /* ORBAlertViewModel.swift in Sources */,
 				4E4F31942D4718F400C3B2FF /* RefreshTokenResponseDTO.swift in Sources */,
