@@ -48,6 +48,7 @@ private extension DiaryViewController {
     
     func setupTarget() {
         rootView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        rootView.guideButton.addTarget(self, action: #selector(guideButtonTapped), for: .touchUpInside)
     }
 }
     
@@ -57,5 +58,11 @@ private extension DiaryViewController {
     
     func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func guideButtonTapped() {
+        let diaryGuideViewController = DiaryGuideViewController()
+        diaryGuideViewController.modalPresentationStyle = .overCurrentContext
+        present(diaryGuideViewController, animated: false)
     }
 }

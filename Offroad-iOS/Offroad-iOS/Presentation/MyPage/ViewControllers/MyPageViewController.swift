@@ -83,7 +83,7 @@ extension MyPageViewController {
         #if DevTarget
         if sender == rootView.diaryButton {
             let diaryViewController = DiaryViewController()
-            diaryViewController.setupCustomBackButton(buttonTitle: "홈")
+            diaryViewController.setupCustomBackButton(buttonTitle: "마이페이지")
             self.navigationController?.pushViewController(diaryViewController, animated: true)
         }
         #endif
