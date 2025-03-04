@@ -43,6 +43,7 @@ extension MyPageViewController {
     // MARK: - Private Method
     
     private func setupAddTarget() {
+        rootView.diaryButton.addTarget(self, action: #selector(myPageButtonTapped(_:)), for: .touchUpInside)
         rootView.characterButton.addTarget(self, action: #selector(myPageButtonTapped(_:)), for: .touchUpInside)
         rootView.couponButton.addTarget(self, action: #selector(myPageButtonTapped(_:)), for: .touchUpInside)
         rootView.titleButton.addTarget(self, action: #selector(myPageButtonTapped(_:)), for: .touchUpInside)
@@ -78,6 +79,15 @@ extension MyPageViewController {
     // MARK: - @objc Func
         
     @objc private func myPageButtonTapped(_ sender: UIButton) {
+
+        #if DevTarget
+        if sender == rootView.diaryButton {
+            let diaryViewController = DiaryViewController()
+            diaryViewController.setupCustomBackButton(buttonTitle: "홈")
+            self.navigationController?.pushViewController(diaryViewController, animated: true)
+        }
+        #endif
+        
         if sender == rootView.characterButton {
             let characterListViewController = CharacterListViewController()
             characterListViewController.setupCustomBackButton(buttonTitle: "마이페이지")
