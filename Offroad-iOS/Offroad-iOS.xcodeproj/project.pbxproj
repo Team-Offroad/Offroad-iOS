@@ -489,6 +489,8 @@
 		D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB102C4054D20048B6DF /* TitleModel.swift */; };
 		D02232042D762DDD00DA6968 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02232032D762DD800DA6968 /* DiaryViewController.swift */; };
 		D02232072D762DE600DA6968 /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02232062D762DE400DA6968 /* DiaryView.swift */; };
+		D022320C2D76CCE700DA6968 /* DiaryGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022320B2D76CCE100DA6968 /* DiaryGuideView.swift */; };
+		D022320E2D76CCF500DA6968 /* DiaryGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */; };
 		D03C835E2C61E44700F3094D /* TokenIntercepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C835D2C61E44700F3094D /* TokenIntercepter.swift */; };
 		D03C83622C620AF100F3094D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C83612C620AF100F3094D /* MyPageView.swift */; };
 		D05B70D22D63257800A1E206 /* DiaryTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D02D63257000A1E206 /* DiaryTimeView.swift */; };
@@ -811,6 +813,8 @@
 		D018BB1B2C43E4740048B6DF /* Offroad-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Offroad-iOS.entitlements"; sourceTree = "<group>"; };
 		D02232032D762DD800DA6968 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		D02232062D762DE400DA6968 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
+		D022320B2D76CCE100DA6968 /* DiaryGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryGuideView.swift; sourceTree = "<group>"; };
+		D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryGuideViewController.swift; sourceTree = "<group>"; };
 		D03C835D2C61E44700F3094D /* TokenIntercepter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenIntercepter.swift; sourceTree = "<group>"; };
 		D03C83612C620AF100F3094D /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		D05B70D02D63257000A1E206 /* DiaryTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTimeView.swift; sourceTree = "<group>"; };
@@ -2319,6 +2323,7 @@
 			isa = PBXGroup;
 			children = (
 				D02232032D762DD800DA6968 /* DiaryViewController.swift */,
+				D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2327,6 +2332,7 @@
 			isa = PBXGroup;
 			children = (
 				D02232062D762DE400DA6968 /* DiaryView.swift */,
+				D022320B2D76CCE100DA6968 /* DiaryGuideView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3568,6 +3574,7 @@
 				4EDB392B2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */,
 				4E4F316A2D4718F400C3B2FF /* AdventureInfoResponseDTO.swift in Sources */,
 				4E4F316B2D4718F400C3B2FF /* ORBMapView.swift in Sources */,
+				D022320C2D76CCE700DA6968 /* DiaryGuideView.swift in Sources */,
 				4E4F316C2D4718F400C3B2FF /* ORBAlertButton.swift in Sources */,
 				4E4F316D2D4718F400C3B2FF /* QuestQRViewController.swift in Sources */,
 				4E4F316E2D4718F400C3B2FF /* SVGKImage+.swift in Sources */,
@@ -3643,6 +3650,7 @@
 				4E4F31AC2D4718F400C3B2FF /* ChatLogNavigationAnimator.swift in Sources */,
 				4E4F31AD2D4718F400C3B2FF /* UserModel.swift in Sources */,
 				4E4F31AE2D4718F400C3B2FF /* QuestListCollectionViewCell.swift in Sources */,
+				D022320E2D76CCF500DA6968 /* DiaryGuideViewController.swift in Sources */,
 				4E4F31AF2D4718F400C3B2FF /* UIScreen+.swift in Sources */,
 				4E4F31B02D4718F400C3B2FF /* CouponRedemptionRequestDTO.swift in Sources */,
 				4EA5F4F12D4C970600A59AB1 /* LogPrinterWindow.swift in Sources */,
