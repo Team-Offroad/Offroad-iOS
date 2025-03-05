@@ -40,11 +40,11 @@ final class GuideCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension GuideCollectionViewCell {
+private extension GuideCollectionViewCell {
     
     //MARK: - Layout
     
-    private func setupStyle() {
+    func setupStyle() {
         imageView.do {
             $0.contentMode = .scaleAspectFit
         }
@@ -59,7 +59,7 @@ extension GuideCollectionViewCell {
         }
     }
     
-    private func setupHierarchy() {
+    func setupHierarchy() {
         contentView.addSubviews(
             imageView,
             descriptionLabel1,
@@ -67,7 +67,7 @@ extension GuideCollectionViewCell {
         )
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         imageView.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(70)
@@ -84,6 +84,9 @@ extension GuideCollectionViewCell {
             $0.bottom.equalToSuperview()
         }
     }
+}
+
+extension GuideCollectionViewCell {
     
     //MARK: - Func
     

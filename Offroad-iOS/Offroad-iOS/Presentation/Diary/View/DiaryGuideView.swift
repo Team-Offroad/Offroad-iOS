@@ -34,11 +34,11 @@ final class DiaryGuideView: UIView {
     }
 }
 
-extension DiaryGuideView {
+private extension DiaryGuideView {
     
     // MARK: - Layout
     
-    private func setupStyle() {
+    func setupStyle() {
         backgroundColor = .blackOpacity(.black75)
         
         closeButton.do {
@@ -81,7 +81,7 @@ extension DiaryGuideView {
         }
     }
     
-    private func setupHierarchy() {
+    func setupHierarchy() {
         addSubviews(
             closeButton,
             guideCollectionView,
@@ -90,7 +90,7 @@ extension DiaryGuideView {
         )
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         closeButton.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(4)
             $0.trailing.equalToSuperview().inset(14)
