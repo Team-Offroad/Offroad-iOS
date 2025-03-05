@@ -182,7 +182,7 @@ extension CouponDetailViewController {
 extension CouponDetailViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if ORBCharacterChatManager.shared.chatViewController.isUserChatInputViewShown {
+        if ORBCharacterChatManager.shared.chatViewController.isChatTextInputViewShown {
             return false
         } else {
             return true

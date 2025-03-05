@@ -31,6 +31,18 @@ struct AlertMessage {
     static let locationUnauthorizedAdventureMessage = "위치정보 사용 동의 후 이용 가능합니다."
     static let locationServicesDisabledMessage = "모험가님의 위치를 찾을 수 없어요.\n탐험을 위해서 위치 기능을 활성화해주세요."
     static let locationReducedAccuracyMessage = "모험가님의 정확한 위치를 찾을 수 없어요.\n탐험을 위해서 정확한 위치 접근 권한을 허용해주세요."
+    static let completeQuestsTitle = "퀘스트 성공 !"
+    static let diaryTimeSettingMessage = "매일 이 시간에 일기를 받으시겠어요?"
+    static let diaryTimeUnsavedExitMessage = "일기 시간 설정을 저장하지 않고\n나가시겠어요?"
+    static func completeSingleQuestMessage(questName: String) -> String {
+        "퀘스트 '\(questName)'을(를) 클리어했어요! 마이페이지에서 보상을 확인해보세요."
+    }
+    static func completeMultipleQuestsMessage(firstQuestName: String, questCount: Int) -> String {
+        "퀘스트 '\(firstQuestName)' 외 \(questCount - 1)개를 클리어했어요! 마이페이지에서 보상을 확인해보세요."
+    }
+    static func diaryTimeSettinTitle(selectedTimePeriod: TimePeriod, selectedTime: Int) -> String {
+        "\(selectedTimePeriod == .am ? "오전" : "오후") \(selectedTime)시"
+    }
 }
 
 struct LoadingMessage {

@@ -1,26 +1,24 @@
 //
-//  ORBAlertViewNormal.swift
+//  ORBAlertViewMessageOnly.swift
 //  Offroad-iOS
 //
-//  Created by 김민성 on 10/19/24.
+//  Created by 조혜린 on 2/23/25.
 //
 
 import UIKit
 
-final class ORBAlertViewNormal: ORBAlertBaseView, ORBAlertViewBaseUI {
+final class ORBAlertViewMessageOnly: ORBAlertBaseView, ORBAlertViewBaseUI {
     
-    let type: ORBAlertType = .normal
+    let type: ORBAlertType = .messageOnly
     let contentView = UIView()
     lazy var contentStackView: UIView = UIStackView(
-        arrangedSubviews: [titleLabel, spacerView1, messageLabel, spacerView2, buttonStackView]
+        arrangedSubviews: [messageLabel, buttonStackView]
     ).then { stackView in
+        stackView.spacing = 24
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
     }
-    
-    private var spacerView1 = UIView()
-    private var spacerView2 = UIView()
     
     override func setupHierarchy() {
         super.setupHierarchy()
@@ -49,16 +47,5 @@ final class ORBAlertViewNormal: ORBAlertBaseView, ORBAlertViewBaseUI {
         }
         
         titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        spacerView1.setContentHuggingPriority(.init(0), for: .vertical)
-        spacerView2.setContentHuggingPriority(.init(0), for: .vertical)
-        spacerView1.setContentCompressionResistancePriority(.init(999), for: .vertical)
-        spacerView2.setContentCompressionResistancePriority(.init(999), for: .vertical)
-        spacerView1.snp.makeConstraints { make in
-            make.height.equalTo(12)
-        }
-        spacerView2.snp.makeConstraints { make in
-            make.height.equalTo(24)
-        }
     }
-    
 }

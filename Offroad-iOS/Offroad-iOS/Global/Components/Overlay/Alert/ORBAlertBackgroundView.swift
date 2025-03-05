@@ -28,6 +28,8 @@ internal class ORBAlertBackgroundView: UIView {
         switch type {
         case .normal:
             self.alertView = ORBAlertViewNormal()
+        case .messageOnly:
+            self.alertView = ORBAlertViewMessageOnly()
         case .couponRedemptionFailure:
             self.alertView = ORBAlertViewCouponRedemptionFailure()
         case .textField:
@@ -65,7 +67,7 @@ extension ORBAlertBackgroundView {
     private func setupLayout() {
         alertView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(22.5)
-            make.height.greaterThanOrEqualTo(238)
+            make.height.greaterThanOrEqualTo(172)
         }
         alertViewCenterYCosntraint.isActive = true
     }
