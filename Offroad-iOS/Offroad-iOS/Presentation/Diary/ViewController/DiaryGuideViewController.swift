@@ -43,6 +43,7 @@ private extension DiaryGuideViewController {
     
     func setupTarget() {
         rootView.closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        rootView.nextConfirmButton.addTarget(self, action: #selector(nextConfirmButtonTapped), for: .touchUpInside)
     }
     
     func setupCollectionView() {
@@ -57,6 +58,14 @@ private extension DiaryGuideViewController {
     
     func closeButtonTapped() {
         dismiss(animated: false)
+    }
+    
+    func nextConfirmButtonTapped() {
+        if currentPage == 0 {
+            rootView.guideCollectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: true)
+        } else {
+            dismiss(animated: false)
+        }
     }
 }
 
@@ -76,7 +85,7 @@ extension DiaryGuideViewController: UICollectionViewDataSource {
         currentPage = scrollView.contentOffset.x < view.frame.width ? 0 : 1
         
         rootView.pageControl.currentPage = currentPage
-        rootView.nextButton.setTitle(currentPage == 0 ? "다음" : "확인", for: .normal)
+        rootView.nextConfirmButton.setTitle(currentPage == 0 ? "다음" : "확인", for: .normal)
     }
 }
 

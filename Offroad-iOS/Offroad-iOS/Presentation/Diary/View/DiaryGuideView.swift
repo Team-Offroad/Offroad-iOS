@@ -17,7 +17,7 @@ final class DiaryGuideView: UIView {
     let closeButton = UIButton()
     let guideCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let pageControl = UIPageControl()
-    let nextButton = ShrinkableButton()
+    let nextConfirmButton = ShrinkableButton()
     
     // MARK: - Life Cycle
     
@@ -71,7 +71,7 @@ private extension DiaryGuideView {
             }
         }
         
-        nextButton.do {
+        nextConfirmButton.do {
             $0.setTitle("다음", for: .normal)
             $0.setTitleColor(.main(.main1), for: .normal)
             $0.titleLabel?.font = .offroad(style: .iosText)
@@ -86,7 +86,7 @@ private extension DiaryGuideView {
             closeButton,
             guideCollectionView,
             pageControl,
-            nextButton
+            nextConfirmButton
         )
     }
     
@@ -107,10 +107,10 @@ private extension DiaryGuideView {
         pageControl.snp.makeConstraints {
             $0.top.equalTo(guideCollectionView.snp.bottom).offset(54)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(nextButton.snp.top).offset(-80)
+            $0.bottom.equalTo(nextConfirmButton.snp.top).offset(-80)
         }
         
-        nextButton.snp.makeConstraints {
+        nextConfirmButton.snp.makeConstraints {
             $0.horizontalEdges.bottom.equalTo(safeAreaLayoutGuide).inset(24)
             $0.height.equalTo(54)
         }
