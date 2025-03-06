@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol GuideConfirmDelegate: AnyObject{
+    func toggleIsGuideConfirmed()
+}
+
 final class DiaryGuideViewController: UIViewController {
     
     // MARK: - Properties
     
     private let rootView = DiaryGuideView()
+    
+    weak var delegate: GuideConfirmDelegate?
     
     private let guideCharacterData: [UIImage] = [.imgCharacterDiaryGuide, .imgCharacterDiaryGuide]
     private let guideDescription1 = ["오브와 대화를 나누거나\n함께 탐험을 떠나면,\n매일 기록을 모아 오브가 일기를 써요.", "이건 기억빛이에요."]
@@ -65,6 +71,7 @@ private extension DiaryGuideViewController {
             rootView.guideCollectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: true)
         } else {
             dismiss(animated: false)
+            delegate?.toggleIsGuideConfirmed()
         }
     }
 }
