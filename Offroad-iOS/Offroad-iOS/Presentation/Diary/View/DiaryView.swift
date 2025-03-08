@@ -16,7 +16,7 @@ final class DiaryView: UIView {
     
     let customBackButton = NavigationPopButton()
     private let headerView = UIView()
-    private let borderView = UIView()
+    private let dividerView = UIView()
     private let titleLabel = UILabel()
     private let titleImageView = UIImageView(frame: CGRect(origin: .init(), size: CGSize(width: 24, height: 24)))
     let guideButton = UIButton()
@@ -47,7 +47,7 @@ extension DiaryView {
             $0.backgroundColor = .main(.main1)
         }
         
-        borderView.do {
+        dividerView.do {
             $0.backgroundColor = .grayscale(.gray100)
         }
         
@@ -74,14 +74,14 @@ extension DiaryView {
             titleLabel,
             titleImageView,
             guideButton,
-            borderView
+            dividerView
         )
     }
     
     private func setupLayout() {
         headerView.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
-            $0.bottom.equalTo(borderView.snp.top)
+            $0.bottom.equalTo(dividerView.snp.top)
         }
         
         customBackButton.snp.makeConstraints {
@@ -104,7 +104,7 @@ extension DiaryView {
             $0.leading.equalTo(titleImageView.snp.trailing).offset(4)
         }
         
-        borderView.snp.makeConstraints {
+        dividerView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(24)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(1)
