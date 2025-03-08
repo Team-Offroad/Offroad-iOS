@@ -20,9 +20,7 @@ final class DiaryGuideViewController: UIViewController {
     weak var delegate: GuideConfirmDelegate?
     
     private let guideCharacterData: [UIImage] = [.imgCharacterDiaryGuide, .imgCharacterDiaryGuide]
-    private let guideDescription1 = ["오브와 대화를 나누거나\n함께 탐험을 떠나면,\n매일 기록을 모아 오브가 일기를 써요.", "이건 기억빛이에요."]
-    private let guideDescription2 = ["일기를 받기 위해선\n오브와 충분한 시간을 보내야해요.", "그 날의 기억에 따라\n다른 색으로 칠해져요.\n오늘은 어떤 색의 하루였나요?"]
-    
+    private let guideDescriptions = DiaryGuideMessage.diaryGuideDescription
     private var currentPage = 0
 
     // MARK: - Life Cycle
@@ -83,7 +81,7 @@ extension DiaryGuideViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GuideCollectionViewCell.className, for: indexPath) as? GuideCollectionViewCell else { return UICollectionViewCell() }
-        cell.configureCell(image: guideCharacterData[indexPath.item], description1: guideDescription1[indexPath.item], description2: guideDescription2[indexPath.item])
+        cell.configureCell(image: guideCharacterData[indexPath.item], description: guideDescriptions[indexPath.item])
         
         return cell
     }

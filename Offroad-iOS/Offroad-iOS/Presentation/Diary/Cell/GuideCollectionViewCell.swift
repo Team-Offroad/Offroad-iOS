@@ -16,8 +16,7 @@ final class GuideCollectionViewCell: UICollectionViewCell {
     //MARK: - Properties
     
     private let imageView = UIImageView()
-    private let descriptionLabel1 = UILabel()
-    private let descriptionLabel2 = UILabel()
+    private let descriptionLabel = UILabel()
 
     //MARK: - Life Cycle
     
@@ -49,7 +48,7 @@ private extension GuideCollectionViewCell {
             $0.contentMode = .scaleAspectFit
         }
         
-        [descriptionLabel1, descriptionLabel2].forEach {
+        descriptionLabel.do {
             $0.textColor = .primary(.white)
             $0.numberOfLines = 0
             $0.textAlignment = .center
@@ -62,8 +61,7 @@ private extension GuideCollectionViewCell {
     func setupHierarchy() {
         contentView.addSubviews(
             imageView,
-            descriptionLabel1,
-            descriptionLabel2
+            descriptionLabel
         )
     }
     
@@ -73,13 +71,8 @@ private extension GuideCollectionViewCell {
             $0.horizontalEdges.equalToSuperview().inset(70)
         }
         
-        descriptionLabel1.snp.makeConstraints {
+        descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(imageView.snp.bottom).offset(20)
-            $0.centerX.equalToSuperview()
-        }
-        
-        descriptionLabel2.snp.makeConstraints {
-            $0.top.equalTo(descriptionLabel1.snp.bottom).offset(26)
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
@@ -88,15 +81,12 @@ private extension GuideCollectionViewCell {
 
 extension GuideCollectionViewCell {
     
+    
     //MARK: - Func
     
-    func configureCell(image: UIImage, description1: String, description2: String) {
+    func configureCell(image: UIImage, description: String) {
         imageView.image = image
-        descriptionLabel1.text = description1
-        descriptionLabel2.text = description2
-        
-        [descriptionLabel1, descriptionLabel2].forEach {
-            $0.setLineHeight(percentage: 150)
-        }
+        descriptionLabel.text = description
+        descriptionLabel.setLineHeight(percentage: 150)
     }
 }

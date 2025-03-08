@@ -61,3 +61,7 @@ struct EmptyCaseMessage {
     static let usedCoupons = "사용 완료한 쿠폰이 없어요.\n획득한 쿠폰을 사용해 보세요!"
     static let activeQuests = "진행 중인 퀘스트가 없어요.\n탐험을 시작하고 퀘스트를 클리어해 보세요!"
 }
+
+struct DiaryGuideMessage {
+    static let diaryGuideDescription = ["오브와 대화를 나누거나\n함께 탐험을 떠나면,\n매일 기록을 모아 오브가 일기를 써요.\n\n이건 기억빛이에요.", "일기를 받기 위해선\n오브와 충분한 시간을 보내야해요.\n\n그 날의 기억에 따라\n다른 색으로 칠해져요.\n오늘은 어떤 색의 하루였나요?"]
+}
