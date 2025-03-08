@@ -63,5 +63,6 @@ struct EmptyCaseMessage {
 }
 
 struct DiaryGuideMessage {
-    static let diaryGuideDescription = ["오브와 대화를 나누거나\n함께 탐험을 떠나면,\n매일 기록을 모아 오브가 일기를 써요.\n\n이건 기억빛이에요.", "일기를 받기 위해선\n오브와 충분한 시간을 보내야해요.\n\n그 날의 기억에 따라\n다른 색으로 칠해져요.\n오늘은 어떤 색의 하루였나요?"]
+    static let diaryGuideDescription1 = "오브와 대화를 나누거나\n함께 탐험을 떠나면,\n매일 기록을 모아 오브가 일기를 써요.\n\n일기를 받기 위해선\n오브와 충분한 시간을 보내야해요."
+    static let diaryGuideDescription2 = "이건 기억빛이에요.\n\n그 날의 기억에 따라\n다른 색으로 칠해져요.\n오늘은 어떤 색의 하루였나요?"
 }

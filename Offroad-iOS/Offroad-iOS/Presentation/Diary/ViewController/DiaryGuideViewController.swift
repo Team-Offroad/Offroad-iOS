@@ -20,7 +20,7 @@ final class DiaryGuideViewController: UIViewController {
     weak var delegate: GuideConfirmDelegate?
     
     private let guideCharacterData: [UIImage] = [.imgCharacterDiaryGuide, .imgCharacterDiaryGuide]
-    private let guideDescriptions = DiaryGuideMessage.diaryGuideDescription
+    private let guideDescriptions = [DiaryGuideMessage.diaryGuideDescription1, DiaryGuideMessage.diaryGuideDescription2]
     private var currentPage = 0
 
     // MARK: - Life Cycle
