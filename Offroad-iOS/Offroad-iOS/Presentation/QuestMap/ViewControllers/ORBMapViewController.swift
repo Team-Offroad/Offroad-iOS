@@ -178,10 +178,10 @@ extension ORBMapViewController {
             }).disposed(by: disposeBag)
         
         Observable.zip(
-            viewModel.isLocationAuthorized,
-            viewModel.successCharacterImage,
-            viewModel.completeQuestList,
-            viewModel.isFirstVisitToday
+            viewModel.isLocationAuthorized.asObservable(),
+            viewModel.successCharacterImage.asObservable(),
+            viewModel.completeQuestList.asObservable(),
+            viewModel.isFirstVisitToday.asObservable()
         )
         .observe(on: MainScheduler.instance)
         .subscribe(onNext: { [weak self] locationValidation, image, completeQuests, isFirstVisitToday in
