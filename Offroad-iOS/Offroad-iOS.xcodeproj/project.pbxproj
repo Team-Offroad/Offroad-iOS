@@ -369,10 +369,10 @@
 		4E99008B2CE0CB61007EEFF7 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */; };
 		4EA272322D5793BA00F64B20 /* ChatTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272312D5793BA00F64B20 /* ChatTextInputView.swift */; };
 		4EA272332D5793BA00F64B20 /* ChatTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272312D5793BA00F64B20 /* ChatTextInputView.swift */; };
-		4EA272552D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272542D58E27300F64B20 /* ChatTextDisplayView.swift */; };
-		4EA272562D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272542D58E27300F64B20 /* ChatTextDisplayView.swift */; };
 		4EA272412D5855E700F64B20 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA272402D5855E700F64B20 /* AmplitudeSwift */; };
 		4EA272432D58560B00F64B20 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA272422D58560B00F64B20 /* AmplitudeSwift */; };
+		4EA272552D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272542D58E27300F64B20 /* ChatTextDisplayView.swift */; };
+		4EA272562D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272542D58E27300F64B20 /* ChatTextDisplayView.swift */; };
 		4EA5F4EE2D4C96BD00A59AB1 /* LogPrinterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4EC2D4C96BD00A59AB1 /* LogPrinterManager.swift */; };
 		4EA5F4F12D4C970600A59AB1 /* LogPrinterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4EF2D4C970600A59AB1 /* LogPrinterWindow.swift */; };
 		4EA5F4F32D4C975C00A59AB1 /* LogPrinterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4F22D4C975C00A59AB1 /* LogPrinterViewController.swift */; };
@@ -396,6 +396,8 @@
 		4EC6F0A62CF4747400895A87 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */; };
 		4ECCC95E2CC80088002B9C4F /* ORBToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */; };
 		4ECEEA6E2CB2C15E0029369A /* ORBTabBarShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */; };
+		4ED6BE3C2D7B3C000020C871 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */; };
+		4ED6BE3D2D7B3C000020C871 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */; };
 		4EDB392B2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */; };
 		4EDB392C2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */; };
 		4EDB392E2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392D2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift */; };
@@ -718,6 +720,7 @@
 		4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastView.swift; sourceTree = "<group>"; };
 		4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBTabBarShapeView.swift; sourceTree = "<group>"; };
+		4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeManager.swift; sourceTree = "<group>"; };
 		4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapHelper.swift; sourceTree = "<group>"; };
 		4EDB392D2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTooltipHelper.swift; sourceTree = "<group>"; };
 		4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -1062,6 +1065,7 @@
 		4E0394602C2AA0C1007F0517 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				4ED6BE3A2D7B3BDF0020C871 /* Amplitude */,
 				4E6659362CEB96D60024ABEE /* MyInfoManager */,
 				4EFD00512CCBD5F7005C294D /* NetworkMonitoring */,
 				D018BB0C2C401F5F0048B6DF /* Components */,
@@ -1842,6 +1846,14 @@
 				4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		4ED6BE3A2D7B3BDF0020C871 /* Amplitude */ = {
+			isa = PBXGroup;
+			children = (
+				4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */,
+			);
+			path = Amplitude;
 			sourceTree = "<group>";
 		};
 		4EDC3D372C3126FC006A1493 /* Fonts */ = {
@@ -3359,6 +3371,7 @@
 				87738CD02C8DC15200E107C7 /* UIColor+.swift in Sources */,
 				D0E795FC2C447511005B47A5 /* AppleAuthManager.swift in Sources */,
 				D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */,
+				4ED6BE3C2D7B3C000020C871 /* AmplitudeManager.swift in Sources */,
 				D00A48892C763D24008B286A /* NavigationPopButton.swift in Sources */,
 				D0E7965F2C45518B005B47A5 /* EmblemInfoResponseDTO.swift in Sources */,
 				4E99007C2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift in Sources */,
@@ -3718,6 +3731,7 @@
 				4E4F32062D4718F400C3B2FF /* AppDelegate.swift in Sources */,
 				4E4F32072D4718F400C3B2FF /* CharacterService.swift in Sources */,
 				4E4F32082D4718F400C3B2FF /* CouponListViewController.swift in Sources */,
+				4ED6BE3D2D7B3C000020C871 /* AmplitudeManager.swift in Sources */,
 				4E4F32092D4718F400C3B2FF /* CharacterChatPostResponseDTO.swift in Sources */,
 				D09A196F2D70589900B07FC2 /* TimePeriod.swift in Sources */,
 				4E4F320A2D4718F400C3B2FF /* UIImage+.swift in Sources */,
