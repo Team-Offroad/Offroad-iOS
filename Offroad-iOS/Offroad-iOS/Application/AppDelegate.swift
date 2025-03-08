@@ -14,9 +14,7 @@ import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -27,8 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // NetworkMonitoringManager 싱글톤 객체 생성
         let _ = NetworkMonitoringManager.shared
         
-        // 개발용 앱인 경우 'GoogleService-Info_Dev.plist' 파일을 사용하여 FirebaseApp을 configure
         #if DevTarget
+        // AmplitudeManager 싱글톤 객체 초기화
+        var _ = AmplitudeManager.shared
+        
+        // 개발용 앱인 경우 'GoogleService-Info_Dev.plist' 파일을 사용하여 FirebaseApp을 configure
         let filePath = Bundle.main.path(forResource: "GoogleService-Info_Dev", ofType: "plist")
         if let filePath, let options = FirebaseOptions(contentsOfFile: filePath) {
             FirebaseApp.configure(options: options)

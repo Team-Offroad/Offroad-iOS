@@ -192,7 +192,10 @@ extension ORBMapViewController {
                 MyInfoManager.shared.didSuccessAdventure.accept(())
             }
             self.view.stopLoading()
-            if locationValidation && isFirstVisitToday { self.hideTooltipFromMap() }
+            if locationValidation && isFirstVisitToday {
+                AmplitudeManager.shared.amplitude.track(eventType: "explore_success")
+                self.hideTooltipFromMap()
+            }
             self.popupAdventureResult(isValidLocation: locationValidation,
                                       image: image,
                                       completeQuests: completeQuests,
