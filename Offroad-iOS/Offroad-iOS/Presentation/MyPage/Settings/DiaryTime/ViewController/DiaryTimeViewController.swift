@@ -79,6 +79,15 @@ private extension DiaryTimeViewController {
         present(alertController, animated: true)
     }
 }
+
+extension DiaryTimeViewController {
+    
+    // MARK: - Func
+    
+    func setupCustomBackButton(buttonTitle: String) {
+        rootView.customBackButton.configureButtonTitle(titleString: buttonTitle)
+    }
+}
     
 @objc private extension DiaryTimeViewController {
 
