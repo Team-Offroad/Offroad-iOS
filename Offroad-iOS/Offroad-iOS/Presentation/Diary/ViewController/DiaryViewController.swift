@@ -73,8 +73,8 @@ private extension DiaryViewController {
         let alertController = ORBAlertController(title: AlertMessage.diaryTimeGuideTitle, message: AlertMessage.diaryTimeGuideMessage, type: .normal)
         alertController.configureMessageLabel{ label in
             label.setLineHeight(percentage: 150)
-            label.highlightText(targetText: "설정", font: .offroad(style: .iosTextBold), color: .grayscale(.gray400))
-            label.highlightText(targetText: "에서 일기 받을 시간을 바꿀 수 있어요.", color: .grayscale(.gray400))
+            label.highlightText(targetText: "설정", font: .offroad(style: .iosQuestComplete), color: .grayscale(.gray400))
+            label.highlightText(targetText: "에서 일기 받을 시간을 바꿀 수 있어요.", font: .offroad(style: .iosBoxMedi), color: .grayscale(.gray400))
         }
         alertController.xButton.isHidden = true
         let cancelAction = ORBAlertAction(title: "설정", style: .cancel) { _ in

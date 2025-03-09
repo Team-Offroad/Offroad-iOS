@@ -81,7 +81,6 @@ private extension GuideCollectionViewCell {
 
 extension GuideCollectionViewCell {
     
-    
     //MARK: - Func
     
     func configureCell(image: UIImage, description: String) {
