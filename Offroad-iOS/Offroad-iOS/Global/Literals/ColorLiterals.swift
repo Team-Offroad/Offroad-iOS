@@ -71,6 +71,8 @@ enum BlackOpacity: String, OffroadColor {
     case black25 = "#00000040"
     // alpha = 0.55
     case black55 = "#0000008C"
+    // alpha = 0.75
+    case black75 = "#000000BF"
     // alpha = 0.5
     case qrCamera = "18181880"
 }

@@ -15,7 +15,7 @@ class SettingBaseView: UIView {
     //MARK: - UI Properties
     
     let customBackButton = NavigationPopButton()
-    private let borderView = UIView()
+    private let dividerView = UIView()
     let titleLabel = UILabel()
     let titleImageView = UIImageView()
     private let titleStackView = UIStackView()
@@ -43,7 +43,7 @@ extension SettingBaseView {
     private func setupStyle() {
         backgroundColor = .main(.main1)
         
-        borderView.do {
+        dividerView.do {
             $0.backgroundColor = .grayscale(.gray100)
         }
         
@@ -77,7 +77,7 @@ extension SettingBaseView {
         addSubviews(
             customBackButton,
             titleStackView,
-            borderView,
+            dividerView,
             settingBaseCollectionView
         )
         
@@ -95,14 +95,14 @@ extension SettingBaseView {
             $0.leading.equalToSuperview().inset(24)
         }
         
-        borderView.snp.makeConstraints {
+        dividerView.snp.makeConstraints {
             $0.top.equalTo(titleStackView.snp.bottom).offset(24)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(1)
         }
         
         settingBaseCollectionView.snp.makeConstraints {
-            $0.top.equalTo(borderView.snp.bottom)
+            $0.top.equalTo(dividerView.snp.bottom)
             $0.bottom.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(10)
         }

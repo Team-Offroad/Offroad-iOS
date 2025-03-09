@@ -84,9 +84,14 @@ extension HomeViewController {
     
     private func setupTarget() {
         rootView.changeTitleButton.addTarget(self, action: #selector(changeTitleButtonTapped), for: .touchUpInside)
-        rootView.shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         rootView.chatButton.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
         rootView.changeCharacterButton.addTarget(self, action: #selector(changeCharacterButtonTapped), for: .touchUpInside)
+        #if DevTarget
+        rootView.diaryButton.addTarget(self, action: #selector(diaryButtonTapped), for: .touchUpInside)
+        rootView.recommendButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+        #else
+        rootView.shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+        #endif
     }
     
     private func getUserAdventureInfo() {
@@ -317,8 +322,16 @@ extension HomeViewController {
         characterListViewController.setupCustomBackButton(buttonTitle: "홈")
         self.navigationController?.pushViewController(characterListViewController, animated: true)
     }
+
+    #if DevTarget
+    @objc private func diaryButtonTapped() {
+        let diaryViewController = DiaryViewController()
+        diaryViewController.setupCustomBackButton(buttonTitle: "홈")
+        self.navigationController?.pushViewController(diaryViewController, animated: true)
+    }
+    #endif
     
-    @objc private func changeTitleButtonTapped() {        
+    @objc private func changeTitleButtonTapped() {
         let titlePopupViewController = TitlePopupViewController(emblemString: userEmblemString)
         titlePopupViewController.modalPresentationStyle = .overCurrentContext
         titlePopupViewController.delegate = self

@@ -15,7 +15,7 @@ final class DiaryTimeView: UIView {
     //MARK: - UI Properties
     
     let customBackButton = NavigationPopButton()
-    private let borderView = UIView()
+    private let dividerView = UIView()
     private let titleLabel = UILabel()
     private let titleImageView = UIImageView(frame: CGRect(origin: .init(), size: CGSize(width: 24, height: 24)))
     private let diaryTimeImageView = UIImageView()
@@ -55,7 +55,7 @@ extension DiaryTimeView {
             $0.configureButtonTitle(titleString: "설정")
         }
         
-        borderView.do {
+        dividerView.do {
             $0.backgroundColor = .grayscale(.gray100)
         }
         
@@ -131,7 +131,7 @@ extension DiaryTimeView {
             customBackButton,
             titleLabel,
             titleImageView,
-            borderView,
+            dividerView,
             diaryTimeImageView,
             questionLabel,
             highlightedRowView,
@@ -161,14 +161,14 @@ extension DiaryTimeView {
             $0.leading.equalTo(titleLabel.snp.trailing).offset(8)
         }
         
-        borderView.snp.makeConstraints {
+        dividerView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(24)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(1)
         }
         
         diaryTimeImageView.snp.makeConstraints {
-            $0.top.equalTo(borderView.snp.bottom).offset(30)
+            $0.top.equalTo(dividerView.snp.bottom).offset(30)
             $0.centerX.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(81)
         }

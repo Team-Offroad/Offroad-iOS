@@ -487,6 +487,10 @@
 		D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48982C7F04CF008B286A /* TermsListTableViewCell.swift */; };
 		D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */; };
 		D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB102C4054D20048B6DF /* TitleModel.swift */; };
+		D02232042D762DDD00DA6968 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02232032D762DD800DA6968 /* DiaryViewController.swift */; };
+		D02232072D762DE600DA6968 /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02232062D762DE400DA6968 /* DiaryView.swift */; };
+		D022320C2D76CCE700DA6968 /* DiaryGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022320B2D76CCE100DA6968 /* DiaryGuideView.swift */; };
+		D022320E2D76CCF500DA6968 /* DiaryGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */; };
 		D03C835E2C61E44700F3094D /* TokenIntercepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C835D2C61E44700F3094D /* TokenIntercepter.swift */; };
 		D03C83622C620AF100F3094D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C83612C620AF100F3094D /* MyPageView.swift */; };
 		D05B70D22D63257800A1E206 /* DiaryTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D02D63257000A1E206 /* DiaryTimeView.swift */; };
@@ -540,6 +544,7 @@
 		D0C6FD132CE6561400517480 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D0C6FD122CE6561400517480 /* FirebaseMessaging */; };
 		D0CF2E042D772570000334B5 /* Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CF2E032D772570000334B5 /* Info_Dev.plist */; };
 		D0CF2E052D772570000334B5 /* Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CF2E032D772570000334B5 /* Info_Dev.plist */; };
+		D0CF2E1D2D77EC96000334B5 /* GuideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */; };
 		D0E6BE902CED2827006CDAA8 /* PushNotificationRedirectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E6BE8F2CED2815006CDAA8 /* PushNotificationRedirectModel.swift */; };
 		D0E795FC2C447511005B47A5 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */; };
 		D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FE2C44FC2C005B47A5 /* UserModel.swift */; };
@@ -808,6 +813,10 @@
 		D018BB0E2C40200C0048B6DF /* StateToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateToggleButton.swift; sourceTree = "<group>"; };
 		D018BB102C4054D20048B6DF /* TitleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleModel.swift; sourceTree = "<group>"; };
 		D018BB1B2C43E4740048B6DF /* Offroad-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Offroad-iOS.entitlements"; sourceTree = "<group>"; };
+		D02232032D762DD800DA6968 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
+		D02232062D762DE400DA6968 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
+		D022320B2D76CCE100DA6968 /* DiaryGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryGuideView.swift; sourceTree = "<group>"; };
+		D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryGuideViewController.swift; sourceTree = "<group>"; };
 		D03C835D2C61E44700F3094D /* TokenIntercepter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenIntercepter.swift; sourceTree = "<group>"; };
 		D03C83612C620AF100F3094D /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		D05B70D02D63257000A1E206 /* DiaryTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTimeView.swift; sourceTree = "<group>"; };
@@ -855,6 +864,7 @@
 		D0C6FD092CE6551C00517480 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C6FD142CE6633500517480 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		D0CF2E032D772570000334B5 /* Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info_Dev.plist; sourceTree = "<group>"; };
+		D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0E6BE8F2CED2815006CDAA8 /* PushNotificationRedirectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationRedirectModel.swift; sourceTree = "<group>"; };
 		D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		D0E795FE2C44FC2C005B47A5 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -1195,6 +1205,7 @@
 				87E0468E2C3CE6D5002D12C2 /* Nickname */,
 				4E0394842C2AA9DB007F0517 /* Character */,
 				4E0394722C2AA6C5007F0517 /* Home */,
+				D02232002D762DBA00DA6968 /* Diary */,
 				4E0394732C2AA6DB007F0517 /* QuestMap */,
 				4E0394742C2AA70C007F0517 /* QuestQR */,
 				4E393C962C48C97C003403EC /* QuestResult */,
@@ -2303,6 +2314,34 @@
 			path = CustomButton;
 			sourceTree = "<group>";
 		};
+		D02232002D762DBA00DA6968 /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+				D0CF2E1A2D77EC5C000334B5 /* Cell */,
+				D02232022D762DD100DA6968 /* View */,
+				D02232012D762DCB00DA6968 /* ViewController */,
+			);
+			path = Diary;
+			sourceTree = "<group>";
+		};
+		D02232012D762DCB00DA6968 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D02232032D762DD800DA6968 /* DiaryViewController.swift */,
+				D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D02232022D762DD100DA6968 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D02232062D762DE400DA6968 /* DiaryView.swift */,
+				D022320B2D76CCE100DA6968 /* DiaryGuideView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D03C835F2C620AC800F3094D /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2521,6 +2560,14 @@
 				D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		D0CF2E1A2D77EC5C000334B5 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		D0E6BE8E2CED280A006CDAA8 /* Model */ = {
@@ -3542,6 +3589,7 @@
 				4EDB392B2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */,
 				4E4F316A2D4718F400C3B2FF /* AdventureInfoResponseDTO.swift in Sources */,
 				4E4F316B2D4718F400C3B2FF /* ORBMapView.swift in Sources */,
+				D022320C2D76CCE700DA6968 /* DiaryGuideView.swift in Sources */,
 				4E4F316C2D4718F400C3B2FF /* ORBAlertButton.swift in Sources */,
 				4E4F316D2D4718F400C3B2FF /* QuestQRViewController.swift in Sources */,
 				4E4F316E2D4718F400C3B2FF /* SVGKImage+.swift in Sources */,
@@ -3583,8 +3631,10 @@
 				4E4F318D2D4718F400C3B2FF /* CharacterDetailCell.swift in Sources */,
 				4E4F318E2D4718F400C3B2FF /* QuestService.swift in Sources */,
 				4E4F318F2D4718F400C3B2FF /* MoyaPlugin.swift in Sources */,
+				D02232072D762DE600DA6968 /* DiaryView.swift in Sources */,
 				4E4F31902D4718F400C3B2FF /* ORBAlertViewExplorationResult.swift in Sources */,
 				4E4F31912D4718F400C3B2FF /* NoticeView.swift in Sources */,
+				D02232042D762DDD00DA6968 /* DiaryViewController.swift in Sources */,
 				4E4F31922D4718F400C3B2FF /* UIImageView+.swift in Sources */,
 				4E4F31932D4718F400C3B2FF /* ORBAlertViewModel.swift in Sources */,
 				4E4F31942D4718F400C3B2FF /* RefreshTokenResponseDTO.swift in Sources */,
@@ -3615,6 +3665,7 @@
 				4E4F31AC2D4718F400C3B2FF /* ChatLogNavigationAnimator.swift in Sources */,
 				4E4F31AD2D4718F400C3B2FF /* UserModel.swift in Sources */,
 				4E4F31AE2D4718F400C3B2FF /* QuestListCollectionViewCell.swift in Sources */,
+				D022320E2D76CCF500DA6968 /* DiaryGuideViewController.swift in Sources */,
 				4E4F31AF2D4718F400C3B2FF /* UIScreen+.swift in Sources */,
 				4E4F31B02D4718F400C3B2FF /* CouponRedemptionRequestDTO.swift in Sources */,
 				4EA5F4F12D4C970600A59AB1 /* LogPrinterWindow.swift in Sources */,
@@ -3657,6 +3708,7 @@
 				4E4F31D22D4718F400C3B2FF /* TitlePopupView.swift in Sources */,
 				4E4F31D32D4718F400C3B2FF /* Shrinkable.swift in Sources */,
 				4E4F31D42D4718F400C3B2FF /* ViewController.swift in Sources */,
+				D0CF2E1D2D77EC96000334B5 /* GuideCollectionViewCell.swift in Sources */,
 				4E4F31D52D4718F400C3B2FF /* ScrollLoadingCollectionView.swift in Sources */,
 				4E4F31D62D4718F400C3B2FF /* ORBToastManager.swift in Sources */,
 				4E4F31D72D4718F400C3B2FF /* CharacterMotionResponseDTO.swift in Sources */,
