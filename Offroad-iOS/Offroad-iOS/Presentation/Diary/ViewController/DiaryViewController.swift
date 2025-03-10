@@ -14,6 +14,7 @@ final class DiaryViewController: UIViewController {
     // MARK: - Properties
     
     private let rootView = DiaryView()
+    private let viewModel = DiaryViewModel()
     
     private var isGuideConfirmed = false {
         didSet {
@@ -22,13 +23,6 @@ final class DiaryViewController: UIViewController {
             }
         }
     }
-    
-    private lazy var currentPage = rootView.diaryCalender.currentPage
-    
-    private let dummyDates = ["2025-03-07": ["70DAFFB2", "FFDC14B2"], "2025-03-08": ["FF69E1B2", "FFB73BB2"], "2025-03-10": ["FF69E1B2", "5580FFB2"]]
-    
-    private var minimumDate: Date?
-    private let maximumDate = Date()
 
     // MARK: - Life Cycle
     
@@ -41,7 +35,6 @@ final class DiaryViewController: UIViewController {
         
         setupDelegate()
         setupTarget()
-        setupMinimumDate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,15 +98,6 @@ private extension DiaryViewController {
         alertController.addAction(okAction)
         present(alertController, animated: true)
     }
-    
-    func setupMinimumDate() {
-        //임시(서버에서 불러와서 설정할 예정)
-        var dateComponents = DateComponents()
-        dateComponents.year = 2024
-        dateComponents.month = 11
-        
-        minimumDate = Calendar.current.date(from: dateComponents)
-    }
 }
     
 @objc private extension DiaryViewController {
@@ -134,8 +118,8 @@ private extension DiaryViewController {
         var dateComponents = DateComponents()
         dateComponents.month = sender == rootView.rightArrowButton ? 1 : -1
         
-        currentPage = Calendar.current.date(byAdding: dateComponents, to: self.currentPage)!
-        rootView.diaryCalender.setCurrentPage(self.currentPage, animated: true)
+        viewModel.currentPage = Calendar.current.date(byAdding: dateComponents, to: viewModel.currentPage)!
+        rootView.diaryCalender.setCurrentPage(viewModel.currentPage, animated: true)
     }
 }
 
@@ -151,34 +135,11 @@ extension DiaryViewController: FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         let currentPageDate = calendar.currentPage
         let calendar = Calendar.current
-        
+        viewModel.currentPage = currentPageDate
+
         rootView.monthButton.setTitle("\(calendar.component(.year, from: currentPageDate))년 \(calendar.component(.month, from: currentPageDate))월", for: .normal)
-        
-        let currentComponents = calendar.dateComponents([.year, .month], from: currentPageDate)
-        let minimumComponents = calendar.dateComponents([.year, .month], from: minimumDate ?? Date())
-        let maximumComponents = calendar.dateComponents([.year, .month], from: maximumDate)
-        
-        
-        if let currentYear = currentComponents.year,
-           let currentMonth = currentComponents.month,
-           let minYear = minimumComponents.year,
-           let minMonth = minimumComponents.month,
-           let maxYear = maximumComponents.year,
-           let maxMonth = maximumComponents.month {
-            
-            if (currentYear > minYear) || (currentYear == minYear && currentMonth > minMonth) {
-                rootView.leftArrowButton.alpha = 1
-            } else {
-                rootView.leftArrowButton.alpha = 0
-            }
-            
-            if (currentYear < maxYear) || (currentYear == maxYear && currentMonth < maxMonth) {
-                rootView.rightArrowButton.alpha = 1
-            } else {
-                rootView.rightArrowButton.alpha = 0
-            }
-        }
-        
+        rootView.leftArrowButton.alpha = viewModel.canMoveMonth(.previous) ? 1 : 0
+        rootView.rightArrowButton.alpha = viewModel.canMoveMonth(.next) ? 1 : 0
         rootView.diaryCalender.reloadData()
     }
 }
@@ -187,14 +148,9 @@ extension DiaryViewController: FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         guard let cell = calendar.dequeueReusableCell(withIdentifier: CustomDiaryCalendarCell.className, for: date, at: position) as? CustomDiaryCalendarCell else { return FSCalendarCell() }
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        
-        dummyDates.forEach { dummy in
-            if formatter.string(from: date) == dummy.key {
-                DispatchQueue.main.async {
-                    cell.setupGradientBlurView(pointColorCode: dummy.value[0], baseColorCode: dummy.value[1])
-                }
+        if let colors = viewModel.fetchDummyColorsForDate(date) {
+            DispatchQueue.main.async {
+                cell.setupGradientBlurView(pointColorCode: colors[0], baseColorCode: colors[1])
             }
         }
         
@@ -202,11 +158,11 @@ extension DiaryViewController: FSCalendarDataSource {
     }
     
     func minimumDate(for calender: FSCalendar) -> Date {
-        return minimumDate ?? Date()
+        return viewModel.fetchMinumumDate()
     }
     
     func maximumDate(for calendar: FSCalendar) -> Date {
-        return maximumDate
+        return viewModel.fetchMaximumDate()
     }
 }
 
