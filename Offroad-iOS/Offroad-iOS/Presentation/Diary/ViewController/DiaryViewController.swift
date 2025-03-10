@@ -7,6 +7,8 @@
 
 import UIKit
 
+import FSCalendar
+
 final class DiaryViewController: UIViewController {
     
     // MARK: - Properties
@@ -21,6 +23,10 @@ final class DiaryViewController: UIViewController {
         }
     }
     
+    private lazy var currentPage = rootView.diaryCalender.currentPage
+    
+    private let dummyDates = ["2025-03-07": ["70DAFFB2", "FFDC14B2"], "2025-03-08": ["FF69E1B2", "FFB73BB2"], "2025-03-10": ["FF69E1B2", "5580FFB2"]]
+
     // MARK: - Life Cycle
     
     override func loadView() {
@@ -30,6 +36,7 @@ final class DiaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupDelegate()
         setupTarget()
     }
     
@@ -64,9 +71,16 @@ private extension DiaryViewController {
     
     // MARK: - Private Method
     
+    func setupDelegate() {
+        rootView.diaryCalender.delegate = self
+        rootView.diaryCalender.dataSource = self
+    }
+    
     func setupTarget() {
         rootView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         rootView.guideButton.addTarget(self, action: #selector(guideButtonTapped), for: .touchUpInside)
+        rootView.leftArrowButton.addTarget(self, action: #selector(moveMonthButtonTapped(_:)), for: .touchUpInside)
+        rootView.rightArrowButton.addTarget(self, action: #selector(moveMonthButtonTapped(_:)), for: .touchUpInside)
     }
     
     func showSettingDiaryTimeAlert() {
@@ -101,6 +115,50 @@ private extension DiaryViewController {
         let diaryGuideViewController = DiaryGuideViewController()
         diaryGuideViewController.modalPresentationStyle = .overCurrentContext
         present(diaryGuideViewController, animated: false)
+    }
+    
+    func moveMonthButtonTapped(_ sender: UIButton) {
+        var dateComponents = DateComponents()
+        dateComponents.month = sender == rootView.rightArrowButton ? 1 : -1
+        
+        currentPage = Calendar.current.date(byAdding: dateComponents, to: self.currentPage)!
+        rootView.diaryCalender.setCurrentPage(self.currentPage, animated: true)
+    }
+}
+
+extension DiaryViewController: FSCalendarDelegateAppearance {
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
+        return .clear
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        return .primary(.stroke)
+    }
+    
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        let currentPageDate = calendar.currentPage
+        let calendar = Calendar.current
+        
+        rootView.monthButton.setTitle("\(calendar.component(.year, from: currentPageDate))년 \(calendar.component(.month, from: currentPageDate))월", for: .normal)
+    }
+}
+
+extension DiaryViewController: FSCalendarDataSource {
+    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+        guard let cell = calendar.dequeueReusableCell(withIdentifier: CustomDiaryCalendarCell.className, for: date, at: position) as? CustomDiaryCalendarCell else { return FSCalendarCell() }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        dummyDates.forEach { dummy in
+            if formatter.string(from: date) == dummy.key {
+                DispatchQueue.main.async {
+                    cell.setupGradientBlurView(pointColorCode: dummy.value[0], baseColorCode: dummy.value[1])
+                }
+            }
+        }
+        
+        return cell
     }
 }
 
