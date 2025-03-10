@@ -96,6 +96,7 @@ extension DiaryView {
         
         rightArrowButton.do {
             $0.setImage(.imgArrowRightDiary, for: .normal)
+            $0.alpha = 0
         }
         
         arrowButtonStackView.do {

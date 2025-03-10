@@ -26,6 +26,9 @@ final class DiaryViewController: UIViewController {
     private lazy var currentPage = rootView.diaryCalender.currentPage
     
     private let dummyDates = ["2025-03-07": ["70DAFFB2", "FFDC14B2"], "2025-03-08": ["FF69E1B2", "FFB73BB2"], "2025-03-10": ["FF69E1B2", "5580FFB2"]]
+    
+    private var minimumDate: Date?
+    private let maximumDate = Date()
 
     // MARK: - Life Cycle
     
@@ -38,6 +41,7 @@ final class DiaryViewController: UIViewController {
         
         setupDelegate()
         setupTarget()
+        setupMinimumDate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,6 +105,15 @@ private extension DiaryViewController {
         alertController.addAction(okAction)
         present(alertController, animated: true)
     }
+    
+    func setupMinimumDate() {
+        //임시(서버에서 불러와서 설정할 예정)
+        var dateComponents = DateComponents()
+        dateComponents.year = 2024
+        dateComponents.month = 11
+        
+        minimumDate = Calendar.current.date(from: dateComponents)
+    }
 }
     
 @objc private extension DiaryViewController {
@@ -140,6 +153,33 @@ extension DiaryViewController: FSCalendarDelegateAppearance {
         let calendar = Calendar.current
         
         rootView.monthButton.setTitle("\(calendar.component(.year, from: currentPageDate))년 \(calendar.component(.month, from: currentPageDate))월", for: .normal)
+        
+        let currentComponents = calendar.dateComponents([.year, .month], from: currentPageDate)
+        let minimumComponents = calendar.dateComponents([.year, .month], from: minimumDate ?? Date())
+        let maximumComponents = calendar.dateComponents([.year, .month], from: maximumDate)
+        
+        
+        if let currentYear = currentComponents.year,
+           let currentMonth = currentComponents.month,
+           let minYear = minimumComponents.year,
+           let minMonth = minimumComponents.month,
+           let maxYear = maximumComponents.year,
+           let maxMonth = maximumComponents.month {
+            
+            if (currentYear > minYear) || (currentYear == minYear && currentMonth > minMonth) {
+                rootView.leftArrowButton.alpha = 1
+            } else {
+                rootView.leftArrowButton.alpha = 0
+            }
+            
+            if (currentYear < maxYear) || (currentYear == maxYear && currentMonth < maxMonth) {
+                rootView.rightArrowButton.alpha = 1
+            } else {
+                rootView.rightArrowButton.alpha = 0
+            }
+        }
+        
+        rootView.diaryCalender.reloadData()
     }
 }
 
@@ -159,6 +199,14 @@ extension DiaryViewController: FSCalendarDataSource {
         }
         
         return cell
+    }
+    
+    func minimumDate(for calender: FSCalendar) -> Date {
+        return minimumDate ?? Date()
+    }
+    
+    func maximumDate(for calendar: FSCalendar) -> Date {
+        return maximumDate
     }
 }
 
