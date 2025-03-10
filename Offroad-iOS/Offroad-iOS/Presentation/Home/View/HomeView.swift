@@ -25,6 +25,8 @@ final class HomeView: UIView {
     let chatUnreadDotView = UIView()
     let shareButton = UIButton()
     let changeCharacterButton = UIButton()
+    let recommendButton = UIButton()
+    let diaryButton = UIButton()
     private let buttonStackView = UIStackView()
     private let characterMotionView = LottieAnimationView()
     private let titleView = UIView()
@@ -96,8 +98,16 @@ extension HomeView {
         changeCharacterButton.do {
             $0.setImage(.btnChangeCharacter, for: .normal)
         }
+
+        recommendButton.do {
+            $0.setImage(.btnRecommend, for: .normal)
+        }
         
-        [chatButton, shareButton, changeCharacterButton].forEach { button in
+        diaryButton.do {
+            $0.setImage(.btnDiaryHome, for: .normal)
+        }
+        
+        [chatButton, recommendButton, changeCharacterButton, diaryButton].forEach { button in
             button.layer.shadowColor = UIColor.black.cgColor
             button.layer.shadowOffset = CGSize(width: 0, height: 1)
             button.layer.shadowOpacity = 0.1
@@ -171,11 +181,21 @@ extension HomeView {
         )
         
         characterNameView.addSubview(characterNameLabel)
+        
+        #if DevTarget
+        buttonStackView.addArrangedSubviews(
+            chatButton,
+            recommendButton,
+            changeCharacterButton,
+            diaryButton
+        )
+        #else
         buttonStackView.addArrangedSubviews(
             chatButton,
             shareButton,
             changeCharacterButton
         )
+        #endif
         chatButton.addSubview(chatUnreadDotView)
         titleView.addSubviews(titleLabel, changeTitleButton)
         questStackView.addArrangedSubviews(recentQuestView, almostDoneQuestView)
@@ -211,8 +231,8 @@ extension HomeView {
             $0.top.equalTo(characterNameView.snp.top)
             $0.trailing.equalToSuperview().inset(24)
         }
-        
-        [chatButton, shareButton, changeCharacterButton].forEach { button in
+
+        [chatButton, shareButton, changeCharacterButton, diaryButton].forEach { button in
             button.snp.makeConstraints {
                 $0.size.equalTo(44)
             }

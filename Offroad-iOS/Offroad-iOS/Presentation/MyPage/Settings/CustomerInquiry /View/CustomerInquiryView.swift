@@ -15,7 +15,7 @@ final class CustomerInquiryView: UIView {
     //MARK: - UI Properties
     
     let customBackButton = NavigationPopButton()
-    private let borderView = UIView()
+    private let dividerView = UIView()
     private let titleLabel = UILabel()
     private let titleImageView = UIImageView(frame: CGRect(origin: .init(), size: CGSize(width: 24, height: 24)))
     private let mainLabel = UILabel()
@@ -49,7 +49,7 @@ extension CustomerInquiryView {
             $0.configureButtonTitle(titleString: "설정")
         }
         
-        borderView.do {
+        dividerView.do {
             $0.backgroundColor = .grayscale(.gray100)
         }
         
@@ -101,7 +101,7 @@ extension CustomerInquiryView {
             customBackButton,
             titleLabel,
             titleImageView,
-            borderView,
+            dividerView,
             labelStackView,
             emailButton
         )
@@ -124,14 +124,14 @@ extension CustomerInquiryView {
             $0.leading.equalTo(titleLabel.snp.trailing).offset(8)
         }
         
-        borderView.snp.makeConstraints {
+        dividerView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(24)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(1)
         }
         
         labelStackView.snp.makeConstraints {
-            $0.top.equalTo(borderView.snp.bottom).offset(41)
+            $0.top.equalTo(dividerView.snp.bottom).offset(41)
             $0.leading.equalToSuperview().inset(24)
         }
         

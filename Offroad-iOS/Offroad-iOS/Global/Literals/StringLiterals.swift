@@ -34,6 +34,8 @@ struct AlertMessage {
     static let completeQuestsTitle = "퀘스트 성공 !"
     static let diaryTimeSettingMessage = "매일 이 시간에 일기를 받으시겠어요?"
     static let diaryTimeUnsavedExitMessage = "일기 시간 설정을 저장하지 않고\n나가시겠어요?"
+    static let diaryTimeGuideTitle = "오후 10시"
+    static let diaryTimeGuideMessage = "오브와 충분한 시간을 함께하면\n매일 오후 10시에 일기를 받아요.\n\n설정 에서 일기 받을 시간을 바꿀 수 있어요."
     static func completeSingleQuestMessage(questName: String) -> String {
         "퀘스트 '\(questName)'을(를) 클리어했어요! 마이페이지에서 보상을 확인해보세요."
     }
@@ -58,4 +60,9 @@ struct EmptyCaseMessage {
     static let availableCoupons = "사용 가능한 쿠폰이 없어요.\n퀘스트를 클리어하고 쿠폰을 획득해 보세요!"
     static let usedCoupons = "사용 완료한 쿠폰이 없어요.\n획득한 쿠폰을 사용해 보세요!"
     static let activeQuests = "진행 중인 퀘스트가 없어요.\n탐험을 시작하고 퀘스트를 클리어해 보세요!"
+}
+
+struct DiaryGuideMessage {
+    static let diaryGuideDescription1 = "오브와 대화를 나누거나\n함께 탐험을 떠나면,\n매일 기록을 모아 오브가 일기를 써요.\n\n일기를 받기 위해선\n오브와 충분한 시간을 보내야해요."
+    static let diaryGuideDescription2 = "이건 기억빛이에요.\n\n그 날의 기억에 따라\n다른 색으로 칠해져요.\n오늘은 어떤 색의 하루였나요?"
 }
