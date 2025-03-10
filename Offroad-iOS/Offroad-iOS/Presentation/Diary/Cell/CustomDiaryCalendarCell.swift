@@ -35,17 +35,11 @@ final class CustomDiaryCalendarCell: FSCalendarCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        gradientBlurBackgroundView.frame = contentView.bounds
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         
         gradientBlurBackgroundView.subviews.forEach { $0.removeFromSuperview() }
-        if let sublayers = gradientBlurBackgroundView.layer.sublayers {
+        if gradientBlurBackgroundView.layer.sublayers != nil {
             gradientBlurBackgroundView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
         }
 
