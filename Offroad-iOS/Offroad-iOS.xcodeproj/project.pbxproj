@@ -543,6 +543,7 @@
 		D0BD451F2CC77C3200128E74 /* MyPageCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */; };
 		D0C6FD132CE6561400517480 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D0C6FD122CE6561400517480 /* FirebaseMessaging */; };
 		D0CA206C2D7DCF5900FDF7F4 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D0CA206B2D7DCF5900FDF7F4 /* FSCalendar */; };
+		D0CA206E2D7E005100FDF7F4 /* CustomDiaryCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA206D2D7E004A00FDF7F4 /* CustomDiaryCalendarCell.swift */; };
 		D0CF2E042D772570000334B5 /* Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CF2E032D772570000334B5 /* Info_Dev.plist */; };
 		D0CF2E052D772570000334B5 /* Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CF2E032D772570000334B5 /* Info_Dev.plist */; };
 		D0CF2E1D2D77EC96000334B5 /* GuideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */; };
@@ -864,6 +865,7 @@
 		D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCustomButton.swift; sourceTree = "<group>"; };
 		D0C6FD092CE6551C00517480 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C6FD142CE6633500517480 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		D0CA206D2D7E004A00FDF7F4 /* CustomDiaryCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDiaryCalendarCell.swift; sourceTree = "<group>"; };
 		D0CF2E032D772570000334B5 /* Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info_Dev.plist; sourceTree = "<group>"; };
 		D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0E6BE8F2CED2815006CDAA8 /* PushNotificationRedirectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationRedirectModel.swift; sourceTree = "<group>"; };
@@ -2567,6 +2569,7 @@
 		D0CF2E1A2D77EC5C000334B5 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				D0CA206D2D7E004A00FDF7F4 /* CustomDiaryCalendarCell.swift */,
 				D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */,
 			);
 			path = Cell;
@@ -3602,6 +3605,7 @@
 				4E4F31712D4718F400C3B2FF /* CouponDetailViewController.swift in Sources */,
 				4E4F31722D4718F400C3B2FF /* CharacterChatGetResponseDTO.swift in Sources */,
 				4E4F31732D4718F400C3B2FF /* BaseService.swift in Sources */,
+				D0CA206E2D7E005100FDF7F4 /* CustomDiaryCalendarCell.swift in Sources */,
 				4E4F31742D4718F400C3B2FF /* StringLiterals.swift in Sources */,
 				4E4F31752D4718F400C3B2FF /* ORBTabBarShapeView.swift in Sources */,
 				4E4F31762D4718F400C3B2FF /* SettingViewController.swift in Sources */,
