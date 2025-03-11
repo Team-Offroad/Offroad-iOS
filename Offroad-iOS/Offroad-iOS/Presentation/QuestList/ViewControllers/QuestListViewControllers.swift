@@ -73,6 +73,8 @@ class QuestListViewController: UIViewController {
                         description: "첫 번째 코스 퀘스트",
                         quests: [
                             QuestDetail(locationName: "장소 A", mission: "미션 1"),
+                            QuestDetail(locationName: "장소 B", mission: "미션 2"),
+                            QuestDetail(locationName: "장소 B", mission: "미션 2"),
                             QuestDetail(locationName: "장소 B", mission: "미션 2")
                         ],
                         reward: "보상 1"
@@ -83,7 +85,8 @@ class QuestListViewController: UIViewController {
                         description: "두 번째 코스 퀘스트",
                         quests: [
                             QuestDetail(locationName: "장소 C", mission: "미션 3"),
-                            QuestDetail(locationName: "장소 D", mission: "미션 4")
+                            QuestDetail(locationName: "장소 D", mission: "미션 4"),
+                            QuestDetail(locationName: "장소 D", mission: "미션 4"),
                         ],
                         reward: "보상 2"
                     )
