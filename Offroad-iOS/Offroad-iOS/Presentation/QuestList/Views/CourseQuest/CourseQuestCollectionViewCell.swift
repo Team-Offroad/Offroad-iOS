@@ -18,8 +18,8 @@ class CourseQuestCollectionViewCell: UICollectionViewCell {
         equalToConstant: UIScreen.main.bounds.width - collectionViewHorizontalSectionInset * 2
     )
     
-    private lazy var expandedBottomConstraint = questInfoView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
-    private lazy var shrinkedBottomConstraint = questNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
+    private lazy var expandedBottomConstraint = courseQuestInfoView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
+    private lazy var shrinkedBottomConstraint = courseQuestNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
     
     override var isSelected: Bool {
         didSet { setAppearance() }
@@ -27,15 +27,15 @@ class CourseQuestCollectionViewCell: UICollectionViewCell {
     
     // MARK: - UI Components
     
-    private let questNameLabel = UILabel()
-    private let questProgressLabel = UILabel()
+    private let courseQuestNameLabel = UILabel()
+    private let courseQuestProgressLabel = UILabel()
     private let chevronImageView = UIImageView(image: .icnQuestListExpendableCellChevron)
     
-    private let questDescriptionLabel = UILabel()
+    private let courseQuestDescriptionLabel = UILabel()
     
-    private let questInfoView = UIView()
-    private let questListStackView = UIStackView()
-    private let questRewardDescriptionLabel = UILabel()
+    private let courseQuestInfoView = UIView()
+    private var checkBoxImageViews: [UIImageView] = []
+    private let courseQuestListStackView = UIStackView()
     
     // MARK: - Initializer
     
@@ -54,12 +54,11 @@ class CourseQuestCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        questNameLabel.text = ""
-        questProgressLabel.text = ""
-        questDescriptionLabel.text = ""
-        questRewardDescriptionLabel.text = ""
+        courseQuestNameLabel.text = ""
+        courseQuestProgressLabel.text = ""
+        courseQuestDescriptionLabel.text = ""
         
-        questListStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        courseQuestListStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
     }
 }
 
@@ -69,17 +68,14 @@ extension CourseQuestCollectionViewCell {
     
     private func setupHierarchy() {
         contentView.addSubviews(
-            questNameLabel,
-            questProgressLabel,
+            courseQuestNameLabel,
+            courseQuestProgressLabel,
             chevronImageView,
-            questDescriptionLabel,
-            questInfoView
+            courseQuestDescriptionLabel,
+            courseQuestInfoView
         )
         
-        questInfoView.addSubviews(
-            questListStackView,
-            questRewardDescriptionLabel
-        )
+        courseQuestInfoView.addSubview(courseQuestListStackView)
     }
     
     private func setupStyle() {
@@ -88,49 +84,40 @@ extension CourseQuestCollectionViewCell {
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.systemGray4.cgColor
         
-        questNameLabel.do { label in
-            label.font = .boldSystemFont(ofSize: 16)
-            label.textColor = .black
+        courseQuestNameLabel.do { label in
+            label.font = .offroad(style: .iosTextBold)
+            label.textColor = .main(.main2)
             label.textAlignment = .left
             label.numberOfLines = 1
         }
         
-        questProgressLabel.do { label in
-            label.font = .systemFont(ofSize: 14)
-            label.textColor = .gray
+        courseQuestProgressLabel.do { label in
+            label.font = .offroad(style: .iosHint)
+            label.textColor = .sub(.sub2)
             label.textAlignment = .right
         }
         
         chevronImageView.do { imageView in
             imageView.contentMode = .scaleAspectFit
-            imageView.tintColor = .gray
         }
         
-        questDescriptionLabel.do { label in
-            label.font = .systemFont(ofSize: 14)
+        courseQuestDescriptionLabel.do { label in
+            label.font = .offroad(style: .iosBoxMedi)
             label.textAlignment = .left
             label.numberOfLines = 0
-            label.lineBreakMode = .byWordWrapping
-            label.textColor = .darkGray
+            label.textColor = .grayscale(.gray400)
         }
         
-        questInfoView.do { view in
-            view.backgroundColor = UIColor.systemGray5
-            view.layer.cornerRadius = 8
+        courseQuestInfoView.do { view in
+            view.backgroundColor = .primary(.boxInfo)
+            view.roundCorners(cornerRadius: 9)
         }
         
-        questListStackView.do { stackView in
+        courseQuestListStackView.do { stackView in
             stackView.axis = .vertical
             stackView.spacing = 6
             stackView.alignment = .leading
             stackView.distribution = .equalSpacing
-        }
-        
-        questRewardDescriptionLabel.do { label in
-            label.font = .systemFont(ofSize: 14)
-            label.textColor = .black
-            label.numberOfLines = 0
-            label.lineBreakMode = .byWordWrapping
         }
     }
     
@@ -138,42 +125,36 @@ extension CourseQuestCollectionViewCell {
         widthConstraint.priority = .defaultHigh
         widthConstraint.isActive = true
         
-        questNameLabel.snp.makeConstraints { make in
+        courseQuestNameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(18)
             make.leading.equalToSuperview().inset(20)
-            make.trailing.equalTo(questProgressLabel.snp.leading).offset(-7)
+            make.trailing.equalTo(courseQuestProgressLabel.snp.leading).offset(-7)
         }
         
-        questProgressLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(questNameLabel)
+        courseQuestProgressLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(courseQuestNameLabel)
             make.trailing.equalTo(chevronImageView.snp.leading).offset(-10)
         }
         
         chevronImageView.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(16)
-            make.centerY.equalTo(questNameLabel)
-            make.size.equalTo(CGSize(width: 24, height: 24))
+            make.top.equalToSuperview().inset(8)
+            make.trailing.equalToSuperview()
+            make.size.equalTo(44)
         }
         
-        questDescriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(questNameLabel.snp.bottom).offset(8)
+        courseQuestDescriptionLabel.snp.makeConstraints { make in
+            make.top.equalTo(courseQuestNameLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalToSuperview().inset(20)
         }
         
-        questListStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10)
-            make.leading.trailing.equalToSuperview().inset(12)
+        courseQuestListStackView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(12)
+            make.verticalEdges.equalToSuperview().inset(9)
         }
         
-        questRewardDescriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(questListStackView.snp.bottom).offset(8)
-            make.leading.trailing.equalToSuperview().inset(12)
-            make.bottom.equalToSuperview().inset(10)
-        }
-        
-        questInfoView.snp.makeConstraints { make in
-            make.top.equalTo(questDescriptionLabel.snp.bottom).offset(14)
-            make.horizontalEdges.equalToSuperview().inset(20)
+        courseQuestInfoView.snp.makeConstraints { make in
+            make.top.equalTo(courseQuestDescriptionLabel.snp.bottom).offset(14)
+            make.horizontalEdges.equalToSuperview().inset(12)
         }
         
         expandedBottomConstraint.priority = .defaultLow
@@ -187,8 +168,8 @@ extension CourseQuestCollectionViewCell {
         expandedBottomConstraint.isActive = isSelected
         shrinkedBottomConstraint.isActive = !isSelected
         
-        questDescriptionLabel.isHidden = !isSelected
-        questInfoView.isHidden = !isSelected
+        courseQuestDescriptionLabel.isHidden = !isSelected
+        courseQuestInfoView.isHidden = !isSelected
         
         let rotationTransform = isSelected ? CGAffineTransform(rotationAngle: .pi) : CGAffineTransform.identity
         UIView.animate(withDuration: 0.3) {
@@ -200,22 +181,19 @@ extension CourseQuestCollectionViewCell {
     // MARK: - Configure Cell
     
     func configureCell(with quest: CourseQuest) {
-        questNameLabel.text = quest.title
-        questProgressLabel.text = "달성도: \(quest.progress)"
-        questDescriptionLabel.text = quest.description
-        questRewardDescriptionLabel.text = "보상: \(quest.reward)"
-        
-        questListStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        courseQuestNameLabel.text = quest.title
+        courseQuestProgressLabel.text = "달성도 (\(quest.progress))"
+        courseQuestProgressLabel.highlightText(targetText: "달성도", color: .grayscale(.gray400))
+        courseQuestDescriptionLabel.text = quest.description
+        courseQuestListStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
         for questDetail in quest.quests {
-            let questLabel = UILabel()
-            questLabel.text = "🏁 \(questDetail.locationName): \(questDetail.mission)"
-            questLabel.font = .systemFont(ofSize: 14)
-            questLabel.textColor = .black
-            questLabel.numberOfLines = 0
-            questLabel.lineBreakMode = .byWordWrapping
-            questListStackView.addArrangedSubview(questLabel)
+            let questStackView = IconLabelStackView(icon: .icnQuestListCheckBox, text: "\(questDetail.locationName): \(questDetail.mission)")
+            courseQuestListStackView.addArrangedSubview(questStackView)
         }
+        
+        let rewardStackView = IconLabelStackView(icon: .icnQuestListGiftBox, text: "보상: \(quest.reward)")
+        courseQuestListStackView.addArrangedSubview(rewardStackView)
         
         contentView.layoutIfNeeded()
     }
