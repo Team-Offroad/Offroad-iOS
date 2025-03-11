@@ -109,6 +109,5 @@ extension CustomDiaryCalendarCell {
         gradientBlurBackgroundView.addSubview(blurEffectView)
         
         gradientBlurBackgroundView.isHidden = false
-        titleLabel.textColor = .primary(.white)
     }
 }

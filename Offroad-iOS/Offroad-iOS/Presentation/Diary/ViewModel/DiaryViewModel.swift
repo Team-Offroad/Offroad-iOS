@@ -29,6 +29,10 @@ extension DiaryViewModel {
     
     //MARK: - Func
     
+    func fetchDummyDates() -> [String] {
+        return Array(dummyDatesAndColor.keys)
+    }
+    
     func fetchDummyColorsForDate(_ date: Date) -> [String]? {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"

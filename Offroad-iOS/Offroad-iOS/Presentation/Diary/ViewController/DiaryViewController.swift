@@ -129,9 +129,27 @@ extension DiaryViewController: FSCalendarDelegateAppearance {
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        return .primary(.stroke)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        if viewModel.fetchDummyDates().contains(dateFormatter.string(from: date)) {
+            return .primary(.white)
+        } else {
+            return .primary(.stroke)
+        }
     }
-    
+
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        if viewModel.fetchDummyDates().contains(dateFormatter.string(from: date)) {
+            return .primary(.white)
+        } else {
+            return .primary(.stroke)
+        }
+    }
+
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         let currentPageDate = calendar.currentPage
         let calendar = Calendar.current
