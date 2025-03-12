@@ -546,6 +546,9 @@
 		D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */; };
 		D0BD451F2CC77C3200128E74 /* MyPageCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */; };
 		D0C6FD132CE6561400517480 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D0C6FD122CE6561400517480 /* FirebaseMessaging */; };
+		D0CA206C2D7DCF5900FDF7F4 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D0CA206B2D7DCF5900FDF7F4 /* FSCalendar */; };
+		D0CA206E2D7E005100FDF7F4 /* CustomDiaryCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA206D2D7E004A00FDF7F4 /* CustomDiaryCalendarCell.swift */; };
+		D0CA20732D7F4BC200FDF7F4 /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20722D7F4BB900FDF7F4 /* DiaryViewModel.swift */; };
 		D0CF2E042D772570000334B5 /* Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CF2E032D772570000334B5 /* Info_Dev.plist */; };
 		D0CF2E052D772570000334B5 /* Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CF2E032D772570000334B5 /* Info_Dev.plist */; };
 		D0CF2E1D2D77EC96000334B5 /* GuideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */; };
@@ -868,6 +871,8 @@
 		D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCustomButton.swift; sourceTree = "<group>"; };
 		D0C6FD092CE6551C00517480 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C6FD142CE6633500517480 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		D0CA206D2D7E004A00FDF7F4 /* CustomDiaryCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDiaryCalendarCell.swift; sourceTree = "<group>"; };
+		D0CA20722D7F4BB900FDF7F4 /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 		D0CF2E032D772570000334B5 /* Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info_Dev.plist; sourceTree = "<group>"; };
 		D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0E6BE8F2CED2815006CDAA8 /* PushNotificationRedirectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationRedirectModel.swift; sourceTree = "<group>"; };
@@ -990,6 +995,7 @@
 				4E4F32612D4718F400C3B2FF /* RxRelay in Frameworks */,
 				4E4F32622D4718F400C3B2FF /* KakaoSDKAuth in Frameworks */,
 				4E4F32632D4718F400C3B2FF /* FirebaseMessaging in Frameworks */,
+				D0CA206C2D7DCF5900FDF7F4 /* FSCalendar in Frameworks */,
 				4E4F32642D4718F400C3B2FF /* Lottie in Frameworks */,
 				4E4F32652D4718F400C3B2FF /* Pods_Offroad_iOS.framework in Frameworks */,
 			);
@@ -2336,6 +2342,7 @@
 				D0CF2E1A2D77EC5C000334B5 /* Cell */,
 				D02232022D762DD100DA6968 /* View */,
 				D02232012D762DCB00DA6968 /* ViewController */,
+				D0CA20712D7F4BA900FDF7F4 /* ViewModel */,
 			);
 			path = Diary;
 			sourceTree = "<group>";
@@ -2578,9 +2585,18 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		D0CA20712D7F4BA900FDF7F4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D0CA20722D7F4BB900FDF7F4 /* DiaryViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		D0CF2E1A2D77EC5C000334B5 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				D0CA206D2D7E004A00FDF7F4 /* CustomDiaryCalendarCell.swift */,
 				D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */,
 			);
 			path = Cell;
@@ -3016,6 +3032,7 @@
 				4E4F315F2D4718F400C3B2FF /* FirebaseAnalytics */,
 				4E4F31612D4718F400C3B2FF /* FirebaseMessaging */,
 				4EA272402D5855E700F64B20 /* AmplitudeSwift */,
+				D0CA206B2D7DCF5900FDF7F4 /* FSCalendar */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E4F327A2D4718F400C3B2FF /* ORB(Dev).app */;
@@ -3090,6 +3107,7 @@
 				4E56F5522C99ACD300EEE677 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				D0600BD62CE50AE600D8F1D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */,
+				D0CA206A2D7DCF5900FDF7F4 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 4E03942A2C2A9DCE007F0517 /* Products */;
 			projectDirPath = "";
@@ -3618,10 +3636,12 @@
 				4E4F31712D4718F400C3B2FF /* CouponDetailViewController.swift in Sources */,
 				4E4F31722D4718F400C3B2FF /* CharacterChatGetResponseDTO.swift in Sources */,
 				4E4F31732D4718F400C3B2FF /* BaseService.swift in Sources */,
+				D0CA206E2D7E005100FDF7F4 /* CustomDiaryCalendarCell.swift in Sources */,
 				4E4F31742D4718F400C3B2FF /* StringLiterals.swift in Sources */,
 				4E4F31752D4718F400C3B2FF /* ORBTabBarShapeView.swift in Sources */,
 				4E4F31762D4718F400C3B2FF /* SettingViewController.swift in Sources */,
 				4E4F31772D4718F400C3B2FF /* ORBCharacterChatBox.swift in Sources */,
+				D0CA20732D7F4BC200FDF7F4 /* DiaryViewModel.swift in Sources */,
 				4E4F31782D4718F400C3B2FF /* TitlePopupViewController.swift in Sources */,
 				4E4F31792D4718F400C3B2FF /* LottieAnimationView+.swift in Sources */,
 				4E4F317A2D4718F400C3B2FF /* ORBCharacterChatView.swift in Sources */,
@@ -4580,6 +4600,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		D0CA206A2D7DCF5900FDF7F4 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -4737,6 +4765,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D0600BD62CE50AE600D8F1D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		D0CA206B2D7DCF5900FDF7F4 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0CA206A2D7DCF5900FDF7F4 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
