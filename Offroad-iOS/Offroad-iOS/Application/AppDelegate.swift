@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         #if DevTarget
         // AmplitudeManager 싱글톤 객체 초기화
-        var _ = AmplitudeManager.shared
+        let _ = AmplitudeManager.shared
         
         // 개발용 앱인 경우 'GoogleService-Info_Dev.plist' 파일을 사용하여 FirebaseApp을 configure
         let filePath = Bundle.main.path(forResource: "GoogleService-Info_Dev", ofType: "plist")
