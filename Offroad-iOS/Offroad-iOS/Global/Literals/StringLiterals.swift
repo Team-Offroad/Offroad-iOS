@@ -69,6 +69,6 @@ struct DiaryGuideMessage {
 
 struct AmplitudeEventTitles {
     static let questSuccess = "quest_success"
-    static let chatMessageSent = "chat_message_sent"
+    static let chatMessageSent = "send_chat"
     static let exploreSuccess = "explore_success"
 }
