@@ -547,6 +547,7 @@
 		D0CA20732D7F4BC200FDF7F4 /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20722D7F4BB900FDF7F4 /* DiaryViewModel.swift */; };
 		D0CA20822D7FE06B00FDF7F4 /* MonthPickerModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20812D7FE05A00FDF7F4 /* MonthPickerModalView.swift */; };
 		D0CA20842D7FE08200FDF7F4 /* MonthPickerModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20832D7FE07F00FDF7F4 /* MonthPickerModalViewController.swift */; };
+		D0CA20872D8018FA00FDF7F4 /* MyDiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20862D8018F400FDF7F4 /* MyDiaryManager.swift */; };
 		D0CF2E042D772570000334B5 /* Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CF2E032D772570000334B5 /* Info_Dev.plist */; };
 		D0CF2E052D772570000334B5 /* Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CF2E032D772570000334B5 /* Info_Dev.plist */; };
 		D0CF2E1D2D77EC96000334B5 /* GuideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */; };
@@ -872,6 +873,7 @@
 		D0CA20722D7F4BB900FDF7F4 /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 		D0CA20812D7FE05A00FDF7F4 /* MonthPickerModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPickerModalView.swift; sourceTree = "<group>"; };
 		D0CA20832D7FE07F00FDF7F4 /* MonthPickerModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPickerModalViewController.swift; sourceTree = "<group>"; };
+		D0CA20862D8018F400FDF7F4 /* MyDiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDiaryManager.swift; sourceTree = "<group>"; };
 		D0CF2E032D772570000334B5 /* Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info_Dev.plist; sourceTree = "<group>"; };
 		D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0E6BE8F2CED2815006CDAA8 /* PushNotificationRedirectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationRedirectModel.swift; sourceTree = "<group>"; };
@@ -2327,6 +2329,7 @@
 		D02232002D762DBA00DA6968 /* Diary */ = {
 			isa = PBXGroup;
 			children = (
+				D0CA20852D8018E700FDF7F4 /* MyDiaryManager */,
 				D0CF2E1A2D77EC5C000334B5 /* Cell */,
 				D0CA20802D7FE04F00FDF7F4 /* Modal */,
 				D02232022D762DD100DA6968 /* View */,
@@ -2589,6 +2592,14 @@
 				D0CA20812D7FE05A00FDF7F4 /* MonthPickerModalView.swift */,
 			);
 			path = Modal;
+			sourceTree = "<group>";
+		};
+		D0CA20852D8018E700FDF7F4 /* MyDiaryManager */ = {
+			isa = PBXGroup;
+			children = (
+				D0CA20862D8018F400FDF7F4 /* MyDiaryManager.swift */,
+			);
+			path = MyDiaryManager;
 			sourceTree = "<group>";
 		};
 		D0CF2E1A2D77EC5C000334B5 /* Cell */ = {
@@ -3809,6 +3820,7 @@
 				4E4F320F2D4718F400C3B2FF /* CustomerInquiryView.swift in Sources */,
 				4E4F32102D4718F400C3B2FF /* CollectedTitleModel.swift in Sources */,
 				4E4F32112D4718F400C3B2FF /* HomeViewController.swift in Sources */,
+				D0CA20872D8018FA00FDF7F4 /* MyDiaryManager.swift in Sources */,
 				4E4F32122D4718F400C3B2FF /* ORBAlertViewCouponRedemptionFailure.swift in Sources */,
 				4E4F32132D4718F400C3B2FF /* ChangeEmblemResponseDTO.swift in Sources */,
 				4E4F32142D4718F400C3B2FF /* ORBNMFMarker.swift in Sources */,
