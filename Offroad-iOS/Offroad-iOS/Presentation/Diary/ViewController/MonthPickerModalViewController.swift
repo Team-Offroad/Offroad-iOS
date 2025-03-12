@@ -17,9 +17,18 @@ final class MonthPickerModalViewController: UIViewController {
     
     private let (minYear, minMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .minimum)
     private let (maxYear, maxMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .maximum)
+    private let (currentYear, currentMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .current)
     
     private lazy var years = Array(minYear...maxYear)
-    private let months = Array(1...12)
+    private lazy var months: [Int] = {
+        if currentYear == maxYear {
+            return Array(1...maxMonth)
+        } else if currentYear == minYear {
+            return Array(minMonth...12)
+        } else {
+            return Array(1...12)
+        }
+    }()
     
     // MARK: - Life Cycle
     
@@ -60,9 +69,7 @@ private extension MonthPickerModalViewController {
         rootView.completeButton.addTarget(self, action: #selector(completeTapped), for: .touchUpInside)
     }
     
-    func setInitialSelectedRow() {
-        let (currentYear, currentMonth) =        MyDiaryManager.shared.fetchYearMonthValue(dateType: .current)
-        
+    func setInitialSelectedRow() {        
         let selectedYearRow = years.firstIndex(of: currentYear)!
         let selectedMonthRow = months.firstIndex(of: currentMonth)!
         
@@ -142,6 +149,16 @@ extension MonthPickerModalViewController: UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if component == 0 {
+            if years[row] == maxYear {
+                months = Array(1...maxMonth)
+            } else if years[row] == minYear {
+                months = Array(minMonth...12)
+            } else {
+                months = Array(1...12)
+            }
+            pickerView.reloadComponent(1)
+        }
         pickerView.reloadComponent(component)
     }
 }

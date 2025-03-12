@@ -39,8 +39,8 @@ extension DiaryViewModel {
     func fetchMinimumDate() {
         //임시(서버에서 불러와서 설정할 예정)
         var dateComponents = DateComponents()
-        dateComponents.year = 2024
-        dateComponents.month = 11
+        dateComponents.year = 2022
+        dateComponents.month = 2
         
         MyDiaryManager.shared.minimumDate = calendar.date(from: dateComponents) ?? Date()
     }
