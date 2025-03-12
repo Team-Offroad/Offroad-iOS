@@ -22,7 +22,7 @@ final class DiaryView: UIView {
     private let titleImageView = UIImageView(frame: CGRect(origin: .init(), size: CGSize(width: 24, height: 24)))
     let guideButton = UIButton()
     private let diaryBackgroundView = UIView()
-    let monthButton = UIButton()
+    let monthButton = ShrinkableButton()
     let leftArrowButton = UIButton()
     let rightArrowButton = UIButton()
     private let arrowButtonStackView = UIStackView()
