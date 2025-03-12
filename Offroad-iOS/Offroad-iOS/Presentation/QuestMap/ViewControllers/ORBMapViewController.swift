@@ -193,7 +193,7 @@ extension ORBMapViewController {
             }
             self.view.stopLoading()
             if locationValidation && isFirstVisitToday {
-                AmplitudeManager.shared.amplitude.track(eventType: "explore_success")
+                AmplitudeManager.shared.trackEvent(withName: AmplitudeEventTitles.exploreSuccess)
                 self.hideTooltipFromMap()
             }
             self.popupAdventureResult(isValidLocation: locationValidation,
@@ -396,7 +396,10 @@ extension ORBMapViewController {
             type: .normal
         )
         questCompleteAlertController.xButton.isHidden = true
-        let action = ORBAlertAction(title: "확인", style: .default) { _ in return }
+        let action = ORBAlertAction(title: "확인", style: .default) { _ in
+            AmplitudeManager.shared.trackEvent(withName: AmplitudeEventTitles.questSuccess)
+            return
+        }
         questCompleteAlertController.addAction(action)
         present(questCompleteAlertController, animated: true)
     }

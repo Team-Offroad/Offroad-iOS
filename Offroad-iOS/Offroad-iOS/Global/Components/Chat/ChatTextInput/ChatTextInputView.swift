@@ -145,6 +145,7 @@ private extension ChatTextInputView {
             self.userChatInputView.text = ""
             self.isSendingAllowed = false
             self.sendButton.isEnabled = false
+            AmplitudeManager.shared.trackEvent(withName: AmplitudeEventTitles.chatMessageSent)
             sendingTextRelay.accept(currentText)
         }).disposed(by: disposeBag)
     }

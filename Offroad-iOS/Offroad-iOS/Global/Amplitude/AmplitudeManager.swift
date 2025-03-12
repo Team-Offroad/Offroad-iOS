@@ -10,7 +10,8 @@ import Foundation
 import AmplitudeSwift
 
 /// Amplitude 객체를 보관하는 싱글톤 객체.
-class AmplitudeManager {
+/// 이벤트를 트래킹하는 간단한 동작들 구현
+public class AmplitudeManager {
     
     static var shared = AmplitudeManager()
     
@@ -28,4 +29,15 @@ class AmplitudeManager {
             )
         )
     }
+}
+
+public extension AmplitudeManager {
+    
+    /// 간단한 텍스트만을 이용한 이벤트 추적
+    /// - Parameters:
+    ///   - eventName: 이벤트 이름.
+    func trackEvent(withName eventName: String) {
+        amplitude.track(eventType: eventName)
+    }
+    
 }
