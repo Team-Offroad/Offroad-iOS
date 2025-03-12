@@ -48,25 +48,15 @@ extension DiaryViewModel {
     }
     
     func canMoveMonth(_ target: Month) -> Bool {
-        let currentComponents = calendar.dateComponents([.year, .month], from: currentPage)
-        let minimumComponents = calendar.dateComponents([.year, .month], from: MyDiaryManager.shared.minimumDate)
-        let maximumComponents = calendar.dateComponents([.year, .month], from: MyDiaryManager.shared.maximumDate)
+        let (currentYear, currentMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .custom, targetDate: currentPage)
+        let (minYear, minMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .minimum)
+        let (maxYear, maxMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .maximum)
         
-        if let currentYear = currentComponents.year,
-           let currentMonth = currentComponents.month,
-           let minYear = minimumComponents.year,
-           let minMonth = minimumComponents.month,
-           let maxYear = maximumComponents.year,
-           let maxMonth = maximumComponents.month {
-            
-            switch target {
-            case .previous:
-                return (currentYear > minYear) || (currentYear == minYear && currentMonth > minMonth)
-            case .next:
-                return (currentYear < maxYear) || (currentYear == maxYear && currentMonth < maxMonth)
-            }
-        } else {
-            return false
+        switch target {
+        case .previous:
+            return (currentYear > minYear) || (currentYear == minYear && currentMonth > minMonth)
+        case .next:
+            return (currentYear < maxYear) || (currentYear == maxYear && currentMonth < maxMonth)
         }
     }
 }

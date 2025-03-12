@@ -182,10 +182,11 @@ extension DiaryViewController: FSCalendarDelegateAppearance {
 
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         let currentPageDate = calendar.currentPage
-        let calendar = Calendar.current
         viewModel.currentPage = currentPageDate
+        
+        let (currentYear, currentMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .custom, targetDate: currentPageDate)
 
-        rootView.monthButton.setTitle("\(calendar.component(.year, from: currentPageDate))년 \(calendar.component(.month, from: currentPageDate))월", for: .normal)
+        rootView.monthButton.setTitle("\(currentYear)년 \(currentMonth)월", for: .normal)
         rootView.leftArrowButton.alpha = viewModel.canMoveMonth(.previous) ? 1 : 0
         rootView.rightArrowButton.alpha = viewModel.canMoveMonth(.next) ? 1 : 0
         rootView.diaryCalender.reloadData()
