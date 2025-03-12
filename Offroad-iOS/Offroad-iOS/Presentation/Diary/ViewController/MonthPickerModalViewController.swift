@@ -15,13 +15,10 @@ final class MonthPickerModalViewController: UIViewController {
     
     private let rootView = MonthPickerModalView()
     
-    private let currentYear = 2025
-    private let currentMonth = 3
+    private let (minYear, minMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .minimum)
+    private let (maxYear, maxMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .maximum)
     
-    private let minimumYear = 2024
-    private let minimumMonth = 11
-    
-    private lazy var years = Array(minimumYear...currentYear)
+    private lazy var years = Array(minYear...maxYear)
     private let months = Array(1...12)
     
     // MARK: - Life Cycle
@@ -35,6 +32,7 @@ final class MonthPickerModalViewController: UIViewController {
         
         setupDelegate()
         setupTarget()
+        setInitialSelectedRow()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,13 +59,18 @@ private extension MonthPickerModalViewController {
     func setupTarget() {
         rootView.completeButton.addTarget(self, action: #selector(completeTapped), for: .touchUpInside)
     }
-}
-
-extension MonthPickerModalViewController {
     
-    // MARK: - Func
-    
-    func setupCustomBackButton(buttonTitle: String) {
+    func setInitialSelectedRow() {
+        let (currentYear, currentMonth) =        MyDiaryManager.shared.fetchYearMonthValue(dateType: .current)
+        
+        let selectedYearRow = years.firstIndex(of: currentYear)!
+        let selectedMonthRow = months.firstIndex(of: currentMonth)!
+        
+        DispatchQueue.main.async {
+            self.rootView.monthPickerView.selectRow(selectedYearRow, inComponent: 0, animated: false)
+            self.rootView.monthPickerView.selectRow(selectedMonthRow, inComponent: 1, animated: false)
+            self.rootView.monthPickerView.reloadAllComponents()
+        }
     }
 }
     

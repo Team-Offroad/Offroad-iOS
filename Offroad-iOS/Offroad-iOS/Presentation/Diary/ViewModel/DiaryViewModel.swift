@@ -18,8 +18,6 @@ final class DiaryViewModel {
     
     private let calendar = Calendar.current
     private let dummyDatesAndColor = ["2024-12-11": ["70DAFFB2", "FFDC14B2"], "2024-12-22": ["FF69E1B2", "FFB73BB2"], "2024-12-29": ["FF69E1B2", "5580FFB2"], "2025-03-07": ["70DAFFB2", "FFDC14B2"], "2025-03-08": ["FF69E1B2", "FFB73BB2"], "2025-03-10": ["FF69E1B2", "5580FFB2"]]
-    
-    var currentPage = Date()
 }
 
 extension DiaryViewModel {
@@ -48,7 +46,7 @@ extension DiaryViewModel {
     }
     
     func canMoveMonth(_ target: Month) -> Bool {
-        let (currentYear, currentMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .custom, targetDate: currentPage)
+        let (currentYear, currentMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .current)
         let (minYear, minMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .minimum)
         let (maxYear, maxMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .maximum)
         

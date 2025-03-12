@@ -13,7 +13,7 @@ import RxRelay
 enum DateType {
     case minimum
     case maximum
-    case custom
+    case current
 }
 
 final class MyDiaryManager {
@@ -25,6 +25,7 @@ final class MyDiaryManager {
     var disposeBag = DisposeBag()
     var minimumDate = Date()
     var maximumDate = Date()
+    var currentDate = Date()
 
     let updateCalenderCurrentPage = PublishRelay<Date>()
     
@@ -37,7 +38,7 @@ extension MyDiaryManager {
     
     //MARK: - Func
     
-    func fetchYearMonthValue(dateType: DateType, targetDate: Date? = nil) -> (year: Int, month: Int) {
+    func fetchYearMonthValue(dateType: DateType) -> (year: Int, month: Int) {
         let calendar = Calendar.current
 
         switch dateType {
@@ -45,12 +46,8 @@ extension MyDiaryManager {
             return (calendar.component(.year, from: minimumDate), calendar.component(.month, from: minimumDate))
         case .maximum:
             return (calendar.component(.year, from: maximumDate), calendar.component(.month, from: maximumDate))
-        case .custom:
-            if let targetDate {
-                return (calendar.component(.year, from: targetDate), calendar.component(.month, from: targetDate))
-            } else {
-                return (Int(), Int())
-            }
+        case .current:
+            return (calendar.component(.year, from: currentDate), calendar.component(.month, from: currentDate))
         }
     }
 }

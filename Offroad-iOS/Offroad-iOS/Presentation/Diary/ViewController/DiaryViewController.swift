@@ -87,8 +87,7 @@ private extension DiaryViewController {
     func bindData() {
         MyDiaryManager.shared.updateCalenderCurrentPage
             .bind { date in
-                self.viewModel.currentPage = date
-                self.rootView.diaryCalender.setCurrentPage(self.viewModel.currentPage, animated: true)
+                self.rootView.diaryCalender.setCurrentPage(date, animated: true)
             }
             .disposed(by: disposeBag)
     }
@@ -148,8 +147,8 @@ private extension DiaryViewController {
         var dateComponents = DateComponents()
         dateComponents.month = sender == rootView.rightArrowButton ? 1 : -1
         
-        viewModel.currentPage = Calendar.current.date(byAdding: dateComponents, to: viewModel.currentPage)!
-        rootView.diaryCalender.setCurrentPage(viewModel.currentPage, animated: true)
+        MyDiaryManager.shared.currentDate = Calendar.current.date(byAdding: dateComponents, to: MyDiaryManager.shared.currentDate)!
+        rootView.diaryCalender.setCurrentPage(MyDiaryManager.shared.currentDate, animated: true)
     }
 }
 
@@ -182,9 +181,9 @@ extension DiaryViewController: FSCalendarDelegateAppearance {
 
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         let currentPageDate = calendar.currentPage
-        viewModel.currentPage = currentPageDate
+        MyDiaryManager.shared.currentDate = currentPageDate
         
-        let (currentYear, currentMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .custom, targetDate: currentPageDate)
+        let (currentYear, currentMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .current)
 
         rootView.monthButton.setTitle("\(currentYear)년 \(currentMonth)월", for: .normal)
         rootView.leftArrowButton.alpha = viewModel.canMoveMonth(.previous) ? 1 : 0
