@@ -19,6 +19,9 @@ final class MonthPickerModalViewController: UIViewController {
     private let (maxYear, maxMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .maximum)
     private let (currentYear, currentMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .current)
     
+    private lazy var selectedYear = currentYear
+    private lazy var selectedMonth = currentMonth
+
     private lazy var years = Array(minYear...maxYear)
     private lazy var months: [Int] = {
         if currentYear == maxYear {
@@ -41,7 +44,7 @@ final class MonthPickerModalViewController: UIViewController {
         
         setupDelegate()
         setupTarget()
-        setInitialSelectedRow()
+        setupPickerView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,9 +72,12 @@ private extension MonthPickerModalViewController {
         rootView.completeButton.addTarget(self, action: #selector(completeTapped), for: .touchUpInside)
     }
     
-    func setInitialSelectedRow() {        
+    func setupPickerView() {
         let selectedYearRow = years.firstIndex(of: currentYear)!
         let selectedMonthRow = months.firstIndex(of: currentMonth)!
+        
+        selectedYear = years[selectedYearRow]
+        selectedMonth = months[selectedMonthRow]
         
         DispatchQueue.main.async {
             self.rootView.monthPickerView.selectRow(selectedYearRow, inComponent: 0, animated: false)
@@ -87,8 +93,8 @@ private extension MonthPickerModalViewController {
     
     func completeTapped() {
         var dateComponents = DateComponents()
-        dateComponents.year = years[rootView.monthPickerView.selectedRow(inComponent: 0)]
-        dateComponents.month = months[rootView.monthPickerView.selectedRow(inComponent: 1)]
+        dateComponents.year = selectedYear
+        dateComponents.month = selectedMonth
         
         let selectedDate = Calendar.current.date(from: dateComponents)!
         MyDiaryManager.shared.updateCalenderCurrentPage.accept(selectedDate)
@@ -149,15 +155,26 @@ extension MonthPickerModalViewController: UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+
         if component == 0 {
+            selectedYear = years[row]
+
             if years[row] == maxYear {
                 months = Array(1...maxMonth)
+                pickerView.reloadComponent(1)
+                pickerView.selectRow(months.firstIndex(of: selectedMonth) ?? maxMonth - 1, inComponent: 1, animated: false)
             } else if years[row] == minYear {
                 months = Array(minMonth...12)
+                pickerView.reloadComponent(1)
+                pickerView.selectRow(months.firstIndex(of: selectedMonth) ?? 0, inComponent: 1, animated: false)
             } else {
                 months = Array(1...12)
+                pickerView.reloadComponent(1)
+                pickerView.selectRow(months.firstIndex(of: selectedMonth) ?? 0, inComponent: 1, animated: false)
             }
-            pickerView.reloadComponent(1)
+            selectedMonth = months[pickerView.selectedRow(inComponent: 1)]
+        } else {
+            selectedMonth = months[row]
         }
         pickerView.reloadComponent(component)
     }
