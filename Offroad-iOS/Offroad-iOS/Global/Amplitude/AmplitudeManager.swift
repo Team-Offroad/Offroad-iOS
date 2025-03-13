@@ -13,11 +13,17 @@ import AmplitudeSwift
 /// 이벤트를 트래킹하는 간단한 동작들 구현
 public class AmplitudeManager {
     
+    //MARK: - Type Properties
+    
     static var shared = AmplitudeManager()
     
-    /// 세션이 자동으로 종료되기 위해 기다릴 시간. millisecond 단위이며, 10분으로 설정
+    //MARK: - Properties
+    
+    /// background에서 다음 시간 동안 아무런 앰플리튜드 이벤트가 발생하지 않을 경우 세션 종료. millisecond 단위이며, 10분으로 설정
     private let minTimeBetweenSessionsMillis: Int = 1000 * 60 * 10
     private(set) var amplitude: Amplitude
+    
+    // MARK: - Life Cycle
     
     private init() {
         let amplitudeAPIKey = Bundle.main.infoDictionary?["AMPLITUDE_API_KEY"] as? String
@@ -29,11 +35,12 @@ public class AmplitudeManager {
             )
         )
     }
+    
 }
 
 public extension AmplitudeManager {
     
-    /// 간단한 텍스트만을 이용한 이벤트 추적
+    /// 간단한 텍스트만을 이용한 이벤트 기록
     /// - Parameters:
     ///   - eventName: 이벤트 이름.
     func trackEvent(withName eventName: String) {
