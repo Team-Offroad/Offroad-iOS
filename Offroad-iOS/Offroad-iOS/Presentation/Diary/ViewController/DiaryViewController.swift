@@ -87,7 +87,7 @@ private extension DiaryViewController {
     func bindData() {
         MyDiaryManager.shared.updateCalenderCurrentPage
             .bind { date in
-                self.rootView.diaryCalender.setCurrentPage(date, animated: true)
+                self.rootView.diaryCalender.setCurrentPage(date, animated: false)
             }
             .disposed(by: disposeBag)
     }
@@ -188,7 +188,6 @@ extension DiaryViewController: FSCalendarDelegateAppearance {
         rootView.monthButton.setTitle("\(currentYear)년 \(currentMonth)월", for: .normal)
         rootView.leftArrowButton.alpha = viewModel.canMoveMonth(.previous) ? 1 : 0
         rootView.rightArrowButton.alpha = viewModel.canMoveMonth(.next) ? 1 : 0
-        rootView.diaryCalender.reloadData()
     }
 }
 
