@@ -47,13 +47,6 @@ final class MonthPickerModalViewController: UIViewController {
         setupPickerView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
-        offroadTabBarController.hideTabBarAnimation()
-    }
-    
     override func viewWillLayoutSubviews() {
         rootView.monthPickerView.subviews[1].isHidden = true
     }
