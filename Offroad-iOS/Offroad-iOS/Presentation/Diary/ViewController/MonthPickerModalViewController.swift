@@ -82,7 +82,6 @@ private extension MonthPickerModalViewController {
         DispatchQueue.main.async {
             self.rootView.monthPickerView.selectRow(selectedYearRow, inComponent: 0, animated: false)
             self.rootView.monthPickerView.selectRow(selectedMonthRow, inComponent: 1, animated: false)
-            self.rootView.monthPickerView.reloadAllComponents()
         }
     }
 }
@@ -126,21 +125,25 @@ extension MonthPickerModalViewController: UIPickerViewDelegate {
         
         let label = UILabel()
         label.textAlignment = .left
-
-        let selectedRow = pickerView.selectedRow(inComponent: component)
-                
-        if row == selectedRow {
-            label.font = .offroad(style: .iosTextTitle)
-            label.textColor = .main(.main2)
-        } else {
-            label.font = UIFont.pretendardFont(ofSize: 22, weight: .regular)
-            label.textColor = .grayscale(.gray300)
-        }
         
         if component == 0  {
             label.text = "\(years[row])년"
+            if years[row] == selectedYear {
+                label.font = .offroad(style: .iosTextTitle)
+                label.textColor = .main(.main2)
+            } else {
+                label.font = UIFont.pretendardFont(ofSize: 22, weight: .regular)
+                label.textColor = .grayscale(.gray300)
+            }
         } else {
             label.text = "\(months[row])월"
+            if months[row] == selectedMonth {
+                label.font = .offroad(style: .iosTextTitle)
+                label.textColor = .main(.main2)
+            } else {
+                label.font = UIFont.pretendardFont(ofSize: 22, weight: .regular)
+                label.textColor = .grayscale(.gray300)
+            }
         }
         
         return label
