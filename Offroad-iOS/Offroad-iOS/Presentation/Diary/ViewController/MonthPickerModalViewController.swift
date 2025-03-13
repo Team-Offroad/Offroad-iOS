@@ -173,9 +173,10 @@ extension MonthPickerModalViewController: UIPickerViewDelegate {
                 pickerView.selectRow(months.firstIndex(of: selectedMonth) ?? 0, inComponent: 1, animated: false)
             }
             selectedMonth = months[pickerView.selectedRow(inComponent: 1)]
+            pickerView.reloadAllComponents()
         } else {
             selectedMonth = months[row]
+            pickerView.reloadComponent(component)
         }
-        pickerView.reloadComponent(component)
     }
 }
