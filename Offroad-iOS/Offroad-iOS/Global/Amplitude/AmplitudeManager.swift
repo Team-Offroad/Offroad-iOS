@@ -21,7 +21,7 @@ public class AmplitudeManager {
     
     /// background에서 다음 시간 동안 아무런 앰플리튜드 이벤트가 발생하지 않을 경우 세션 종료. millisecond 단위이며, 10분으로 설정
     private let minTimeBetweenSessionsMillis: Int = 1000 * 60 * 10
-    private(set) var amplitude: Amplitude
+    private var amplitude: Amplitude
     
     // MARK: - Life Cycle
     
