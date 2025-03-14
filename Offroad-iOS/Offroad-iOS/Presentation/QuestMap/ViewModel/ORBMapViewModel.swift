@@ -25,11 +25,11 @@ final class ORBMapViewModel: SVGFetchable {
     private var searchedPlaceArray: [RegisteredPlaceInfo] = []
     private var isFocused: Bool = false
     
-    let isLocationAuthorized = PublishSubject<Bool>()
+    let isLocationAuthorized = PublishRelay<Bool>()
     let isFirstVisitToday = PublishRelay<Bool>()
-    let successCharacterImageUrl = PublishSubject<String>()
+    let successCharacterImageUrl = PublishRelay<String>()
     let successCharacterImage = PublishSubject<UIImage?>()
-    let completeQuestList = PublishSubject<[CompleteQuest]?>()
+    let completeQuestList = PublishRelay<[CompleteQuest]?>()
     let adventureResultSubject = PublishSubject<AdventuresPlaceAuthenticationResultData>()
     
     let startLoading = PublishRelay<Void>()
@@ -156,9 +156,9 @@ extension ORBMapViewModel {
                 switch result {
                 case .success(let data):
                     guard let data else { return }
-                    self.isLocationAuthorized.onNext(data.data.isValidPosition)
-                    self.successCharacterImageUrl.onNext(data.data.successCharacterImageUrl)
-                    self.completeQuestList.onNext(data.data.completeQuestList)
+                    self.isLocationAuthorized.accept(data.data.isValidPosition)
+                    self.successCharacterImageUrl.accept(data.data.successCharacterImageUrl)
+                    self.completeQuestList.accept(data.data.completeQuestList)
                     self.isFirstVisitToday.accept(data.data.isFirstVisitToday)
                 default:
                     self.networkFailureSubject.onNext(())
