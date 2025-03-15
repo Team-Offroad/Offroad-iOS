@@ -417,6 +417,7 @@
 		4EE0498B2CA10DFC00754488 /* CouponAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0498A2CA10DFC00754488 /* CouponAPI.swift */; };
 		4EE0498D2CA10E2A00754488 /* CouponService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0498C2CA10E2A00754488 /* CouponService.swift */; };
 		4EE049912CA14E6500754488 /* CouponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE049902CA14E6500754488 /* CouponCell.swift */; };
+		4EE6B5242D85703700AEFCD4 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */; };
 		4EEA82FC2CE3907C0062F0DE /* CharacterChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA82FB2CE3907C0062F0DE /* CharacterChatLogView.swift */; };
 		4EEA82FE2CE3908C0062F0DE /* CharacterChatLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
@@ -3435,6 +3436,7 @@
 				87738CD02C8DC15200E107C7 /* UIColor+.swift in Sources */,
 				D0E795FC2C447511005B47A5 /* AppleAuthManager.swift in Sources */,
 				D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */,
+				4EE6B5242D85703700AEFCD4 /* AmplitudeManager.swift in Sources */,
 				D00A48892C763D24008B286A /* NavigationPopButton.swift in Sources */,
 				D0E7965F2C45518B005B47A5 /* EmblemInfoResponseDTO.swift in Sources */,
 				4E99007C2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift in Sources */,
