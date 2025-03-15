@@ -178,10 +178,10 @@ extension ORBMapViewController {
             }).disposed(by: disposeBag)
         
         Observable.zip(
-            viewModel.isLocationAuthorized,
-            viewModel.successCharacterImage,
-            viewModel.completeQuestList,
-            viewModel.isFirstVisitToday
+            viewModel.isLocationAuthorized.asObservable(),
+            viewModel.successCharacterImage.asObservable(),
+            viewModel.completeQuestList.asObservable(),
+            viewModel.isFirstVisitToday.asObservable()
         )
         .observe(on: MainScheduler.instance)
         .subscribe(onNext: { [weak self] locationValidation, image, completeQuests, isFirstVisitToday in
@@ -192,7 +192,10 @@ extension ORBMapViewController {
                 MyInfoManager.shared.didSuccessAdventure.accept(())
             }
             self.view.stopLoading()
-            if locationValidation && isFirstVisitToday { self.hideTooltipFromMap() }
+            if locationValidation && isFirstVisitToday {
+                AmplitudeManager.shared.trackEvent(withName: AmplitudeEventTitles.exploreSuccess)
+                self.hideTooltipFromMap()
+            }
             self.popupAdventureResult(isValidLocation: locationValidation,
                                       image: image,
                                       completeQuests: completeQuests,
@@ -393,7 +396,10 @@ extension ORBMapViewController {
             type: .normal
         )
         questCompleteAlertController.xButton.isHidden = true
-        let action = ORBAlertAction(title: "확인", style: .default) { _ in return }
+        let action = ORBAlertAction(title: "확인", style: .default) { _ in
+            AmplitudeManager.shared.trackEvent(withName: AmplitudeEventTitles.questSuccess)
+            return
+        }
         questCompleteAlertController.addAction(action)
         present(questCompleteAlertController, animated: true)
     }

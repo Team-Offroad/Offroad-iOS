@@ -369,6 +369,8 @@
 		4E99008B2CE0CB61007EEFF7 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */; };
 		4EA272322D5793BA00F64B20 /* ChatTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272312D5793BA00F64B20 /* ChatTextInputView.swift */; };
 		4EA272332D5793BA00F64B20 /* ChatTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272312D5793BA00F64B20 /* ChatTextInputView.swift */; };
+		4EA272412D5855E700F64B20 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA272402D5855E700F64B20 /* AmplitudeSwift */; };
+		4EA272432D58560B00F64B20 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA272422D58560B00F64B20 /* AmplitudeSwift */; };
 		4EA272552D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272542D58E27300F64B20 /* ChatTextDisplayView.swift */; };
 		4EA272562D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272542D58E27300F64B20 /* ChatTextDisplayView.swift */; };
 		4EA5F4EE2D4C96BD00A59AB1 /* LogPrinterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4EC2D4C96BD00A59AB1 /* LogPrinterManager.swift */; };
@@ -394,6 +396,7 @@
 		4EC6F0A62CF4747400895A87 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */; };
 		4ECCC95E2CC80088002B9C4F /* ORBToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */; };
 		4ECEEA6E2CB2C15E0029369A /* ORBTabBarShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */; };
+		4ED6BE3D2D7B3C000020C871 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */; };
 		4EDB392B2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */; };
 		4EDB392C2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */; };
 		4EDB392E2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392D2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift */; };
@@ -727,6 +730,7 @@
 		4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastView.swift; sourceTree = "<group>"; };
 		4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBTabBarShapeView.swift; sourceTree = "<group>"; };
+		4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeManager.swift; sourceTree = "<group>"; };
 		4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapHelper.swift; sourceTree = "<group>"; };
 		4EDB392D2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTooltipHelper.swift; sourceTree = "<group>"; };
 		4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -943,6 +947,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EA272432D58560B00F64B20 /* AmplitudeSwift in Frameworks */,
 				D0600BD82CE50AE600D8F1D6 /* FirebaseAnalytics in Frameworks */,
 				D063E9852C492D6700434A09 /* SVGKit in Frameworks */,
 				4E0394CE2C2AB762007F0517 /* Kingfisher in Frameworks */,
@@ -981,6 +986,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EA272412D5855E700F64B20 /* AmplitudeSwift in Frameworks */,
 				4E4F32572D4718F400C3B2FF /* FirebaseAnalytics in Frameworks */,
 				4E4F32582D4718F400C3B2FF /* SVGKit in Frameworks */,
 				4E4F32592D4718F400C3B2FF /* Kingfisher in Frameworks */,
@@ -1080,6 +1086,7 @@
 		4E0394602C2AA0C1007F0517 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				4ED6BE3A2D7B3BDF0020C871 /* Amplitude */,
 				4E6659362CEB96D60024ABEE /* MyInfoManager */,
 				4EFD00512CCBD5F7005C294D /* NetworkMonitoring */,
 				D018BB0C2C401F5F0048B6DF /* Components */,
@@ -1861,6 +1868,14 @@
 				4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		4ED6BE3A2D7B3BDF0020C871 /* Amplitude */ = {
+			isa = PBXGroup;
+			children = (
+				4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */,
+			);
+			path = Amplitude;
 			sourceTree = "<group>";
 		};
 		4EDC3D372C3126FC006A1493 /* Fonts */ = {
@@ -2965,6 +2980,7 @@
 				4E56F5552C99ACD300EEE677 /* RxRelay */,
 				D0600BD72CE50AE600D8F1D6 /* FirebaseAnalytics */,
 				D0600BD92CE50CF900D8F1D6 /* FirebaseMessaging */,
+				4EA272422D58560B00F64B20 /* AmplitudeSwift */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E0394292C2A9DCE007F0517 /* ORB.app */;
@@ -3039,6 +3055,7 @@
 				4E4F315E2D4718F400C3B2FF /* RxRelay */,
 				4E4F315F2D4718F400C3B2FF /* FirebaseAnalytics */,
 				4E4F31612D4718F400C3B2FF /* FirebaseMessaging */,
+				4EA272402D5855E700F64B20 /* AmplitudeSwift */,
 				D0CA206B2D7DCF5900FDF7F4 /* FSCalendar */,
 			);
 			productName = "Offroad-iOS";
@@ -3113,6 +3130,7 @@
 				D063E9832C492D6700434A09 /* XCRemoteSwiftPackageReference "SVGKit" */,
 				4E56F5522C99ACD300EEE677 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				D0600BD62CE50AE600D8F1D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */,
 				D0CA206A2D7DCF5900FDF7F4 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 4E03942A2C2A9DCE007F0517 /* Products */;
@@ -3810,6 +3828,7 @@
 				4E4F32062D4718F400C3B2FF /* AppDelegate.swift in Sources */,
 				4E4F32072D4718F400C3B2FF /* CharacterService.swift in Sources */,
 				4E4F32082D4718F400C3B2FF /* CouponListViewController.swift in Sources */,
+				4ED6BE3D2D7B3C000020C871 /* AmplitudeManager.swift in Sources */,
 				4E4F32092D4718F400C3B2FF /* CharacterChatPostResponseDTO.swift in Sources */,
 				D09A196F2D70589900B07FC2 /* TimePeriod.swift in Sources */,
 				4E4F320A2D4718F400C3B2FF /* UIImage+.swift in Sources */,
@@ -4583,6 +4602,14 @@
 				minimumVersion = 4.4.3;
 			};
 		};
+		4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/amplitude/Amplitude-Swift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		D0600BD62CE50AE600D8F1D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -4729,6 +4756,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E8B478D2C382A4800D9B8EE /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
+		};
+		4EA272402D5855E700F64B20 /* AmplitudeSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
+			productName = AmplitudeSwift;
+		};
+		4EA272422D58560B00F64B20 /* AmplitudeSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
+			productName = AmplitudeSwift;
 		};
 		D0600BD72CE50AE600D8F1D6 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
