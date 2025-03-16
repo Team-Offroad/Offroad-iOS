@@ -24,7 +24,7 @@ final class MyDiaryManager {
     
     var disposeBag = DisposeBag()
     var minimumDate = Date()
-    var maximumDate = Date()
+    private(set) var maximumDate = Date()
     var currentPageDate = Date()
 
     let updateCalenderCurrentPage = PublishRelay<Date>()
