@@ -132,7 +132,7 @@ private extension DiaryViewController {
             if #available(iOS 16.0, *) {
                 sheet.detents = [
                     .custom { _ in
-                        return 305
+                        return 284
                     }
                 ]
             } else {
