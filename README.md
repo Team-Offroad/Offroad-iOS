@@ -45,7 +45,9 @@
 
 ## 📲 동작 화면
 | 캐릭터 채팅 - 홈 화면 | 캐릭터 채팅 - 채팅 화면 | 탐험 | 쿠폰 사용 |
-| :---: | :---: | :---: |
+| :---: | :---: | :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/4b261ccb-e3bd-45d3-9c3b-38174f0979d6" width=200> |  <img src="https://github.com/user-attachments/assets/223e5ef1-2833-4dc7-ad5c-beff891219c4" width=200> |  |  |
+
 
 
 ## 📌 Project Design
