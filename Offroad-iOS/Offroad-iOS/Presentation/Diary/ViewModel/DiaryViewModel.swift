@@ -16,7 +16,7 @@ final class DiaryViewModel {
     
     // MARK: - Properties
     
-    private let calendar = Calendar.current
+    private let calendar = Calendar(identifier: .gregorian)
     private let dummyDatesAndColor = ["2024-12-11": ["70DAFFB2", "FFDC14B2"], "2024-12-22": ["FF69E1B2", "FFB73BB2"], "2024-12-29": ["FF69E1B2", "5580FFB2"], "2025-03-07": ["70DAFFB2", "FFDC14B2"], "2025-03-08": ["FF69E1B2", "FFB73BB2"], "2025-03-10": ["FF69E1B2", "5580FFB2"]]
 }
 

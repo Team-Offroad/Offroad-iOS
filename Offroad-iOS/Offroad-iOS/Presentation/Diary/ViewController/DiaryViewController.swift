@@ -147,7 +147,7 @@ private extension DiaryViewController {
         var dateComponents = DateComponents()
         dateComponents.month = sender == rootView.rightArrowButton ? 1 : -1
         
-        MyDiaryManager.shared.currentDate = Calendar.current.date(byAdding: dateComponents, to: MyDiaryManager.shared.currentDate)!
+        MyDiaryManager.shared.currentDate = Calendar(identifier: .gregorian).date(byAdding: dateComponents, to: MyDiaryManager.shared.currentDate)!
         rootView.diaryCalender.setCurrentPage(MyDiaryManager.shared.currentDate, animated: true)
     }
 }

@@ -39,7 +39,7 @@ extension MyDiaryManager {
     //MARK: - Func
     
     func fetchYearMonthValue(dateType: DateType) -> (year: Int, month: Int) {
-        let calendar = Calendar.current
+        let calendar = Calendar(identifier: .gregorian)
 
         switch dateType {
         case .minimum:
