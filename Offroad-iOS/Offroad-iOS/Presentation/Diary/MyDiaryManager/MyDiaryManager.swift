@@ -13,7 +13,7 @@ import RxRelay
 enum DateType {
     case minimum
     case maximum
-    case current
+    case currentPage
 }
 
 final class MyDiaryManager {
@@ -25,7 +25,7 @@ final class MyDiaryManager {
     var disposeBag = DisposeBag()
     var minimumDate = Date()
     var maximumDate = Date()
-    var currentDate = Date()
+    var currentPageDate = Date()
 
     let updateCalenderCurrentPage = PublishRelay<Date>()
     
@@ -46,8 +46,8 @@ extension MyDiaryManager {
             return (calendar.component(.year, from: minimumDate), calendar.component(.month, from: minimumDate))
         case .maximum:
             return (calendar.component(.year, from: maximumDate), calendar.component(.month, from: maximumDate))
-        case .current:
-            return (calendar.component(.year, from: currentDate), calendar.component(.month, from: currentDate))
+        case .currentPage:
+            return (calendar.component(.year, from: currentPageDate), calendar.component(.month, from: currentPageDate))
         }
     }
 }

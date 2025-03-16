@@ -46,15 +46,15 @@ extension DiaryViewModel {
     }
     
     func canMoveMonth(_ target: Month) -> Bool {
-        let (currentYear, currentMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .current)
+        let (currentPageYear, currentPageMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .currentPage)
         let (minYear, minMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .minimum)
         let (maxYear, maxMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .maximum)
         
         switch target {
         case .previous:
-            return (currentYear > minYear) || (currentYear == minYear && currentMonth > minMonth)
+            return (currentPageYear > minYear) || (currentPageYear == minYear && currentPageMonth > minMonth)
         case .next:
-            return (currentYear < maxYear) || (currentYear == maxYear && currentMonth < maxMonth)
+            return (currentPageYear < maxYear) || (currentPageYear == maxYear && currentPageMonth < maxMonth)
         }
     }
 }

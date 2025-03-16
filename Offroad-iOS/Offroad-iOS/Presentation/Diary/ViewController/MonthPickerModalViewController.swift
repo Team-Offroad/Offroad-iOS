@@ -17,16 +17,16 @@ final class MonthPickerModalViewController: UIViewController {
     
     private let (minYear, minMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .minimum)
     private let (maxYear, maxMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .maximum)
-    private let (currentYear, currentMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .current)
+    private let (currentPageYear, currentPageMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .currentPage)
     
-    private lazy var selectedYear = currentYear
-    private lazy var selectedMonth = currentMonth
+    private lazy var selectedYear = currentPageYear
+    private lazy var selectedMonth = currentPageMonth
 
     private lazy var years = Array(minYear...maxYear)
     private lazy var months: [Int] = {
-        if currentYear == maxYear {
+        if currentPageYear == maxYear {
             return Array(1...maxMonth)
-        } else if currentYear == minYear {
+        } else if currentPageYear == minYear {
             return Array(minMonth...12)
         } else {
             return Array(1...12)
@@ -66,8 +66,8 @@ private extension MonthPickerModalViewController {
     }
     
     func setupPickerView() {
-        let selectedYearRow = years.firstIndex(of: currentYear)!
-        let selectedMonthRow = months.firstIndex(of: currentMonth)!
+        let selectedYearRow = years.firstIndex(of: currentPageYear)!
+        let selectedMonthRow = months.firstIndex(of: currentPageMonth)!
         
         selectedYear = years[selectedYearRow]
         selectedMonth = months[selectedMonthRow]
