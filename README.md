@@ -129,4 +129,3 @@
 │   │   ├── Title
 ├───├───├── Settings
 ``` 
-![Frame 1261160766](https://github.com/user-attachments/assets/1a26293b-9893-435a-bf39-6d41c7daf4a8)
