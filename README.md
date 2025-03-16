@@ -9,7 +9,7 @@
 
 <div/>
 
-**🌟 34th NOW SOPT APPJAM, 팀 '비포장도로' iOS Repository입니다 🌟**
+**🌟 34th NOW SOPT APPJAM, 팀 '오브' iOS Repository입니다 🌟**
 
 <br/>
 
@@ -41,21 +41,25 @@
 <br/>
 
 ## 🍎앱스토어 출시
-[앱스토어 링크(1.6.0)](https://apps.apple.com/kr/app/%EC%98%A4%EB%B8%8C-%EB%82%98%EB%A7%8C%EC%9D%98-ai-%EC%B9%9C%EA%B5%AC%EC%99%80-%EB%96%A0%EB%82%98%EB%8A%94-%EC%9D%BC%EC%83%81-%ED%83%90%ED%97%98/id6541756824)
+[앱스토어 링크](https://apps.apple.com/kr/app/%EC%98%A4%EB%B8%8C-%EB%82%98%EB%A7%8C%EC%9D%98-ai-%EC%B9%9C%EA%B5%AC%EC%99%80-%EB%96%A0%EB%82%98%EB%8A%94-%EC%9D%BC%EC%83%81-%ED%83%90%ED%97%98/id6541756824)
+
+## 📲 동작 화면
+| 캐릭터 채팅 | 탐험 | 쿠폰 사용 |
+| :---: | :---: | :---: |
 
 
 ## 📌 Project Design
-[🚧 비포장도로 아요의 프로젝트 설계 ⚒️](https://www.figma.com/board/aWwBlShO7oJEij835d9Vnx/%EC%98%A4%ED%91%B8-%EC%95%84%EC%9A%94-2%EC%B0%A8-%EA%B3%BC%EC%A0%9C-%EC%8A%A4%EA%BB%84..?node-id=0-1&t=Xgutg0NonZYH9TgK-1)
+[🚧 오브 아요의 프로젝트 설계 ⚒️](https://www.figma.com/board/aWwBlShO7oJEij835d9Vnx/%EC%98%A4%ED%91%B8-%EC%95%84%EC%9A%94-2%EC%B0%A8-%EA%B3%BC%EC%A0%9C-%EC%8A%A4%EA%BB%84..?node-id=0-1&t=Xgutg0NonZYH9TgK-1)
 
 <br/>
 
 ## 📌 Coding Convention
-[🚧 비포장도로 아요의 코딩컨벤션 🧑🏻‍🏫](https://tan-antlion-a47.notion.site/Coding-Convention-020f744cfa9648f78e25d00e3c5aa90f?pvs=4)
+[🚧 오브 아요의 코딩컨벤션 🧑🏻‍🏫](https://tan-antlion-a47.notion.site/Coding-Convention-020f744cfa9648f78e25d00e3c5aa90f?pvs=4)
 
 <br/>
 
 ## 📌 Git Flow
-[🚧 비포장도로 아요의 깃 플로우 전략 😎](https://tan-antlion-a47.notion.site/Git-Flow-042edd696aa54793ba218b1bc0d5dfaf?pvs=4)
+[🚧 오브 아요의 깃 플로우 전략 😎](https://tan-antlion-a47.notion.site/Git-Flow-042edd696aa54793ba218b1bc0d5dfaf?pvs=4)
 
 <br/>
 
