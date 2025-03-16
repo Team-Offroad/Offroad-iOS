@@ -8,6 +8,7 @@
 import UIKit
 
 import FSCalendar
+import RxSwift
 
 final class DiaryViewController: UIViewController {
     
@@ -15,7 +16,8 @@ final class DiaryViewController: UIViewController {
     
     private let rootView = DiaryView()
     private let viewModel = DiaryViewModel()
-    
+    var disposeBag = DisposeBag()
+
     private var isGuideConfirmed = false {
         didSet {
             if isGuideConfirmed {
@@ -35,6 +37,7 @@ final class DiaryViewController: UIViewController {
         
         setupDelegate()
         setupTarget()
+        bindData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,8 +79,17 @@ private extension DiaryViewController {
     func setupTarget() {
         rootView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         rootView.guideButton.addTarget(self, action: #selector(guideButtonTapped), for: .touchUpInside)
+        rootView.monthButton.addTarget(self, action: #selector(monthButtonTapped), for: .touchUpInside)
         rootView.leftArrowButton.addTarget(self, action: #selector(moveMonthButtonTapped(_:)), for: .touchUpInside)
         rootView.rightArrowButton.addTarget(self, action: #selector(moveMonthButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    func bindData() {
+        MyDiaryManager.shared.updateCalenderCurrentPage
+            .bind { date in
+                self.rootView.diaryCalender.setCurrentPage(date, animated: false)
+            }
+            .disposed(by: disposeBag)
     }
     
     func showSettingDiaryTimeAlert() {
@@ -114,12 +126,29 @@ private extension DiaryViewController {
         present(diaryGuideViewController, animated: false)
     }
     
+    func monthButtonTapped() {
+        let monthPickerModalViewController = MonthPickerModalViewController()
+        if let sheet = monthPickerModalViewController.sheetPresentationController {
+            if #available(iOS 16.0, *) {
+                sheet.detents = [
+                    .custom { _ in
+                        return 284
+                    }
+                ]
+            } else {
+                sheet.detents = [.medium()]
+            }
+            sheet.prefersGrabberVisible = false
+        }
+        present(monthPickerModalViewController, animated: true)
+    }
+    
     func moveMonthButtonTapped(_ sender: UIButton) {
         var dateComponents = DateComponents()
         dateComponents.month = sender == rootView.rightArrowButton ? 1 : -1
         
-        viewModel.currentPage = Calendar.current.date(byAdding: dateComponents, to: viewModel.currentPage)!
-        rootView.diaryCalender.setCurrentPage(viewModel.currentPage, animated: true)
+        MyDiaryManager.shared.currentPageDate = Calendar(identifier: .gregorian).date(byAdding: dateComponents, to: MyDiaryManager.shared.currentPageDate)!
+        rootView.diaryCalender.setCurrentPage(MyDiaryManager.shared.currentPageDate, animated: true)
     }
 }
 
@@ -152,13 +181,13 @@ extension DiaryViewController: FSCalendarDelegateAppearance {
 
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         let currentPageDate = calendar.currentPage
-        let calendar = Calendar.current
-        viewModel.currentPage = currentPageDate
+        MyDiaryManager.shared.currentPageDate = currentPageDate
+        
+        let (currentPageYear, currentPageMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .currentPage)
 
-        rootView.monthButton.setTitle("\(calendar.component(.year, from: currentPageDate))년 \(calendar.component(.month, from: currentPageDate))월", for: .normal)
+        rootView.monthButton.setTitle("\(currentPageYear)년 \(currentPageMonth)월", for: .normal)
         rootView.leftArrowButton.alpha = viewModel.canMoveMonth(.previous) ? 1 : 0
         rootView.rightArrowButton.alpha = viewModel.canMoveMonth(.next) ? 1 : 0
-        rootView.diaryCalender.reloadData()
     }
 }
 
@@ -176,11 +205,12 @@ extension DiaryViewController: FSCalendarDataSource {
     }
     
     func minimumDate(for calender: FSCalendar) -> Date {
-        return viewModel.fetchMinumumDate()
+        viewModel.fetchMinimumDate()
+        return MyDiaryManager.shared.minimumDate
     }
     
     func maximumDate(for calendar: FSCalendar) -> Date {
-        return viewModel.fetchMaximumDate()
+        return MyDiaryManager.shared.maximumDate
     }
 }
 
