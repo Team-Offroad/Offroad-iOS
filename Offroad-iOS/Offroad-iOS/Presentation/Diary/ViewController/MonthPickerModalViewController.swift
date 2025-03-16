@@ -88,8 +88,9 @@ private extension MonthPickerModalViewController {
         dateComponents.year = selectedYear
         dateComponents.month = selectedMonth
         
-        let selectedDate = Calendar(identifier: .gregorian).date(from: dateComponents)!
-        MyDiaryManager.shared.updateCalenderCurrentPage.accept(selectedDate)
+        if let selectedDate = Calendar(identifier: .gregorian).date(from: dateComponents) {
+            MyDiaryManager.shared.updateCalenderCurrentPage.accept(selectedDate)
+        }
         
         dismiss(animated: true)
     }
