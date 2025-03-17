@@ -37,17 +37,15 @@
 | <img src="https://img.shields.io/badge/7.12.0-blue?label=Kingfisher"> | 이미지 데이터 처리를 위해 사용 |
 | <img src="https://img.shields.io/badge/2.22.3-yellow?label=KakaoOpenSDK"> | 카카오 소셜 로그인을 위해 사용 |
 
-
 <br/>
 
 ## 🍎앱스토어 출시
 [앱스토어 링크](https://apps.apple.com/kr/app/%EC%98%A4%EB%B8%8C-%EB%82%98%EB%A7%8C%EC%9D%98-ai-%EC%B9%9C%EA%B5%AC%EC%99%80-%EB%96%A0%EB%82%98%EB%8A%94-%EC%9D%BC%EC%83%81-%ED%83%90%ED%97%98/id6541756824)
 
 ## 📲 동작 화면
-| 캐릭터 채팅 - 홈 화면 | 캐릭터 채팅 - 채팅 화면 | 탐험 | 쿠폰 사용 |
-| :---: | :---: | :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/4b261ccb-e3bd-45d3-9c3b-38174f0979d6" width=200> |  <img src="https://github.com/user-attachments/assets/223e5ef1-2833-4dc7-ad5c-beff891219c4" width=200> |  |  |
-
+| 캐릭터 채팅 - 홈 화면 | 캐릭터 채팅 - 채팅 화면 | 탐험 및 퀘스트 클리어 |
+| :---: | :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/a018de02-44d8-45e4-bc28-46888b90b1b4" width=200> |  <img src="https://github.com/user-attachments/assets/223e5ef1-2833-4dc7-ad5c-beff891219c4" width=200> | <img src="https://github.com/user-attachments/assets/6904f290-76ab-4751-a61d-12cf7c4e5df6" width=200> |
 
 
 ## 📌 Project Design
