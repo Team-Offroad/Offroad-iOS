@@ -197,7 +197,7 @@ extension DiaryViewController: FSCalendarDataSource {
         
         if let colors = viewModel.fetchDummyColorsForDate(date) {
             DispatchQueue.main.async {
-                cell.setupGradientBlurView(pointColorCode: colors[0], baseColorCode: colors[1])
+                cell.configureMemoryLightCell(pointColorCode: colors[0], baseColorCode: colors[1])
             }
         }
         

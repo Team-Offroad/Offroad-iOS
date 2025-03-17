@@ -497,6 +497,7 @@
 		D022320E2D76CCF500DA6968 /* DiaryGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */; };
 		D03C835E2C61E44700F3094D /* TokenIntercepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C835D2C61E44700F3094D /* TokenIntercepter.swift */; };
 		D03C83622C620AF100F3094D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C83612C620AF100F3094D /* MyPageView.swift */; };
+		D051FDF82D87C70500CA2485 /* MemoryLightGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDF72D87C6EB00CA2485 /* MemoryLightGradientView.swift */; };
 		D05B70D22D63257800A1E206 /* DiaryTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D02D63257000A1E206 /* DiaryTimeView.swift */; };
 		D05B70D52D63286800A1E206 /* DiaryTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D32D63285F00A1E206 /* DiaryTimeViewController.swift */; };
 		D05C31DC2CDB4441004761A7 /* ShareableImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05C31DB2CDB4440004761A7 /* ShareableImageProvider.swift */; };
@@ -830,6 +831,7 @@
 		D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryGuideViewController.swift; sourceTree = "<group>"; };
 		D03C835D2C61E44700F3094D /* TokenIntercepter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenIntercepter.swift; sourceTree = "<group>"; };
 		D03C83612C620AF100F3094D /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		D051FDF72D87C6EB00CA2485 /* MemoryLightGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightGradientView.swift; sourceTree = "<group>"; };
 		D05B70D02D63257000A1E206 /* DiaryTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTimeView.swift; sourceTree = "<group>"; };
 		D05B70D32D63285F00A1E206 /* DiaryTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTimeViewController.swift; sourceTree = "<group>"; };
 		D05C31DB2CDB4440004761A7 /* ShareableImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareableImageProvider.swift; sourceTree = "<group>"; };
@@ -2266,6 +2268,7 @@
 		D00A488A2C78306C008B286A /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				D051FDF72D87C6EB00CA2485 /* MemoryLightGradientView.swift */,
 				D00A488B2C7830F3008B286A /* TermsConsentPopupView.swift */,
 				4EC4A1EC2D24380700A8C130 /* CustomIntensityBlurView.swift */,
 				4EC15ACC2D2AA3A700BC5826 /* ShrinkableCollectionViewCell.swift */,
@@ -3712,6 +3715,7 @@
 				4E4F319A2D4718F400C3B2FF /* SettingBaseCollectionViewCell.swift in Sources */,
 				4E4F319B2D4718F400C3B2FF /* AppUtility.swift in Sources */,
 				4E4F319C2D4718F400C3B2FF /* LoginViewController.swift in Sources */,
+				D051FDF82D87C70500CA2485 /* MemoryLightGradientView.swift in Sources */,
 				4E4F319D2D4718F400C3B2FF /* CharacterChatPostRequestDTO.swift in Sources */,
 				4E4F319E2D4718F400C3B2FF /* CollectedTitlesViewController.swift in Sources */,
 				4E4F319F2D4718F400C3B2FF /* CouponCollectionViewController.swift in Sources */,
