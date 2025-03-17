@@ -16,13 +16,8 @@ final class DiaryViewModel {
     
     // MARK: - Properties
     
-    private let calendar = Calendar.current
+    private let calendar = Calendar(identifier: .gregorian)
     private let dummyDatesAndColor = ["2024-12-11": ["70DAFFB2", "FFDC14B2"], "2024-12-22": ["FF69E1B2", "FFB73BB2"], "2024-12-29": ["FF69E1B2", "5580FFB2"], "2025-03-07": ["70DAFFB2", "FFDC14B2"], "2025-03-08": ["FF69E1B2", "FFB73BB2"], "2025-03-10": ["FF69E1B2", "5580FFB2"]]
-    
-    private var minimumDate: Date?
-    private let maximumDate = Date()
-    
-    var currentPage = Date()
 }
 
 extension DiaryViewModel {
@@ -41,41 +36,25 @@ extension DiaryViewModel {
         return dummyDatesAndColor[key]
     }
     
-    func fetchMinumumDate() -> Date {
+    func fetchMinimumDate() {
         //임시(서버에서 불러와서 설정할 예정)
         var dateComponents = DateComponents()
-        dateComponents.year = 2024
-        dateComponents.month = 11
+        dateComponents.year = 2022
+        dateComponents.month = 2
         
-        minimumDate = calendar.date(from: dateComponents)
-        
-        return minimumDate ?? Date()
-    }
-    
-    func fetchMaximumDate() -> Date {
-        return maximumDate
+        MyDiaryManager.shared.minimumDate = calendar.date(from: dateComponents) ?? Date()
     }
     
     func canMoveMonth(_ target: Month) -> Bool {
-        let currentComponents = calendar.dateComponents([.year, .month], from: currentPage)
-        let minimumComponents = calendar.dateComponents([.year, .month], from: minimumDate ?? Date())
-        let maximumComponents = calendar.dateComponents([.year, .month], from: maximumDate)
+        let (currentPageYear, currentPageMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .currentPage)
+        let (minYear, minMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .minimum)
+        let (maxYear, maxMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .maximum)
         
-        if let currentYear = currentComponents.year,
-           let currentMonth = currentComponents.month,
-           let minYear = minimumComponents.year,
-           let minMonth = minimumComponents.month,
-           let maxYear = maximumComponents.year,
-           let maxMonth = maximumComponents.month {
-            
-            switch target {
-            case .previous:
-                return (currentYear > minYear) || (currentYear == minYear && currentMonth > minMonth)
-            case .next:
-                return (currentYear < maxYear) || (currentYear == maxYear && currentMonth < maxMonth)
-            }
-        } else {
-            return false
+        switch target {
+        case .previous:
+            return (currentPageYear > minYear) || (currentPageYear == minYear && currentPageMonth > minMonth)
+        case .next:
+            return (currentPageYear < maxYear) || (currentPageYear == maxYear && currentPageMonth < maxMonth)
         }
     }
 }
