@@ -1842,9 +1842,8 @@
 		4EB32BE52C67A229003F98F2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				87C27F682D7FECDB008036FA /* CourseQuest */,
 				4EB32BE82C67A2DD003F98F2 /* QuestListView.swift */,
-				4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */,
+				874014AE2D899E7300E98D00 /* Components */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1852,6 +1851,7 @@
 		4EB32BED2C67B0A8003F98F2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				87C27F722D80008D008036FA /* CourseQuest.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2083,6 +2083,16 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		874014AE2D899E7300E98D00 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				87C27F8C2D80482F008036FA /* IconLabelStackView.swift */,
+				87C27F692D7FED19008036FA /* CourseQuestCollectionViewCell.swift */,
+				4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		8791EDEE2C7E10F700E7F8B9 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -2125,16 +2135,6 @@
 				8792D01F2C3E873C002051AC /* ChoosingCharacterViewController.swift */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		87C27F682D7FECDB008036FA /* CourseQuest */ = {
-			isa = PBXGroup;
-			children = (
-				87C27F8C2D80482F008036FA /* IconLabelStackView.swift */,
-				87C27F722D80008D008036FA /* CourseQuest.swift */,
-				87C27F692D7FED19008036FA /* CourseQuestCollectionViewCell.swift */,
-			);
-			path = CourseQuest;
 			sourceTree = "<group>";
 		};
 		87E0468E2C3CE6D5002D12C2 /* Nickname */ = {
