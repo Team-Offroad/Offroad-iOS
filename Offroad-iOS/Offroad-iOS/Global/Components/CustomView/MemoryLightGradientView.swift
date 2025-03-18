@@ -8,6 +8,10 @@
 import UIKit
 
 final class MemoryLightGradientView: UIView {
+    
+    //MARK: - Properties
+    
+    private var gradientLayer: CAGradientLayer?
         
     // MARK: - Life Cycle
     
@@ -23,6 +27,7 @@ final class MemoryLightGradientView: UIView {
         super.layoutSubviews()
         
         setupStyle()
+        gradientLayer?.frame = bounds
     }
 }
 
@@ -38,7 +43,6 @@ private extension MemoryLightGradientView {
 extension MemoryLightGradientView {
     func setupGradientBlurView(pointColorCode: String, baseColorCode: String) {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = bounds
         gradientLayer.colors = [
             UIColor(hexCode: pointColorCode)?.cgColor ?? UIColor(),
             UIColor(hexCode: baseColorCode)?.cgColor ?? UIColor()
@@ -49,5 +53,6 @@ extension MemoryLightGradientView {
         gradientLayer.locations = [0.0, 1.0]
         
         layer.insertSublayer(gradientLayer, at: 0)
+        self.gradientLayer = gradientLayer
     }
 }
