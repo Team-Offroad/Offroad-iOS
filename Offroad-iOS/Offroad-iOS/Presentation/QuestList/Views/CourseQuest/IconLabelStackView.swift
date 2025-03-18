@@ -14,6 +14,7 @@ class IconLabelStackView: UIStackView {
     
     init(icon: UIImage?, text: String) {
         super.init(frame: .zero)
+        
         setupStackView()
         configure(icon: icon, text: text)
     }

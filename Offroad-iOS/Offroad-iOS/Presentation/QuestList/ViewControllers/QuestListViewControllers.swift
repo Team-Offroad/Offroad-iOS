@@ -67,37 +67,37 @@ class QuestListViewController: UIViewController {
 #if DevTarget
     private func loadDummyCourseQuests() {
         courseQuests = [
-                    CourseQuest(
-                        title: "코스 퀘스트 1",
-                        progress: "1/5",
-                        description: "첫 번째 코스 퀘스트",
-                        quests: [
-                            QuestDetail(locationName: "장소 A", mission: "미션 1"),
-                            QuestDetail(locationName: "장소 B", mission: "미션 2"),
-                            QuestDetail(locationName: "장소 B", mission: "미션 2"),
-                            QuestDetail(locationName: "장소 B", mission: "미션 2")
-                        ],
-                        reward: "보상 1"
-                    ),
-                    CourseQuest(
-                        title: "코스 퀘스트 2",
-                        progress: "2/5",
-                        description: "두 번째 코스 퀘스트",
-                        quests: [
-                            QuestDetail(locationName: "장소 C", mission: "미션 3"),
-                            QuestDetail(locationName: "장소 D", mission: "미션 4"),
-                            QuestDetail(locationName: "장소 D", mission: "미션 4"),
-                        ],
-                        reward: "보상 2"
-                    )
-                ]
+            CourseQuest(
+                title: "코스 퀘스트 1",
+                progress: "1/5",
+                description: "첫 번째 코스 퀘스트",
+                quests: [
+                    QuestDetail(locationName: "장소 A", mission: "미션 1"),
+                    QuestDetail(locationName: "장소 B", mission: "미션 2"),
+                    QuestDetail(locationName: "장소 B", mission: "미션 2"),
+                    QuestDetail(locationName: "장소 B", mission: "미션 2")
+                ],
+                reward: "보상 1"
+            ),
+            CourseQuest(
+                title: "코스 퀘스트 2",
+                progress: "2/5",
+                description: "두 번째 코스 퀘스트",
+                quests: [
+                    QuestDetail(locationName: "장소 C", mission: "미션 3"),
+                    QuestDetail(locationName: "장소 D", mission: "미션 4"),
+                    QuestDetail(locationName: "장소 D", mission: "미션 4"),
+                ],
+                reward: "보상 2"
+            )
+        ]
         
         rootView.questListCollectionView.reloadData()
     }
     
     private func getSortedQuestList() -> [Any] {
         let sortedGeneralQuests = isActive ? activeQuestList : allQuestList
-                
+        
         // 코스 퀘스트는 항상 activeQuestList의 최상단에 위치
         return isActive ? (courseQuests + sortedGeneralQuests) : sortedGeneralQuests
     }
@@ -141,13 +141,13 @@ extension QuestListViewController {
             QuestListCollectionViewCell.self,
             forCellWithReuseIdentifier: QuestListCollectionViewCell.className
         )
-
-    #if DevTarget
+        
+#if DevTarget
         rootView.questListCollectionView.register(
             CourseQuestCollectionViewCell.self,
             forCellWithReuseIdentifier: CourseQuestCollectionViewCell.className
         )
-    #endif
+#endif
     }
     
     private func setupDelegates() {
@@ -239,7 +239,7 @@ extension QuestListViewController: UICollectionViewDataSource {
         let quests = getSortedQuestList()
         let quest = quests[indexPath.item]
         
-        // 🔹 CourseQuest일 경우 CourseQuestCollectionViewCell을 사용
+        // CourseQuest일 경우 CourseQuestCollectionViewCell을 사용
         if let courseQuest = quest as? CourseQuest {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: CourseQuestCollectionViewCell.className,
@@ -251,7 +251,7 @@ extension QuestListViewController: UICollectionViewDataSource {
             return cell
         }
         
-        // 🔹 일반 Quest일 경우 QuestListCollectionViewCell을 사용
+        // 일반 Quest일 경우 QuestListCollectionViewCell을 사용
         if let quest = quest as? Quest {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: QuestListCollectionViewCell.className,
