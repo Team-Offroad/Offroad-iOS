@@ -8,20 +8,20 @@
 import UIKit
 
 class QuestListCollectionViewCell: ShrinkableCollectionViewCell {
-
+    
     //MARK: - Properties
-
+    
     private let collectionViewHorizontalSectionInset: CGFloat = 24
     private lazy var widthConstraint = contentView.widthAnchor.constraint(
         equalToConstant: UIScreen.current.bounds.width - collectionViewHorizontalSectionInset * 2
     )
     private lazy var expandedBottomConstraint = questInfoView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
     private lazy var shrinkedBottomConstraint = questNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
-
+    
     override var isSelected: Bool {
         didSet { setAppearance() }
     }
-
+    
     //MARK: - UI Properties
     
     private let questNameLabel = UILabel()
@@ -31,41 +31,51 @@ class QuestListCollectionViewCell: ShrinkableCollectionViewCell {
     private let questDescriptionLabel = UILabel()
     
     private let questInfoView = UILabel()
+#if DevTarget
+    private let questClearConditionView = IconLabelStackView(icon: .icnQuestListCheckBox, text: "")
+    private let questRewardDescriptionView = IconLabelStackView(icon: .icnQuestListGiftBox, text: "")
+#else
     private let checkBoxImageView = UIImageView(image: .icnQuestListCheckBox)
     private let giftBoxImageVIew = UIImageView(image: .icnQuestListGiftBox)
     private let questClearConditionLabel = UILabel()
     private let questRewardDescriptionLabel = UILabel()
-
+#endif
+    
     //MARK: - Life Cycle
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         setupHierarchy()
         setupStyle()
         setupLayout()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
         questNameLabel.text = ""
         questProgressLabel.text = ""
         questDescriptionLabel.text = ""
+#if DevTarget
+        questClearConditionView.configure(icon: .icnQuestListCheckBox, text: "")
+        questRewardDescriptionView.configure(icon: .icnQuestListGiftBox, text: "")
+#else
         questClearConditionLabel.text = ""
         questRewardDescriptionLabel.text = ""
+#endif
     }
-
+    
 }
 
 extension QuestListCollectionViewCell {
-
+    
     //MARK: - Private Func
-
+    
     private func setupHierarchy() {
         contentView.addSubviews(
             questNameLabel,
@@ -74,15 +84,21 @@ extension QuestListCollectionViewCell {
             questDescriptionLabel,
             questInfoView
         )
-        
+#if DevTarget
+        questInfoView.addSubviews(
+            questClearConditionView,
+            questRewardDescriptionView
+        )
+#else
         questInfoView.addSubviews(
             checkBoxImageView,
             giftBoxImageVIew,
             questClearConditionLabel,
             questRewardDescriptionLabel
         )
+#endif
     }
-
+    
     private func setupStyle() {
         contentView.backgroundColor = .main(.main3)
         contentView.roundCorners(cornerRadius: 5)
@@ -115,7 +131,9 @@ extension QuestListCollectionViewCell {
             view.backgroundColor = .primary(.boxInfo)
             view.roundCorners(cornerRadius: 9)
         }
-
+#if DevTarget
+#else
+        
         checkBoxImageView.do { imageView in
             imageView.contentMode = .scaleAspectFit
         }
@@ -137,8 +155,9 @@ extension QuestListCollectionViewCell {
             label.numberOfLines = 0
             label.textAlignment = .left
         }
+#endif
     }
-
+    
     private func setupLayout() {
         // (이슈 해결 후 삭제 예정)
         // widthConstraint의 priority를 .defaultHigh로 설정하면 첫 번째 셀의 가로 길이가 collectionView를 넘어간다.
@@ -146,7 +165,7 @@ extension QuestListCollectionViewCell {
         // 왜 그런지 공부하기
         widthConstraint.priority = .init(999)
         widthConstraint.isActive = true
-
+        
         questNameLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(18)
             make.leading.equalToSuperview().inset(20)
@@ -159,7 +178,7 @@ extension QuestListCollectionViewCell {
             make.trailing.equalTo(chevronImageView.snp.leading)
         }
         questProgressLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-
+        
         chevronImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(8)
             make.trailing.equalToSuperview()
@@ -170,7 +189,20 @@ extension QuestListCollectionViewCell {
             make.top.equalTo(questNameLabel.snp.bottom).offset(18)
             make.horizontalEdges.equalToSuperview().inset(20)
         }
+#if DevTarget
+        questClearConditionView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(9)
+            make.leading.equalToSuperview().inset(12)
+            make.trailing.equalToSuperview().inset(12)
+        }
         
+        questRewardDescriptionView.snp.makeConstraints { make in
+            make.top.equalTo(questClearConditionView.snp.bottom).offset(7)
+            make.leading.equalToSuperview().inset(12)
+            make.trailing.equalToSuperview().inset(12)
+            make.bottom.equalToSuperview().inset(9)
+        }
+#else
         checkBoxImageView.snp.makeConstraints { make in
             make.centerY.equalTo(questClearConditionLabel)
             make.top.greaterThanOrEqualTo(questInfoView.snp.top).inset(9)
@@ -184,7 +216,7 @@ extension QuestListCollectionViewCell {
             make.bottom.lessThanOrEqualTo(questInfoView.snp.bottom).inset(9)
             make.size.equalTo(25)
         }
-
+        
         questClearConditionLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(9)
             make.leading.equalTo(checkBoxImageView.snp.trailing).offset(6)
@@ -202,6 +234,7 @@ extension QuestListCollectionViewCell {
             make.trailing.equalToSuperview().inset(12)
             make.bottom.equalToSuperview().inset(9)
         }
+#endif
         
         questInfoView.snp.makeConstraints { make in
             make.top.equalTo(questDescriptionLabel.snp.bottom).offset(14)
@@ -210,15 +243,15 @@ extension QuestListCollectionViewCell {
         
         expandedBottomConstraint.priority = .defaultLow
         shrinkedBottomConstraint.priority = .defaultLow
-
+        
         expandedBottomConstraint.isActive = isSelected
         shrinkedBottomConstraint.isActive = !isSelected
     }
-
+    
     private func setAppearance() {
         expandedBottomConstraint.isActive = isSelected
         shrinkedBottomConstraint.isActive = !isSelected
-
+        
         questDescriptionLabel.isHidden = !isSelected
         questInfoView.isHidden = !isSelected
         
@@ -226,9 +259,9 @@ extension QuestListCollectionViewCell {
         chevronImageView.transform = rotationTransform
         contentView.layoutIfNeeded()
     }
-
+    
     //MARK: - Func
-
+    
     func configureCell(with quest: Quest) {
         questNameLabel.text = quest.questName
         questProgressLabel.text = "달성도 (\(quest.currentCount)/\(quest.totalCount))"
@@ -236,10 +269,14 @@ extension QuestListCollectionViewCell {
         
         questDescriptionLabel.text = quest.description == "" ? "데이터 없음" : quest.description
         
+#if DevTarget
+        questClearConditionView.configure(icon: .icnQuestListCheckBox, text: quest.requirement.isEmpty ? "데이터 없음" : quest.requirement)
+        questRewardDescriptionView.configure(icon: .icnQuestListGiftBox, text: quest.reward.isEmpty ? "데이터 없음" : quest.reward)
+#else
         questClearConditionLabel.text = quest.requirement == "" ? "데이터 없음" : quest.requirement
         questRewardDescriptionLabel.text = quest.reward == "" ? "데이터 없음" : quest.reward
-        
+#endif
         contentView.layoutIfNeeded()
     }
-
+    
 }
