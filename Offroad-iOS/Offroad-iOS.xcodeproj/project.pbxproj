@@ -369,6 +369,8 @@
 		4E99008B2CE0CB61007EEFF7 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */; };
 		4EA272322D5793BA00F64B20 /* ChatTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272312D5793BA00F64B20 /* ChatTextInputView.swift */; };
 		4EA272332D5793BA00F64B20 /* ChatTextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272312D5793BA00F64B20 /* ChatTextInputView.swift */; };
+		4EA272412D5855E700F64B20 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA272402D5855E700F64B20 /* AmplitudeSwift */; };
+		4EA272432D58560B00F64B20 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA272422D58560B00F64B20 /* AmplitudeSwift */; };
 		4EA272552D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272542D58E27300F64B20 /* ChatTextDisplayView.swift */; };
 		4EA272562D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272542D58E27300F64B20 /* ChatTextDisplayView.swift */; };
 		4EA5F4EE2D4C96BD00A59AB1 /* LogPrinterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4EC2D4C96BD00A59AB1 /* LogPrinterManager.swift */; };
@@ -394,6 +396,7 @@
 		4EC6F0A62CF4747400895A87 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */; };
 		4ECCC95E2CC80088002B9C4F /* ORBToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */; };
 		4ECEEA6E2CB2C15E0029369A /* ORBTabBarShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */; };
+		4ED6BE3D2D7B3C000020C871 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */; };
 		4EDB392B2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */; };
 		4EDB392C2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */; };
 		4EDB392E2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392D2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift */; };
@@ -414,6 +417,7 @@
 		4EE0498B2CA10DFC00754488 /* CouponAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0498A2CA10DFC00754488 /* CouponAPI.swift */; };
 		4EE0498D2CA10E2A00754488 /* CouponService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0498C2CA10E2A00754488 /* CouponService.swift */; };
 		4EE049912CA14E6500754488 /* CouponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE049902CA14E6500754488 /* CouponCell.swift */; };
+		4EE6B5242D85703700AEFCD4 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */; };
 		4EEA82FC2CE3907C0062F0DE /* CharacterChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA82FB2CE3907C0062F0DE /* CharacterChatLogView.swift */; };
 		4EEA82FE2CE3908C0062F0DE /* CharacterChatLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
@@ -548,6 +552,12 @@
 		D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */; };
 		D0BD451F2CC77C3200128E74 /* MyPageCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */; };
 		D0C6FD132CE6561400517480 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D0C6FD122CE6561400517480 /* FirebaseMessaging */; };
+		D0CA206C2D7DCF5900FDF7F4 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = D0CA206B2D7DCF5900FDF7F4 /* FSCalendar */; };
+		D0CA206E2D7E005100FDF7F4 /* CustomDiaryCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA206D2D7E004A00FDF7F4 /* CustomDiaryCalendarCell.swift */; };
+		D0CA20732D7F4BC200FDF7F4 /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20722D7F4BB900FDF7F4 /* DiaryViewModel.swift */; };
+		D0CA20822D7FE06B00FDF7F4 /* MonthPickerModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20812D7FE05A00FDF7F4 /* MonthPickerModalView.swift */; };
+		D0CA20842D7FE08200FDF7F4 /* MonthPickerModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20832D7FE07F00FDF7F4 /* MonthPickerModalViewController.swift */; };
+		D0CA20872D8018FA00FDF7F4 /* MyDiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20862D8018F400FDF7F4 /* MyDiaryManager.swift */; };
 		D0CF2E042D772570000334B5 /* Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CF2E032D772570000334B5 /* Info_Dev.plist */; };
 		D0CF2E052D772570000334B5 /* Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CF2E032D772570000334B5 /* Info_Dev.plist */; };
 		D0CF2E1D2D77EC96000334B5 /* GuideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */; };
@@ -727,6 +737,7 @@
 		4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastView.swift; sourceTree = "<group>"; };
 		4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBTabBarShapeView.swift; sourceTree = "<group>"; };
+		4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeManager.swift; sourceTree = "<group>"; };
 		4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapHelper.swift; sourceTree = "<group>"; };
 		4EDB392D2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTooltipHelper.swift; sourceTree = "<group>"; };
 		4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -872,6 +883,11 @@
 		D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageCustomButton.swift; sourceTree = "<group>"; };
 		D0C6FD092CE6551C00517480 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C6FD142CE6633500517480 /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		D0CA206D2D7E004A00FDF7F4 /* CustomDiaryCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDiaryCalendarCell.swift; sourceTree = "<group>"; };
+		D0CA20722D7F4BB900FDF7F4 /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
+		D0CA20812D7FE05A00FDF7F4 /* MonthPickerModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPickerModalView.swift; sourceTree = "<group>"; };
+		D0CA20832D7FE07F00FDF7F4 /* MonthPickerModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPickerModalViewController.swift; sourceTree = "<group>"; };
+		D0CA20862D8018F400FDF7F4 /* MyDiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDiaryManager.swift; sourceTree = "<group>"; };
 		D0CF2E032D772570000334B5 /* Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info_Dev.plist; sourceTree = "<group>"; };
 		D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0E6BE8F2CED2815006CDAA8 /* PushNotificationRedirectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationRedirectModel.swift; sourceTree = "<group>"; };
@@ -941,6 +957,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EA272432D58560B00F64B20 /* AmplitudeSwift in Frameworks */,
 				D0600BD82CE50AE600D8F1D6 /* FirebaseAnalytics in Frameworks */,
 				D063E9852C492D6700434A09 /* SVGKit in Frameworks */,
 				4E0394CE2C2AB762007F0517 /* Kingfisher in Frameworks */,
@@ -979,6 +996,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EA272412D5855E700F64B20 /* AmplitudeSwift in Frameworks */,
 				4E4F32572D4718F400C3B2FF /* FirebaseAnalytics in Frameworks */,
 				4E4F32582D4718F400C3B2FF /* SVGKit in Frameworks */,
 				4E4F32592D4718F400C3B2FF /* Kingfisher in Frameworks */,
@@ -992,6 +1010,7 @@
 				4E4F32612D4718F400C3B2FF /* RxRelay in Frameworks */,
 				4E4F32622D4718F400C3B2FF /* KakaoSDKAuth in Frameworks */,
 				4E4F32632D4718F400C3B2FF /* FirebaseMessaging in Frameworks */,
+				D0CA206C2D7DCF5900FDF7F4 /* FSCalendar in Frameworks */,
 				4E4F32642D4718F400C3B2FF /* Lottie in Frameworks */,
 				4E4F32652D4718F400C3B2FF /* Pods_Offroad_iOS.framework in Frameworks */,
 			);
@@ -1077,6 +1096,7 @@
 		4E0394602C2AA0C1007F0517 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				4ED6BE3A2D7B3BDF0020C871 /* Amplitude */,
 				4E6659362CEB96D60024ABEE /* MyInfoManager */,
 				4EFD00512CCBD5F7005C294D /* NetworkMonitoring */,
 				D018BB0C2C401F5F0048B6DF /* Components */,
@@ -1861,6 +1881,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		4ED6BE3A2D7B3BDF0020C871 /* Amplitude */ = {
+			isa = PBXGroup;
+			children = (
+				4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */,
+			);
+			path = Amplitude;
+			sourceTree = "<group>";
+		};
 		4EDC3D372C3126FC006A1493 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -2337,9 +2365,12 @@
 		D02232002D762DBA00DA6968 /* Diary */ = {
 			isa = PBXGroup;
 			children = (
+				D0CA20852D8018E700FDF7F4 /* MyDiaryManager */,
 				D0CF2E1A2D77EC5C000334B5 /* Cell */,
+				D0CA20802D7FE04F00FDF7F4 /* Modal */,
 				D02232022D762DD100DA6968 /* View */,
 				D02232012D762DCB00DA6968 /* ViewController */,
+				D0CA20712D7F4BA900FDF7F4 /* ViewModel */,
 			);
 			path = Diary;
 			sourceTree = "<group>";
@@ -2349,6 +2380,7 @@
 			children = (
 				D02232032D762DD800DA6968 /* DiaryViewController.swift */,
 				D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */,
+				D0CA20832D7FE07F00FDF7F4 /* MonthPickerModalViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2582,9 +2614,34 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		D0CA20712D7F4BA900FDF7F4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D0CA20722D7F4BB900FDF7F4 /* DiaryViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D0CA20802D7FE04F00FDF7F4 /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				D0CA20812D7FE05A00FDF7F4 /* MonthPickerModalView.swift */,
+			);
+			path = Modal;
+			sourceTree = "<group>";
+		};
+		D0CA20852D8018E700FDF7F4 /* MyDiaryManager */ = {
+			isa = PBXGroup;
+			children = (
+				D0CA20862D8018F400FDF7F4 /* MyDiaryManager.swift */,
+			);
+			path = MyDiaryManager;
+			sourceTree = "<group>";
+		};
 		D0CF2E1A2D77EC5C000334B5 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				D0CA206D2D7E004A00FDF7F4 /* CustomDiaryCalendarCell.swift */,
 				D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */,
 			);
 			path = Cell;
@@ -2944,6 +3001,7 @@
 				4E56F5552C99ACD300EEE677 /* RxRelay */,
 				D0600BD72CE50AE600D8F1D6 /* FirebaseAnalytics */,
 				D0600BD92CE50CF900D8F1D6 /* FirebaseMessaging */,
+				4EA272422D58560B00F64B20 /* AmplitudeSwift */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E0394292C2A9DCE007F0517 /* ORB.app */;
@@ -3018,6 +3076,8 @@
 				4E4F315E2D4718F400C3B2FF /* RxRelay */,
 				4E4F315F2D4718F400C3B2FF /* FirebaseAnalytics */,
 				4E4F31612D4718F400C3B2FF /* FirebaseMessaging */,
+				4EA272402D5855E700F64B20 /* AmplitudeSwift */,
+				D0CA206B2D7DCF5900FDF7F4 /* FSCalendar */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E4F327A2D4718F400C3B2FF /* ORB(Dev).app */;
@@ -3091,6 +3151,8 @@
 				D063E9832C492D6700434A09 /* XCRemoteSwiftPackageReference "SVGKit" */,
 				4E56F5522C99ACD300EEE677 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				D0600BD62CE50AE600D8F1D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */,
+				D0CA206A2D7DCF5900FDF7F4 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 4E03942A2C2A9DCE007F0517 /* Products */;
 			projectDirPath = "";
@@ -3420,6 +3482,7 @@
 				87738CD02C8DC15200E107C7 /* UIColor+.swift in Sources */,
 				D0E795FC2C447511005B47A5 /* AppleAuthManager.swift in Sources */,
 				D06D26C12C3D6A2A00E79F25 /* UILabel+.swift in Sources */,
+				4EE6B5242D85703700AEFCD4 /* AmplitudeManager.swift in Sources */,
 				D00A48892C763D24008B286A /* NavigationPopButton.swift in Sources */,
 				D0E7965F2C45518B005B47A5 /* EmblemInfoResponseDTO.swift in Sources */,
 				4E99007C2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift in Sources */,
@@ -3622,12 +3685,15 @@
 				4E4F31712D4718F400C3B2FF /* CouponDetailViewController.swift in Sources */,
 				4E4F31722D4718F400C3B2FF /* CharacterChatGetResponseDTO.swift in Sources */,
 				4E4F31732D4718F400C3B2FF /* BaseService.swift in Sources */,
+				D0CA206E2D7E005100FDF7F4 /* CustomDiaryCalendarCell.swift in Sources */,
 				4E4F31742D4718F400C3B2FF /* StringLiterals.swift in Sources */,
 				4E4F31752D4718F400C3B2FF /* ORBTabBarShapeView.swift in Sources */,
 				4E4F31762D4718F400C3B2FF /* SettingViewController.swift in Sources */,
 				4E4F31772D4718F400C3B2FF /* ORBCharacterChatBox.swift in Sources */,
+				D0CA20732D7F4BC200FDF7F4 /* DiaryViewModel.swift in Sources */,
 				4E4F31782D4718F400C3B2FF /* TitlePopupViewController.swift in Sources */,
 				4E4F31792D4718F400C3B2FF /* LottieAnimationView+.swift in Sources */,
+				D0CA20842D7FE08200FDF7F4 /* MonthPickerModalViewController.swift in Sources */,
 				4E4F317A2D4718F400C3B2FF /* ORBCharacterChatView.swift in Sources */,
 				4E4F317B2D4718F400C3B2FF /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
 				4E4F317C2D4718F400C3B2FF /* QuestListResponseDTO.swift in Sources */,
@@ -3707,6 +3773,7 @@
 				4E4F31BA2D4718F400C3B2FF /* UIColor+.swift in Sources */,
 				4E4F31BB2D4718F400C3B2FF /* AppleAuthManager.swift in Sources */,
 				4E4F31BC2D4718F400C3B2FF /* UILabel+.swift in Sources */,
+				D0CA20822D7FE06B00FDF7F4 /* MonthPickerModalView.swift in Sources */,
 				4E4F31BD2D4718F400C3B2FF /* NavigationPopButton.swift in Sources */,
 				4E4F31BE2D4718F400C3B2FF /* EmblemInfoResponseDTO.swift in Sources */,
 				4E4F31BF2D4718F400C3B2FF /* ORBCharacterChatWindow.swift in Sources */,
@@ -3788,6 +3855,7 @@
 				4E4F32062D4718F400C3B2FF /* AppDelegate.swift in Sources */,
 				4E4F32072D4718F400C3B2FF /* CharacterService.swift in Sources */,
 				4E4F32082D4718F400C3B2FF /* CouponListViewController.swift in Sources */,
+				4ED6BE3D2D7B3C000020C871 /* AmplitudeManager.swift in Sources */,
 				4E4F32092D4718F400C3B2FF /* CharacterChatPostResponseDTO.swift in Sources */,
 				D09A196F2D70589900B07FC2 /* TimePeriod.swift in Sources */,
 				4E4F320A2D4718F400C3B2FF /* UIImage+.swift in Sources */,
@@ -3798,6 +3866,7 @@
 				4E4F320F2D4718F400C3B2FF /* CustomerInquiryView.swift in Sources */,
 				4E4F32102D4718F400C3B2FF /* CollectedTitleModel.swift in Sources */,
 				4E4F32112D4718F400C3B2FF /* HomeViewController.swift in Sources */,
+				D0CA20872D8018FA00FDF7F4 /* MyDiaryManager.swift in Sources */,
 				4E4F32122D4718F400C3B2FF /* ORBAlertViewCouponRedemptionFailure.swift in Sources */,
 				4E4F32132D4718F400C3B2FF /* ChangeEmblemResponseDTO.swift in Sources */,
 				4E4F32142D4718F400C3B2FF /* ORBNMFMarker.swift in Sources */,
@@ -4561,6 +4630,14 @@
 				minimumVersion = 4.4.3;
 			};
 		};
+		4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/amplitude/Amplitude-Swift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		D0600BD62CE50AE600D8F1D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -4575,6 +4652,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 3.0.0;
+			};
+		};
+		D0CA206A2D7DCF5900FDF7F4 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -4700,6 +4785,16 @@
 			package = 4E8B478D2C382A4800D9B8EE /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
 		};
+		4EA272402D5855E700F64B20 /* AmplitudeSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
+			productName = AmplitudeSwift;
+		};
+		4EA272422D58560B00F64B20 /* AmplitudeSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */;
+			productName = AmplitudeSwift;
+		};
 		D0600BD72CE50AE600D8F1D6 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D0600BD62CE50AE600D8F1D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -4724,6 +4819,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D0600BD62CE50AE600D8F1D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		D0CA206B2D7DCF5900FDF7F4 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0CA206A2D7DCF5900FDF7F4 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
