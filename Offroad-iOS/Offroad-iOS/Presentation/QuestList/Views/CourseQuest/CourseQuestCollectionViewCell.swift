@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-class CourseQuestCollectionViewCell: UICollectionViewCell {
+class CourseQuestCollectionViewCell: ShrinkableCollectionViewCell {
     
     // MARK: - Properties
     
@@ -171,10 +171,8 @@ extension CourseQuestCollectionViewCell {
         courseQuestDescriptionLabel.isHidden = !isSelected
         courseQuestInfoView.isHidden = !isSelected
         
-        let rotationTransform = isSelected ? CGAffineTransform(rotationAngle: .pi) : CGAffineTransform.identity
-        UIView.animate(withDuration: 0.3) {
-            self.chevronImageView.transform = rotationTransform
-        }
+        let rotationTransform = isSelected ? CGAffineTransform(rotationAngle: .pi * 0.999) : CGAffineTransform.identity
+        chevronImageView.transform = rotationTransform
         contentView.layoutIfNeeded()
     }
     
