@@ -497,6 +497,8 @@
 		D022320E2D76CCF500DA6968 /* DiaryGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */; };
 		D03C835E2C61E44700F3094D /* TokenIntercepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C835D2C61E44700F3094D /* TokenIntercepter.swift */; };
 		D03C83622C620AF100F3094D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C83612C620AF100F3094D /* MyPageView.swift */; };
+		D051FDEF2D873FA400CA2485 /* MemoryLightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDEE2D873F9600CA2485 /* MemoryLightViewController.swift */; };
+		D051FDF12D873FB400CA2485 /* MemoryLightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDF02D873FB000CA2485 /* MemoryLightView.swift */; };
 		D051FDF32D8742A800CA2485 /* MemoryLightCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDF22D8742A000CA2485 /* MemoryLightCollectionViewCell.swift */; };
 		D051FDF82D87C70500CA2485 /* MemoryLightGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDF72D87C6EB00CA2485 /* MemoryLightGradientView.swift */; };
 		D05B70D22D63257800A1E206 /* DiaryTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D02D63257000A1E206 /* DiaryTimeView.swift */; };
@@ -832,6 +834,8 @@
 		D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryGuideViewController.swift; sourceTree = "<group>"; };
 		D03C835D2C61E44700F3094D /* TokenIntercepter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenIntercepter.swift; sourceTree = "<group>"; };
 		D03C83612C620AF100F3094D /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		D051FDEE2D873F9600CA2485 /* MemoryLightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightViewController.swift; sourceTree = "<group>"; };
+		D051FDF02D873FB000CA2485 /* MemoryLightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightView.swift; sourceTree = "<group>"; };
 		D051FDF22D8742A000CA2485 /* MemoryLightCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightCollectionViewCell.swift; sourceTree = "<group>"; };
 		D051FDF72D87C6EB00CA2485 /* MemoryLightGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightGradientView.swift; sourceTree = "<group>"; };
 		D05B70D02D63257000A1E206 /* DiaryTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTimeView.swift; sourceTree = "<group>"; };
@@ -2388,6 +2392,32 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		D051FE082D87E2E600CA2485 /* MemoryLight */ = {
+			isa = PBXGroup;
+			children = (
+				D051FE0B2D87E30D00CA2485 /* Cell */,
+				D051FE0A2D87E30600CA2485 /* View */,
+				D051FE092D87E2FC00CA2485 /* ViewController */,
+			);
+			path = MemoryLight;
+			sourceTree = "<group>";
+		};
+		D051FE092D87E2FC00CA2485 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D051FDEE2D873F9600CA2485 /* MemoryLightViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D051FE0A2D87E30600CA2485 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D051FDF02D873FB000CA2485 /* MemoryLightView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		D051FE0B2D87E30D00CA2485 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -3709,6 +3739,7 @@
 				4E4F318C2D4718F400C3B2FF /* UserInfoResponseDTO.swift in Sources */,
 				4EA5F4EE2D4C96BD00A59AB1 /* LogPrinterManager.swift in Sources */,
 				4E4F318D2D4718F400C3B2FF /* CharacterDetailCell.swift in Sources */,
+				D051FDF12D873FB400CA2485 /* MemoryLightView.swift in Sources */,
 				4E4F318E2D4718F400C3B2FF /* QuestService.swift in Sources */,
 				4E4F318F2D4718F400C3B2FF /* MoyaPlugin.swift in Sources */,
 				D02232072D762DE600DA6968 /* DiaryView.swift in Sources */,
@@ -3787,6 +3818,7 @@
 				4E4F31CF2D4718F400C3B2FF /* ProfileAPI.swift in Sources */,
 				4E4F31D02D4718F400C3B2FF /* EmblemAPI.swift in Sources */,
 				4E4F31D12D4718F400C3B2FF /* TermsListTableViewCell.swift in Sources */,
+				D051FDEF2D873FA400CA2485 /* MemoryLightViewController.swift in Sources */,
 				4E4F31D22D4718F400C3B2FF /* TitlePopupView.swift in Sources */,
 				4E4F31D32D4718F400C3B2FF /* Shrinkable.swift in Sources */,
 				4E4F31D42D4718F400C3B2FF /* ViewController.swift in Sources */,
