@@ -72,10 +72,18 @@ private extension MemoryLightView {
         }
         
         shareButton.do {
-            $0.setTitle("공유하기", for: .normal)
-            $0.setTitleColor(.primary(.white), for: .normal)
-            $0.titleLabel?.font = .offroad(style: .iosText)
-            $0.titleLabel?.setLineHeight(percentage: 150)
+            var configuration = UIButton.Configuration.plain()
+            configuration.image = .iconShare
+            configuration.imagePadding = 8
+            configuration.imagePlacement = .leading
+            
+            var attributedTitle = AttributedString("공유하기")
+            attributedTitle.font = .offroad(style: .iosText)
+            attributedTitle.foregroundColor = .primary(.white)
+
+            configuration.attributedTitle = attributedTitle
+            
+            $0.configuration = configuration
         }
     }
     
