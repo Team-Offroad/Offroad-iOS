@@ -497,6 +497,7 @@
 		D022320E2D76CCF500DA6968 /* DiaryGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */; };
 		D03C835E2C61E44700F3094D /* TokenIntercepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C835D2C61E44700F3094D /* TokenIntercepter.swift */; };
 		D03C83622C620AF100F3094D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C83612C620AF100F3094D /* MyPageView.swift */; };
+		D051FDF32D8742A800CA2485 /* MemoryLightCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDF22D8742A000CA2485 /* MemoryLightCollectionViewCell.swift */; };
 		D051FDF82D87C70500CA2485 /* MemoryLightGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDF72D87C6EB00CA2485 /* MemoryLightGradientView.swift */; };
 		D05B70D22D63257800A1E206 /* DiaryTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D02D63257000A1E206 /* DiaryTimeView.swift */; };
 		D05B70D52D63286800A1E206 /* DiaryTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D32D63285F00A1E206 /* DiaryTimeViewController.swift */; };
@@ -831,6 +832,7 @@
 		D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryGuideViewController.swift; sourceTree = "<group>"; };
 		D03C835D2C61E44700F3094D /* TokenIntercepter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenIntercepter.swift; sourceTree = "<group>"; };
 		D03C83612C620AF100F3094D /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		D051FDF22D8742A000CA2485 /* MemoryLightCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightCollectionViewCell.swift; sourceTree = "<group>"; };
 		D051FDF72D87C6EB00CA2485 /* MemoryLightGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightGradientView.swift; sourceTree = "<group>"; };
 		D05B70D02D63257000A1E206 /* DiaryTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTimeView.swift; sourceTree = "<group>"; };
 		D05B70D32D63285F00A1E206 /* DiaryTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTimeViewController.swift; sourceTree = "<group>"; };
@@ -1228,6 +1230,7 @@
 				4E0394842C2AA9DB007F0517 /* Character */,
 				4E0394722C2AA6C5007F0517 /* Home */,
 				D02232002D762DBA00DA6968 /* Diary */,
+				D051FE082D87E2E600CA2485 /* MemoryLight */,
 				4E0394732C2AA6DB007F0517 /* QuestMap */,
 				4E0394742C2AA70C007F0517 /* QuestQR */,
 				4E393C962C48C97C003403EC /* QuestResult */,
@@ -2383,6 +2386,14 @@
 				D03C83612C620AF100F3094D /* MyPageView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D051FE0B2D87E30D00CA2485 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D051FDF22D8742A000CA2485 /* MemoryLightCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		D05B70CD2D63236100A1E206 /* DiaryTime */ = {
@@ -3813,6 +3824,7 @@
 				4E4F31F22D4718F400C3B2FF /* CharacterChatLogFooter.swift in Sources */,
 				4E4F31F32D4718F400C3B2FF /* ORBAlertViewTextField.swift in Sources */,
 				4E4F31F42D4718F400C3B2FF /* HomeView.swift in Sources */,
+				D051FDF32D8742A800CA2485 /* MemoryLightCollectionViewCell.swift in Sources */,
 				4E4F31F52D4718F400C3B2FF /* ORBToastWindow.swift in Sources */,
 				4E4F31F62D4718F400C3B2FF /* CharacterChatLogView.swift in Sources */,
 				4E4F31F72D4718F400C3B2FF /* UITabBar+.swift in Sources */,
