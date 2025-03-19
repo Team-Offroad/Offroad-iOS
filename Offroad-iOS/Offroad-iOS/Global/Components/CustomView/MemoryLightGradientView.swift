@@ -41,7 +41,7 @@ private extension MemoryLightGradientView {
 }
 
 extension MemoryLightGradientView {
-    func setupGradientBlurView(pointColorCode: String, baseColorCode: String) {
+    func setupGradientView(pointColorCode: String, baseColorCode: String) {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [
             UIColor(hexCode: pointColorCode)?.cgColor ?? UIColor(),

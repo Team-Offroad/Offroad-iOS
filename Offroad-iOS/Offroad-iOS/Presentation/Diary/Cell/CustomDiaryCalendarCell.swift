@@ -90,7 +90,7 @@ extension CustomDiaryCalendarCell {
     //MARK: - Method
     
     func configureMemoryLightCell(pointColorCode: String, baseColorCode: String) {
-        gradientBlurBackgroundView.setupGradientBlurView(pointColorCode: pointColorCode, baseColorCode: baseColorCode)
+        gradientBlurBackgroundView.setupGradientView(pointColorCode: pointColorCode, baseColorCode: baseColorCode)
         gradientBlurBackgroundView.isHidden = false
         
         let blurEffectView = CustomIntensityBlurView(blurStyle: .light, intensity: 0.1)
