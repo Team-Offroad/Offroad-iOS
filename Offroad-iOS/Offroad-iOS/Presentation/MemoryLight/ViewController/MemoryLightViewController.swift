@@ -43,10 +43,9 @@ final class MemoryLightViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        let lastItemIndex = rootView.memoryLightCollectionView.numberOfItems(inSection: 0) - 1
-        let lastIndexPath = IndexPath(item: lastItemIndex, section: 0)
+        let indexPath = IndexPath(item: viewModel.indexforDate(date: firstDisplayedDate), section: 0)
 
-        rootView.memoryLightCollectionView.scrollToItem(at: lastIndexPath, at: .centeredHorizontally, animated: false)
+        rootView.memoryLightCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
     }
 }
 
