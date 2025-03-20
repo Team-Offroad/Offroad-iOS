@@ -495,6 +495,8 @@
 		D02232072D762DE600DA6968 /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02232062D762DE400DA6968 /* DiaryView.swift */; };
 		D022320C2D76CCE700DA6968 /* DiaryGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022320B2D76CCE100DA6968 /* DiaryGuideView.swift */; };
 		D022320E2D76CCF500DA6968 /* DiaryGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */; };
+		D025CCAA2D8B382C006592C6 /* MemoryLightModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025CCA92D8B3818006592C6 /* MemoryLightModel.swift */; };
+		D025CCAD2D8B3A2B006592C6 /* MemoryLightViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025CCAC2D8B3A20006592C6 /* MemoryLightViewModel.swift */; };
 		D03C835E2C61E44700F3094D /* TokenIntercepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C835D2C61E44700F3094D /* TokenIntercepter.swift */; };
 		D03C83622C620AF100F3094D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C83612C620AF100F3094D /* MyPageView.swift */; };
 		D051FDEF2D873FA400CA2485 /* MemoryLightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDEE2D873F9600CA2485 /* MemoryLightViewController.swift */; };
@@ -832,6 +834,8 @@
 		D02232062D762DE400DA6968 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
 		D022320B2D76CCE100DA6968 /* DiaryGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryGuideView.swift; sourceTree = "<group>"; };
 		D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryGuideViewController.swift; sourceTree = "<group>"; };
+		D025CCA92D8B3818006592C6 /* MemoryLightModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightModel.swift; sourceTree = "<group>"; };
+		D025CCAC2D8B3A20006592C6 /* MemoryLightViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightViewModel.swift; sourceTree = "<group>"; };
 		D03C835D2C61E44700F3094D /* TokenIntercepter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenIntercepter.swift; sourceTree = "<group>"; };
 		D03C83612C620AF100F3094D /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		D051FDEE2D873F9600CA2485 /* MemoryLightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightViewController.swift; sourceTree = "<group>"; };
@@ -2384,6 +2388,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		D025CCA82D8B380C006592C6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D025CCA92D8B3818006592C6 /* MemoryLightModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D025CCAB2D8B3A11006592C6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D025CCAC2D8B3A20006592C6 /* MemoryLightViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		D03C835F2C620AC800F3094D /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2395,9 +2415,11 @@
 		D051FE082D87E2E600CA2485 /* MemoryLight */ = {
 			isa = PBXGroup;
 			children = (
+				D025CCA82D8B380C006592C6 /* Model */,
 				D051FE0B2D87E30D00CA2485 /* Cell */,
 				D051FE0A2D87E30600CA2485 /* View */,
 				D051FE092D87E2FC00CA2485 /* ViewController */,
+				D025CCAB2D8B3A11006592C6 /* ViewModel */,
 			);
 			path = MemoryLight;
 			sourceTree = "<group>";
@@ -3743,7 +3765,9 @@
 				4E4F318E2D4718F400C3B2FF /* QuestService.swift in Sources */,
 				4E4F318F2D4718F400C3B2FF /* MoyaPlugin.swift in Sources */,
 				D02232072D762DE600DA6968 /* DiaryView.swift in Sources */,
+				D025CCAD2D8B3A2B006592C6 /* MemoryLightViewModel.swift in Sources */,
 				4E4F31902D4718F400C3B2FF /* ORBAlertViewExplorationResult.swift in Sources */,
+				D025CCAA2D8B382C006592C6 /* MemoryLightModel.swift in Sources */,
 				4E4F31912D4718F400C3B2FF /* NoticeView.swift in Sources */,
 				D02232042D762DDD00DA6968 /* DiaryViewController.swift in Sources */,
 				4E4F31922D4718F400C3B2FF /* UIImageView+.swift in Sources */,

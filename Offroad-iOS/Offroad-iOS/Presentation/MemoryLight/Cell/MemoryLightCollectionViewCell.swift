@@ -66,7 +66,6 @@ private extension MemoryLightCollectionViewCell {
             $0.numberOfLines = 2
             $0.textAlignment = .left
             $0.font = .offroad(style: .iosSubtitle2Bold)
-            $0.setLineHeight(percentage: 150)
             $0.resizeFontForDevice()
             
             $0.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh + 1, for: .vertical)
@@ -77,7 +76,6 @@ private extension MemoryLightCollectionViewCell {
             $0.numberOfLines = 2
             $0.textAlignment = .left
             $0.font = .offroad(style: .iosTextBold)
-            $0.setLineHeight(percentage: 150)
             $0.lineBreakMode = .byCharWrapping
             $0.resizeFontForDevice()
         }
@@ -87,7 +85,6 @@ private extension MemoryLightCollectionViewCell {
             $0.numberOfLines = 0
             $0.textAlignment = .left
             $0.font = .offroad(style: .iosBoxMedi)
-            $0.setLineHeight(percentage: 160)
             $0.lineBreakMode = .byCharWrapping
             $0.resizeFontForDevice()
        }
@@ -124,7 +121,6 @@ private extension MemoryLightCollectionViewCell {
         }
         
         recommendationLabel.do {
-            $0.text = "내일 묵은지 돼지갈비 왕목살 김치세트 어때요?"
             $0.textColor = .main(.main2)
             $0.textAlignment = .left
             $0.font = .offroad(style: .iosMarketing)
@@ -210,12 +206,19 @@ extension MemoryLightCollectionViewCell {
     
     //MARK: - Func
     
-    func configureCell(pointColorCode: String, baseColorCode: String) {
-        gradientView.setupGradientView(pointColorCode: pointColorCode, baseColorCode: baseColorCode)
+    func configureCell(data: MemoryLightModel) {
+        gradientView.setupGradientView(pointColorCode: data.hexCodes[0].small, baseColorCode: data.hexCodes[0].large)
         blurEffectView.applyBlurEffectAsync()
         
-        dateLabel.text = "2025년 2월 11일\n오늘의 기억빛"
-        summaryLabel.text = "오늘의 기억을 AI가 한 줄로 요약합니다.오늘의 기억을 AI가 한 줄로 요약합니다."
-        contentLabel.text = "그리고 오늘의 기억을 오늘 하루동안 나눈 대화, 방문한 장소, 시간 데이터를 바탕으로 요약합니다. 이때 단순 요약이 아니라 AI가 남기는 일종의 메시지 형태라고 보시면 될 것 같고 앞으로에 대한 기대, 응원, 위로 등의 내용이 담겨 있습니다. 앞으로에 대한 기대, 응원, 위로 등의 내용이 담겨 있습니다. 내용이 담겨 있습니다. 앞으로에 대한 기대, 응원, 위로 등의 내용이 담겨 있습니다."
+        dateLabel.text = "\(data.year)년 \(data.month)월 \(data.day)일\n오늘의 기억빛"
+        dateLabel.setLineHeight(percentage: 150)
+        
+        summaryLabel.text = data.summation
+        summaryLabel.setLineHeight(percentage: 150)
+        
+        contentLabel.text = data.content
+        contentLabel.setLineHeight(percentage: 160)
+        
+        recommendationLabel.text = data.dailyRecommend
     }
 }

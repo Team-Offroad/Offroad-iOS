@@ -116,32 +116,39 @@ private extension MemoryLightView {
         
         shareButton.snp.makeConstraints {
             $0.top.equalTo(memoryLightCollectionView.snp.bottom).offset(32)
-            $0.bottom.greaterThanOrEqualTo(safeAreaLayoutGuide).inset(20)
-            $0.bottom.lessThanOrEqualTo(safeAreaLayoutGuide).inset(64)
+            $0.bottom.lessThanOrEqualTo(safeAreaLayoutGuide).inset(20)
+            $0.bottom.greaterThanOrEqualTo(safeAreaLayoutGuide).inset(64)
             $0.centerX.equalToSuperview()
         }
     }
 }
 
 extension MemoryLightView {
-    func setupBackgroundView(pointColorCode: String, baseColorCode: String) {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [
-            UIColor(hexCode: pointColorCode)?.cgColor ?? UIColor(),
-            UIColor(hexCode: baseColorCode)?.cgColor ?? UIColor(),
-        ]
-        gradientLayer.type = .radial
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-        gradientLayer.locations = [0.0, 0.9]
-        
-        backgroundGradientView.layer.insertSublayer(gradientLayer, at: 0)
-        self.gradientLayer = gradientLayer
-        
-        let blurEffectView = CustomIntensityBlurView(blurStyle: .light, intensity: 0.1)
-        blurEffectView.frame = backgroundGradientView.bounds
-        self.blurEffectView = blurEffectView
-        
-        backgroundGradientView.addSubview(blurEffectView)
+    func updateBackgroundViewUI(pointColorCode: String, baseColorCode: String) {
+        let pointColor = UIColor(hexCode: pointColorCode)?.cgColor ?? UIColor().cgColor
+        let baseColor = UIColor(hexCode: baseColorCode)?.cgColor ?? UIColor().cgColor
+
+        if let gradientLayer = self.gradientLayer {
+            gradientLayer.colors = [pointColor, baseColor]
+            gradientLayer.frame = backgroundGradientView.bounds
+        } else {
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = [pointColor, baseColor]
+            gradientLayer.type = .radial
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+            gradientLayer.locations = [0.0, 0.9]
+            gradientLayer.frame = backgroundGradientView.bounds
+            
+            backgroundGradientView.layer.insertSublayer(gradientLayer, at: 0)
+            self.gradientLayer = gradientLayer
+        }
+
+        if blurEffectView == nil {
+            let blurEffectView = CustomIntensityBlurView(blurStyle: .light, intensity: 0.1)
+            blurEffectView.frame = backgroundGradientView.bounds
+            self.blurEffectView = blurEffectView
+            backgroundGradientView.addSubview(blurEffectView)
+        }
     }
 }
