@@ -539,6 +539,9 @@
 		D06D26DA2C3FE1C700E79F25 /* TitlePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */; };
 		D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */; };
 		D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */; };
+		D07D3A8B2D8DACD80030995E /* DiarySettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3A892D8DACD10030995E /* DiarySettingService.swift */; };
+		D07D3A8E2D8DACE10030995E /* DiarySettingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3A8C2D8DACDC0030995E /* DiarySettingAPI.swift */; };
+		D07D3AA62D8DF84A0030995E /* DiarySettingCheckedResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AA52D8DF7F50030995E /* DiarySettingCheckedResponseDTO.swift */; };
 		D0930BB72D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */; };
 		D0930BB82D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */; };
 		D09A196F2D70589900B07FC2 /* TimePeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A196E2D70589500B07FC2 /* TimePeriod.swift */; };
@@ -868,6 +871,9 @@
 		D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupViewController.swift; sourceTree = "<group>"; };
 		D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupView.swift; sourceTree = "<group>"; };
 		D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionViewCell.swift; sourceTree = "<group>"; };
+		D07D3A892D8DACD10030995E /* DiarySettingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySettingService.swift; sourceTree = "<group>"; };
+		D07D3A8C2D8DACDC0030995E /* DiarySettingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySettingAPI.swift; sourceTree = "<group>"; };
+		D07D3AA52D8DF7F50030995E /* DiarySettingCheckedResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySettingCheckedResponseDTO.swift; sourceTree = "<group>"; };
 		D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewMessageOnly.swift; sourceTree = "<group>"; };
 		D09A196E2D70589500B07FC2 /* TimePeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePeriod.swift; sourceTree = "<group>"; };
 		D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChoosingResponseDTO.swift; sourceTree = "<group>"; };
@@ -1177,6 +1183,7 @@
 				D0E796112C4526C6005B47A5 /* Adventure */,
 				D0E796122C4526D0005B47A5 /* Emblem */,
 				4E3A32662CE510B6007228D0 /* CharacterChat */,
+				D07D3A852D8DAC0F0030995E /* DiarySetting */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -2577,6 +2584,32 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		D07D3A852D8DAC0F0030995E /* DiarySetting */ = {
+			isa = PBXGroup;
+			children = (
+				D07D3A8F2D8DACE50030995E /* DTO */,
+				D07D3A8C2D8DACDC0030995E /* DiarySettingAPI.swift */,
+				D07D3A892D8DACD10030995E /* DiarySettingService.swift */,
+			);
+			path = DiarySetting;
+			sourceTree = "<group>";
+		};
+		D07D3A8F2D8DACE50030995E /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				D07D3A902D8DACE90030995E /* Response */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		D07D3A902D8DACE90030995E /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				D07D3AA52D8DF7F50030995E /* DiarySettingCheckedResponseDTO.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
 		D09A196D2D70589000B07FC2 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
@@ -3723,6 +3756,7 @@
 				4EA272332D5793BA00F64B20 /* ChatTextInputView.swift in Sources */,
 				4E4F31A52D4718F400C3B2FF /* AdventureAPI.swift in Sources */,
 				4E4F31A62D4718F400C3B2FF /* ZeroDurationAnimator.swift in Sources */,
+				D07D3A8B2D8DACD80030995E /* DiarySettingService.swift in Sources */,
 				4E4F31A72D4718F400C3B2FF /* SocialLoginRequestDTO.swift in Sources */,
 				4E4F31A82D4718F400C3B2FF /* ORBNavigationController.swift in Sources */,
 				4E4F31A92D4718F400C3B2FF /* CharacterDetailResponseDTO.swift in Sources */,
@@ -3733,6 +3767,7 @@
 				4E4F31AE2D4718F400C3B2FF /* QuestListCollectionViewCell.swift in Sources */,
 				D022320E2D76CCF500DA6968 /* DiaryGuideViewController.swift in Sources */,
 				4E4F31AF2D4718F400C3B2FF /* UIScreen+.swift in Sources */,
+				D07D3A8E2D8DACE10030995E /* DiarySettingAPI.swift in Sources */,
 				4E4F31B02D4718F400C3B2FF /* CouponRedemptionRequestDTO.swift in Sources */,
 				4EA5F4F12D4C970600A59AB1 /* LogPrinterWindow.swift in Sources */,
 				4E4F31B12D4718F400C3B2FF /* ShrinkableCollectionViewCell.swift in Sources */,
@@ -3771,6 +3806,7 @@
 				4E1CFDEF2D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */,
 				4E4F31CF2D4718F400C3B2FF /* ProfileAPI.swift in Sources */,
 				4E4F31D02D4718F400C3B2FF /* EmblemAPI.swift in Sources */,
+				D07D3AA62D8DF84A0030995E /* DiarySettingCheckedResponseDTO.swift in Sources */,
 				4E4F31D12D4718F400C3B2FF /* TermsListTableViewCell.swift in Sources */,
 				4E4F31D22D4718F400C3B2FF /* TitlePopupView.swift in Sources */,
 				4E4F31D32D4718F400C3B2FF /* Shrinkable.swift in Sources */,
