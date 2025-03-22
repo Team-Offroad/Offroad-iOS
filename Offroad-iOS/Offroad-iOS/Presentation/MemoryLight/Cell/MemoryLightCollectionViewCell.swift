@@ -19,7 +19,7 @@ final class MemoryLightCollectionViewCell: UICollectionViewCell {
     private let blurEffectView = CustomIntensityBlurView(blurStyle: .light, intensity: 0.1)
     private let dateLabel = UILabel()
     private let summaryLabel = UILabel()
-    private let contentLabel = UILabel()
+    private let contentTextView = UITextView()
     private let dottedLineView = UIView()
     private let todayRecommendationLabel = UILabel()
     private let recommendationView = UIView()
@@ -80,13 +80,15 @@ private extension MemoryLightCollectionViewCell {
             $0.resizeFontForDevice()
         }
         
-        contentLabel.do {
+        contentTextView.do {
+            $0.backgroundColor = .clear
             $0.textColor = .main(.main2)
-            $0.numberOfLines = 0
             $0.textAlignment = .left
             $0.font = .offroad(style: .iosBoxMedi)
-            $0.lineBreakMode = .byCharWrapping
-            $0.resizeFontForDevice()
+            $0.textContainerInset = .zero
+            $0.textContainer.lineFragmentPadding = 0
+            $0.isSelectable = false
+            $0.isEditable = false
        }
         
         dottedLineView.do {
@@ -135,7 +137,7 @@ private extension MemoryLightCollectionViewCell {
             blurEffectView,
             dateLabel,
             summaryLabel,
-            contentLabel,
+            contentTextView,
             dottedLineView,
             todayRecommendationLabel,
             recommendationView
@@ -165,13 +167,14 @@ private extension MemoryLightCollectionViewCell {
             $0.horizontalEdges.equalToSuperview().inset(24)
         }
         
-        contentLabel.snp.makeConstraints {
+        contentTextView.snp.makeConstraints {
             $0.top.equalTo(summaryLabel.snp.bottom).offset(16)
             $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.height.equalTo(154).priority(.low)
         }
 
         dottedLineView.snp.makeConstraints {
-            $0.top.equalTo(contentLabel.snp.bottom).offset(32)
+            $0.top.equalTo(contentTextView.snp.bottom).offset(32)
             $0.horizontalEdges.equalToSuperview().inset(24)
             $0.height.equalTo(0.5)
         }
@@ -216,8 +219,8 @@ extension MemoryLightCollectionViewCell {
         summaryLabel.text = data.summation
         summaryLabel.setLineHeight(percentage: 150)
         
-        contentLabel.text = data.content
-        contentLabel.setLineHeight(percentage: 160)
+        contentTextView.text = data.content
+        contentTextView.setLineHeight(percentage: 160)
         
         recommendationLabel.text = data.dailyRecommend
     }

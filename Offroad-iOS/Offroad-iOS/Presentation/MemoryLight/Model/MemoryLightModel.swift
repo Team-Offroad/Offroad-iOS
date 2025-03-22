@@ -47,11 +47,11 @@ extension MemoryLightModel {
             MemoryLightModel(
                 id: 3,
                 dailyRecommend: "추천 text",
-                content: "그리고 오늘의 기억을 오늘 하루동안 나눈 대화, 방문한 장소, 시간 데이터를 바탕으로 요약합니다. 이때 단순 요약이 아니라 AI가 남기는 일종의 메시지 형태라고 보시면 될 것 같고 앞으로에 대한 기대, 응원, 위로 등의 내용이 담겨 있습니다. 앞으로에 대한 기대, 응원, 위로 등의 내용이 담겨 있습니다. 내용이 담겨 있습니다. 앞으로에 대한 기대, 응원, 위로 등의 내용이 담겨 있습니다.",
+                content: "그리고 오늘의 기억을 오늘 하루동안 나눈 대화, 방문한 장소, 시간 데이터를 바탕으로 요약합니다.",
                 year: 2025,
                 month: 3,
                 day: 14,
-                summation: "오늘의 기억을 AI가 한 줄로 요약합니다.오늘의 기억을 AI가 한 줄로 요약합니다.",
+                summation: "오늘의 기억을 AI가 한 줄로 요약합니다.",
                 hexCodes: [MemoryLightColorModel(small: "FFAF40B2", large: "FF8DABB2")]
             ),
             MemoryLightModel(
@@ -71,13 +71,13 @@ extension MemoryLightModel {
                 year: 2025,
                 month: 3,
                 day: 19,
-                summation: "오늘의 기억을 AI가 한 줄로 요약합니다.오늘의 기억을 AI가 한 줄로 요약합니다.",
+                summation: "오늘의 기억을 AI가 한 줄로 요약",
                 hexCodes: [MemoryLightColorModel(small: "FFAF40B2", large: "FF8DABB2")]
             ),
             MemoryLightModel(
                 id: 6,
                 dailyRecommend: "추천 text",
-                content: "그리고 오늘의 기억을 오늘 하루동안 나눈 대화, 방문한 장소, 시간 데이터를 바탕으로 요약합니다. 이때 단순 요약이 아니라 AI가 남기는 일종의 메시지 형태라고 보시면 될 것 같고 앞으로에 대한 기대, 응원, 위로 등의 내용이 담겨 있습니다. 앞으로에 대한 기대, 응원, 위로 등의 내용이 담겨 있습니다. 내용이 담겨 있습니다. 앞으로에 대한 기대, 응원, 위로 등의 내용이 담겨 있습니다.",
+                content: "그리고 오늘의 기억을 오늘 하루동안 나눈 대화, 방문한 장소",
                 year: 2025,
                 month: 3,
                 day: 20,
