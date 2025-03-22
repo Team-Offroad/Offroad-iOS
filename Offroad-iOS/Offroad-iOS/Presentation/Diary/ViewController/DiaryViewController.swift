@@ -197,11 +197,19 @@ extension DiaryViewController: FSCalendarDataSource {
         
         if let colors = viewModel.fetchDummyColorsForDate(date) {
             DispatchQueue.main.async {
-                cell.setupGradientBlurView(pointColorCode: colors[0], baseColorCode: colors[1])
+                cell.configureMemoryLightCell(pointColorCode: colors[0], baseColorCode: colors[1])
             }
         }
         
         return cell
+    }
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        if let colors = viewModel.fetchDummyColorsForDate(date) {
+            let memoryLightViewController = MemoryLightViewController(firstDisplayedDate: date)
+            memoryLightViewController.modalPresentationStyle = .overCurrentContext
+            present(memoryLightViewController, animated: false)
+        }
     }
     
     func minimumDate(for calender: FSCalendar) -> Date {
