@@ -81,13 +81,7 @@ extension UILabel {
         var calculatedSize: CGFloat?
         
         switch screenHeight {
-        case 480.0: // iPhone 3, 3GS, 4, 4S
-            calculatedSize = 0.56
-        case 568.0: // iPhone 5, 5S, SE
-            calculatedSize = 0.67
-        case 667.0: // iPhone 6, 6s, 7, 8
-            calculatedSize = 0.78
-        case 736.0: // iPhone 6+, 6s+, 7+, 8+
+        case 568.0, 667.0, 736.0: // iPhone SE, iPhone 6, 6s, 7, 8, 6+, 6s+, 7+, 8+
             calculatedSize = 0.86
         case 812.0: // iPhone X, XS, 11 Pro
             calculatedSize = 0.95
