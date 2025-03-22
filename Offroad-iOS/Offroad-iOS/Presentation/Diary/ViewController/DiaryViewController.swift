@@ -18,14 +18,6 @@ final class DiaryViewController: UIViewController {
     private let viewModel = DiaryViewModel()
     var disposeBag = DisposeBag()
 
-    private var isGuideConfirmed = false {
-        didSet {
-            if isGuideConfirmed {
-                showSettingDiaryTimeAlert()
-            }
-        }
-    }
-
     // MARK: - Life Cycle
     
     override func loadView() {
@@ -52,7 +44,6 @@ final class DiaryViewController: UIViewController {
         //TODO: - 서버 연결 이후 수정 예정(뷰 진입 시 가이드 화면 표시 여부 결졍)
         
         let diaryGuideViewController = DiaryGuideViewController()
-        diaryGuideViewController.delegate = self
         diaryGuideViewController.modalPresentationStyle = .overCurrentContext
         present(diaryGuideViewController, animated: false)
     }
@@ -88,6 +79,12 @@ private extension DiaryViewController {
         MyDiaryManager.shared.updateCalenderCurrentPage
             .bind { date in
                 self.rootView.diaryCalender.setCurrentPage(date, animated: false)
+            }
+            .disposed(by: disposeBag)
+        
+        MyDiaryManager.shared.didSuccessUpdateTutorialCheckStatus
+            .bind {
+                self.showSettingDiaryTimeAlert()
             }
             .disposed(by: disposeBag)
     }
@@ -211,11 +208,5 @@ extension DiaryViewController: FSCalendarDataSource {
     
     func maximumDate(for calendar: FSCalendar) -> Date {
         return MyDiaryManager.shared.maximumDate
-    }
-}
-
-extension DiaryViewController: GuideConfirmDelegate {
-    func toggleIsGuideConfirmed() {
-        isGuideConfirmed = true
     }
 }

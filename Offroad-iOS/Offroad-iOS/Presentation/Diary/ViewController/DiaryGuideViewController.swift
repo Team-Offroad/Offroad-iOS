@@ -7,17 +7,11 @@
 
 import UIKit
 
-protocol GuideConfirmDelegate: AnyObject{
-    func toggleIsGuideConfirmed()
-}
-
 final class DiaryGuideViewController: UIViewController {
     
     // MARK: - Properties
     
     private let rootView = DiaryGuideView()
-    
-    weak var delegate: GuideConfirmDelegate?
     
     private let guideCharacterData: [UIImage] = [.imgCharacterDiaryGuide, .imgCharacterDiaryGuide]
     private let guideDescriptions = [DiaryGuideMessage.diaryGuideDescription1, DiaryGuideMessage.diaryGuideDescription2]
@@ -54,6 +48,20 @@ private extension DiaryGuideViewController {
         rootView.guideCollectionView.delegate = self
         rootView.guideCollectionView.dataSource = self
     }
+    
+    //MARK: - API Method
+    
+    func patchDiaryTutorialCheckStatus() {
+        NetworkService.shared.diarySettingService.patchDiaryTutorialCheckStatus { response in
+            switch response {
+            case .success:
+                MyDiaryManager.shared.didSuccessUpdateTutorialCheckStatus.accept(())
+                print("일기 가이드 확인 여부 업데이트 완료")
+            default:
+                break
+            }
+        }
+    }
 }
     
 @objc private extension DiaryGuideViewController {
@@ -69,7 +77,7 @@ private extension DiaryGuideViewController {
             rootView.guideCollectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .centeredHorizontally, animated: true)
         } else {
             dismiss(animated: false)
-            delegate?.toggleIsGuideConfirmed()
+            patchDiaryTutorialCheckStatus()
         }
     }
 }
