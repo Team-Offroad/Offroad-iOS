@@ -40,12 +40,7 @@ final class DiaryViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        //TODO: - 서버 연결 이후 수정 예정(뷰 진입 시 가이드 화면 표시 여부 결졍)
-        
-        let diaryGuideViewController = DiaryGuideViewController()
-        diaryGuideViewController.modalPresentationStyle = .overCurrentContext
-        present(diaryGuideViewController, animated: false)
+        viewModel.getDiaryTutorialChecked()
     }
 }
 
@@ -76,6 +71,16 @@ private extension DiaryViewController {
     }
     
     func bindData() {
+        viewModel.isCheckedTutorial
+            .bind { isChecked in
+                if !isChecked {
+                    let diaryGuideViewController = DiaryGuideViewController()
+                    diaryGuideViewController.modalPresentationStyle = .overCurrentContext
+                    self.present(diaryGuideViewController, animated: false)
+                }
+            }
+            .disposed(by: disposeBag)
+        
         MyDiaryManager.shared.updateCalenderCurrentPage
             .bind { date in
                 self.rootView.diaryCalender.setCurrentPage(date, animated: false)
@@ -83,9 +88,14 @@ private extension DiaryViewController {
             .disposed(by: disposeBag)
         
         MyDiaryManager.shared.didSuccessUpdateTutorialCheckStatus
-            .bind {
-                self.showSettingDiaryTimeAlert()
+            .flatMap { _ in
+                return self.viewModel.getDiaryCreateTimeAlertChecked()
             }
+            .subscribe(onNext: { value in
+                if !value {
+                    self.showSettingDiaryTimeAlert()
+                }
+            })
             .disposed(by: disposeBag)
     }
     
@@ -98,11 +108,15 @@ private extension DiaryViewController {
         }
         alertController.xButton.isHidden = true
         let cancelAction = ORBAlertAction(title: "설정", style: .cancel) { _ in
+            self.viewModel.patchDiaryCreateTimeAlertCheckStatus()
+            
             let diaryTimeViewController = DiaryTimeViewController()
             diaryTimeViewController.setupCustomBackButton(buttonTitle: "일기")
             self.navigationController?.pushViewController(diaryTimeViewController, animated: true)
         }
-        let okAction = ORBAlertAction(title: "확인", style: .default) { _ in return }
+        let okAction = ORBAlertAction(title: "확인", style: .default) { _ in
+            self.viewModel.patchDiaryCreateTimeAlertCheckStatus()
+        }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         present(alertController, animated: true)
