@@ -68,11 +68,11 @@ extension DiaryTimeView {
             $0.font = .offroad(style: .iosTextTitle)
             $0.textColor = .main(.main2)
             $0.textAlignment = .center
+            $0.setContentCompressionResistancePriority(.defaultHigh + 1, for: .vertical)
         }
         
         diaryTimeImageView.do {
-            $0.backgroundColor = .gray
-            $0.roundCorners(cornerRadius: 10)
+            $0.image = .imgDiaryTimeCharacter
             $0.contentMode = .scaleAspectFit
         }
         
@@ -82,6 +82,7 @@ extension DiaryTimeView {
             $0.textColor = .main(.main2)
             $0.textAlignment = .center
             $0.setLineHeight(percentage: 150)
+            $0.setContentCompressionResistancePriority(.defaultHigh + 1, for: .vertical)
         }
         
         highlightedRowView.do {
@@ -107,6 +108,7 @@ extension DiaryTimeView {
             $0.textColor = .sub(.sub2)
             $0.textAlignment = .center
             $0.setLineHeight(percentage: 160)
+            $0.setContentCompressionResistancePriority(.defaultHigh + 1, for: .vertical)
         }
         
         descriptionLabel2.do {
@@ -115,6 +117,7 @@ extension DiaryTimeView {
             $0.textColor = .sub(.sub2)
             $0.textAlignment = .center
             $0.setLineHeight(percentage: 160)
+            $0.setContentCompressionResistancePriority(.defaultHigh + 1, for: .vertical)
         }
         
         completeButton.do {
@@ -168,14 +171,17 @@ extension DiaryTimeView {
         }
         
         diaryTimeImageView.snp.makeConstraints {
-            $0.top.equalTo(dividerView.snp.bottom).offset(30)
+            $0.top.greaterThanOrEqualTo(safeAreaLayoutGuide).inset(160)
+            $0.top.lessThanOrEqualTo(safeAreaLayoutGuide).inset(176)
             $0.centerX.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(81)
+            $0.width.greaterThanOrEqualToSuperview().inset(140)
+            $0.width.lessThanOrEqualToSuperview().inset(81)
+            $0.height.equalTo(diaryTimeImageView.snp.width)
         }
         
         questionLabel.snp.makeConstraints {
-            $0.top.equalTo(diaryTimeImageView.snp.bottom).offset(24)
-            $0.horizontalEdges.equalToSuperview()
+            $0.top.equalTo(diaryTimeImageView.snp.bottom).offset(4)
+            $0.centerX.equalToSuperview()
         }
         
         highlightedRowView.snp.makeConstraints {
@@ -192,11 +198,12 @@ extension DiaryTimeView {
         timePickerView.snp.makeConstraints {
             $0.top.equalTo(questionLabel.snp.bottom).offset(10)
             $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(125)
+            $0.height.equalTo(110)
         }
         
         descriptionStackView.snp.makeConstraints {
-            $0.top.equalTo(timePickerView.snp.bottom).offset(35)
+            $0.top.greaterThanOrEqualTo(timePickerView.snp.bottom).offset(10)
+            $0.top.lessThanOrEqualTo(timePickerView.snp.bottom).offset(35)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(22)
         }
@@ -205,12 +212,12 @@ extension DiaryTimeView {
             $0.top.equalTo(descriptionStackView.snp.bottom)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(22)
+            $0.bottom.greaterThanOrEqualTo(completeButton.snp.top).offset(-36)
+            $0.bottom.lessThanOrEqualTo(completeButton.snp.top).offset(-10)
         }
          
         completeButton.snp.makeConstraints {
-            $0.top.equalTo(descriptionLabel2.snp.bottom).offset(36)
-            $0.bottom.equalToSuperview().inset(45)
-            $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.bottom.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(24)
             $0.height.equalTo(54)
         }
     }
