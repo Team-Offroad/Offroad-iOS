@@ -78,7 +78,7 @@ extension UILabel {
     func resizeFontForDevice() {
         let screenHeight = UIScreen.main.bounds.height
         let currentFontSize = font?.pointSize
-        var calculatedSize: CGFloat?
+        let calculatedSize: CGFloat
         
         switch screenHeight {
         case 568.0, 667.0, 736.0: // iPhone SE, iPhone 6, 6s, 7, 8, 6+, 6s+, 7+, 8+
@@ -104,7 +104,7 @@ extension UILabel {
             calculatedSize = 1
         }
         
-        if let currentFontSize, let calculatedSize {
+        if let currentFontSize {
             font = font?.withSize(currentFontSize * calculatedSize)
         }
     }
