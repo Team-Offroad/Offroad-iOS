@@ -21,6 +21,7 @@ class CustomIntensityBlurView: UIVisualEffectView {
     ///   - intensity: 적용할 블러의 세기 0에서 1 사이의 값을 가지며 0은 블러 전혀 없음, 1은 UIKit의 기본 블러 세기를 의미
     init(blurStyle style: UIBlurEffect.Style, intensity: CGFloat) {
         super.init(effect: nil)
+        
         animator.addAnimations { [weak self] in
             guard let self else { return }
             self.effect = UIBlurEffect(style: style)
@@ -32,5 +33,15 @@ class CustomIntensityBlurView: UIVisualEffectView {
     required init?(coder aDecoder: NSCoder) {
         fatalError()
     }
+}
 
+extension CustomIntensityBlurView {
+    
+    //MARK: - Func
+    
+    func applyBlurEffectAsync() {
+        DispatchQueue.main.async {
+            self.animator.startAnimation()
+        }
+    }
 }
