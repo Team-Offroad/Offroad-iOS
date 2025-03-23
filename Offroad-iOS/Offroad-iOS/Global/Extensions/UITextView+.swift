@@ -38,7 +38,6 @@ extension UITextView {
     ///
     /// 피그마상에서 텍스트뷰의 높이를 지정한 경우, UITextView에서도 높이를 명시적으로 설정해야 함.
     func setLineHeight(percentage: CGFloat) {
-        print(#function)
         let currentOffset = contentOffset
         let currentText = self.attributedText ?? NSAttributedString(string: self.text ?? "")
         let attributedString = NSMutableAttributedString(attributedString: currentText)

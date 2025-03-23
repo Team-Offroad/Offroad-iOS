@@ -19,7 +19,7 @@ final class CustomDiaryCalendarCell: FSCalendarCell {
     //MARK: - UI Properties
     
     private let defaultBackgroundView = UIView()
-    private lazy var gradientBlurBackgroundView = UIView()
+    private lazy var gradientBlurBackgroundView = MemoryLightGradientView()
     
     //MARK: - Life Cycle
 
@@ -89,25 +89,13 @@ extension CustomDiaryCalendarCell {
     
     //MARK: - Method
     
-    func setupGradientBlurView(pointColorCode: String, baseColorCode: String) {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = contentView.bounds
-        gradientLayer.colors = [
-            UIColor(hexCode: pointColorCode)?.cgColor ?? UIColor(),
-            UIColor(hexCode: baseColorCode)?.cgColor ?? UIColor()
-        ]
-        gradientLayer.type = .radial
-        gradientLayer.startPoint = CGPoint(x: 0.25, y: 0.2  )
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        gradientLayer.locations = [0.0, 1.0]
-        
-        gradientBlurBackgroundView.layer.insertSublayer(gradientLayer, at: 0)
+    func configureMemoryLightCell(pointColorCode: String, baseColorCode: String) {
+        gradientBlurBackgroundView.setupGradientView(pointColorCode: pointColorCode, baseColorCode: baseColorCode)
+        gradientBlurBackgroundView.isHidden = false
         
         let blurEffectView = CustomIntensityBlurView(blurStyle: .light, intensity: 0.1)
-        blurEffectView.frame = contentView.bounds
+        blurEffectView.frame = bounds
         
         gradientBlurBackgroundView.addSubview(blurEffectView)
-        
-        gradientBlurBackgroundView.isHidden = false
     }
 }

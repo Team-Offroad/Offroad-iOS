@@ -149,6 +149,8 @@ private extension DiaryViewController {
     }
 }
 
+//MARK: - FSCalendarDelegateAppearance
+
 extension DiaryViewController: FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
         return .clear
@@ -188,17 +190,27 @@ extension DiaryViewController: FSCalendarDelegateAppearance {
     }
 }
 
+//MARK: - FSCalendarDataSource
+
 extension DiaryViewController: FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         guard let cell = calendar.dequeueReusableCell(withIdentifier: CustomDiaryCalendarCell.className, for: date, at: position) as? CustomDiaryCalendarCell else { return FSCalendarCell() }
         
         if let colors = viewModel.fetchDummyColorsForDate(date) {
             DispatchQueue.main.async {
-                cell.setupGradientBlurView(pointColorCode: colors[0], baseColorCode: colors[1])
+                cell.configureMemoryLightCell(pointColorCode: colors[0], baseColorCode: colors[1])
             }
         }
         
         return cell
+    }
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        if let colors = viewModel.fetchDummyColorsForDate(date) {
+            let memoryLightViewController = MemoryLightViewController(firstDisplayedDate: date)
+            memoryLightViewController.modalPresentationStyle = .fullScreen
+            present(memoryLightViewController, animated: false)
+        }
     }
     
     func minimumDate(for calender: FSCalendar) -> Date {
