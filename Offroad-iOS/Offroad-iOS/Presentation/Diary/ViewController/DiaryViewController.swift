@@ -207,7 +207,7 @@ extension DiaryViewController: FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         if let colors = viewModel.fetchDummyColorsForDate(date) {
             let memoryLightViewController = MemoryLightViewController(firstDisplayedDate: date)
-            memoryLightViewController.modalPresentationStyle = .overCurrentContext
+            memoryLightViewController.modalPresentationStyle = .fullScreen
             present(memoryLightViewController, animated: false)
         }
     }
