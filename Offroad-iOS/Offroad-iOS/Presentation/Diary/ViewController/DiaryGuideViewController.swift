@@ -74,6 +74,8 @@ private extension DiaryGuideViewController {
     }
 }
 
+//MARK: - UICollectionViewDataSource
+
 extension DiaryGuideViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return guideCharacterData.count
@@ -94,6 +96,7 @@ extension DiaryGuideViewController: UICollectionViewDataSource {
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 
 extension DiaryGuideViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

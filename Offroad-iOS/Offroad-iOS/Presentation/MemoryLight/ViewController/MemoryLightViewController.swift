@@ -84,7 +84,7 @@ private extension MemoryLightViewController {
     }
 }
 
-
+//MARK: - UICollectionViewDataSource
 
 extension MemoryLightViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -99,6 +99,7 @@ extension MemoryLightViewController: UICollectionViewDataSource {
     }
 }
 
+//MARK: - UICollectionViewDelegateFlowLayout
 
 extension MemoryLightViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

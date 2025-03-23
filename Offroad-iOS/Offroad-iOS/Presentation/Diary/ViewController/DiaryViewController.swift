@@ -152,6 +152,8 @@ private extension DiaryViewController {
     }
 }
 
+//MARK: - FSCalendarDelegateAppearance
+
 extension DiaryViewController: FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
         return .clear
@@ -190,6 +192,8 @@ extension DiaryViewController: FSCalendarDelegateAppearance {
         rootView.rightArrowButton.alpha = viewModel.canMoveMonth(.next) ? 1 : 0
     }
 }
+
+//MARK: - FSCalendarDataSource
 
 extension DiaryViewController: FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
