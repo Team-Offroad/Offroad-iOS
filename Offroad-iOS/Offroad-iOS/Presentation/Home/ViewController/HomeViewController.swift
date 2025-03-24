@@ -282,8 +282,7 @@ extension HomeViewController {
     
     #if DevTarget
     private func postDiarySettingDataRecord() {
-        NetworkService.shared.diarySettingService.postDiarySettingDataRecord { [weak self] response in
-            guard let self else { return }
+        NetworkService.shared.diarySettingService.postDiarySettingDataRecord { response in
             switch response {
             case .success:
                 print("일기 레코드 세팅 데이터 전송 성공")

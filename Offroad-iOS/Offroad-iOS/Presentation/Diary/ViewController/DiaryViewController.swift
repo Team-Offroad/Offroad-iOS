@@ -75,7 +75,7 @@ private extension DiaryViewController {
             .bind { isChecked in
                 if !isChecked {
                     let diaryGuideViewController = DiaryGuideViewController()
-                    diaryGuideViewController.modalPresentationStyle = .overCurrentContext
+                    diaryGuideViewController.modalPresentationStyle = .fullScreen
                     self.present(diaryGuideViewController, animated: false)
                 }
             }
@@ -133,7 +133,7 @@ private extension DiaryViewController {
     
     func guideButtonTapped() {
         let diaryGuideViewController = DiaryGuideViewController()
-        diaryGuideViewController.modalPresentationStyle = .overCurrentContext
+        diaryGuideViewController.modalPresentationStyle = .fullScreen
         present(diaryGuideViewController, animated: false)
     }
     

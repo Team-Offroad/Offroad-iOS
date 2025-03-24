@@ -56,10 +56,10 @@ private extension DiarySettingService {
             guard let self = self else { return }
             
             switch result {
-            case .success(let respone):
+            case .success(let response):
                 let networkResult: NetworkResult<Any> = self.fetchNetworkResult(
-                    statusCode: respone.statusCode,
-                    data: respone.data
+                    statusCode: response.statusCode,
+                    data: response.data
                 )
                 completion(networkResult)
                 
