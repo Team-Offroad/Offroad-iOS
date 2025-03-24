@@ -548,6 +548,12 @@
 		D07D3A8B2D8DACD80030995E /* DiarySettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3A892D8DACD10030995E /* DiarySettingService.swift */; };
 		D07D3A8E2D8DACE10030995E /* DiarySettingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3A8C2D8DACDC0030995E /* DiarySettingAPI.swift */; };
 		D07D3AA62D8DF84A0030995E /* DiarySettingCheckedResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AA52D8DF7F50030995E /* DiarySettingCheckedResponseDTO.swift */; };
+		D07D3AD72D9074B70030995E /* DiaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AD62D9074AF0030995E /* DiaryService.swift */; };
+		D07D3ADB2D9074C20030995E /* DiaryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AD92D9074BC0030995E /* DiaryAPI.swift */; };
+		D07D3AE32D9104AE0030995E /* DiaryColorsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AE12D91049A0030995E /* DiaryColorsResponseDTO.swift */; };
+		D07D3AE62D9106050030995E /* DiaryResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AE42D9105FD0030995E /* DiaryResponseDTO.swift */; };
+		D07D3AEC2D9147270030995E /* DiaryInitialDateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AEA2D9147160030995E /* DiaryInitialDateResponseDTO.swift */; };
+		D07D3AEE2D9147D30030995E /* DiaryCheckStatusResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AED2D9147830030995E /* DiaryCheckStatusResponseDTO.swift */; };
 		D0930BB72D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */; };
 		D0930BB82D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */; };
 		D09A196F2D70589900B07FC2 /* TimePeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A196E2D70589500B07FC2 /* TimePeriod.swift */; };
@@ -886,6 +892,12 @@
 		D07D3A892D8DACD10030995E /* DiarySettingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySettingService.swift; sourceTree = "<group>"; };
 		D07D3A8C2D8DACDC0030995E /* DiarySettingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySettingAPI.swift; sourceTree = "<group>"; };
 		D07D3AA52D8DF7F50030995E /* DiarySettingCheckedResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySettingCheckedResponseDTO.swift; sourceTree = "<group>"; };
+		D07D3AD62D9074AF0030995E /* DiaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryService.swift; sourceTree = "<group>"; };
+		D07D3AD92D9074BC0030995E /* DiaryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAPI.swift; sourceTree = "<group>"; };
+		D07D3AE12D91049A0030995E /* DiaryColorsResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryColorsResponseDTO.swift; sourceTree = "<group>"; };
+		D07D3AE42D9105FD0030995E /* DiaryResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryResponseDTO.swift; sourceTree = "<group>"; };
+		D07D3AEA2D9147160030995E /* DiaryInitialDateResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInitialDateResponseDTO.swift; sourceTree = "<group>"; };
+		D07D3AED2D9147830030995E /* DiaryCheckStatusResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCheckStatusResponseDTO.swift; sourceTree = "<group>"; };
 		D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewMessageOnly.swift; sourceTree = "<group>"; };
 		D09A196E2D70589500B07FC2 /* TimePeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePeriod.swift; sourceTree = "<group>"; };
 		D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChoosingResponseDTO.swift; sourceTree = "<group>"; };
@@ -1196,6 +1208,7 @@
 				D0E796122C4526D0005B47A5 /* Emblem */,
 				4E3A32662CE510B6007228D0 /* CharacterChat */,
 				D07D3A852D8DAC0F0030995E /* DiarySetting */,
+				D07D3AD52D9074920030995E /* Diary */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -2676,6 +2689,35 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
+		D07D3AD52D9074920030995E /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+				D07D3ADC2D9074CB0030995E /* DTO */,
+				D07D3AD92D9074BC0030995E /* DiaryAPI.swift */,
+				D07D3AD62D9074AF0030995E /* DiaryService.swift */,
+			);
+			path = Diary;
+			sourceTree = "<group>";
+		};
+		D07D3ADC2D9074CB0030995E /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				D07D3ADD2D9074E00030995E /* Response */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		D07D3ADD2D9074E00030995E /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				D07D3AE12D91049A0030995E /* DiaryColorsResponseDTO.swift */,
+				D07D3AE42D9105FD0030995E /* DiaryResponseDTO.swift */,
+				D07D3AEA2D9147160030995E /* DiaryInitialDateResponseDTO.swift */,
+				D07D3AED2D9147830030995E /* DiaryCheckStatusResponseDTO.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
 		D09A196D2D70589000B07FC2 /* Enum */ = {
 			isa = PBXGroup;
 			children = (
@@ -3750,6 +3792,7 @@
 				4E4F31692D4718F400C3B2FF /* OffroadTabBarViewController.swift in Sources */,
 				4EDB392B2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */,
 				4E4F316A2D4718F400C3B2FF /* AdventureInfoResponseDTO.swift in Sources */,
+				D07D3AD72D9074B70030995E /* DiaryService.swift in Sources */,
 				4E4F316B2D4718F400C3B2FF /* ORBMapView.swift in Sources */,
 				D022320C2D76CCE700DA6968 /* DiaryGuideView.swift in Sources */,
 				4E4F316C2D4718F400C3B2FF /* ORBAlertButton.swift in Sources */,
@@ -3771,6 +3814,7 @@
 				D0CA20842D7FE08200FDF7F4 /* MonthPickerModalViewController.swift in Sources */,
 				4E4F317A2D4718F400C3B2FF /* ORBCharacterChatView.swift in Sources */,
 				4E4F317B2D4718F400C3B2FF /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
+				D07D3AE62D9106050030995E /* DiaryResponseDTO.swift in Sources */,
 				4E4F317C2D4718F400C3B2FF /* QuestListResponseDTO.swift in Sources */,
 				4E4F316B2D4718F400C3B2FF /* ORBMapView.swift in Sources */,
 				4E4F317D2D4718F400C3B2FF /* CustomIntensityBlurView.swift in Sources */,
@@ -3839,6 +3883,7 @@
 				4E4F31AF2D4718F400C3B2FF /* UIScreen+.swift in Sources */,
 				D07D3A8E2D8DACE10030995E /* DiarySettingAPI.swift in Sources */,
 				4E4F31B02D4718F400C3B2FF /* CouponRedemptionRequestDTO.swift in Sources */,
+				D07D3AEE2D9147D30030995E /* DiaryCheckStatusResponseDTO.swift in Sources */,
 				4EA5F4F12D4C970600A59AB1 /* LogPrinterWindow.swift in Sources */,
 				4E4F31B12D4718F400C3B2FF /* ShrinkableCollectionViewCell.swift in Sources */,
 				4E4F31B22D4718F400C3B2FF /* ORBAlertBackgroundView.swift in Sources */,
@@ -3849,6 +3894,7 @@
 				4E4F31B52D4718F400C3B2FF /* CharacterChoosingResponseDTO.swift in Sources */,
 				4E4F31B62D4718F400C3B2FF /* FontLiterals.swift in Sources */,
 				4E4F31B72D4718F400C3B2FF /* UIScrollView+.swift in Sources */,
+				D07D3AE32D9104AE0030995E /* DiaryColorsResponseDTO.swift in Sources */,
 				4E4F31B82D4718F400C3B2FF /* TitleModel.swift in Sources */,
 				4E4F31B92D4718F400C3B2FF /* NoticeViewController.swift in Sources */,
 				4E4F31BA2D4718F400C3B2FF /* UIColor+.swift in Sources */,
@@ -3857,6 +3903,7 @@
 				D0CA20822D7FE06B00FDF7F4 /* MonthPickerModalView.swift in Sources */,
 				4E4F31BD2D4718F400C3B2FF /* NavigationPopButton.swift in Sources */,
 				4E4F31BE2D4718F400C3B2FF /* EmblemInfoResponseDTO.swift in Sources */,
+				D07D3ADB2D9074C20030995E /* DiaryAPI.swift in Sources */,
 				4E4F31BF2D4718F400C3B2FF /* ORBCharacterChatWindow.swift in Sources */,
 				4E4F31C02D4718F400C3B2FF /* TermsConsentView.swift in Sources */,
 				4E4F31C12D4718F400C3B2FF /* PlaceAPI.swift in Sources */,
@@ -4009,6 +4056,7 @@
 				4E4F32492D4718F400C3B2FF /* PlaceListCollectionViewController.swift in Sources */,
 				4E4F324A2D4718F400C3B2FF /* QuestResultViewController.swift in Sources */,
 				4E4F324B2D4718F400C3B2FF /* ORBPlaceCategory.swift in Sources */,
+				D07D3AEC2D9147270030995E /* DiaryInitialDateResponseDTO.swift in Sources */,
 				4E4F324C2D4718F400C3B2FF /* SplashViewController.swift in Sources */,
 				4E4F324D2D4718F400C3B2FF /* ORBMapListButton.swift in Sources */,
 				4E4F324E2D4718F400C3B2FF /* QuestListAPI.swift in Sources */,
