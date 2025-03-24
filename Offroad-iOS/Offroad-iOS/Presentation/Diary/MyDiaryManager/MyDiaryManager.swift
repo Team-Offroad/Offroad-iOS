@@ -28,6 +28,7 @@ final class MyDiaryManager {
     var currentPageDate = Date()
 
     let updateCalenderCurrentPage = PublishRelay<Date>()
+    let didSuccessUpdateTutorialCheckStatus = PublishRelay<Void>()
     
     //MARK: - Life Cycle
     

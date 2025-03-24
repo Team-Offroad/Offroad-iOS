@@ -62,6 +62,9 @@ final class HomeViewController: OffroadTabBarViewController {
         
         requestPushNotificationPermission()
         redirectViewControllerForPushNotification()
+        #if DevTarget
+        postDiarySettingDataRecord()
+        #endif
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -276,6 +279,19 @@ extension HomeViewController {
             }
         }
     }
+    
+    #if DevTarget
+    private func postDiarySettingDataRecord() {
+        NetworkService.shared.diarySettingService.postDiarySettingDataRecord { response in
+            switch response {
+            case .success:
+                print("일기 레코드 세팅 데이터 전송 성공")
+            default:
+                break
+            }
+        }
+    }
+    #endif
     
     //MARK: - Func
     

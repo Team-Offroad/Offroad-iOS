@@ -60,7 +60,7 @@ private extension DiaryTimeViewController {
     
     func setupTarget() {
         rootView.customBackButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        rootView.completeButton.addTarget(self, action: #selector(completeTapped), for: .touchUpInside)
+        rootView.completeButton.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
     }
     
     func showExitAlertView() {
@@ -77,6 +77,18 @@ private extension DiaryTimeViewController {
         alertController.addAction(okAction)
         
         present(alertController, animated: true)
+    }
+    
+    func patchDiaryCreateTime(hour: Int) {
+        NetworkService.shared.diarySettingService.patchDiaryCreateTime(parameter: hour) { response in
+            switch response {
+            case .success:
+                print("일기 생성 시간 업데이트 완료")
+            default:
+                break
+            }
+            
+        }
     }
 }
 
@@ -97,14 +109,11 @@ extension DiaryTimeViewController {
         showExitAlertView()
     }
     
-    func completeTapped() {
+    func completeButtonTapped() {
         let selectedTime = times[rootView.timePickerView.selectedRow(inComponent: 0)]
         let selectedTimePeriod = timePeriods[rootView.timePickerView.selectedRow(inComponent: 1)]
-        
-//        서버 통신 시에 전송할 값
-//        let convertedTime = selectedTime == 12 ? 0 : selectedTime
-//        let selectedTimeResult = selectedTimePeriod == "AM" ? convertedTime : convertedTime + 12
-//        print(selectedTimeResult)
+        let convertedTime = selectedTime == 12 ? 0 : selectedTime
+        let selectedTimeResult = selectedTimePeriod.rawValue == "AM" ? convertedTime : convertedTime + 12
 
         let alertController = ORBAlertController(title: AlertMessage.diaryTimeSettinTitle(selectedTimePeriod: selectedTimePeriod, selectedTime: selectedTime), message: AlertMessage.diaryTimeSettingMessage, type: .normal)
         alertController.configureMessageLabel{ label in
@@ -112,12 +121,17 @@ extension DiaryTimeViewController {
         }
         alertController.xButton.isHidden = true
         let cancelAction = ORBAlertAction(title: "아니요", style: .cancel) { _ in return }
-        let okAction = ORBAlertAction(title: "네", style: .default) { _ in return }
+        let okAction = ORBAlertAction(title: "네", style: .default) { _ in
+            self.patchDiaryCreateTime(hour: selectedTimeResult)
+            self.navigationController?.popViewController(animated: true)
+        }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         present(alertController, animated: true)
     }
 }
+
+//MARK: - UIGestureRecognizerDelegate
 
 extension DiaryTimeViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -125,6 +139,8 @@ extension DiaryTimeViewController: UIGestureRecognizerDelegate {
         return false
     }
 }
+
+//MARK: - UIPickerViewDataSource
 
 extension DiaryTimeViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -143,7 +159,9 @@ extension DiaryTimeViewController: UIPickerViewDataSource {
         return 34
     }
 }
- 
+
+//MARK: - UIPickerViewDelegate
+
 extension DiaryTimeViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
