@@ -18,14 +18,6 @@ final class DiaryViewController: UIViewController {
     private let viewModel = DiaryViewModel()
     var disposeBag = DisposeBag()
 
-    private var isGuideConfirmed = false {
-        didSet {
-            if isGuideConfirmed {
-                showSettingDiaryTimeAlert()
-            }
-        }
-    }
-
     // MARK: - Life Cycle
     
     override func loadView() {
@@ -48,13 +40,7 @@ final class DiaryViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        //TODO: - 서버 연결 이후 수정 예정(뷰 진입 시 가이드 화면 표시 여부 결졍)
-        
-        let diaryGuideViewController = DiaryGuideViewController()
-        diaryGuideViewController.delegate = self
-        diaryGuideViewController.modalPresentationStyle = .overCurrentContext
-        present(diaryGuideViewController, animated: false)
+        viewModel.getDiaryTutorialChecked()
     }
 }
 
@@ -85,10 +71,31 @@ private extension DiaryViewController {
     }
     
     func bindData() {
+        viewModel.isCheckedTutorial
+            .bind { isChecked in
+                if !isChecked {
+                    let diaryGuideViewController = DiaryGuideViewController()
+                    diaryGuideViewController.modalPresentationStyle = .fullScreen
+                    self.present(diaryGuideViewController, animated: false)
+                }
+            }
+            .disposed(by: disposeBag)
+        
         MyDiaryManager.shared.updateCalenderCurrentPage
             .bind { date in
                 self.rootView.diaryCalender.setCurrentPage(date, animated: false)
             }
+            .disposed(by: disposeBag)
+        
+        MyDiaryManager.shared.didSuccessUpdateTutorialCheckStatus
+            .flatMap { _ in
+                return self.viewModel.getDiaryCreateTimeAlertChecked()
+            }
+            .subscribe(onNext: { value in
+                if !value {
+                    self.showSettingDiaryTimeAlert()
+                }
+            })
             .disposed(by: disposeBag)
     }
     
@@ -101,11 +108,15 @@ private extension DiaryViewController {
         }
         alertController.xButton.isHidden = true
         let cancelAction = ORBAlertAction(title: "설정", style: .cancel) { _ in
+            self.viewModel.patchDiaryCreateTimeAlertCheckStatus()
+            
             let diaryTimeViewController = DiaryTimeViewController()
             diaryTimeViewController.setupCustomBackButton(buttonTitle: "일기")
             self.navigationController?.pushViewController(diaryTimeViewController, animated: true)
         }
-        let okAction = ORBAlertAction(title: "확인", style: .default) { _ in return }
+        let okAction = ORBAlertAction(title: "확인", style: .default) { _ in
+            self.viewModel.patchDiaryCreateTimeAlertCheckStatus()
+        }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         present(alertController, animated: true)
@@ -122,7 +133,7 @@ private extension DiaryViewController {
     
     func guideButtonTapped() {
         let diaryGuideViewController = DiaryGuideViewController()
-        diaryGuideViewController.modalPresentationStyle = .overCurrentContext
+        diaryGuideViewController.modalPresentationStyle = .fullScreen
         present(diaryGuideViewController, animated: false)
     }
     
@@ -223,11 +234,5 @@ extension DiaryViewController: FSCalendarDataSource {
     
     func maximumDate(for calendar: FSCalendar) -> Date {
         return MyDiaryManager.shared.maximumDate
-    }
-}
-
-extension DiaryViewController: GuideConfirmDelegate {
-    func toggleIsGuideConfirmed() {
-        isGuideConfirmed = true
     }
 }

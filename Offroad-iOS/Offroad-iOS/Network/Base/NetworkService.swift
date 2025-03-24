@@ -25,4 +25,7 @@ final class NetworkService {
     let placeService: RegisteredPlaceService = RegisteredPlaceService()
     let pushNotificationService: PushNotificationServiceProtocol = PushNotificationService()
     let characterChatService: CharacterChatService = CharacterChatService()
+    #if DevTarget
+    let diarySettingService: DiarySettingServiceProtocol = DiarySettingService()
+    #endif
 }
