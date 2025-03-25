@@ -16,13 +16,13 @@ struct DiaryByDateResponseDTO: Decodable {
 }
 
 struct DiaryLatestData: Decodable {
-    let latestDiary: Diary
+    let latestDiary: Diary?
     let previousDiaries: [Diary]
-    let emptyImageUrl: String
+    let emptyImageUrl: String?
 }
 
 struct DiaryByDateData: Decodable {
-    let latestDiary: Diary
+    let targetDiary: Diary
     let previousDiaries: [Diary]
     let nextDiaries: [Diary]
 }
@@ -35,5 +35,5 @@ struct Diary: Decodable {
     let month: Int
     let day: Int
     let summation: String
-    let hexCodes: [String: [ColorHex]]
+    let hexCodes: [ColorHex]
 }

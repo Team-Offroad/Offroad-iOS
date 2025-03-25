@@ -10,12 +10,12 @@ import Foundation
 import Moya
 
 enum DiaryAPI {
-    case patchDiaryCheck(date: Int)
+    case patchDiaryCheck(date: String)
     case getDiaryMonthlyHexCodes(year: Int, month: Int)
     case getLatestAndBeforeDiaries(previousCount: Int?)
     case getInitialDiaryDate
     case getLatestDiaryChecked
-    case getDiariesByDate(date: Int, previousCount: Int?, nextCount: Int?)
+    case getDiariesByDate(date: String, previousCount: Int?, nextCount: Int?)
 }
 
 extension DiaryAPI: BaseTargetType {
@@ -44,10 +44,10 @@ extension DiaryAPI: BaseTargetType {
         case .getDiariesByDate(let date, let previousCount, let nextCount):
             var paramters = ["date": date]
             if let previousCount {
-                paramters["previousCount"] = previousCount
+                paramters["previousCount"] = String(previousCount)
             }
             if let nextCount {
-                paramters["nextCount"] = nextCount
+                paramters["nextCount"] = String(nextCount)
             }
             return paramters
         default:
@@ -83,7 +83,7 @@ extension DiaryAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getLatestDiaryChecked, .getDiariesByDate:
+        case .getLatestDiaryChecked:
             return .requestPlain
         default:
             return .requestParameters(parameters: parameter ?? [:], encoding: URLEncoding.queryString)

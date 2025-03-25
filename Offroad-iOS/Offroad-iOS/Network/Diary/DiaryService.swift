@@ -10,18 +10,18 @@ import Foundation
 import Moya
 
 protocol DiaryServiceProtocol {
-    func patchDiaryCheck(date: Int, completion: @escaping (NetworkResult<Any>) -> ())
+    func patchDiaryCheck(date: String, completion: @escaping (NetworkResult<Any>) -> ())
     func getDiaryMonthlyHexCodes(year: Int, month: Int, completion: @escaping (NetworkResult<DiaryColorsResponseDTO>) -> ())
     func getLatestAndBeforeDiaries(previousCount: Int?, completion: @escaping (NetworkResult<DiaryLatestResponseDTO>) -> ())
     func getInitialDiaryDate(completion: @escaping (NetworkResult<DiaryInitialDateResponseDTO>) -> ())
     func getLatestDiaryChecked(completion: @escaping (NetworkResult<DiaryCheckStatusResponseDTO>) -> ())
-    func getDiariesByDate(date: Int, previousCount: Int?, nextCount: Int?, completion: @escaping (NetworkResult<DiaryByDateResponseDTO>) -> ())
+    func getDiariesByDate(date: String, previousCount: Int?, nextCount: Int?, completion: @escaping (NetworkResult<DiaryByDateResponseDTO>) -> ())
 }
 
 final class DiaryService: BaseService, DiaryServiceProtocol {
     let provider = MoyaProvider<DiaryAPI>.init(session: Session(interceptor: TokenInterceptor.shared), plugins: [MoyaPlugin()])
     
-    func patchDiaryCheck(date: Int, completion: @escaping (NetworkResult<Any>) -> ()) {
+    func patchDiaryCheck(date: String, completion: @escaping (NetworkResult<Any>) -> ()) {
         request(.patchDiaryCheck(date: date), completion: completion)
     }
     
@@ -41,7 +41,7 @@ final class DiaryService: BaseService, DiaryServiceProtocol {
         request(.getLatestDiaryChecked, completion: completion)
     }
     
-    func getDiariesByDate(date: Int, previousCount: Int?, nextCount: Int?, completion: @escaping (NetworkResult<DiaryByDateResponseDTO>) -> ()) {
+    func getDiariesByDate(date: String, previousCount: Int?, nextCount: Int?, completion: @escaping (NetworkResult<DiaryByDateResponseDTO>) -> ()) {
         request(.getDiariesByDate(date: date, previousCount: previousCount, nextCount: nextCount), completion: completion)
     }
 }
