@@ -11,6 +11,9 @@ class QuestListViewController: UIViewController {
     
     //MARK: - Properties
     
+#if DevTarget
+    private var courseQuests: [CourseQuest] = []
+#endif
     private var questListService = QuestListService()
     private var allQuestList: [Quest] = []
     private var activeQuestList: [Quest] = []
@@ -49,6 +52,9 @@ class QuestListViewController: UIViewController {
         setupCollectionView()
         setupDelegates()
         getInitialQuestList(isActive: isActive)
+#if DevTarget
+        loadDummyCourseQuests()
+#endif
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +64,49 @@ class QuestListViewController: UIViewController {
         offroadTabBarController.hideTabBarAnimation()
     }
     
+#if DevTarget
+    private func loadDummyCourseQuests() {
+        courseQuests = [
+            CourseQuest(
+                title: "코스 퀘스트 1",
+                progress: "1/5",
+                description: "첫 번째 코스 퀘스트",
+                quests: [
+                    QuestDetail(locationName: "장소 A", mission: "미션 1"),
+                    QuestDetail(locationName: "장소 B", mission: "미션 2"),
+                    QuestDetail(locationName: "장소 B", mission: "미션 2"),
+                    QuestDetail(locationName: "장소 B", mission: "미션 2")
+                ],
+                reward: "보상 1"
+            ),
+            CourseQuest(
+                title: "코스 퀘스트 2",
+                progress: "2/5",
+                description: "두 번째 코스 퀘스트",
+                quests: [
+                    QuestDetail(locationName: "장소 C", mission: "미션 3"),
+                    QuestDetail(locationName: "장소 D", mission: "미션 4"),
+                    QuestDetail(locationName: "장소 D", mission: "미션 4"),
+                ],
+                reward: "보상 2"
+            )
+        ]
+        
+        rootView.questListCollectionView.reloadData()
+    }
+    
+    private func getSortedQuestList() -> [Any] {
+        let sortedGeneralQuests = isActive ? activeQuestList : allQuestList
+        
+        // 코스 퀘스트는 항상 activeQuestList의 최상단에 위치
+        return isActive ? (courseQuests + sortedGeneralQuests) : sortedGeneralQuests
+    }
+    
+    func addCourseQuest(_ newQuest: CourseQuest) {
+        courseQuests.insert(newQuest, at: 0) // 리스트 최상단에 추가
+        rootView.questListCollectionView.reloadData()
+    }
+#endif
 }
 
 extension QuestListViewController {
@@ -92,6 +141,13 @@ extension QuestListViewController {
             QuestListCollectionViewCell.self,
             forCellWithReuseIdentifier: QuestListCollectionViewCell.className
         )
+        
+#if DevTarget
+        rootView.questListCollectionView.register(
+            CourseQuestCollectionViewCell.self,
+            forCellWithReuseIdentifier: CourseQuestCollectionViewCell.className
+        )
+#endif
     }
     
     private func setupDelegates() {
@@ -171,30 +227,56 @@ extension QuestListViewController {
 extension QuestListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if isActive {
-            return activeQuestList.count
-        } else {
-            return allQuestList.count
-        }
+#if DevTarget
+        return getSortedQuestList().count
+#else
+        return isActive ? activeQuestList.count : allQuestList.count
+#endif
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+#if DevTarget
+        let quests = getSortedQuestList()
+        let quest = quests[indexPath.item]
+        
+        // CourseQuest일 경우 CourseQuestCollectionViewCell을 사용
+        if let courseQuest = quest as? CourseQuest {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: CourseQuestCollectionViewCell.className,
+                for: indexPath
+            ) as? CourseQuestCollectionViewCell else {
+                fatalError("CourseQuestCollectionViewCell dequeuing failed!")
+            }
+            cell.configureCell(with: courseQuest)
+            return cell
+        }
+        
+        // 일반 Quest일 경우 QuestListCollectionViewCell을 사용
+        if let quest = quest as? Quest {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: QuestListCollectionViewCell.className,
+                for: indexPath
+            ) as? QuestListCollectionViewCell else { fatalError("QuestListCollectionViewCell dequeuing failed!") }
+            
+            cell.configureCell(with: quest)
+            return cell
+        }
+        
+        fatalError("Unknown quest type found in getSortedQuestList()")
+#else
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: QuestListCollectionViewCell.className,
             for: indexPath
-        ) as? QuestListCollectionViewCell else { fatalError("cell dequeing Failed!") }
+        ) as? QuestListCollectionViewCell else { fatalError("QuestListCollectionViewCell dequeuing failed!") }
         
-        if isActive {
-            cell.configureCell(with: activeQuestList[indexPath.item]
-            )
-        } else {
-            cell.configureCell(with: allQuestList[indexPath.item])
-        }
+        let quest = isActive ? activeQuestList[indexPath.item] : allQuestList[indexPath.item]
+        cell.configureCell(with: quest)
         
         return cell
+#endif
     }
-    
 }
+
 
 //MARK: - UICollectionViewDelegate
 
