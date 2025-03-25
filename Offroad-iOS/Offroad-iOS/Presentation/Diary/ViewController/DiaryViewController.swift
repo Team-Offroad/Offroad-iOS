@@ -30,6 +30,7 @@ final class DiaryViewController: UIViewController {
         setupDelegate()
         setupTarget()
         bindData()
+        viewModel.getInitialDiaryDate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,6 +42,7 @@ final class DiaryViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         viewModel.getDiaryTutorialChecked()
+        viewModel.getDiaryMonthlyHexCodes()
     }
 }
 
@@ -82,6 +84,20 @@ private extension DiaryViewController {
             }
             .disposed(by: disposeBag)
         
+        viewModel.didUpdateHexCodesData
+            .bind { _ in
+                if let hexCodes = self.viewModel.hexCodesOfCurrentPageData?.dailyHexCodes {
+                    if !hexCodes.isEmpty {
+                        self.rootView.diaryCalender.reloadData()
+                    }
+                    self.rootView.leftArrowButton.alpha = self.viewModel.canMoveMonth(.previous) ? 1 : 0
+                    self.rootView.monthButton.isEnabled = !self.viewModel.isCurrentMonthFirstDiaryMonth()
+                    self.rootView.isDiaryEmpty(hexCodes.isEmpty)
+                }
+                print("데이터 로드 완료")
+            }
+            .disposed(by: disposeBag)
+
         MyDiaryManager.shared.updateCalenderCurrentPage
             .bind { date in
                 self.rootView.diaryCalender.setCurrentPage(date, animated: false)
@@ -177,10 +193,9 @@ extension DiaryViewController: FSCalendarDelegateAppearance {
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dayString = String(Calendar(identifier: .gregorian).component(.day, from: date))
         
-        if viewModel.fetchDummyDates().contains(dateFormatter.string(from: date)) {
+        if viewModel.fetchDates().contains(dayString) {
             return .primary(.white)
         } else {
             return .primary(.stroke)
@@ -188,10 +203,9 @@ extension DiaryViewController: FSCalendarDelegateAppearance {
     }
 
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dayString = String(Calendar(identifier: .gregorian).component(.day, from: date))
         
-        if viewModel.fetchDummyDates().contains(dateFormatter.string(from: date)) {
+        if viewModel.fetchDates().contains(dayString) {
             return .primary(.white)
         } else {
             return .primary(.stroke)
@@ -201,8 +215,8 @@ extension DiaryViewController: FSCalendarDelegateAppearance {
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         let currentPageDate = calendar.currentPage
         MyDiaryManager.shared.currentPageDate = currentPageDate
-        
         let (currentPageYear, currentPageMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .currentPage)
+        viewModel.getDiaryMonthlyHexCodes()
 
         rootView.monthButton.setTitle("\(currentPageYear)년 \(currentPageMonth)월", for: .normal)
         rootView.leftArrowButton.alpha = viewModel.canMoveMonth(.previous) ? 1 : 0
@@ -216,9 +230,11 @@ extension DiaryViewController: FSCalendarDataSource {
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         guard let cell = calendar.dequeueReusableCell(withIdentifier: CustomDiaryCalendarCell.className, for: date, at: position) as? CustomDiaryCalendarCell else { return FSCalendarCell() }
         
-        if let colors = viewModel.fetchDummyColorsForDate(date) {
+        let dayString = String(Calendar(identifier: .gregorian).component(.day, from: date))
+        
+        if let colors = viewModel.fetchColorsForDate(dayString) {
             DispatchQueue.main.async {
-                cell.configureMemoryLightCell(pointColorCode: colors[0], baseColorCode: colors[1])
+                cell.configureMemoryLightCell(pointColorCode: colors[0].small, baseColorCode: colors[0].large)
             }
         }
         
@@ -226,15 +242,14 @@ extension DiaryViewController: FSCalendarDataSource {
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        if let colors = viewModel.fetchDummyColorsForDate(date) {
-            let memoryLightViewController = MemoryLightViewController(firstDisplayedDate: date)
-            memoryLightViewController.modalPresentationStyle = .fullScreen
-            present(memoryLightViewController, animated: false)
-        }
+//        if let colors = viewModel.fetchColorsForDate(date) {
+//            let memoryLightViewController = MemoryLightViewController(firstDisplayedDate: date)
+//            memoryLightViewController.modalPresentationStyle = .fullScreen
+//            present(memoryLightViewController, animated: false)
+//        }
     }
     
     func minimumDate(for calender: FSCalendar) -> Date {
-        viewModel.getInitialDiaryDate()
         return MyDiaryManager.shared.minimumDate
     }
     

@@ -22,25 +22,22 @@ final class DiaryViewModel {
     var disposeBag = DisposeBag()
     
     private let calendar = Calendar(identifier: .gregorian)
-    private let dummyDatesAndColor = ["2024-12-11": ["70DAFFB2", "FFDC14B2"], "2024-12-22": ["FF69E1B2", "FFB73BB2"], "2024-12-29": ["FF69E1B2", "5580FFB2"], "2025-03-07": ["70DAFFB2", "FFDC14B2"], "2025-03-08": ["FF69E1B2", "FFB73BB2"], "2025-03-10": ["FF69E1B2", "5580FFB2"]]
+    var hexCodesOfCurrentPageData: DiaryColorsData?
     
     let isCheckedTutorial = PublishRelay<Bool>()
+    let didUpdateHexCodesData = PublishRelay<Void>()
 }
 
 extension DiaryViewModel {
     
     //MARK: - Func
     
-    func fetchDummyDates() -> [String] {
-        return Array(dummyDatesAndColor.keys)
+    func fetchDates() -> [String] {
+        return Array(hexCodesOfCurrentPageData?.dailyHexCodes.keys ?? [:].keys)
     }
     
-    func fetchDummyColorsForDate(_ date: Date) -> [String]? {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let key = formatter.string(from: date)
-        
-        return dummyDatesAndColor[key]
+    func fetchColorsForDate(_ day: String) -> [ColorHex]? {
+        return hexCodesOfCurrentPageData?.dailyHexCodes[day]
     }
     
     func canMoveMonth(_ target: Month) -> Bool {
@@ -54,6 +51,11 @@ extension DiaryViewModel {
         case .next:
             return (currentPageYear < maxYear) || (currentPageYear == maxYear && currentPageMonth < maxMonth)
         }
+    }
+    
+    //캘린더가 표현할 최소 날짜(달)이 최대 날짜(달)과 같은지 확인하는 함수
+    func isCurrentMonthFirstDiaryMonth() -> Bool {
+        return MyDiaryManager.shared.fetchYearMonthValue(dateType: .maximum) == MyDiaryManager.shared.fetchYearMonthValue(dateType: .minimum)
     }
     
     //MARK: - API Func
@@ -107,11 +109,26 @@ extension DiaryViewModel {
                 dateComponents.year = data?.data.year
                 dateComponents.month = data?.data.month
                 dateComponents.day = data?.data.day
+                MyDiaryManager.shared.minimumDate = self.calendar.date(from: dateComponents) ?? Date()
+                print(MyDiaryManager.shared.minimumDate)
             default:
                 break
             }
         }
+    }
+    
+    func getDiaryMonthlyHexCodes() {
+        let (year, month) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .currentPage)
         
-        MyDiaryManager.shared.minimumDate = calendar.date(from: dateComponents) ?? Date()
+        NetworkService.shared.diaryService.getDiaryMonthlyHexCodes(year: year, month: month) { response in
+            switch response {
+            case .success(let dto):
+                guard let dto else { return }
+                self.hexCodesOfCurrentPageData = dto.data
+                self.didUpdateHexCodesData.accept(())
+            default:
+                break
+            }
+        }
     }
 }

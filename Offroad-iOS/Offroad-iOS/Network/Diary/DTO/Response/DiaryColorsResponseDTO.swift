@@ -12,7 +12,7 @@ struct DiaryColorsResponseDTO: Decodable {
 
 struct DiaryColorsData: Decodable {
     let dailyHexCodes: [String: [ColorHex]]
-    let firstDiaryDay: Int
+    let firstDiaryDay: Int?
 }
 
 struct ColorHex: Decodable {

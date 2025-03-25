@@ -48,11 +48,11 @@ final class DiaryView: UIView {
     }
 }
 
-extension DiaryView {
+private extension DiaryView {
     
     // MARK: - Layout
     
-    private func setupStyle() {
+    func setupStyle() {
         backgroundColor = .primary(.listBg)
         
         headerView.do {
@@ -164,7 +164,7 @@ extension DiaryView {
         }
     }
     
-    private func setupHierarchy() {
+    func setupHierarchy() {
         addSubviews(
             headerView,
             customBackButton,
@@ -188,7 +188,7 @@ extension DiaryView {
         )
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         headerView.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(dividerView.snp.top)
@@ -280,5 +280,15 @@ extension DiaryView {
             $0.height.equalTo(48)
             $0.width.equalTo(230)
         }
+    }
+}
+
+extension DiaryView {
+    
+    //MARK: - Func
+    
+    func isDiaryEmpty(_ bool: Bool) -> () {
+        diaryBackgroundView.isHidden = bool
+        diaryEmptyView.isHidden = !bool
     }
 }
