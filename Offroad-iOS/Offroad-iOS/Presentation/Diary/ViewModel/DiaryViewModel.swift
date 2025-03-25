@@ -43,15 +43,6 @@ extension DiaryViewModel {
         return dummyDatesAndColor[key]
     }
     
-    func fetchMinimumDate() {
-        //임시(서버에서 불러와서 설정할 예정)
-        var dateComponents = DateComponents()
-        dateComponents.year = 2022
-        dateComponents.month = 2
-        
-        MyDiaryManager.shared.minimumDate = calendar.date(from: dateComponents) ?? Date()
-    }
-    
     func canMoveMonth(_ target: Month) -> Bool {
         let (currentPageYear, currentPageMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .currentPage)
         let (minYear, minMonth) = MyDiaryManager.shared.fetchYearMonthValue(dateType: .minimum)
@@ -105,5 +96,22 @@ extension DiaryViewModel {
             }
             return Disposables.create()
         }
+    }
+    
+    func getInitialDiaryDate() {
+        var dateComponents = DateComponents()
+
+        NetworkService.shared.diaryService.getInitialDiaryDate { response in
+            switch response {
+            case .success(let data):
+                dateComponents.year = data?.data.year
+                dateComponents.month = data?.data.month
+                dateComponents.day = data?.data.day
+            default:
+                break
+            }
+        }
+        
+        MyDiaryManager.shared.minimumDate = calendar.date(from: dateComponents) ?? Date()
     }
 }

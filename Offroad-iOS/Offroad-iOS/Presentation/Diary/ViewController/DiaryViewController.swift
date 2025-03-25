@@ -234,7 +234,7 @@ extension DiaryViewController: FSCalendarDataSource {
     }
     
     func minimumDate(for calender: FSCalendar) -> Date {
-        viewModel.fetchMinimumDate()
+        viewModel.getInitialDiaryDate()
         return MyDiaryManager.shared.minimumDate
     }
     
