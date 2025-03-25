@@ -23,9 +23,13 @@ final class DiaryViewModel {
     
     private let calendar = Calendar(identifier: .gregorian)
     var hexCodesOfCurrentPageData: DiaryColorsData?
+    var memoryLightsData = [Diary]()
+    var memoryLightDisplayedDate: Date? = nil
+    var diaryEmptyImageUrl = ""
     
     let isCheckedTutorial = PublishRelay<Bool>()
     let didUpdateHexCodesData = PublishRelay<Void>()
+    let memoryLightDataRelay = PublishRelay<[Diary]>()
 }
 
 extension DiaryViewModel {
@@ -110,7 +114,6 @@ extension DiaryViewModel {
                 dateComponents.month = data?.data.month
                 dateComponents.day = data?.data.day
                 MyDiaryManager.shared.minimumDate = self.calendar.date(from: dateComponents) ?? Date()
-                print(MyDiaryManager.shared.minimumDate)
             default:
                 break
             }
@@ -126,6 +129,41 @@ extension DiaryViewModel {
                 guard let dto else { return }
                 self.hexCodesOfCurrentPageData = dto.data
                 self.didUpdateHexCodesData.accept(())
+            default:
+                break
+            }
+        }
+    }
+    
+    func getLatestAndBeforeDiaries() {
+        memoryLightDisplayedDate = nil
+        NetworkService.shared.diaryService.getLatestAndBeforeDiaries(previousCount: nil) { response in
+            switch response {
+            case .success(let dto):
+                guard let dto else { return }
+                self.diaryEmptyImageUrl = dto.data.emptyImageUrl ?? ""
+                self.memoryLightsData = []
+                self.memoryLightsData = dto.data.previousDiaries
+                if let latestdiary = dto.data.latestDiary {
+                    self.memoryLightsData.append(latestdiary)
+                }
+                self.memoryLightDataRelay.accept(self.memoryLightsData)
+            default:
+                break
+            }
+        }
+    }
+    
+    func getDiariesByDate(date: String) {
+        NetworkService.shared.diaryService.getDiariesByDate(date: date, previousCount: nil, nextCount: nil) { response in
+            switch response {
+            case .success(let dto):
+                guard let dto else { return }
+                self.memoryLightsData = []
+                self.memoryLightsData = dto.data.previousDiaries.reversed()
+                self.memoryLightsData.append(dto.data.targetDiary)
+                self.memoryLightsData.append(contentsOf: dto.data.nextDiaries)
+                self.memoryLightDataRelay.accept(self.memoryLightsData)
             default:
                 break
             }

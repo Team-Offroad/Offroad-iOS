@@ -16,9 +16,22 @@ final class DiaryViewController: UIViewController {
     
     private let rootView = DiaryView()
     private let viewModel = DiaryViewModel()
+    
     var disposeBag = DisposeBag()
+    
+    private let shouldShowLatestDiary: Bool
 
     // MARK: - Life Cycle
+    
+    init(shouldShowLatestDiary: Bool) {
+        self.shouldShowLatestDiary = shouldShowLatestDiary
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = rootView
@@ -27,10 +40,14 @@ final class DiaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.startLoading(withoutShading: true)
         setupDelegate()
         setupTarget()
         bindData()
         viewModel.getInitialDiaryDate()
+        if shouldShowLatestDiary {
+            viewModel.getLatestAndBeforeDiaries()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,6 +59,7 @@ final class DiaryViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         viewModel.getDiaryTutorialChecked()
+        viewModel.getLatestAndBeforeDiaries()
         viewModel.getDiaryMonthlyHexCodes()
     }
 }
@@ -90,11 +108,7 @@ private extension DiaryViewController {
                     if !hexCodes.isEmpty {
                         self.rootView.diaryCalender.reloadData()
                     }
-                    self.rootView.leftArrowButton.alpha = self.viewModel.canMoveMonth(.previous) ? 1 : 0
-                    self.rootView.monthButton.isEnabled = !self.viewModel.isCurrentMonthFirstDiaryMonth()
-                    self.rootView.isDiaryEmpty(hexCodes.isEmpty)
                 }
-                print("데이터 로드 완료")
             }
             .disposed(by: disposeBag)
 
@@ -113,6 +127,25 @@ private extension DiaryViewController {
                     self.showSettingDiaryTimeAlert()
                 }
             })
+            .disposed(by: disposeBag)
+        
+        viewModel.memoryLightDataRelay
+            .bind { memoryLights in
+                self.rootView.leftArrowButton.alpha = self.viewModel.canMoveMonth(.previous) ? 1 : 0
+                self.rootView.monthButton.isEnabled = !self.viewModel.isCurrentMonthFirstDiaryMonth()
+                
+                if memoryLights.isEmpty {
+                    self.rootView.isDiaryEmpty(true, emptyImageUrl: self.viewModel.diaryEmptyImageUrl)
+                }
+                
+                self.view.stopLoading()
+                
+                if self.shouldShowLatestDiary {
+                    let memoryLightViewController = MemoryLightViewController(firstDisplayedDate: self.viewModel.memoryLightDisplayedDate, memoryLightsData: memoryLights)
+                    memoryLightViewController.modalPresentationStyle = .fullScreen
+                    self.present(memoryLightViewController, animated: false)
+                }
+            }
             .disposed(by: disposeBag)
     }
     
@@ -242,11 +275,15 @@ extension DiaryViewController: FSCalendarDataSource {
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-//        if let colors = viewModel.fetchColorsForDate(date) {
-//            let memoryLightViewController = MemoryLightViewController(firstDisplayedDate: date)
-//            memoryLightViewController.modalPresentationStyle = .fullScreen
-//            present(memoryLightViewController, animated: false)
-//        }
+        let dayString = String(Calendar(identifier: .gregorian).component(.day, from: date))
+        
+        if viewModel.fetchDates().contains(dayString) {
+            viewModel.memoryLightDisplayedDate = date
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            viewModel.getDiariesByDate(date: dateFormatter.string(from: date))
+        }
     }
     
     func minimumDate(for calender: FSCalendar) -> Date {
