@@ -47,6 +47,7 @@ final class DiaryViewController: UIViewController {
         bindData()
         viewModel.getInitialDiaryDate()
         viewModel.getLatestAndBeforeDiaries()
+        MyDiaryManager.shared.currentPageDate = MyDiaryManager.shared.maximumDate
     }
     
     override func viewWillAppear(_ animated: Bool) {
