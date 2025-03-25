@@ -68,6 +68,7 @@ private extension DiaryViewController {
         rootView.monthButton.addTarget(self, action: #selector(monthButtonTapped), for: .touchUpInside)
         rootView.leftArrowButton.addTarget(self, action: #selector(moveMonthButtonTapped(_:)), for: .touchUpInside)
         rootView.rightArrowButton.addTarget(self, action: #selector(moveMonthButtonTapped(_:)), for: .touchUpInside)
+        rootView.goToChatButton.addTarget(self, action: #selector(goToChatButtonTapped), for: .touchUpInside)
     }
     
     func bindData() {
@@ -160,6 +161,11 @@ private extension DiaryViewController {
         
         MyDiaryManager.shared.currentPageDate = Calendar(identifier: .gregorian).date(byAdding: dateComponents, to: MyDiaryManager.shared.currentPageDate)!
         rootView.diaryCalender.setCurrentPage(MyDiaryManager.shared.currentPageDate, animated: true)
+    }
+    
+    func goToChatButtonTapped() {
+        guard let orbNavigationController = navigationController as? ORBNavigationController else { return }
+        orbNavigationController.pushChatLogViewController(characterId: MyInfoManager.shared.representativeCharacterID)
     }
 }
 
