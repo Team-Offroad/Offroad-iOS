@@ -20,6 +20,7 @@ final class DiaryViewController: UIViewController {
     var disposeBag = DisposeBag()
     
     private let shouldShowLatestDiary: Bool
+    private var didSelectDate = false
 
     // MARK: - Life Cycle
     
@@ -45,9 +46,7 @@ final class DiaryViewController: UIViewController {
         setupTarget()
         bindData()
         viewModel.getInitialDiaryDate()
-        if shouldShowLatestDiary {
-            viewModel.getLatestAndBeforeDiaries()
-        }
+        viewModel.getLatestAndBeforeDiaries()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,7 +58,6 @@ final class DiaryViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         viewModel.getDiaryTutorialChecked()
-        viewModel.getLatestAndBeforeDiaries()
         viewModel.getDiaryMonthlyHexCodes()
     }
 }
@@ -136,11 +134,14 @@ private extension DiaryViewController {
                 
                 if memoryLights.isEmpty {
                     self.rootView.isDiaryEmpty(true, emptyImageUrl: self.viewModel.diaryEmptyImageUrl)
+                } else {
+                    self.rootView.diaryBackgroundView.isHidden = false
+                    self.rootView.diaryCalender.reloadData()
                 }
                 
                 self.view.stopLoading()
                 
-                if self.shouldShowLatestDiary {
+                if self.shouldShowLatestDiary || self.didSelectDate {
                     let memoryLightViewController = MemoryLightViewController(firstDisplayedDate: self.viewModel.memoryLightDisplayedDate, memoryLightsData: memoryLights)
                     memoryLightViewController.modalPresentationStyle = .fullScreen
                     self.present(memoryLightViewController, animated: false)
@@ -275,6 +276,7 @@ extension DiaryViewController: FSCalendarDataSource {
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        didSelectDate = true
         let dayString = String(Calendar(identifier: .gregorian).component(.day, from: date))
         
         if viewModel.fetchDates().contains(dayString) {

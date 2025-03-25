@@ -9,6 +9,7 @@ import UIKit
 
 import FSCalendar
 import SnapKit
+import Kingfisher
 import Then
 
 final class DiaryView: UIView {
@@ -21,7 +22,7 @@ final class DiaryView: UIView {
     private let titleLabel = UILabel()
     private let titleImageView = UIImageView(frame: CGRect(origin: .init(), size: CGSize(width: 24, height: 24)))
     let guideButton = UIButton()
-    private let diaryBackgroundView = UIView()
+    let diaryBackgroundView = UIView()
     let monthButton = ShrinkableButton()
     let leftArrowButton = UIButton()
     let rightArrowButton = UIButton()
@@ -81,6 +82,7 @@ private extension DiaryView {
         
         diaryBackgroundView.do {
             $0.backgroundColor = .main(.main1)
+            $0.isHidden = true
         }
         
         monthButton.do {
@@ -287,8 +289,10 @@ extension DiaryView {
     
     //MARK: - Func
     
-    func isDiaryEmpty(_ bool: Bool) -> () {
+    func isDiaryEmpty(_ bool: Bool, emptyImageUrl: String) -> () {
         diaryBackgroundView.isHidden = bool
-        diaryEmptyView.isHidden = !bool
+        
+        let url = URL(string: emptyImageUrl)
+        emptyCharacterImageView.kf.setImage(with: url)
     }
 }
