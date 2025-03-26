@@ -22,13 +22,13 @@ public class AmplitudeManager {
     /// background에서 다음 시간 동안 아무런 앰플리튜드 이벤트가 발생하지 않을 경우 세션 종료. millisecond 단위이며, 10분으로 설정
     private let minTimeBetweenSessionsMillis: Int = 1000 * 60 * 10
     
-    /// 배포용 타겟에서는 nil 할당
+    /// 배포용 환경에만 값을 할당. 개발용 앱에서는 nil 값.
     private var amplitude: Amplitude? = nil
     
     // MARK: - Life Cycle
     
     private init() {
-        #if DevTarget
+        #if ReleaseTarget
         let amplitudeAPIKey = Bundle.main.infoDictionary?["AMPLITUDE_API_KEY"] as? String
         self.amplitude = Amplitude(
             configuration: .init(
@@ -48,7 +48,7 @@ public extension AmplitudeManager {
     /// - Parameters:
     ///   - eventName: 이벤트 이름.
     ///
-    /// 현재 개발용 타겟에서만 동작. 배포용 타겟에서는 아무런 효과도 없음.
+    /// 배포 환경에서만 동작. 개발용 타겟에서는 아무런 효과도 없음.
     func trackEvent(withName eventName: String) {
         amplitude?.track(eventType: eventName)
     }
