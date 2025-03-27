@@ -27,5 +27,6 @@ final class NetworkService {
     let characterChatService: CharacterChatService = CharacterChatService()
     #if DevTarget
     let diarySettingService: DiarySettingServiceProtocol = DiarySettingService()
+    let diaryService: DiaryServiceProtocol = DiaryService()
     #endif
 }

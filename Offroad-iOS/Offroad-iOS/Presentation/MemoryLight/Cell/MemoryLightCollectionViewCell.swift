@@ -209,7 +209,7 @@ extension MemoryLightCollectionViewCell {
     
     //MARK: - Func
     
-    func configureCell(data: MemoryLightModel) {
+    func configureCell(data: Diary) {
         gradientView.setupGradientView(pointColorCode: data.hexCodes[0].small, baseColorCode: data.hexCodes[0].large)
         blurEffectView.applyBlurEffectAsync()
         
