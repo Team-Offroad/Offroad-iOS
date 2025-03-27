@@ -290,7 +290,7 @@ extension DiaryView {
     //MARK: - Func
     
     func isDiaryEmpty(_ bool: Bool, emptyImageUrl: String) -> () {
-        diaryBackgroundView.isHidden = bool
+        diaryEmptyView.isHidden = !bool
         
         let url = URL(string: emptyImageUrl)
         emptyCharacterImageView.kf.setImage(with: url)

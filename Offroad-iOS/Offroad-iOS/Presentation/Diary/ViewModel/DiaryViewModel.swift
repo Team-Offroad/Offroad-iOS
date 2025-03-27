@@ -137,6 +137,8 @@ extension DiaryViewModel {
     
     func getLatestAndBeforeDiaries() {
         memoryLightDisplayedDate = nil
+        
+        //previousCount == nil이면 서버 내부에서 1로 자동 처리됨
         NetworkService.shared.diaryService.getLatestAndBeforeDiaries(previousCount: nil) { response in
             switch response {
             case .success(let dto):
@@ -144,8 +146,8 @@ extension DiaryViewModel {
                 self.diaryEmptyImageUrl = dto.data.emptyImageUrl ?? ""
                 self.memoryLightsData = []
                 self.memoryLightsData = dto.data.previousDiaries
-                if let latestdiary = dto.data.latestDiary {
-                    self.memoryLightsData.append(latestdiary)
+                if let latestDiary = dto.data.latestDiary {
+                    self.memoryLightsData.append(latestDiary)
                 }
                 self.memoryLightDataRelay.accept(self.memoryLightsData)
             default:
@@ -154,6 +156,7 @@ extension DiaryViewModel {
         }
     }
     
+    //previousCount, nextCount == nil이면 서버 내부에서 1로 자동 처리됨
     func getDiariesByDate(date: String) {
         NetworkService.shared.diaryService.getDiariesByDate(date: date, previousCount: nil, nextCount: nil) { response in
             switch response {
