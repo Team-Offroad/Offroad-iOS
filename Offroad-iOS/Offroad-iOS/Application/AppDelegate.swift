@@ -26,9 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let _ = NetworkMonitoringManager.shared
         
         #if DevTarget
-        // AmplitudeManager 싱글톤 객체 초기화
-        let _ = AmplitudeManager.shared
-        
         // 개발용 앱인 경우 'GoogleService-Info_Dev.plist' 파일을 사용하여 FirebaseApp을 configure
         let filePath = Bundle.main.path(forResource: "GoogleService-Info_Dev", ofType: "plist")
         if let filePath, let options = FirebaseOptions(contentsOfFile: filePath) {
@@ -37,7 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // 개발용 앱에서만 문제 발생 시 fataError 발생(앱 강제종료)
             fatalError("GoogleService-Info.plist not found.")
         }
-        #else
+        #elseif ReleaseTarget
+        // AmplitudeManager 싱글톤 객체 초기화
+        let _ = AmplitudeManager.shared
         // 배포용 앱인 경우 'GoogleService-Info.plist' 파일을 사용하여 FirebaseApp을 configure (기본값)
         FirebaseApp.configure()
         #endif

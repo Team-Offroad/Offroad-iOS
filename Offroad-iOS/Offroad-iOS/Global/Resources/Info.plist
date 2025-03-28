@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AMPLITUDE_API_KEY</key>
+	<string>$(AMPLITUDE_API_KEY)</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>이미지 저장을 위해서는 사진 접근 허용이 필요해요.</string>
 	<key>BASE_URL</key>
