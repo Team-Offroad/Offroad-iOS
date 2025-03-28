@@ -27,6 +27,7 @@ final class HomeView: UIView {
     let changeCharacterButton = UIButton()
     let recommendButton = UIButton()
     let diaryButton = UIButton()
+    let diaryUnreadDotView = UIView()
     private let buttonStackView = UIStackView()
     private let characterMotionView = LottieAnimationView()
     private let titleView = UIView()
@@ -85,10 +86,10 @@ extension HomeView {
             $0.setImage(.btnChat, for: .normal)
         }
         
-        chatUnreadDotView.do { view in
-            view.backgroundColor = .primary(.errorNew)
-            view.roundCorners(cornerRadius: 4)
-            view.isHidden = true
+        chatUnreadDotView.do {
+            $0.backgroundColor = .primary(.errorNew)
+            $0.roundCorners(cornerRadius: 4)
+            $0.isHidden = true
         }
         
         shareButton.do {
@@ -105,6 +106,12 @@ extension HomeView {
         
         diaryButton.do {
             $0.setImage(.btnDiaryHome, for: .normal)
+        }
+        
+        diaryUnreadDotView.do {
+            $0.backgroundColor = .primary(.errorNew)
+            $0.roundCorners(cornerRadius: 4)
+            $0.isHidden = true
         }
         
         [chatButton, recommendButton, changeCharacterButton, diaryButton].forEach { button in
@@ -189,6 +196,7 @@ extension HomeView {
             changeCharacterButton,
             diaryButton
         )
+        diaryButton.addSubview(diaryUnreadDotView)
         #else
         buttonStackView.addArrangedSubviews(
             chatButton,
@@ -239,6 +247,12 @@ extension HomeView {
         }
         
         chatUnreadDotView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(2)
+            $0.trailing.equalToSuperview().inset(4)
+            $0.size.equalTo(8)
+        }
+        
+        diaryUnreadDotView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(2)
             $0.trailing.equalToSuperview().inset(4)
             $0.size.equalTo(8)
