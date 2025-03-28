@@ -195,6 +195,12 @@ extension HomeViewController {
         }).disposed(by: disposeBag)
         
         #if DevTarget
+        MyDiaryManager.shared.didCompleteCreateDiary
+            .bind { _ in
+                self.showCompleteCreateDiaryAlert()
+            }
+            .disposed(by: disposeBag)
+
         MyDiaryManager.shared.didUpdateLatestDiaryInfo
             .bind { _ in
                 self.getLatestDiaryInfo()
@@ -223,6 +229,26 @@ extension HomeViewController {
             }
         }
     }
+    
+    #if DevTarget
+    private func showCompleteCreateDiaryAlert() {
+        let alertController = ORBAlertController(title: DiaryMessage.completeCreateDiaryTitle, message: DiaryMessage.completeCreateDiaryMessage, type: .normal)
+        alertController.configureMessageLabel{ label in
+            label.setLineHeight(percentage: 150)
+        }
+        alertController.xButton.isHidden = true
+        let cancelAction = ORBAlertAction(title: "나중에", style: .cancel) { _ in return }
+        let okAction = ORBAlertAction(title: "확인", style: .default) { _ in
+            let diaryViewController = DiaryViewController(shouldShowLatestDiary: !self.isReadLatestDiary)
+            diaryViewController.setupCustomBackButton(buttonTitle: "홈")
+            self.navigationController?.pushViewController(diaryViewController, animated: true)
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        
+        present(alertController, animated: true)
+    }
+    #endif
     
     private func requestPushNotificationPermission() {
         let center = UNUserNotificationCenter.current()
@@ -284,6 +310,10 @@ extension HomeViewController {
             case "CHARACTER_CHAT":
                 ORBCharacterChatManager.shared.chatViewController.patchChatReadRelay.accept(())
                 ORBCharacterChatManager.shared.showCharacterChatBox(character: self.pushType?.data?["characterName"] as! String, message: self.pushType?.data?["message"] as! String, mode: .withReplyButtonShrinked)
+            #if DevTarget
+            case "MEMBER_DIARY_CREATE":
+                MyDiaryManager.shared.didCompleteCreateDiary.accept(())
+            #endif
             default:
                 break
             }
