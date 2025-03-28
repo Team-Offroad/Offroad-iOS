@@ -71,8 +71,12 @@ extension NoticePostViewController {
     }
     
     @objc private func contentButtonTapped() {
-        let redirectionURL = NSURL(string: noticeDetailInfo.externalLinks[0])
-        let safariViewController = SFSafariViewController(url: (redirectionURL ?? NSURL()) as URL)
-        self.present(safariViewController, animated: true, completion: nil)
+        let redirectionURL = noticeDetailInfo.externalLinks[0]
+        guard let url = URL(string: redirectionURL), ["http", "https"].contains(url.scheme?.lowercased()) else {
+            ORBToastManager.shared.showToast(message: "콘텐츠 링크를 찾을 수 없습니다.", inset: 30)
+            return
+        }
+        let safariViewController = SFSafariViewController(url: url)
+        present(safariViewController, animated: true)
     }
 }
