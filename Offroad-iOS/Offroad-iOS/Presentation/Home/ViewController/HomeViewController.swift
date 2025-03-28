@@ -195,7 +195,7 @@ extension HomeViewController {
         }).disposed(by: disposeBag)
         
         #if DevTarget
-        MyDiaryManager.shared.didReadLatestDiary
+        MyDiaryManager.shared.didUpdateLatestDiaryInfo
             .bind { _ in
                 self.getLatestDiaryInfo()
             }

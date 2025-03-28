@@ -29,7 +29,7 @@ final class MyDiaryManager {
 
     let updateCalenderCurrentPage = PublishRelay<Date>()
     let didSuccessUpdateTutorialCheckStatus = PublishRelay<Void>()
-    let didReadLatestDiary = PublishRelay<Void>()
+    let didUpdateLatestDiaryInfo = PublishRelay<Void>()
     
     //MARK: - Life Cycle
     
