@@ -69,6 +69,8 @@ struct DiaryGuideMessage {
 
 struct DiaryMessage {
     static let diaryEmptyDesription = "만들어진 일기가 없어요.\n\n오브가 아직 어색한가 봐요.\n조금 더 대화를 나눠보세요."
+    static let completeCreateDiaryTitle = "일기 완성!"
+    static let completeCreateDiaryMessage = "오늘의 일기가 완성되었어요.\n기억빛과 함께 하루를 돌아보세요."
 }
 
 struct AmplitudeEventTitles {
