@@ -74,6 +74,18 @@ extension MyPageViewController {
             guard let self else { return }
             self.getUserInfo()
         }).disposed(by: disposeBag)
+        
+        #if DevTarget
+        MyDiaryManager.shared.didCompleteCreateDiary
+            .bind { _ in
+                guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+                
+                if offroadTabBarController.selectedIndex == 2 {
+                    MyDiaryManager.shared.showCompleteCreateDiaryAlert(viewController: self)
+                }
+            }
+            .disposed(by: disposeBag)
+        #endif
     }
     
     // MARK: - @objc Func

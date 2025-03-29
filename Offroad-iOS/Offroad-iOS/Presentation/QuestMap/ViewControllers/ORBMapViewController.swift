@@ -239,6 +239,18 @@ extension ORBMapViewController {
             guard let self else { return }
             self.navigationController?.pushViewController(PlaceListViewController(), animated: true)
         }.disposed(by: disposeBag)
+        
+        #if DevTarget
+        MyDiaryManager.shared.didCompleteCreateDiary
+            .bind { _ in
+                guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+                
+                if offroadTabBarController.selectedIndex == 1 {
+                    MyDiaryManager.shared.showCompleteCreateDiaryAlert(viewController: self)
+                }
+            }
+            .disposed(by: disposeBag)
+        #endif
     }
     
     private func setupTooltipAction() {

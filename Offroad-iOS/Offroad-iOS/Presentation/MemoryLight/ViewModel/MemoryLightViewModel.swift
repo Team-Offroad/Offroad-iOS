@@ -39,7 +39,7 @@ extension MemoryLightViewModel {
             switch response {
             case .success:
                 print("일기 확인 여부 업데이트 완료")
-                MyDiaryManager.shared.didReadLatestDiary.accept(())
+                MyDiaryManager.shared.didUpdateLatestDiaryInfo.accept(())
             default:
                 break
             }

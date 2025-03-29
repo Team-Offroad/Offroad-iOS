@@ -195,7 +195,17 @@ extension HomeViewController {
         }).disposed(by: disposeBag)
         
         #if DevTarget
-        MyDiaryManager.shared.didReadLatestDiary
+        MyDiaryManager.shared.didCompleteCreateDiary
+            .bind { _ in
+                guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+                
+                if offroadTabBarController.selectedIndex == 0 {
+                    MyDiaryManager.shared.showCompleteCreateDiaryAlert(viewController: self)
+                }
+            }
+            .disposed(by: disposeBag)
+
+        MyDiaryManager.shared.didUpdateLatestDiaryInfo
             .bind { _ in
                 self.getLatestDiaryInfo()
             }
@@ -284,6 +294,10 @@ extension HomeViewController {
             case "CHARACTER_CHAT":
                 ORBCharacterChatManager.shared.chatViewController.patchChatReadRelay.accept(())
                 ORBCharacterChatManager.shared.showCharacterChatBox(character: self.pushType?.data?["characterName"] as! String, message: self.pushType?.data?["message"] as! String, mode: .withReplyButtonShrinked)
+            #if DevTarget
+            case "MEMBER_DIARY_CREATE":
+                MyDiaryManager.shared.didCompleteCreateDiary.accept(())
+            #endif
             default:
                 break
             }
