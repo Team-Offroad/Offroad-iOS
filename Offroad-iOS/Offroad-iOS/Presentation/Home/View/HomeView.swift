@@ -252,11 +252,13 @@ extension HomeView {
             $0.size.equalTo(8)
         }
         
+        #if DevTarget
         diaryUnreadDotView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(2)
             $0.trailing.equalToSuperview().inset(4)
             $0.size.equalTo(8)
         }
+        #endif
         
         characterMotionView.snp.makeConstraints {
             $0.top.equalTo(characterNameView.snp.bottom)
