@@ -197,7 +197,11 @@ extension HomeViewController {
         #if DevTarget
         MyDiaryManager.shared.didCompleteCreateDiary
             .bind { _ in
-                self.showCompleteCreateDiaryAlert()
+                guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+                
+                if offroadTabBarController.selectedIndex == 0 {
+                    MyDiaryManager.shared.showCompleteCreateDiaryAlert(viewController: self)
+                }
             }
             .disposed(by: disposeBag)
 
@@ -229,26 +233,6 @@ extension HomeViewController {
             }
         }
     }
-    
-    #if DevTarget
-    private func showCompleteCreateDiaryAlert() {
-        let alertController = ORBAlertController(title: DiaryMessage.completeCreateDiaryTitle, message: DiaryMessage.completeCreateDiaryMessage, type: .normal)
-        alertController.configureMessageLabel{ label in
-            label.setLineHeight(percentage: 150)
-        }
-        alertController.xButton.isHidden = true
-        let cancelAction = ORBAlertAction(title: "나중에", style: .cancel) { _ in return }
-        let okAction = ORBAlertAction(title: "확인", style: .default) { _ in
-            let diaryViewController = DiaryViewController(shouldShowLatestDiary: !self.isReadLatestDiary)
-            diaryViewController.setupCustomBackButton(buttonTitle: "홈")
-            self.navigationController?.pushViewController(diaryViewController, animated: true)
-        }
-        alertController.addAction(cancelAction)
-        alertController.addAction(okAction)
-        
-        present(alertController, animated: true)
-    }
-    #endif
     
     private func requestPushNotificationPermission() {
         let center = UNUserNotificationCenter.current()
