@@ -26,8 +26,10 @@ final class HomeView: UIView {
     let shareButton = UIButton()
     let changeCharacterButton = UIButton()
     let recommendButton = UIButton()
+    #if DevTarget
     let diaryButton = UIButton()
     let diaryUnreadDotView = UIView()
+    #endif
     private let buttonStackView = UIStackView()
     private let characterMotionView = LottieAnimationView()
     private let titleView = UIView()
@@ -104,6 +106,7 @@ extension HomeView {
             $0.setImage(.btnRecommend, for: .normal)
         }
         
+        #if DevTarget
         diaryButton.do {
             $0.setImage(.btnDiaryHome, for: .normal)
         }
@@ -120,6 +123,14 @@ extension HomeView {
             button.layer.shadowOpacity = 0.1
             button.layer.shadowRadius = 4
         }
+        #else
+        [chatButton, recommendButton, changeCharacterButton].forEach { button in
+            button.layer.shadowColor = UIColor.black.cgColor
+            button.layer.shadowOffset = CGSize(width: 0, height: 1)
+            button.layer.shadowOpacity = 0.1
+            button.layer.shadowRadius = 4
+        }
+        #endif
         
         buttonStackView.do {
             $0.axis = .vertical
@@ -239,12 +250,6 @@ extension HomeView {
             $0.top.equalTo(characterNameView.snp.top)
             $0.trailing.equalToSuperview().inset(24)
         }
-
-        [chatButton, shareButton, changeCharacterButton, diaryButton].forEach { button in
-            button.snp.makeConstraints {
-                $0.size.equalTo(44)
-            }
-        }
         
         chatUnreadDotView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(2)
@@ -253,10 +258,22 @@ extension HomeView {
         }
         
         #if DevTarget
+        [chatButton, shareButton, changeCharacterButton, diaryButton].forEach { button in
+            button.snp.makeConstraints {
+                $0.size.equalTo(44)
+            }
+        }
+        
         diaryUnreadDotView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(2)
             $0.trailing.equalToSuperview().inset(4)
             $0.size.equalTo(8)
+        }
+        #else
+        [chatButton, shareButton, changeCharacterButton].forEach { button in
+            button.snp.makeConstraints {
+                $0.size.equalTo(44)
+            }
         }
         #endif
         
