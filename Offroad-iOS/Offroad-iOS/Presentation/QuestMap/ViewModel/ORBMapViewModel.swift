@@ -144,8 +144,8 @@ extension ORBMapViewModel {
         }
         let dto = AdventuresPlaceAuthenticationRequestDTO(
             placeId: placeInfo.id,
-            latitude: currentLocation.lat,
-            longitude: currentLocation.lng
+            latitude: placeInfo.latitude,
+            longitude: placeInfo.longitude
         )
         
         startLoading.accept(())
