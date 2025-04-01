@@ -24,7 +24,9 @@ final class MonthPickerModalViewController: UIViewController {
 
     private lazy var years = Array(minYear...maxYear)
     private lazy var months: [Int] = {
-        if currentPageYear == maxYear {
+        if minYear == maxYear {
+            return Array(minMonth...maxMonth)
+        } else if currentPageYear == maxYear {
             return Array(1...maxMonth)
         } else if currentPageYear == minYear {
             return Array(minMonth...12)

@@ -31,6 +31,7 @@ final class HomeViewController: OffroadTabBarViewController {
     private let pushType: PushNotificationRedirectModel?
     private var noticeModelList: [NoticeInfo] = []
     private var lastUnreadChatInfo: CharacterChatReadGetResponseData? = nil
+    private var isReadLatestDiary = false
     
     // MARK: - Life Cycle
     
@@ -62,6 +63,10 @@ final class HomeViewController: OffroadTabBarViewController {
         
         requestPushNotificationPermission()
         redirectViewControllerForPushNotification()
+        #if DevTarget
+        postDiarySettingDataRecord()
+        getLatestDiaryInfo()
+        #endif
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -188,6 +193,24 @@ extension HomeViewController {
             guard let self else { return }
             self.getLastChatInfo()
         }).disposed(by: disposeBag)
+        
+        #if DevTarget
+        MyDiaryManager.shared.didCompleteCreateDiary
+            .bind { _ in
+                guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+                
+                if offroadTabBarController.selectedIndex == 0 {
+                    MyDiaryManager.shared.showCompleteCreateDiaryAlert(viewController: self)
+                }
+            }
+            .disposed(by: disposeBag)
+
+        MyDiaryManager.shared.didUpdateLatestDiaryInfo
+            .bind { _ in
+                self.getLatestDiaryInfo()
+            }
+            .disposed(by: disposeBag)
+        #endif
     }
     
     private func redirectNoticePost() {
@@ -271,11 +294,46 @@ extension HomeViewController {
             case "CHARACTER_CHAT":
                 ORBCharacterChatManager.shared.chatViewController.patchChatReadRelay.accept(())
                 ORBCharacterChatManager.shared.showCharacterChatBox(character: self.pushType?.data?["characterName"] as! String, message: self.pushType?.data?["message"] as! String, mode: .withReplyButtonShrinked)
+            #if DevTarget
+            case "MEMBER_DIARY_CREATE":
+                MyDiaryManager.shared.didCompleteCreateDiary.accept(())
+            #endif
             default:
                 break
             }
         }
     }
+    
+    #if DevTarget
+    private func postDiarySettingDataRecord() {
+        NetworkService.shared.diarySettingService.postDiarySettingDataRecord { response in
+            switch response {
+            case .success:
+                print("일기 레코드 세팅 데이터 전송 성공")
+            default:
+                break
+            }
+        }
+    }
+    
+    private func getLatestDiaryInfo() {
+        rootView.diaryButton.isEnabled = false
+        NetworkService.shared.diaryService.getLatestDiaryChecked { [weak self] response in
+            guard let self else { return }
+            self.rootView.diaryButton.isEnabled = true
+            switch response {
+            case .success(let dto):
+                guard let dto else { return }
+                isReadLatestDiary = dto.data.doesNotExistOrChecked
+                self.rootView.diaryUnreadDotView.isHidden = dto.data.doesNotExistOrChecked
+            case .serverErr(_):
+                showToast(message: "서버에 문제가 있는 것 같아요. 잠시 후 다시 시도해 주세요.", inset: 66)
+            default:
+                showToast(message: ErrorMessages.networkError, inset: 66)
+            }
+        }
+    }
+    #endif
     
     //MARK: - Func
     
@@ -325,7 +383,7 @@ extension HomeViewController {
 
     #if DevTarget
     @objc private func diaryButtonTapped() {
-        let diaryViewController = DiaryViewController()
+        let diaryViewController = DiaryViewController(shouldShowLatestDiary: !isReadLatestDiary)
         diaryViewController.setupCustomBackButton(buttonTitle: "홈")
         self.navigationController?.pushViewController(diaryViewController, animated: true)
     }

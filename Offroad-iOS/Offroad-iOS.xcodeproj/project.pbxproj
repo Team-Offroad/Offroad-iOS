@@ -501,8 +501,14 @@
 		D02232072D762DE600DA6968 /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02232062D762DE400DA6968 /* DiaryView.swift */; };
 		D022320C2D76CCE700DA6968 /* DiaryGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022320B2D76CCE100DA6968 /* DiaryGuideView.swift */; };
 		D022320E2D76CCF500DA6968 /* DiaryGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */; };
+		D025CCAA2D8B382C006592C6 /* MemoryLightModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025CCA92D8B3818006592C6 /* MemoryLightModel.swift */; };
+		D025CCAD2D8B3A2B006592C6 /* MemoryLightViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025CCAC2D8B3A20006592C6 /* MemoryLightViewModel.swift */; };
 		D03C835E2C61E44700F3094D /* TokenIntercepter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C835D2C61E44700F3094D /* TokenIntercepter.swift */; };
 		D03C83622C620AF100F3094D /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03C83612C620AF100F3094D /* MyPageView.swift */; };
+		D051FDEF2D873FA400CA2485 /* MemoryLightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDEE2D873F9600CA2485 /* MemoryLightViewController.swift */; };
+		D051FDF12D873FB400CA2485 /* MemoryLightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDF02D873FB000CA2485 /* MemoryLightView.swift */; };
+		D051FDF32D8742A800CA2485 /* MemoryLightCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDF22D8742A000CA2485 /* MemoryLightCollectionViewCell.swift */; };
+		D051FDF82D87C70500CA2485 /* MemoryLightGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDF72D87C6EB00CA2485 /* MemoryLightGradientView.swift */; };
 		D05B70D22D63257800A1E206 /* DiaryTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D02D63257000A1E206 /* DiaryTimeView.swift */; };
 		D05B70D52D63286800A1E206 /* DiaryTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D32D63285F00A1E206 /* DiaryTimeViewController.swift */; };
 		D05C31DC2CDB4441004761A7 /* ShareableImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05C31DB2CDB4440004761A7 /* ShareableImageProvider.swift */; };
@@ -545,6 +551,15 @@
 		D06D26DA2C3FE1C700E79F25 /* TitlePopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */; };
 		D06D26DE2C3FE21B00E79F25 /* TitlePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */; };
 		D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */; };
+		D07D3A8B2D8DACD80030995E /* DiarySettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3A892D8DACD10030995E /* DiarySettingService.swift */; };
+		D07D3A8E2D8DACE10030995E /* DiarySettingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3A8C2D8DACDC0030995E /* DiarySettingAPI.swift */; };
+		D07D3AA62D8DF84A0030995E /* DiarySettingCheckedResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AA52D8DF7F50030995E /* DiarySettingCheckedResponseDTO.swift */; };
+		D07D3AD72D9074B70030995E /* DiaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AD62D9074AF0030995E /* DiaryService.swift */; };
+		D07D3ADB2D9074C20030995E /* DiaryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AD92D9074BC0030995E /* DiaryAPI.swift */; };
+		D07D3AE32D9104AE0030995E /* DiaryColorsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AE12D91049A0030995E /* DiaryColorsResponseDTO.swift */; };
+		D07D3AE62D9106050030995E /* DiaryResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AE42D9105FD0030995E /* DiaryResponseDTO.swift */; };
+		D07D3AEC2D9147270030995E /* DiaryInitialDateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AEA2D9147160030995E /* DiaryInitialDateResponseDTO.swift */; };
+		D07D3AEE2D9147D30030995E /* DiaryCheckStatusResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AED2D9147830030995E /* DiaryCheckStatusResponseDTO.swift */; };
 		D0930BB72D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */; };
 		D0930BB82D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */; };
 		D09A196F2D70589900B07FC2 /* TimePeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A196E2D70589500B07FC2 /* TimePeriod.swift */; };
@@ -837,8 +852,14 @@
 		D02232062D762DE400DA6968 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
 		D022320B2D76CCE100DA6968 /* DiaryGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryGuideView.swift; sourceTree = "<group>"; };
 		D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryGuideViewController.swift; sourceTree = "<group>"; };
+		D025CCA92D8B3818006592C6 /* MemoryLightModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightModel.swift; sourceTree = "<group>"; };
+		D025CCAC2D8B3A20006592C6 /* MemoryLightViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightViewModel.swift; sourceTree = "<group>"; };
 		D03C835D2C61E44700F3094D /* TokenIntercepter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenIntercepter.swift; sourceTree = "<group>"; };
 		D03C83612C620AF100F3094D /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		D051FDEE2D873F9600CA2485 /* MemoryLightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightViewController.swift; sourceTree = "<group>"; };
+		D051FDF02D873FB000CA2485 /* MemoryLightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightView.swift; sourceTree = "<group>"; };
+		D051FDF22D8742A000CA2485 /* MemoryLightCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightCollectionViewCell.swift; sourceTree = "<group>"; };
+		D051FDF72D87C6EB00CA2485 /* MemoryLightGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryLightGradientView.swift; sourceTree = "<group>"; };
 		D05B70D02D63257000A1E206 /* DiaryTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTimeView.swift; sourceTree = "<group>"; };
 		D05B70D32D63285F00A1E206 /* DiaryTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTimeViewController.swift; sourceTree = "<group>"; };
 		D05C31DB2CDB4440004761A7 /* ShareableImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareableImageProvider.swift; sourceTree = "<group>"; };
@@ -877,6 +898,15 @@
 		D06D26D92C3FE1C700E79F25 /* TitlePopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupViewController.swift; sourceTree = "<group>"; };
 		D06D26DD2C3FE21B00E79F25 /* TitlePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitlePopupView.swift; sourceTree = "<group>"; };
 		D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionViewCell.swift; sourceTree = "<group>"; };
+		D07D3A892D8DACD10030995E /* DiarySettingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySettingService.swift; sourceTree = "<group>"; };
+		D07D3A8C2D8DACDC0030995E /* DiarySettingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySettingAPI.swift; sourceTree = "<group>"; };
+		D07D3AA52D8DF7F50030995E /* DiarySettingCheckedResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiarySettingCheckedResponseDTO.swift; sourceTree = "<group>"; };
+		D07D3AD62D9074AF0030995E /* DiaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryService.swift; sourceTree = "<group>"; };
+		D07D3AD92D9074BC0030995E /* DiaryAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAPI.swift; sourceTree = "<group>"; };
+		D07D3AE12D91049A0030995E /* DiaryColorsResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryColorsResponseDTO.swift; sourceTree = "<group>"; };
+		D07D3AE42D9105FD0030995E /* DiaryResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryResponseDTO.swift; sourceTree = "<group>"; };
+		D07D3AEA2D9147160030995E /* DiaryInitialDateResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInitialDateResponseDTO.swift; sourceTree = "<group>"; };
+		D07D3AED2D9147830030995E /* DiaryCheckStatusResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCheckStatusResponseDTO.swift; sourceTree = "<group>"; };
 		D0930BB62D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewMessageOnly.swift; sourceTree = "<group>"; };
 		D09A196E2D70589500B07FC2 /* TimePeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePeriod.swift; sourceTree = "<group>"; };
 		D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChoosingResponseDTO.swift; sourceTree = "<group>"; };
@@ -1186,6 +1216,8 @@
 				D0E796112C4526C6005B47A5 /* Adventure */,
 				D0E796122C4526D0005B47A5 /* Emblem */,
 				4E3A32662CE510B6007228D0 /* CharacterChat */,
+				D07D3A852D8DAC0F0030995E /* DiarySetting */,
+				D07D3AD52D9074920030995E /* Diary */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1235,6 +1267,7 @@
 				4E0394842C2AA9DB007F0517 /* Character */,
 				4E0394722C2AA6C5007F0517 /* Home */,
 				D02232002D762DBA00DA6968 /* Diary */,
+				D051FE082D87E2E600CA2485 /* MemoryLight */,
 				4E0394732C2AA6DB007F0517 /* QuestMap */,
 				4E0394742C2AA70C007F0517 /* QuestQR */,
 				4E393C962C48C97C003403EC /* QuestResult */,
@@ -2286,6 +2319,7 @@
 		D00A488A2C78306C008B286A /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				D051FDF72D87C6EB00CA2485 /* MemoryLightGradientView.swift */,
 				D00A488B2C7830F3008B286A /* TermsConsentPopupView.swift */,
 				4EC4A1EC2D24380700A8C130 /* CustomIntensityBlurView.swift */,
 				4EC15ACC2D2AA3A700BC5826 /* ShrinkableCollectionViewCell.swift */,
@@ -2394,12 +2428,64 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		D025CCA82D8B380C006592C6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D025CCA92D8B3818006592C6 /* MemoryLightModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D025CCAB2D8B3A11006592C6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D025CCAC2D8B3A20006592C6 /* MemoryLightViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		D03C835F2C620AC800F3094D /* View */ = {
 			isa = PBXGroup;
 			children = (
 				D03C83612C620AF100F3094D /* MyPageView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D051FE082D87E2E600CA2485 /* MemoryLight */ = {
+			isa = PBXGroup;
+			children = (
+				D025CCA82D8B380C006592C6 /* Model */,
+				D051FE0B2D87E30D00CA2485 /* Cell */,
+				D051FE0A2D87E30600CA2485 /* View */,
+				D051FE092D87E2FC00CA2485 /* ViewController */,
+				D025CCAB2D8B3A11006592C6 /* ViewModel */,
+			);
+			path = MemoryLight;
+			sourceTree = "<group>";
+		};
+		D051FE092D87E2FC00CA2485 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D051FDEE2D873F9600CA2485 /* MemoryLightViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D051FE0A2D87E30600CA2485 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D051FDF02D873FB000CA2485 /* MemoryLightView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D051FE0B2D87E30D00CA2485 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D051FDF22D8742A000CA2485 /* MemoryLightCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		D05B70CD2D63236100A1E206 /* DiaryTime */ = {
@@ -2595,6 +2681,61 @@
 				D06D26E12C400C3800E79F25 /* TitleCollectionViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		D07D3A852D8DAC0F0030995E /* DiarySetting */ = {
+			isa = PBXGroup;
+			children = (
+				D07D3A8F2D8DACE50030995E /* DTO */,
+				D07D3A8C2D8DACDC0030995E /* DiarySettingAPI.swift */,
+				D07D3A892D8DACD10030995E /* DiarySettingService.swift */,
+			);
+			path = DiarySetting;
+			sourceTree = "<group>";
+		};
+		D07D3A8F2D8DACE50030995E /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				D07D3A902D8DACE90030995E /* Response */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		D07D3A902D8DACE90030995E /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				D07D3AA52D8DF7F50030995E /* DiarySettingCheckedResponseDTO.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		D07D3AD52D9074920030995E /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+				D07D3ADC2D9074CB0030995E /* DTO */,
+				D07D3AD92D9074BC0030995E /* DiaryAPI.swift */,
+				D07D3AD62D9074AF0030995E /* DiaryService.swift */,
+			);
+			path = Diary;
+			sourceTree = "<group>";
+		};
+		D07D3ADC2D9074CB0030995E /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				D07D3ADD2D9074E00030995E /* Response */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		D07D3ADD2D9074E00030995E /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				D07D3AE12D91049A0030995E /* DiaryColorsResponseDTO.swift */,
+				D07D3AE42D9105FD0030995E /* DiaryResponseDTO.swift */,
+				D07D3AEA2D9147160030995E /* DiaryInitialDateResponseDTO.swift */,
+				D07D3AED2D9147830030995E /* DiaryCheckStatusResponseDTO.swift */,
+			);
+			path = Response;
 			sourceTree = "<group>";
 		};
 		D09A196D2D70589000B07FC2 /* Enum */ = {
@@ -3674,6 +3815,7 @@
 				4E4F31692D4718F400C3B2FF /* OffroadTabBarViewController.swift in Sources */,
 				4EDB392B2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */,
 				4E4F316A2D4718F400C3B2FF /* AdventureInfoResponseDTO.swift in Sources */,
+				D07D3AD72D9074B70030995E /* DiaryService.swift in Sources */,
 				87C27F6B2D7FED19008036FA /* CourseQuestCollectionViewCell.swift in Sources */,
 				4E4F316B2D4718F400C3B2FF /* ORBMapView.swift in Sources */,
 				D022320C2D76CCE700DA6968 /* DiaryGuideView.swift in Sources */,
@@ -3696,6 +3838,7 @@
 				D0CA20842D7FE08200FDF7F4 /* MonthPickerModalViewController.swift in Sources */,
 				4E4F317A2D4718F400C3B2FF /* ORBCharacterChatView.swift in Sources */,
 				4E4F317B2D4718F400C3B2FF /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
+				D07D3AE62D9106050030995E /* DiaryResponseDTO.swift in Sources */,
 				4E4F317C2D4718F400C3B2FF /* QuestListResponseDTO.swift in Sources */,
 				4E4F316B2D4718F400C3B2FF /* ORBMapView.swift in Sources */,
 				4E4F317D2D4718F400C3B2FF /* CustomIntensityBlurView.swift in Sources */,
@@ -3719,10 +3862,13 @@
 				4E4F318C2D4718F400C3B2FF /* UserInfoResponseDTO.swift in Sources */,
 				4EA5F4EE2D4C96BD00A59AB1 /* LogPrinterManager.swift in Sources */,
 				4E4F318D2D4718F400C3B2FF /* CharacterDetailCell.swift in Sources */,
+				D051FDF12D873FB400CA2485 /* MemoryLightView.swift in Sources */,
 				4E4F318E2D4718F400C3B2FF /* QuestService.swift in Sources */,
 				4E4F318F2D4718F400C3B2FF /* MoyaPlugin.swift in Sources */,
 				D02232072D762DE600DA6968 /* DiaryView.swift in Sources */,
+				D025CCAD2D8B3A2B006592C6 /* MemoryLightViewModel.swift in Sources */,
 				4E4F31902D4718F400C3B2FF /* ORBAlertViewExplorationResult.swift in Sources */,
+				D025CCAA2D8B382C006592C6 /* MemoryLightModel.swift in Sources */,
 				4E4F31912D4718F400C3B2FF /* NoticeView.swift in Sources */,
 				D02232042D762DDD00DA6968 /* DiaryViewController.swift in Sources */,
 				4E4F31922D4718F400C3B2FF /* UIImageView+.swift in Sources */,
@@ -3736,6 +3882,7 @@
 				4E4F319A2D4718F400C3B2FF /* SettingBaseCollectionViewCell.swift in Sources */,
 				4E4F319B2D4718F400C3B2FF /* AppUtility.swift in Sources */,
 				4E4F319C2D4718F400C3B2FF /* LoginViewController.swift in Sources */,
+				D051FDF82D87C70500CA2485 /* MemoryLightGradientView.swift in Sources */,
 				4E4F319D2D4718F400C3B2FF /* CharacterChatPostRequestDTO.swift in Sources */,
 				4E4F319E2D4718F400C3B2FF /* CollectedTitlesViewController.swift in Sources */,
 				4E4F319F2D4718F400C3B2FF /* CouponCollectionViewController.swift in Sources */,
@@ -3747,6 +3894,7 @@
 				4EA272332D5793BA00F64B20 /* ChatTextInputView.swift in Sources */,
 				4E4F31A52D4718F400C3B2FF /* AdventureAPI.swift in Sources */,
 				4E4F31A62D4718F400C3B2FF /* ZeroDurationAnimator.swift in Sources */,
+				D07D3A8B2D8DACD80030995E /* DiarySettingService.swift in Sources */,
 				4E4F31A72D4718F400C3B2FF /* SocialLoginRequestDTO.swift in Sources */,
 				4E4F31A82D4718F400C3B2FF /* ORBNavigationController.swift in Sources */,
 				4E4F31A92D4718F400C3B2FF /* CharacterDetailResponseDTO.swift in Sources */,
@@ -3757,7 +3905,9 @@
 				4E4F31AE2D4718F400C3B2FF /* QuestListCollectionViewCell.swift in Sources */,
 				D022320E2D76CCF500DA6968 /* DiaryGuideViewController.swift in Sources */,
 				4E4F31AF2D4718F400C3B2FF /* UIScreen+.swift in Sources */,
+				D07D3A8E2D8DACE10030995E /* DiarySettingAPI.swift in Sources */,
 				4E4F31B02D4718F400C3B2FF /* CouponRedemptionRequestDTO.swift in Sources */,
+				D07D3AEE2D9147D30030995E /* DiaryCheckStatusResponseDTO.swift in Sources */,
 				4EA5F4F12D4C970600A59AB1 /* LogPrinterWindow.swift in Sources */,
 				4E4F31B12D4718F400C3B2FF /* ShrinkableCollectionViewCell.swift in Sources */,
 				4E4F31B22D4718F400C3B2FF /* ORBAlertBackgroundView.swift in Sources */,
@@ -3768,6 +3918,7 @@
 				4E4F31B52D4718F400C3B2FF /* CharacterChoosingResponseDTO.swift in Sources */,
 				4E4F31B62D4718F400C3B2FF /* FontLiterals.swift in Sources */,
 				4E4F31B72D4718F400C3B2FF /* UIScrollView+.swift in Sources */,
+				D07D3AE32D9104AE0030995E /* DiaryColorsResponseDTO.swift in Sources */,
 				4E4F31B82D4718F400C3B2FF /* TitleModel.swift in Sources */,
 				4E4F31B92D4718F400C3B2FF /* NoticeViewController.swift in Sources */,
 				4E4F31BA2D4718F400C3B2FF /* UIColor+.swift in Sources */,
@@ -3776,6 +3927,7 @@
 				D0CA20822D7FE06B00FDF7F4 /* MonthPickerModalView.swift in Sources */,
 				4E4F31BD2D4718F400C3B2FF /* NavigationPopButton.swift in Sources */,
 				4E4F31BE2D4718F400C3B2FF /* EmblemInfoResponseDTO.swift in Sources */,
+				D07D3ADB2D9074C20030995E /* DiaryAPI.swift in Sources */,
 				4E4F31BF2D4718F400C3B2FF /* ORBCharacterChatWindow.swift in Sources */,
 				4E4F31C02D4718F400C3B2FF /* TermsConsentView.swift in Sources */,
 				4E4F31C12D4718F400C3B2FF /* PlaceAPI.swift in Sources */,
@@ -3795,7 +3947,9 @@
 				4E1CFDEF2D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */,
 				4E4F31CF2D4718F400C3B2FF /* ProfileAPI.swift in Sources */,
 				4E4F31D02D4718F400C3B2FF /* EmblemAPI.swift in Sources */,
+				D07D3AA62D8DF84A0030995E /* DiarySettingCheckedResponseDTO.swift in Sources */,
 				4E4F31D12D4718F400C3B2FF /* TermsListTableViewCell.swift in Sources */,
+				D051FDEF2D873FA400CA2485 /* MemoryLightViewController.swift in Sources */,
 				4E4F31D22D4718F400C3B2FF /* TitlePopupView.swift in Sources */,
 				4E4F31D32D4718F400C3B2FF /* Shrinkable.swift in Sources */,
 				4E4F31D42D4718F400C3B2FF /* ViewController.swift in Sources */,
@@ -3834,6 +3988,7 @@
 				4E4F31F22D4718F400C3B2FF /* CharacterChatLogFooter.swift in Sources */,
 				4E4F31F32D4718F400C3B2FF /* ORBAlertViewTextField.swift in Sources */,
 				4E4F31F42D4718F400C3B2FF /* HomeView.swift in Sources */,
+				D051FDF32D8742A800CA2485 /* MemoryLightCollectionViewCell.swift in Sources */,
 				4E4F31F52D4718F400C3B2FF /* ORBToastWindow.swift in Sources */,
 				4E4F31F62D4718F400C3B2FF /* CharacterChatLogView.swift in Sources */,
 				4E4F31F72D4718F400C3B2FF /* UITabBar+.swift in Sources */,
@@ -3926,6 +4081,7 @@
 				4E4F32492D4718F400C3B2FF /* PlaceListCollectionViewController.swift in Sources */,
 				4E4F324A2D4718F400C3B2FF /* QuestResultViewController.swift in Sources */,
 				4E4F324B2D4718F400C3B2FF /* ORBPlaceCategory.swift in Sources */,
+				D07D3AEC2D9147270030995E /* DiaryInitialDateResponseDTO.swift in Sources */,
 				4E4F324C2D4718F400C3B2FF /* SplashViewController.swift in Sources */,
 				4E4F324D2D4718F400C3B2FF /* ORBMapListButton.swift in Sources */,
 				4E4F324E2D4718F400C3B2FF /* QuestListAPI.swift in Sources */,
@@ -4106,7 +4262,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 25033001;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 548W892M42;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -4127,7 +4283,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.6.1;
+				OTHER_SWIFT_FLAGS = "-DReleaseTarget";
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4152,7 +4309,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 25033001;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 548W892M42;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -4173,7 +4330,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.6.1;
+				OTHER_SWIFT_FLAGS = "-DReleaseTarget";
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4279,7 +4437,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = "25033001-dev";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 548W892M42;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -4301,7 +4459,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.6.1;
 				OTHER_SWIFT_FLAGS = "-DDevTarget";
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4328,7 +4486,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = "25033001-dev";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 548W892M42;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -4350,7 +4508,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.6.1;
 				OTHER_SWIFT_FLAGS = "-DDevTarget";
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";

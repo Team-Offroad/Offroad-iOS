@@ -9,6 +9,7 @@ import UIKit
 
 import FSCalendar
 import SnapKit
+import Kingfisher
 import Then
 
 final class DiaryView: UIView {
@@ -21,13 +22,17 @@ final class DiaryView: UIView {
     private let titleLabel = UILabel()
     private let titleImageView = UIImageView(frame: CGRect(origin: .init(), size: CGSize(width: 24, height: 24)))
     let guideButton = UIButton()
-    private let diaryBackgroundView = UIView()
+    let diaryBackgroundView = UIView()
     let monthButton = ShrinkableButton()
     let leftArrowButton = UIButton()
     let rightArrowButton = UIButton()
     private let arrowButtonStackView = UIStackView()
     private let roundedRectangleView = UIView()
     let diaryCalender = FSCalendar()
+    let diaryEmptyView = UIView()
+    let emptyCharacterImageView = UIImageView()
+    private let emptyDescriptionLabel = UILabel()
+    let goToChatButton = ShrinkableButton()
     
     // MARK: - Life Cycle
     
@@ -44,11 +49,11 @@ final class DiaryView: UIView {
     }
 }
 
-extension DiaryView {
+private extension DiaryView {
     
     // MARK: - Layout
     
-    private func setupStyle() {
+    func setupStyle() {
         backgroundColor = .primary(.listBg)
         
         headerView.do {
@@ -68,6 +73,7 @@ extension DiaryView {
             $0.font = .offroad(style: .iosTextTitle)
             $0.textColor = .main(.main2)
             $0.textAlignment = .center
+            $0.setContentCompressionResistancePriority(.defaultHigh + 1, for: .vertical)
         }
         
         guideButton.do {
@@ -76,6 +82,7 @@ extension DiaryView {
         
         diaryBackgroundView.do {
             $0.backgroundColor = .main(.main1)
+            $0.isHidden = true
         }
         
         monthButton.do {
@@ -129,9 +136,37 @@ extension DiaryView {
             $0.appearance.titleSelectionColor = .primary(.stroke)
             $0.appearance.titleFont = .pretendardFont(ofSize: 15, weight: .bold)
         }
+        
+        diaryEmptyView.do {
+            $0.backgroundColor = .clear
+            $0.isHidden = true
+        }
+        
+        emptyCharacterImageView.do {
+            $0.image = .imgEmptyCaseNova
+            $0.contentMode = .scaleAspectFit
+        }
+        
+        emptyDescriptionLabel.do {
+            $0.text = DiaryMessage.diaryEmptyDesription
+            $0.font = .offroad(style: .iosBoxMedi)
+            $0.setLineHeight(percentage: 160)
+            $0.textColor = .blackOpacity(.black55)
+            $0.textAlignment = .center
+            $0.numberOfLines = 0
+            $0.setContentCompressionResistancePriority(.defaultHigh + 1, for: .vertical)
+        }
+        
+        goToChatButton.do {
+            $0.setTitle("채팅하러 가기", for: .normal)
+            $0.setTitleColor(.primary(.white), for: .normal)
+            $0.titleLabel?.font = .offroad(style: .iosBtnSmall)
+            $0.backgroundColor = .main(.main2)
+            $0.roundCorners(cornerRadius: 23)
+        }
     }
     
-    private func setupHierarchy() {
+    func setupHierarchy() {
         addSubviews(
             headerView,
             customBackButton,
@@ -139,6 +174,7 @@ extension DiaryView {
             titleImageView,
             guideButton,
             dividerView,
+            diaryEmptyView,
             diaryBackgroundView
         )
         diaryBackgroundView.addSubviews(
@@ -147,9 +183,14 @@ extension DiaryView {
             roundedRectangleView)
         arrowButtonStackView.addArrangedSubviews(leftArrowButton, rightArrowButton)
         roundedRectangleView.addSubview(diaryCalender)
+        diaryEmptyView.addSubviews(
+            emptyCharacterImageView,
+            emptyDescriptionLabel,
+            goToChatButton
+        )
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         headerView.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
             $0.bottom.equalTo(dividerView.snp.top)
@@ -213,5 +254,45 @@ extension DiaryView {
             $0.top.equalToSuperview().inset(7)
             $0.bottom.equalToSuperview().inset(30)
         }
+        
+        diaryEmptyView.snp.makeConstraints {
+            $0.top.equalTo(dividerView.snp.bottom).offset(124)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.greaterThanOrEqualToSuperview().inset(167)
+            $0.bottom.lessThanOrEqualToSuperview().inset(80)
+        }
+        
+        emptyCharacterImageView.snp.makeConstraints {
+            $0.top.greaterThanOrEqualTo(safeAreaLayoutGuide).inset(200)
+            $0.top.lessThanOrEqualTo(safeAreaLayoutGuide).inset(300)
+            $0.centerX.equalToSuperview()
+            $0.width.greaterThanOrEqualToSuperview().inset(140)
+            $0.width.lessThanOrEqualToSuperview().inset(110)
+            $0.height.equalTo(emptyCharacterImageView.snp.width)
+        }
+        
+        emptyDescriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(emptyCharacterImageView.snp.bottom).offset(32)
+            $0.centerX.equalToSuperview()
+        }
+        
+        goToChatButton.snp.makeConstraints {
+            $0.top.equalTo(emptyDescriptionLabel.snp.bottom).offset(26)
+            $0.centerX.bottom.equalToSuperview()
+            $0.height.equalTo(48)
+            $0.width.equalTo(230)
+        }
+    }
+}
+
+extension DiaryView {
+    
+    //MARK: - Func
+    
+    func isDiaryEmpty(_ bool: Bool, emptyImageUrl: String) -> () {
+        diaryEmptyView.isHidden = !bool
+        
+        let url = URL(string: emptyImageUrl)
+        emptyCharacterImageView.kf.setImage(with: url)
     }
 }

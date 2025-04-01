@@ -67,6 +67,12 @@ struct DiaryGuideMessage {
     static let diaryGuideDescription2 = "이건 기억빛이에요.\n\n그 날의 기억에 따라\n다른 색으로 칠해져요.\n오늘은 어떤 색의 하루였나요?"
 }
 
+struct DiaryMessage {
+    static let diaryEmptyDesription = "만들어진 일기가 없어요.\n\n오브가 아직 어색한가 봐요.\n조금 더 대화를 나눠보세요."
+    static let completeCreateDiaryTitle = "일기 완성!"
+    static let completeCreateDiaryMessage = "오늘의 일기가 완성되었어요.\n기억빛과 함께 하루를 돌아보세요."
+}
+
 struct AmplitudeEventTitles {
     static let questSuccess = "quest_success"
     static let chatMessageSent = "send_chat"
