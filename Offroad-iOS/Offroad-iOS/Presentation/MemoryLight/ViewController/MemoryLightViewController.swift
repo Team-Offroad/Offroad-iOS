@@ -7,12 +7,17 @@
 
 import UIKit
 
+import Photos
+
 final class MemoryLightViewController: UIViewController {
     
     // MARK: - Properties
     
     private let rootView = MemoryLightView()
     private let viewModel = MemoryLightViewModel()
+
+    private var displayedDiaryIndex = 0
+    private var exportedImage: UIImage?
     
     // MARK: - Life Cycle
     
@@ -46,22 +51,21 @@ final class MemoryLightViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        var index = 0
         if let displayedDate = viewModel.displayedDate {
-            index = viewModel.indexforDiary(diary: viewModel.diaryForDate(date: displayedDate))
+            displayedDiaryIndex = viewModel.indexforDiary(diary: viewModel.diaryForDate(date: displayedDate))
         } else {
-            index = viewModel.indexforDiary(diary: viewModel.memoryLightsData.last!)
+            displayedDiaryIndex = viewModel.indexforDiary(diary: viewModel.memoryLightsData.last!)
             
             let calendar = Calendar(identifier: .gregorian)
             var dateComponents = DateComponents()
-            dateComponents.year = viewModel.memoryLightsData[index].year
-            dateComponents.month = viewModel.memoryLightsData[index].month
-            dateComponents.day = viewModel.memoryLightsData[index].day
+            dateComponents.year = viewModel.memoryLightsData[displayedDiaryIndex].year
+            dateComponents.month = viewModel.memoryLightsData[displayedDiaryIndex].month
+            dateComponents.day = viewModel.memoryLightsData[displayedDiaryIndex].day
 
             viewModel.displayedDate = calendar.date(from: dateComponents)
         }
         
-        let indexPath = IndexPath(item: index, section: 0)
+        let indexPath = IndexPath(item: displayedDiaryIndex, section: 0)
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -104,7 +108,30 @@ private extension MemoryLightViewController {
     }
     
     func shareButtonTapped() {
+        if let cell = rootView.memoryLightCollectionView.cellForItem(at: IndexPath(item: displayedDiaryIndex, section: 0)) {
+            if let image = cell.convertViewToImage() {
+                exportedImage = image
+            }
+        }
         
+        PHPhotoLibrary.requestAuthorization { status in
+            print(status)
+        }
+        
+        if let image = exportedImage {
+            let imageProvider = ShareableImageProvider(image: image)
+
+            let activityViewController = UIActivityViewController(activityItems: [imageProvider], applicationActivities: nil)
+            activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .mail]
+            
+            if let popoverController = activityViewController.popoverPresentationController {
+                popoverController.sourceView = rootView.shareButton
+                popoverController.sourceRect = rootView.shareButton.bounds
+                popoverController.permittedArrowDirections = .any
+            }
+            
+            self.present(activityViewController, animated: true)
+        }
     }
 }
 
@@ -144,6 +171,7 @@ extension MemoryLightViewController: UICollectionViewDelegateFlowLayout {
             index = round(currentIndex)
         }
         
+        displayedDiaryIndex = Int(index)
         updateBackgroundView(dateIndex: Int(index))
         
         offset = CGPoint(x: index * cellWidthIncludingSpacing - scrollView.contentInset.left, y: 0)
@@ -151,9 +179,9 @@ extension MemoryLightViewController: UICollectionViewDelegateFlowLayout {
         
         let calendar = Calendar(identifier: .gregorian)
         var dateComponents = DateComponents()
-        dateComponents.year = viewModel.memoryLightsData[Int(index)].year
-        dateComponents.month = viewModel.memoryLightsData[Int(index)].month
-        dateComponents.day = viewModel.memoryLightsData[Int(index)].day
+        dateComponents.year = viewModel.memoryLightsData[displayedDiaryIndex].year
+        dateComponents.month = viewModel.memoryLightsData[displayedDiaryIndex].month
+        dateComponents.day = viewModel.memoryLightsData[displayedDiaryIndex].day
 
         viewModel.displayedDate = calendar.date(from: dateComponents)
         
