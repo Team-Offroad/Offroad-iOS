@@ -143,6 +143,7 @@ extension UIView {
         }
     }
     
+    #if DevTarget
     /// UIView를 UIImage로 변환
     func convertViewToImage() -> UIImage? {
         let format = UIGraphicsImageRendererFormat()
@@ -153,4 +154,5 @@ extension UIView {
             drawHierarchy(in: bounds, afterScreenUpdates: true)
         }
     }
+    #endif
 }
