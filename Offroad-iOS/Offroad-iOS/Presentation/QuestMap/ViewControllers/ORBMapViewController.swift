@@ -127,22 +127,19 @@ extension ORBMapViewController {
         viewModel.startLoading
             .asDriver(onErrorJustReturn: ())
             .drive(onNext: { [weak self] in
-            guard let self else { return }
-            self.view.startLoading()
+                self?.rootView.startCenterLoading(withoutShading: true)
         }).disposed(by: disposeBag)
         
         viewModel.stopLoading
             .asDriver(onErrorJustReturn: ())
             .drive(onNext: { [weak self] in
-                guard let self else { return }
-                self.view.stopLoading()
+                self?.rootView.stopCenterLoading()
             }).disposed(by: disposeBag)
         
         viewModel.networkFailureSubject
             .asDriver(onErrorJustReturn: ())
             .drive(onNext: { [weak self] in
-                guard let self else { return }
-                self.view.stopLoading()
+                self?.rootView.stopCenterLoading()
             }).disposed(by: disposeBag)
         
         viewModel.locationServicesDisabledRelay
@@ -191,7 +188,7 @@ extension ORBMapViewController {
                 MyInfoManager.shared.shouldUpdateCharacterAnimation.accept(latestCategory ?? "NONE")
                 MyInfoManager.shared.didSuccessAdventure.accept(())
             }
-            self.view.stopLoading()
+            self.rootView.stopCenterLoading()
             if locationValidation && isFirstVisitToday {
                 AmplitudeManager.shared.trackEvent(withName: AmplitudeEventTitles.exploreSuccess)
                 self.hideTooltipFromMap()
