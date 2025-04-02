@@ -120,6 +120,17 @@ private extension MemoryLightViewController {
         
         self.present(activityViewController, animated: true)
     }
+    
+    func updateDisplayedDate() {
+        let calendar = Calendar(identifier: .gregorian)
+        var dateComponents = DateComponents()
+        dateComponents.year = viewModel.memoryLightsData[displayedDiaryIndex].year
+        dateComponents.month = viewModel.memoryLightsData[displayedDiaryIndex].month
+        dateComponents.day = viewModel.memoryLightsData[displayedDiaryIndex].day
+
+        viewModel.displayedDate = calendar.date(from: dateComponents)
+        viewModel.patchDiaryCheck(date: dateFormatter.string(from: self.viewModel.displayedDate ?? Date()))
+    }
 }
     
 @objc private extension MemoryLightViewController {
@@ -185,13 +196,6 @@ extension MemoryLightViewController: UICollectionViewDelegateFlowLayout {
         offset = CGPoint(x: index * cellWidthIncludingSpacing - scrollView.contentInset.left, y: 0)
         targetContentOffset.pointee = offset
         
-        let calendar = Calendar(identifier: .gregorian)
-        var dateComponents = DateComponents()
-        dateComponents.year = viewModel.memoryLightsData[displayedDiaryIndex].year
-        dateComponents.month = viewModel.memoryLightsData[displayedDiaryIndex].month
-        dateComponents.day = viewModel.memoryLightsData[displayedDiaryIndex].day
-
-        viewModel.displayedDate = calendar.date(from: dateComponents)
-        viewModel.patchDiaryCheck(date: dateFormatter.string(from: self.viewModel.displayedDate ?? Date()))
+        updateDisplayedDate()
     }
 }
