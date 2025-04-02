@@ -26,14 +26,14 @@ public extension ORBCenterLoadingStyle {
     /// 만약 화면 중앙 로딩중인 경우, 추가적인 로딩 뷰를 띄우지 않으며, withoutShading 값에 따라 업데이트할 뿐.
     func startCenterLoading(withoutShading: Bool) {
         for subview in subviews {
-            if let loadingView = subview as? ORBLoadingView {
+            if let _ = subview as? ORBLoadingView {
                 subview.backgroundColor = withoutShading ? .clear : .black.withAlphaComponent(0.55)
                 return
             }
         }
         
         let loadingView = ORBLoadingView()
-        if withoutShading { loadingView.backgroundColor = .black.withAlphaComponent(0.55) }
+        if !withoutShading { loadingView.backgroundColor = .black.withAlphaComponent(0.55) }
         
         addSubview(loadingView)
         

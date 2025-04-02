@@ -127,7 +127,7 @@ extension ORBMapViewController {
         viewModel.startLoading
             .asDriver(onErrorJustReturn: ())
             .drive(onNext: { [weak self] in
-                self?.rootView.startCenterLoading(withoutShading: true)
+                self?.rootView.startCenterLoading(withoutShading: false)
         }).disposed(by: disposeBag)
         
         viewModel.stopLoading
