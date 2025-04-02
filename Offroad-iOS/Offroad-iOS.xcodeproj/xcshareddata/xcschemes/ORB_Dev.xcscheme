@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4E4F314A2D4718F400C3B2FF"
-            BuildableName = "ORB(Dev).app"
-            BlueprintName = "ORB(Dev)"
+            BuildableName = "ORB_Dev.app"
+            BlueprintName = "ORB_Dev"
             ReferencedContainer = "container:Offroad-iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
