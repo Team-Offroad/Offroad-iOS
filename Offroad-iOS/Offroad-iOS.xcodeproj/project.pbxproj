@@ -395,6 +395,10 @@
 		4EC611642D5F167300B09E23 /* PlaceListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */; };
 		4EC6F0A62CF4747400895A87 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */; };
 		4ECCC95E2CC80088002B9C4F /* ORBToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */; };
+		4ECD02702D9D722C00830534 /* ORBScrollLoadingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECD026F2D9D722C00830534 /* ORBScrollLoadingStyle.swift */; };
+		4ECD02712D9D722C00830534 /* ORBScrollLoadingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECD026F2D9D722C00830534 /* ORBScrollLoadingStyle.swift */; };
+		4ECD02732D9D725700830534 /* ORBCenterLoadingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECD02722D9D725700830534 /* ORBCenterLoadingStyle.swift */; };
+		4ECD02742D9D725700830534 /* ORBCenterLoadingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECD02722D9D725700830534 /* ORBCenterLoadingStyle.swift */; };
 		4ECEEA6E2CB2C15E0029369A /* ORBTabBarShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */; };
 		4ED6BE3D2D7B3C000020C871 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */; };
 		4EDB392B2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */; };
@@ -745,6 +749,8 @@
 		4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCollectionView.swift; sourceTree = "<group>"; };
 		4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastView.swift; sourceTree = "<group>"; };
+		4ECD026F2D9D722C00830534 /* ORBScrollLoadingStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBScrollLoadingStyle.swift; sourceTree = "<group>"; };
+		4ECD02722D9D725700830534 /* ORBCenterLoadingStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCenterLoadingStyle.swift; sourceTree = "<group>"; };
 		4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBTabBarShapeView.swift; sourceTree = "<group>"; };
 		4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeManager.swift; sourceTree = "<group>"; };
 		4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapHelper.swift; sourceTree = "<group>"; };
@@ -1176,6 +1182,8 @@
 			children = (
 				4EFD004F2CCB4C25005C294D /* SVGFetchable.swift */,
 				4EC15AC02D2A74B200BC5826 /* Shrinkable.swift */,
+				4ECD026F2D9D722C00830534 /* ORBScrollLoadingStyle.swift */,
+				4ECD02722D9D725700830534 /* ORBCenterLoadingStyle.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -3532,6 +3540,7 @@
 				D063E9902C496EA500434A09 /* LottieAnimationView+.swift in Sources */,
 				4E9900822CDBCD9E007EEFF7 /* ORBCharacterChatView.swift in Sources */,
 				D0E796572C453BCB005B47A5 /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
+				4ECD02702D9D722C00830534 /* ORBScrollLoadingStyle.swift in Sources */,
 				4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* ORBMapView.swift in Sources */,
 				4EC4A1ED2D24380700A8C130 /* CustomIntensityBlurView.swift in Sources */,
@@ -3639,6 +3648,7 @@
 				D0E7962F2C4535B1005B47A5 /* NicknameService.swift in Sources */,
 				4EF6B0432CC3F45000066640 /* ORBAlertViewScrollableContent.swift in Sources */,
 				D0E796202C4532A6005B47A5 /* ErrorResponseDTO.swift in Sources */,
+				4ECD02742D9D725700830534 /* ORBCenterLoadingStyle.swift in Sources */,
 				D0E796332C453615005B47A5 /* NicknameCheckResponseDTO.swift in Sources */,
 				D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */,
 				4EFCDFE12C92BD93006DEBB6 /* ORBAlertType.swift in Sources */,
@@ -3832,6 +3842,7 @@
 				4E4F31862D4718F400C3B2FF /* PushNotificationService.swift in Sources */,
 				4E4F31872D4718F400C3B2FF /* UIButton+.swift in Sources */,
 				4E4F31882D4718F400C3B2FF /* ORBMapViewModel.swift in Sources */,
+				4ECD02712D9D722C00830534 /* ORBScrollLoadingStyle.swift in Sources */,
 				4E4F31892D4718F400C3B2FF /* NoticeAPI.swift in Sources */,
 				4E4F318A2D4718F400C3B2FF /* CharacterDetailViewController.swift in Sources */,
 				4E4F318B2D4718F400C3B2FF /* CharacterChatReadGetResponseDTO.swift in Sources */,
@@ -3866,6 +3877,7 @@
 				4E4F31A12D4718F400C3B2FF /* CompleteChoosingCharacterViewController.swift in Sources */,
 				4E4F31A22D4718F400C3B2FF /* MyPageViewController.swift in Sources */,
 				4E4F31A32D4718F400C3B2FF /* QuestListService.swift in Sources */,
+				4ECD02732D9D725700830534 /* ORBCenterLoadingStyle.swift in Sources */,
 				4E4F31A42D4718F400C3B2FF /* OffroadTabBarController.swift in Sources */,
 				4EA272332D5793BA00F64B20 /* ChatTextInputView.swift in Sources */,
 				4E4F31A52D4718F400C3B2FF /* AdventureAPI.swift in Sources */,
