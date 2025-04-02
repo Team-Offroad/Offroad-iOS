@@ -97,6 +97,26 @@ private extension MemoryLightViewController {
                                                  baseColorCode: self.viewModel.memoryLightsData[dateIndex].hexCodes[0].large)
         }
     }
+    
+    func presentShareSheet(image: UIImage, status: PHAuthorizationStatus) {
+        let imageProvider = ShareableImageProvider(image: image)
+        
+        var excludedTypes: [UIActivity.ActivityType] = [.addToReadingList, .assignToContact, .mail]
+        if status == .denied || status == .restricted {
+            excludedTypes.append(.saveToCameraRoll)
+        }
+        
+        let activityViewController = UIActivityViewController(activityItems: [imageProvider], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = excludedTypes
+
+        if let popoverController = activityViewController.popoverPresentationController {
+            popoverController.sourceView = rootView.shareButton
+            popoverController.sourceRect = rootView.shareButton.bounds
+            popoverController.permittedArrowDirections = .any
+        }
+        
+        self.present(activityViewController, animated: true)
+    }
 }
     
 @objc private extension MemoryLightViewController {
@@ -108,29 +128,14 @@ private extension MemoryLightViewController {
     }
     
     func shareButtonTapped() {
-        if let cell = rootView.memoryLightCollectionView.cellForItem(at: IndexPath(item: displayedDiaryIndex, section: 0)) {
-            if let image = cell.convertViewToImage() {
-                exportedImage = image
-            }
-        }
+        guard let cell = rootView.memoryLightCollectionView.cellForItem(at: IndexPath(item: displayedDiaryIndex, section: 0)),
+              let image = cell.convertViewToImage() else { return }
         
+        // 권한 요청 후 sheet 띄우기
         PHPhotoLibrary.requestAuthorization { status in
-            print(status)
-        }
-        
-        if let image = exportedImage {
-            let imageProvider = ShareableImageProvider(image: image)
-
-            let activityViewController = UIActivityViewController(activityItems: [imageProvider], applicationActivities: nil)
-            activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .mail]
-            
-            if let popoverController = activityViewController.popoverPresentationController {
-                popoverController.sourceView = rootView.shareButton
-                popoverController.sourceRect = rootView.shareButton.bounds
-                popoverController.permittedArrowDirections = .any
+            DispatchQueue.main.async {
+                self.presentShareSheet(image: image, status: status)
             }
-            
-            self.present(activityViewController, animated: true)
         }
     }
 }
