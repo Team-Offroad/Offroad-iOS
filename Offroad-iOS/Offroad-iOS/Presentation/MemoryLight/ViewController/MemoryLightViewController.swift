@@ -18,6 +18,12 @@ final class MemoryLightViewController: UIViewController {
 
     private var displayedDiaryIndex = 0
     private var exportedImage: UIImage?
+    private lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        return dateFormatter
+    }()
     
     // MARK: - Life Cycle
     
@@ -66,13 +72,10 @@ final class MemoryLightViewController: UIViewController {
         }
         
         let indexPath = IndexPath(item: displayedDiaryIndex, section: 0)
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
         
         DispatchQueue.main.async {
             self.rootView.memoryLightCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
-            self.viewModel.patchDiaryCheck(date: dateFormatter.string(from: self.viewModel.displayedDate ?? Date()))
+            self.viewModel.patchDiaryCheck(date: self.dateFormatter.string(from: self.viewModel.displayedDate ?? Date()))
         }
     }
 }
@@ -189,9 +192,6 @@ extension MemoryLightViewController: UICollectionViewDelegateFlowLayout {
         dateComponents.day = viewModel.memoryLightsData[displayedDiaryIndex].day
 
         viewModel.displayedDate = calendar.date(from: dateComponents)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
         viewModel.patchDiaryCheck(date: dateFormatter.string(from: self.viewModel.displayedDate ?? Date()))
     }
 }
