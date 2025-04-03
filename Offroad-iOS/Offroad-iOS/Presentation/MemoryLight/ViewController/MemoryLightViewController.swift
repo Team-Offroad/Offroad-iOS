@@ -111,12 +111,6 @@ private extension MemoryLightViewController {
         
         let activityViewController = UIActivityViewController(activityItems: [imageProvider], applicationActivities: nil)
         activityViewController.excludedActivityTypes = excludedTypes
-
-        if let popoverController = activityViewController.popoverPresentationController {
-            popoverController.sourceView = rootView.shareButton
-            popoverController.sourceRect = rootView.shareButton.bounds
-            popoverController.permittedArrowDirections = .any
-        }
         
         self.present(activityViewController, animated: true)
     }
