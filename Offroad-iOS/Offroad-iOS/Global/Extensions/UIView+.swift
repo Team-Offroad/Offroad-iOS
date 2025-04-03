@@ -142,4 +142,17 @@ extension UIView {
             }
         }
     }
+    
+    #if DevTarget
+    /// UIView를 UIImage로 변환
+    func convertViewToImage() -> UIImage? {
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = UIScreen.main.scale
+        let renderer = UIGraphicsImageRenderer(size: bounds.size, format: format)
+        
+        return renderer.image { context in
+            drawHierarchy(in: bounds, afterScreenUpdates: true)
+        }
+    }
+    #endif
 }
