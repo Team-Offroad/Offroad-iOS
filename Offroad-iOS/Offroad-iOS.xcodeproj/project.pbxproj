@@ -359,6 +359,8 @@
 		4E7A609F2D1C698F0079007C /* ORBMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
+		4E9759EF2DA0138800F30692 /* DeveloperModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759EE2DA0138800F30692 /* DeveloperModeViewController.swift */; };
+		4E9759F22DA013B300F30692 /* DeveloperModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759F12DA013B300F30692 /* DeveloperModeView.swift */; };
 		4E99007C2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */; };
 		4E99007E2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */; };
 		4E9900802CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */; };
@@ -714,6 +716,8 @@
 		4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapViewController.swift; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info_Dev.plist"; sourceTree = "<group>"; };
+		4E9759EE2DA0138800F30692 /* DeveloperModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeViewController.swift; sourceTree = "<group>"; };
+		4E9759F12DA013B300F30692 /* DeveloperModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeView.swift; sourceTree = "<group>"; };
 		4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatWindow.swift; sourceTree = "<group>"; };
 		4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatManager.swift; sourceTree = "<group>"; };
 		4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatViewController.swift; sourceTree = "<group>"; };
@@ -1424,6 +1428,7 @@
 				D0E9378E2CF6FC880061782D /* CustomerInquiry  */,
 				4E0394812C2AA969007F0517 /* Logout */,
 				4E0394822C2AA983007F0517 /* DeleteAccount */,
+				4E9759EB2DA012EC00F30692 /* DeveloperMode */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1780,6 +1785,31 @@
 				4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */,
 			);
 			path = Toast;
+			sourceTree = "<group>";
+		};
+		4E9759EB2DA012EC00F30692 /* DeveloperMode */ = {
+			isa = PBXGroup;
+			children = (
+				4E9759ED2DA0133500F30692 /* Views */,
+				4E9759EC2DA0132D00F30692 /* ViewControllers */,
+			);
+			path = DeveloperMode;
+			sourceTree = "<group>";
+		};
+		4E9759EC2DA0132D00F30692 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4E9759EE2DA0138800F30692 /* DeveloperModeViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4E9759ED2DA0133500F30692 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4E9759F12DA013B300F30692 /* DeveloperModeView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		4E99007A2CDB9504007EEFF7 /* CharacterChat */ = {
@@ -3806,6 +3836,7 @@
 				D0CA206E2D7E005100FDF7F4 /* CustomDiaryCalendarCell.swift in Sources */,
 				4E4F31742D4718F400C3B2FF /* StringLiterals.swift in Sources */,
 				4E4F31752D4718F400C3B2FF /* ORBTabBarShapeView.swift in Sources */,
+				4E9759EF2DA0138800F30692 /* DeveloperModeViewController.swift in Sources */,
 				4E4F31762D4718F400C3B2FF /* SettingViewController.swift in Sources */,
 				4E4F31772D4718F400C3B2FF /* ORBCharacterChatBox.swift in Sources */,
 				D0CA20732D7F4BC200FDF7F4 /* DiaryViewModel.swift in Sources */,
@@ -3815,6 +3846,7 @@
 				4E4F317A2D4718F400C3B2FF /* ORBCharacterChatView.swift in Sources */,
 				4E4F317B2D4718F400C3B2FF /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
 				D07D3AE62D9106050030995E /* DiaryResponseDTO.swift in Sources */,
+				4E9759F22DA013B300F30692 /* DeveloperModeView.swift in Sources */,
 				4E4F317C2D4718F400C3B2FF /* QuestListResponseDTO.swift in Sources */,
 				4E4F316B2D4718F400C3B2FF /* ORBMapView.swift in Sources */,
 				4E4F317D2D4718F400C3B2FF /* CustomIntensityBlurView.swift in Sources */,
