@@ -142,11 +142,19 @@ extension ORBMapViewModel {
             locationUnauthorizedMessage.accept(ErrorMessages.accessingLocationDataFailure)
             return
         }
+        #if DevTarget
         let dto = AdventuresPlaceAuthenticationRequestDTO(
             placeId: placeInfo.id,
             latitude: placeInfo.latitude,
             longitude: placeInfo.longitude
         )
+        #else
+        let dto = AdventuresPlaceAuthenticationRequestDTO(
+            placeId: placeInfo.id,
+            latitude: currentLocation.lat,
+            longitude: currentLocation.lng
+        )
+        #endif
         
         startLoading.accept(())
         NetworkService.shared.adventureService.authenticatePlaceAdventure(
