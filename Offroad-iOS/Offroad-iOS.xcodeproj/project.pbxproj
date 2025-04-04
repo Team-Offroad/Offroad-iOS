@@ -704,7 +704,7 @@
 		4E4E2C0B2CCF6518000A634D /* ORBMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapViewModel.swift; sourceTree = "<group>"; };
 		4E4F31442D4716F500C3B2FF /* SecretConfig_Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretConfig_Dev.xcconfig; sourceTree = "<group>"; };
 		4E4F31482D4717B100C3B2FF /* SecretConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretConfig.xcconfig; sourceTree = "<group>"; };
-		4E4F327A2D4718F400C3B2FF /* ORB(Dev).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ORB(Dev).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E4F327A2D4718F400C3B2FF /* ORB_Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ORB_Dev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationTransitionDelegate.swift; sourceTree = "<group>"; };
 		4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationAnimator.swift; sourceTree = "<group>"; };
 		4E56F54B2C995BA800EEE677 /* ORBAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewModel.swift; sourceTree = "<group>"; };
@@ -1077,7 +1077,7 @@
 				4E03943F2C2A9DCF007F0517 /* Offroad-iOSTests.xctest */,
 				4E0394492C2A9DCF007F0517 /* Offroad-iOSUITests.xctest */,
 				D0C6FD092CE6551C00517480 /* NotificationServiceExtension.appex */,
-				4E4F327A2D4718F400C3B2FF /* ORB(Dev).app */,
+				4E4F327A2D4718F400C3B2FF /* ORB_Dev.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3175,9 +3175,9 @@
 			productReference = 4E0394492C2A9DCF007F0517 /* Offroad-iOSUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		4E4F314A2D4718F400C3B2FF /* ORB(Dev) */ = {
+		4E4F314A2D4718F400C3B2FF /* ORB_Dev */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4E4F32772D4718F400C3B2FF /* Build configuration list for PBXNativeTarget "ORB(Dev)" */;
+			buildConfigurationList = 4E4F32772D4718F400C3B2FF /* Build configuration list for PBXNativeTarget "ORB_Dev" */;
 			buildPhases = (
 				4E4F31622D4718F400C3B2FF /* [CP] Check Pods Manifest.lock */,
 				4E4F31632D4718F400C3B2FF /* Sources */,
@@ -3189,7 +3189,7 @@
 			);
 			dependencies = (
 			);
-			name = "ORB(Dev)";
+			name = ORB_Dev;
 			packageProductDependencies = (
 				4E4F314B2D4718F400C3B2FF /* SnapKit */,
 				4E4F314D2D4718F400C3B2FF /* Moya */,
@@ -3209,7 +3209,7 @@
 				D0CA206B2D7DCF5900FDF7F4 /* FSCalendar */,
 			);
 			productName = "Offroad-iOS";
-			productReference = 4E4F327A2D4718F400C3B2FF /* ORB(Dev).app */;
+			productReference = 4E4F327A2D4718F400C3B2FF /* ORB_Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D0C6FD082CE6551C00517480 /* NotificationServiceExtension */ = {
@@ -3288,7 +3288,7 @@
 			projectRoot = "";
 			targets = (
 				4E0394282C2A9DCE007F0517 /* ORB */,
-				4E4F314A2D4718F400C3B2FF /* ORB(Dev) */,
+				4E4F314A2D4718F400C3B2FF /* ORB_Dev */,
 				4E03943E2C2A9DCF007F0517 /* Offroad-iOSTests */,
 				4E0394482C2A9DCF007F0517 /* Offroad-iOSUITests */,
 				D0C6FD082CE6551C00517480 /* NotificationServiceExtension */,
@@ -4275,6 +4275,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ProvisioningProfile_Development_250122;
+				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -4322,6 +4323,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ProvisioningProfile_Development_250122;
+				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -4423,7 +4425,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = "25033001-dev";
+				CURRENT_PROJECT_VERSION = 25040202;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 548W892M42;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -4472,7 +4474,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = "25033001-dev";
+				CURRENT_PROJECT_VERSION = 25040202;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 548W892M42;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -4625,7 +4627,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4E4F32772D4718F400C3B2FF /* Build configuration list for PBXNativeTarget "ORB(Dev)" */ = {
+		4E4F32772D4718F400C3B2FF /* Build configuration list for PBXNativeTarget "ORB_Dev" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4E4F32782D4718F400C3B2FF /* Debug */,
