@@ -100,8 +100,8 @@ extension QuestListViewController {
     }
     
     private func getInitialQuestList(isActive: Bool, cursor: Int = 0, size: Int = 20) {
-        rootView.questListCollectionView.startLoading(withoutShading: true)
-        rootView.questListCollectionView.emptyState = false
+        rootView.questListCollectionView.startCenterLoading(withoutShading: true)
+        rootView.questListCollectionView.setEmptyState(false)
         questListService.getQuestList(isActive: isActive, cursor: cursor, size: size) { [weak self] result in
             guard let self else { return }
             switch result {
@@ -109,13 +109,16 @@ extension QuestListViewController {
                 guard let questListFromServer = response?.data.questList else { return }
                 if isActive {
                     self.activeQuestList = questListFromServer
-                    self.rootView.questListCollectionView.emptyState = self.activeQuestList.isEmpty
+                    self.rootView.questListCollectionView.setEmptyState(self.activeQuestList.isEmpty)
                 } else {
                     self.allQuestList = questListFromServer
-                    self.rootView.questListCollectionView.emptyState = self.allQuestList.isEmpty
+                    self.rootView.questListCollectionView.setEmptyState(self.allQuestList.isEmpty)
                 }
-                self.rootView.questListCollectionView.stopLoading()
+                self.rootView.questListCollectionView.stopCenterLoading()
                 self.rootView.questListCollectionView.reloadData()
+                // 처음 데이터를 불러왔을 때 `reloadData()` 만 호출하면 하단 로딩 로티 위치가 이상하게 잡히는 문제 발생
+                // `reloadData()` 호출 후 `performBatchUpdates()` 호출 시 문제 해결
+                self.rootView.questListCollectionView.performBatchUpdates(nil)
                 
                 lastCursorID = questListFromServer.last?.cursorId ?? Int()
             default:
@@ -125,7 +128,7 @@ extension QuestListViewController {
     }
     
     private func getExtendedQuestList(isActive: Bool, cursor: Int, size: Int) {
-        rootView.startScrollLoading()
+        rootView.questListCollectionView.startBottomScrollLoading()
         
         questListService.getQuestList(isActive: isActive, cursor: cursor, size: size) { [weak self] result in
             guard let self else { return }
@@ -138,29 +141,22 @@ extension QuestListViewController {
                 
                 if isActive {
                     self.activeQuestList.append(contentsOf: newItems)
-                    self.rootView.questListCollectionView.emptyState = self.activeQuestList.isEmpty
+                    self.rootView.questListCollectionView.setEmptyState(!self.activeQuestList.isEmpty)
                 } else {
                     self.allQuestList.append(contentsOf: newItems)
-                    self.rootView.questListCollectionView.emptyState = self.allQuestList.isEmpty
+                    self.rootView.questListCollectionView.setEmptyState(self.allQuestList.isEmpty)
                 }
                 
                 let newIndices = (currentCount..<(currentCount + newItems.count)).map { IndexPath(item: $0, section: 0) }
                 
-                DispatchQueue.main.async {
-                    self.rootView.questListCollectionView.performBatchUpdates({
-                        self.rootView.questListCollectionView.insertItems(at: newIndices)
-                    }, completion: { finished in
-                        print("===스크롤 로딩 완료===")
-                        self.rootView.stopScrollLoading()
-                    })
-                }
-                
+                self.rootView.questListCollectionView.stopBottomScrollLoading()
+                self.rootView.questListCollectionView.insertItems(at: newIndices)
+
                 self.lastCursorID = newItems.last?.cursorId ?? Int()
                 
             default:
-                self.rootView.stopScrollLoading()
+                self.rootView.questListCollectionView.stopBottomScrollLoading()
             }
-            self.rootView.stopScrollLoading()
         }
     }
 }
@@ -223,13 +219,12 @@ extension QuestListViewController: UICollectionViewDelegate {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         let frameHeight = scrollView.frame.size.height
-        
-        if offsetY >= contentHeight - frameHeight {
+        let triggerPosition: CGFloat = 150
+        if offsetY >= contentHeight - frameHeight - triggerPosition {
             if extendedListSize == lastCursorID {
                 extendedListSize += 12
                 getExtendedQuestList(isActive: isActive, cursor: lastCursorID, size: 12)
             }
-            //TODO: 로딩 케이스 추가
         }
     }
 }

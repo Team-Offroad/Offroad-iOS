@@ -11,22 +11,22 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class PlaceListCollectionView: ScrollLoadingCollectionView {
+class PlaceListCollectionView: UICollectionView, ORBScrollLoadingStyle {
     
     //MARK: - Life Cycle
     
     init() {
-        let collectionViewHorizontalInset: CGFloat = 24
-        let collectionViewVerticalInset: CGFloat = 20
-        let itemWidth = floor(UIScreen.current.bounds.width - collectionViewHorizontalInset * 2)
+        let horizontalInset: CGFloat = 24
+        let verticalInset: CGFloat = 20
+        let itemWidth = floor(UIScreen.current.bounds.width - horizontalInset * 2)
         
         let flowLayout = UICollectionViewFlowLayout().then { flowLayout in
             flowLayout.scrollDirection = .vertical
             flowLayout.sectionInset = .init(
-                top: collectionViewVerticalInset,
-                left: collectionViewHorizontalInset,
-                bottom: 40,
-                right: collectionViewHorizontalInset
+                top: verticalInset,
+                left: horizontalInset,
+                bottom: verticalInset,
+                right: horizontalInset
             )
             flowLayout.minimumLineSpacing = 16
             flowLayout.minimumInteritemSpacing = 100

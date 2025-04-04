@@ -12,18 +12,6 @@ import SnapKit
 
 class QuestListView: UIView {
     
-    //MARK: - Properties
-    
-    private var layoutMaker: UICollectionViewFlowLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.sectionInset = .init(top: 20, left: 24, bottom: 0, right: 24)
-        layout.minimumLineSpacing = 16
-        layout.minimumInteritemSpacing = 100
-        layout.estimatedItemSize.width = UIScreen.current.bounds.width - 32
-        return layout
-    }
-
     //MARK: - UI Properties
 
     private let customNavigationBar = UIView()
@@ -35,7 +23,8 @@ class QuestListView: UIView {
     let customBackButton = NavigationPopButton()
     let ongoingQuestSwitch = UISwitch()
     
-    lazy var questListCollectionView = EmptyStateCollectionView(message: EmptyCaseMessage.activeQuests, frame: .zero, collectionViewLayout: layoutMaker)
+    let questListCollectionView = QuestListCollectionView()
+    
 
     //MARK: - Life Cycle
 

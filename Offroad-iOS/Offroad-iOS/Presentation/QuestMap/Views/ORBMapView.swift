@@ -11,7 +11,7 @@ import NMapsMap
 import SnapKit
 import Then
 
-class ORBMapView: UIView {
+class ORBMapView: UIView, ORBCenterLoadingStyle {
     
     //MARK: - UI Properties
     
