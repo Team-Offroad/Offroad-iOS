@@ -101,7 +101,7 @@ extension QuestListViewController {
     
     private func getInitialQuestList(isActive: Bool, cursor: Int = 0, size: Int = 20) {
         rootView.questListCollectionView.startLoading(withoutShading: true)
-        rootView.questListCollectionView.emptyState = false
+        rootView.questListCollectionView.setEmptyState(false)
         questListService.getQuestList(isActive: isActive, cursor: cursor, size: size) { [weak self] result in
             guard let self else { return }
             switch result {
@@ -109,10 +109,10 @@ extension QuestListViewController {
                 guard let questListFromServer = response?.data.questList else { return }
                 if isActive {
                     self.activeQuestList = questListFromServer
-                    self.rootView.questListCollectionView.emptyState = self.activeQuestList.isEmpty
+                    self.rootView.questListCollectionView.setEmptyState(self.activeQuestList.isEmpty)
                 } else {
                     self.allQuestList = questListFromServer
-                    self.rootView.questListCollectionView.emptyState = self.allQuestList.isEmpty
+                    self.rootView.questListCollectionView.setEmptyState(self.allQuestList.isEmpty)
                 }
                 self.rootView.questListCollectionView.stopLoading()
                 self.rootView.questListCollectionView.reloadData()
@@ -138,10 +138,10 @@ extension QuestListViewController {
                 
                 if isActive {
                     self.activeQuestList.append(contentsOf: newItems)
-                    self.rootView.questListCollectionView.emptyState = self.activeQuestList.isEmpty
+                    self.rootView.questListCollectionView.setEmptyState(self.activeQuestList.isEmpty)
                 } else {
                     self.allQuestList.append(contentsOf: newItems)
-                    self.rootView.questListCollectionView.emptyState = self.allQuestList.isEmpty
+                    self.rootView.questListCollectionView.setEmptyState(self.allQuestList.isEmpty)
                 }
                 
                 let newIndices = (currentCount..<(currentCount + newItems.count)).map { IndexPath(item: $0, section: 0) }

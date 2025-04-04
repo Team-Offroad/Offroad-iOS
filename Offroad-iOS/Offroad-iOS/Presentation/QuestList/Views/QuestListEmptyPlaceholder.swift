@@ -14,6 +14,8 @@ final class QuestListEmptyPlaceholder: UIView, ORBEmptyPlaceholderType {
     
     var emptyCaseMessage: String = EmptyCaseMessage.activeQuests
     
+    // MARK: - UI Properties
+    
     let imageView = UIImageView(image: .imgEmptyCaseNova)
     let emptyMessageLabel = UILabel()
     
