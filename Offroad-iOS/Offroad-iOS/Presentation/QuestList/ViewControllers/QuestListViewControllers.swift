@@ -100,7 +100,7 @@ extension QuestListViewController {
     }
     
     private func getInitialQuestList(isActive: Bool, cursor: Int = 0, size: Int = 20) {
-        rootView.questListCollectionView.startLoading(withoutShading: true)
+        rootView.questListCollectionView.startCenterLoading(withoutShading: true)
         rootView.questListCollectionView.setEmptyState(false)
         questListService.getQuestList(isActive: isActive, cursor: cursor, size: size) { [weak self] result in
             guard let self else { return }
@@ -114,7 +114,7 @@ extension QuestListViewController {
                     self.allQuestList = questListFromServer
                     self.rootView.questListCollectionView.setEmptyState(self.allQuestList.isEmpty)
                 }
-                self.rootView.questListCollectionView.stopLoading()
+                self.rootView.questListCollectionView.stopCenterLoading()
                 self.rootView.questListCollectionView.reloadData()
                 
                 lastCursorID = questListFromServer.last?.cursorId ?? Int()
@@ -138,7 +138,7 @@ extension QuestListViewController {
                 
                 if isActive {
                     self.activeQuestList.append(contentsOf: newItems)
-                    self.rootView.questListCollectionView.setEmptyState(self.activeQuestList.isEmpty)
+                    self.rootView.questListCollectionView.setEmptyState(!self.activeQuestList.isEmpty)
                 } else {
                     self.allQuestList.append(contentsOf: newItems)
                     self.rootView.questListCollectionView.setEmptyState(self.allQuestList.isEmpty)
