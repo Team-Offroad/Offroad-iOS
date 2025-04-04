@@ -359,6 +359,8 @@
 		4E7A609F2D1C698F0079007C /* ORBMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
+		4E9759D22D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
+		4E9759D32D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
 		4E99007C2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */; };
 		4E99007E2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */; };
 		4E9900802CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */; };
@@ -718,6 +720,7 @@
 		4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapViewController.swift; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info_Dev.plist"; sourceTree = "<group>"; };
+		4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBEmptyCaseStyle.swift; sourceTree = "<group>"; };
 		4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatWindow.swift; sourceTree = "<group>"; };
 		4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatManager.swift; sourceTree = "<group>"; };
 		4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatViewController.swift; sourceTree = "<group>"; };
@@ -1184,6 +1187,7 @@
 				4EC15AC02D2A74B200BC5826 /* Shrinkable.swift */,
 				4ECD026F2D9D722C00830534 /* ORBScrollLoadingStyle.swift */,
 				4ECD02722D9D725700830534 /* ORBCenterLoadingStyle.swift */,
+				4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -3756,6 +3760,7 @@
 				D0600BE72CE61E6A00D8F1D6 /* FcmTokenRequestDTO.swift in Sources */,
 				D0E796172C4527AA005B47A5 /* AuthService.swift in Sources */,
 				D06466A32C89EF6B00CF10FD /* DeleteAccountRequestDTO.swift in Sources */,
+				4E9759D22D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */,
 				4EC3EC952CA91A0C008139BE /* PlaceListCollectionViewController.swift in Sources */,
 				4E393C9A2C48C9A6003403EC /* QuestResultViewController.swift in Sources */,
 				4E416CE82C45DBE200CF6AB4 /* ORBPlaceCategory.swift in Sources */,
@@ -4059,6 +4064,7 @@
 				4E4F32402D4718F400C3B2FF /* EmblemListResponseDTO.swift in Sources */,
 				4E4F32412D4718F400C3B2FF /* TokenIntercepter.swift in Sources */,
 				4E4F32422D4718F400C3B2FF /* SceneDelegate.swift in Sources */,
+				4E9759D32D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */,
 				4E4F32432D4718F400C3B2FF /* CharacterChatAPI.swift in Sources */,
 				4E4F32442D4718F400C3B2FF /* ScrollLoading.swift in Sources */,
 				4E4F32452D4718F400C3B2FF /* SocialLoginResponseDTO.swift in Sources */,
