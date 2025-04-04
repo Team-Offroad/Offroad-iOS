@@ -28,7 +28,7 @@ class PlaceListViewController: UIViewController {
     // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
     private lazy var currentCoordinate = locationManager.location?.coordinate ?? .init(latitude: 37.5716229,
                                                                                        longitude: 126.9767879)
-    private lazy var unvistedPlaceViewController = PlaceListCollectionViewController(
+    private lazy var unvisitedPlaceViewController = PlaceListCollectionViewController(
         place: currentCoordinate,
         showVisitCount: false
     )
@@ -36,7 +36,7 @@ class PlaceListViewController: UIViewController {
         place: currentCoordinate,
         showVisitCount: true
     )
-    private lazy var viewControllerList: [UIViewController] = [unvistedPlaceViewController, allPlacesViewController]
+    private lazy var viewControllerList: [UIViewController] = [unvisitedPlaceViewController, allPlacesViewController]
     
     //MARK: - Life Cycle
     
@@ -80,7 +80,7 @@ extension PlaceListViewController {
     }
     
     private func handleRxEvents() {
-        unvistedPlaceViewController.lastCellWillBeDisplayed
+        unvisitedPlaceViewController.lastCellWillBeDisplayed
             .subscribe(onNext: { [weak self] in
                 self?.loadAdditionalPlaces(limit: 12)
             }).disposed(by: disposeBag)
@@ -103,8 +103,8 @@ extension PlaceListViewController {
         if distanceCursor == nil {
             rootView.pageViewController.view.startLoading(withoutShading: true)
         } else {
-            unvistedPlaceViewController.placeListCollectionView.startScrollLoading(direction: .bottom)
-            allPlacesViewController.placeListCollectionView.startScrollLoading(direction: .bottom)
+            unvisitedPlaceViewController.placeListCollectionView.startBottomScrollLoading()
+            allPlacesViewController.placeListCollectionView.startBottomScrollLoading()
         }
         
         NetworkService.shared.placeService.getRegisteredListPlaces(
@@ -117,8 +117,8 @@ extension PlaceListViewController {
             
             defer {
                 rootView.pageViewController.view.stopLoading()
-                unvistedPlaceViewController.placeListCollectionView.stopScrollLoading(direction: .bottom)
-                allPlacesViewController.placeListCollectionView.stopScrollLoading(direction: .bottom)
+                unvisitedPlaceViewController.placeListCollectionView.stopBottomScrollLoading()
+                allPlacesViewController.placeListCollectionView.stopBottomScrollLoading()
                 
                 self.rootView.segmentedControl.isUserInteractionEnabled = true
                 self.rootView.pageViewController.view.isUserInteractionEnabled = true
@@ -130,7 +130,7 @@ extension PlaceListViewController {
                 guard responsePlaces.count != 0 else { return }
                 distanceCursor = responsePlaces.last?.distanceFromUser
                 allPlacesViewController.appendNewItems(newPlaces: responsePlaces)
-                unvistedPlaceViewController.appendNewItems(newPlaces: responsePlaces.filter({ $0.visitCount == 0 }))
+                unvisitedPlaceViewController.appendNewItems(newPlaces: responsePlaces.filter({ $0.visitCount == 0 }))
             default:
                 return
             }

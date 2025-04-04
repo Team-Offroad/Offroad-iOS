@@ -155,7 +155,6 @@
 		4E4F31B42D4718F400C3B2FF /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796142C452797005B47A5 /* AuthAPI.swift */; };
 		4E4F31B52D4718F400C3B2FF /* CharacterChoosingResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */; };
 		4E4F31B62D4718F400C3B2FF /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
-		4E4F31B72D4718F400C3B2FF /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */; };
 		4E4F31B82D4718F400C3B2FF /* TitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB102C4054D20048B6DF /* TitleModel.swift */; };
 		4E4F31B92D4718F400C3B2FF /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A486E2C634437008B286A /* NoticeViewController.swift */; };
 		4E4F31BA2D4718F400C3B2FF /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CCF2C8DC15200E107C7 /* UIColor+.swift */; };
@@ -399,7 +398,6 @@
 		4EC4A1FE2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */; };
 		4EC611632D5F167300B09E23 /* PlaceListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */; };
 		4EC611642D5F167300B09E23 /* PlaceListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */; };
-		4EC6F0A62CF4747400895A87 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */; };
 		4ECCC95E2CC80088002B9C4F /* ORBToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */; };
 		4ECD02702D9D722C00830534 /* ORBScrollLoadingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECD026F2D9D722C00830534 /* ORBScrollLoadingStyle.swift */; };
 		4ECD02712D9D722C00830534 /* ORBScrollLoadingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECD026F2D9D722C00830534 /* ORBScrollLoadingStyle.swift */; };
@@ -756,7 +754,6 @@
 		4EC4A1EC2D24380700A8C130 /* CustomIntensityBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIntensityBlurView.swift; sourceTree = "<group>"; };
 		4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewCouponRedemptionFailure.swift; sourceTree = "<group>"; };
 		4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCollectionView.swift; sourceTree = "<group>"; };
-		4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastView.swift; sourceTree = "<group>"; };
 		4ECD026F2D9D722C00830534 /* ORBScrollLoadingStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBScrollLoadingStyle.swift; sourceTree = "<group>"; };
 		4ECD02722D9D725700830534 /* ORBCenterLoadingStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCenterLoadingStyle.swift; sourceTree = "<group>"; };
@@ -1167,7 +1164,6 @@
 				87738CCF2C8DC15200E107C7 /* UIColor+.swift */,
 				4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */,
 				4E456CBF2CF4003D0011B50F /* UICollectionView+.swift */,
-				4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3617,7 +3613,6 @@
 				D0E796152C452797005B47A5 /* AuthAPI.swift in Sources */,
 				D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */,
 				4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */,
-				4EC6F0A62CF4747400895A87 /* UIScrollView+.swift in Sources */,
 				D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */,
 				D00A486F2C634437008B286A /* NoticeViewController.swift in Sources */,
 				87738CD02C8DC15200E107C7 /* UIColor+.swift in Sources */,
@@ -3920,7 +3915,6 @@
 				D006EA312D6DB3C4004D3D95 /* MyPageScrollView.swift in Sources */,
 				4E4F31B52D4718F400C3B2FF /* CharacterChoosingResponseDTO.swift in Sources */,
 				4E4F31B62D4718F400C3B2FF /* FontLiterals.swift in Sources */,
-				4E4F31B72D4718F400C3B2FF /* UIScrollView+.swift in Sources */,
 				D07D3AE32D9104AE0030995E /* DiaryColorsResponseDTO.swift in Sources */,
 				4E4F31B82D4718F400C3B2FF /* TitleModel.swift in Sources */,
 				4E4F31B92D4718F400C3B2FF /* NoticeViewController.swift in Sources */,
