@@ -116,6 +116,9 @@ extension QuestListViewController {
                 }
                 self.rootView.questListCollectionView.stopCenterLoading()
                 self.rootView.questListCollectionView.reloadData()
+                // 처음 데이터를 불러왔을 때 `reloadData()` 만 호출하면 하단 로딩 로티 위치가 이상하게 잡히는 문제 발생
+                // `reloadData()` 호출 후 `performBatchUpdates()` 호출 시 문제 해결
+                self.rootView.questListCollectionView.performBatchUpdates(nil)
                 
                 lastCursorID = questListFromServer.last?.cursorId ?? Int()
             default:
@@ -216,13 +219,12 @@ extension QuestListViewController: UICollectionViewDelegate {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         let frameHeight = scrollView.frame.size.height
-        
-        if offsetY >= contentHeight - frameHeight {
+        let triggerPosition: CGFloat = 150
+        if offsetY >= contentHeight - frameHeight - triggerPosition {
             if extendedListSize == lastCursorID {
                 extendedListSize += 12
                 getExtendedQuestList(isActive: isActive, cursor: lastCursorID, size: 12)
             }
-            //TODO: 로딩 케이스 추가
         }
     }
 }
