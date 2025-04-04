@@ -57,7 +57,13 @@ public extension ORBScrollLoadingStyle {
             }
         }
         if isScrollLoading {
-            contentInset.bottom -= additionalContentInset
+            // contentInset.bottom을 바꾸는 동작을 동기적으로 구현하면 scrollView의 스크롤 애니메이션이 끊기는 현상이 있어서,
+            // DispatchQueue.main 큐에 비동기로 보냄.
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.contentInset.bottom -= self.additionalContentInset
+                layoutSubviews()
+            }
         }
     }
     

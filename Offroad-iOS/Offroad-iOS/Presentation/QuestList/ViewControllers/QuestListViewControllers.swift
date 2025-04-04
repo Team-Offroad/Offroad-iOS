@@ -125,7 +125,7 @@ extension QuestListViewController {
     }
     
     private func getExtendedQuestList(isActive: Bool, cursor: Int, size: Int) {
-        rootView.startScrollLoading()
+        rootView.questListCollectionView.startBottomScrollLoading()
         
         questListService.getQuestList(isActive: isActive, cursor: cursor, size: size) { [weak self] result in
             guard let self else { return }
@@ -146,21 +146,14 @@ extension QuestListViewController {
                 
                 let newIndices = (currentCount..<(currentCount + newItems.count)).map { IndexPath(item: $0, section: 0) }
                 
-                DispatchQueue.main.async {
-                    self.rootView.questListCollectionView.performBatchUpdates({
-                        self.rootView.questListCollectionView.insertItems(at: newIndices)
-                    }, completion: { finished in
-                        print("===스크롤 로딩 완료===")
-                        self.rootView.stopScrollLoading()
-                    })
-                }
-                
+                self.rootView.questListCollectionView.stopBottomScrollLoading()
+                self.rootView.questListCollectionView.insertItems(at: newIndices)
+
                 self.lastCursorID = newItems.last?.cursorId ?? Int()
                 
             default:
-                self.rootView.stopScrollLoading()
+                self.rootView.questListCollectionView.stopBottomScrollLoading()
             }
-            self.rootView.stopScrollLoading()
         }
     }
 }
