@@ -11,7 +11,7 @@ import SnapKit
 
 public protocol ORBEmptyCaseStyle: UIView {
     
-    associatedtype placeholder: ORBEmptyCaseViewType
+    associatedtype placeholder: ORBEmptyPlaceholderType
     
     func showEmptyPlaceholder(view: placeholder)
     func removeEmptyPlaceholder()
@@ -42,6 +42,6 @@ public extension ORBEmptyCaseStyle {
     
 }
 
-public protocol ORBEmptyCaseViewType: UIView {
+public protocol ORBEmptyPlaceholderType: UIView {
     var emptyCaseMessage: String { get }
 }
