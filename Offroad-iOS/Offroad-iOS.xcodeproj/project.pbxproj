@@ -361,6 +361,10 @@
 		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
 		4E9759D22D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
 		4E9759D32D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
+		4E9759E12D9F9A6C00F30692 /* QuestListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */; };
+		4E9759E22D9F9A6C00F30692 /* QuestListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */; };
+		4E9759E42D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */; };
+		4E9759E52D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */; };
 		4E99007C2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */; };
 		4E99007E2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */; };
 		4E9900802CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */; };
@@ -721,6 +725,8 @@
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info_Dev.plist"; sourceTree = "<group>"; };
 		4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBEmptyCaseStyle.swift; sourceTree = "<group>"; };
+		4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListCollectionView.swift; sourceTree = "<group>"; };
+		4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListEmptyPlaceholder.swift; sourceTree = "<group>"; };
 		4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatWindow.swift; sourceTree = "<group>"; };
 		4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatManager.swift; sourceTree = "<group>"; };
 		4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatViewController.swift; sourceTree = "<group>"; };
@@ -1880,6 +1886,8 @@
 			children = (
 				4EB32BE82C67A2DD003F98F2 /* QuestListView.swift */,
 				4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */,
+				4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */,
+				4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3629,6 +3637,7 @@
 				4E0394D92C2ABCCC007F0517 /* UIView+.swift in Sources */,
 				D06466AA2C8A08E500CF10FD /* MarketingConsentViewController.swift in Sources */,
 				4E38F0EF2C9EBAFA00C7B866 /* ORBAlertAction.swift in Sources */,
+				4E9759E22D9F9A6C00F30692 /* QuestListCollectionView.swift in Sources */,
 				8792D0152C3E581E002051AC /* GenderViewController.swift in Sources */,
 				4EB32BE72C67A2B0003F98F2 /* QuestListViewControllers.swift in Sources */,
 				4E1E94112C39870700A7B08A /* ColorLiterals.swift in Sources */,
@@ -3734,6 +3743,7 @@
 				4E56F53D2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift in Sources */,
 				D0E796412C4537DE005B47A5 /* QuestInfoResponseDTO.swift in Sources */,
 				D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */,
+				4E9759E42D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */,
 				D00A48822C6E5D92008B286A /* NoticePostViewController.swift in Sources */,
 				879F62E82C89A56200FEC5BE /* CouponDetailView.swift in Sources */,
 				4EC15AC32D2A76EA00BC5826 /* ShrinkableButton.swift in Sources */,
@@ -4004,6 +4014,7 @@
 				4E4F32082D4718F400C3B2FF /* CouponListViewController.swift in Sources */,
 				4ED6BE3D2D7B3C000020C871 /* AmplitudeManager.swift in Sources */,
 				4E4F32092D4718F400C3B2FF /* CharacterChatPostResponseDTO.swift in Sources */,
+				4E9759E12D9F9A6C00F30692 /* QuestListCollectionView.swift in Sources */,
 				D09A196F2D70589900B07FC2 /* TimePeriod.swift in Sources */,
 				4E4F320A2D4718F400C3B2FF /* UIImage+.swift in Sources */,
 				4E4F320B2D4718F400C3B2FF /* ProfileService.swift in Sources */,
@@ -4070,6 +4081,7 @@
 				4E4F32452D4718F400C3B2FF /* SocialLoginResponseDTO.swift in Sources */,
 				4E4F32462D4718F400C3B2FF /* FcmTokenRequestDTO.swift in Sources */,
 				4E4F32472D4718F400C3B2FF /* AuthService.swift in Sources */,
+				4E9759E52D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */,
 				4E4F32482D4718F400C3B2FF /* DeleteAccountRequestDTO.swift in Sources */,
 				4E4F32492D4718F400C3B2FF /* PlaceListCollectionViewController.swift in Sources */,
 				4E4F324A2D4718F400C3B2FF /* QuestResultViewController.swift in Sources */,
