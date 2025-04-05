@@ -21,7 +21,7 @@ extension SettingBaseModel {
         SettingBaseModel(listString: "고객 문의"),
         SettingBaseModel(listString: "로그아웃"),
         SettingBaseModel(listString: "회원 탈퇴"),
-        SettingBaseModel(listString: "개발자 도구")
+        SettingBaseModel(listString: "개발자 모드")
     ]
 #else
     static let settingListModel: [SettingBaseModel] = [

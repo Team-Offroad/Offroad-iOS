@@ -44,7 +44,7 @@ extension DeveloperModeView {
             $0.configureButtonTitle(titleString: "설정")
         }
         
-        
+        settingBaseCollectionView.allowsMultipleSelection = true
     }
     
 }

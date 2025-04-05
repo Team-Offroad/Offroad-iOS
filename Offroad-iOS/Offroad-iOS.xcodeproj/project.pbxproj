@@ -361,6 +361,9 @@
 		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
 		4E9759EF2DA0138800F30692 /* DeveloperModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759EE2DA0138800F30692 /* DeveloperModeViewController.swift */; };
 		4E9759F22DA013B300F30692 /* DeveloperModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759F12DA013B300F30692 /* DeveloperModeView.swift */; };
+		4E9759FA2DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759F92DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift */; };
+		4E9759FC2DA0E4B300F30692 /* DeveloperModeSettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759FB2DA0E4B300F30692 /* DeveloperModeSettingModel.swift */; };
+		4E9759FE2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759FD2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift */; };
 		4E99007C2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */; };
 		4E99007E2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */; };
 		4E9900802CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */; };
@@ -718,6 +721,9 @@
 		4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info_Dev.plist"; sourceTree = "<group>"; };
 		4E9759EE2DA0138800F30692 /* DeveloperModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeViewController.swift; sourceTree = "<group>"; };
 		4E9759F12DA013B300F30692 /* DeveloperModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeView.swift; sourceTree = "<group>"; };
+		4E9759F92DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeSwitchCell.swift; sourceTree = "<group>"; };
+		4E9759FB2DA0E4B300F30692 /* DeveloperModeSettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeSettingModel.swift; sourceTree = "<group>"; };
+		4E9759FD2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeNormalCell.swift; sourceTree = "<group>"; };
 		4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatWindow.swift; sourceTree = "<group>"; };
 		4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatManager.swift; sourceTree = "<group>"; };
 		4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatViewController.swift; sourceTree = "<group>"; };
@@ -1790,6 +1796,7 @@
 		4E9759EB2DA012EC00F30692 /* DeveloperMode */ = {
 			isa = PBXGroup;
 			children = (
+				4E9759F72DA04B6A00F30692 /* Model */,
 				4E9759ED2DA0133500F30692 /* Views */,
 				4E9759EC2DA0132D00F30692 /* ViewControllers */,
 			);
@@ -1808,8 +1815,18 @@
 			isa = PBXGroup;
 			children = (
 				4E9759F12DA013B300F30692 /* DeveloperModeView.swift */,
+				4E9759F92DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift */,
+				4E9759FD2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		4E9759F72DA04B6A00F30692 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4E9759FB2DA0E4B300F30692 /* DeveloperModeSettingModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		4E99007A2CDB9504007EEFF7 /* CharacterChat */ = {
@@ -3898,6 +3915,7 @@
 				4E4F31A12D4718F400C3B2FF /* CompleteChoosingCharacterViewController.swift in Sources */,
 				4E4F31A22D4718F400C3B2FF /* MyPageViewController.swift in Sources */,
 				4E4F31A32D4718F400C3B2FF /* QuestListService.swift in Sources */,
+				4E9759FC2DA0E4B300F30692 /* DeveloperModeSettingModel.swift in Sources */,
 				4E4F31A42D4718F400C3B2FF /* OffroadTabBarController.swift in Sources */,
 				4EA272332D5793BA00F64B20 /* ChatTextInputView.swift in Sources */,
 				4E4F31A52D4718F400C3B2FF /* AdventureAPI.swift in Sources */,
@@ -3979,6 +3997,7 @@
 				4E4F31E32D4718F400C3B2FF /* ORBCharacterChatManager.swift in Sources */,
 				4E4F31E42D4718F400C3B2FF /* ORBAlertViewAcquiredEmblem.swift in Sources */,
 				4E4F31E52D4718F400C3B2FF /* CouponCell.swift in Sources */,
+				4E9759FA2DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift in Sources */,
 				D05B70D52D63286800A1E206 /* DiaryTimeViewController.swift in Sources */,
 				4E4F31E62D4718F400C3B2FF /* NetworkMonitoringManager.swift in Sources */,
 				4E4F31E72D4718F400C3B2FF /* ShareableImageProvider.swift in Sources */,
@@ -4038,6 +4057,7 @@
 				4E4F32172D4718F400C3B2FF /* TermsConsentPopupViewController.swift in Sources */,
 				4E4F32182D4718F400C3B2FF /* NoticeResponseDTO.swift in Sources */,
 				4E4F32192D4718F400C3B2FF /* String+.swift in Sources */,
+				4E9759FE2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift in Sources */,
 				4E4F321A2D4718F400C3B2FF /* CollectedTitlesView.swift in Sources */,
 				4E4F321B2D4718F400C3B2FF /* CollectedTitleCollectionViewCell.swift in Sources */,
 				4E4F321C2D4718F400C3B2FF /* ORBAlertBaseView.swift in Sources */,
