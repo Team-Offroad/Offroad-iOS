@@ -25,19 +25,8 @@ final class DeveloperModeSwitchCell: ShrinkableCollectionViewCell {
         }
     }
     
-    override var isSelected: Bool {
-        didSet {
-            feedbackGenerator.impactOccurred()
-            guard var settingModel else { return }
-            settingModel.isEnabled = isSelected
-            settingSwitch.setOn(isSelected, animated: true)
-        }
-    }
-    
-    var settingModel: (any DeveloperSettingModelToggleable)?
-    
     private let feedbackGenerator = UIImpactFeedbackGenerator()
-    private var disposeBag = DisposeBag()
+    private var settingModel: (any DeveloperSettingModelToggleable)?
     
     //MARK: - UI Properties
     
@@ -61,7 +50,8 @@ final class DeveloperModeSwitchCell: ShrinkableCollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        settingSwitch.setOn(settingModel?.isEnabled ?? false, animated: true)
+        settingModel = nil
+        settingSwitch.setOn(false, animated: false)
     }
     
 }
@@ -110,6 +100,26 @@ extension DeveloperModeSwitchCell {
     public func configure(with model: any DeveloperSettingModelToggleable) {
         settingModel = model
         titleLabel.text = model.title
+    }
+    
+    /// 셀 안에 있는 스위치의 on/off 여부만을 변경. 관련된 다른 model 데이터 등을 바꾸지는 않는다.
+    /// - Parameters:
+    ///   - selected: 표현하고자 하는 switch의 on/off 값
+    ///   - animated: 애니메이션 여부
+    public func setSelectionAppearance(to selected: Bool, animated: Bool) {
+        settingSwitch.setOn(selected, animated: animated)
+    }
+    
+    /// on/off로 스위치 가능한 항목의 변경. 셀의 외관 및 데이터를 함께 변경함.
+    /// - Parameters:
+    ///   - animated: 애니메이션 여부
+    ///   - withHapticFeedback: 햅틱 피드백 여부
+    public func toggle(animated: Bool, withHapticFeedback: Bool) {
+        guard var settingModel else { return }
+        let currentState = settingModel.isEnabled
+        if withHapticFeedback { feedbackGenerator.impactOccurred() }
+        setSelectionAppearance(to: !currentState, animated: animated)
+        settingModel.isEnabled = !currentState
     }
     
 }

@@ -43,8 +43,6 @@ extension DeveloperModeView {
         customBackButton.do {
             $0.configureButtonTitle(titleString: "설정")
         }
-        
-        settingBaseCollectionView.allowsMultipleSelection = true
     }
     
 }

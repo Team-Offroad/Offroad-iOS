@@ -54,6 +54,7 @@ private extension DeveloperModeViewController {
             forCellWithReuseIdentifier: DeveloperModeNormalCell.className
         )
         rootView.settingBaseCollectionView.dataSource = self
+        rootView.settingBaseCollectionView.delegate = self
     }
     
 }
@@ -90,11 +91,10 @@ extension DeveloperModeViewController: UICollectionViewDataSource {
             ) as? DeveloperModeSwitchCell else { fatalError() }
             
             let model = switchableModels[indexPath.item]
-            if model.isEnabled {
-                // switchable한 항목은 cell의 선택 여부로 값을 표시 및 저장하므로 select하여 초깃값 설정.
-                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-            }
             cell.configure(with: model)
+            if model.isEnabled {
+                cell.setSelectionAppearance(to: true, animated: false)
+            }
             return cell
             
         case .normal:
@@ -107,6 +107,17 @@ extension DeveloperModeViewController: UICollectionViewDataSource {
             cell.configure(with: model)
             return cell
         }
+    }
+    
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension DeveloperModeViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let switchableCell = collectionView.cellForItem(at: indexPath) as? DeveloperModeSwitchCell
+        switchableCell?.toggle(animated: true, withHapticFeedback: true)
     }
     
 }
