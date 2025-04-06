@@ -78,10 +78,15 @@ fileprivate final class ORBScrollLoadingView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        // setup style
         isUserInteractionEnabled = false
         lottie.loopMode = .loop
         lottie.play()
+        
+        // setup view hierarchy
         addSubview(lottie)
+        
+        // setup view layout
         lottie.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
