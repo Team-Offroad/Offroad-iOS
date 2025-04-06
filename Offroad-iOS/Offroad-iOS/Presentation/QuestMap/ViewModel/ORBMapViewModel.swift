@@ -143,11 +143,22 @@ extension ORBMapViewModel {
             return
         }
         #if DevTarget
-        let dto = AdventuresPlaceAuthenticationRequestDTO(
-            placeId: placeInfo.id,
-            latitude: placeInfo.latitude,
-            longitude: placeInfo.longitude
-        )
+        let dto: AdventuresPlaceAuthenticationRequestDTO
+        // 개발자 모드의 설정값 확인
+        let locationAuthenticationBypassing = UserDefaults.standard.bool(forKey: "bypassLocationAuthentication")
+        if locationAuthenticationBypassing {
+            dto = AdventuresPlaceAuthenticationRequestDTO(
+                placeId: placeInfo.id,
+                latitude: placeInfo.latitude,
+                longitude: placeInfo.longitude
+            )
+        } else {
+            dto = AdventuresPlaceAuthenticationRequestDTO(
+                placeId: placeInfo.id,
+                latitude: currentLocation.lat,
+                longitude: currentLocation.lng
+            )
+        }
         #else
         let dto = AdventuresPlaceAuthenticationRequestDTO(
             placeId: placeInfo.id,
