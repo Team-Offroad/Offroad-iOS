@@ -27,6 +27,8 @@ final class QuestListCollectionView: UICollectionView, ORBEmptyCaseStyle, ORBCen
         layout.estimatedItemSize.width = UIScreen.current.bounds.width - 32
         
         super.init(frame: .zero, collectionViewLayout: layout)
+        
+        indicatorStyle = .black
     }
     
     required init?(coder: NSCoder) {
