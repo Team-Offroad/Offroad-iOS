@@ -127,22 +127,19 @@ extension ORBMapViewController {
         viewModel.startLoading
             .asDriver(onErrorJustReturn: ())
             .drive(onNext: { [weak self] in
-            guard let self else { return }
-            self.view.startLoading()
+                self?.rootView.startCenterLoading(withoutShading: false)
         }).disposed(by: disposeBag)
         
         viewModel.stopLoading
             .asDriver(onErrorJustReturn: ())
             .drive(onNext: { [weak self] in
-                guard let self else { return }
-                self.view.stopLoading()
+                self?.rootView.stopCenterLoading()
             }).disposed(by: disposeBag)
         
         viewModel.networkFailureSubject
             .asDriver(onErrorJustReturn: ())
             .drive(onNext: { [weak self] in
-                guard let self else { return }
-                self.view.stopLoading()
+                self?.rootView.stopCenterLoading()
             }).disposed(by: disposeBag)
         
         viewModel.locationServicesDisabledRelay
@@ -191,7 +188,7 @@ extension ORBMapViewController {
                 MyInfoManager.shared.shouldUpdateCharacterAnimation.accept(latestCategory ?? "NONE")
                 MyInfoManager.shared.didSuccessAdventure.accept(())
             }
-            self.view.stopLoading()
+            self.rootView.stopCenterLoading()
             if locationValidation && isFirstVisitToday {
                 AmplitudeManager.shared.trackEvent(withName: AmplitudeEventTitles.exploreSuccess)
                 self.hideTooltipFromMap()
@@ -239,6 +236,18 @@ extension ORBMapViewController {
             guard let self else { return }
             self.navigationController?.pushViewController(PlaceListViewController(), animated: true)
         }.disposed(by: disposeBag)
+        
+        #if DevTarget
+        MyDiaryManager.shared.didCompleteCreateDiary
+            .bind { _ in
+                guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+                
+                if offroadTabBarController.selectedIndex == 1 {
+                    MyDiaryManager.shared.showCompleteCreateDiaryAlert(viewController: self)
+                }
+            }
+            .disposed(by: disposeBag)
+        #endif
     }
     
     private func setupTooltipAction() {

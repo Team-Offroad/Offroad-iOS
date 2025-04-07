@@ -7,19 +7,29 @@
 
 import UIKit
 
+import Photos
+
 final class MemoryLightViewController: UIViewController {
     
     // MARK: - Properties
     
     private let rootView = MemoryLightView()
     private let viewModel = MemoryLightViewModel()
-    
-    private let firstDisplayedDate: Date
+
+    private var displayedDiaryIndex = 0
+    private var exportedImage: UIImage?
+    private lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        return dateFormatter
+    }()
     
     // MARK: - Life Cycle
     
-    init(firstDisplayedDate: Date) {
-        self.firstDisplayedDate = firstDisplayedDate
+    init(firstDisplayedDate: Date? = nil, memoryLightsData: [Diary]) {
+        viewModel.displayedDate = firstDisplayedDate
+        viewModel.memoryLightsData = memoryLightsData
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -37,15 +47,36 @@ final class MemoryLightViewController: UIViewController {
         
         setupTarget()
         setupCollectionView()
-        updateBackgroundView(dateIndex: viewModel.indexforDate(date: firstDisplayedDate))
+        if let displayedDate = viewModel.displayedDate {
+            updateBackgroundView(dateIndex: viewModel.indexforDiary(diary: viewModel.diaryForDate(date: displayedDate)))
+        } else {
+            updateBackgroundView(dateIndex: viewModel.indexforDiary(diary: viewModel.memoryLightsData.last!))
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        let indexPath = IndexPath(item: viewModel.indexforDate(date: firstDisplayedDate), section: 0)
+        if let displayedDate = viewModel.displayedDate {
+            displayedDiaryIndex = viewModel.indexforDiary(diary: viewModel.diaryForDate(date: displayedDate))
+        } else {
+            displayedDiaryIndex = viewModel.indexforDiary(diary: viewModel.memoryLightsData.last!)
+            
+            let calendar = Calendar(identifier: .gregorian)
+            var dateComponents = DateComponents()
+            dateComponents.year = viewModel.memoryLightsData[displayedDiaryIndex].year
+            dateComponents.month = viewModel.memoryLightsData[displayedDiaryIndex].month
+            dateComponents.day = viewModel.memoryLightsData[displayedDiaryIndex].day
 
-        rootView.memoryLightCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+            viewModel.displayedDate = calendar.date(from: dateComponents)
+        }
+        
+        let indexPath = IndexPath(item: displayedDiaryIndex, section: 0)
+        
+        DispatchQueue.main.async {
+            self.rootView.memoryLightCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+            self.viewModel.patchDiaryCheck(date: self.dateFormatter.string(from: self.viewModel.displayedDate ?? Date()))
+        }
     }
 }
 
@@ -65,9 +96,34 @@ private extension MemoryLightViewController {
     
     func updateBackgroundView(dateIndex: Int) {
         DispatchQueue.main.async {
-            self.rootView.updateBackgroundViewUI(pointColorCode: self.viewModel.MemoryLightData[dateIndex].hexCodes[0].small,
-                                                 baseColorCode: self.viewModel.MemoryLightData[dateIndex].hexCodes[0].large)
+            self.rootView.updateBackgroundViewUI(pointColorCode: self.viewModel.memoryLightsData[dateIndex].hexCodes[0].small,
+                                                 baseColorCode: self.viewModel.memoryLightsData[dateIndex].hexCodes[0].large)
         }
+    }
+    
+    func presentShareSheet(image: UIImage, status: PHAuthorizationStatus) {
+        let imageProvider = ShareableImageProvider(image: image)
+        
+        var excludedTypes: [UIActivity.ActivityType] = [.addToReadingList, .assignToContact, .mail]
+        if status == .denied || status == .restricted {
+            excludedTypes.append(.saveToCameraRoll)
+        }
+        
+        let activityViewController = UIActivityViewController(activityItems: [imageProvider], applicationActivities: nil)
+        activityViewController.excludedActivityTypes = excludedTypes
+        
+        self.present(activityViewController, animated: true)
+    }
+    
+    func updateDisplayedDate() {
+        let calendar = Calendar(identifier: .gregorian)
+        var dateComponents = DateComponents()
+        dateComponents.year = viewModel.memoryLightsData[displayedDiaryIndex].year
+        dateComponents.month = viewModel.memoryLightsData[displayedDiaryIndex].month
+        dateComponents.day = viewModel.memoryLightsData[displayedDiaryIndex].day
+
+        viewModel.displayedDate = calendar.date(from: dateComponents)
+        viewModel.patchDiaryCheck(date: dateFormatter.string(from: self.viewModel.displayedDate ?? Date()))
     }
 }
     
@@ -80,7 +136,15 @@ private extension MemoryLightViewController {
     }
     
     func shareButtonTapped() {
+        guard let cell = rootView.memoryLightCollectionView.cellForItem(at: IndexPath(item: displayedDiaryIndex, section: 0)),
+              let image = cell.convertViewToImage() else { return }
         
+        // 권한 요청 후 sheet 띄우기
+        PHPhotoLibrary.requestAuthorization { status in
+            DispatchQueue.main.async {
+                self.presentShareSheet(image: image, status: status)
+            }
+        }
     }
 }
 
@@ -88,12 +152,12 @@ private extension MemoryLightViewController {
 
 extension MemoryLightViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.MemoryLightData.count
+        return viewModel.memoryLightsData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MemoryLightCollectionViewCell.className, for: indexPath) as? MemoryLightCollectionViewCell else { return UICollectionViewCell() }
-            cell.configureCell(data: self.viewModel.MemoryLightData[indexPath.item])
+            cell.configureCell(data: self.viewModel.memoryLightsData[indexPath.item])
 
         return cell
     }
@@ -120,9 +184,12 @@ extension MemoryLightViewController: UICollectionViewDelegateFlowLayout {
             index = round(currentIndex)
         }
         
+        displayedDiaryIndex = Int(index)
         updateBackgroundView(dateIndex: Int(index))
-
+        
         offset = CGPoint(x: index * cellWidthIncludingSpacing - scrollView.contentInset.left, y: 0)
         targetContentOffset.pointee = offset
+        
+        updateDisplayedDate()
     }
 }
