@@ -73,7 +73,7 @@ public extension ORBScrollLoadingStyle {
 /// ORBScrollLoadinStyle에 사용될 lottie를 포함하는 뷰. 이 뷰의 크기가 곧 로티의 크기에 해당.
 fileprivate final class ORBScrollLoadingView: UIView {
     
-    let lottie = Lottie.LottieAnimationView(name: "loading1")
+    private let lottie = Lottie.LottieAnimationView(name: "loading1")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
