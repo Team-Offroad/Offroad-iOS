@@ -358,6 +358,11 @@
 		4E7A609F2D1C698F0079007C /* ORBMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
+		4E9759EF2DA0138800F30692 /* DeveloperModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759EE2DA0138800F30692 /* DeveloperModeViewController.swift */; };
+		4E9759F22DA013B300F30692 /* DeveloperModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759F12DA013B300F30692 /* DeveloperModeView.swift */; };
+		4E9759FA2DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759F92DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift */; };
+		4E9759FC2DA0E4B300F30692 /* DeveloperModeSettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759FB2DA0E4B300F30692 /* DeveloperModeSettingModel.swift */; };
+		4E9759FE2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759FD2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift */; };
 		4E9759D22D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
 		4E9759D32D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
 		4E9759E12D9F9A6C00F30692 /* QuestListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */; };
@@ -725,6 +730,11 @@
 		4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBEmptyCaseStyle.swift; sourceTree = "<group>"; };
 		4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListCollectionView.swift; sourceTree = "<group>"; };
 		4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListEmptyPlaceholder.swift; sourceTree = "<group>"; };
+		4E9759EE2DA0138800F30692 /* DeveloperModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeViewController.swift; sourceTree = "<group>"; };
+		4E9759F12DA013B300F30692 /* DeveloperModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeView.swift; sourceTree = "<group>"; };
+		4E9759F92DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeSwitchCell.swift; sourceTree = "<group>"; };
+		4E9759FB2DA0E4B300F30692 /* DeveloperModeSettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeSettingModel.swift; sourceTree = "<group>"; };
+		4E9759FD2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeNormalCell.swift; sourceTree = "<group>"; };
 		4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatWindow.swift; sourceTree = "<group>"; };
 		4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatManager.swift; sourceTree = "<group>"; };
 		4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatViewController.swift; sourceTree = "<group>"; };
@@ -1438,6 +1448,7 @@
 				D0E9378E2CF6FC880061782D /* CustomerInquiry  */,
 				4E0394812C2AA969007F0517 /* Logout */,
 				4E0394822C2AA983007F0517 /* DeleteAccount */,
+				4E9759EB2DA012EC00F30692 /* DeveloperMode */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1794,6 +1805,42 @@
 				4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */,
 			);
 			path = Toast;
+			sourceTree = "<group>";
+		};
+		4E9759EB2DA012EC00F30692 /* DeveloperMode */ = {
+			isa = PBXGroup;
+			children = (
+				4E9759F72DA04B6A00F30692 /* Model */,
+				4E9759ED2DA0133500F30692 /* Views */,
+				4E9759EC2DA0132D00F30692 /* ViewControllers */,
+			);
+			path = DeveloperMode;
+			sourceTree = "<group>";
+		};
+		4E9759EC2DA0132D00F30692 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4E9759EE2DA0138800F30692 /* DeveloperModeViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4E9759ED2DA0133500F30692 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4E9759F12DA013B300F30692 /* DeveloperModeView.swift */,
+				4E9759F92DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift */,
+				4E9759FD2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4E9759F72DA04B6A00F30692 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4E9759FB2DA0E4B300F30692 /* DeveloperModeSettingModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		4E99007A2CDB9504007EEFF7 /* CharacterChat */ = {
@@ -3826,6 +3873,7 @@
 				D0CA206E2D7E005100FDF7F4 /* CustomDiaryCalendarCell.swift in Sources */,
 				4E4F31742D4718F400C3B2FF /* StringLiterals.swift in Sources */,
 				4E4F31752D4718F400C3B2FF /* ORBTabBarShapeView.swift in Sources */,
+				4E9759EF2DA0138800F30692 /* DeveloperModeViewController.swift in Sources */,
 				4E4F31762D4718F400C3B2FF /* SettingViewController.swift in Sources */,
 				4E4F31772D4718F400C3B2FF /* ORBCharacterChatBox.swift in Sources */,
 				D0CA20732D7F4BC200FDF7F4 /* DiaryViewModel.swift in Sources */,
@@ -3835,6 +3883,7 @@
 				4E4F317A2D4718F400C3B2FF /* ORBCharacterChatView.swift in Sources */,
 				4E4F317B2D4718F400C3B2FF /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
 				D07D3AE62D9106050030995E /* DiaryResponseDTO.swift in Sources */,
+				4E9759F22DA013B300F30692 /* DeveloperModeView.swift in Sources */,
 				4E4F317C2D4718F400C3B2FF /* QuestListResponseDTO.swift in Sources */,
 				4E4F316B2D4718F400C3B2FF /* ORBMapView.swift in Sources */,
 				4E4F317D2D4718F400C3B2FF /* CustomIntensityBlurView.swift in Sources */,
@@ -3888,6 +3937,7 @@
 				4E4F31A22D4718F400C3B2FF /* MyPageViewController.swift in Sources */,
 				4E4F31A32D4718F400C3B2FF /* QuestListService.swift in Sources */,
 				4ECD02732D9D725700830534 /* ORBCenterLoadingStyle.swift in Sources */,
+				4E9759FC2DA0E4B300F30692 /* DeveloperModeSettingModel.swift in Sources */,
 				4E4F31A42D4718F400C3B2FF /* OffroadTabBarController.swift in Sources */,
 				4EA272332D5793BA00F64B20 /* ChatTextInputView.swift in Sources */,
 				4E4F31A52D4718F400C3B2FF /* AdventureAPI.swift in Sources */,
@@ -3968,6 +4018,7 @@
 				4E4F31E32D4718F400C3B2FF /* ORBCharacterChatManager.swift in Sources */,
 				4E4F31E42D4718F400C3B2FF /* ORBAlertViewAcquiredEmblem.swift in Sources */,
 				4E4F31E52D4718F400C3B2FF /* CouponCell.swift in Sources */,
+				4E9759FA2DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift in Sources */,
 				D05B70D52D63286800A1E206 /* DiaryTimeViewController.swift in Sources */,
 				4E4F31E62D4718F400C3B2FF /* NetworkMonitoringManager.swift in Sources */,
 				4E4F31E72D4718F400C3B2FF /* ShareableImageProvider.swift in Sources */,
@@ -4028,6 +4079,7 @@
 				4E4F32172D4718F400C3B2FF /* TermsConsentPopupViewController.swift in Sources */,
 				4E4F32182D4718F400C3B2FF /* NoticeResponseDTO.swift in Sources */,
 				4E4F32192D4718F400C3B2FF /* String+.swift in Sources */,
+				4E9759FE2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift in Sources */,
 				4E4F321A2D4718F400C3B2FF /* CollectedTitlesView.swift in Sources */,
 				4E4F321B2D4718F400C3B2FF /* CollectedTitleCollectionViewCell.swift in Sources */,
 				4E4F321C2D4718F400C3B2FF /* ORBAlertBaseView.swift in Sources */,
@@ -4459,7 +4511,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 2.0.0;
 				OTHER_SWIFT_FLAGS = "-DDevTarget";
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4508,7 +4560,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 2.0.0;
 				OTHER_SWIFT_FLAGS = "-DDevTarget";
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
