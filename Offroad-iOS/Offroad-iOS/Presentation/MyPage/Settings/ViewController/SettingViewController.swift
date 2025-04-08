@@ -109,6 +109,8 @@ extension SettingViewController: UICollectionViewDelegateFlowLayout {
             let deleteAccountViewController = DeleteAccountViewController()
             deleteAccountViewController.modalPresentationStyle = .overCurrentContext
             self.present(deleteAccountViewController, animated: false)
+        case 9:
+            self.navigationController?.pushViewController(DeveloperModeViewController(), animated: true)
         default: break
         }
     }

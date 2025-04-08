@@ -15,11 +15,13 @@ class LogPrinterManager {
     
     //MARK: - Properties
     
-    let logPrinterWindow = LogPrinterWindow()
+    private let logPrinterWindow = LogPrinterWindow()
     
     //MARK: - Life Cycle
     
-    private init() { }
+    private init() {
+        self.setHiddenState(isHidden: !UserDefaults.standard.bool(forKey: "logPrinterActivation"))
+    }
     
 }
 
@@ -31,6 +33,15 @@ extension LogPrinterManager {
         DispatchQueue.main.async { [weak self] in
             guard let logPrinterViewController = self?.logPrinterWindow.rootViewController as? LogPrinterViewController else { return }
             logPrinterViewController.printLog(log)
+        }
+    }
+    
+    func setHiddenState(isHidden: Bool) {
+        logPrinterWindow.isHidden = isHidden
+        if isHidden {
+            logPrinterWindow.resignKey()
+        } else {
+            logPrinterWindow.makeKey()
         }
     }
     
