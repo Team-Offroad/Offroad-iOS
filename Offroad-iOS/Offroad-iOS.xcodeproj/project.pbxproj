@@ -358,17 +358,17 @@
 		4E7A609F2D1C698F0079007C /* ORBMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
-		4E9759EF2DA0138800F30692 /* DeveloperModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759EE2DA0138800F30692 /* DeveloperModeViewController.swift */; };
-		4E9759F22DA013B300F30692 /* DeveloperModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759F12DA013B300F30692 /* DeveloperModeView.swift */; };
-		4E9759FA2DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759F92DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift */; };
-		4E9759FC2DA0E4B300F30692 /* DeveloperModeSettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759FB2DA0E4B300F30692 /* DeveloperModeSettingModel.swift */; };
-		4E9759FE2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759FD2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift */; };
 		4E9759D22D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
 		4E9759D32D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
 		4E9759E12D9F9A6C00F30692 /* QuestListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */; };
 		4E9759E22D9F9A6C00F30692 /* QuestListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */; };
 		4E9759E42D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */; };
 		4E9759E52D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */; };
+		4E9759EF2DA0138800F30692 /* DeveloperModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759EE2DA0138800F30692 /* DeveloperModeViewController.swift */; };
+		4E9759F22DA013B300F30692 /* DeveloperModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759F12DA013B300F30692 /* DeveloperModeView.swift */; };
+		4E9759FA2DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759F92DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift */; };
+		4E9759FC2DA0E4B300F30692 /* DeveloperModeSettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759FB2DA0E4B300F30692 /* DeveloperModeSettingModel.swift */; };
+		4E9759FE2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759FD2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift */; };
 		4E99007C2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */; };
 		4E99007E2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */; };
 		4E9900802CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */; };
@@ -478,12 +478,9 @@
 		8792D0202C3E873C002051AC /* ChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D01F2C3E873C002051AC /* ChoosingCharacterViewController.swift */; };
 		8792D0242C3F0843002051AC /* ChoosingCharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0232C3F0843002051AC /* ChoosingCharacterCell.swift */; };
 		879F62E82C89A56200FEC5BE /* CouponDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879F62E72C89A56200FEC5BE /* CouponDetailView.swift */; };
-		87C27F6A2D7FED19008036FA /* CourseQuestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F692D7FED19008036FA /* CourseQuestCollectionViewCell.swift */; };
 		87C27F6B2D7FED19008036FA /* CourseQuestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F692D7FED19008036FA /* CourseQuestCollectionViewCell.swift */; };
 		87C27F732D80008D008036FA /* CourseQuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F722D80008D008036FA /* CourseQuest.swift */; };
-		87C27F742D80008D008036FA /* CourseQuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F722D80008D008036FA /* CourseQuest.swift */; };
 		87C27F8D2D80482F008036FA /* IconLabelStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F8C2D80482F008036FA /* IconLabelStackView.swift */; };
-		87C27F8E2D80482F008036FA /* IconLabelStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F8C2D80482F008036FA /* IconLabelStackView.swift */; };
 		87D9A70D2CE9BC1700F1CECD /* ScrollLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9A70C2CE9BC1700F1CECD /* ScrollLoadingView.swift */; };
 		87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046932C3D2B38002D12C2 /* BirthViewController.swift */; };
 		87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046972C3D5E3D002D12C2 /* NicknameView.swift */; };
@@ -1936,7 +1933,6 @@
 		4EB32BE52C67A229003F98F2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */,
 				4EB32BE82C67A2DD003F98F2 /* QuestListView.swift */,
 				874014AE2D899E7300E98D00 /* Components */,
 				4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */,
@@ -2183,7 +2179,6 @@
 		874014AE2D899E7300E98D00 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */,
 				87C27F8C2D80482F008036FA /* IconLabelStackView.swift */,
 				87C27F692D7FED19008036FA /* CourseQuestCollectionViewCell.swift */,
 				4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */,
@@ -3646,7 +3641,6 @@
 				D063E98E2C49483000434A09 /* UIImageView+.swift in Sources */,
 				4E56F54C2C995BA800EEE677 /* ORBAlertViewModel.swift in Sources */,
 				D0E796632C4553F0005B47A5 /* RefreshTokenResponseDTO.swift in Sources */,
-				87C27F8E2D80482F008036FA /* IconLabelStackView.swift in Sources */,
 				D00A48622C633947008B286A /* SettingView.swift in Sources */,
 				4E46E5FD2CBA483D000A1EEE /* UIViewController+.swift in Sources */,
 				4EC611632D5F167300B09E23 /* PlaceListCollectionView.swift in Sources */,
@@ -3847,9 +3841,7 @@
 				4EF833F02CC486EE00D94314 /* EmblemPopupViewController.swift in Sources */,
 				D0E796452C4538E6005B47A5 /* PlaceService.swift in Sources */,
 				4EFD004E2CCA50AB005C294D /* CharacterListViewModel.swift in Sources */,
-				87C27F742D80008D008036FA /* CourseQuest.swift in Sources */,
 				4EFCDFDD2C92BB27006DEBB6 /* ORBAlertController.swift in Sources */,
-				87C27F6A2D7FED19008036FA /* CourseQuestCollectionViewCell.swift in Sources */,
 				4E46E5FB2CBA3F55000A1EEE /* UIWindowScene+.swift in Sources */,
 				D00A486A2C633EF2008B286A /* SettingBaseModel.swift in Sources */,
 			);
