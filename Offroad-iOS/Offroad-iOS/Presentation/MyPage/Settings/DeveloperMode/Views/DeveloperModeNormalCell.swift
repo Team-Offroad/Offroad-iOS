@@ -25,10 +25,7 @@ final class DeveloperModeNormalCell: ShrinkableCollectionViewCell {
         }
     }
     
-    var settingModel: (any DeveloperSettingModelNormal)?
-    
     private let feedbackGenerator = UIImpactFeedbackGenerator()
-    private var disposeBag = DisposeBag()
     
     //MARK: - UI Properties
     
@@ -92,7 +89,6 @@ extension DeveloperModeNormalCell {
     //MARK: - Public Func
     
     public func configure(with model: any DeveloperSettingModelNormal) {
-        settingModel = model
         titleLabel.text = model.title
         valueLabel.text = model.value
     }
