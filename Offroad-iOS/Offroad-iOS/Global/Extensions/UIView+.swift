@@ -101,48 +101,6 @@ extension UIView {
         }
     }
     
-    func startScrollLoading() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            for subView in self.subviews {
-                if subView is ScrollLoadingView { return }
-            }
-            
-            let loadingView = ScrollLoadingView()
-            loadingView.isHidden = true
-            addSubview(loadingView)
-            loadingView.snp.makeConstraints { make in
-                make.horizontalEdges.equalToSuperview()
-                make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
-                make.height.equalTo(56)
-            }
-            
-            UIView.animate(withDuration: 0.2) {
-                print("===스크롤 로딩 뷰 생김====")
-                loadingView.isHidden = false
-            }
-        }
-    }
-    
-    func stopScrollLoading() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-            for subview in self.subviews {
-                guard let loadingView = subview as? ScrollLoadingView else { continue }
-                UIView.animate(withDuration: 0.2, animations: {
-                    print("===스크롤 로딩 뷰 숨김====")
-                    loadingView.isHidden = true
-                    loadingView.removeFromSuperview()
-                }, completion: { isFinished in
-                    if isFinished {
-                        print("===스크롤 로딩 뷰 지움===")
-                        loadingView.removeFromSuperview()
-                    }
-                })
-            }
-        }
-    }
-    
     #if DevTarget
     /// UIView를 UIImage로 변환
     func convertViewToImage() -> UIImage? {
