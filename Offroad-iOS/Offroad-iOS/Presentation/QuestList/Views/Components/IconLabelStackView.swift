@@ -40,8 +40,7 @@ class IconLabelStackView: UIStackView {
         textLabel.textAlignment = .left
         textLabel.lineBreakMode = .byWordWrapping
         
-        addArrangedSubview(iconImageView)
-        addArrangedSubview(textLabel)
+        addArrangedSubviews(iconImageView, textLabel)
     }
     
     func configure(icon: UIImage?, text: String) {

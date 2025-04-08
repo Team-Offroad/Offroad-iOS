@@ -80,7 +80,7 @@ extension CourseQuestCollectionViewCell {
     
     private func setupStyle() {
         contentView.backgroundColor = .white
-        contentView.layer.cornerRadius = 8
+        contentView.roundCorners(cornerRadius: 8)
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.systemGray4.cgColor
         
@@ -185,12 +185,13 @@ extension CourseQuestCollectionViewCell {
         courseQuestDescriptionLabel.text = quest.description
         courseQuestListStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
+        let checkBoxImage: UIImage = .icnQuestListCheckBox
         for questDetail in quest.quests {
-            let questStackView = IconLabelStackView(icon: .icnQuestListCheckBox, text: "\(questDetail.locationName): \(questDetail.mission)")
+            let questStackView = IconLabelStackView(icon: checkBoxImage, text: "\(questDetail.locationName): \(questDetail.mission)")
             courseQuestListStackView.addArrangedSubview(questStackView)
         }
         
-        let rewardStackView = IconLabelStackView(icon: .icnQuestListGiftBox, text: "보상: \(quest.reward)")
+        let rewardStackView = IconLabelStackView(icon: checkBoxImage, text: "보상: \(quest.reward)")
         courseQuestListStackView.addArrangedSubview(rewardStackView)
         
         contentView.layoutIfNeeded()

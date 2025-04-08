@@ -268,14 +268,7 @@ extension QuestListCollectionViewCell {
         questProgressLabel.highlightText(targetText: "달성도", color: .grayscale(.gray400))
         
         questDescriptionLabel.text = quest.description == "" ? "데이터 없음" : quest.description
-        
-#if DevTarget
-        questClearConditionView.configure(icon: .icnQuestListCheckBox, text: quest.requirement.isEmpty ? "데이터 없음" : quest.requirement)
-        questRewardDescriptionView.configure(icon: .icnQuestListGiftBox, text: quest.reward.isEmpty ? "데이터 없음" : quest.reward)
-#else
-        questClearConditionLabel.text = quest.requirement == "" ? "데이터 없음" : quest.requirement
-        questRewardDescriptionLabel.text = quest.reward == "" ? "데이터 없음" : quest.reward
-#endif
+
         contentView.layoutIfNeeded()
     }
     
