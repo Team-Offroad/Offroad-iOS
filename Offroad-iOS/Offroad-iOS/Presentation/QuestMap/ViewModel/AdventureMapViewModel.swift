@@ -1,5 +1,5 @@
 //
-//  ORBMapViewModel.swift
+//  AdventureMapViewModel.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 10/28/24.
@@ -14,7 +14,7 @@ import RxCocoa
 import SnapKit
 import Then
 
-final class ORBMapViewModel: SVGFetchable {
+final class AdventureMapViewModel: SVGFetchable {
     
     //MARK: - Properties
     
@@ -60,7 +60,7 @@ final class ORBMapViewModel: SVGFetchable {
     
 }
 
-extension ORBMapViewModel {
+extension AdventureMapViewModel {
     
     enum LocationAuthorizationCase: Int {
         case notDetermined = 0 

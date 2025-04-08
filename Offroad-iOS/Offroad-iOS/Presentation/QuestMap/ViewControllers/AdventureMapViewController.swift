@@ -1,5 +1,5 @@
 //
-//  ORBMapViewController.swift
+//  AdventureMapViewController.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 12/26/24.
@@ -14,12 +14,12 @@ import RxCocoa
 import SnapKit
 import Then
 
-class ORBMapViewController: OffroadTabBarViewController {
+class AdventureMapViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
     
-    private let viewModel = ORBMapViewModel()
-    private let rootView = ORBMapView()
+    private let viewModel = AdventureMapViewModel()
+    private let rootView = AdventureMapView()
     private let locationService = RegisteredPlaceService()
     
     private var disposeBag = DisposeBag()
@@ -91,7 +91,7 @@ class ORBMapViewController: OffroadTabBarViewController {
     
 }
 
-extension ORBMapViewController {
+extension AdventureMapViewController {
     
     //MARK: - Private Func
     
@@ -427,7 +427,7 @@ extension ORBMapViewController {
 
 //MARK: - NMFMapViewCameraDelegate
 
-extension ORBMapViewController: NMFMapViewCameraDelegate {
+extension AdventureMapViewController: NMFMapViewCameraDelegate {
     
     /**
      reason
@@ -496,7 +496,7 @@ extension ORBMapViewController: NMFMapViewCameraDelegate {
 
 //MARK: - NMFMapViewTouchDelegate
 
-extension ORBMapViewController: NMFMapViewTouchDelegate {
+extension AdventureMapViewController: NMFMapViewTouchDelegate {
     
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         if selectedMarker != nil {
@@ -509,7 +509,7 @@ extension ORBMapViewController: NMFMapViewTouchDelegate {
 
 //MARK: - CLLocationManagerDelegate
 
-extension ORBMapViewController: CLLocationManagerDelegate {
+extension AdventureMapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         let currentHeading = newHeading.trueHeading

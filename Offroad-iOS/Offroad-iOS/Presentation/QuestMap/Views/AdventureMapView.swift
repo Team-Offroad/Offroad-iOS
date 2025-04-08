@@ -1,5 +1,5 @@
 //
-//  ORBMapView.swift
+//  AdventureMapView.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 2024/07/07.
@@ -11,7 +11,7 @@ import NMapsMap
 import SnapKit
 import Then
 
-class ORBMapView: UIView, ORBCenterLoadingStyle {
+class AdventureMapView: UIView, ORBCenterLoadingStyle {
     
     //MARK: - UI Properties
     
@@ -68,7 +68,7 @@ class ORBMapView: UIView, ORBCenterLoadingStyle {
     
 }
 
-extension ORBMapView {
+extension AdventureMapView {
     
     //MARK: - Layout Func
     
