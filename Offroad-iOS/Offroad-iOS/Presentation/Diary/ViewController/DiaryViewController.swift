@@ -103,11 +103,7 @@ private extension DiaryViewController {
         
         viewModel.didUpdateHexCodesData
             .bind { _ in
-                if let hexCodes = self.viewModel.hexCodesOfCurrentPageData?.dailyHexCodes {
-                    if !hexCodes.isEmpty {
-                        self.rootView.diaryCalender.reloadData()
-                    }
-                }
+                self.rootView.diaryCalender.reloadData()
             }
             .disposed(by: disposeBag)
 

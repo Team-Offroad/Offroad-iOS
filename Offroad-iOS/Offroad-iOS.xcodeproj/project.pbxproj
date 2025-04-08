@@ -155,7 +155,6 @@
 		4E4F31B42D4718F400C3B2FF /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796142C452797005B47A5 /* AuthAPI.swift */; };
 		4E4F31B52D4718F400C3B2FF /* CharacterChoosingResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B81AA32C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift */; };
 		4E4F31B62D4718F400C3B2FF /* FontLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC3D4A2C312850006A1493 /* FontLiterals.swift */; };
-		4E4F31B72D4718F400C3B2FF /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */; };
 		4E4F31B82D4718F400C3B2FF /* TitleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D018BB102C4054D20048B6DF /* TitleModel.swift */; };
 		4E4F31B92D4718F400C3B2FF /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A486E2C634437008B286A /* NoticeViewController.swift */; };
 		4E4F31BA2D4718F400C3B2FF /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CCF2C8DC15200E107C7 /* UIColor+.swift */; };
@@ -359,6 +358,17 @@
 		4E7A609F2D1C698F0079007C /* ORBMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
+		4E9759EF2DA0138800F30692 /* DeveloperModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759EE2DA0138800F30692 /* DeveloperModeViewController.swift */; };
+		4E9759F22DA013B300F30692 /* DeveloperModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759F12DA013B300F30692 /* DeveloperModeView.swift */; };
+		4E9759FA2DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759F92DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift */; };
+		4E9759FC2DA0E4B300F30692 /* DeveloperModeSettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759FB2DA0E4B300F30692 /* DeveloperModeSettingModel.swift */; };
+		4E9759FE2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759FD2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift */; };
+		4E9759D22D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
+		4E9759D32D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
+		4E9759E12D9F9A6C00F30692 /* QuestListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */; };
+		4E9759E22D9F9A6C00F30692 /* QuestListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */; };
+		4E9759E42D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */; };
+		4E9759E52D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */; };
 		4E99007C2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */; };
 		4E99007E2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */; };
 		4E9900802CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */; };
@@ -393,8 +403,11 @@
 		4EC4A1FE2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */; };
 		4EC611632D5F167300B09E23 /* PlaceListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */; };
 		4EC611642D5F167300B09E23 /* PlaceListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */; };
-		4EC6F0A62CF4747400895A87 /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */; };
 		4ECCC95E2CC80088002B9C4F /* ORBToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */; };
+		4ECD02702D9D722C00830534 /* ORBScrollLoadingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECD026F2D9D722C00830534 /* ORBScrollLoadingStyle.swift */; };
+		4ECD02712D9D722C00830534 /* ORBScrollLoadingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECD026F2D9D722C00830534 /* ORBScrollLoadingStyle.swift */; };
+		4ECD02732D9D725700830534 /* ORBCenterLoadingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECD02722D9D725700830534 /* ORBCenterLoadingStyle.swift */; };
+		4ECD02742D9D725700830534 /* ORBCenterLoadingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECD02722D9D725700830534 /* ORBCenterLoadingStyle.swift */; };
 		4ECEEA6E2CB2C15E0029369A /* ORBTabBarShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */; };
 		4ED6BE3D2D7B3C000020C871 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */; };
 		4EDB392B2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */; };
@@ -706,7 +719,7 @@
 		4E4E2C0B2CCF6518000A634D /* ORBMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapViewModel.swift; sourceTree = "<group>"; };
 		4E4F31442D4716F500C3B2FF /* SecretConfig_Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretConfig_Dev.xcconfig; sourceTree = "<group>"; };
 		4E4F31482D4717B100C3B2FF /* SecretConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretConfig.xcconfig; sourceTree = "<group>"; };
-		4E4F327A2D4718F400C3B2FF /* ORB(Dev).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ORB(Dev).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E4F327A2D4718F400C3B2FF /* ORB_Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ORB_Dev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E56F53C2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationTransitionDelegate.swift; sourceTree = "<group>"; };
 		4E56F53E2C987C5500EEE677 /* ZeroDurationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZeroDurationAnimator.swift; sourceTree = "<group>"; };
 		4E56F54B2C995BA800EEE677 /* ORBAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewModel.swift; sourceTree = "<group>"; };
@@ -720,6 +733,14 @@
 		4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapViewController.swift; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info_Dev.plist"; sourceTree = "<group>"; };
+		4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBEmptyCaseStyle.swift; sourceTree = "<group>"; };
+		4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListCollectionView.swift; sourceTree = "<group>"; };
+		4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListEmptyPlaceholder.swift; sourceTree = "<group>"; };
+		4E9759EE2DA0138800F30692 /* DeveloperModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeViewController.swift; sourceTree = "<group>"; };
+		4E9759F12DA013B300F30692 /* DeveloperModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeView.swift; sourceTree = "<group>"; };
+		4E9759F92DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeSwitchCell.swift; sourceTree = "<group>"; };
+		4E9759FB2DA0E4B300F30692 /* DeveloperModeSettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeSettingModel.swift; sourceTree = "<group>"; };
+		4E9759FD2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperModeNormalCell.swift; sourceTree = "<group>"; };
 		4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatWindow.swift; sourceTree = "<group>"; };
 		4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatManager.swift; sourceTree = "<group>"; };
 		4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCharacterChatViewController.swift; sourceTree = "<group>"; };
@@ -749,8 +770,9 @@
 		4EC4A1EC2D24380700A8C130 /* CustomIntensityBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIntensityBlurView.swift; sourceTree = "<group>"; };
 		4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewCouponRedemptionFailure.swift; sourceTree = "<group>"; };
 		4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCollectionView.swift; sourceTree = "<group>"; };
-		4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
 		4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastView.swift; sourceTree = "<group>"; };
+		4ECD026F2D9D722C00830534 /* ORBScrollLoadingStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBScrollLoadingStyle.swift; sourceTree = "<group>"; };
+		4ECD02722D9D725700830534 /* ORBCenterLoadingStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCenterLoadingStyle.swift; sourceTree = "<group>"; };
 		4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBTabBarShapeView.swift; sourceTree = "<group>"; };
 		4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeManager.swift; sourceTree = "<group>"; };
 		4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapHelper.swift; sourceTree = "<group>"; };
@@ -1080,7 +1102,7 @@
 				4E03943F2C2A9DCF007F0517 /* Offroad-iOSTests.xctest */,
 				4E0394492C2A9DCF007F0517 /* Offroad-iOSUITests.xctest */,
 				D0C6FD092CE6551C00517480 /* NotificationServiceExtension.appex */,
-				4E4F327A2D4718F400C3B2FF /* ORB(Dev).app */,
+				4E4F327A2D4718F400C3B2FF /* ORB_Dev.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1161,7 +1183,6 @@
 				87738CCF2C8DC15200E107C7 /* UIColor+.swift */,
 				4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */,
 				4E456CBF2CF4003D0011B50F /* UICollectionView+.swift */,
-				4EC6F0A52CF4747400895A87 /* UIScrollView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1185,6 +1206,9 @@
 			children = (
 				4EFD004F2CCB4C25005C294D /* SVGFetchable.swift */,
 				4EC15AC02D2A74B200BC5826 /* Shrinkable.swift */,
+				4ECD026F2D9D722C00830534 /* ORBScrollLoadingStyle.swift */,
+				4ECD02722D9D725700830534 /* ORBCenterLoadingStyle.swift */,
+				4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1433,6 +1457,7 @@
 				D0E9378E2CF6FC880061782D /* CustomerInquiry  */,
 				4E0394812C2AA969007F0517 /* Logout */,
 				4E0394822C2AA983007F0517 /* DeleteAccount */,
+				4E9759EB2DA012EC00F30692 /* DeveloperMode */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1791,6 +1816,42 @@
 			path = Toast;
 			sourceTree = "<group>";
 		};
+		4E9759EB2DA012EC00F30692 /* DeveloperMode */ = {
+			isa = PBXGroup;
+			children = (
+				4E9759F72DA04B6A00F30692 /* Model */,
+				4E9759ED2DA0133500F30692 /* Views */,
+				4E9759EC2DA0132D00F30692 /* ViewControllers */,
+			);
+			path = DeveloperMode;
+			sourceTree = "<group>";
+		};
+		4E9759EC2DA0132D00F30692 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4E9759EE2DA0138800F30692 /* DeveloperModeViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4E9759ED2DA0133500F30692 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4E9759F12DA013B300F30692 /* DeveloperModeView.swift */,
+				4E9759F92DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift */,
+				4E9759FD2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4E9759F72DA04B6A00F30692 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4E9759FB2DA0E4B300F30692 /* DeveloperModeSettingModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		4E99007A2CDB9504007EEFF7 /* CharacterChat */ = {
 			isa = PBXGroup;
 			children = (
@@ -1877,6 +1938,8 @@
 			children = (
 				4EB32BE82C67A2DD003F98F2 /* QuestListView.swift */,
 				874014AE2D899E7300E98D00 /* Components */,
+				4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */,
+				4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3187,9 +3250,9 @@
 			productReference = 4E0394492C2A9DCF007F0517 /* Offroad-iOSUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		4E4F314A2D4718F400C3B2FF /* ORB(Dev) */ = {
+		4E4F314A2D4718F400C3B2FF /* ORB_Dev */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4E4F32772D4718F400C3B2FF /* Build configuration list for PBXNativeTarget "ORB(Dev)" */;
+			buildConfigurationList = 4E4F32772D4718F400C3B2FF /* Build configuration list for PBXNativeTarget "ORB_Dev" */;
 			buildPhases = (
 				4E4F31622D4718F400C3B2FF /* [CP] Check Pods Manifest.lock */,
 				4E4F31632D4718F400C3B2FF /* Sources */,
@@ -3201,7 +3264,7 @@
 			);
 			dependencies = (
 			);
-			name = "ORB(Dev)";
+			name = ORB_Dev;
 			packageProductDependencies = (
 				4E4F314B2D4718F400C3B2FF /* SnapKit */,
 				4E4F314D2D4718F400C3B2FF /* Moya */,
@@ -3221,7 +3284,7 @@
 				D0CA206B2D7DCF5900FDF7F4 /* FSCalendar */,
 			);
 			productName = "Offroad-iOS";
-			productReference = 4E4F327A2D4718F400C3B2FF /* ORB(Dev).app */;
+			productReference = 4E4F327A2D4718F400C3B2FF /* ORB_Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D0C6FD082CE6551C00517480 /* NotificationServiceExtension */ = {
@@ -3300,7 +3363,7 @@
 			projectRoot = "";
 			targets = (
 				4E0394282C2A9DCE007F0517 /* ORB */,
-				4E4F314A2D4718F400C3B2FF /* ORB(Dev) */,
+				4E4F314A2D4718F400C3B2FF /* ORB_Dev */,
 				4E03943E2C2A9DCF007F0517 /* Offroad-iOSTests */,
 				4E0394482C2A9DCF007F0517 /* Offroad-iOSUITests */,
 				D0C6FD082CE6551C00517480 /* NotificationServiceExtension */,
@@ -3552,6 +3615,7 @@
 				D063E9902C496EA500434A09 /* LottieAnimationView+.swift in Sources */,
 				4E9900822CDBCD9E007EEFF7 /* ORBCharacterChatView.swift in Sources */,
 				D0E796572C453BCB005B47A5 /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
+				4ECD02702D9D722C00830534 /* ORBScrollLoadingStyle.swift in Sources */,
 				4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* ORBMapView.swift in Sources */,
 				4EC4A1ED2D24380700A8C130 /* CustomIntensityBlurView.swift in Sources */,
@@ -3617,7 +3681,6 @@
 				D0E796152C452797005B47A5 /* AuthAPI.swift in Sources */,
 				D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */,
 				4EDC3D4B2C312850006A1493 /* FontLiterals.swift in Sources */,
-				4EC6F0A62CF4747400895A87 /* UIScrollView+.swift in Sources */,
 				D018BB112C4054D20048B6DF /* TitleModel.swift in Sources */,
 				D00A486F2C634437008B286A /* NoticeViewController.swift in Sources */,
 				87738CD02C8DC15200E107C7 /* UIColor+.swift in Sources */,
@@ -3637,6 +3700,7 @@
 				4E0394D92C2ABCCC007F0517 /* UIView+.swift in Sources */,
 				D06466AA2C8A08E500CF10FD /* MarketingConsentViewController.swift in Sources */,
 				4E38F0EF2C9EBAFA00C7B866 /* ORBAlertAction.swift in Sources */,
+				4E9759E22D9F9A6C00F30692 /* QuestListCollectionView.swift in Sources */,
 				8792D0152C3E581E002051AC /* GenderViewController.swift in Sources */,
 				4EB32BE72C67A2B0003F98F2 /* QuestListViewControllers.swift in Sources */,
 				4E1E94112C39870700A7B08A /* ColorLiterals.swift in Sources */,
@@ -3660,6 +3724,7 @@
 				D0E7962F2C4535B1005B47A5 /* NicknameService.swift in Sources */,
 				4EF6B0432CC3F45000066640 /* ORBAlertViewScrollableContent.swift in Sources */,
 				D0E796202C4532A6005B47A5 /* ErrorResponseDTO.swift in Sources */,
+				4ECD02742D9D725700830534 /* ORBCenterLoadingStyle.swift in Sources */,
 				D0E796332C453615005B47A5 /* NicknameCheckResponseDTO.swift in Sources */,
 				D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */,
 				4EFCDFE12C92BD93006DEBB6 /* ORBAlertType.swift in Sources */,
@@ -3741,6 +3806,7 @@
 				4E56F53D2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift in Sources */,
 				D0E796412C4537DE005B47A5 /* QuestInfoResponseDTO.swift in Sources */,
 				D018BB0F2C40200C0048B6DF /* StateToggleButton.swift in Sources */,
+				4E9759E42D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */,
 				D00A48822C6E5D92008B286A /* NoticePostViewController.swift in Sources */,
 				879F62E82C89A56200FEC5BE /* CouponDetailView.swift in Sources */,
 				4EC15AC32D2A76EA00BC5826 /* ShrinkableButton.swift in Sources */,
@@ -3767,6 +3833,7 @@
 				D0600BE72CE61E6A00D8F1D6 /* FcmTokenRequestDTO.swift in Sources */,
 				D0E796172C4527AA005B47A5 /* AuthService.swift in Sources */,
 				D06466A32C89EF6B00CF10FD /* DeleteAccountRequestDTO.swift in Sources */,
+				4E9759D22D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */,
 				4EC3EC952CA91A0C008139BE /* PlaceListCollectionViewController.swift in Sources */,
 				4E393C9A2C48C9A6003403EC /* QuestResultViewController.swift in Sources */,
 				4E416CE82C45DBE200CF6AB4 /* ORBPlaceCategory.swift in Sources */,
@@ -3830,6 +3897,7 @@
 				D0CA206E2D7E005100FDF7F4 /* CustomDiaryCalendarCell.swift in Sources */,
 				4E4F31742D4718F400C3B2FF /* StringLiterals.swift in Sources */,
 				4E4F31752D4718F400C3B2FF /* ORBTabBarShapeView.swift in Sources */,
+				4E9759EF2DA0138800F30692 /* DeveloperModeViewController.swift in Sources */,
 				4E4F31762D4718F400C3B2FF /* SettingViewController.swift in Sources */,
 				4E4F31772D4718F400C3B2FF /* ORBCharacterChatBox.swift in Sources */,
 				D0CA20732D7F4BC200FDF7F4 /* DiaryViewModel.swift in Sources */,
@@ -3839,6 +3907,7 @@
 				4E4F317A2D4718F400C3B2FF /* ORBCharacterChatView.swift in Sources */,
 				4E4F317B2D4718F400C3B2FF /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
 				D07D3AE62D9106050030995E /* DiaryResponseDTO.swift in Sources */,
+				4E9759F22DA013B300F30692 /* DeveloperModeView.swift in Sources */,
 				4E4F317C2D4718F400C3B2FF /* QuestListResponseDTO.swift in Sources */,
 				4E4F316B2D4718F400C3B2FF /* ORBMapView.swift in Sources */,
 				4E4F317D2D4718F400C3B2FF /* CustomIntensityBlurView.swift in Sources */,
@@ -3856,6 +3925,7 @@
 				4E4F31862D4718F400C3B2FF /* PushNotificationService.swift in Sources */,
 				4E4F31872D4718F400C3B2FF /* UIButton+.swift in Sources */,
 				4E4F31882D4718F400C3B2FF /* ORBMapViewModel.swift in Sources */,
+				4ECD02712D9D722C00830534 /* ORBScrollLoadingStyle.swift in Sources */,
 				4E4F31892D4718F400C3B2FF /* NoticeAPI.swift in Sources */,
 				4E4F318A2D4718F400C3B2FF /* CharacterDetailViewController.swift in Sources */,
 				4E4F318B2D4718F400C3B2FF /* CharacterChatReadGetResponseDTO.swift in Sources */,
@@ -3890,6 +3960,8 @@
 				4E4F31A12D4718F400C3B2FF /* CompleteChoosingCharacterViewController.swift in Sources */,
 				4E4F31A22D4718F400C3B2FF /* MyPageViewController.swift in Sources */,
 				4E4F31A32D4718F400C3B2FF /* QuestListService.swift in Sources */,
+				4ECD02732D9D725700830534 /* ORBCenterLoadingStyle.swift in Sources */,
+				4E9759FC2DA0E4B300F30692 /* DeveloperModeSettingModel.swift in Sources */,
 				4E4F31A42D4718F400C3B2FF /* OffroadTabBarController.swift in Sources */,
 				4EA272332D5793BA00F64B20 /* ChatTextInputView.swift in Sources */,
 				4E4F31A52D4718F400C3B2FF /* AdventureAPI.swift in Sources */,
@@ -3917,7 +3989,6 @@
 				D006EA312D6DB3C4004D3D95 /* MyPageScrollView.swift in Sources */,
 				4E4F31B52D4718F400C3B2FF /* CharacterChoosingResponseDTO.swift in Sources */,
 				4E4F31B62D4718F400C3B2FF /* FontLiterals.swift in Sources */,
-				4E4F31B72D4718F400C3B2FF /* UIScrollView+.swift in Sources */,
 				D07D3AE32D9104AE0030995E /* DiaryColorsResponseDTO.swift in Sources */,
 				4E4F31B82D4718F400C3B2FF /* TitleModel.swift in Sources */,
 				4E4F31B92D4718F400C3B2FF /* NoticeViewController.swift in Sources */,
@@ -3972,6 +4043,7 @@
 				4E4F31E32D4718F400C3B2FF /* ORBCharacterChatManager.swift in Sources */,
 				4E4F31E42D4718F400C3B2FF /* ORBAlertViewAcquiredEmblem.swift in Sources */,
 				4E4F31E52D4718F400C3B2FF /* CouponCell.swift in Sources */,
+				4E9759FA2DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift in Sources */,
 				D05B70D52D63286800A1E206 /* DiaryTimeViewController.swift in Sources */,
 				4E4F31E62D4718F400C3B2FF /* NetworkMonitoringManager.swift in Sources */,
 				4E4F31E72D4718F400C3B2FF /* ShareableImageProvider.swift in Sources */,
@@ -4012,6 +4084,7 @@
 				4E4F32082D4718F400C3B2FF /* CouponListViewController.swift in Sources */,
 				4ED6BE3D2D7B3C000020C871 /* AmplitudeManager.swift in Sources */,
 				4E4F32092D4718F400C3B2FF /* CharacterChatPostResponseDTO.swift in Sources */,
+				4E9759E12D9F9A6C00F30692 /* QuestListCollectionView.swift in Sources */,
 				D09A196F2D70589900B07FC2 /* TimePeriod.swift in Sources */,
 				4E4F320A2D4718F400C3B2FF /* UIImage+.swift in Sources */,
 				4E4F320B2D4718F400C3B2FF /* ProfileService.swift in Sources */,
@@ -4031,6 +4104,7 @@
 				4E4F32172D4718F400C3B2FF /* TermsConsentPopupViewController.swift in Sources */,
 				4E4F32182D4718F400C3B2FF /* NoticeResponseDTO.swift in Sources */,
 				4E4F32192D4718F400C3B2FF /* String+.swift in Sources */,
+				4E9759FE2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift in Sources */,
 				4E4F321A2D4718F400C3B2FF /* CollectedTitlesView.swift in Sources */,
 				4E4F321B2D4718F400C3B2FF /* CollectedTitleCollectionViewCell.swift in Sources */,
 				4E4F321C2D4718F400C3B2FF /* ORBAlertBaseView.swift in Sources */,
@@ -4072,11 +4146,13 @@
 				4E4F32402D4718F400C3B2FF /* EmblemListResponseDTO.swift in Sources */,
 				4E4F32412D4718F400C3B2FF /* TokenIntercepter.swift in Sources */,
 				4E4F32422D4718F400C3B2FF /* SceneDelegate.swift in Sources */,
+				4E9759D32D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */,
 				4E4F32432D4718F400C3B2FF /* CharacterChatAPI.swift in Sources */,
 				4E4F32442D4718F400C3B2FF /* ScrollLoading.swift in Sources */,
 				4E4F32452D4718F400C3B2FF /* SocialLoginResponseDTO.swift in Sources */,
 				4E4F32462D4718F400C3B2FF /* FcmTokenRequestDTO.swift in Sources */,
 				4E4F32472D4718F400C3B2FF /* AuthService.swift in Sources */,
+				4E9759E52D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */,
 				4E4F32482D4718F400C3B2FF /* DeleteAccountRequestDTO.swift in Sources */,
 				4E4F32492D4718F400C3B2FF /* PlaceListCollectionViewController.swift in Sources */,
 				4E4F324A2D4718F400C3B2FF /* QuestResultViewController.swift in Sources */,
@@ -4289,6 +4365,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ProvisioningProfile_Development_250122;
+				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -4336,6 +4413,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ProvisioningProfile_Development_250122;
+				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -4437,7 +4515,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = "25033001-dev";
+				CURRENT_PROJECT_VERSION = 25040202;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 548W892M42;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -4459,7 +4537,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 2.0.0;
 				OTHER_SWIFT_FLAGS = "-DDevTarget";
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4486,7 +4564,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = "25033001-dev";
+				CURRENT_PROJECT_VERSION = 25040202;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 548W892M42;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -4508,7 +4586,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 2.0.0;
 				OTHER_SWIFT_FLAGS = "-DDevTarget";
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4639,7 +4717,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4E4F32772D4718F400C3B2FF /* Build configuration list for PBXNativeTarget "ORB(Dev)" */ = {
+		4E4F32772D4718F400C3B2FF /* Build configuration list for PBXNativeTarget "ORB_Dev" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4E4F32782D4718F400C3B2FF /* Debug */,
