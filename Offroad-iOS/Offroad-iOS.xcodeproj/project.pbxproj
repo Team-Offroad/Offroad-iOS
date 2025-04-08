@@ -44,6 +44,8 @@
 		4E1E94192C3AC27C00A7B08A /* AdventureMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */; };
 		4E1ED3832D188FA80058C8D9 /* EmptyStateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ED3822D188FA80058C8D9 /* EmptyStateCollectionView.swift */; };
 		4E23776E2CC81B2000716AFF /* NetworkMonitoringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */; };
+		4E2A9C582DA5525900D8E6D1 /* ORBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */; };
+		4E2A9C592DA5525900D8E6D1 /* ORBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */; };
 		4E3120F82D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3120F72D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift */; };
 		4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6CE2C456FBF007358DA /* UITabBar+.swift */; };
 		4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */; };
@@ -685,6 +687,7 @@
 		4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureMapView.swift; sourceTree = "<group>"; };
 		4E1ED3822D188FA80058C8D9 /* EmptyStateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateCollectionView.swift; sourceTree = "<group>"; };
 		4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitoringManager.swift; sourceTree = "<group>"; };
+		4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapView.swift; sourceTree = "<group>"; };
 		4E3120F72D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatReadGetResponseDTO.swift; sourceTree = "<group>"; };
 		4E37B6CE2C456FBF007358DA /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterView.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/View/CompleteChoosingCharacterView.swift"; sourceTree = SOURCE_ROOT; };
@@ -1558,6 +1561,7 @@
 			children = (
 				4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */,
 				4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */,
+				4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3733,6 +3737,7 @@
 				D0E796502C453B47005B47A5 /* AdventureService.swift in Sources */,
 				4E08B95B2C5E4F860082EFB8 /* ORBSegmentedControl.swift in Sources */,
 				4E456CC02CF4003D0011B50F /* UICollectionView+.swift in Sources */,
+				4E2A9C582DA5525900D8E6D1 /* ORBMapView.swift in Sources */,
 				87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */,
 				4EF6B0412CC3F1B900066640 /* ORBAlertViewTextFieldWithSubMessage.swift in Sources */,
 				4E3A32892CE733F2007228D0 /* LoadingView.swift in Sources */,
@@ -4020,6 +4025,7 @@
 				4E4F31E52D4718F400C3B2FF /* CouponCell.swift in Sources */,
 				4E9759FA2DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift in Sources */,
 				D05B70D52D63286800A1E206 /* DiaryTimeViewController.swift in Sources */,
+				4E2A9C592DA5525900D8E6D1 /* ORBMapView.swift in Sources */,
 				4E4F31E62D4718F400C3B2FF /* NetworkMonitoringManager.swift in Sources */,
 				4E4F31E72D4718F400C3B2FF /* ShareableImageProvider.swift in Sources */,
 				4E4F31E82D4718F400C3B2FF /* CharacterAPI.swift in Sources */,
