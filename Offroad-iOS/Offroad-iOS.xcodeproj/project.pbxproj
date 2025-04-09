@@ -412,8 +412,6 @@
 		4ECD02742D9D725700830534 /* ORBCenterLoadingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECD02722D9D725700830534 /* ORBCenterLoadingStyle.swift */; };
 		4ECEEA6E2CB2C15E0029369A /* ORBTabBarShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */; };
 		4ED6BE3D2D7B3C000020C871 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */; };
-		4EDB392B2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */; };
-		4EDB392C2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */; };
 		4EDB392E2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392D2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift */; };
 		4EDB392F2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDB392D2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift */; };
 		4EDC3D412C31271F006A1493 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */; };
@@ -772,7 +770,6 @@
 		4ECD02722D9D725700830534 /* ORBCenterLoadingStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBCenterLoadingStyle.swift; sourceTree = "<group>"; };
 		4ECEEA6D2CB2C15E0029369A /* ORBTabBarShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBTabBarShapeView.swift; sourceTree = "<group>"; };
 		4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeManager.swift; sourceTree = "<group>"; };
-		4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapHelper.swift; sourceTree = "<group>"; };
 		4EDB392D2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTooltipHelper.swift; sourceTree = "<group>"; };
 		4EDC3D382C31271E006A1493 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		4EDC3D392C31271E006A1493 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
@@ -1355,7 +1352,6 @@
 		4E0394732C2AA6DB007F0517 /* QuestMap */ = {
 			isa = PBXGroup;
 			children = (
-				4E4E2C082CCE7B52000A634D /* PlaceInfoTooltip */,
 				4E416CE62C45DBD400CF6AB4 /* Models */,
 				4E4E2C0A2CCF6503000A634D /* ViewModel */,
 				4EFA80892C3E79B800876D05 /* UIComponents */,
@@ -1560,8 +1556,6 @@
 			isa = PBXGroup;
 			children = (
 				4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */,
-				4EDB392A2D54ED270082F8E6 /* ORBMapHelper.swift */,
-				4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1572,6 +1566,15 @@
 				4E1ED3822D188FA80058C8D9 /* EmptyStateCollectionView.swift */,
 			);
 			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		4E2A9C6E2DA684F900D8E6D1 /* ORBMap */ = {
+			isa = PBXGroup;
+			children = (
+				4E4E2C082CCE7B52000A634D /* PlaceInfoTooltip */,
+				4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */,
+			);
+			path = ORBMap;
 			sourceTree = "<group>";
 		};
 		4E38B7D82C6471EC0011D997 /* SegmentedControl */ = {
@@ -2421,6 +2424,7 @@
 		D018BB0C2C401F5F0048B6DF /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4E2A9C6E2DA684F900D8E6D1 /* ORBMap */,
 				4EA2722B2D578D5A00F64B20 /* Chat */,
 				4E1ED3812D188F8C0058C8D9 /* CollectionView */,
 				4EFFAFAF2CE4573D00EFA714 /* NavigationController */,
@@ -3603,7 +3607,6 @@
 				4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */,
 				4E1E94192C3AC27C00A7B08A /* AdventureMapView.swift in Sources */,
 				4EC4A1ED2D24380700A8C130 /* CustomIntensityBlurView.swift in Sources */,
-				4EDB392C2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */,
 				4EDB392E2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */,
 				D004F8CF2CB4DDE600D5A2CD /* KakaoAuthManager.swift in Sources */,
 				D06466AC2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift in Sources */,
@@ -3862,7 +3865,6 @@
 				4E4F31672D4718F400C3B2FF /* LogoutViewController.swift in Sources */,
 				4E4F31682D4718F400C3B2FF /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */,
 				4E4F31692D4718F400C3B2FF /* OffroadTabBarViewController.swift in Sources */,
-				4EDB392B2D54ED270082F8E6 /* ORBMapHelper.swift in Sources */,
 				4E4F316A2D4718F400C3B2FF /* AdventureInfoResponseDTO.swift in Sources */,
 				D07D3AD72D9074B70030995E /* DiaryService.swift in Sources */,
 				4E4F316B2D4718F400C3B2FF /* AdventureMapView.swift in Sources */,
