@@ -268,10 +268,8 @@ extension ORBMapView {
         cameraUpdate.reason = reason
         cameraUpdate.animation = animationCurve
         cameraUpdate.animationDuration = animationDuration
-        DispatchQueue.main.async { [weak self] in
-            self?.mapView.moveCamera(cameraUpdate) { isCancelled in
-                completion?(isCancelled)
-            }
+        mapView.moveCamera(cameraUpdate) { isCancelled in
+            completion?(isCancelled)
         }
     }
     
