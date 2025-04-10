@@ -31,15 +31,9 @@ class QuestListCollectionViewCell: ShrinkableCollectionViewCell {
     private let questDescriptionLabel = UILabel()
     
     private let questInfoView = UILabel()
-#if DevTarget
     private let questClearConditionView = IconLabelStackView(icon: .icnQuestListCheckBox, text: "")
     private let questRewardDescriptionView = IconLabelStackView(icon: .icnQuestListGiftBox, text: "")
-#else
-    private let checkBoxImageView = UIImageView(image: .icnQuestListCheckBox)
-    private let giftBoxImageVIew = UIImageView(image: .icnQuestListGiftBox)
-    private let questClearConditionLabel = UILabel()
-    private let questRewardDescriptionLabel = UILabel()
-#endif
+
     
     //MARK: - Life Cycle
     
@@ -61,12 +55,6 @@ class QuestListCollectionViewCell: ShrinkableCollectionViewCell {
         questNameLabel.text = ""
         questProgressLabel.text = ""
         questDescriptionLabel.text = ""
-#if DevTarget
-        
-#else
-        questClearConditionLabel.text = ""
-        questRewardDescriptionLabel.text = ""
-#endif
     }
     
 }
@@ -83,19 +71,8 @@ extension QuestListCollectionViewCell {
             questDescriptionLabel,
             questInfoView
         )
-#if DevTarget
-        questInfoView.addSubviews(
-            questClearConditionView,
-            questRewardDescriptionView
-        )
-#else
-        questInfoView.addSubviews(
-            checkBoxImageView,
-            giftBoxImageVIew,
-            questClearConditionLabel,
-            questRewardDescriptionLabel
-        )
-#endif
+
+        questInfoView.addSubviews(questClearConditionView,questRewardDescriptionView)
     }
     
     private func setupStyle() {
@@ -130,31 +107,7 @@ extension QuestListCollectionViewCell {
             view.backgroundColor = .primary(.boxInfo)
             view.roundCorners(cornerRadius: 9)
         }
-#if DevTarget
-#else
-        
-        checkBoxImageView.do { imageView in
-            imageView.contentMode = .scaleAspectFit
-        }
-        
-        giftBoxImageVIew.do { imageView in
-            imageView.contentMode = .scaleAspectFit
-        }
-        
-        questClearConditionLabel.do { label in
-            label.font = .offroad(style: .iosBoxMedi)
-            label.textColor = .grayscale(.gray400)
-            label.numberOfLines = 0
-            label.textAlignment = .left
-        }
-        
-        questRewardDescriptionLabel.do { label in
-            label.font = .offroad(style: .iosBoxMedi)
-            label.textColor = .grayscale(.gray400)
-            label.numberOfLines = 0
-            label.textAlignment = .left
-        }
-#endif
+
     }
     
     private func setupLayout() {
@@ -188,7 +141,7 @@ extension QuestListCollectionViewCell {
             make.top.equalTo(questNameLabel.snp.bottom).offset(18)
             make.horizontalEdges.equalToSuperview().inset(20)
         }
-#if DevTarget
+        
         questClearConditionView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(9)
             make.leading.equalToSuperview().inset(12)
@@ -201,39 +154,6 @@ extension QuestListCollectionViewCell {
             make.trailing.equalToSuperview().inset(12)
             make.bottom.equalToSuperview().inset(9)
         }
-#else
-        checkBoxImageView.snp.makeConstraints { make in
-            make.centerY.equalTo(questClearConditionLabel)
-            make.top.greaterThanOrEqualTo(questInfoView.snp.top).inset(9)
-            make.leading.equalToSuperview().inset(12)
-            make.size.equalTo(25)
-        }
-        
-        giftBoxImageVIew.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(checkBoxImageView.snp.bottom).offset(4)
-            make.leading.equalToSuperview().inset(12)
-            make.bottom.lessThanOrEqualTo(questInfoView.snp.bottom).inset(9)
-            make.size.equalTo(25)
-        }
-        
-        questClearConditionLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(9)
-            make.leading.equalTo(checkBoxImageView.snp.trailing).offset(6)
-            // 피그마상으로는 22라고 되어있는데, 잘못된 것 같아 임의로 설정함.
-            // 디자이너분들과 논의 후 확정 필요
-            make.trailing.equalToSuperview().inset(12)
-        }
-        
-        questRewardDescriptionLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(giftBoxImageVIew)
-            make.top.greaterThanOrEqualTo(questClearConditionLabel.snp.bottom).offset(7)
-            make.leading.equalTo(giftBoxImageVIew.snp.trailing).offset(6)
-            // 피그마상으로는 22라고 되어있는데, 잘못된 것 같아 임의로 설정함.
-            // 디자이너분들과 논의 후 확정 필요
-            make.trailing.equalToSuperview().inset(12)
-            make.bottom.equalToSuperview().inset(9)
-        }
-#endif
         
         questInfoView.snp.makeConstraints { make in
             make.top.equalTo(questDescriptionLabel.snp.bottom).offset(14)
@@ -268,13 +188,9 @@ extension QuestListCollectionViewCell {
         
         questDescriptionLabel.text = quest.description == "" ? "데이터 없음" : quest.description
         
-#if DevTarget
         questClearConditionView.configure(icon: .icnQuestListCheckBox, text: quest.requirement.isEmpty ? "데이터 없음" : quest.requirement)
         questRewardDescriptionView.configure(icon: .icnQuestListGiftBox, text: quest.reward.isEmpty ? "데이터 없음" : quest.reward)
-#else
-        questClearConditionLabel.text = quest.requirement == "" ? "데이터 없음" : quest.requirement
-        questRewardDescriptionLabel.text = quest.reward == "" ? "데이터 없음" : quest.reward
-#endif
+
         contentView.layoutIfNeeded()
     }
     

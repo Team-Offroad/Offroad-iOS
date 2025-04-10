@@ -133,7 +133,7 @@ extension CourseQuestCollectionViewCell {
         
         courseQuestProgressLabel.snp.makeConstraints { make in
             make.centerY.equalTo(courseQuestNameLabel)
-            make.trailing.equalTo(chevronImageView.snp.leading).offset(-10)
+            make.trailing.equalTo(chevronImageView.snp.leading)
         }
         
         chevronImageView.snp.makeConstraints { make in
