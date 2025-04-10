@@ -87,7 +87,7 @@ class AdventureMapViewController: OffroadTabBarViewController {
 
 extension AdventureMapViewController {
     
-    //MARK: - Private Func
+    // MARK: - Private Func
     
     private func switchTrackingMode() {
         DispatchQueue.main.async { [weak self] in
@@ -219,6 +219,14 @@ extension AdventureMapViewController {
             self.navigationController?.pushViewController(PlaceListViewController(), animated: true)
         }.disposed(by: disposeBag)
         
+        rootView.orbMapView.tooltipWillShow.subscribe(onNext: { [weak self] in
+            self?.rootView.compass.isHidden = true
+        }).disposed(by: disposeBag)
+        
+        rootView.orbMapView.tooltipDidHide.subscribe(onNext: { [weak self] in
+            self?.rootView.compass.isHidden = false
+        }).disposed(by: disposeBag)
+        
         #if DevTarget
         MyDiaryManager.shared.didCompleteCreateDiary
             .bind { _ in
@@ -273,7 +281,7 @@ extension AdventureMapViewController {
         guard let marker = overlay as? ORBNMFMarker else { return false }
         rootView.orbMapView.selectedMarker = marker
         rootView.orbMapView.configureTooltip(place: marker.placeInfo)
-        rootView.orbMapView.showSelectedMarkerTooltip()
+        rootView.orbMapView.showTooltipAtSelectedMarker()
         return true
     }
     
@@ -354,7 +362,7 @@ extension AdventureMapViewController {
     
 }
 
-//MARK: - CLLocationManagerDelegate
+// MARK: - CLLocationManagerDelegate
 
 extension AdventureMapViewController: CLLocationManagerDelegate {
     

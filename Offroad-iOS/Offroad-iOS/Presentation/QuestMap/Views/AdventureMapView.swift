@@ -22,9 +22,6 @@ class AdventureMapView: UIView, ORBCenterLoadingStyle {
     let titleLabel = UILabel()
     let gradientView = UIView()
     let gradientLayer = CAGradientLayer()
-    let markerTapBlocker = UIView()
-//    let shadingView = UIView()
-//    let tooltip: PlaceInfoTooltip = .init()
     let reloadPlaceButton = ShrinkableButton()
     let switchTrackingModeButton = UIButton()
     let listButtonStackView = UIStackView()
@@ -88,11 +85,6 @@ extension AdventureMapView {
             make.horizontalEdges.bottom.equalToSuperview()
         }
         
-        markerTapBlocker.snp.makeConstraints { make in
-            make.top.equalTo(listButtonStackView)
-            make.horizontalEdges.bottom.equalToSuperview()
-        }
-        
         reloadPlaceButton.snp.makeConstraints { make in
             make.top.equalTo(customNavigationBar.snp.bottom).offset(23)
             make.centerX.equalToSuperview()
@@ -129,7 +121,7 @@ extension AdventureMapView {
     //MARK: - Private Func
     
     private func setupHierarchy() {
-        orbMapView.addSubviews(gradientView, markerTapBlocker, reloadPlaceButton, switchTrackingModeButton/*, shadingView, tooltip*/)
+        orbMapView.addSubviews(gradientView, reloadPlaceButton, switchTrackingModeButton)
         listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
         customNavigationBar.addSubview(titleLabel)
         addSubviews(
@@ -163,10 +155,6 @@ extension AdventureMapView {
             layer.startPoint = CGPoint(x: 0, y: 1)
             layer.endPoint = CGPoint(x: 0, y: 0)
             layer.locations = [0, 1]
-        }
-        
-        markerTapBlocker.do { view in
-            view.backgroundColor = .clear
         }
         
         reloadPlaceButton.do { button in

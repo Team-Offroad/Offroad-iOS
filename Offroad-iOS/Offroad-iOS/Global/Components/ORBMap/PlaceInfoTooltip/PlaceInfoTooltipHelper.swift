@@ -14,7 +14,6 @@ final class PlaceInfoTooltipHelper {
     unowned let tooltip: PlaceInfoTooltip
     let shadingView: UIView
     
-    var isTooltipShown: Bool = false
     private let shadingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     private let tooltipTransparencyAnimator = UIViewPropertyAnimator(duration: 0.2, dampingRatio: 1)
     private let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.8)
@@ -25,7 +24,6 @@ final class PlaceInfoTooltipHelper {
     init(tooltip: PlaceInfoTooltip, shadingView: UIView) {
         self.tooltip = tooltip
         self.shadingView = shadingView
-        self.shadingView.isUserInteractionEnabled = false
     }
     
 }
@@ -58,16 +56,14 @@ extension PlaceInfoTooltipHelper {
             completion?()
         }
         
-        isTooltipShown = true
-        shadingView.isUserInteractionEnabled = true
         tooltipTransparencyAnimator.startAnimation()
         shadingAnimator.startAnimation()
         tooltipShowingAnimator.startAnimation()
     }
     
     func hideTooltip(completion: (() -> Void)? = nil) {
-        guard isTooltipShown else { return }
         tooltipShowingAnimator.stopAnimation(true)
+        tooltipTransparencyAnimator.stopAnimation(true)
         
         shadingAnimator.addAnimations { [weak self] in
             self?.shadingView.backgroundColor = .clear
@@ -81,10 +77,8 @@ extension PlaceInfoTooltipHelper {
         tooltipHidingAnimator.addCompletion { [weak self] _ in
             self?.tooltip.configure(with: nil)
             self?.tooltip.isHidden = true
-            self?.shadingView.isUserInteractionEnabled = false
             completion?()
         }
-        isTooltipShown = false
         shadingAnimator.startAnimation()
         tooltipHidingAnimator.startAnimation()
     }
