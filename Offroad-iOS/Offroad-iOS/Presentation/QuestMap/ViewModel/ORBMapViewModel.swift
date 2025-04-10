@@ -162,8 +162,8 @@ extension ORBMapViewModel {
         #else
         let dto = AdventuresPlaceAuthenticationRequestDTO(
             placeId: placeInfo.id,
-            latitude: currentLocation.lat,
-            longitude: currentLocation.lng
+            latitude: placeInfo.latitude,
+            longitude: placeInfo.longitude
         )
         #endif
         
