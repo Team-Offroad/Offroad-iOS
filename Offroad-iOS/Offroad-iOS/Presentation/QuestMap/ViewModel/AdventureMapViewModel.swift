@@ -35,7 +35,7 @@ final class AdventureMapViewModel: SVGFetchable {
     let startLoading = PublishRelay<Void>()
     let stopLoading = PublishRelay<Void>()
     let networkFailureSubject = PublishSubject<Void>()
-    let markersSubject = BehaviorSubject<[ORBNMFMarker]>(value: [])
+    let didReceiveMarkers = BehaviorSubject<[ORBNMFMarker]>(value: [])
     let customOverlayImage = NMFOverlayImage(image: .icnQuestMapPlaceMarker)
     let locationUnauthorizedMessage = PublishRelay<String>()
     let locationServicesDisabledRelay = PublishRelay<Void>()
@@ -128,7 +128,7 @@ extension AdventureMapViewModel {
                         .then { $0.width = 26; $0.height = 32 }
                 }
                 
-                self.markersSubject.onNext(markers)
+                self.didReceiveMarkers.onNext(markers)
             default:
                 self.networkFailureSubject.onNext(())
                 return

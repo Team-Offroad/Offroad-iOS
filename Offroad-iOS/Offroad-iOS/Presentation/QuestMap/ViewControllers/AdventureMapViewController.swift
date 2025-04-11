@@ -140,7 +140,7 @@ extension AdventureMapViewController {
                 self.present(alertController, animated: true)
             }.disposed(by: disposeBag)
         
-        viewModel.markersSubject
+        viewModel.didReceiveMarkers
             .flatMap { Observable.from($0) }
             .subscribe(onNext: { [weak self] marker in
                 guard let self else { return }
@@ -180,7 +180,7 @@ extension AdventureMapViewController {
         rootView.reloadPlaceButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
             self.rootView.reloadPlaceButton.isEnabled = false
-            try? self.viewModel.markersSubject.value().forEach({ marker in marker.mapView = nil })
+            try? self.viewModel.didReceiveMarkers.value().forEach({ marker in marker.mapView = nil })
             self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
             self.rootView.orbMapView.hideTooltip()
         }.disposed(by: disposeBag)
