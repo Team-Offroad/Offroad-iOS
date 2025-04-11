@@ -187,7 +187,7 @@ extension AdventureMapView {
             stackView.distribution = .fillEqually
         }
         
-        orbMapView.onMovieCameraIdle.subscribe(onNext: { [weak self] in
+        orbMapView.onMapViewCameraIdle.subscribe(onNext: { [weak self] in
             self?.reloadPlaceButton.isEnabled = true
         }).disposed(by: disposBag)
     }

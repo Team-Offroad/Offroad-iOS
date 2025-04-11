@@ -12,6 +12,17 @@ import NMapsMap
 import RxSwift
 import RxCocoa
 
+enum ORBMapError: LocalizedError {
+    case EmptyTooltip
+    
+    public var errorDescription: String? {
+        switch self {
+        case .EmptyTooltip:
+            return "Tooltip doesn't contain marker infomation"
+        }
+    }
+}
+
 final class ORBMapView: NMFNaverMapView {
     
     /// ORBMapView에서 위치 추적 모드
@@ -29,7 +40,6 @@ final class ORBMapView: NMFNaverMapView {
     /// 지도의 위치 추적 모드. 값을 할당하는 즉시 위치 추적 모드가 변경됨.
     var trackingMode: ORBMapTrackingMode = .none {
         didSet {
-            print("tracking mode did set: \(trackingMode)")
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
                 self.setTrackingMode(to: self.trackingMode)
@@ -39,10 +49,10 @@ final class ORBMapView: NMFNaverMapView {
     
     private let locationManager = CLLocationManager()
     
-    /// 툴팁이 떠 있을 때 지도를 스크롤할 수 있는지 여부. 기본값은 `true`
-    var disableScrollWhenTooltipShown: Bool = true
+    /// 툴팁이 떠 있을 때 툴팁 아래의 배경을 터치할 수 있는지 여부. 기본값은 `true`
+    var shouldBlockBackgroundTouch: Bool = true
     
-    /// 툴팁이 떠 있을 때 지돌르 스크롤하면 툴팁이 닫힐 지 여부. 기본값은 `true`
+    /// 툴팁이 떠 있을 때 지도가 움직이면 툴팁이 닫힐 지 여부. 기본값은 `true`
     ///
     /// 사용자가 스크롤하는 경우에만 적용되며, `disableScrollWhenTooltipShown` 이 `true`인 경우 이 값은 무시됩니다.
     var hideTooltipWhenScrolling: Bool = true
@@ -51,19 +61,14 @@ final class ORBMapView: NMFNaverMapView {
     ///
     /// - Note: 선택된 마커의 툴팁을 띄우고자 할 때 마커의 touchHandler(`NMFOverlayTouchHandler?` 타입)  콜백 함수로 해당 마커를 이 속성에 할당해 주세요.
     /// 그렇지 않을 경우 툴팁이 선택된 마커에 뜨지 않습니다.
-    var selectedMarker: ORBNMFMarker? = nil
+//    var selectedMarker: ORBNMFMarker? = nil
     
-    /// 현재 선택된 장소의 지도 화면상의 위치. 선택된 장소가 없으면 `nil`을 반환.
-    private var selectedMarkerPoint: CGPoint? {
-        guard let selectedMarker else { return nil }
-        return mapView.projection.point(from: selectedMarker.position)
-    }
+    let tooltip = PlaceInfoTooltip()
     
-    private let tooltip = PlaceInfoTooltip()
     private let shadingView = UIView()
     private lazy var tooltipHelper = PlaceInfoTooltipHelper(tooltip: tooltip, shadingView: shadingView)
     
-    // 위치 오버레이 커스텀 디자인 관련
+    // 위치 오버레이 커스텀 디자인 관련 속성
     private let locationOverlayImage = NMFOverlayImage(image: .icnQuestMapCircleInWhiteBorder)
     private let triangleArrowOverlayImage = NMFOverlayImage(image: .icnQuestMapNavermapLocationOverlaySubIcon1)
     
@@ -75,8 +80,8 @@ final class ORBMapView: NMFNaverMapView {
     // MARK: - Rx Properties
     
     private var disposeBag = DisposeBag()
-    let exploreButtonTapped = PublishRelay<Void>()
-    let onMovieCameraIdle = PublishRelay<Void>()
+    let exploreButtonTapped = PublishSubject<RegisteredPlaceInfo>()
+    let onMapViewCameraIdle = PublishRelay<Void>()
     let tooltipWillShow = PublishRelay<Void>()
     let tooltipDidShow = PublishRelay<Void>()
     let tooltipWillHide = PublishRelay<Void>()
@@ -126,7 +131,12 @@ extension ORBMapView {
         }).disposed(by: disposeBag)
         
         tooltip.exploreButton.rx.tap.bind(onNext: { [weak self] in
-            self?.exploreButtonTapped.accept(())
+            guard let self else { return }
+            if let selectedMarker = tooltip.marker {
+                self.exploreButtonTapped.onNext(selectedMarker.placeInfo)
+            } else {
+                self.exploreButtonTapped.onError(ORBMapError.EmptyTooltip)
+            }
         }).disposed(by: disposeBag)
     }
     
@@ -209,9 +219,9 @@ private extension ORBMapView {
         }
     }
     
-    /// 툴팁의 위치를 설정하는 함수.
+    /// 툴팁이 표시할 위치를 설정하는 함수.
     /// - Parameter point: 툴팁을 띄울 장소의 지도 뷰 상에서 위치(`CGPoint`)
-    private func setTooltipPoint(point: CGPoint) {
+    private func updateTooltipPoint(_ point: CGPoint) {
         tooltipPointXConstraint.constant = point.x
         // 17 뺀 것은 툴팁 아래 화살표 끝 위치를 마커의 중앙으로 설정하기 위함.
         tooltipPointYConstraint.constant = point.y - 17
@@ -240,19 +250,13 @@ private extension ORBMapView {
 
 extension ORBMapView {
     
-    /// 툴팁의 내용을 구성하는 함수.
-    /// - Parameter place: 툴팁에 표시할 장소의 정보
-    public func configureTooltip(place: RegisteredPlaceInfo) {
-        tooltip.configure(with: place)
-    }
-    
-    /// 선택한 마커에 툴팁을 띄우는 함수.
-    public func showTooltipAtSelectedMarker() {
-        guard let selectedMarker else { return }
-        guard let selectedMarkerPoint else { return }
+    /// 특정 마커에 툴팁을 띄우는 함수.
+    public func showTooltip(_ marker: ORBNMFMarker) {
+        tooltip.setMarker(marker)
+        guard let tooltipPoint = tooltip.getPoint(in: mapView) else { return }
         
-        shadingView.isUserInteractionEnabled = disableScrollWhenTooltipShown ? true : false
-        setTooltipPoint(point: selectedMarkerPoint)
+        shadingView.isUserInteractionEnabled = shouldBlockBackgroundTouch ? true : false
+        updateTooltipPoint(tooltipPoint)
         tooltipWillShow.accept(())
         tooltipHelper.showTooltip { [weak self] in
             self?.tooltipDidShow.accept(())
@@ -261,11 +265,11 @@ extension ORBMapView {
         let tilt = mapView.cameraPosition.tilt
         if tilt > 30 {
             // 툴팁을 띄울 때 카메라 이동의 reason은 -4
-            moveCamera(scrollTo: selectedMarker.position, animationCurve: .fly, animationDuration: 0.5, reason: -4)
+            moveCamera(scrollTo: tooltip.marker!.position, animationCurve: .fly, animationDuration: 0.5, reason: -4)
         } else {
             let mapSize = mapView.frame.size
             let delta = tooltipHelper.caculateDeltaToShowTooltip(
-                point: selectedMarkerPoint,
+                point: tooltipPoint,
                 at: mapSize,
                 tooltipSize: tooltip.frame.size,
                 contentInset: 20)
@@ -279,7 +283,6 @@ extension ORBMapView {
         tooltipWillHide.accept(())
         shadingView.isUserInteractionEnabled = false
         tooltipHelper.hideTooltip { [weak self] in
-            self?.selectedMarker = nil
             self?.tooltipDidHide.accept(())
         }
     }
@@ -348,6 +351,9 @@ extension ORBMapView: NMFMapViewCameraDelegate {
      - -3: 위치 정보 갱신으로 카메라가 움직였음을 나타내는 값. (`NMFMapChangedByLocation`)
      */
     func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
+        if reason != -4 && hideTooltipWhenScrolling {
+            hideTooltipAndUnselectMarker()
+        }
         switch reason {
         // tracking mode 변경 버튼을 눌렀을 때 카메라 이동
         case 1:
@@ -359,8 +365,8 @@ extension ORBMapView: NMFMapViewCameraDelegate {
         // 제스처 사용으로 카메라 이동
         case -1:
             trackingMode = .normal
-            guard let selectedMarkerPoint else { return }
-            setTooltipPoint(point: selectedMarkerPoint)
+            guard let tooltipPoint = tooltip.getPoint(in: mapView) else { return }
+            updateTooltipPoint(tooltipPoint)
         // 버튼 선택으로 카메라 이동
         case -2:
             trackingMode = .normal
@@ -375,14 +381,11 @@ extension ORBMapView: NMFMapViewCameraDelegate {
         default:
             return
         }
-        if reason != -4 && hideTooltipWhenScrolling {
-            hideTooltipAndUnselectMarker()
-        }
     }
     
     func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
-        guard let selectedMarkerPoint else { return }
-        setTooltipPoint(point: selectedMarkerPoint)
+        guard let tooltipPoint = tooltip.getPoint(in: mapView) else { return }
+        updateTooltipPoint(tooltipPoint)
     }
     
     func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
@@ -400,7 +403,7 @@ extension ORBMapView: NMFMapViewCameraDelegate {
     }
     
     func mapViewCameraIdle(_ mapView: NMFMapView) {
-        onMovieCameraIdle.accept(())
+        onMapViewCameraIdle.accept(())
     }
     
 }

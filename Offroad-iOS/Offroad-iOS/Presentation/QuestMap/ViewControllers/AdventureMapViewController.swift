@@ -27,13 +27,6 @@ class AdventureMapViewController: OffroadTabBarViewController {
     private var latestCategory: String?
     
     private var locationManager: CLLocationManager { viewModel.locationManager }
-//    private var selectedMarker: ORBNMFMarker? = nil
-    private var markerPoint: CGPoint? {
-        guard let selectedMarker = rootView.orbMapView.selectedMarker else { return nil }
-        let selectedMarkerPosition = rootView.orbMapView.mapView.projection.point(from: selectedMarker.position)
-        return self.rootView.orbMapView.mapView.convert(selectedMarkerPosition, to: self.rootView)
-    }
-    
     private var currentPositionTarget: NMGLatLng {
         rootView.orbMapView.mapView.cameraPosition.target
     }
@@ -152,8 +145,9 @@ extension AdventureMapViewController {
             .subscribe(onNext: { [weak self] marker in
                 guard let self else { return }
                 marker.touchHandler = { [weak self] overlay in
-                    guard let self else { return false }
-                    return self.markerTouchHandler(overlay: overlay)
+                    guard let marker = overlay as? ORBNMFMarker else { return false }
+                    self?.rootView.orbMapView.showTooltip(marker)
+                    return true
                 }
                 marker.mapView = self.rootView.orbMapView.mapView
             }).disposed(by: disposeBag)
@@ -241,25 +235,31 @@ extension AdventureMapViewController {
     }
     
     private func setupTooltipAction() {
-        rootView.orbMapView.exploreButtonTapped.subscribe(onNext: { [weak self] _ in
-            guard let self else { return }
-            
-            self.viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
+        rootView.orbMapView.exploreButtonTapped.subscribe(
+            // 툴팁의 탐험하기 버튼 탭 후 정상적으로 장소 데이터와 함께 이벤트를 받아온 경우
+            onNext: { [weak self] placeInfo in
                 guard let self else { return }
-                switch authorizationCase {
-                case .notDetermined:
-                    return
-                case .fullAccuracy:
-                    self.viewModel.authenticatePlaceAdventure(placeInfo: rootView.orbMapView.selectedMarker!.placeInfo)
-                case .reducedAccuracy:
-                    self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationReducedAccuracyMessage)
-                case .denied, .restricted:
-                    self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationUnauthorizedAdventureMessage)
-                case .servicesDisabled:
-                    self.viewModel.locationServicesDisabledRelay.accept(())
+                self.viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
+                    guard let self else { return }
+                    switch authorizationCase {
+                    case .notDetermined:
+                        return
+                    case .fullAccuracy:
+                        self.viewModel.authenticatePlaceAdventure(placeInfo: placeInfo)
+                    case .reducedAccuracy:
+                        self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationReducedAccuracyMessage)
+                    case .denied, .restricted:
+                        self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationUnauthorizedAdventureMessage)
+                    case .servicesDisabled:
+                        self.viewModel.locationServicesDisabledRelay.accept(())
+                    }
                 }
+            },
+            // 툴팁의 탐험하기 버튼 탭 이벤트를 전달받을 때 장소 데이터를 제대로 받아오지 못한 경우
+            onError: { error in
+                print((error as? ORBMapError)?.localizedDescription ?? error.localizedDescription)
             }
-        }).disposed(by: disposeBag)
+        ).disposed(by: disposeBag)
     }
     
     private func setupDelegates() {
@@ -272,17 +272,6 @@ extension AdventureMapViewController {
         rootView.orbMapView.moveCamera(scrollTo: currentLatLng, reason: 1) { isCancelled in
             completion?(isCancelled)
         }
-    }
-    
-    /// 마커를 탭 시 동작할 함수
-    ///- Parameters overlay: 탭 이벤트를 받아서 전달하는 NMFOverlay
-    /// - Returns: `true`를 반환할 경우 마커를 탭 시 메서드를 실행. 그렇지 않을 경우 `NMFMapView`까지 이벤트가 전달되어 `NMFMapViewTouchDelegate`의 `mapView(_:didTapMap:point:)`가  호출됩니다.
-    private func markerTouchHandler(overlay: NMFOverlay) -> Bool {
-        guard let marker = overlay as? ORBNMFMarker else { return false }
-        rootView.orbMapView.selectedMarker = marker
-        rootView.orbMapView.configureTooltip(place: marker.placeInfo)
-        rootView.orbMapView.showTooltipAtSelectedMarker()
-        return true
     }
     
     private func popupAdventureResult(

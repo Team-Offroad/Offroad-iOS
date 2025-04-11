@@ -75,7 +75,7 @@ extension PlaceInfoTooltipHelper {
             self?.tooltip.alpha = 0
         }, delayFactor: 0.3)
         tooltipHidingAnimator.addCompletion { [weak self] _ in
-            self?.tooltip.configure(with: nil)
+            self?.tooltip.setMarker(nil)
             self?.tooltip.isHidden = true
             completion?()
         }
