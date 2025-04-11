@@ -7,20 +7,56 @@
 
 import UIKit
 
+import NMapsMap
+
 final class PlaceInfoTooltip: UIView {
     
     //MARK: - UI Properties
+    
+    // 카테고리 이미지들
+    private let cafeImage = UIImage.imgCategoryCafe
+    private let parkImage = UIImage.imgCategoryPark
+    private let restaurantImage = UIImage.imgCategoryRestaurant
+    private let cultureImage = UIImage.imgCategoryCulture
+    private let sportsImage = UIImage.imgCategorySports
     
     private let tooptipImageView = UIImageView(image: .icnPlaceInfoPopupTooltip)
     private let rectView = UIView()
     private let offroadLogoImageView = UIImageView(image: .icnPlaceInfoTooltipOrbLogo)
     private let nameLabel = UILabel()
-    private let nameAndImageStackView = UIStackView()
-    
-    private var placeCategoryImageView = UIImageView()
+    private let placeCategoryImageView = UIImageView()
+    private lazy var nameAndImageStackView = UIStackView(arrangedSubviews: [nameLabel, placeCategoryImageView])
     private let shortDescriptionLabel = UILabel()
     private let addresssLabel = UILabel()
     private let visitCountLabel = UILabel()
+    
+    private(set) var marker: ORBNMFMarker? = nil {
+        didSet {
+            nameLabel.text = marker?.placeInfo.name ?? ""
+            shortDescriptionLabel.text = marker?.placeInfo.shortIntroduction ?? ""
+            addresssLabel.text = marker?.placeInfo.address ?? ""
+            visitCountLabel.text = "탐험횟수: \(marker?.placeInfo.visitCount ?? 0)"
+            exploreButton.isEnabled = marker != nil
+            // 카테고리 이미지 할당
+            let categoryImage: UIImage? = {
+                guard let marker, let category = ORBPlaceCategory(
+                    rawValue: marker.placeInfo.placeCategory.lowercased()
+                ) else {
+                    return nil
+                }
+                
+                switch category {
+                case .caffe: return cafeImage
+                case .park: return parkImage
+                case .restaurant: return restaurantImage
+                case .culture: return cultureImage
+                case .sport: return sportsImage
+                default: return nil
+                }
+            }()
+            placeCategoryImageView.image = categoryImage
+        }
+    }
     
     let exploreButton = ShrinkableButton(shrinkScale: 0.97)
     let closeButton = UIButton()
@@ -158,7 +194,9 @@ extension PlaceInfoTooltip  {
         exploreButton.do { button in
             button.setTitle("탐험하기", for: .normal)
             button.setTitleColor(.primary(.white), for: .normal)
-            button.configureBackgroundColorWhen(normal: .sub(.sub4), highlighted: .sub(.sub480))
+            button.configureBackgroundColorWhen(normal: .sub(.sub4),
+                                                highlighted: .sub(.sub480),
+                                                disabled: .grayscale(.gray200))
             button.configureTitleFontWhen(normal: .offroad(style: .iosBtnSmall))
             button.configuration?.baseForegroundColor = .primary(.white)
             button.roundCorners(cornerRadius: 5)
@@ -184,35 +222,20 @@ extension PlaceInfoTooltip  {
             exploreButton,
             closeButton
         )
-        nameAndImageStackView.addArrangedSubviews(nameLabel, placeCategoryImageView)
     }
     
     //MARK: - Func
     
-    func configure(with placeInfo: RegisteredPlaceInfo?) {
-        self.nameLabel.text = placeInfo?.name ?? ""
-        self.shortDescriptionLabel.text = placeInfo?.shortIntroduction ?? ""
-        self.addresssLabel.text = placeInfo?.address ?? ""
-        self.visitCountLabel.text = "탐험횟수:\(placeInfo?.visitCount ?? 0)"
-        guard let placeInfo else {
-            placeCategoryImageView.image = nil
-            return
-        }
-        guard let category = ORBPlaceCategory(rawValue: placeInfo.placeCategory.lowercased()) else { return }
-        switch category {
-        case .caffe:
-            placeCategoryImageView.image = .imgCategoryCafe
-        case .park:
-            placeCategoryImageView.image = .imgCategoryPark
-        case .restaurant:
-            placeCategoryImageView.image = .imgCategoryRestaurant
-        case .culture:
-            placeCategoryImageView.image = .imgCategoryCulture
-        case .sport:
-            placeCategoryImageView.image = .imgCategorySports
-        case .none:
-            placeCategoryImageView.image = nil
-        }
+    func setMarker(_ marker: ORBNMFMarker?) {
+        self.marker = marker
+    }
+    
+    /// 툴팁을 띄울 장소의 지도 뷰 상에서 위치. 툴팁이 마커 정보를 갖고 있지 않으면 `nil`을 반환.
+    /// - Parameter mapView: 툴팁이 표시될 지도. `NMFMapView` 타입
+    /// - Returns: 툴팁이 지도 뷰 상에 표시할 좌표.
+    func getPoint(in mapView: NMFMapView) -> CGPoint? {
+        guard let marker else { return nil }
+        return mapView.projection.point(from: marker.position)
     }
     
 }
