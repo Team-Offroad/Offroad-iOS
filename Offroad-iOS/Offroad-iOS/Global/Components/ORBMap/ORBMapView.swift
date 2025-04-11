@@ -63,8 +63,7 @@ final class ORBMapView: NMFNaverMapView {
     /// 그렇지 않을 경우 툴팁이 선택된 마커에 뜨지 않습니다.
 //    var selectedMarker: ORBNMFMarker? = nil
     
-    let tooltip = PlaceInfoTooltip()
-    
+    private let tooltip = PlaceInfoTooltip()
     private let shadingView = UIView()
     private lazy var tooltipHelper = PlaceInfoTooltipHelper(tooltip: tooltip, shadingView: shadingView)
     
