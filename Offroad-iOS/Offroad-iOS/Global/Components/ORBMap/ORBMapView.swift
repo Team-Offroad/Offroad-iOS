@@ -127,7 +127,7 @@ extension ORBMapView {
     
     private func setupTooltipAction() {
         tooltip.closeButton.rx.tap.bind(onNext: { [weak self] in
-            self?.hideTooltipAndUnselectMarker()
+            self?.hideTooltip()
         }).disposed(by: disposeBag)
         
         tooltip.exploreButton.rx.tap.bind(onNext: { [weak self] in
@@ -173,7 +173,7 @@ extension ORBMapView {
     private func setupGestureRecognizers() {
         let tapGesture = UITapGestureRecognizer()
         tapGesture.rx.event.subscribe(onNext: { [weak self] gesture in
-            self?.hideTooltipAndUnselectMarker()
+            self?.hideTooltip()
         }).disposed(by: disposeBag)
         shadingView.addGestureRecognizer(tapGesture)
     }
@@ -279,7 +279,7 @@ extension ORBMapView {
     }
     
     /// 툴팁을 숨기고 선택된 마커의 선택을 해제하는 함수.
-    public func hideTooltipAndUnselectMarker() {
+    public func hideTooltip() {
         tooltipWillHide.accept(())
         shadingView.isUserInteractionEnabled = false
         tooltipHelper.hideTooltip { [weak self] in
@@ -352,7 +352,7 @@ extension ORBMapView: NMFMapViewCameraDelegate {
      */
     func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
         if reason != -4 && hideTooltipWhenScrolling {
-            hideTooltipAndUnselectMarker()
+            hideTooltip()
         }
         switch reason {
         // tracking mode 변경 버튼을 눌렀을 때 카메라 이동
@@ -411,7 +411,7 @@ extension ORBMapView: NMFMapViewCameraDelegate {
 extension ORBMapView: NMFMapViewTouchDelegate {
     
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
-        self.hideTooltipAndUnselectMarker()
+        self.hideTooltip()
     }
     
 }

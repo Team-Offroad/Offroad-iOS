@@ -169,7 +169,7 @@ extension AdventureMapViewController {
             self.rootView.stopCenterLoading()
             if locationValidation && isFirstVisitToday {
                 AmplitudeManager.shared.trackEvent(withName: AmplitudeEventTitles.exploreSuccess)
-                rootView.orbMapView.hideTooltipAndUnselectMarker()
+                rootView.orbMapView.hideTooltip()
             }
             self.popupAdventureResult(isValidLocation: locationValidation,
                                       image: image,
@@ -182,7 +182,7 @@ extension AdventureMapViewController {
             self.rootView.reloadPlaceButton.isEnabled = false
             try? self.viewModel.markersSubject.value().forEach({ marker in marker.mapView = nil })
             self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
-            self.rootView.orbMapView.hideTooltipAndUnselectMarker()
+            self.rootView.orbMapView.hideTooltip()
         }.disposed(by: disposeBag)
         
         rootView.switchTrackingModeButton.rx.tap.bind { [weak self] _ in
@@ -370,7 +370,7 @@ extension AdventureMapViewController: CLLocationManagerDelegate {
             case .fullAccuracy:
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
-                    self.rootView.orbMapView.hideTooltipAndUnselectMarker()
+                    self.rootView.orbMapView.hideTooltip()
                     self.focusToMyPosition()
                     self.rootView.orbMapView.mapView.positionMode = .direction
                     setLocationOverlayHiddenState(to: false)
