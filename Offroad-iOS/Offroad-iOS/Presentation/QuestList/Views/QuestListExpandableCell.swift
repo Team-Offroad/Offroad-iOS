@@ -211,8 +211,6 @@ extension QuestListExpandableCell {
         questRewardDescriptionLabel.snp.makeConstraints { make in
             make.top.greaterThanOrEqualTo(questClearConditionLabel.snp.bottom).offset(7)
             make.leading.equalTo(giftBoxImageVIew.snp.trailing).offset(6)
-            // 피그마상으로는 22라고 되어있는데, 잘못된 것 같아 임의로 설정함.
-            // 디자이너분들과 논의 후 확정 필요
             make.trailing.equalToSuperview().inset(12)
             make.bottom.equalToSuperview().inset(9)
         }
