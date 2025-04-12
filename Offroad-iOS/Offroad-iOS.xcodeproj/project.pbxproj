@@ -48,6 +48,8 @@
 		4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6CE2C456FBF007358DA /* UITabBar+.swift */; };
 		4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */; };
 		4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */; };
+		4E38A4452DAAAC8A00110780 /* ExpandableCell in Frameworks */ = {isa = PBXBuildFile; productRef = 4E38A4442DAAAC8A00110780 /* ExpandableCell */; };
+		4E38A4472DAAAC9C00110780 /* ExpandableCell in Frameworks */ = {isa = PBXBuildFile; productRef = 4E38A4462DAAAC9C00110780 /* ExpandableCell */; };
 		4E38F0EF2C9EBAFA00C7B866 /* ORBAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38F0EE2C9EBAFA00C7B866 /* ORBAlertAction.swift */; };
 		4E393C9A2C48C9A6003403EC /* QuestResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E393C992C48C9A6003403EC /* QuestResultViewController.swift */; };
 		4E393C9C2C48C9B2003403EC /* QuestResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E393C9B2C48C9B2003403EC /* QuestResultView.swift */; };
@@ -358,17 +360,17 @@
 		4E7A609F2D1C698F0079007C /* ORBMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A609E2D1C698F0079007C /* ORBMapViewController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
-		4E9759EF2DA0138800F30692 /* DeveloperModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759EE2DA0138800F30692 /* DeveloperModeViewController.swift */; };
-		4E9759F22DA013B300F30692 /* DeveloperModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759F12DA013B300F30692 /* DeveloperModeView.swift */; };
-		4E9759FA2DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759F92DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift */; };
-		4E9759FC2DA0E4B300F30692 /* DeveloperModeSettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759FB2DA0E4B300F30692 /* DeveloperModeSettingModel.swift */; };
-		4E9759FE2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759FD2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift */; };
 		4E9759D22D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
 		4E9759D32D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
 		4E9759E12D9F9A6C00F30692 /* QuestListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */; };
 		4E9759E22D9F9A6C00F30692 /* QuestListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */; };
 		4E9759E42D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */; };
 		4E9759E52D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */; };
+		4E9759EF2DA0138800F30692 /* DeveloperModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759EE2DA0138800F30692 /* DeveloperModeViewController.swift */; };
+		4E9759F22DA013B300F30692 /* DeveloperModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759F12DA013B300F30692 /* DeveloperModeView.swift */; };
+		4E9759FA2DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759F92DA0CC2F00F30692 /* DeveloperModeSwitchCell.swift */; };
+		4E9759FC2DA0E4B300F30692 /* DeveloperModeSettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759FB2DA0E4B300F30692 /* DeveloperModeSettingModel.swift */; };
+		4E9759FE2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759FD2DA0FE9D00F30692 /* DeveloperModeNormalCell.swift */; };
 		4E99007C2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007B2CDB952C007EEFF7 /* ORBCharacterChatWindow.swift */; };
 		4E99007E2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007D2CDBCD46007EEFF7 /* ORBCharacterChatManager.swift */; };
 		4E9900802CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E99007F2CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift */; };
@@ -1015,6 +1017,7 @@
 				4E0394D12C2AB846007F0517 /* KakaoSDKAuth in Frameworks */,
 				D0600BDA2CE50CF900D8F1D6 /* FirebaseMessaging in Frameworks */,
 				4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */,
+				4E38A4472DAAAC9C00110780 /* ExpandableCell in Frameworks */,
 				304C93D171B33D99789DA86D /* Pods_Offroad_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1045,6 +1048,7 @@
 				4E4F32592D4718F400C3B2FF /* Kingfisher in Frameworks */,
 				4E4F325A2D4718F400C3B2FF /* Moya in Frameworks */,
 				4E4F325B2D4718F400C3B2FF /* KakaoSDKUser in Frameworks */,
+				4E38A4452DAAAC8A00110780 /* ExpandableCell in Frameworks */,
 				4E4F325C2D4718F400C3B2FF /* Then in Frameworks */,
 				4E4F325D2D4718F400C3B2FF /* SVGKitSwift in Frameworks */,
 				4E4F325E2D4718F400C3B2FF /* RxCocoa in Frameworks */,
@@ -3186,6 +3190,7 @@
 				D0600BD72CE50AE600D8F1D6 /* FirebaseAnalytics */,
 				D0600BD92CE50CF900D8F1D6 /* FirebaseMessaging */,
 				4EA272422D58560B00F64B20 /* AmplitudeSwift */,
+				4E38A4462DAAAC9C00110780 /* ExpandableCell */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E0394292C2A9DCE007F0517 /* ORB.app */;
@@ -3262,6 +3267,7 @@
 				4E4F31612D4718F400C3B2FF /* FirebaseMessaging */,
 				4EA272402D5855E700F64B20 /* AmplitudeSwift */,
 				D0CA206B2D7DCF5900FDF7F4 /* FSCalendar */,
+				4E38A4442DAAAC8A00110780 /* ExpandableCell */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E4F327A2D4718F400C3B2FF /* ORB_Dev.app */;
@@ -3337,6 +3343,7 @@
 				D0600BD62CE50AE600D8F1D6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */,
 				D0CA206A2D7DCF5900FDF7F4 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				4E38A4432DAAAC8A00110780 /* XCRemoteSwiftPackageReference "ExpandableCell" */,
 			);
 			productRefGroup = 4E03942A2C2A9DCE007F0517 /* Products */;
 			projectDirPath = "";
@@ -4744,6 +4751,14 @@
 				minimumVersion = 2.22.3;
 			};
 		};
+		4E38A4432DAAAC8A00110780 /* XCRemoteSwiftPackageReference "ExpandableCell" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nolanMinsung/ExpandableCell.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		4E4F314C2D4718F400C3B2FF /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -4904,6 +4919,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E0394CF2C2AB846007F0517 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		4E38A4442DAAAC8A00110780 /* ExpandableCell */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E38A4432DAAAC8A00110780 /* XCRemoteSwiftPackageReference "ExpandableCell" */;
+			productName = ExpandableCell;
+		};
+		4E38A4462DAAAC9C00110780 /* ExpandableCell */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E38A4432DAAAC8A00110780 /* XCRemoteSwiftPackageReference "ExpandableCell" */;
+			productName = ExpandableCell;
 		};
 		4E4F314B2D4718F400C3B2FF /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
