@@ -267,7 +267,7 @@ extension ORBMapView {
             moveCamera(scrollTo: tooltip.marker!.position, animationCurve: .fly, animationDuration: 0.5, reason: -4)
         } else {
             let mapSize = mapView.frame.size
-            let delta = tooltipHelper.caculateDeltaToShowTooltip(
+            let delta = tooltipHelper.calculateDeltaToShowTooltip(
                 point: tooltipPoint,
                 at: mapSize,
                 tooltipSize: tooltip.frame.size,

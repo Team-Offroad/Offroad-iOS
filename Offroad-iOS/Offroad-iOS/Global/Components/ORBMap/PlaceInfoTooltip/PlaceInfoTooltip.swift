@@ -20,21 +20,21 @@ final class PlaceInfoTooltip: UIView {
     private let cultureImage = UIImage.imgCategoryCulture
     private let sportsImage = UIImage.imgCategorySports
     
-    private let tooptipImageView = UIImageView(image: .icnPlaceInfoPopupTooltip)
+    private let tooltipImageView = UIImageView(image: .icnPlaceInfoPopupTooltip)
     private let rectView = UIView()
     private let offroadLogoImageView = UIImageView(image: .icnPlaceInfoTooltipOrbLogo)
     private let nameLabel = UILabel()
     private let placeCategoryImageView = UIImageView()
     private lazy var nameAndImageStackView = UIStackView(arrangedSubviews: [nameLabel, placeCategoryImageView])
     private let shortDescriptionLabel = UILabel()
-    private let addresssLabel = UILabel()
+    private let addressLabel = UILabel()
     private let visitCountLabel = UILabel()
     
     private(set) var marker: ORBNMFMarker? = nil {
         didSet {
             nameLabel.text = marker?.placeInfo.name ?? ""
             shortDescriptionLabel.text = marker?.placeInfo.shortIntroduction ?? ""
-            addresssLabel.text = marker?.placeInfo.address ?? ""
+            addressLabel.text = marker?.placeInfo.address ?? ""
             visitCountLabel.text = "탐험횟수: \(marker?.placeInfo.visitCount ?? 0)"
             exploreButton.isEnabled = marker != nil
             // 카테고리 이미지 할당
@@ -82,7 +82,7 @@ extension PlaceInfoTooltip  {
     //MARK: - Layout Func
     
     private func setupLayout() {
-        tooptipImageView.snp.makeConstraints { make in
+        tooltipImageView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
             make.centerX.equalToSuperview()
         }
@@ -113,13 +113,13 @@ extension PlaceInfoTooltip  {
             make.horizontalEdges.equalToSuperview().inset(15)
         }
         
-        addresssLabel.snp.makeConstraints { make in
+        addressLabel.snp.makeConstraints { make in
             make.top.equalTo(shortDescriptionLabel.snp.bottom).offset(4)
             make.horizontalEdges.equalToSuperview().inset(15)
         }
         
         visitCountLabel.snp.makeConstraints { make in
-            make.top.equalTo(addresssLabel.snp.bottom).offset(10)
+            make.top.equalTo(addressLabel.snp.bottom).offset(10)
             make.leading.equalToSuperview().inset(15)
         }
         
@@ -178,7 +178,7 @@ extension PlaceInfoTooltip  {
             label.textAlignment = .left
         }
         
-        addresssLabel.do { label in
+        addressLabel.do { label in
             label.font = .offroad(style: .iosTextContentsSmall)
             label.textColor = .grayscale(.gray400)
             label.numberOfLines = 2
@@ -210,14 +210,14 @@ extension PlaceInfoTooltip  {
     
     private func setupHierarchy() {
         addSubviews(
-            tooptipImageView,
+            tooltipImageView,
             rectView
         )
         rectView.addSubviews(
             offroadLogoImageView,
             nameAndImageStackView,
             shortDescriptionLabel,
-            addresssLabel,
+            addressLabel,
             visitCountLabel,
             exploreButton,
             closeButton
