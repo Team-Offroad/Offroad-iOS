@@ -36,9 +36,14 @@ final class QuestListExpandableCell: ExpandableCell, Shrinkable {
     
     private let questInfoView = UILabel()
     private let checkBoxImageView = UIImageView(image: .icnQuestListCheckBox)
-    private let giftBoxImageVIew = UIImageView(image: .icnQuestListGiftBox)
     private let questClearConditionLabel = UILabel()
+    private lazy var stackView1 = UIStackView(arrangedSubviews: [checkBoxImageView, questClearConditionLabel])
+    
+    private let giftBoxImageVIew = UIImageView(image: .icnQuestListGiftBox)
     private let questRewardDescriptionLabel = UILabel()
+    private lazy var stackView2 = UIStackView(arrangedSubviews: [giftBoxImageVIew, questRewardDescriptionLabel])
+    
+    private lazy var stackViewStack = UIStackView(arrangedSubviews: [stackView1, stackView2])
     
     //MARK: - Life Cycle
 
@@ -95,12 +100,7 @@ extension QuestListExpandableCell {
             questInfoView
         )
         
-        questInfoView.addSubviews(
-            checkBoxImageView,
-            giftBoxImageVIew,
-            questClearConditionLabel,
-            questRewardDescriptionLabel
-        )
+        questInfoView.addSubview(stackViewStack)
     }
 
     private func setupStyle() {
@@ -157,6 +157,20 @@ extension QuestListExpandableCell {
             label.numberOfLines = 0
             label.textAlignment = .left
         }
+        
+        [stackView1, stackView2].forEach { stackView in
+            stackView.axis = .horizontal
+            stackView.spacing = 6
+            stackView.alignment = .center
+            stackView.distribution = .fillProportionally
+        }
+        
+        stackViewStack.do { stackView in
+            stackView.axis = .vertical
+            stackView.spacing = 4
+            stackView.alignment = .fill
+            stackView.distribution = .fillProportionally
+        }
     }
 
     private func setupLayout() {
@@ -189,39 +203,22 @@ extension QuestListExpandableCell {
             make.horizontalEdges.equalToSuperview().inset(20)
         }
         
-        checkBoxImageView.snp.makeConstraints { make in
-            make.centerY.equalTo(questClearConditionLabel)
-            make.top.greaterThanOrEqualToSuperview().inset(9)
-            make.leading.equalToSuperview().inset(12)
-            make.size.equalTo(25)
-        }
-        
-        giftBoxImageVIew.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(checkBoxImageView.snp.bottom).offset(4)
-            make.centerY.equalTo(questRewardDescriptionLabel)
-            make.leading.equalToSuperview().inset(12)
-            make.bottom.equalToSuperview().inset(9)
-            make.size.equalTo(25)
-        }
-
-        questClearConditionLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(9)
-            make.leading.equalTo(checkBoxImageView.snp.trailing).offset(6)
-            make.trailing.equalToSuperview().inset(12)
-        }
-        
-        questRewardDescriptionLabel.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(questClearConditionLabel.snp.bottom).offset(7)
-            make.leading.equalTo(giftBoxImageVIew.snp.trailing).offset(6)
-            make.trailing.equalToSuperview().inset(12)
-            make.bottom.equalToSuperview().inset(9)
-        }
-        
         questInfoView.snp.makeConstraints { make in
             make.top.equalTo(questDescriptionLabel.snp.bottom).offset(14)
             make.horizontalEdges.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(18)
         }
+        
+        [checkBoxImageView, giftBoxImageVIew].forEach { imagView in
+            imagView.widthAnchor.constraint(equalToConstant: 25).isActive = true
+            imagView.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        }
+        
+        stackViewStack.snp.makeConstraints { make in
+            make.verticalEdges.equalToSuperview().inset(9)
+            make.horizontalEdges.equalToSuperview().inset(12)
+        }
+        
     }
 
     //MARK: - Func
