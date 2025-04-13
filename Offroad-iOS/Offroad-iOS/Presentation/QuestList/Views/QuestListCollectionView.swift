@@ -63,8 +63,8 @@ extension QuestListCollectionView {
     
     private func setupCollectionView() {
         register(
-            QuestListExpandableCell.self,
-            forCellWithReuseIdentifier: QuestListExpandableCell.className
+            QuestListCell.self,
+            forCellWithReuseIdentifier: QuestListCell.className
         )
         dataSource = self
         animationSpeed = UIAccessibility.isReduceMotionEnabled ? .none : .medium
@@ -151,9 +151,9 @@ extension QuestListCollectionView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: QuestListExpandableCell.className,
+            withReuseIdentifier: QuestListCell.className,
             for: indexPath
-        ) as? QuestListExpandableCell else { fatalError("cell dequeing Failed!") }
+        ) as? QuestListCell else { fatalError("cell dequeing Failed!") }
         
         if isActive {
             cell.configureCell(with: activeQuestList[indexPath.item]

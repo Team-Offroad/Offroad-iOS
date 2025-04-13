@@ -1,5 +1,5 @@
 //
-//  QuestListExpandableCell.swift
+//  QuestListCell.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 4/12/25.
@@ -11,7 +11,7 @@ import ExpandableCell
 import SnapKit
 import Then
 
-final class QuestListExpandableCell: ExpandableCell, Shrinkable {
+final class QuestListCell: ExpandableCell, Shrinkable {
     
     let shrinkingAnimator: UIViewPropertyAnimator = .init(duration: 0.5, dampingRatio: 1)
     
@@ -83,7 +83,7 @@ final class QuestListExpandableCell: ExpandableCell, Shrinkable {
     
 }
 
-extension QuestListExpandableCell {
+extension QuestListCell {
     
     //MARK: - Private Func
 

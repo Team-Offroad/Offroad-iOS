@@ -50,8 +50,8 @@
 		4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */; };
 		4E38A4452DAAAC8A00110780 /* ExpandableCell in Frameworks */ = {isa = PBXBuildFile; productRef = 4E38A4442DAAAC8A00110780 /* ExpandableCell */; };
 		4E38A4472DAAAC9C00110780 /* ExpandableCell in Frameworks */ = {isa = PBXBuildFile; productRef = 4E38A4462DAAAC9C00110780 /* ExpandableCell */; };
-		4E38A4492DAAACCF00110780 /* QuestListExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38A4482DAAACCF00110780 /* QuestListExpandableCell.swift */; };
-		4E38A44A2DAAACCF00110780 /* QuestListExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38A4482DAAACCF00110780 /* QuestListExpandableCell.swift */; };
+		4E38A4492DAAACCF00110780 /* QuestListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38A4482DAAACCF00110780 /* QuestListCell.swift */; };
+		4E38A44A2DAAACCF00110780 /* QuestListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38A4482DAAACCF00110780 /* QuestListCell.swift */; };
 		4E38F0EF2C9EBAFA00C7B866 /* ORBAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38F0EE2C9EBAFA00C7B866 /* ORBAlertAction.swift */; };
 		4E393C9A2C48C9A6003403EC /* QuestResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E393C992C48C9A6003403EC /* QuestResultViewController.swift */; };
 		4E393C9C2C48C9B2003403EC /* QuestResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E393C9B2C48C9B2003403EC /* QuestResultView.swift */; };
@@ -693,7 +693,7 @@
 		4E37B6CE2C456FBF007358DA /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterView.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/View/CompleteChoosingCharacterView.swift"; sourceTree = SOURCE_ROOT; };
 		4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterViewController.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/ViewController/CompleteChoosingCharacterViewController.swift"; sourceTree = SOURCE_ROOT; };
-		4E38A4482DAAACCF00110780 /* QuestListExpandableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListExpandableCell.swift; sourceTree = "<group>"; };
+		4E38A4482DAAACCF00110780 /* QuestListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListCell.swift; sourceTree = "<group>"; };
 		4E38F0EE2C9EBAFA00C7B866 /* ORBAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertAction.swift; sourceTree = "<group>"; };
 		4E393C992C48C9A6003403EC /* QuestResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestResultViewController.swift; sourceTree = "<group>"; };
 		4E393C9B2C48C9B2003403EC /* QuestResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestResultView.swift; sourceTree = "<group>"; };
@@ -1938,7 +1938,7 @@
 				4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */,
 				4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */,
 				4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */,
-				4E38A4482DAAACCF00110780 /* QuestListExpandableCell.swift */,
+				4E38A4482DAAACCF00110780 /* QuestListCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3809,7 +3809,7 @@
 				D0600BE92CE61EB000D8F1D6 /* PushNotificationAPI.swift in Sources */,
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
 				8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */,
-				4E38A44A2DAAACCF00110780 /* QuestListExpandableCell.swift in Sources */,
+				4E38A44A2DAAACCF00110780 /* QuestListCell.swift in Sources */,
 				D00A488C2C7830F3008B286A /* TermsConsentPopupView.swift in Sources */,
 				4E9900802CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift in Sources */,
 				8792D0242C3F0843002051AC /* ChoosingCharacterCell.swift in Sources */,
@@ -3887,7 +3887,7 @@
 				4E4F31752D4718F400C3B2FF /* ORBTabBarShapeView.swift in Sources */,
 				4E9759EF2DA0138800F30692 /* DeveloperModeViewController.swift in Sources */,
 				4E4F31762D4718F400C3B2FF /* SettingViewController.swift in Sources */,
-				4E38A4492DAAACCF00110780 /* QuestListExpandableCell.swift in Sources */,
+				4E38A4492DAAACCF00110780 /* QuestListCell.swift in Sources */,
 				4E4F31772D4718F400C3B2FF /* ORBCharacterChatBox.swift in Sources */,
 				D0CA20732D7F4BC200FDF7F4 /* DiaryViewModel.swift in Sources */,
 				4E4F31782D4718F400C3B2FF /* TitlePopupViewController.swift in Sources */,
