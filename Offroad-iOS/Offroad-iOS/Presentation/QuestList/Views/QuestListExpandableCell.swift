@@ -191,7 +191,7 @@ extension QuestListExpandableCell {
             make.centerY.equalTo(questNameLabel)
             make.trailing.equalTo(chevronImageView.snp.leading)
         }
-
+        
         chevronImageView.snp.makeConstraints { make in
             make.centerY.equalTo(questNameLabel)
             make.trailing.equalToSuperview()
@@ -209,9 +209,8 @@ extension QuestListExpandableCell {
             make.bottom.equalToSuperview().inset(18)
         }
         
-        [checkBoxImageView, giftBoxImageVIew].forEach { imagView in
-            imagView.widthAnchor.constraint(equalToConstant: 25).isActive = true
-            imagView.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        [checkBoxImageView, giftBoxImageVIew].forEach { imageView in
+            imageView.heightAnchor.constraint(equalToConstant: 25).isActive = true
         }
         
         stackViewStack.snp.makeConstraints { make in
