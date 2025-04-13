@@ -29,7 +29,6 @@ final class QuestListExpandableCell: ExpandableCell, Shrinkable {
     //MARK: - UI Properties
     
     private let questNameLabel = UILabel()
-    private let spacer = UILayoutGuide()
     private let questProgressLabel = UILabel()
     private let chevronImageView = UIImageView(image: .icnQuestListExpendableCellChevron)
     
@@ -90,7 +89,6 @@ extension QuestListExpandableCell {
             questProgressLabel,
             chevronImageView
         )
-        mainContentView.addLayoutGuide(spacer)
         
         detailContentView.addSubviews(
             questDescriptionLabel,
@@ -113,7 +111,7 @@ extension QuestListExpandableCell {
             label.font = .offroad(style: .iosTextBold)
             label.textColor = .main(.main2)
             label.textAlignment = .left
-            label.numberOfLines = 0
+            label.numberOfLines = 2
         }
         
         questProgressLabel.do { label in
@@ -162,16 +160,20 @@ extension QuestListExpandableCell {
     }
 
     private func setupLayout() {
+        mainContentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
+        
+        questNameLabel.setContentHuggingPriority(.init(251), for: .horizontal)
         questNameLabel.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview().inset(18)
             make.leading.equalToSuperview().inset(20)
-            make.trailing.equalTo(spacer.snp.leading)
+            make.trailing.equalTo(questProgressLabel.snp.leading).offset(-7)
         }
         
-        spacer.widthAnchor.constraint(greaterThanOrEqualToConstant: 7).isActive = true
-        
+        questProgressLabel.setContentHuggingPriority(
+            questNameLabel.contentHuggingPriority(for: .horizontal) + 1,
+            for: .horizontal
+        )
         questProgressLabel.snp.makeConstraints { make in
-            make.leading.equalTo(spacer.snp.trailing)
             make.centerY.equalTo(questNameLabel)
             make.trailing.equalTo(chevronImageView.snp.leading)
         }

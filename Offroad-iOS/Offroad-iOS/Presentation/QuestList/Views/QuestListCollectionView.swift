@@ -46,11 +46,15 @@ final class QuestListCollectionView: ExpandableCellCollectionView, ORBEmptyCaseS
         
         indicatorStyle = .black
         setupCollectionView()
-        getInitialQuestList(isActive: true)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // 스크롤 로딩 시 로딩 화면이 이상하게 위치하는 현상이 있어서 inset이 바뀔 때마다 위치 재조정
+    public override func adjustedContentInsetDidChange() {
+        performBatchUpdates(nil)
     }
     
 }
@@ -80,12 +84,17 @@ extension QuestListCollectionView {
                     self.allQuestList = questListFromServer
                     self.setEmptyState(self.allQuestList.isEmpty)
                 }
-                self.stopCenterLoading()
+                self.alpha = 0
                 self.reloadData()
-                // 처음 데이터를 불러왔을 때 `reloadData()` 만 호출하면 하단 로딩 로티 위치가 이상하게 잡히는 문제 발생
-                // `reloadData()` 호출 후 `performBatchUpdates()` 호출 시 문제 해결
+                CATransaction.begin()
+                // 컨텐츠를 불러오면 처음 한 번 셀이 레이아웃을 잡는 애니메이션이 재생됨.
+                // 컨텐츠가 처음 뜰 때 애니메이션이 재생되는 것을 숨기기 위해서 레이아웃 애니메이션이 끝난 후에 컨텐츠 표시.
+                CATransaction.setCompletionBlock { [weak self] in
+                    self?.stopCenterLoading()
+                    self?.alpha = 1
+                }
                 self.performBatchUpdates(nil)
-                
+                CATransaction.commit()
                 lastCursorID = questListFromServer.last?.cursorId ?? Int()
             default:
                 return
