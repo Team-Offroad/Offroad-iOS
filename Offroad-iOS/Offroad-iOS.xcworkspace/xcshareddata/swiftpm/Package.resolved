@@ -1,5 +1,5 @@
 {
-  "originHash" : "6bad5e187129c90691355074475801ad0c36ba8406f960da4c130ed7778a71ac",
+  "originHash" : "cbca6f49d2807951da83e6252f2692b7eea82ff875bd05eb745b7b939e4057c7",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -60,8 +60,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/nolanMinsung/ExpandableCell.git",
       "state" : {
-        "revision" : "a1bcc7f37121631d2b483dbfcc28d733c7f764ff",
-        "version" : "1.0.0"
+        "revision" : "91ba04f99a991a3243f10ce2497c297e5e1db105",
+        "version" : "1.0.1"
       }
     },
     {
