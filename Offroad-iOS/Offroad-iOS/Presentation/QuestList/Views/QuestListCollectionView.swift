@@ -67,6 +67,7 @@ extension QuestListCollectionView {
             forCellWithReuseIdentifier: QuestListExpandableCell.className
         )
         dataSource = self
+        animationSpeed = UIAccessibility.isReduceMotionEnabled ? .none : .medium
     }
     
     func getInitialQuestList(isActive: Bool, cursor: Int = 0, size: Int = 20) {
