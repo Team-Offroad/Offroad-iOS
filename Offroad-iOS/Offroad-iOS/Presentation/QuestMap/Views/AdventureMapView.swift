@@ -13,7 +13,7 @@ import RxCocoa
 import SnapKit
 import Then
 
-class AdventureMapView: UIView, ORBCenterLoadingStyle {
+final class AdventureMapView: UIView, ORBCenterLoadingStyle {
     
     //MARK: - UI Properties
     
