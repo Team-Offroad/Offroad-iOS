@@ -117,7 +117,7 @@ extension QuestListCollectionView {
                 
                 if isActive {
                     self.activeQuestList.append(contentsOf: newItems)
-                    self.setEmptyState(!self.activeQuestList.isEmpty)
+                    self.setEmptyState(self.activeQuestList.isEmpty)
                 } else {
                     self.allQuestList.append(contentsOf: newItems)
                     self.setEmptyState(self.allQuestList.isEmpty)
