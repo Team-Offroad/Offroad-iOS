@@ -161,8 +161,8 @@ extension AdventureMapViewModel {
         #else
         let dto = AdventuresPlaceAuthenticationRequestDTO(
             placeId: placeInfo.id,
-            latitude: placeInfo.latitude,
-            longitude: placeInfo.longitude
+            latitude: currentLocation.lat,
+            longitude: currentLocation.lng
         )
         #endif
         
