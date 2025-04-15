@@ -1,5 +1,5 @@
 //
-//  ORBMapView.swift
+//  AdventureMapView.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 2024/07/07.
@@ -8,10 +8,12 @@
 import UIKit
 
 import NMapsMap
+import RxSwift
+import RxCocoa
 import SnapKit
 import Then
 
-class ORBMapView: UIView, ORBCenterLoadingStyle {
+final class AdventureMapView: UIView, ORBCenterLoadingStyle {
     
     //MARK: - UI Properties
     
@@ -20,29 +22,18 @@ class ORBMapView: UIView, ORBCenterLoadingStyle {
     let titleLabel = UILabel()
     let gradientView = UIView()
     let gradientLayer = CAGradientLayer()
-    let markerTapBlocker = UIView()
-    let shadingView = UIView()
-    let tooltip: PlaceInfoTooltip = .init()
     let reloadPlaceButton = ShrinkableButton()
     let switchTrackingModeButton = UIButton()
     let listButtonStackView = UIStackView()
     let questListButton = ORBMapListButton(image: .iconListBullet, title: "퀘스트 목록")
     let placeListButton = ORBMapListButton(image: .iconPlaceMarker, title: "장소 목록")
     
-    let naverMapView = NMFNaverMapView()
+    lazy var orbMapView = ORBMapView()
     let compass = NMFCompassView()
     private let triangleArrowOverlayImage = NMFOverlayImage(image: .icnQuestMapNavermapLocationOverlaySubIcon1)
     let locationOverlayImage = NMFOverlayImage(image: .icnQuestMapCircleInWhiteBorder)
     
-    // tooltip의 centerYAnchor인 이유는 tooltip.layer.anchorPoint가 (0.5, 1)이기 때문
-    lazy var tooltipCenterYConstraint = tooltip.centerYAnchor.constraint(equalTo: self.topAnchor, constant: 0)
-    lazy var tooltipCenterXConstraint = tooltip.centerXAnchor.constraint(equalTo: self.leadingAnchor, constant: 0)
-    
-    var tooltipAnchorPoint: CGPoint = .zero {
-        didSet {
-            updateTooltipPosition()
-        }
-    }
+    private var disposBag = DisposeBag()
     
     //MARK: - Life Cycle
     
@@ -52,7 +43,7 @@ class ORBMapView: UIView, ORBCenterLoadingStyle {
         setupHierarchy()
         setupStyle()
         setupLayout()
-        setupInitialNaverMapView()
+        setupCustomCompass()
     }
     
     required init?(coder: NSCoder) {
@@ -68,7 +59,7 @@ class ORBMapView: UIView, ORBCenterLoadingStyle {
     
 }
 
-extension ORBMapView {
+extension AdventureMapView {
     
     //MARK: - Layout Func
     
@@ -94,18 +85,6 @@ extension ORBMapView {
             make.horizontalEdges.bottom.equalToSuperview()
         }
         
-        markerTapBlocker.snp.makeConstraints { make in
-            make.top.equalTo(listButtonStackView)
-            make.horizontalEdges.bottom.equalToSuperview()
-        }
-        
-        shadingView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        tooltipCenterYConstraint.isActive = true
-        tooltipCenterXConstraint.isActive = true
-        
         reloadPlaceButton.snp.makeConstraints { make in
             make.top.equalTo(customNavigationBar.snp.bottom).offset(23)
             make.centerX.equalToSuperview()
@@ -113,7 +92,7 @@ extension ORBMapView {
             make.height.equalTo(33)
         }
         
-        naverMapView.snp.makeConstraints { make in
+        orbMapView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.top.equalTo(navigationBarSeparator.snp.bottom)
             make.bottom.equalToSuperview()
@@ -142,11 +121,11 @@ extension ORBMapView {
     //MARK: - Private Func
     
     private func setupHierarchy() {
-        naverMapView.addSubviews(gradientView, markerTapBlocker, reloadPlaceButton, switchTrackingModeButton, shadingView, tooltip)
+        orbMapView.addSubviews(gradientView, reloadPlaceButton, switchTrackingModeButton)
         listButtonStackView.addArrangedSubviews(questListButton, placeListButton)
         customNavigationBar.addSubview(titleLabel)
         addSubviews(
-            naverMapView,
+            orbMapView,
             listButtonStackView,
             compass,
             customNavigationBar,
@@ -169,10 +148,6 @@ extension ORBMapView {
             view.backgroundColor = .grayscale(.gray100)
         }
         
-        shadingView.do { view in
-            view.isUserInteractionEnabled = false
-        }
-        
         gradientView.isUserInteractionEnabled = false
         gradientLayer.do { layer in
             layer.type = .axial
@@ -180,11 +155,6 @@ extension ORBMapView {
             layer.startPoint = CGPoint(x: 0, y: 1)
             layer.endPoint = CGPoint(x: 0, y: 0)
             layer.locations = [0, 1]
-        }
-        
-        markerTapBlocker.do { view in
-            view.backgroundColor = .clear
-            view.isUserInteractionEnabled = false
         }
         
         reloadPlaceButton.do { button in
@@ -216,49 +186,15 @@ extension ORBMapView {
             stackView.alignment = .fill
             stackView.distribution = .fillEqually
         }
+        
+        orbMapView.onMapViewCameraIdle.subscribe(onNext: { [weak self] in
+            self?.reloadPlaceButton.isEnabled = true
+        }).disposed(by: disposBag)
     }
     
-    private func setupInitialNaverMapView() {
-        naverMapView.showZoomControls = false
-        naverMapView.mapView.logoAlign = .leftTop
-        naverMapView.showCompass = false
-        naverMapView.mapView.positionMode = .compass
-        naverMapView.mapView.logoInteractionEnabled = true
-        
+    private func setupCustomCompass() {
         compass.contentMode = .scaleAspectFit
-        compass.mapView = naverMapView.mapView
-        
-        // 현재 위치 표시하는 마커 커스텀
-        naverMapView.mapView.locationOverlay.icon = locationOverlayImage
-        customizeLocationOverlaySubIcon(mode: .compass)
-    }
-    
-    private func updateTooltipPosition() {
-        // 17 뺀 것은 툴팁 아래 화살표 끝 위치를 마커의 중앙으로 설정하기 위함.
-        tooltipCenterYConstraint.constant = tooltipAnchorPoint.y - 17
-        tooltipCenterXConstraint.constant = tooltipAnchorPoint.x
-        layoutIfNeeded()
-    }
-    
-    //MARK: - Func
-    
-    func customizeLocationOverlaySubIcon(mode: NMFMyPositionMode) {
-        switch mode {
-        case .normal:
-            naverMapView.mapView.locationOverlay.subIcon = nil
-        case .compass, .direction:
-            // 현재 위치 표시하는 마커 커스텀
-            naverMapView.mapView.locationOverlay.icon = locationOverlayImage
-            naverMapView.mapView.locationOverlay.do { overlay in
-                overlay.subIcon = triangleArrowOverlayImage
-                overlay.subAnchor = CGPoint(x: 0.5, y: 1) // 기본값임
-                overlay.subIconWidth = 8
-                overlay.subIconHeight = 17.5
-                overlay.circleColor = .sub(.sub).withAlphaComponent(0.25)
-            }
-        default:
-            break
-        }
+        compass.mapView = orbMapView.mapView
     }
     
 }

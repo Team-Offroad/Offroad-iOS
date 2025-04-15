@@ -14,7 +14,6 @@ final class PlaceInfoTooltipHelper {
     unowned let tooltip: PlaceInfoTooltip
     let shadingView: UIView
     
-    var isTooltipShown: Bool = false
     private let shadingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     private let tooltipTransparencyAnimator = UIViewPropertyAnimator(duration: 0.2, dampingRatio: 1)
     private let tooltipShowingAnimator = UIViewPropertyAnimator(duration: 0.4, dampingRatio: 0.8)
@@ -34,7 +33,11 @@ extension PlaceInfoTooltipHelper {
     //MARK: - Func
     
     func showTooltip(completion: (() -> Void)? = nil) {
+        tooltip.superview?.bringSubviewToFront(shadingView)
+        tooltip.superview?.bringSubviewToFront(tooltip)
+        
         tooltip.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        tooltip.isHidden = false
         tooltip.alpha = 0
         tooltip.superview?.layoutIfNeeded()
         tooltipHidingAnimator.stopAnimation(true)
@@ -53,16 +56,14 @@ extension PlaceInfoTooltipHelper {
             completion?()
         }
         
-        isTooltipShown = true
-        shadingView.isUserInteractionEnabled = true
         tooltipTransparencyAnimator.startAnimation()
         shadingAnimator.startAnimation()
         tooltipShowingAnimator.startAnimation()
     }
     
     func hideTooltip(completion: (() -> Void)? = nil) {
-        guard isTooltipShown else { return }
         tooltipShowingAnimator.stopAnimation(true)
+        tooltipTransparencyAnimator.stopAnimation(true)
         
         shadingAnimator.addAnimations { [weak self] in
             self?.shadingView.backgroundColor = .clear
@@ -74,13 +75,35 @@ extension PlaceInfoTooltipHelper {
             self?.tooltip.alpha = 0
         }, delayFactor: 0.3)
         tooltipHidingAnimator.addCompletion { [weak self] _ in
-            self?.tooltip.configure(with: nil)
-            self?.shadingView.isUserInteractionEnabled = false
+            self?.tooltip.setMarker(nil)
+            self?.tooltip.isHidden = true
             completion?()
         }
-        isTooltipShown = false
         shadingAnimator.startAnimation()
         tooltipHidingAnimator.startAnimation()
+    }
+    
+    /// 어떤 마커의 위치에서 툴팁이 떴을 때 특정 영역에서 툴팁이 온전히 보이기 위해 화면상에서 마커가 최소한으로 이동해야 하는 거리를 계산하는 함수.
+    /// - Parameters:
+    ///   - point: 마커의 위치
+    ///   - rect: 마커가 존재하는 지도의 frame
+    ///   - tooltipSize: 툴팁의 frame의 크기
+    ///   - inset: 지도에서 툴팁이 뜰 때 적용될 inset값
+    /// - Returns: 툴팁이 온전히 보이기 위해 마커가 최소한으로 이동해야 하는 가로, 세로 point를 각각 x, y 속성으로 갖는 CGPoint
+    func calculateDeltaToShowTooltip(point: CGPoint, at mapSize: CGSize, tooltipSize: CGSize, contentInset inset: CGFloat = 0) -> CGPoint {
+        var delta: CGPoint = .zero
+        
+        if point.x < (tooltipSize.width/2 + inset) {
+            delta.x = (tooltipSize.width/2 + inset) - point.x
+        } else if point.x > mapSize.width - tooltipSize.width/2 - inset {
+            delta.x = (mapSize.width - tooltipSize.width/2 - inset) - point.x
+        }
+        
+        // 툴팁의 아래는 마커의 위치로부터 17만큼 위로 떨어져 있음. 마커의 중앙에 툴팁의 꼭짓점이 위치해야 하기 때문.
+        if point.y < tooltipSize.height + 17 + inset {
+            delta.y = tooltipSize.height + 17 + inset - point.y
+        }
+        return delta
     }
     
 }

@@ -1,5 +1,5 @@
 //
-//  ORBMapViewModel.swift
+//  AdventureMapViewModel.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 10/28/24.
@@ -14,7 +14,7 @@ import RxCocoa
 import SnapKit
 import Then
 
-final class ORBMapViewModel: SVGFetchable {
+final class AdventureMapViewModel: SVGFetchable {
     
     //MARK: - Properties
     
@@ -35,12 +35,11 @@ final class ORBMapViewModel: SVGFetchable {
     let startLoading = PublishRelay<Void>()
     let stopLoading = PublishRelay<Void>()
     let networkFailureSubject = PublishSubject<Void>()
-    let markersSubject = BehaviorSubject<[ORBNMFMarker]>(value: [])
+    let didReceiveMarkers = BehaviorSubject<[ORBNMFMarker]>(value: [])
     let customOverlayImage = NMFOverlayImage(image: .icnQuestMapPlaceMarker)
     let locationUnauthorizedMessage = PublishRelay<String>()
     let locationServicesDisabledRelay = PublishRelay<Void>()
     
-    var isCompassMode = false
     var currentLocation: NMGLatLng? {
         locationManager.startUpdatingLocation()
         guard let coordinate = locationManager.location?.coordinate else { return nil }
@@ -60,7 +59,7 @@ final class ORBMapViewModel: SVGFetchable {
     
 }
 
-extension ORBMapViewModel {
+extension AdventureMapViewModel {
     
     enum LocationAuthorizationCase: Int {
         case notDetermined = 0 
@@ -129,7 +128,7 @@ extension ORBMapViewModel {
                         .then { $0.width = 26; $0.height = 32 }
                 }
                 
-                self.markersSubject.onNext(markers)
+                self.didReceiveMarkers.onNext(markers)
             default:
                 self.networkFailureSubject.onNext(())
                 return
@@ -184,29 +183,6 @@ extension ORBMapViewModel {
                     return
                 }
             })
-    }
-    
-    /// 어떤 마커의 위치에서 툴팁이 떴을 때 특정 영역에서 툴팁이 온전히 보이기 위해 화면상에서 마커가 최소한으로 이동해야 하는 거리를 계산하는 함수.
-    /// - Parameters:
-    ///   - point: 마커의 위치
-    ///   - rect: 마커가 존재하는 지도의 frame
-    ///   - tooltipSize: 툴팁의 frame의 크기
-    ///   - inset: 지도에서 툴팁이 뜰 때 적용될 inset값
-    /// - Returns: 툴팁이 온전히 보이기 위해 마커가 최소한으로 이동해야 하는 가로, 세로 point를 각각 x, y 속성으로 갖는 CGPoint
-    func caculateDeltaToShowTooltip(point: CGPoint, at mapSize: CGSize, tooltipSize: CGSize, contentInset inset: CGFloat = 0) -> CGPoint {
-        var delta: CGPoint = .zero
-        
-        if point.x < (tooltipSize.width/2 + inset) {
-            delta.x = (tooltipSize.width/2 + inset) - point.x
-        } else if point.x > mapSize.width - tooltipSize.width/2 - inset {
-            delta.x = (mapSize.width - tooltipSize.width/2 - inset) - point.x
-        }
-        
-        // 툴팁의 아래는 마커의 위치로부터 17만큼 위로 떨어져 있음. 마커의 중앙에 툴팁의 꼭짓점이 위치해야 하기 때문.
-        if point.y < tooltipSize.height + 17 + inset {
-            delta.y = tooltipSize.height + 17 + inset - point.y
-        }
-        return delta
     }
     
 }

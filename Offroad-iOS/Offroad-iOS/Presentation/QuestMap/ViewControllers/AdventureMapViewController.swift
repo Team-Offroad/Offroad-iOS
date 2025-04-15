@@ -1,5 +1,5 @@
 //
-//  ORBMapViewController.swift
+//  AdventureMapViewController.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 12/26/24.
@@ -14,35 +14,22 @@ import RxCocoa
 import SnapKit
 import Then
 
-class ORBMapViewController: OffroadTabBarViewController {
+class AdventureMapViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
     
-    private let viewModel = ORBMapViewModel()
-    private let rootView = ORBMapView()
+    private let viewModel = AdventureMapViewModel()
+    private let rootView = AdventureMapView()
     private let locationService = RegisteredPlaceService()
     
     private var disposeBag = DisposeBag()
     private var searchedPlaceArray: [RegisteredPlaceInfo] = []
-    private var isFocused: Bool = false
-    private var currentLocation: NMGLatLng = NMGLatLng(lat: 0, lng: 0)
     private var latestCategory: String?
     
     private var locationManager: CLLocationManager { viewModel.locationManager }
-    private var selectedMarker: ORBNMFMarker? = nil
-    private var markerPoint: CGPoint? {
-        guard let selectedMarker else { return nil }
-        let selectedMarkerPosition = rootView.naverMapView.mapView.projection.point(from: selectedMarker.position)
-        return self.rootView.naverMapView.mapView.convert(selectedMarkerPosition, to: self.rootView)
-    }
-    
     private var currentPositionTarget: NMGLatLng {
-        rootView.naverMapView.mapView.cameraPosition.target
+        rootView.orbMapView.mapView.cameraPosition.target
     }
-    
-    private lazy var mapHelper = ORBMapHelper(map: rootView.naverMapView.mapView)
-    private lazy var tooltipHelper = PlaceInfoTooltipHelper(tooltip: rootView.tooltip,
-                                                            shadingView: rootView.shadingView)
     
     //MARK: - Life Cycle
     
@@ -56,16 +43,15 @@ class ORBMapViewController: OffroadTabBarViewController {
         bindData()
         setupTooltipAction()
         setupDelegates()
-        setupGestureRecognizers()
-        rootView.naverMapView.mapView.positionMode = .direction
+        rootView.orbMapView.mapView.positionMode = .direction
         locationManager.startUpdatingHeading()
-        rootView.naverMapView.mapView.moveCamera(.init(heading: 0))
+        rootView.orbMapView.mapView.moveCamera(.init(heading: 0))
         viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
             guard let self else { return }
             if authorizationCase != .fullAccuracy && authorizationCase != .reducedAccuracy {
                 // 사용자 위치 불러올 수 없을 시 초기 위치 설정
                 // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
-                mapHelper.moveCamera(scrollTo: .init(lat: 37.5716229, lng: 126.9767879), animationDuration: 0)
+                rootView.orbMapView.moveCamera(scrollTo: .init(lat: 37.5716229, lng: 126.9767879), animationDuration: 0)
                 self.viewModel.updateRegisteredPlaces(at: .init(lat: 37.5716229, lng: 126.9767879))
             }
         }
@@ -79,46 +65,37 @@ class ORBMapViewController: OffroadTabBarViewController {
         guard let offroadTabBarController = tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.showTabBarAnimation()
         
-        viewModel.isCompassMode = false
+//        rootView.orbMapView.isCompassMode = false
+        rootView.orbMapView.trackingMode = .normal
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         let orangeLocationOverlayImage = rootView.locationOverlayImage
-        rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+        rootView.orbMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
     }
     
 }
 
-extension ORBMapViewController {
+extension AdventureMapViewController {
     
-    //MARK: - Private Func
+    // MARK: - Private Func
     
     private func switchTrackingMode() {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            switch rootView.naverMapView.mapView.positionMode == .normal {
-            case true:
-                focusToMyPosition(completion: { [weak self] isCancelled in
-                    guard let self else { return }
-                    guard !isCancelled else { return }
-                    self.rootView.naverMapView.mapView.positionMode = .direction
-                })
-            case false:
-                viewModel.isCompassMode.toggle()
-                let currentHeading = locationManager.heading?.trueHeading ?? 0
-                rootView.naverMapView.mapView.locationOverlay.heading = currentHeading
-                guard viewModel.isCompassMode else {
-                    rootView.naverMapView.mapView.positionMode = .direction
-                    return
-                }
-                let cameraUpdate = NMFCameraUpdate(heading: currentHeading)
-                cameraUpdate.reason = 10
-                cameraUpdate.animation = .easeOut
-                rootView.naverMapView.mapView.moveCamera(cameraUpdate)
-                let orangeLocationOverlayImage = rootView.locationOverlayImage
-                rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
+            switch rootView.orbMapView.trackingMode {
+            case .none:
+                rootView.orbMapView.trackingMode = .direction
+            case .normal:
+                rootView.orbMapView.trackingMode = .direction
+            case .direction:
+                rootView.orbMapView.trackingMode = .compass
+            case .compass:
+                rootView.orbMapView.trackingMode = .direction
+            @unknown default:
+                return
             }
         }
     }
@@ -153,7 +130,7 @@ extension ORBMapViewController {
             .asDriver(onErrorJustReturn: "")
             .drive { [weak self] message in
                 guard let self else { return }
-                self.viewModel.isCompassMode = false
+                self.rootView.orbMapView.trackingMode = .none
                 let alertController = ORBAlertController(
                     title: AlertMessage.locationUnauthorizedTitle,
                     message: message, type: .normal
@@ -163,15 +140,16 @@ extension ORBMapViewController {
                 self.present(alertController, animated: true)
             }.disposed(by: disposeBag)
         
-        viewModel.markersSubject
+        viewModel.didReceiveMarkers
             .flatMap { Observable.from($0) }
             .subscribe(onNext: { [weak self] marker in
                 guard let self else { return }
                 marker.touchHandler = { [weak self] overlay in
-                    guard let self else { return false }
-                    return self.markerTouchHandler(overlay: overlay)
+                    guard let marker = overlay as? ORBNMFMarker else { return false }
+                    self?.rootView.orbMapView.showTooltip(marker)
+                    return true
                 }
-                marker.mapView = self.rootView.naverMapView.mapView
+                marker.mapView = self.rootView.orbMapView.mapView
             }).disposed(by: disposeBag)
         
         Observable.zip(
@@ -191,7 +169,7 @@ extension ORBMapViewController {
             self.rootView.stopCenterLoading()
             if locationValidation && isFirstVisitToday {
                 AmplitudeManager.shared.trackEvent(withName: AmplitudeEventTitles.exploreSuccess)
-                self.hideTooltipFromMap()
+                rootView.orbMapView.hideTooltip()
             }
             self.popupAdventureResult(isValidLocation: locationValidation,
                                       image: image,
@@ -202,22 +180,20 @@ extension ORBMapViewController {
         rootView.reloadPlaceButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
             self.rootView.reloadPlaceButton.isEnabled = false
-            try? self.viewModel.markersSubject.value().forEach({ marker in marker.mapView = nil })
+            try? self.viewModel.didReceiveMarkers.value().forEach({ marker in marker.mapView = nil })
             self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
-            self.hideTooltipFromMap()
+            self.rootView.orbMapView.hideTooltip()
         }.disposed(by: disposeBag)
         
         rootView.switchTrackingModeButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
             
-            self.viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
+            viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
                 guard let self else { return }
                 switch authorizationCase {
                 case .notDetermined:
                     return
-                case .fullAccuracy:
-                    self.switchTrackingMode()
-                case .reducedAccuracy:
+                case .fullAccuracy, .reducedAccuracy:
                     self.switchTrackingMode()
                 case .denied, .restricted:
                     self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationUnauthorizedMessage)
@@ -237,6 +213,14 @@ extension ORBMapViewController {
             self.navigationController?.pushViewController(PlaceListViewController(), animated: true)
         }.disposed(by: disposeBag)
         
+        rootView.orbMapView.tooltipWillShow.subscribe(onNext: { [weak self] in
+            self?.rootView.compass.isHidden = true
+        }).disposed(by: disposeBag)
+        
+        rootView.orbMapView.tooltipDidHide.subscribe(onNext: { [weak self] in
+            self?.rootView.compass.isHidden = false
+        }).disposed(by: disposeBag)
+        
         #if DevTarget
         MyDiaryManager.shared.didCompleteCreateDiary
             .bind { _ in
@@ -251,91 +235,43 @@ extension ORBMapViewController {
     }
     
     private func setupTooltipAction() {
-        rootView.tooltip.exploreButton.rx.tap.bind(onNext: { [weak self] _ in
-            guard let self else { return }
-            
-            self.viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
+        rootView.orbMapView.exploreButtonTapped.subscribe(
+            // 툴팁의 탐험하기 버튼 탭 후 정상적으로 장소 데이터와 함께 이벤트를 받아온 경우
+            onNext: { [weak self] placeInfo in
                 guard let self else { return }
-                switch authorizationCase {
-                case .notDetermined:
-                    return
-                case .fullAccuracy:
-                    self.viewModel.authenticatePlaceAdventure(placeInfo: selectedMarker!.placeInfo)
-                case .reducedAccuracy:
-                    self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationReducedAccuracyMessage)
-                case .denied, .restricted:
-                    self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationUnauthorizedAdventureMessage)
-                case .servicesDisabled:
-                    self.viewModel.locationServicesDisabledRelay.accept(())
+                self.viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
+                    guard let self else { return }
+                    switch authorizationCase {
+                    case .notDetermined:
+                        return
+                    case .fullAccuracy:
+                        self.viewModel.authenticatePlaceAdventure(placeInfo: placeInfo)
+                    case .reducedAccuracy:
+                        self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationReducedAccuracyMessage)
+                    case .denied, .restricted:
+                        self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationUnauthorizedAdventureMessage)
+                    case .servicesDisabled:
+                        self.viewModel.locationServicesDisabledRelay.accept(())
+                    }
                 }
+            },
+            // 툴팁의 탐험하기 버튼 탭 이벤트를 전달받을 때 장소 데이터를 제대로 받아오지 못한 경우
+            onError: { error in
+                print((error as? ORBMapError)?.localizedDescription ?? error.localizedDescription)
             }
-        }).disposed(by: disposeBag)
-        
-        rootView.tooltip.closeButton.rx.tap.bind(onNext: { [weak self] in
-            guard let self else { return }
-            self.hideTooltipFromMap()
-        }).disposed(by: disposeBag)
+        ).disposed(by: disposeBag)
     }
     
     private func setupDelegates() {
-        rootView.naverMapView.mapView.addCameraDelegate(delegate: self)
-        rootView.naverMapView.mapView.touchDelegate = self
         locationManager.delegate = self
-    }
-    
-    private func setupGestureRecognizers() {
-        let tapGestureRecognizer = UITapGestureRecognizer()
-        tapGestureRecognizer.rx.event.subscribe(onNext: { [weak self] gesture in
-            guard let self else { return }
-            self.hideTooltipFromMap()
-        }).disposed(by: disposeBag)
-        rootView.shadingView.addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    private func focusToMarker(_ marker: NMFMarker) {
-        let markerLatLng = NMGLatLng(lat: marker.position.lat, lng: marker.position.lng)
-        mapHelper.moveCamera(scrollTo: markerLatLng, reason: 20)
     }
     
     private func focusToMyPosition(completion: ((Bool) -> Void)? = nil) {
         guard let currentCoord = locationManager.location?.coordinate else { return }
         let currentLatLng = NMGLatLng(lat: currentCoord.latitude, lng: currentCoord.longitude)
-        mapHelper.moveCamera(scrollTo: currentLatLng, reason: 1) { isCancelled in
+        rootView.orbMapView.moveCamera(scrollTo: currentLatLng, reason: 1) { isCancelled in
             completion?(isCancelled)
         }
-    }
-    
-    /// 마커를 탭 시 동작할 함수
-    ///- Parameters overlay: 탭 이벤트를 받아서 전달하는 NMFOverlay
-    /// - Returns: `true`를 반환할 경우 마커를 탭 시 메서드를 실행. 그렇지 않을 경우 `NMFMapView`까지 이벤트가 전달되어 `NMFMapViewTouchDelegate`의 `mapView(_:didTapMap:point:)`가  호출됩니다.
-    private func markerTouchHandler(overlay: NMFOverlay) -> Bool {
-        guard !tooltipHelper.isTooltipShown else { return false }
-        guard let marker = overlay as? ORBNMFMarker else { return false }
-        let projection = rootView.naverMapView.mapView.projection
-        let point = projection.point(from: marker.position)
-        guard !rootView.markerTapBlocker.frame.contains(point) else { return false }
-        viewModel.isCompassMode = false
-        selectedMarker = marker
-        rootView.naverMapView.mapView.locationOverlay.icon = rootView.locationOverlayImage
-        latestCategory = marker.placeInfo.placeCategory
-        
-        // 툴팁 보이기
-        rootView.tooltip.configure(with: marker.placeInfo)
-        rootView.tooltipAnchorPoint = markerPoint!
-        showTooltipOnMap()
-        
-        let tilt = rootView.naverMapView.mapView.cameraPosition.tilt
-        if tilt > 30 {
-            mapHelper.moveCamera(scrollTo: marker.position, animationCurve: .fly, animationDuration: 0.5)
-        } else {
-            let mapSize = rootView.naverMapView.mapView.frame.size
-            let delta = viewModel.caculateDeltaToShowTooltip(point: point,
-                                                             at: mapSize,
-                                                             tooltipSize: rootView.tooltip.frame.size,
-                                                             contentInset: 20)
-            mapHelper.moveCamera(scrollBy: delta, animationDuration: 0.3)
-        }
-        return true
     }
     
     private func popupAdventureResult(
@@ -413,124 +349,17 @@ extension ORBMapViewController {
         present(questCompleteAlertController, animated: true)
     }
     
-    private func showTooltipOnMap() {
-        tooltipHelper.showTooltip()
-        rootView.compass.isHidden = true
-    }
-    
-    private func hideTooltipFromMap() {
-        tooltipHelper.hideTooltip { [weak self] in self?.selectedMarker = nil }
-        rootView.compass.isHidden = false
-    }
-    
 }
 
-//MARK: - NMFMapViewCameraDelegate
+// MARK: - CLLocationManagerDelegate
 
-extension ORBMapViewController: NMFMapViewCameraDelegate {
-    
-    /**
-     reason
-     
-     - 0: 개발자가 API를 호출해 카메라가 움직였음을 나타내는 값. (`NMFMapChangedByDeveloper`)
-     - -1: 사용자의 제스처로 인해 카메라가 움직였음을 나타내는 값. (`NMFMapChangedByGesture`)
-     - -2: 사용자의 버튼 선택으로 인해 카메라가 움직였음을 나타내는 값. (`NMFMapChangedByControl`)
-        여기서 버튼이란 - 네이버 지도 API에서 기본으로 제공하는 버튼(Control)을 말하는 것 같음.(예: 나침반 버튼)
-     - -3: 위치 정보 갱신으로 카메라가 움직였음을 나타내는 값. (`NMFMapChangedByLocation`)
-     */
-    func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
-        switch reason {
-        // API 호출로 카메라 이동
-        case 0:
-            viewModel.isCompassMode = false
-        // 제스처 사용으로 카메라 이동
-        case -1:
-            viewModel.isCompassMode = false
-            if selectedMarker != nil {
-                // 툴팁 동기화 + 툴팁 숨기기
-                rootView.tooltipAnchorPoint = markerPoint!
-            }
-        // 버튼 선택으로 카메라 이동
-        case -2:
-            viewModel.isCompassMode = false
-            let orangeLocationOverlayImage = rootView.locationOverlayImage
-            rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
-            rootView.customizeLocationOverlaySubIcon(mode: .compass)
-            
-            guard selectedMarker != nil else { return }
-            // 툴팁 숨기기
-            hideTooltipFromMap()
-        default:
-            return
-        }
-    }
-    
-    func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
-        if selectedMarker != nil {
-            // 툴팁의 위치를 마커의 위치와 동기화
-            rootView.tooltipAnchorPoint = markerPoint!
-        }
-    }
-    
-    func mapView(_ mapView: NMFMapView, cameraDidChangeByReason reason: Int, animated: Bool) {
-        let orangeLocationOverlayImage = rootView.locationOverlayImage
-        rootView.naverMapView.mapView.locationOverlay.icon = orangeLocationOverlayImage
-        
-        switch reason {
-        // API 호출로 카메라 이동
-        case 0:
-            return
-        // 핸드폰을 돌려서, 혹은 현재 위치 버튼 선택 후 위치 트래킹 활성화로 인해 카메라 방향이 회전한 경우
-        case 10:
-            rootView.naverMapView.mapView.positionMode = .direction
-        default:
-            return
-        }
-    }
-    
-    func mapViewCameraIdle(_ mapView: NMFMapView) {
-        rootView.reloadPlaceButton.isEnabled = true
-    }
-    
-}
-
-//MARK: - NMFMapViewTouchDelegate
-
-extension ORBMapViewController: NMFMapViewTouchDelegate {
-    
-    func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
-        if selectedMarker != nil {
-            // 툴팁 숨김처리
-            hideTooltipFromMap()
-        }
-    }
-    
-}
-
-//MARK: - CLLocationManagerDelegate
-
-extension ORBMapViewController: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        let currentHeading = newHeading.trueHeading
-        
-        rootView.naverMapView.mapView.locationOverlay.heading = currentHeading
-        let purpleLocationOverlayImage = rootView.locationOverlayImage
-        rootView.naverMapView.mapView.locationOverlay.icon = purpleLocationOverlayImage
-        
-        guard viewModel.isCompassMode else { return }
-        let cameraUpdate = NMFCameraUpdate(heading: currentHeading)
-        cameraUpdate.reason = 10
-        cameraUpdate.animation = .easeOut
-        rootView.naverMapView.mapView.moveCamera(cameraUpdate)
-        rootView.naverMapView.mapView.locationOverlay.icon = purpleLocationOverlayImage
-    }
+extension AdventureMapViewController: CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         
         func setLocationOverlayHiddenState(to isHidden: Bool) {
             DispatchQueue.main.async { [weak self] in
-                self?.rootView.naverMapView.mapView.locationOverlay.hidden = isHidden
+                self?.rootView.orbMapView.mapView.locationOverlay.hidden = isHidden
             }
         }
         
@@ -541,9 +370,9 @@ extension ORBMapViewController: CLLocationManagerDelegate {
             case .fullAccuracy:
                 DispatchQueue.main.async { [weak self] in
                     guard let self else { return }
-                    self.hideTooltipFromMap()
+                    self.rootView.orbMapView.hideTooltip()
                     self.focusToMyPosition()
-                    self.rootView.naverMapView.mapView.positionMode = .direction
+                    self.rootView.orbMapView.mapView.positionMode = .direction
                     setLocationOverlayHiddenState(to: false)
                 }
             case .denied, .restricted:
