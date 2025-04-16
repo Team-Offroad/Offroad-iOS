@@ -7,22 +7,23 @@
 #if DevTarget
 import UIKit
 
+import ExpandableCell
 import SnapKit
 
-class CourseQuestCollectionViewCell: ShrinkableCollectionViewCell {
+class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
     
     // MARK: - Properties
     
-    private let collectionViewHorizontalSectionInset: CGFloat = 24
-    private lazy var widthConstraint = contentView.widthAnchor.constraint(
-        equalToConstant: UIScreen.main.bounds.width - collectionViewHorizontalSectionInset * 2
-    )
+    let shrinkingAnimator: UIViewPropertyAnimator = .init(duration: 0.5, dampingRatio: 1)
     
-    private lazy var expandedBottomConstraint = courseQuestInfoView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
-    private lazy var shrinkedBottomConstraint = courseQuestNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18)
-    
-    override var isSelected: Bool {
-        didSet { setAppearance() }
+    override var isHighlighted: Bool {
+        didSet {
+            if isHighlighted {
+                shrink(scale: 0.97)
+            } else {
+                restore()
+            }
+        }
     }
     
     // MARK: - UI Components
@@ -60,6 +61,19 @@ class CourseQuestCollectionViewCell: ShrinkableCollectionViewCell {
         
         courseQuestListStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
     }
+    
+    override func animateExpansion() {
+        courseQuestDescriptionLabel.alpha = 1
+        courseQuestInfoView.alpha = 1
+        chevronImageView.transform = CGAffineTransform(rotationAngle: .pi * 0.999)
+    }
+    
+    override func animateCollapse() {
+        courseQuestDescriptionLabel.alpha = 0
+        courseQuestInfoView.alpha = 0
+        chevronImageView.transform = .identity
+    }
+    
 }
 
 // MARK: - UI Setup
@@ -67,10 +81,13 @@ class CourseQuestCollectionViewCell: ShrinkableCollectionViewCell {
 extension CourseQuestCollectionViewCell {
     
     private func setupHierarchy() {
-        contentView.addSubviews(
+        mainContentView.addSubviews(
             courseQuestNameLabel,
             courseQuestProgressLabel,
-            chevronImageView,
+            chevronImageView
+        )
+        
+        detailContentView.addSubviews(
             courseQuestDescriptionLabel,
             courseQuestInfoView
         )
@@ -88,7 +105,7 @@ extension CourseQuestCollectionViewCell {
             label.font = .offroad(style: .iosTextBold)
             label.textColor = .main(.main2)
             label.textAlignment = .left
-            label.numberOfLines = 1
+            label.numberOfLines = 0
         }
         
         courseQuestProgressLabel.do { label in
@@ -122,28 +139,35 @@ extension CourseQuestCollectionViewCell {
     }
     
     private func setupLayout() {
-        widthConstraint.priority = .defaultHigh
-        widthConstraint.isActive = true
+        mainContentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
         
+        courseQuestNameLabel.setContentHuggingPriority(
+            courseQuestProgressLabel.contentHuggingPriority(for: .horizontal) - 1,
+            for: .horizontal
+        )
         courseQuestNameLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(18)
+            make.verticalEdges.equalToSuperview().inset(18)
             make.leading.equalToSuperview().inset(20)
             make.trailing.equalTo(courseQuestProgressLabel.snp.leading).offset(-7)
         }
         
+        courseQuestProgressLabel.setContentCompressionResistancePriority(
+            courseQuestNameLabel.contentCompressionResistancePriority(for: .horizontal) + 1,
+            for: .horizontal
+        )
         courseQuestProgressLabel.snp.makeConstraints { make in
             make.centerY.equalTo(courseQuestNameLabel)
             make.trailing.equalTo(chevronImageView.snp.leading)
         }
         
         chevronImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(8)
+            make.centerY.equalTo(courseQuestNameLabel)
             make.trailing.equalToSuperview()
             make.size.equalTo(44)
         }
         
         courseQuestDescriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(courseQuestNameLabel.snp.bottom).offset(8)
+            make.top.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(20)
         }
         
@@ -154,26 +178,8 @@ extension CourseQuestCollectionViewCell {
         
         courseQuestInfoView.snp.makeConstraints { make in
             make.top.equalTo(courseQuestDescriptionLabel.snp.bottom).offset(14)
-            make.horizontalEdges.equalToSuperview().inset(12)
+            make.horizontalEdges.bottom.equalToSuperview().inset(20)
         }
-        
-        expandedBottomConstraint.priority = .defaultLow
-        shrinkedBottomConstraint.priority = .defaultLow
-        
-        expandedBottomConstraint.isActive = isSelected
-        shrinkedBottomConstraint.isActive = !isSelected
-    }
-    
-    private func setAppearance() {
-        expandedBottomConstraint.isActive = isSelected
-        shrinkedBottomConstraint.isActive = !isSelected
-        
-        courseQuestDescriptionLabel.isHidden = !isSelected
-        courseQuestInfoView.isHidden = !isSelected
-        
-        let rotationTransform = isSelected ? CGAffineTransform(rotationAngle: .pi * 0.999) : CGAffineTransform.identity
-        chevronImageView.transform = rotationTransform
-        contentView.layoutIfNeeded()
     }
     
     // MARK: - Configure Cell

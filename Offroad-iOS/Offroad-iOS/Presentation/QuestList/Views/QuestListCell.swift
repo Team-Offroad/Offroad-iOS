@@ -108,7 +108,7 @@ extension QuestListCell {
             label.font = .offroad(style: .iosTextBold)
             label.textColor = .main(.main2)
             label.textAlignment = .left
-            label.numberOfLines = 2
+            label.numberOfLines = 0
         }
         
         questProgressLabel.do { label in
@@ -159,7 +159,7 @@ extension QuestListCell {
             stackView.axis = .horizontal
             stackView.spacing = 6
             stackView.alignment = .center
-            stackView.distribution = .fillProportionally
+            stackView.distribution = .fill
         }
         
         stackViewStack.do { stackView in
@@ -173,15 +173,18 @@ extension QuestListCell {
     private func setupLayout() {
         mainContentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
         
-        questNameLabel.setContentHuggingPriority(.init(251), for: .horizontal)
+        questNameLabel.setContentHuggingPriority(
+            questProgressLabel.contentHuggingPriority(for: .horizontal) - 1,
+            for: .horizontal
+        )
         questNameLabel.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview().inset(18)
             make.leading.equalToSuperview().inset(20)
             make.trailing.equalTo(questProgressLabel.snp.leading).offset(-7)
         }
         
-        questProgressLabel.setContentHuggingPriority(
-            questNameLabel.contentHuggingPriority(for: .horizontal) + 1,
+        questProgressLabel.setContentCompressionResistancePriority(
+            questNameLabel.contentCompressionResistancePriority(for: .horizontal) + 1,
             for: .horizontal
         )
         questProgressLabel.snp.makeConstraints { make in

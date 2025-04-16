@@ -22,6 +22,14 @@ final class QuestListCollectionView: ExpandableCellCollectionView, ORBEmptyCaseS
     private var extendedListSize = 20
     private var lastCursorID = 0
     
+#if DevTarget
+    // 코스 퀘스트는 항상 activeQuestList의 최상단에 위치
+    private var quests: [Any] {
+        let sortedGeneralQuests = isActive ? activeQuestList : allQuestList
+        return isActive ? (CourseQuest.dummy + sortedGeneralQuests) : sortedGeneralQuests
+    }
+#endif
+    
     var isActive = true {
         didSet {
             if isActive {
@@ -66,13 +74,19 @@ extension QuestListCollectionView {
             QuestListCell.self,
             forCellWithReuseIdentifier: QuestListCell.className
         )
+#if DevTarget
+        register(
+            CourseQuestCollectionViewCell.self,
+            forCellWithReuseIdentifier: CourseQuestCollectionViewCell.className
+        )
+#endif
         dataSource = self
         animationSpeed = UIAccessibility.isReduceMotionEnabled ? .none : .medium
     }
     
     func getInitialQuestList(isActive: Bool, cursor: Int = 0, size: Int = 20) {
         startCenterLoading(withoutShading: true)
-        setEmptyState(false)
+        removeEmptyPlaceholder()
         questListService.getQuestList(isActive: isActive, cursor: cursor, size: size) { [weak self] result in
             guard let self else { return }
             switch result {
@@ -80,10 +94,14 @@ extension QuestListCollectionView {
                 guard let questListFromServer = response?.data.questList else { return }
                 if isActive {
                     self.activeQuestList = questListFromServer
-                    self.setEmptyState(self.activeQuestList.isEmpty)
+                    if self.activeQuestList.isEmpty {
+                        showEmptyPlaceholder(view: emptyPlaceholder)
+                    }
                 } else {
                     self.allQuestList = questListFromServer
-                    self.setEmptyState(self.allQuestList.isEmpty)
+                    if self.allQuestList.isEmpty {
+                        showEmptyPlaceholder(view: emptyPlaceholder)
+                    }
                 }
                 self.alpha = 0
                 self.reloadData()
@@ -105,7 +123,7 @@ extension QuestListCollectionView {
     
     private func getExtendedQuestList(isActive: Bool, cursor: Int, size: Int) {
         startBottomScrollLoading()
-        
+        removeEmptyPlaceholder()
         questListService.getQuestList(isActive: isActive, cursor: cursor, size: size) { [weak self] result in
             guard let self else { return }
             switch result {
@@ -117,10 +135,14 @@ extension QuestListCollectionView {
                 
                 if isActive {
                     self.activeQuestList.append(contentsOf: newItems)
-                    self.setEmptyState(self.activeQuestList.isEmpty)
+                    if self.activeQuestList.isEmpty {
+                        showEmptyPlaceholder(view: emptyPlaceholder)
+                    }
                 } else {
                     self.allQuestList.append(contentsOf: newItems)
-                    self.setEmptyState(self.allQuestList.isEmpty)
+                    if self.allQuestList.isEmpty {
+                        showEmptyPlaceholder(view: emptyPlaceholder)
+                    }
                 }
                 
                 let newIndices = (currentCount..<(currentCount + newItems.count)).map { IndexPath(item: $0, section: 0) }
@@ -150,6 +172,38 @@ extension QuestListCollectionView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+#if DevTarget
+        let quest = quests[indexPath.item]
+        
+        // CourseQuest일 경우 CourseQuestCollectionViewCell을 사용
+        if let courseQuest = quest as? CourseQuest {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: CourseQuestCollectionViewCell.className,
+                for: indexPath
+            ) as? CourseQuestCollectionViewCell else {
+                fatalError("CourseQuestCollectionViewCell dequeuing failed!")
+            }
+            cell.setNeedsLayout()
+            cell.layoutIfNeeded()
+            cell.configureCell(with: courseQuest)
+            return cell
+        }
+        
+        // 일반 Quest일 경우 QuestListCollectionViewCell을 사용
+        if let quest = quest as? Quest {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: QuestListCell.className,
+                for: indexPath
+            ) as? QuestListCell else { fatalError("QuestListCell dequeuing failed!") }
+            cell.setNeedsLayout()
+            cell.layoutIfNeeded()
+            cell.configureCell(with: quest)
+            return cell
+        }
+        
+        fatalError("Unknown quest type found in quest list.")
+#else
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: QuestListCell.className,
             for: indexPath
@@ -163,6 +217,7 @@ extension QuestListCollectionView: UICollectionViewDataSource {
         }
         
         return cell
+#endif
     }
     
 }

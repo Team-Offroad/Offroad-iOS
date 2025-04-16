@@ -28,7 +28,7 @@ class QuestListViewController: UIViewController {
                 allQuestList = []
             }
             extendedListSize = 20
-            getInitialQuestList(isActive: isActive)
+            rootView.questListCollectionView.getInitialQuestList(isActive: true)
             rootView.questListCollectionView.reloadData()
         }
     }
@@ -49,9 +49,6 @@ class QuestListViewController: UIViewController {
         super.viewDidLoad()
         
         setupControlsTarget()
-#if DevTarget
-        loadDummyCourseQuests()
-#endif
         rootView.questListCollectionView.getInitialQuestList(isActive: true)
     }
     
@@ -61,25 +58,6 @@ class QuestListViewController: UIViewController {
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
     }
-    
-#if DevTarget
-    private func loadDummyCourseQuests() {
-        courseQuests = CourseQuest.dummy
-        rootView.questListCollectionView.reloadData()
-    }
-    
-    private func getSortedQuestList() -> [Any] {
-        let sortedGeneralQuests = isActive ? activeQuestList : allQuestList
-        
-        // 코스 퀘스트는 항상 activeQuestList의 최상단에 위치
-        return isActive ? (courseQuests + sortedGeneralQuests) : sortedGeneralQuests
-    }
-    
-    func addCourseQuest(_ newQuest: CourseQuest) {
-        courseQuests.insert(newQuest, at: 0) // 리스트 최상단에 추가
-        rootView.questListCollectionView.reloadData()
-    }
-#endif
 }
 
 extension QuestListViewController {
@@ -103,17 +81,4 @@ extension QuestListViewController {
         rootView.ongoingQuestSwitch.addTarget(self, action: #selector(ongoingQuestSwitchValueChanged(sender:)), for: .valueChanged)
     }
     
-    private func setupCollectionView() {
-        rootView.questListCollectionView.register(
-            QuestListCollectionViewCell.self,
-            forCellWithReuseIdentifier: QuestListCollectionViewCell.className
-        )
-        
-#if DevTarget
-        rootView.questListCollectionView.register(
-            CourseQuestCollectionViewCell.self,
-            forCellWithReuseIdentifier: CourseQuestCollectionViewCell.className
-        )
-#endif
-    }
 }
