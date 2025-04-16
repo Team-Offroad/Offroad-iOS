@@ -33,7 +33,12 @@ class CharacterChatLogCell: UICollectionViewCell {
     
     //MARK: - UI Properties
     
+#if DevTarget
+    private final class ChatBubble: UIView, ORBRecommendationGradientStyle { }
+    private let chatBubbleView = ChatBubble()
+#else
     private let chatBubbleView = UIView()
+#endif
     let messageLabel = UILabel()
     private let loadingAnimationView = LottieAnimationView(name: "loading2")
     private let characternameLabel = UILabel()
@@ -122,6 +127,13 @@ extension CharacterChatLogCell {
     //MARK: - Func
     
     func configure(with model: ChatDataModel, characterName: String) {
+#if DevTarget
+        if model.role == "USER" {
+            chatBubbleView.removeGradientStyle()
+        } else if model.role == "ORB_CHARACTER" {
+            chatBubbleView.applyGradientStyle()
+        }
+#endif
         if model.role == "USER" {
             role = .user
             characternameLabel.text = ""
