@@ -25,7 +25,6 @@ final class QuestListCell: ExpandableCell, Shrinkable {
         }
     }
     
-    
     //MARK: - UI Properties
     
     private let questNameLabel = UILabel()
@@ -46,27 +45,25 @@ final class QuestListCell: ExpandableCell, Shrinkable {
     private lazy var stackViewStack = UIStackView(arrangedSubviews: [stackView1, stackView2])
     
     //MARK: - Life Cycle
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         setupHierarchy()
         setupStyle()
         setupLayout()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
         questNameLabel.text = ""
         questProgressLabel.text = ""
         questDescriptionLabel.text = ""
-        questClearConditionLabel.text = ""
-        questRewardDescriptionLabel.text = ""
     }
     
     override func animateExpansion() {
@@ -86,7 +83,7 @@ final class QuestListCell: ExpandableCell, Shrinkable {
 extension QuestListCell {
     
     //MARK: - Private Func
-
+    
     private func setupHierarchy() {
         
         mainContentView.addSubviews(
@@ -102,7 +99,7 @@ extension QuestListCell {
         
         questInfoView.addSubview(stackViewStack)
     }
-
+    
     private func setupStyle() {
         contentView.backgroundColor = .main(.main3)
         contentView.roundCorners(cornerRadius: 5)
@@ -135,7 +132,7 @@ extension QuestListCell {
             view.backgroundColor = .primary(.boxInfo)
             view.roundCorners(cornerRadius: 9)
         }
-
+        
         checkBoxImageView.do { imageView in
             imageView.contentMode = .scaleAspectFit
         }
@@ -172,7 +169,7 @@ extension QuestListCell {
             stackView.distribution = .fillProportionally
         }
     }
-
+    
     private func setupLayout() {
         mainContentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
         
@@ -217,11 +214,10 @@ extension QuestListCell {
             make.verticalEdges.equalToSuperview().inset(9)
             make.horizontalEdges.equalToSuperview().inset(12)
         }
-        
     }
-
+    
     //MARK: - Func
-
+    
     func configureCell(with quest: Quest) {
         questNameLabel.text = quest.questName
         questProgressLabel.text = "달성도 (\(quest.currentCount)/\(quest.totalCount))"
@@ -231,7 +227,7 @@ extension QuestListCell {
         
         questClearConditionLabel.text = quest.requirement == "" ? "데이터 없음" : quest.requirement
         questRewardDescriptionLabel.text = quest.reward == "" ? "데이터 없음" : quest.reward
-        
+
         contentView.layoutIfNeeded()
     }
     
