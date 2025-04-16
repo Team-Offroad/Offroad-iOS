@@ -466,6 +466,7 @@
 		87738CD02C8DC15200E107C7 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CCF2C8DC15200E107C7 /* UIColor+.swift */; };
 		87738CD52C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CD42C8DEA6300E107C7 /* CharacterDetailResponseDTO.swift */; };
 		87738CDC2C8E164200E107C7 /* CharacterMotionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87738CDB2C8E164200E107C7 /* CharacterMotionResponseDTO.swift */; };
+		8773EC562DA54FBA00600948 /* IconLabelStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F8C2D80482F008036FA /* IconLabelStackView.swift */; };
 		8791EDF42C7E11E000E7F8B9 /* CouponListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF32C7E11E000E7F8B9 /* CouponListView.swift */; };
 		8791EDF62C7E121400E7F8B9 /* CouponListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF52C7E121400E7F8B9 /* CouponListViewController.swift */; };
 		8791EDF82C7E1D2B00E7F8B9 /* CouponDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8791EDF72C7E1D2B00E7F8B9 /* CouponDetailViewController.swift */; };
@@ -478,6 +479,9 @@
 		8792D0202C3E873C002051AC /* ChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D01F2C3E873C002051AC /* ChoosingCharacterViewController.swift */; };
 		8792D0242C3F0843002051AC /* ChoosingCharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0232C3F0843002051AC /* ChoosingCharacterCell.swift */; };
 		879F62E82C89A56200FEC5BE /* CouponDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879F62E72C89A56200FEC5BE /* CouponDetailView.swift */; };
+		87C27F6B2D7FED19008036FA /* CourseQuestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F692D7FED19008036FA /* CourseQuestCollectionViewCell.swift */; };
+		87C27F732D80008D008036FA /* CourseQuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F722D80008D008036FA /* CourseQuest.swift */; };
+		87C27F8D2D80482F008036FA /* IconLabelStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F8C2D80482F008036FA /* IconLabelStackView.swift */; };
 		87D9A70D2CE9BC1700F1CECD /* ScrollLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9A70C2CE9BC1700F1CECD /* ScrollLoadingView.swift */; };
 		87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046932C3D2B38002D12C2 /* BirthViewController.swift */; };
 		87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046972C3D5E3D002D12C2 /* NicknameView.swift */; };
@@ -835,6 +839,9 @@
 		8792D01F2C3E873C002051AC /* ChoosingCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingCharacterViewController.swift; sourceTree = "<group>"; };
 		8792D0232C3F0843002051AC /* ChoosingCharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingCharacterCell.swift; sourceTree = "<group>"; };
 		879F62E72C89A56200FEC5BE /* CouponDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponDetailView.swift; sourceTree = "<group>"; };
+		87C27F692D7FED19008036FA /* CourseQuestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseQuestCollectionViewCell.swift; sourceTree = "<group>"; };
+		87C27F722D80008D008036FA /* CourseQuest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseQuest.swift; sourceTree = "<group>"; };
+		87C27F8C2D80482F008036FA /* IconLabelStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabelStackView.swift; sourceTree = "<group>"; };
 		87D9A70C2CE9BC1700F1CECD /* ScrollLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoadingView.swift; sourceTree = "<group>"; };
 		87E046932C3D2B38002D12C2 /* BirthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewController.swift; sourceTree = "<group>"; };
 		87E046972C3D5E3D002D12C2 /* NicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameView.swift; sourceTree = "<group>"; };
@@ -1935,7 +1942,7 @@
 			isa = PBXGroup;
 			children = (
 				4EB32BE82C67A2DD003F98F2 /* QuestListView.swift */,
-				4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */,
+				874014AE2D899E7300E98D00 /* Components */,
 				4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */,
 				4E9759E32D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift */,
 			);
@@ -1945,6 +1952,7 @@
 		4EB32BED2C67B0A8003F98F2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				87C27F722D80008D008036FA /* CourseQuest.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2174,6 +2182,16 @@
 				872F4BBA2C6B917800284DE0 /* CharacterDetailCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		874014AE2D899E7300E98D00 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				87C27F8C2D80482F008036FA /* IconLabelStackView.swift */,
+				87C27F692D7FED19008036FA /* CourseQuestCollectionViewCell.swift */,
+				4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		8791EDEE2C7E10F700E7F8B9 /* Cell */ = {
@@ -3787,6 +3805,7 @@
 				4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */,
 				8792D01E2C3E872D002051AC /* ChoosingCharacterView.swift in Sources */,
 				8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */,
+				8773EC562DA54FBA00600948 /* IconLabelStackView.swift in Sources */,
 				87738CBA2C8C1B0500E107C7 /* CharacterListResponseDTO.swift in Sources */,
 				4E99008B2CE0CB61007EEFF7 /* UITextView+.swift in Sources */,
 				4EFD00502CCB4C25005C294D /* SVGFetchable.swift in Sources */,
@@ -3868,6 +3887,7 @@
 				4E4F316A2D4718F400C3B2FF /* AdventureInfoResponseDTO.swift in Sources */,
 				D07D3AD72D9074B70030995E /* DiaryService.swift in Sources */,
 				4E4F316B2D4718F400C3B2FF /* AdventureMapView.swift in Sources */,
+				87C27F6B2D7FED19008036FA /* CourseQuestCollectionViewCell.swift in Sources */,
 				D022320C2D76CCE700DA6968 /* DiaryGuideView.swift in Sources */,
 				4E4F316C2D4718F400C3B2FF /* ORBAlertButton.swift in Sources */,
 				4E4F316D2D4718F400C3B2FF /* QuestQRViewController.swift in Sources */,
@@ -4011,6 +4031,7 @@
 				4E4F31D52D4718F400C3B2FF /* ScrollLoadingCollectionView.swift in Sources */,
 				4E4F31D62D4718F400C3B2FF /* ORBToastManager.swift in Sources */,
 				4E4F31D72D4718F400C3B2FF /* CharacterMotionResponseDTO.swift in Sources */,
+				87C27F732D80008D008036FA /* CourseQuest.swift in Sources */,
 				4E4F31D82D4718F400C3B2FF /* CouponListView.swift in Sources */,
 				4E4F31D92D4718F400C3B2FF /* AdventureMapViewController.swift in Sources */,
 				4E4F31DA2D4718F400C3B2FF /* CustomerInquiryViewController.swift in Sources */,
@@ -4146,6 +4167,7 @@
 				4E4F324E2D4718F400C3B2FF /* QuestListAPI.swift in Sources */,
 				4E4F324F2D4718F400C3B2FF /* TermsConsentViewController.swift in Sources */,
 				4E4F32502D4718F400C3B2FF /* EmblemPopupViewController.swift in Sources */,
+				87C27F8D2D80482F008036FA /* IconLabelStackView.swift in Sources */,
 				D05B70D22D63257800A1E206 /* DiaryTimeView.swift in Sources */,
 				4E4F32512D4718F400C3B2FF /* PlaceService.swift in Sources */,
 				4E4F32522D4718F400C3B2FF /* CharacterListViewModel.swift in Sources */,
