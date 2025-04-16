@@ -19,6 +19,7 @@ protocol ORBRecommendationGradientStyle: UIView {
 
 fileprivate var orbRecommendationGradientBaseViewKey: UInt8 = 0
 fileprivate var isGradientStyleAppliedKey: UInt8 = 1
+fileprivate var borderWidthCacheKey: UInt8 = 2
 extension ORBRecommendationGradientStyle {
     
     private var orbRecommendationBaseBackgroundView: ORBRecommendationBaseBackground? {
@@ -29,6 +30,11 @@ extension ORBRecommendationGradientStyle {
     private var isGradientStyleApplied: Bool {
         get { (objc_getAssociatedObject(self, &isGradientStyleAppliedKey) as? Bool) ?? false }
         set { objc_setAssociatedObject(self, &isGradientStyleAppliedKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+    }
+    
+    private var borderWidthCache: CGFloat {
+        get { objc_getAssociatedObject(self, &borderWidthCacheKey) as? CGFloat ?? 0 }
+        set { objc_setAssociatedObject(self, &borderWidthCacheKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
     /// 그라데이션 효과가 적용될 테두리 두께.
@@ -60,16 +66,21 @@ extension ORBRecommendationGradientStyle {
         orbRecommendationBaseBackgroundView!.snp.makeConstraints { make in
             make.edges.equalToSuperview()//.priority(.init(999))
         }
+        layoutIfNeeded()
         orbRecommendationBaseBackgroundView!.clipsToBounds = true
+        orbRecommendationBaseBackgroundView!.alpha = 1
         updateBaseBackgroundCorner()
+        borderWidthCache = layer.borderWidth
         layer.borderWidth = 0
         
         isGradientStyleApplied = true
     }
     
     func removeGradientStyle() {
-        orbRecommendationBaseBackgroundView?.removeFromSuperview()
-        orbRecommendationBaseBackgroundView = nil
+        guard isGradientStyleApplied else { return }
+        orbRecommendationBaseBackgroundView?.alpha = 0
+        layer.borderWidth = borderWidthCache
+        isGradientStyleApplied = false
     }
     
     func updateBaseBackgroundCorner() {
