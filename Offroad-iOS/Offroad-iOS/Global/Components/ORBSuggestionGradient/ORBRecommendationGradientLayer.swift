@@ -27,8 +27,17 @@ final class ORBRecommendationGradientLayer: CAGradientLayer {
     private var colorCombination2: [CGColor] { [3, 1, 3, 2, 1, 2, 3].map { cgColors[$0-1] } }
     private var colorCombination3: [CGColor] { [4, 1, 2, 3, 1, 3, 4].map { cgColors[$0-1] } }
     private var colorCombination4: [CGColor] { [1, 3, 3, 4, 3, 2, 1].map { cgColors[$0-1] } }
-    private var colorCombinations: [[CGColor]] {
+    private var colorCombinations1: [[CGColor]] {
         [colorCombination1, colorCombination2, colorCombination3, colorCombination4, colorCombination1]
+    }
+    private var colorCombinations2: [[CGColor]] {
+        [colorCombination1, colorCombination4, colorCombination3, colorCombination2, colorCombination1]
+    }
+    private var colorCombinations3: [[CGColor]] {
+        [colorCombination1, colorCombination4, colorCombination3, colorCombination2, colorCombination1]
+    }
+    private var colorCombinations4: [[CGColor]] {
+        [colorCombination1, colorCombination3, colorCombination2, colorCombination4, colorCombination1]
     }
     
     override init() {
@@ -56,9 +65,9 @@ final class ORBRecommendationGradientLayer: CAGradientLayer {
         }
         
         let glowAnimation = CAKeyframeAnimation(keyPath: "colors")
-        glowAnimation.values = colorCombinations
+        glowAnimation.values = [colorCombinations1, colorCombinations2, colorCombinations3, colorCombinations4].randomElement()
         glowAnimation.keyTimes = [0, 0.25, 0.5, 0.75, 1]
-        glowAnimation.duration = animationDuration
+        glowAnimation.duration = Double([4, 5, 6].randomElement()!)
         add(glowAnimation, forKey: "glowAnimation")
         
         CATransaction.commit()
