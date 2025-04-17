@@ -17,9 +17,9 @@ protocol ORBRecommendationGradientStyle: UIView {
     
 }
 
-fileprivate var orbRecommendationGradientBaseViewKey: UInt8 = 0
-fileprivate var isGradientStyleAppliedKey: UInt8 = 1
-fileprivate var borderWidthCacheKey: UInt8 = 2
+private var orbRecommendationGradientBaseViewKey: UInt8 = 0
+private var isGradientStyleAppliedKey: UInt8 = 1
+private var borderWidthCacheKey: UInt8 = 2
 extension ORBRecommendationGradientStyle {
     
     private var orbRecommendationBaseBackgroundView: ORBRecommendationBaseBackground? {
@@ -83,6 +83,8 @@ extension ORBRecommendationGradientStyle {
         isGradientStyleApplied = false
     }
     
+    /// baseBackground을 뷰의 cornerRaidus에 맞게 조정
+    /// corner radius가 바뀌는 경우 `layoutSubviews()` 등에서 이 함수를 호출하여 바뀐 corner radius 반영
     func updateBaseBackgroundCorner() {
         orbRecommendationBaseBackgroundView?.layer.cornerRadius = layer.cornerRadius
         orbRecommendationBaseBackgroundView?.layer.cornerCurve = layer.cornerCurve
