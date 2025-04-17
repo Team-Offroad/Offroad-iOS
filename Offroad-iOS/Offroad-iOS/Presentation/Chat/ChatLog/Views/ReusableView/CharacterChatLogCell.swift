@@ -22,7 +22,7 @@ class CharacterChatLogCell: UICollectionViewCell {
     
     let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     
-    private var role: CellType = .user
+    private var type: CellType = .user
     lazy var loadingAnimationViewTrailingConstraint = loadingAnimationView.trailingAnchor.constraint(
         equalTo: chatBubbleView.trailingAnchor
     )
@@ -122,8 +122,8 @@ extension CharacterChatLogCell {
     //MARK: - Func
     
     func configure(with model: ChatDataModel, characterName: String) {
-        if model.role == "USER" {
-            role = .user
+        if model.role == .user {
+            type = .user
             characternameLabel.text = ""
             characternameLabel.isHidden = true
             messageLabelTrailingConstraint.isActive = true
@@ -140,9 +140,8 @@ extension CharacterChatLogCell {
                 make.trailing.equalTo(chatBubbleView.snp.leading).offset(-6)
                 make.bottom.equalToSuperview()
             }
-        // data.role = "ORB_CHARACTER"
-        } else {
-            role = .character
+        } else if model.role == .orbCharacter {
+            type = .character
             characternameLabel.text = "\(characterName) :"
             characternameLabel.isHidden = false
             characternameLabel.snp.remakeConstraints { make in

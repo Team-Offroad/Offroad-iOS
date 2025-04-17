@@ -260,10 +260,16 @@ extension CharacterChatLogViewController {
                     self.didGetAllChatLog = true
                     rootView.chatLogCollectionView.stopScrollLoading(direction: .bottom)
                 }
-                if cursor != nil {
-                    self.chatLogDataList.append(contentsOf: responseDTO.data.map({ ChatDataModel(data: $0) }))
-                } else {
-                    self.chatLogDataList = responseDTO.data.map({ ChatDataModel(data: $0) })
+                
+                do {
+                    let newModels: [ChatDataModel] = try responseDTO.data.map({ try ChatDataModel(data: $0) })
+                    if cursor != nil {
+                        self.chatLogDataList.append(contentsOf: newModels)
+                    } else {
+                        self.chatLogDataList = newModels
+                    }
+                } catch {
+                    assertionFailure("ChatDataModel 매핑 에러.(ChatDataModel init 실패: \(error.localizedDescription)")
                 }
                 
                 guard chatLogDataList.count > 0 else { return }
@@ -375,18 +381,21 @@ extension CharacterChatLogViewController {
     
     private func sendChatBubble(isUserChat: Bool, text: String, isLoading: Bool, completion: (() -> Void)? = nil) {
         let currentDate = Date()
-        let chatDataModelToAppend = ChatDataModel(
-            role: isUserChat ? "USER" : "ORB_CHARACTER",
-            content: text,
-            createdData: currentDate,
-            isLoading: isLoading
-        )
-        
-        chatLogDataList.insert(chatDataModelToAppend, at: 0)
-        updateCollectionView(animatingDifferences: true, completion: { completion?() })
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { [weak self] in
-            guard let self else { return }
-            self.scrollToFirstCell(animated: true)
+        do {
+            let chatDataModelToAppend = try ChatDataModel(
+                role: isUserChat ? .user : .orbCharacter,
+                content: text,
+                createdData: currentDate,
+                isLoading: isLoading
+            )
+            chatLogDataList.insert(chatDataModelToAppend, at: 0)
+            updateCollectionView(animatingDifferences: true, completion: { completion?() })
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { [weak self] in
+                guard let self else { return }
+                self.scrollToFirstCell(animated: true)
+            }
+        } catch {
+            assertionFailure("ChatDataModel init failed: \(error.localizedDescription)")
         }
     }
     
@@ -401,8 +410,12 @@ extension CharacterChatLogViewController {
                     self.showToast(message: "response data is Empty", inset: 66)
                     return
                 }
-                let chatDataModel = ChatDataModel(data: data)
-                self.updateChatLog(chatSuccess: true, characterResponse: chatDataModel)
+                do {
+                    let chatDataModel = try ChatDataModel(data: data)
+                    self.updateChatLog(chatSuccess: true, characterResponse: chatDataModel)
+                } catch {
+                    assertionFailure("ChatDataModel init failed: \(error.localizedDescription)")
+                }
                 
             case .requestErr:
                 self.showToast(message: "requestError occurred", inset: 66)
@@ -445,11 +458,12 @@ extension CharacterChatLogViewController {
         guard dataSourceSectionCount > 0, dataSourceLastSectionItemCount > 1 else { return }
         
         guard
-            let lastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 1),
-            let secondLastIndexPath = self.rootView.chatLogCollectionView.getIndexPathFromLast(index: 2) else {
-            self.showToast(message: "알 수 없는 오류가 발생했어요. 채팅을 다시 시도해 주세요.", inset: 66)
-            self.rootView.chatLogCollectionView.reloadData()
-            self.scrollToFirstCell(animated: true)
+            rootView.chatLogCollectionView.getIndexPathFromLast(index: 1) != nil,
+            rootView.chatLogCollectionView.getIndexPathFromLast(index: 2) != nil
+        else {
+            showToast(message: "알 수 없는 오류가 발생했어요. 채팅을 다시 시도해 주세요.", inset: 66)
+            rootView.chatLogCollectionView.reloadData()
+            scrollToFirstCell(animated: true)
             return
         }
         
@@ -589,7 +603,8 @@ extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
         )
         let maxMessageLabelWidth: CGFloat
         
-        if chatLogDataSource[indexPath.section][indexPath.item].role == "USER" {
+        switch chatLogDataSource[indexPath.section][indexPath.item].role {
+        case .user:
             maxMessageLabelWidth =
             UIScreen.currentScreenSize.width
             // timeLabelSize의 너비 및 chatBubble과의 offset
@@ -599,7 +614,7 @@ extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
             // chatBubble 안의 콘텐츠 inset
             - (20.0 * 2)
         // role == "ORB_CHARACTER"
-        } else {
+        case .orbCharacter:
             maxMessageLabelWidth =
             UIScreen.currentScreenSize.width
             // timeLabelSize의 너비 및 chatBubble과의 offset
