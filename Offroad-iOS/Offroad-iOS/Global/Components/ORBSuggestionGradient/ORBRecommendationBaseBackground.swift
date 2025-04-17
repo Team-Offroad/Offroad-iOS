@@ -10,8 +10,12 @@ import UIKit
 /// 오브의 추천소 그라데이션 배경이 되는 뷰. 테두리 포함.
 final class ORBRecommendationBaseBackground: UIView {
     
+    // MARK: - Private Properties
+    
     private let gradient = ORBRecommendationGradientLayer()
     private let blur = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+    
+    // MARK: - Properties
     
     var gradientBorderWidth: CGFloat {
         didSet { layoutIfNeeded() }
@@ -20,6 +24,8 @@ final class ORBRecommendationBaseBackground: UIView {
     var isBackgroundBlurred: Bool {
         didSet { blur.contentView.alpha = isBackgroundBlurred ? 0.7 : 1 }
     }
+    
+    // MARK: - Life Cycle
     
     init(borderWidth: CGFloat = 1, isBackgroundBlurred: Bool = true) {
         self.gradientBorderWidth = borderWidth

@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// 오브의 추천소 그라데이션 디자인을 나타낼 수 있는 타입. `UIView`만 채택 가능
 protocol ORBRecommendationGradientStyle: UIView {
     
     var gradientBorderWidth: CGFloat { get set }
