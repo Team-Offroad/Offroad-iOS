@@ -33,6 +33,8 @@ extension ORBRecommendationGradientStyle {
         set { objc_setAssociatedObject(self, &isGradientStyleAppliedKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
+    /// 오브의 추천소 그라데이션 적용 시 `layer.border`를 숨겨야 하므로 `borderWidth`를 0으로 설정함.
+    /// 그라데이션을 지울 때 다시 원래의 `borderWidth`로 복원해 주어야 하므로 이를 저장하기 위한 속성.
     private var borderWidthCache: CGFloat {
         get { objc_getAssociatedObject(self, &borderWidthCacheKey) as? CGFloat ?? 0 }
         set { objc_setAssociatedObject(self, &borderWidthCacheKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
