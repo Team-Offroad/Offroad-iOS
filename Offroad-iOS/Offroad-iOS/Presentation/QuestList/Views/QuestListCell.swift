@@ -211,6 +211,11 @@ extension QuestListCell {
         
         [checkBoxImageView, giftBoxImageVIew].forEach { imageView in
             imageView.heightAnchor.constraint(equalToConstant: 25).isActive = true
+            imageView.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
+        }
+        
+        [stackView1, stackView2].forEach { stackView in
+            stackView.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
         }
         
         stackViewStack.snp.makeConstraints { make in
