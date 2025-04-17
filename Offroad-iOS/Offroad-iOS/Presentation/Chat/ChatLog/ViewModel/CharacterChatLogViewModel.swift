@@ -9,36 +9,81 @@ import UIKit
 
 final class CharacterChatLogViewModel {
     
-    func groupChatsByDate(chats: [ChatDataModel]) -> [[ChatDataModel]] {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+    func groupChatsByDate(items: [CharacterChatItem]) -> [[CharacterChatItem]] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
         
-        var groupedChats: [String: [ChatDataModel]] = [:]
-        for chat in chats {
-            guard let createdDate = chat.createdDate else { continue }
-            let dateKey = dateFormatter.string(from: createdDate) // 날짜만 추출
-            if groupedChats[dateKey] == nil {
-                groupedChats[dateKey] = []
+        var groupedChats: [String: [CharacterChatItem]] = [:]
+        for item in items {
+            switch item {
+            case .message(let chatMessageModel):
+                switch chatMessageModel {
+                case .user(let content, let createdDate, let id):
+                    let dateKey = formatter.string(from: createdDate) // 날짜만 추출
+                    if groupedChats[dateKey] == nil {
+                        groupedChats[dateKey] = []
+                    }
+                    groupedChats[dateKey]?.append(
+                        .message(.user(content: content, createdDate: createdDate, id: id))
+                    )
+                case .orbCharacter(let content, let createdDate, let id):
+                    let dateKey = formatter.string(from: createdDate)
+                    if groupedChats[dateKey] == nil {
+                        groupedChats[dateKey] = []
+                    }
+                    groupedChats[dateKey]?.append(
+                        .message(.user(content: content, createdDate: createdDate, id: id))
+                    )
+                }
+            case .loading(let createdDate):
+                let dateKey = formatter.string(from: createdDate)
+                if groupedChats[dateKey] == nil {
+                    groupedChats[dateKey] = []
+                }
+                groupedChats[dateKey]?.append(
+                    .loading(createdDate: createdDate)
+                )
             }
-            groupedChats[dateKey]?.append(chat)
         }
-        let sortedKeys = groupedChats.keys.sorted(by: { $0 > $1 })
+        let sortedKeys = groupedChats.keys.sorted(by: >)// { $0 > $1 }
         return sortedKeys.compactMap { groupedChats[$0] }
     }
     
-    func groupChatsByDateForDiffableDataSource(chats: [ChatDataModel]) -> [String: [ChatDataModel]] {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+    func groupChatsByDateForDiffableDataSource(items: [CharacterChatItem]) -> [String: [CharacterChatItem]] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
         
-        var groupedChats: [String: [ChatDataModel]] = [:]
-        for chat in chats {
-            guard let createdDate = chat.createdDate else { continue }
-            let dateKey = dateFormatter.string(from: createdDate) // 날짜만 추출
-            if groupedChats[dateKey] == nil {
-                groupedChats[dateKey] = []
+        var groupedChats: [String: [CharacterChatItem]] = [:]
+        for item in items {
+            switch item {
+            case .message(let chatMessageModel):
+                switch chatMessageModel {
+                case .user(let content, let createdDate, let id):
+                    let dateKey = formatter.string(from: createdDate) // 날짜만 추출
+                    if groupedChats[dateKey] == nil {
+                        groupedChats[dateKey] = []
+                    }
+                    groupedChats[dateKey]?.append(
+                        .message(.user(content: content, createdDate: createdDate, id: id))
+                    )
+                case .orbCharacter(let content, let createdDate, let id):
+                    let dateKey = formatter.string(from: createdDate) // 날짜만 추출
+                    if groupedChats[dateKey] == nil {
+                        groupedChats[dateKey] = []
+                    }
+                    groupedChats[dateKey]?.append(
+                        .message(.orbCharacter(content: content, createdDate: createdDate, id: id))
+                    )
+                }
+            case .loading(let createdDate):
+                let dateKey = formatter.string(from: createdDate) // 날짜만 추출
+                if groupedChats[dateKey] == nil {
+                    groupedChats[dateKey] = []
+                }
+                groupedChats[dateKey]?.append(.loading(createdDate: createdDate))
             }
-            groupedChats[dateKey]?.append(chat)
         }
+        
         return groupedChats
     }
     

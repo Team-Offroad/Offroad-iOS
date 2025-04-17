@@ -19,9 +19,6 @@ class CharacterChatLogCell: UICollectionViewCell {
     //MARK: - Properties
     
     private let verticalFlipTransform = CGAffineTransform(scaleX: 1, y: -1)
-    
-    let animator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
-    
     private var type: CellType = .user
     lazy var loadingAnimationViewTrailingConstraint = loadingAnimationView.trailingAnchor.constraint(
         equalTo: chatBubbleView.trailingAnchor
@@ -72,6 +69,7 @@ extension CharacterChatLogCell {
         characternameLabel.snp.makeConstraints { make in
             make.bottom.lessThanOrEqualToSuperview().offset(-14)
         }
+        messageLabel.setContentHuggingPriority(.required, for: .vertical)
         timeLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
         loadingAnimationView.setContentCompressionResistancePriority(.init(999), for: .horizontal)
         loadingAnimationViewTrailingConstraint.isActive = false
@@ -92,6 +90,7 @@ extension CharacterChatLogCell {
         chatBubbleView.layer.borderWidth = 1
         
         messageLabel.do { label in
+            label.backgroundColor = .lightGray
             label.font = .offroad(style: .iosText)
             label.textColor = .main(.main2)
             label.numberOfLines = 0
@@ -121,38 +120,75 @@ extension CharacterChatLogCell {
     
     //MARK: - Func
     
-    func configure(with model: ChatDataModel, characterName: String) {
-        if model.role == .user {
-            type = .user
-            characternameLabel.text = ""
-            characternameLabel.isHidden = true
+    func configure(with item: CharacterChatItem, characterName: String) {
+        
+        // UI 구성
+        switch item {
+        case .message(let chatMessageModel):
+            messageLabel.isHidden = false
+            messageLabel.numberOfLines = 0
+            loadingAnimationView.isHidden = true
+            loadingAnimationView.stop()
+            loadingAnimationViewTrailingConstraint.isActive = false
             messageLabelTrailingConstraint.isActive = true
-            messageLabel.snp.remakeConstraints { make in
-                make.top.bottom.equalToSuperview().inset(14)
-                make.leading.equalToSuperview().inset(20)
+            
+            switch chatMessageModel {
+            case .user(let content, _, _):
+                type = .user
+                characternameLabel.text = ""
+                characternameLabel.isHidden = true
+                messageLabelTrailingConstraint.isActive = true
+                messageLabel.snp.remakeConstraints { make in
+                    make.top.bottom.equalToSuperview().inset(14)
+                    make.leading.equalToSuperview().inset(20)
+                }
+                chatBubbleView.snp.remakeConstraints { make in
+                    make.verticalEdges.equalToSuperview()
+                    make.trailing.equalToSuperview().inset(20)
+                }
+                timeLabel.snp.remakeConstraints { make in
+                    make.leading.greaterThanOrEqualToSuperview().inset(20)
+                    make.trailing.equalTo(chatBubbleView.snp.leading).offset(-6)
+                    make.bottom.equalToSuperview()
+                }
+                
+                messageLabel.text = content
+                timeLabel.text = item.formattedTimeString
+                
+            case .orbCharacter(let content, _, _):
+                type = .character
+                characternameLabel.text = "\(characterName) :"
+                characternameLabel.isHidden = false
+                characternameLabel.snp.remakeConstraints { make in
+                    make.top.equalToSuperview().inset(14)
+                    make.leading.equalToSuperview().inset(20)
+                }
+                messageLabel.snp.remakeConstraints { make in
+                    make.leading.equalTo(characternameLabel.snp.trailing).offset(4)
+                    make.top.bottom.equalToSuperview().inset(14)
+                    make.trailing.equalToSuperview().inset(20)
+                }
+                chatBubbleView.snp.remakeConstraints { make in
+                    make.verticalEdges.equalToSuperview()
+                    make.leading.equalToSuperview().inset(20)
+                }
+                timeLabel.snp.remakeConstraints { make in
+                    make.leading.equalTo(chatBubbleView.snp.trailing).offset(6)
+                    make.trailing.lessThanOrEqualToSuperview().inset(20)
+                    make.bottom.equalToSuperview()
+                }
+                
+                messageLabel.text = content
+                timeLabel.text = item.formattedTimeString
             }
-            chatBubbleView.snp.remakeConstraints { make in
-                make.verticalEdges.equalToSuperview()
-                make.trailing.equalToSuperview().inset(20)
-            }
-            timeLabel.snp.remakeConstraints { make in
-                make.leading.greaterThanOrEqualToSuperview().inset(20)
-                make.trailing.equalTo(chatBubbleView.snp.leading).offset(-6)
-                make.bottom.equalToSuperview()
-            }
-        } else if model.role == .orbCharacter {
-            type = .character
-            characternameLabel.text = "\(characterName) :"
-            characternameLabel.isHidden = false
-            characternameLabel.snp.remakeConstraints { make in
-                make.top.equalToSuperview().inset(14)
-                make.leading.equalToSuperview().inset(20)
-            }
-            messageLabel.snp.remakeConstraints { make in
-                make.leading.equalTo(characternameLabel.snp.trailing).offset(4)
-                make.top.bottom.equalToSuperview().inset(14)
-                make.trailing.equalToSuperview().inset(20)
-            }
+        case .loading:
+            messageLabel.isHidden = true
+            messageLabel.numberOfLines = 1
+            loadingAnimationView.isHidden = false
+            loadingAnimationView.play()
+            messageLabelTrailingConstraint.isActive = false
+            loadingAnimationViewTrailingConstraint.isActive = true
+            
             chatBubbleView.snp.remakeConstraints { make in
                 make.verticalEdges.equalToSuperview()
                 make.leading.equalToSuperview().inset(20)
@@ -162,26 +198,9 @@ extension CharacterChatLogCell {
                 make.trailing.lessThanOrEqualToSuperview().inset(20)
                 make.bottom.equalToSuperview()
             }
+            
+            timeLabel.text = ""
         }
-        
-        if model.isLoading {
-            messageLabel.isHidden = true
-            messageLabel.numberOfLines = 1
-            loadingAnimationView.isHidden = false
-            loadingAnimationView.play()
-            messageLabelTrailingConstraint.isActive = false
-            loadingAnimationViewTrailingConstraint.isActive = true
-        } else {
-            messageLabel.isHidden = false
-            messageLabel.numberOfLines = 0
-            loadingAnimationView.isHidden = true
-            loadingAnimationView.stop()
-            loadingAnimationViewTrailingConstraint.isActive = false
-            messageLabelTrailingConstraint.isActive = true
-        }
-        
-        messageLabel.text = model.content
-        timeLabel.text = model.formattedTimeString
         
         updateConstraints()
         layoutIfNeeded()

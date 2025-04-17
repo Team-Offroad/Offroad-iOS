@@ -17,14 +17,15 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private let viewModel = CharacterChatLogViewModel()
     private let chatButtonHidingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private var rootView: CharacterChatLogView!
-    private var chatLogDataList: [ChatDataModel] = [] {
+    private var chatLogDataList: [CharacterChatItem] = [] {
         didSet {
-            chatLogDataSource = viewModel.groupChatsByDate(chats: chatLogDataList)
-            chatLogDataSourceForSnapshot = viewModel.groupChatsByDateForDiffableDataSource(chats: chatLogDataList)
+            chatLogDataSource = viewModel.groupChatsByDate(items: chatLogDataList)
+            chatLogDataSourceForSnapshot = viewModel.groupChatsByDateForDiffableDataSource(items: chatLogDataList)
         }
     }
-    private var chatLogDataSource: [[ChatDataModel]] = [[]]
-    private var chatLogDataSourceForSnapshot: [String: [ChatDataModel]] = [:]
+    private var chatLogDataSource: [[CharacterChatItem]] = [[]]
+    private var chatLogDataSourceForSnapshot: [String: [CharacterChatItem]] = [:]
+    
     private var isChatButtonHidden: Bool = true
     /// 채팅 중에 채팅 로그 뷰 진입 시 키보드가 내려가는데, 이때 keyboardWillHide() 메서드가 불리지 않게 하기 위해 사용하는 flag.
     ///
@@ -52,7 +53,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     
     //MARK: - DiffableDataSource
     
-    private var dataSource: UICollectionViewDiffableDataSource<String, ChatDataModel>!
+    private var dataSource: UICollectionViewDiffableDataSource<String, CharacterChatItem>!
     
     //MARK: - Life Cycle
     
@@ -80,7 +81,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         bindData()
         setupNotifications()
         setupGestureRecognizers()
-        updateChatLogDataSource(characterId: characterId, limit: 28, cursor: nil) { [weak self] in
+        fetchChatLogDataSourceFromServer(characterId: characterId, limit: 28, cursor: nil) { [weak self] in
             guard let self else { return }
             self.showChatButton()
             self.rootView.chatLogCollectionView.contentInset.top = 135 + rootView.safeAreaInsets.bottom
@@ -177,28 +178,35 @@ extension CharacterChatLogViewController {
     }
     
     private func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<CharacterChatLogCell, ChatDataModel>(
+        let cellRegistration = UICollectionView.CellRegistration<CharacterChatLogCell, CharacterChatItem>(
             handler: { [weak self] cell, indexPath, item in
                 guard let self else { return }
                 cell.configure(with: item, characterName: self.characterName)
-            })
+            }
+        )
         
         let footerRegistration = UICollectionView.SupplementaryRegistration<CharacterChatLogFooter>(
             elementKind: UICollectionView.elementKindSectionFooter,
             handler: { [weak self] supplementaryView, elementKind, indexPath in
                 guard let self else { return }
-                let firstChatDataModelOfDay = self.chatLogDataSourceForSnapshot[self.chatLogDataSourceForSnapshot.keys.sorted(by: { $0 > $1 })[indexPath.section]]?.first
-                supplementaryView.dateLabel.text = firstChatDataModelOfDay?.formattedDateString
-            })
+                let firstChatItemOfDay = self.chatLogDataSourceForSnapshot[self.chatLogDataSourceForSnapshot.keys.sorted(by: { $0 > $1 })[indexPath.section]]?.first
+                switch firstChatItemOfDay {
+                case .message(let chatMessageModel):
+                    supplementaryView.dateLabel.text = chatMessageModel.formattedDateString
+                case .loading, nil:
+                    return
+                }
+            }
+        )
         
-        
-        dataSource = UICollectionViewDiffableDataSource<String, ChatDataModel>(
+        dataSource = UICollectionViewDiffableDataSource<String, CharacterChatItem>(
             collectionView: rootView.chatLogCollectionView,
             cellProvider: { collectionView, indexPath, identifier -> UICollectionViewCell? in
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
                                                                     for: indexPath,
                                                                     item: identifier)
-            })
+            }
+        )
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) -> UICollectionReusableView? in
             return collectionView.dequeueConfiguredReusableSupplementary(using: footerRegistration,
@@ -237,7 +245,7 @@ extension CharacterChatLogViewController {
         rootView.chatLogCollectionView.addGestureRecognizer(tapGesture)
     }
     
-    private func updateChatLogDataSource(characterId: Int? = nil, limit: Int, cursor: Int?, completion: (() -> Void)? = nil) {
+    private func fetchChatLogDataSourceFromServer(characterId: Int? = nil, limit: Int, cursor: Int?, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
             guard cursor == nil else { return }
@@ -262,18 +270,29 @@ extension CharacterChatLogViewController {
                 }
                 
                 do {
-                    let newModels: [ChatDataModel] = try responseDTO.data.map({ try ChatDataModel(data: $0) })
+//                    let newModels: [ChatDataModel] = try responseDTO.data.map({ try ChatDataModel(data: $0) })
+                    let newModels: [CharacterChatItem] = try responseDTO.data.map({ .message(try .from(dto: $0)) })
                     if cursor != nil {
                         self.chatLogDataList.append(contentsOf: newModels)
                     } else {
                         self.chatLogDataList = newModels
                     }
                 } catch {
-                    assertionFailure("ChatDataModel 매핑 에러.(ChatDataModel init 실패: \(error.localizedDescription)")
+                    assertionFailure("CharacterChatItem 매핑 에러.(CharacterChatItem init 실패: \(error.localizedDescription)")
                 }
                 
-                guard chatLogDataList.count > 0 else { return }
-                self.lastCursor = chatLogDataList.last!.id
+                guard chatLogDataList.count > 0, let lastItem = chatLogDataList.last else { return }
+                switch lastItem {
+                case .message(let chatMessageModel):
+                    switch chatMessageModel {
+                    case .user(_, _, id: let id):
+                        self.lastCursor = id
+                    case .orbCharacter(_, _, id: let id):
+                        self.lastCursor = id
+                    }
+                case .loading:
+                    return
+                }
                 completion?()
             case .networkFail:
                 return
@@ -297,16 +316,15 @@ extension CharacterChatLogViewController {
         rootView.chatTextInputView.onSendingText.subscribe(onNext: { [weak self] sendingText in
             guard let self else { return }
             // 사용자 채팅 버블 추가
-            self.sendChatBubble(isUserChat: true, text: sendingText, isLoading: false) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-                    guard let self else { return }
-                    // 캐릭터 셀 추가
-                    self.sendChatBubble(isUserChat: false, text: "", isLoading: true) { [weak self] in
+            self.sendChatBubble(chatItem: .message(.user(content: sendingText, createdDate: Date(), id: nil)), completion: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: { [weak self] in
+                    self?.sendChatBubble(chatItem: .loading(createdDate: Date()), completion: { [weak self] in
                         guard let self else { return }
                         self.postCharacterChat(characterId: characterId, message: sendingText)
-                    }
-                }
-            }
+                    })
+                })
+            })
+            
         }).disposed(by: disposeBag)
         
         patchChatReadRelay.subscribe(onNext: { [weak self] characterId in
@@ -334,7 +352,9 @@ extension CharacterChatLogViewController {
         
         characterChatPushedRelay.subscribe(onNext: { [weak self] message in
             guard let self else { return }
-            self.sendChatBubble(isUserChat: false, text: message, isLoading: false)
+            self.sendChatBubble(chatItem:
+                    .message(.orbCharacter(content: message, createdDate: Date(), id: nil))
+            )
         }).disposed(by: disposeBag)
     }
     
@@ -379,24 +399,10 @@ extension CharacterChatLogViewController {
         rootView.chatLogCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: scrollPosition, animated: animated)
     }
     
-    private func sendChatBubble(isUserChat: Bool, text: String, isLoading: Bool, completion: (() -> Void)? = nil) {
-        let currentDate = Date()
-        do {
-            let chatDataModelToAppend = try ChatDataModel(
-                role: isUserChat ? .user : .orbCharacter,
-                content: text,
-                createdData: currentDate,
-                isLoading: isLoading
-            )
-            chatLogDataList.insert(chatDataModelToAppend, at: 0)
-            updateCollectionView(animatingDifferences: true, completion: { completion?() })
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { [weak self] in
-                guard let self else { return }
-                self.scrollToFirstCell(animated: true)
-            }
-        } catch {
-            assertionFailure("ChatDataModel init failed: \(error.localizedDescription)")
-        }
+    private func sendChatBubble(chatItem: CharacterChatItem, completion: (() -> Void)? = nil) {
+        chatLogDataList.insert(chatItem, at: 0)
+        updateCollectionView(animatingDifferences: true, completion: { completion?() } )
+        scrollToFirstCell(at: .bottom, animated: true)
     }
     
     private func postCharacterChat(characterId: Int?, message: String) {
@@ -411,8 +417,8 @@ extension CharacterChatLogViewController {
                     return
                 }
                 do {
-                    let chatDataModel = try ChatDataModel(data: data)
-                    self.updateChatLog(chatSuccess: true, characterResponse: chatDataModel)
+                    let item = try CharacterChatItem.message(.from(dto: data))
+                    self.updateChatLog(chatSuccess: true, characterResponse: item)
                 } catch {
                     assertionFailure("ChatDataModel init failed: \(error.localizedDescription)")
                 }
@@ -451,7 +457,7 @@ extension CharacterChatLogViewController {
     /// 채팅이 실패했을 경우, 로딩 중이던 캐릭터의 말풍선과 직전에 내가 했던 말풍선을 지움.
     ///
     /// 지우려는 말풍선의 indexPath를 구할 수 없는 경우, 채팅 로그 뷰컨트롤러를 nagivation stack에서 pop 하며 에러 메시지 토스트 표시
-    private func updateChatLog(chatSuccess: Bool, characterResponse: ChatDataModel? = nil) {
+    private func updateChatLog(chatSuccess: Bool, characterResponse: CharacterChatItem? = nil) {
         let dataSourceSectionCount = chatLogDataSource.count
         let dataSourceLastSectionItemCount = chatLogDataSource.last?.count ?? 0
         
@@ -491,7 +497,7 @@ extension CharacterChatLogViewController {
     private func updateCollectionView(animatingDifferences animating: Bool, completion: (() -> Void)? = nil) {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self else { return }
-            var snapshot = NSDiffableDataSourceSnapshot<String, ChatDataModel>()
+            var snapshot = NSDiffableDataSourceSnapshot<String, CharacterChatItem>()
             snapshot.appendSections(chatLogDataSourceForSnapshot.keys.sorted(by: { $0 > $1 }))
             chatLogDataSourceForSnapshot.keys.sorted { $0 > $1 }.forEach { [weak self] dateInString in
                 guard let self else { return }
@@ -508,7 +514,7 @@ extension CharacterChatLogViewController {
     
     private func expandChatLogCollectionView() {
         isScrollLoading = true
-        self.updateChatLogDataSource(characterId: characterId, limit: 14, cursor: lastCursor) { [weak self] in
+        self.fetchChatLogDataSourceFromServer(characterId: characterId, limit: 14, cursor: lastCursor) { [weak self] in
             guard let self else { return }
             self.updateCollectionView(animatingDifferences: true)
         }
@@ -596,15 +602,65 @@ extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
             font: .offroad(style: .iosTextBold),
             maxSize: .init(width: 200, height: 24)
         )
-        let timeLabelSize: CGSize = viewModel.calculateLabelSize(
-            text: chatLogDataSource[indexPath.section][indexPath.item].formattedTimeString,
-            font: .offroad(style: .iosTextContentsSmall),
-            maxSize: .init(width: 100, height: 14)
-        )
         let maxMessageLabelWidth: CGFloat
-        
-        switch chatLogDataSource[indexPath.section][indexPath.item].role {
-        case .user:
+        switch chatLogDataSource[indexPath.section][indexPath.item] {
+        case .message(let chatMessageModel):
+            switch chatMessageModel {
+            case .user(let content, _, _):
+                let timeLabelSize: CGSize = viewModel.calculateLabelSize(
+                    text: content,
+                    font: .offroad(style: .iosTextContentsSmall),
+                    maxSize: .init(width: 100, height: 14)
+                )
+                
+                maxMessageLabelWidth =
+                UIScreen.currentScreenSize.width
+                // timeLabelSize의 너비 및 chatBubble과의 offset
+                - (timeLabelSize.width + 6.0)
+                // cell 안의 콘텐츠에 적용되는 수평 inset(collectionView의 수평 contentInset 별도로 안 설정함)
+                - (24.0 * 2)
+                // chatBubble 안의 콘텐츠 inset
+                - (20.0 * 2)
+                
+                let messageLabelSize = viewModel.calculateLabelSize(
+                    text: content,
+                    font: .offroad(style: .iosText),
+                    maxSize: .init(width: maxMessageLabelWidth, height: 400)
+                )
+                return CGSize(width: UIScreen.currentScreenSize.width, height: messageLabelSize.height + (14*2))
+                
+            case .orbCharacter(let content, _, _):
+                let timeLabelSize: CGSize = viewModel.calculateLabelSize(
+                    text: content,
+                    font: .offroad(style: .iosTextContentsSmall),
+                    maxSize: .init(width: 100, height: 14)
+                )
+                
+                maxMessageLabelWidth =
+                UIScreen.currentScreenSize.width
+                // timeLabelSize의 너비 및 chatBubble과의 offset
+                - (timeLabelSize.width + 6.0)
+                // cell 안의 콘텐츠에 적용되는 수평 inset(collectionView의 수평 contentInset 별도로 안 설정함)
+                - (24.0 * 2)
+                // chatBubble 안의 콘텐츠 inset
+                - (20.0 * 2)
+                // 캐릭터 이름 라벨 너비 및 메시지 라벨과의 offset
+                - (characterNameLabelSize.width + 4.0)
+                
+                let messageLabelSize = viewModel.calculateLabelSize(
+                    text: content,
+                    font: .offroad(style: .iosText),
+                    maxSize: .init(width: maxMessageLabelWidth, height: 400)
+                )
+                return CGSize(width: UIScreen.currentScreenSize.width, height: messageLabelSize.height + (14*2))
+            }
+        case .loading:
+            let timeLabelSize: CGSize = viewModel.calculateLabelSize(
+                text: " ",
+                font: .offroad(style: .iosTextContentsSmall),
+                maxSize: .init(width: 100, height: 14)
+            )
+            
             maxMessageLabelWidth =
             UIScreen.currentScreenSize.width
             // timeLabelSize의 너비 및 chatBubble과의 offset
@@ -613,21 +669,15 @@ extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
             - (24.0 * 2)
             // chatBubble 안의 콘텐츠 inset
             - (20.0 * 2)
-        // role == "ORB_CHARACTER"
-        case .orbCharacter:
-            maxMessageLabelWidth =
-            UIScreen.currentScreenSize.width
-            // timeLabelSize의 너비 및 chatBubble과의 offset
-            - (timeLabelSize.width + 6.0)
-            // cell 안의 콘텐츠에 적용되는 수평 inset(collectionView의 수평 contentInset 별도로 안 설정함)
-            - (24.0 * 2)
-            // chatBubble 안의 콘텐츠 inset
-            - (20.0 * 2)
-            // 캐릭터 이름 라벨 너비 및 메시지 라벨과의 offset
-            - (characterNameLabelSize.width + 4.0)
+            // role == "ORB_CHARACTER"
+            
+            let messageLabelSize = viewModel.calculateLabelSize(
+                text: " ",
+                font: .offroad(style: .iosText),
+                maxSize: .init(width: maxMessageLabelWidth, height: 400)
+            )
+            return CGSize(width: UIScreen.currentScreenSize.width, height: messageLabelSize.height + (14*2))
         }
-        let messageLabelSize = viewModel.calculateLabelSize(text: chatLogDataSource[indexPath.section][indexPath.item].content, font: .offroad(style: .iosText), maxSize: .init(width: maxMessageLabelWidth, height: 400))
-        return CGSize(width: UIScreen.currentScreenSize.width, height: messageLabelSize.height + (14*2))
     }
     
 }
