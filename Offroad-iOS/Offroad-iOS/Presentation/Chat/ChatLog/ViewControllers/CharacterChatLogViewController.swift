@@ -27,10 +27,6 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private var chatLogDataSourceForSnapshot: [String: [CharacterChatItem]] = [:]
     
     private var isChatButtonHidden: Bool = true
-    /// 채팅 중에 채팅 로그 뷰 진입 시 키보드가 내려가는데, 이때 keyboardWillHide() 메서드가 불리지 않게 하기 위해 사용하는 flag.
-    ///
-    /// 채팅 중에 채팅 로그 뷰에 진입하면 키보드가 내려가는 경우 `keyboardWillHide()`가 불리게 되는데, 이때
-    /// `rootView.safeAreaInsets.bottom` 와 `rootView.userChatView.frame.height`가 0 이어서 사용자 입력창이 보이게 되는 현상 발생함.
     private var isKeyboardShown: Bool = false
     private var lastCursor: Int? = nil
     private var expectedYOffet: CGFloat = 0
@@ -87,7 +83,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
             self.rootView.chatLogCollectionView.contentInset.top = 135 + rootView.safeAreaInsets.bottom
             updateCollectionView(animatingDifferences: false) { [weak self] in
                 guard let self else { return }
-                self.scrollToFirstCell(at: .centeredVertically, animated: true)
+                self.scrollToFirstCell(animated: true)
             }
         }
     }
@@ -156,10 +152,12 @@ extension CharacterChatLogViewController {
             .init(x: 0, y: -(rootView.chatTextInputView.frame.height + 16)),
             animated: false
         )
+        isKeyboardShown = true
     }
     
     @objc private func keyboardWillHide(notification: Notification) {
         rootView.setChatCollectionViewInset(inset: 135 + rootView.safeAreaInsets.bottom)
+        isKeyboardShown = false
     }
     
     @objc private func tapGestureHandler(_ sender: UITapGestureRecognizer) {
@@ -392,17 +390,26 @@ extension CharacterChatLogViewController {
         
     }
     
-    private func scrollToFirstCell(at scrollPosition: UICollectionView.ScrollPosition = .top, animated: Bool) {
-        guard rootView.chatLogCollectionView.cellForItem(
-            at: IndexPath(item: 0, section: 0)
-        ) != nil else { return }
-        rootView.chatLogCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: scrollPosition, animated: animated)
+    private func scrollToFirstCell(animated: Bool) {
+        if isKeyboardShown {
+            rootView.chatLogCollectionView.setContentOffset(
+                .init(x: 0, y: -(self.rootView.chatTextInputView.frame.height + 16)),
+                animated: true
+            )
+        } else {
+            rootView.chatLogCollectionView.setContentOffset(
+                .init(x: 0, y: -(135 + rootView.safeAreaInsets.bottom)),
+                animated: true
+            )
+        }
     }
     
     private func sendChatBubble(chatItem: CharacterChatItem, completion: (() -> Void)? = nil) {
         chatLogDataList.insert(chatItem, at: 0)
-        updateCollectionView(animatingDifferences: true, completion: { completion?() } )
-        scrollToFirstCell(at: .bottom, animated: true)
+        updateCollectionView(animatingDifferences: true, completion: { [weak self] in
+            self?.scrollToFirstCell(animated: true)
+            completion?()
+        })
     }
     
     private func postCharacterChat(characterId: Int?, message: String) {
