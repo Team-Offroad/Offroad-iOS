@@ -357,6 +357,8 @@
 		4E59AFB22DB148C7000A5EAD /* ChatLogCellCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFB02DB148C7000A5EAD /* ChatLogCellCharacter.swift */; };
 		4E59AFB42DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFB32DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift */; };
 		4E59AFB52DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFB32DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift */; };
+		4E59AFB82DB29353000A5EAD /* CharacterChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFB72DB29353000A5EAD /* CharacterChatItem.swift */; };
+		4E59AFB92DB29353000A5EAD /* CharacterChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFB72DB29353000A5EAD /* CharacterChatItem.swift */; };
 		4E6659382CEB96E70024ABEE /* MyInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6659372CEB96E70024ABEE /* MyInfoManager.swift */; };
 		4E66593D2CECA0CE0024ABEE /* StringLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66593C2CECA0CE0024ABEE /* StringLiterals.swift */; };
 		4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4E6A5BC22C2E8C290027FDF0 /* Then */; };
@@ -732,6 +734,7 @@
 		4E59AFAC2DB148B5000A5EAD /* ChatLogCellUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogCellUser.swift; sourceTree = "<group>"; };
 		4E59AFB02DB148C7000A5EAD /* ChatLogCellCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogCellCharacter.swift; sourceTree = "<group>"; };
 		4E59AFB32DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogCellCharacterLoading.swift; sourceTree = "<group>"; };
+		4E59AFB72DB29353000A5EAD /* CharacterChatItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatItem.swift; sourceTree = "<group>"; };
 		4E6659372CEB96E70024ABEE /* MyInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoManager.swift; sourceTree = "<group>"; };
 		4E66593C2CECA0CE0024ABEE /* StringLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLiterals.swift; sourceTree = "<group>"; };
 		4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBOverlayViewController.swift; sourceTree = "<group>"; };
@@ -1795,6 +1798,14 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
+		4E59AFB62DB2933B000A5EAD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4E59AFB72DB29353000A5EAD /* CharacterChatItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		4E6659362CEB96D60024ABEE /* MyInfoManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2063,6 +2074,7 @@
 		4EEA82FA2CE3906A0062F0DE /* ChatLog */ = {
 			isa = PBXGroup;
 			children = (
+				4E59AFB62DB2933B000A5EAD /* Model */,
 				4E3A329E2CE8E136007228D0 /* ViewModel */,
 				4E3A329D2CE8E126007228D0 /* ViewControllers */,
 				4E3A329C2CE8E121007228D0 /* Views */,
@@ -3757,6 +3769,7 @@
 				87D9A70D2CE9BC1700F1CECD /* ScrollLoadingView.swift in Sources */,
 				4E0394DD2C2ABEF2007F0517 /* UITextField+.swift in Sources */,
 				D06466A52C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift in Sources */,
+				4E59AFB82DB29353000A5EAD /* CharacterChatItem.swift in Sources */,
 				4E3A32652CE4EE48007228D0 /* CharacterChatLogFooter.swift in Sources */,
 				4EF6B03F2CC3EEFE00066640 /* ORBAlertViewTextField.swift in Sources */,
 				D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */,
@@ -4024,6 +4037,7 @@
 				4E4F31C62D4718F400C3B2FF /* NetworkResult.swift in Sources */,
 				4E4F31C72D4718F400C3B2FF /* UIView+.swift in Sources */,
 				4E4F31C82D4718F400C3B2FF /* MarketingConsentViewController.swift in Sources */,
+				4E59AFB92DB29353000A5EAD /* CharacterChatItem.swift in Sources */,
 				4E4F31C92D4718F400C3B2FF /* ORBAlertAction.swift in Sources */,
 				4E4F31CA2D4718F400C3B2FF /* GenderViewController.swift in Sources */,
 				4E4F31CB2D4718F400C3B2FF /* QuestListViewControllers.swift in Sources */,
