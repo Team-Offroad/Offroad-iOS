@@ -184,8 +184,6 @@ extension QuestListCollectionView: UICollectionViewDataSource {
             ) as? CourseQuestCollectionViewCell else {
                 fatalError("CourseQuestCollectionViewCell dequeuing failed!")
             }
-            cell.setNeedsLayout()
-            cell.layoutIfNeeded()
             cell.configureCell(with: courseQuest)
             return cell
         }
@@ -195,9 +193,9 @@ extension QuestListCollectionView: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: QuestListCell.className,
                 for: indexPath
-            ) as? QuestListCell else { fatalError("QuestListCell dequeuing failed!") }
-            cell.setNeedsLayout()
-            cell.layoutIfNeeded()
+            ) as? QuestListCell else {
+                fatalError("QuestListCell dequeuing failed!")
+            }
             cell.configureCell(with: quest)
             return cell
         }
@@ -210,8 +208,7 @@ extension QuestListCollectionView: UICollectionViewDataSource {
         ) as? QuestListCell else { fatalError("cell dequeing Failed!") }
         
         if isActive {
-            cell.configureCell(with: activeQuestList[indexPath.item]
-            )
+            cell.configureCell(with: activeQuestList[indexPath.item])
         } else {
             cell.configureCell(with: allQuestList[indexPath.item])
         }

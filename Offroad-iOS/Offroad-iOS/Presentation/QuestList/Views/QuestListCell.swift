@@ -33,7 +33,7 @@ final class QuestListCell: ExpandableCell, Shrinkable {
     
     private let questDescriptionLabel = UILabel()
     
-    private let questInfoView = UILabel()
+    private let questInfoView = UIView()
     private let checkBoxImageView = UIImageView(image: .icnQuestListCheckBox)
     private let questClearConditionLabel = UILabel()
     private lazy var stackView1 = UIStackView(arrangedSubviews: [checkBoxImageView, questClearConditionLabel])
