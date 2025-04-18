@@ -144,7 +144,7 @@ extension CharacterChatLogViewController {
         // 2. collectionView의 스크롤 위치를 끝으로 이동 (채팅하기 버튼은 끝까지 스크롤했을 때에만 보이기 때문)
         
         // collectionView의 inset 추가
-        rootView.setChatCollectionViewInset(inset: rootView.chatTextInputView.frame.height + 16)
+        rootView.chatLogCollectionView.contentInset.top = rootView.chatTextInputView.frame.height + 16
         // collectionView의 contentOffset을 끝으로 이동
         rootView.chatLogCollectionView.setContentOffset(
             .init(x: 0, y: -(rootView.chatTextInputView.frame.height + 16)),
@@ -154,7 +154,7 @@ extension CharacterChatLogViewController {
     }
     
     @objc private func keyboardWillHide(notification: Notification) {
-        rootView.setChatCollectionViewInset(inset: 135 + rootView.safeAreaInsets.bottom)
+        rootView.chatLogCollectionView.contentInset.top = 135 + rootView.safeAreaInsets.bottom
         isKeyboardShown = false
     }
     

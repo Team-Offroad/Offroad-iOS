@@ -13,7 +13,6 @@ class CharacterChatLogView: UIView {
     
     //MARK: - Properties
     
-    private let collectionViewInsetAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private let verticalFlipTransform = CGAffineTransform(scaleX: 1, y: -1)
     
     private var layout: UICollectionViewLayout {
@@ -166,20 +165,6 @@ extension CharacterChatLogView {
             chatTextInputView
         )
         customNavigationBar.addSubviews(backButton, customNavigationTitleLabel)
-    }
-    
-    //MARK: - Func
-    
-    func setChatCollectionViewInset(inset: CGFloat, animated: Bool = true) {
-        collectionViewInsetAnimator.stopAnimation(true)
-        if animated {
-            collectionViewInsetAnimator.addAnimations { [weak self] in
-                self?.chatLogCollectionView.contentInset.top = inset
-            }
-            collectionViewInsetAnimator.startAnimation()
-        } else {
-            chatLogCollectionView.contentInset.top = inset
-        }
     }
     
 }
