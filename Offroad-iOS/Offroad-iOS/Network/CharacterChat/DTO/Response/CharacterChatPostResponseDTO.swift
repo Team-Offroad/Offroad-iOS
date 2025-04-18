@@ -36,10 +36,19 @@ enum ChatDataModelError: LocalizedError {
     }
 }
 
-// MARK: - 채팅 DataSource를 Enum으로 구현하는 경우
+/// 채팅 로그의 각 말풍선에 해당하는 데이터 모델.
 enum CharacterChatItem: Hashable {
-    case message(ChatMessageModel)
+    case message(CharacterChatMessageItem)
     case loading(createdDate: Date)
+    
+    var createdDate: Date {
+        switch self {
+        case .message(let chatMessageModel):
+            return chatMessageModel.createdDate
+        case .loading(let createdDate):
+            return createdDate
+        }
+    }
     
     var formattedTimeString: String {
         switch self {
@@ -54,7 +63,8 @@ enum CharacterChatItem: Hashable {
     }
 }
 
-enum ChatMessageModel: Hashable {
+/// 채팅 로그의 말풍선 중 채팅 대화 내용에 해당하는 데이터 모델
+enum CharacterChatMessageItem: Hashable {
     
     // 채팅을 보낸 직후 서버에 반영된 데이터를 받아오기 전까지 `id` 값을 알 수 없으므로 nil.
     case user(content: String, createdDate: Date, id: Int?)
@@ -62,8 +72,16 @@ enum ChatMessageModel: Hashable {
     // 채팅 중에 서버에서 캐릭터 선톡을 날리는 경우에는 서버에서 `id` 정보를 같이 넘겨주지 않으므로 이때 `id` 값은 `nil`
     case orbCharacter(content: String, createdDate: Date, id: Int?)
     
+    var createdDate: Date {
+        switch self {
+        case .user(_, let createdDate, _),
+             .orbCharacter(_, let createdDate, _):
+            return createdDate
+        }
+    }
+    
     /// `ChatDataDTO`를 사용하여 생성하고자 하는 경우
-    static func from(dto: ChatDataDTO) throws -> ChatMessageModel {
+    static func from(dto: ChatDataDTO) throws -> CharacterChatMessageItem {
         switch dto.role {
         case "USER":
             do {
@@ -104,7 +122,7 @@ enum ChatMessageModel: Hashable {
 }
 
 
-extension ChatMessageModel {
+extension CharacterChatMessageItem {
     
     var formattedDateString: String {
         switch self {

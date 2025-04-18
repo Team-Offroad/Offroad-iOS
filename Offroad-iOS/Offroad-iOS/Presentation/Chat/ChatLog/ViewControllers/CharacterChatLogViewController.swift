@@ -19,11 +19,9 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private var rootView: CharacterChatLogView!
     private var chatLogDataList: [CharacterChatItem] = [] {
         didSet {
-            chatLogDataSource = viewModel.groupChatsByDate(items: chatLogDataList)
             chatLogDataSourceForSnapshot = viewModel.groupChatsByDateForDiffableDataSource(items: chatLogDataList)
         }
     }
-    private var chatLogDataSource: [[CharacterChatItem]] = [[]]
     private var chatLogDataSourceForSnapshot: [String: [CharacterChatItem]] = [:]
     
     private var isChatButtonHidden: Bool = true
@@ -176,7 +174,18 @@ extension CharacterChatLogViewController {
     }
     
     private func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<CharacterChatLogCell, CharacterChatItem>(
+        let orbCharacterCellRegistration = UICollectionView.CellRegistration<ChatLogCellCharacter, CharacterChatMessageItem>(
+            handler: { [weak self] cell, indexPath, item in
+                guard let self else { return }
+                cell.configure(with: item, characterName: self.characterName)
+            }
+        )
+        
+        let userCellRegistration = UICollectionView.CellRegistration<ChatLogCellUser, CharacterChatMessageItem>(
+            handler: { cell, indexPath, item in cell.configure(with: item) }
+        )
+        
+        let orbCharacterLoadingCellRegistration = UICollectionView.CellRegistration<ChatLogCellCharacterLoading, CharacterChatItem>(
             handler: { [weak self] cell, indexPath, item in
                 guard let self else { return }
                 cell.configure(with: item, characterName: self.characterName)
@@ -199,16 +208,40 @@ extension CharacterChatLogViewController {
         
         dataSource = UICollectionViewDiffableDataSource<String, CharacterChatItem>(
             collectionView: rootView.chatLogCollectionView,
-            cellProvider: { collectionView, indexPath, identifier -> UICollectionViewCell? in
-                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
-                                                                    for: indexPath,
-                                                                    item: identifier)
+            cellProvider: { collectionView, indexPath, item -> UICollectionViewCell? in
+                switch item {
+                case .loading:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: orbCharacterLoadingCellRegistration,
+                        for: indexPath,
+                        item: item
+                    )
+                    
+                case .message(let chatMessageModel):
+                    switch chatMessageModel {
+                    case .user:
+                        return collectionView.dequeueConfiguredReusableCell(
+                            using: userCellRegistration,
+                            for: indexPath,
+                            item: chatMessageModel
+                        )
+                        
+                    case .orbCharacter:
+                        return collectionView.dequeueConfiguredReusableCell(
+                            using: orbCharacterCellRegistration,
+                            for: indexPath,
+                            item: chatMessageModel
+                        )
+                    }
+                }
             }
         )
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) -> UICollectionReusableView? in
-            return collectionView.dequeueConfiguredReusableSupplementary(using: footerRegistration,
-                                                                         for: indexPath)
+            return collectionView.dequeueConfiguredReusableSupplementary(
+                using: footerRegistration,
+                for: indexPath
+            )
         }
     }
     
@@ -268,7 +301,6 @@ extension CharacterChatLogViewController {
                 }
                 
                 do {
-//                    let newModels: [ChatDataModel] = try responseDTO.data.map({ try ChatDataModel(data: $0) })
                     let newModels: [CharacterChatItem] = try responseDTO.data.map({ .message(try .from(dto: $0)) })
                     if cursor != nil {
                         self.chatLogDataList.append(contentsOf: newModels)
@@ -465,8 +497,13 @@ extension CharacterChatLogViewController {
     ///
     /// 지우려는 말풍선의 indexPath를 구할 수 없는 경우, 채팅 로그 뷰컨트롤러를 nagivation stack에서 pop 하며 에러 메시지 토스트 표시
     private func updateChatLog(chatSuccess: Bool, characterResponse: CharacterChatItem? = nil) {
-        let dataSourceSectionCount = chatLogDataSource.count
-        let dataSourceLastSectionItemCount = chatLogDataSource.last?.count ?? 0
+        let dataSourceSectionCount = dataSource.snapshot().sectionIdentifiers.count
+        let dataSourceLastSectionItemCount: Int
+        if let lastSection = dataSource.snapshot().sectionIdentifiers.last {
+            dataSourceLastSectionItemCount = dataSource.snapshot().itemIdentifiers(inSection: lastSection).count
+        } else {
+            dataSourceLastSectionItemCount = 0
+        }
         
         guard dataSourceSectionCount > 0, dataSourceLastSectionItemCount > 1 else { return }
         
@@ -603,87 +640,30 @@ extension CharacterChatLogViewController: UIScrollViewDelegate {
 extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let item = dataSource.itemIdentifier(for: indexPath) else { return .zero }
         
-        let characterNameLabelSize: CGSize = viewModel.calculateLabelSize(
-            text: characterName,
-            font: .offroad(style: .iosTextBold),
-            maxSize: .init(width: 200, height: 24)
-        )
-        let maxMessageLabelWidth: CGFloat
-        switch chatLogDataSource[indexPath.section][indexPath.item] {
+        switch item {
         case .message(let chatMessageModel):
             switch chatMessageModel {
-            case .user(let content, _, _):
-                let timeLabelSize: CGSize = viewModel.calculateLabelSize(
-                    text: content,
-                    font: .offroad(style: .iosTextContentsSmall),
-                    maxSize: .init(width: 100, height: 14)
+            case .user:
+                let returnValue =  ChatLogCellUser.calculatedCellSize(
+                    item: chatMessageModel,
+                    horizontalFixedSize: collectionView.bounds.width
                 )
-                
-                maxMessageLabelWidth =
-                UIScreen.currentScreenSize.width
-                // timeLabelSize의 너비 및 chatBubble과의 offset
-                - (timeLabelSize.width + 6.0)
-                // cell 안의 콘텐츠에 적용되는 수평 inset(collectionView의 수평 contentInset 별도로 안 설정함)
-                - (24.0 * 2)
-                // chatBubble 안의 콘텐츠 inset
-                - (20.0 * 2)
-                
-                let messageLabelSize = viewModel.calculateLabelSize(
-                    text: content,
-                    font: .offroad(style: .iosText),
-                    maxSize: .init(width: maxMessageLabelWidth, height: 400)
+                return returnValue
+            case .orbCharacter:
+                return ChatLogCellCharacter.calculatedCellSize(
+                    item: chatMessageModel,
+                    characterName: characterName,
+                    horizontalFixedSize: collectionView.bounds.width
                 )
-                return CGSize(width: UIScreen.currentScreenSize.width, height: messageLabelSize.height + (14*2))
-                
-            case .orbCharacter(let content, _, _):
-                let timeLabelSize: CGSize = viewModel.calculateLabelSize(
-                    text: content,
-                    font: .offroad(style: .iosTextContentsSmall),
-                    maxSize: .init(width: 100, height: 14)
-                )
-                
-                maxMessageLabelWidth =
-                UIScreen.currentScreenSize.width
-                // timeLabelSize의 너비 및 chatBubble과의 offset
-                - (timeLabelSize.width + 6.0)
-                // cell 안의 콘텐츠에 적용되는 수평 inset(collectionView의 수평 contentInset 별도로 안 설정함)
-                - (24.0 * 2)
-                // chatBubble 안의 콘텐츠 inset
-                - (20.0 * 2)
-                // 캐릭터 이름 라벨 너비 및 메시지 라벨과의 offset
-                - (characterNameLabelSize.width + 4.0)
-                
-                let messageLabelSize = viewModel.calculateLabelSize(
-                    text: content,
-                    font: .offroad(style: .iosText),
-                    maxSize: .init(width: maxMessageLabelWidth, height: 400)
-                )
-                return CGSize(width: UIScreen.currentScreenSize.width, height: messageLabelSize.height + (14*2))
             }
         case .loading:
-            let timeLabelSize: CGSize = viewModel.calculateLabelSize(
-                text: " ",
-                font: .offroad(style: .iosTextContentsSmall),
-                maxSize: .init(width: 100, height: 14)
+            return ChatLogCellCharacterLoading.calculatedCellSize(
+                item: .loading(createdDate: Date()),
+                characterName: characterName,
+                horizontalFixedSize: collectionView.bounds.width
             )
-            
-            maxMessageLabelWidth =
-            UIScreen.currentScreenSize.width
-            // timeLabelSize의 너비 및 chatBubble과의 offset
-            - (timeLabelSize.width + 6.0)
-            // cell 안의 콘텐츠에 적용되는 수평 inset(collectionView의 수평 contentInset 별도로 안 설정함)
-            - (24.0 * 2)
-            // chatBubble 안의 콘텐츠 inset
-            - (20.0 * 2)
-            // role == "ORB_CHARACTER"
-            
-            let messageLabelSize = viewModel.calculateLabelSize(
-                text: " ",
-                font: .offroad(style: .iosText),
-                maxSize: .init(width: maxMessageLabelWidth, height: 400)
-            )
-            return CGSize(width: UIScreen.currentScreenSize.width, height: messageLabelSize.height + (14*2))
         }
     }
     

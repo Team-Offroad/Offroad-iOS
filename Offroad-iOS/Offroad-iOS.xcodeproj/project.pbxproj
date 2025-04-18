@@ -53,7 +53,6 @@
 		4E38F0EF2C9EBAFA00C7B866 /* ORBAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38F0EE2C9EBAFA00C7B866 /* ORBAlertAction.swift */; };
 		4E393C9A2C48C9A6003403EC /* QuestResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E393C992C48C9A6003403EC /* QuestResultViewController.swift */; };
 		4E393C9C2C48C9B2003403EC /* QuestResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E393C9B2C48C9B2003403EC /* QuestResultView.swift */; };
-		4E3A32622CE4EDD0007228D0 /* CharacterChatLogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32612CE4EDD0007228D0 /* CharacterChatLogCell.swift */; };
 		4E3A32652CE4EE48007228D0 /* CharacterChatLogFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32642CE4EE48007228D0 /* CharacterChatLogFooter.swift */; };
 		4E3A32692CE510DF007228D0 /* CharacterChatAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32682CE510DF007228D0 /* CharacterChatAPI.swift */; };
 		4E3A326B2CE510ED007228D0 /* CharacterChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A326A2CE510ED007228D0 /* CharacterChatService.swift */; };
@@ -265,7 +264,6 @@
 		4E4F32212D4718F400C3B2FF /* RegisteredPlaceResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7964B2C4539FC005B47A5 /* RegisteredPlaceResponseDTO.swift */; };
 		4E4F32222D4718F400C3B2FF /* CouponService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0498C2CA10E2A00754488 /* CouponService.swift */; };
 		4E4F32232D4718F400C3B2FF /* CharacterChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A326A2CE510ED007228D0 /* CharacterChatService.swift */; };
-		4E4F32242D4718F400C3B2FF /* CharacterChatLogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32612CE4EDD0007228D0 /* CharacterChatLogCell.swift */; };
 		4E4F32252D4718F400C3B2FF /* ChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D01F2C3E873C002051AC /* ChoosingCharacterViewController.swift */; };
 		4E4F32262D4718F400C3B2FF /* ORBAlertViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6B03A2CC3E89F00066640 /* ORBAlertViewType.swift */; };
 		4E4F32272D4718F400C3B2FF /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */; };
@@ -353,6 +351,12 @@
 		4E58FC022C7DFE87002A951B /* QuestListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FC012C7DFE87002A951B /* QuestListService.swift */; };
 		4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */; };
 		4E59A11C2C4228C500B548C6 /* AVCameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */; };
+		4E59AFAD2DB148B5000A5EAD /* ChatLogCellUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFAC2DB148B5000A5EAD /* ChatLogCellUser.swift */; };
+		4E59AFAE2DB148B5000A5EAD /* ChatLogCellUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFAC2DB148B5000A5EAD /* ChatLogCellUser.swift */; };
+		4E59AFB12DB148C7000A5EAD /* ChatLogCellCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFB02DB148C7000A5EAD /* ChatLogCellCharacter.swift */; };
+		4E59AFB22DB148C7000A5EAD /* ChatLogCellCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFB02DB148C7000A5EAD /* ChatLogCellCharacter.swift */; };
+		4E59AFB42DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFB32DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift */; };
+		4E59AFB52DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFB32DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift */; };
 		4E6659382CEB96E70024ABEE /* MyInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6659372CEB96E70024ABEE /* MyInfoManager.swift */; };
 		4E66593D2CECA0CE0024ABEE /* StringLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66593C2CECA0CE0024ABEE /* StringLiterals.swift */; };
 		4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4E6A5BC22C2E8C290027FDF0 /* Then */; };
@@ -697,7 +701,6 @@
 		4E38F0EE2C9EBAFA00C7B866 /* ORBAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertAction.swift; sourceTree = "<group>"; };
 		4E393C992C48C9A6003403EC /* QuestResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestResultViewController.swift; sourceTree = "<group>"; };
 		4E393C9B2C48C9B2003403EC /* QuestResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestResultView.swift; sourceTree = "<group>"; };
-		4E3A32612CE4EDD0007228D0 /* CharacterChatLogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatLogCell.swift; sourceTree = "<group>"; };
 		4E3A32642CE4EE48007228D0 /* CharacterChatLogFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatLogFooter.swift; sourceTree = "<group>"; };
 		4E3A32682CE510DF007228D0 /* CharacterChatAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatAPI.swift; sourceTree = "<group>"; };
 		4E3A326A2CE510ED007228D0 /* CharacterChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatService.swift; sourceTree = "<group>"; };
@@ -726,6 +729,9 @@
 		4E58FC012C7DFE87002A951B /* QuestListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListService.swift; sourceTree = "<group>"; };
 		4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListResponseDTO.swift; sourceTree = "<group>"; };
 		4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCameraPreview.swift; sourceTree = "<group>"; };
+		4E59AFAC2DB148B5000A5EAD /* ChatLogCellUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogCellUser.swift; sourceTree = "<group>"; };
+		4E59AFB02DB148C7000A5EAD /* ChatLogCellCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogCellCharacter.swift; sourceTree = "<group>"; };
+		4E59AFB32DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogCellCharacterLoading.swift; sourceTree = "<group>"; };
 		4E6659372CEB96E70024ABEE /* MyInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoManager.swift; sourceTree = "<group>"; };
 		4E66593C2CECA0CE0024ABEE /* StringLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLiterals.swift; sourceTree = "<group>"; };
 		4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBOverlayViewController.swift; sourceTree = "<group>"; };
@@ -1621,8 +1627,10 @@
 		4E3A32632CE4EDD4007228D0 /* ReusableView */ = {
 			isa = PBXGroup;
 			children = (
-				4E3A32612CE4EDD0007228D0 /* CharacterChatLogCell.swift */,
 				4E3A32642CE4EE48007228D0 /* CharacterChatLogFooter.swift */,
+				4E59AFAC2DB148B5000A5EAD /* ChatLogCellUser.swift */,
+				4E59AFB02DB148C7000A5EAD /* ChatLogCellCharacter.swift */,
+				4E59AFB32DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift */,
 			);
 			path = ReusableView;
 			sourceTree = "<group>";
@@ -3635,6 +3643,7 @@
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
 				4EF6B0332CC3E22800066640 /* ORBAlertViewBaseUI.swift in Sources */,
 				D0600BEB2CE61EBC00D8F1D6 /* PushNotificationService.swift in Sources */,
+				4E59AFB42DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift in Sources */,
 				8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */,
 				4E4E2C0C2CCF6518000A634D /* AdventureMapViewModel.swift in Sources */,
 				D004F8582CA12B1500D5A2CD /* NoticeAPI.swift in Sources */,
@@ -3680,6 +3689,7 @@
 				4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */,
 				4EE049872CA10DA400754488 /* CouponRedemptionRequestDTO.swift in Sources */,
 				4EC15ACD2D2AA3A700BC5826 /* ShrinkableCollectionViewCell.swift in Sources */,
+				4E59AFAE2DB148B5000A5EAD /* ChatLogCellUser.swift in Sources */,
 				4EFCDFDF2C92BD8A006DEBB6 /* ORBAlertBackgroundView.swift in Sources */,
 				4EE049892CA10DC300754488 /* CouponRedemptionResponseDTO.swift in Sources */,
 				D0E796152C452797005B47A5 /* AuthAPI.swift in Sources */,
@@ -3799,7 +3809,6 @@
 				D0E7964C2C4539FC005B47A5 /* RegisteredPlaceResponseDTO.swift in Sources */,
 				4EE0498D2CA10E2A00754488 /* CouponService.swift in Sources */,
 				4E3A326B2CE510ED007228D0 /* CharacterChatService.swift in Sources */,
-				4E3A32622CE4EDD0007228D0 /* CharacterChatLogCell.swift in Sources */,
 				8792D0202C3E873C002051AC /* ChoosingCharacterViewController.swift in Sources */,
 				4EF6B03B2CC3E89F00066640 /* ORBAlertViewType.swift in Sources */,
 				4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */,
@@ -3815,6 +3824,7 @@
 				4E9759E42D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */,
 				D00A48822C6E5D92008B286A /* NoticePostViewController.swift in Sources */,
 				879F62E82C89A56200FEC5BE /* CouponDetailView.swift in Sources */,
+				4E59AFB12DB148C7000A5EAD /* ChatLogCellCharacter.swift in Sources */,
 				4EC15AC32D2A76EA00BC5826 /* ShrinkableButton.swift in Sources */,
 				D00A48842C6E5DA7008B286A /* NoticePostView.swift in Sources */,
 				872F4BB52C68D66200284DE0 /* CharacterListViewController.swift in Sources */,
@@ -3936,6 +3946,7 @@
 				4EA5F4EE2D4C96BD00A59AB1 /* LogPrinterManager.swift in Sources */,
 				4E4F318D2D4718F400C3B2FF /* CharacterDetailCell.swift in Sources */,
 				D051FDF12D873FB400CA2485 /* MemoryLightView.swift in Sources */,
+				4E59AFAD2DB148B5000A5EAD /* ChatLogCellUser.swift in Sources */,
 				4E4F318E2D4718F400C3B2FF /* QuestService.swift in Sources */,
 				4E4F318F2D4718F400C3B2FF /* MoyaPlugin.swift in Sources */,
 				D02232072D762DE600DA6968 /* DiaryView.swift in Sources */,
@@ -4009,6 +4020,7 @@
 				4E4F31C32D4718F400C3B2FF /* GenderView.swift in Sources */,
 				4E4F31C42D4718F400C3B2FF /* QuestListView.swift in Sources */,
 				4E4F31C52D4718F400C3B2FF /* PushNotificationRedirectModel.swift in Sources */,
+				4E59AFB22DB148C7000A5EAD /* ChatLogCellCharacter.swift in Sources */,
 				4E4F31C62D4718F400C3B2FF /* NetworkResult.swift in Sources */,
 				4E4F31C72D4718F400C3B2FF /* UIView+.swift in Sources */,
 				4E4F31C82D4718F400C3B2FF /* MarketingConsentViewController.swift in Sources */,
@@ -4119,7 +4131,6 @@
 				4E4F32212D4718F400C3B2FF /* RegisteredPlaceResponseDTO.swift in Sources */,
 				4E4F32222D4718F400C3B2FF /* CouponService.swift in Sources */,
 				4E4F32232D4718F400C3B2FF /* CharacterChatService.swift in Sources */,
-				4E4F32242D4718F400C3B2FF /* CharacterChatLogCell.swift in Sources */,
 				4E4F32252D4718F400C3B2FF /* ChoosingCharacterViewController.swift in Sources */,
 				4E4F32262D4718F400C3B2FF /* ORBAlertViewType.swift in Sources */,
 				4E4F32272D4718F400C3B2FF /* CompleteChoosingCharacterView.swift in Sources */,
@@ -4156,6 +4167,7 @@
 				4E4F32452D4718F400C3B2FF /* SocialLoginResponseDTO.swift in Sources */,
 				4E4F32462D4718F400C3B2FF /* FcmTokenRequestDTO.swift in Sources */,
 				4E4F32472D4718F400C3B2FF /* AuthService.swift in Sources */,
+				4E59AFB52DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift in Sources */,
 				4E9759E52D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */,
 				4E4F32482D4718F400C3B2FF /* DeleteAccountRequestDTO.swift in Sources */,
 				4E4F32492D4718F400C3B2FF /* PlaceListCollectionViewController.swift in Sources */,
