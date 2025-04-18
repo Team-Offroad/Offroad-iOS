@@ -230,12 +230,9 @@ extension QuestListCell {
         questNameLabel.text = quest.questName
         questProgressLabel.text = "달성도 (\(quest.currentCount)/\(quest.totalCount))"
         questProgressLabel.highlightText(targetText: "달성도", color: .grayscale(.gray400))
-        
-        questDescriptionLabel.text = quest.description == "" ? "데이터 없음" : quest.description
-        
-        questClearConditionLabel.text = quest.requirement == "" ? "데이터 없음" : quest.requirement
-        questRewardDescriptionLabel.text = quest.reward == "" ? "데이터 없음" : quest.reward
-
+        questDescriptionLabel.text = quest.description
+        questClearConditionLabel.text = quest.requirement
+        questRewardDescriptionLabel.text = quest.reward
         contentView.layoutIfNeeded()
     }
     

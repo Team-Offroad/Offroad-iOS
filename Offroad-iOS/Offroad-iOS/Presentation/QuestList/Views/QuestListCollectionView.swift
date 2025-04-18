@@ -175,9 +175,17 @@ extension QuestListCollectionView: UICollectionViewDataSource {
         
 #if DevTarget
         let quest = quests[indexPath.item]
-        
-        // CourseQuest일 경우 CourseQuestCollectionViewCell을 사용
-        if let courseQuest = quest as? CourseQuest {
+
+        switch quest {
+        case let quest as Quest:
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: QuestListCell.className,
+                for: indexPath
+            ) as? QuestListCell else { fatalError("QuestListCell dequeuing failed!") }
+            cell.configureCell(with: quest)
+            return cell
+            
+        case let courseQuest as CourseQuest:
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: CourseQuestCollectionViewCell.className,
                 for: indexPath
@@ -186,21 +194,10 @@ extension QuestListCollectionView: UICollectionViewDataSource {
             }
             cell.configureCell(with: courseQuest)
             return cell
+            
+        default:
+            fatalError("Unknown quest type found in quest list.")
         }
-        
-        // 일반 Quest일 경우 QuestListCollectionViewCell을 사용
-        if let quest = quest as? Quest {
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: QuestListCell.className,
-                for: indexPath
-            ) as? QuestListCell else {
-                fatalError("QuestListCell dequeuing failed!")
-            }
-            cell.configureCell(with: quest)
-            return cell
-        }
-        
-        fatalError("Unknown quest type found in quest list.")
 #else
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: QuestListCell.className,
