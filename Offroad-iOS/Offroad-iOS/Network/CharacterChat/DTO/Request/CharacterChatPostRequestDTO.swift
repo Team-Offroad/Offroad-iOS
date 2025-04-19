@@ -8,5 +8,5 @@
 import Foundation
 
 struct CharacterChatPostRequestDTO: Codable {
-    var content: String
+    let content: String
 }

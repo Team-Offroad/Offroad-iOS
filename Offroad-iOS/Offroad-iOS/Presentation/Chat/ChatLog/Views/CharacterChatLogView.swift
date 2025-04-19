@@ -13,8 +13,10 @@ class CharacterChatLogView: UIView {
     
     //MARK: - Properties
     
-    private let collectionViewInsetAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private let verticalFlipTransform = CGAffineTransform(scaleX: 1, y: -1)
+    private let chatButtonHidingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
+    private var isChatButtonHidden: Bool = false
+    
     
     private var layout: UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
@@ -25,7 +27,10 @@ class CharacterChatLogView: UIView {
         return layout
     }
     
-    lazy var chatButtonBottomConstraint = chatButton.bottomAnchor.constraint(equalTo: bottomAnchor)
+    lazy var chatButtonBottomConstraint = chatButton.bottomAnchor.constraint(
+        equalTo: safeAreaLayoutGuide.bottomAnchor,
+        constant: -67.3
+    )
     
     //MARK: - UI Properties
     
@@ -58,7 +63,7 @@ class CharacterChatLogView: UIView {
     
 }
 
-extension CharacterChatLogView {
+private extension CharacterChatLogView {
     
     //MARK: - Layout Func
     
@@ -134,7 +139,6 @@ extension CharacterChatLogView {
         
         chatButton.do { button in
             button.setTitle("채팅하기", for: .normal)
-            button.isUserInteractionEnabled = false
             button.roundCorners(cornerRadius: 12)
             button.configureTitleFontWhen(normal: .offroad(style: .iosText))
             button.configureBackgroundColorWhen(
@@ -168,19 +172,34 @@ extension CharacterChatLogView {
         customNavigationBar.addSubviews(backButton, customNavigationTitleLabel)
     }
     
-    //MARK: - Func
+}
+
+extension CharacterChatLogView {
     
-    func setChatCollectionViewInset(inset: CGFloat, animated: Bool = true) {
-        collectionViewInsetAnimator.stopAnimation(true)
-        if animated {
-            collectionViewInsetAnimator.addAnimations { [weak self] in
-                self?.chatLogCollectionView.contentInset.top = inset
-            }
-            collectionViewInsetAnimator.startAnimation()
-        } else {
-            chatLogCollectionView.contentInset.top = inset
+    func hideChatButton() {
+        guard !isChatButtonHidden else { return }
+        isChatButtonHidden = true
+        chatButton.isUserInteractionEnabled = false
+        chatButtonHidingAnimator.stopAnimation(true)
+        chatButtonHidingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.chatButtonBottomConstraint.constant = self.safeAreaInsets.bottom + self.chatButton.frame.height
+            self.layoutIfNeeded()
         }
+        chatButtonHidingAnimator.startAnimation()
+    }
+    
+    func showChatButton() {
+        guard isChatButtonHidden else { return }
+        isChatButtonHidden = false
+        chatButton.isUserInteractionEnabled = true
+        chatButtonHidingAnimator.stopAnimation(true)
+        chatButtonHidingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.chatButtonBottomConstraint.constant = -67.3
+            self.layoutIfNeeded()
+        }
+        chatButtonHidingAnimator.startAnimation()
     }
     
 }
-

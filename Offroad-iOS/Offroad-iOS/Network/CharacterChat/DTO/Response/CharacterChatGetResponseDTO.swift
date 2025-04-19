@@ -8,8 +8,8 @@
 import Foundation
 
 struct CharacterChatGetResponseDTO: Codable {
-    var message: String
-    var data: [ChatData]
+    let message: String
+    let data: [ChatDataDTO]
 }
 
 
