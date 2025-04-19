@@ -12,15 +12,12 @@ final class ORBRecommendationGradientLayer: CAGradientLayer {
     
     private var animationDuration: CFTimeInterval { 5 }
     private var gradientBorderWidth: CGFloat { 2 }
-    private var hexCodes: [String] { ["62DDFF", "455BFF", "CC01FF", "FF007B"] }
     
-    private var color1: UIColor { .init(hex: hexCodes[0])! } // 하늘색
-    private var color2: UIColor { .init(hex: hexCodes[1])! } // 파란색
-    private var color3: UIColor { .init(hex: hexCodes[2])! } // 보라색
-    private var color4: UIColor { .init(hex: hexCodes[3])! } // 자주색
-    private var cgColors: [CGColor] {
-        [color1, color2, color3, color4].map { $0.cgColor }
-    }
+    private let color1: CGColor = UIColor.init(hex: "62DDFF")!.cgColor // 하늘색
+    private let color2: CGColor = UIColor.init(hex: "455BFF")!.cgColor // 파란색
+    private let color3: CGColor = UIColor.init(hex: "CC01FF")!.cgColor // 보라색
+    private let color4: CGColor = UIColor.init(hex: "FF007B")!.cgColor // 자주색
+    private lazy var cgColors: [CGColor] = [color1, color2, color3, color4]
     
     // 자연스러운 색의 연결을 위해서는 colorCombination의 처음과 끝이 같아야 한다.
     private var colorCombination1: [CGColor] { [2, 3, 4, 3, 2, 1, 2].map { cgColors[$0-1] } }
