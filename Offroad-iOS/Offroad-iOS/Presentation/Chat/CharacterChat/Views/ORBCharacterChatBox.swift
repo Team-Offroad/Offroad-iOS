@@ -65,6 +65,10 @@ class ORBCharacterChatBox: UIControl, Shrinkable {
     
 }
 
+#if DevTarget
+extension ORBCharacterChatBox: ORBRecommendationGradientStyle { }
+#endif
+
 extension ORBCharacterChatBox {
     
     //MARK: - Layout Func
@@ -255,6 +259,14 @@ extension ORBCharacterChatBox {
         modeChangingAnimator.stopAnimation(true)
         self.mode = mode
         chevronImageButton.isHidden = (mode == .loading)
+#if DevTarget
+        if mode == .withReplyButtonExpanded || mode == .withoutReplyButtonExpanded  {
+            applyGradientStyle()
+        } else {
+            removeGradientStyle()
+        }
+#endif
+        
         if animated {
             modeChangingAnimator.addAnimations { [weak self] in
                 guard let self else { return }
