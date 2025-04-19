@@ -15,7 +15,7 @@ class CharacterChatLogView: UIView {
     
     private let verticalFlipTransform = CGAffineTransform(scaleX: 1, y: -1)
     private let chatButtonHidingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
-    private var isChatButtonHidden: Bool = true
+    private var isChatButtonHidden: Bool = false
     
     
     private var layout: UICollectionViewLayout {
@@ -27,7 +27,10 @@ class CharacterChatLogView: UIView {
         return layout
     }
     
-    lazy var chatButtonBottomConstraint = chatButton.bottomAnchor.constraint(equalTo: bottomAnchor)
+    lazy var chatButtonBottomConstraint = chatButton.bottomAnchor.constraint(
+        equalTo: safeAreaLayoutGuide.bottomAnchor,
+        constant: -67.3
+    )
     
     //MARK: - UI Properties
     
@@ -136,7 +139,6 @@ private extension CharacterChatLogView {
         
         chatButton.do { button in
             button.setTitle("채팅하기", for: .normal)
-            button.isUserInteractionEnabled = false
             button.roundCorners(cornerRadius: 12)
             button.configureTitleFontWhen(normal: .offroad(style: .iosText))
             button.configureBackgroundColorWhen(
@@ -181,7 +183,7 @@ extension CharacterChatLogView {
         chatButtonHidingAnimator.stopAnimation(true)
         chatButtonHidingAnimator.addAnimations { [weak self] in
             guard let self else { return }
-            self.chatButtonBottomConstraint.constant = self.chatButton.frame.height
+            self.chatButtonBottomConstraint.constant = self.safeAreaInsets.bottom + self.chatButton.frame.height
             self.layoutIfNeeded()
         }
         chatButtonHidingAnimator.startAnimation()
@@ -194,7 +196,7 @@ extension CharacterChatLogView {
         chatButtonHidingAnimator.stopAnimation(true)
         chatButtonHidingAnimator.addAnimations { [weak self] in
             guard let self else { return }
-            self.chatButtonBottomConstraint.constant = -(self.safeAreaInsets.bottom + 67.3)
+            self.chatButtonBottomConstraint.constant = -67.3
             self.layoutIfNeeded()
         }
         chatButtonHidingAnimator.startAnimation()
