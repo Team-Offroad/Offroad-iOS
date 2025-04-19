@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// `CharacterChatItem` 을 생성하면서 발생할 수 있는 에러
 enum CharacterChatItemError: LocalizedError {
     case invalidRole(wrongValue: String)
     case invalidDateFormat(wrongValue: String)
@@ -31,8 +32,8 @@ enum CharacterChatItem: Hashable {
     
     var createdDate: Date {
         switch self {
-        case .message(let chatMessageModel):
-            return chatMessageModel.createdDate
+        case .message(let chatMessageItem):
+            return chatMessageItem.createdDate
         case .loading(let createdDate):
             return createdDate
         }
@@ -40,8 +41,8 @@ enum CharacterChatItem: Hashable {
     
     var formattedTimeString: String {
         switch self {
-        case .message(let chatMessageModel):
-            return chatMessageModel.formattedTimeString
+        case .message(let messageItem):
+            return messageItem.formattedTimeString
         case .loading(let createdDate):
             let dateFormatter = DateFormatter()
             dateFormatter.locale = Locale(identifier: "ko_KR")
@@ -108,7 +109,6 @@ enum CharacterChatMessageItem: Hashable {
     }
     
 }
-
 
 extension CharacterChatMessageItem {
     

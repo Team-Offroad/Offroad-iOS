@@ -14,11 +14,11 @@ final class ChatLogCellCharacterLoading: UICollectionViewCell {
     
     // MARK: - Static Func
     
-    static func calculatedCellSize(item: CharacterChatItem, characterName: String, horizontalFixedSize: CGFloat) -> CGSize {
+    static func calculatedCellSize(item: CharacterChatItem, characterName: String, fixedWidth: CGFloat) -> CGSize {
         let cell = ChatLogCellCharacterLoading()
         cell.configure(with: item, characterName: characterName)
         
-        let targetSize = CGSize(width: horizontalFixedSize, height: .greatestFiniteMagnitude)
+        let targetSize = CGSize(width: fixedWidth, height: .greatestFiniteMagnitude)
         return cell.contentView.systemLayoutSizeFitting(
             targetSize,
             withHorizontalFittingPriority: .required,
@@ -133,8 +133,7 @@ extension ChatLogCellCharacterLoading {
     
     func configure(with item: CharacterChatItem, characterName: String) {
         guard case .loading = item else {
-            assertionFailure("ChatLogCellUser received incompatible item.")
-            return
+            fatalError("ChatLogCellUser received incompatible item.")
         }
         characternameLabel.text = "\(characterName) :"
         timeLabel.text = item.formattedTimeString

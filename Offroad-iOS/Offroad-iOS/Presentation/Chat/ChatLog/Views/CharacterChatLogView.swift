@@ -14,6 +14,9 @@ class CharacterChatLogView: UIView {
     //MARK: - Properties
     
     private let verticalFlipTransform = CGAffineTransform(scaleX: 1, y: -1)
+    private let chatButtonHidingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
+    private var isChatButtonHidden: Bool = true
+    
     
     private var layout: UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
@@ -57,7 +60,7 @@ class CharacterChatLogView: UIView {
     
 }
 
-extension CharacterChatLogView {
+private extension CharacterChatLogView {
     
     //MARK: - Layout Func
     
@@ -169,3 +172,32 @@ extension CharacterChatLogView {
     
 }
 
+extension CharacterChatLogView {
+    
+    func hideChatButton() {
+        guard !isChatButtonHidden else { return }
+        isChatButtonHidden = true
+        chatButton.isUserInteractionEnabled = false
+        chatButtonHidingAnimator.stopAnimation(true)
+        chatButtonHidingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.chatButtonBottomConstraint.constant = self.chatButton.frame.height
+            self.layoutIfNeeded()
+        }
+        chatButtonHidingAnimator.startAnimation()
+    }
+    
+    func showChatButton() {
+        guard isChatButtonHidden else { return }
+        isChatButtonHidden = false
+        chatButton.isUserInteractionEnabled = true
+        chatButtonHidingAnimator.stopAnimation(true)
+        chatButtonHidingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            self.chatButtonBottomConstraint.constant = -(self.safeAreaInsets.bottom + 67.3)
+            self.layoutIfNeeded()
+        }
+        chatButtonHidingAnimator.startAnimation()
+    }
+    
+}

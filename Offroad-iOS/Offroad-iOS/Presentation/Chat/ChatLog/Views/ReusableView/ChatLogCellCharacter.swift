@@ -14,11 +14,11 @@ final class ChatLogCellCharacter: UICollectionViewCell {
     
     // MARK: - Type Func
     
-    static func calculatedCellSize(item: CharacterChatMessageItem, characterName: String, horizontalFixedSize: CGFloat) -> CGSize {
+    static func calculatedCellSize(item: CharacterChatMessageItem, characterName: String, fixedWidth: CGFloat) -> CGSize {
         let cell = ChatLogCellCharacter()
         cell.configure(with: item, characterName: characterName)
         
-        let targetSize = CGSize(width: horizontalFixedSize, height: .greatestFiniteMagnitude)
+        let targetSize = CGSize(width: fixedWidth, height: .greatestFiniteMagnitude)
         return cell.contentView.systemLayoutSizeFitting(
             targetSize,
             withHorizontalFittingPriority: .required,
@@ -128,8 +128,7 @@ extension ChatLogCellCharacter {
     
     func configure(with item: CharacterChatMessageItem, characterName: String) {
         guard case let .orbCharacter(content, _, _) = item else {
-            assertionFailure("ChatLogCellUser received incompatible item.")
-            return
+            fatalError("ChatLogCellUser received incompatible item.")
         }
         
         characternameLabel.text = "\(characterName) :"

@@ -14,11 +14,11 @@ final class ChatLogCellUser: UICollectionViewCell {
     
     // MARK: - Type Func
     
-    static func calculatedCellSize(item: CharacterChatMessageItem, horizontalFixedSize: CGFloat) -> CGSize {
+    static func calculatedCellSize(item: CharacterChatMessageItem, fixedWidth: CGFloat) -> CGSize {
         let cell = ChatLogCellUser()
         cell.configure(with: item)
         
-        let targetSize = CGSize(width: horizontalFixedSize, height: .greatestFiniteMagnitude)
+        let targetSize = CGSize(width: fixedWidth, height: .greatestFiniteMagnitude)
         return cell.contentView.systemLayoutSizeFitting(
             targetSize,
             withHorizontalFittingPriority: .required,
@@ -111,8 +111,7 @@ extension ChatLogCellUser {
     
     func configure(with item: CharacterChatMessageItem) {
         guard case let .user(content, _, _) = item else {
-            assertionFailure("ChatLogCellUser received incompatible item.")
-            return
+            fatalError("ChatLogCellUser received incompatible item.")
         }
         
         messageLabel.text = content
