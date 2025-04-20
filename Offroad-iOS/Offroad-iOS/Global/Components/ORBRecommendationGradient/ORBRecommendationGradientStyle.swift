@@ -67,7 +67,7 @@ extension ORBRecommendationGradientStyle {
             insertSubview(orbRecommendationBaseBackgroundView!, at: 0)
         }
         orbRecommendationBaseBackgroundView!.snp.makeConstraints { make in
-            make.edges.equalToSuperview()//.priority(.init(999))
+            make.edges.equalToSuperview()
         }
         layoutIfNeeded()
         orbRecommendationBaseBackgroundView!.clipsToBounds = true

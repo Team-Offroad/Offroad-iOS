@@ -33,7 +33,7 @@ final class ORBRecommendationGradientLayer: CAGradientLayer {
         [colorCombination1, colorCombination4, colorCombination3, colorCombination2, colorCombination1]
     }
     private var colorCombinations3: [[CGColor]] {
-        [colorCombination1, colorCombination4, colorCombination3, colorCombination2, colorCombination1]
+        [colorCombination1, colorCombination4, colorCombination2, colorCombination2, colorCombination1]
     }
     private var colorCombinations4: [[CGColor]] {
         [colorCombination1, colorCombination3, colorCombination2, colorCombination4, colorCombination1]

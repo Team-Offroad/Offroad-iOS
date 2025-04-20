@@ -2073,14 +2073,14 @@
 			path = ChatLog;
 			sourceTree = "<group>";
 		};
-		4EEB47D82DAEA0EE0025AAA2 /* ORBSuggestionGradient */ = {
+		4EEB47D82DAEA0EE0025AAA2 /* ORBRecommendationGradient */ = {
 			isa = PBXGroup;
 			children = (
 				4EEB47DC2DAEA34B0025AAA2 /* ORBRecommendationGradientLayer.swift */,
 				4EEB47DF2DAEA3950025AAA2 /* ORBRecommendationBaseBackground.swift */,
 				4EEB47D92DAEA3150025AAA2 /* ORBRecommendationGradientStyle.swift */,
 			);
-			path = ORBSuggestionGradient;
+			path = ORBRecommendationGradient;
 			sourceTree = "<group>";
 		};
 		4EF6B0312CC3E21200066640 /* Protocols */ = {
@@ -2210,7 +2210,6 @@
 			children = (
 				87C27F8C2D80482F008036FA /* IconLabelStackView.swift */,
 				87C27F692D7FED19008036FA /* CourseQuestCollectionViewCell.swift */,
-				4EB32BEB2C67A39B003F98F2 /* QuestListCollectionViewCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -2463,7 +2462,7 @@
 		D018BB0C2C401F5F0048B6DF /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				4EEB47D82DAEA0EE0025AAA2 /* ORBSuggestionGradient */,
+				4EEB47D82DAEA0EE0025AAA2 /* ORBRecommendationGradient */,
 				4E2A9C6E2DA684F900D8E6D1 /* ORBMap */,
 				4EA2722B2D578D5A00F64B20 /* Chat */,
 				4E1ED3812D188F8C0058C8D9 /* CollectionView */,
