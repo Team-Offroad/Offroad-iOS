@@ -627,11 +627,10 @@ extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
         case .message(let messageItem):
             switch messageItem {
             case .user:
-                let returnValue =  ChatLogCellUser.calculatedCellSize(
+                return ChatLogCellUser.calculatedCellSize(
                     item: messageItem,
                     fixedWidth: collectionView.bounds.width
                 )
-                return returnValue
             case .orbCharacter:
                 return ChatLogCellCharacter.calculatedCellSize(
                     item: messageItem,
