@@ -1710,13 +1710,6 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		4E3A329E2CE8E136007228D0 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		4E3CA6312CEE23FF00E6E071 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -2082,7 +2075,6 @@
 			isa = PBXGroup;
 			children = (
 				4E59AFB62DB2933B000A5EAD /* Model */,
-				4E3A329E2CE8E136007228D0 /* ViewModel */,
 				4E3A329D2CE8E126007228D0 /* ViewControllers */,
 				4E3A329C2CE8E121007228D0 /* Views */,
 			);
