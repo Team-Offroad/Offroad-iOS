@@ -35,6 +35,8 @@ private extension ORBRecommendationMainView {
     private func setupStyle() {
         backgroundColor = .main(.main1)
         
+        backButton.configureButtonTitle(titleString: "홈")
+        
         titleLabel.do { label in
             label.text = "오브의 추천소"
             label.font = .offroad(style: .iosTextTitle)
@@ -51,10 +53,15 @@ private extension ORBRecommendationMainView {
     }
     
     private func setupHierarchy() {
-        addSubviews(titleStack, recommendedContentView)
+        addSubviews(backButton, titleStack, recommendedContentView)
     }
     
     private func setupLayout() {
+        backButton.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide).inset(12)
+            make.leading.equalToSuperview().inset(14)
+        }
+        
         titleLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         titleImageView.snp.makeConstraints { make in
