@@ -5,6 +5,7 @@
 //  Created by 조혜린 on 7/15/24.
 //
 
+import CoreLocation
 import Foundation
 
 struct RegisteredPlaceResponseDTO: Codable {
@@ -34,4 +35,60 @@ struct RegisteredPlaceInfo: Codable {
      추후 API의 변경에 따라 타입을 옵셔널이 아닌 Double로 지정할 수 있음.
      */
     let distanceFromUser: Double?
+}
+
+enum PlaceModelError: LocalizedError {
+    case invalidCategoryValue(wrongValue: String)
+    case invalidCategoryImageURL(wrongURL: String)
+    
+    var errorDescription: String? {
+        switch self {
+        case .invalidCategoryValue(let wrongValue):
+            return "Invalid category value: \(wrongValue)"
+        case .invalidCategoryImageURL(let wrongURL):
+            return "Invalid category image url: \(wrongURL)"
+        }
+    }
+}
+
+struct PlaceModel {
+    
+    enum Category: String {
+        case cafe = "CAFFE"
+        case restaurant = "RESTAURANT"
+        case park = "PARK"
+        case sport = "SPORT"
+        case culture = "CULTURE"
+    }
+    
+    let id: Int
+    let name: String
+    let address: String
+    let shorIntroduction: String
+    let placeCategory: Category
+    let placeArea: String
+    let coordinate: CLLocationCoordinate2D
+    let visitCount: Int
+    let categoryImageUrl: URL
+    
+    init(_ dto: RegisteredPlaceInfo) throws {
+        self.id = dto.id
+        self.name = dto.name
+        self.address = dto.address
+        self.shorIntroduction = dto.shortIntroduction
+        if let category = Category(rawValue: dto.placeCategory) {
+            self.placeCategory = category
+        } else {
+            throw PlaceModelError.invalidCategoryImageURL(wrongURL: dto.placeCategory)
+        }
+        self.placeArea = dto.placeArea
+        self.coordinate = .init(latitude: dto.latitude, longitude: dto.longitude)
+        self.visitCount = dto.visitCount
+        if let imageURL = URL(string: dto.categoryImageUrl) {
+            self.categoryImageUrl = imageURL
+        } else {
+            throw PlaceModelError.invalidCategoryValue(wrongValue: dto.categoryImageUrl)
+        }
+    }
+    
 }
