@@ -455,6 +455,8 @@
 		4EF833EC2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */; };
 		4EF833EE2CC4268200D94314 /* ORBPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833ED2CC4268200D94314 /* ORBPopup.swift */; };
 		4EF833F02CC486EE00D94314 /* EmblemPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833EF2CC486EE00D94314 /* EmblemPopupViewController.swift */; };
+		4EF90E562DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */; };
+		4EF90E582DBA265C00A63DB0 /* OBRRecommendationMessageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF90E572DBA265C00A63DB0 /* OBRRecommendationMessageButton.swift */; };
 		4EFA808B2C3E79E800876D05 /* ORBMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* ORBMapListButton.swift */; };
 		4EFC7D252D066D110068367E /* ScrollLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC7D242D066D110068367E /* ScrollLoading.swift */; };
 		4EFC7D3F2D06CB130068367E /* ScrollLoadingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC7D3E2D06CB130068367E /* ScrollLoadingCollectionView.swift */; };
@@ -822,6 +824,8 @@
 		4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewAcquiredEmblem.swift; sourceTree = "<group>"; };
 		4EF833ED2CC4268200D94314 /* ORBPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBPopup.swift; sourceTree = "<group>"; };
 		4EF833EF2CC486EE00D94314 /* EmblemPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmblemPopupViewController.swift; sourceTree = "<group>"; };
+		4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMainViewToolBar.swift; sourceTree = "<group>"; };
+		4EF90E572DBA265C00A63DB0 /* OBRRecommendationMessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBRRecommendationMessageButton.swift; sourceTree = "<group>"; };
 		4EFA808A2C3E79E800876D05 /* ORBMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapListButton.swift; sourceTree = "<group>"; };
 		4EFC7D242D066D110068367E /* ScrollLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoading.swift; sourceTree = "<group>"; };
 		4EFC7D3E2D06CB130068367E /* ScrollLoadingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoadingCollectionView.swift; sourceTree = "<group>"; };
@@ -1616,9 +1620,11 @@
 		4E2DE9D22DB49CC000DCE641 /* main */ = {
 			isa = PBXGroup;
 			children = (
+				4E246B342DB4F72300198433 /* ORBRecommendationMainViewController 2.swift */,
 				4E2DE9D42DB49CD500DCE641 /* ORBRecommendationMainView.swift */,
 				4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */,
-				4E246B342DB4F72300198433 /* ORBRecommendationMainViewController 2.swift */,
+				4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */,
+				4EF90E572DBA265C00A63DB0 /* OBRRecommendationMessageButton.swift */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -4195,11 +4201,13 @@
 				4E4F32322D4718F400C3B2FF /* ShrinkableButton.swift in Sources */,
 				4E4F32332D4718F400C3B2FF /* NoticePostView.swift in Sources */,
 				4E4F32342D4718F400C3B2FF /* CharacterListViewController.swift in Sources */,
+				4EF90E582DBA265C00A63DB0 /* OBRRecommendationMessageButton.swift in Sources */,
 				4E4F32352D4718F400C3B2FF /* TermsModel.swift in Sources */,
 				4E4F32362D4718F400C3B2FF /* AVCameraPreview.swift in Sources */,
 				4E4F32372D4718F400C3B2FF /* CouponAPI.swift in Sources */,
 				4E4F32382D4718F400C3B2FF /* EmptyStateCollectionView.swift in Sources */,
 				4E4F32392D4718F400C3B2FF /* PushNotificationAPI.swift in Sources */,
+				4EF90E562DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift in Sources */,
 				4E4F323A2D4718F400C3B2FF /* LoginView.swift in Sources */,
 				4E4F323B2D4718F400C3B2FF /* BirthView.swift in Sources */,
 				4E4F323C2D4718F400C3B2FF /* TermsConsentPopupView.swift in Sources */,
