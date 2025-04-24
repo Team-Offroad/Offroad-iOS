@@ -90,7 +90,7 @@ final class PlaceListCell: ExpandableCell, Shrinkable {
     }
     
     override func animateExpansion() {
-        chevronImageView.transform = .init(rotationAngle: .pi * 0.99)
+        chevronImageView.transform = .init(rotationAngle: .pi * 0.999)
         descriptionViewWithoutVisitCount.alpha = 1
         descriptionViewIncludingVisitCount.alpha = 1
     }
@@ -175,7 +175,6 @@ private extension PlaceListCell {
             label.numberOfLines = 0
         }
         
-        descriptionStack1.setContentHuggingPriority(.init(1), for: .horizontal)
         descriptionStack1.do { stackView in
             stackView.axis = .horizontal
             stackView.spacing = 6
@@ -200,7 +199,6 @@ private extension PlaceListCell {
             label.numberOfLines = 0
         }
         
-        descriptionStack2.setContentHuggingPriority(.init(1), for: .horizontal)
         descriptionStack2.do { stackView in
             stackView.axis = .horizontal
             stackView.spacing = 6
@@ -235,15 +233,6 @@ private extension PlaceListCell {
     }
     
     private func setupLayout() {
-        categoryLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
-        categoryLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        categoryLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-        
-        placeAreaLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        placeAreaLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        placeAreaLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-        
-        categoryStack.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         categoryStack.setContentHuggingPriority(.defaultHigh + 1, for: .vertical)
         categoryStack.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(18)
@@ -253,12 +242,11 @@ private extension PlaceListCell {
         
         placeNameLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         addressLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        nameAddressStack.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         nameAddressStack.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         nameAddressStack.snp.makeConstraints { make in
             make.top.equalTo(categoryStack.snp.bottom).offset(14)
             make.leading.equalTo(20)
-            make.trailing.lessThanOrEqualTo(chevronImageView.snp.leading).priority(.low)
+            make.trailing.lessThanOrEqualTo(chevronImageView.snp.leading)
             make.bottom.equalToSuperview().inset(18)
         }
         
@@ -270,21 +258,20 @@ private extension PlaceListCell {
         
         [categoryImageView1, categoryImageView2].forEach { imageView in
             imageView.setContentHuggingPriority(.defaultLow, for: .horizontal)
-            imageView.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
             imageView.snp.makeConstraints { make in
                 make.width.equalTo(22)
             }
         }
         
         descriptionStack1.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        descriptionStack1.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         descriptionStack1.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview().inset(9)
             make.horizontalEdges.equalToSuperview().inset(12)
         }
         
+        descriptionLabel2.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        
         descriptionStack2.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
-        descriptionStack2.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
         descriptionStack2.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview().inset(9)
             make.leading.equalToSuperview().inset(12)
@@ -293,7 +280,6 @@ private extension PlaceListCell {
         
         [descriptionLabel1, descriptionLabel2].forEach { label in
             label.setContentHuggingPriority(.defaultLow-1, for: .horizontal)
-            label.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
         }
         
         separator.snp.makeConstraints { make in
