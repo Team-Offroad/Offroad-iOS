@@ -1620,11 +1620,8 @@
 		4E2DE9D22DB49CC000DCE641 /* main */ = {
 			isa = PBXGroup;
 			children = (
-				4E246B342DB4F72300198433 /* ORBRecommendationMainViewController 2.swift */,
-				4E2DE9D42DB49CD500DCE641 /* ORBRecommendationMainView.swift */,
-				4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */,
-				4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */,
-				4EF90E572DBA265C00A63DB0 /* OBRRecommendationMessageButton.swift */,
+				4EF90E612DBA391E00A63DB0 /* Views */,
+				4EF90E602DBA390C00A63DB0 /* ViewController */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -2142,6 +2139,25 @@
 				4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */,
 			);
 			path = AlertView;
+			sourceTree = "<group>";
+		};
+		4EF90E602DBA390C00A63DB0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E246B342DB4F72300198433 /* ORBRecommendationMainViewController 2.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4EF90E612DBA391E00A63DB0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4E2DE9D42DB49CD500DCE641 /* ORBRecommendationMainView.swift */,
+				4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */,
+				4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */,
+				4EF90E572DBA265C00A63DB0 /* OBRRecommendationMessageButton.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		4EFA80892C3E79B800876D05 /* UIComponents */ = {
