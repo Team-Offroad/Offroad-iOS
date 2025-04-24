@@ -36,7 +36,7 @@ final class ORBRecommendationMainView: UIView {
     
     let backButton = NavigationPopButton()
     private let titleLabel = UILabel()
-    private let titleImageView = UIImageView(image: .btnChecked)
+    private let titleImageView = UIImageView(image: .icnOrbRecommendationMainTitle)
     private lazy var titleStack = UIStackView(arrangedSubviews: [titleLabel, titleImageView])
     let orbMessageButton = OBRRecommendationMessageButton()
     private let orbMapView = ORBMapView()

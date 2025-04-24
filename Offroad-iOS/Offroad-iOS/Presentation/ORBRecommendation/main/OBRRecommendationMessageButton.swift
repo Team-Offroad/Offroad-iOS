@@ -20,7 +20,7 @@ final class OBRRecommendationMessageButton: ShrinkableButton, ORBRecommendationG
     }
     
     let orbMessageLabel = UILabel()
-    let chatBubbleImageView = UIImageView(image: .btnChat)
+    let chatBubbleImageView = UIImageView(image: .icnOrbRecommendationMainMessage)
     let rightChevronImageView = UIImageView(image: .icnChatViewChevronDown)
     
     init() {
