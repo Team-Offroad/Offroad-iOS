@@ -191,6 +191,7 @@ private extension ORBRecommendedContentView {
     
     private func setupCollectionView() {
         dataSource = self
+        delegate = self
         register(PlaceListCell.self, forCellWithReuseIdentifier: PlaceListCell.className)
     }
     
@@ -264,7 +265,7 @@ extension ORBRecommendedContentView: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 
-extension ORBRecommendedContentView {
+extension ORBRecommendedContentView: UICollectionViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let yOffset = scrollView.contentOffset.y

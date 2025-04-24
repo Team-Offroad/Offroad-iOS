@@ -60,8 +60,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/nolanMinsung/ExpandableCell.git",
       "state" : {
-        "revision" : "dd08e38980b16551c05a214a7a09132a151a116c",
-        "version" : "1.1.0"
+        "revision" : "24b549e3a728ebe22bdfe3ce16accccfdda53322",
+        "version" : "2.0.1"
       }
     },
     {
