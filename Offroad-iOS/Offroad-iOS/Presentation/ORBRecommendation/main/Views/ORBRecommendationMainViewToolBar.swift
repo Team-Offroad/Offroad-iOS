@@ -48,7 +48,7 @@ final class ORBRecommendationMainViewToolBar: UIView {
 // Initial Settings
 private extension ORBRecommendationMainViewToolBar {
     
-    private func setupStyle() {
+    func setupStyle() {
         toolBarLeftLabel.do { label in
             label.font = .offroad(style: .iosTextContents)
             label.textAlignment = .left
@@ -70,11 +70,11 @@ private extension ORBRecommendationMainViewToolBar {
         selectMapButton.isSelected = false
     }
     
-    private func setupHierarchy() {
+    func setupHierarchy() {
         addSubviews(toolBarLeftLabel, buttonStack, toolBarDivider)
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         toolBarLeftLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(24)
             make.centerY.equalToSuperview()
@@ -96,7 +96,7 @@ private extension ORBRecommendationMainViewToolBar {
         }
     }
     
-    private func setupButtonActions() {
+    func setupButtonActions() {
         selectListButton.rx.tap.asDriver().drive(onNext: { [weak self] in
             guard let self else { return }
             self.selectListButton.isSelected = true

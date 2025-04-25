@@ -55,32 +55,32 @@ final class ORBRecommendedContentView: ExpandableCellCollectionView {
 
 private extension ORBRecommendedContentView {
     
-    private func setupStyle() {
+    func setupStyle() {
         backgroundColor = .clear
         delaysContentTouches = false
         collectionViewContentBackground.backgroundColor = .primary(.listBg)
         collectionViewContentBackground.isUserInteractionEnabled = false
     }
     
-    private func setupHierarchy() {
+    func setupHierarchy() {
         addSubviews(
             collectionViewContentBackground
         )
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         collectionViewContentBackground.snp.makeConstraints { make in
             make.top.equalTo(contentLayoutGuide)
             make.horizontalEdges.bottom.equalTo(frameLayoutGuide)
         }
     }
     
-    private func setupCollectionView() {
+    func setupCollectionView() {
         dataSource = self
         register(PlaceListCell.self, forCellWithReuseIdentifier: PlaceListCell.className)
     }
     
-    private func getInitialPlaceData() {
+    func getInitialPlaceData() {
         guard let currentLocation = locationManager.location else { return }
         let requestData: RegisteredPlaceRequestDTO = .init(
             currentLatitude: currentLocation.coordinate.latitude,

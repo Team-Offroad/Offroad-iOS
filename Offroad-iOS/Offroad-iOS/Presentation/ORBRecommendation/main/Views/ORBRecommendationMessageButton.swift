@@ -1,5 +1,5 @@
 //
-//  OBRRecommendationMessageButton.swift
+//  ORBRecommendationMessageButton.swift
 //  ORB_Dev
 //
 //  Created by 김민성 on 4/24/25.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class OBRRecommendationMessageButton: ShrinkableButton, ORBRecommendationGradientStyle {
+final class ORBRecommendationMessageButton: ShrinkableButton, ORBRecommendationGradientStyle {
     
     var message: String = "" {
         didSet {
@@ -19,9 +19,9 @@ final class OBRRecommendationMessageButton: ShrinkableButton, ORBRecommendationG
         }
     }
     
-    let orbMessageLabel = UILabel()
-    let chatBubbleImageView = UIImageView(image: .icnOrbRecommendationMainMessage)
-    let rightChevronImageView = UIImageView(image: .icnChatViewChevronDown)
+    private let orbMessageLabel = UILabel()
+    private let chatBubbleImageView = UIImageView(image: .icnOrbRecommendationMainMessage)
+    private let rightChevronImageView = UIImageView(image: .icnChatViewChevronDown)
     
     init() {
         super.init(shrinkScale: 0.97)
@@ -40,7 +40,11 @@ final class OBRRecommendationMessageButton: ShrinkableButton, ORBRecommendationG
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupStyle() {
+}
+
+private extension ORBRecommendationMessageButton {
+    
+    func setupStyle() {
         titleLabel?.isHidden = true
         titleLabel?.text = ""
         
@@ -57,11 +61,11 @@ final class OBRRecommendationMessageButton: ShrinkableButton, ORBRecommendationG
         rightChevronImageView.transform = .init(rotationAngle: -.pi/2)
     }
     
-    private func setupHierarchy() {
+    func setupHierarchy() {
         addSubviews(orbMessageLabel, chatBubbleImageView, rightChevronImageView)
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         orbMessageLabel.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview().inset(20.5)
             make.leading.equalToSuperview().inset(25)
@@ -80,6 +84,5 @@ final class OBRRecommendationMessageButton: ShrinkableButton, ORBRecommendationG
             make.trailing.equalToSuperview()
         }
     }
-    
     
 }

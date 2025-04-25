@@ -825,7 +825,7 @@
 		4EF833ED2CC4268200D94314 /* ORBPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBPopup.swift; sourceTree = "<group>"; };
 		4EF833EF2CC486EE00D94314 /* EmblemPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmblemPopupViewController.swift; sourceTree = "<group>"; };
 		4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMainViewToolBar.swift; sourceTree = "<group>"; };
-		4EF90E572DBA265C00A63DB0 /* OBRRecommendationMessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBRRecommendationMessageButton.swift; sourceTree = "<group>"; };
+		4EF90E572DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMessageButton.swift; sourceTree = "<group>"; };
 		4EFA808A2C3E79E800876D05 /* ORBMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapListButton.swift; sourceTree = "<group>"; };
 		4EFC7D242D066D110068367E /* ScrollLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoading.swift; sourceTree = "<group>"; };
 		4EFC7D3E2D06CB130068367E /* ScrollLoadingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoadingCollectionView.swift; sourceTree = "<group>"; };

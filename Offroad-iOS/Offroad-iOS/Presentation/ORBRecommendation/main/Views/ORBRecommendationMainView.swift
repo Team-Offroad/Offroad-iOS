@@ -31,7 +31,7 @@ final class ORBRecommendationMainView: UIView {
     private let titleLabel = UILabel()
     private let titleImageView = UIImageView(image: .icnOrbRecommendationMainTitle)
     private lazy var titleStack = UIStackView(arrangedSubviews: [titleLabel, titleImageView])
-    let orbMessageButton = OBRRecommendationMessageButton()
+    let orbMessageButton = ORBRecommendationMessageButton()
     private let orbMapView = ORBMapView()
     private let recommendedContentView = ORBRecommendedContentView()
     private let contentToolBar = ORBRecommendationMainViewToolBar()
@@ -55,7 +55,7 @@ final class ORBRecommendationMainView: UIView {
 // Initial Settings
 private extension ORBRecommendationMainView {
     
-    private func setupStyle() {
+    func setupStyle() {
         backgroundColor = .main(.main1)
         
         backButton.configureButtonTitle(titleString: "홈")
@@ -79,11 +79,11 @@ private extension ORBRecommendationMainView {
         orbMapView.isHidden = true
     }
     
-    private func setupHierarchy() {
+    func setupHierarchy() {
         addSubviews(backButton, titleStack, recommendedContentView, orbMapView, orbMessageButton, contentToolBar)
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         backButton.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide).inset(12)
             make.leading.equalToSuperview().inset(14)
@@ -125,11 +125,11 @@ private extension ORBRecommendationMainView {
         }
     }
     
-    private func setupDelegate() {
+    func setupDelegate() {
         recommendedContentView.delegate = self
     }
     
-    private func setupButtonActions() {
+    func setupButtonActions() {
         contentToolBar.onListButtonTapped = { [weak self] in
             guard let self else { return }
             self.orbMapView.isHidden = true
