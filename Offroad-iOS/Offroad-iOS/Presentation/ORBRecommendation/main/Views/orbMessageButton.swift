@@ -10,8 +10,10 @@ import UIKit
 import SnapKit
 import Then
 
+/// 오브의 추천소 메인 화면에서 오브의 메시지를 표시하는 버튼.
 final class ORBRecommendationMessageButton: ShrinkableButton, ORBRecommendationGradientStyle {
     
+    /// 버튼에 표시될 메시지.
     var message: String = "" {
         didSet {
             orbMessageLabel.text = message
@@ -42,6 +44,8 @@ final class ORBRecommendationMessageButton: ShrinkableButton, ORBRecommendationG
     
 }
 
+
+// Initial Setting
 private extension ORBRecommendationMessageButton {
     
     func setupStyle() {

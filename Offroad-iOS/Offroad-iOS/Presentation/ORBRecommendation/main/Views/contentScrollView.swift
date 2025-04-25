@@ -9,10 +9,7 @@ import CoreLocation
 import UIKit
 
 import ExpandableCell
-import RxSwift
-import RxCocoa
 import SnapKit
-import Then
 
 final class ORBRecommendedContentView: ExpandableCellCollectionView {
     
@@ -24,7 +21,6 @@ final class ORBRecommendedContentView: ExpandableCellCollectionView {
     
     private let collectionViewContentBackground = UIView()
     
-    var disposeBag = DisposeBag()
     var places: [PlaceModel] = []
     
     init() {
@@ -53,6 +49,7 @@ final class ORBRecommendedContentView: ExpandableCellCollectionView {
     
 }
 
+// Initial Setting
 private extension ORBRecommendedContentView {
     
     func setupStyle() {
@@ -82,13 +79,10 @@ private extension ORBRecommendedContentView {
     
     func getInitialPlaceData() {
         guard let currentLocation = locationManager.location else { return }
-        let requestData: RegisteredPlaceRequestDTO = .init(
-            currentLatitude: currentLocation.coordinate.latitude,
-            currentLongitude: currentLocation.coordinate.latitude,
-            limit: 100,
-            isBounded: false
-        )
-        placeService.getRegisteredPlace(requestDTO: requestData) { [weak self] result in
+        placeService.getRegisteredListPlaces(
+            latitude: currentLocation.coordinate.latitude,
+            longitude: currentLocation.coordinate.longitude,
+            limit: 100) { [weak self] result in
             switch result {
             case .success(let data):
                 guard let data = data?.data else { return }

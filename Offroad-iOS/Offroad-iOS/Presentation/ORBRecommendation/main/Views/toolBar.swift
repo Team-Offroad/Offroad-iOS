@@ -114,6 +114,9 @@ private extension ORBRecommendationMainViewToolBar {
     
 }
 
+// ToolBarButton이라는 이름으로 ToolBar 안에 사용될 버튼을 정의하였음.
+// ToolBar 에서만 사용될 타입인데, 그렇다고 ORBRecommendationMainViewToolBarButton 처럼 적기엔 너무 이름이 길어지는 것 같아서
+// ToolBarButton이라고 정의하되, fileprivate으로 선언하여 toolbar 안에서만 사용됨을 명시
 fileprivate final class ToolBarButton: UIButton {
     
     override init(frame: CGRect) {
