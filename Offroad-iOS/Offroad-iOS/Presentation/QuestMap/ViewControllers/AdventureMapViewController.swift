@@ -205,11 +205,7 @@ extension AdventureMapViewController {
         
         rootView.questListButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
-#if DevTarget
-            self.navigationController?.pushViewController(ORBRecommendationMainViewController(), animated: true)
-#else
             self.navigationController?.pushViewController(QuestListViewController(), animated: true)
-#endif
         }.disposed(by: disposeBag)
         
         rootView.placeListButton.rx.tap.bind {  [weak self] _ in

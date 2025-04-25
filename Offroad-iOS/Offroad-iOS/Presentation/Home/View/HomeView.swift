@@ -27,6 +27,7 @@ final class HomeView: UIView {
     let changeCharacterButton = UIButton()
     let recommendButton = UIButton()
     #if DevTarget
+    let orbRecommendationButton = UIButton()
     let diaryButton = UIButton()
     let diaryUnreadDotView = UIView()
     #endif
@@ -107,6 +108,10 @@ extension HomeView {
         }
         
         #if DevTarget
+        orbRecommendationButton.do {
+            $0.setImage(.btnOrbRecommendationHome, for: .normal)
+        }
+        
         diaryButton.do {
             $0.setImage(.btnDiaryHome, for: .normal)
         }
@@ -117,7 +122,7 @@ extension HomeView {
             $0.isHidden = true
         }
         
-        [chatButton, recommendButton, changeCharacterButton, diaryButton].forEach { button in
+        [chatButton, orbRecommendationButton, changeCharacterButton, diaryButton].forEach { button in
             button.layer.shadowColor = UIColor.black.cgColor
             button.layer.shadowOffset = CGSize(width: 0, height: 1)
             button.layer.shadowOpacity = 0.1
@@ -203,7 +208,7 @@ extension HomeView {
         #if DevTarget
         buttonStackView.addArrangedSubviews(
             chatButton,
-            recommendButton,
+            orbRecommendationButton,
             changeCharacterButton,
             diaryButton
         )
@@ -258,7 +263,7 @@ extension HomeView {
         }
         
         #if DevTarget
-        [chatButton, shareButton, changeCharacterButton, diaryButton].forEach { button in
+        [chatButton, orbRecommendationButton, changeCharacterButton, diaryButton].forEach { button in
             button.snp.makeConstraints {
                 $0.size.equalTo(44)
             }
