@@ -11,13 +11,6 @@ final class ORBRecommendationMainView: UIView {
     
     // MARK: - Properties
     
-    /// 리스트(스크롤 뷰)가 오브 메시지 버튼을 얼마나 가렸는지 정도를 나타냅니다.
-    ///
-    /// 리스트가 최상단까지 스크롤되어 버튼이 모두 보이는 경우 0, 리스트가 아래로 스크롤되어 버튼을 모두 가리는 경우 1이 됩니다.
-    var orbMessageHidingProcess: CGFloat {
-        (recommendedContentView.contentOffset.y + topInset)/topInset
-    }
-    
     private let orbMessageButtonHidingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private let contentToolBarHeight: CGFloat = 48
     private var isORBMessageButtonShownWhenList: Bool = true
@@ -188,23 +181,36 @@ extension ORBRecommendationMainView {
 extension ORBRecommendationMainView: UICollectionViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // 리스트(스크롤 뷰)가 오브 메시지 버튼을 얼마나 가렸는지 정도
+        // 리스트를 끝까지 스크롤하여 버튼이 모두 보이는 경우 0, 리스트가 아래로 스크롤되어 버튼을 모두 가리는 경우 1.
+        let orbMessageHidingProcess = (recommendedContentView.contentOffset.y + topInset)/topInset
+        
         // 버튼이 최대로 커지는 비율
         let maxSizeRatio: CGFloat = 1.15
         // process에 따른 비율 계산
-        let shrinkRatio = -(maxSizeRatio-1) * exp(orbMessageHidingProcess) + maxSizeRatio
-        let alpha = 1 - (orbMessageHidingProcess * 2)
+        let shrinkRatio = abs(-(maxSizeRatio-1) * exp(orbMessageHidingProcess) + maxSizeRatio)
         orbMessageButton.transform = .init(scaleX: shrinkRatio, y: shrinkRatio)
-        orbMessageButton.alpha = alpha
-        orbMessageButton.isUserInteractionEnabled = -0.002 < orbMessageHidingProcess && orbMessageHidingProcess < 0.002
+        
+        // 스크롤 정도에 따른 투명도 계산
+        orbMessageButton.alpha = 1 - (orbMessageHidingProcess * 2)
+        
+        // 스크롤 정도에 따른 위치 계산
         if orbMessageHidingProcess < 1 {
             contentToolBarBottomConstraint.constant = -scrollView.contentOffset.y
             orbMapViewTopConstraint.constant = -scrollView.contentOffset.y
             scrollView.scrollIndicatorInsets = .init(top: -scrollView.contentOffset.y, left: 0, bottom: 0, right: 0)
-            clipsToBounds = false
         } else {
             contentToolBarBottomConstraint.constant = 0
             orbMapViewTopConstraint.constant = 0
-            clipsToBounds = true
+        }
+        
+        // 버튼이 제자리에 왔을 때만 뷰 계층 맨 앞으로 옮긴 후 활성화
+        if -0.002...0.002 ~= orbMessageHidingProcess {
+            bringSubviewToFront(orbMessageButton)
+            orbMessageButton.isUserInteractionEnabled = true
+        } else {
+            sendSubviewToBack(orbMessageButton)
+            orbMessageButton.isUserInteractionEnabled = false
         }
     }
     
@@ -227,14 +233,15 @@ extension ORBRecommendationMainView: UICollectionViewDelegate {
     
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         guard orbMapView.isHidden else { return false }
-        if scrollView.contentOffset.y < 0 {
-            isORBMessageButtonShownWhenList = true
-            return true
-        } else {
-            scrollView.setContentOffset(.zero, animated: true)
-            isORBMessageButtonShownWhenList = false
-            return false
+        return true
+    }
+    
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        let yOffset = scrollView.contentOffset.y
+        if -topInset < yOffset && yOffset < 0 {
+            showORBMessageButton()
         }
+        isORBMessageButtonShownWhenList = true
     }
     
 }

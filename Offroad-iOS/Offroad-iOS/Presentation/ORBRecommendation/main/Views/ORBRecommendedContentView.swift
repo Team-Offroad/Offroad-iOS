@@ -22,7 +22,6 @@ final class ORBRecommendedContentView: ExpandableCellCollectionView {
     
     // MARK: - UI Properties
     
-    private let collectionViewTopInsetBackground = UIView()
     private let collectionViewContentBackground = UIView()
     
     var disposeBag = DisposeBag()
@@ -50,7 +49,6 @@ final class ORBRecommendedContentView: ExpandableCellCollectionView {
         super.layoutSubviews()
         
         sendSubviewToBack(collectionViewContentBackground)
-        sendSubviewToBack(collectionViewTopInsetBackground)
     }
     
 }
@@ -58,28 +56,19 @@ final class ORBRecommendedContentView: ExpandableCellCollectionView {
 private extension ORBRecommendedContentView {
     
     private func setupStyle() {
-        backgroundColor = .primary(.listBg)
+        backgroundColor = .clear
         delaysContentTouches = false
-        collectionViewTopInsetBackground.backgroundColor = .main(.main1)
-        collectionViewTopInsetBackground.isUserInteractionEnabled = false
         collectionViewContentBackground.backgroundColor = .primary(.listBg)
         collectionViewContentBackground.isUserInteractionEnabled = false
     }
     
     private func setupHierarchy() {
         addSubviews(
-            collectionViewTopInsetBackground,
             collectionViewContentBackground
         )
     }
     
     private func setupLayout() {
-        collectionViewTopInsetBackground.snp.makeConstraints { make in
-            make.top.equalTo(frameLayoutGuide)
-            make.horizontalEdges.equalTo(frameLayoutGuide)
-            make.bottom.equalTo(contentLayoutGuide.snp.top)
-        }
-        
         collectionViewContentBackground.snp.makeConstraints { make in
             make.top.equalTo(contentLayoutGuide)
             make.horizontalEdges.bottom.equalTo(frameLayoutGuide)
