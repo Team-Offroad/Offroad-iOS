@@ -33,11 +33,10 @@ class CharacterChatLogFooter: UICollectionReusableView {
     
 }
 
-extension CharacterChatLogFooter {
+// Initial Setting
+private extension CharacterChatLogFooter {
     
-    //MARK: - Layout Func
-    
-    private func setupLayout() {
+    func setupLayout() {
         contentView.transform = verticalFlipTransform
         contentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -55,9 +54,7 @@ extension CharacterChatLogFooter {
         }
     }
     
-    //MARK: - Private Func
-    
-    private func setupStyle() {
+    func setupStyle() {
         dateLabel.do { label in
             label.font = .offroad(style: .iosBoxMedi)
             label.textColor = .main(.main3)
@@ -69,8 +66,9 @@ extension CharacterChatLogFooter {
         }
     }
     
-    private func setupHierarchy() {
+    func setupHierarchy() {
         addSubview(contentView)
         contentView.addSubviews(dateLabel, separator)
     }
+    
 }

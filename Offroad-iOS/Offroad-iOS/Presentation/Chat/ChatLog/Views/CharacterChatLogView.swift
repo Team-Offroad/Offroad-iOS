@@ -13,8 +13,10 @@ class CharacterChatLogView: UIView {
     
     //MARK: - Properties
     
-    private let collectionViewInsetAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private let verticalFlipTransform = CGAffineTransform(scaleX: 1, y: -1)
+    private let chatButtonHidingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
+    private var isChatButtonHidden: Bool = false
+    
     
     private var layout: UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
@@ -25,7 +27,10 @@ class CharacterChatLogView: UIView {
         return layout
     }
     
-    lazy var chatButtonBottomConstraint = chatButton.bottomAnchor.constraint(equalTo: bottomAnchor)
+    lazy var chatButtonBottomConstraint = chatButton.bottomAnchor.constraint(
+        equalTo: safeAreaLayoutGuide.bottomAnchor,
+        constant: -67.3
+    )
     
     //MARK: - UI Properties
     
@@ -58,11 +63,11 @@ class CharacterChatLogView: UIView {
     
 }
 
-extension CharacterChatLogView {
+private extension CharacterChatLogView {
     
     //MARK: - Layout Func
     
-    private func setupLayout() {
+    func setupLayout() {
         backgroundView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -114,7 +119,7 @@ extension CharacterChatLogView {
     
     //MARK: - Private Func
     
-    private func setupStyle() {
+    func setupStyle() {
         backButton.do({ button in
             button.setImage(.backBarButton, for: .normal)
             button.tintColor = .main(.main1)
@@ -134,7 +139,6 @@ extension CharacterChatLogView {
         
         chatButton.do { button in
             button.setTitle("채팅하기", for: .normal)
-            button.isUserInteractionEnabled = false
             button.roundCorners(cornerRadius: 12)
             button.configureTitleFontWhen(normal: .offroad(style: .iosText))
             button.configureBackgroundColorWhen(
@@ -155,7 +159,7 @@ extension CharacterChatLogView {
         }
     }
     
-    private func setupHierarchy() {
+    func setupHierarchy() {
         addSubviews(
             backgroundView,
             blurShadeView,
@@ -168,19 +172,33 @@ extension CharacterChatLogView {
         customNavigationBar.addSubviews(backButton, customNavigationTitleLabel)
     }
     
-    //MARK: - Func
-    
-    func setChatCollectionViewInset(inset: CGFloat, animated: Bool = true) {
-        collectionViewInsetAnimator.stopAnimation(true)
-        if animated {
-            collectionViewInsetAnimator.addAnimations { [weak self] in
-                self?.chatLogCollectionView.contentInset.top = inset
+    func setButtonState(shouldHide: Bool) {
+        guard isChatButtonHidden != shouldHide else { return }
+        isChatButtonHidden = shouldHide
+        chatButton.isUserInteractionEnabled = !shouldHide
+        chatButtonHidingAnimator.stopAnimation(true)
+        chatButtonHidingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            if shouldHide {
+                self.chatButtonBottomConstraint.constant = self.safeAreaInsets.bottom + self.chatButton.frame.height
+            } else {
+                self.chatButtonBottomConstraint.constant = -67.3
             }
-            collectionViewInsetAnimator.startAnimation()
-        } else {
-            chatLogCollectionView.contentInset.top = inset
+            self.layoutIfNeeded()
         }
+        chatButtonHidingAnimator.startAnimation()
     }
     
 }
 
+extension CharacterChatLogView {
+    
+    func hideChatButton() {
+        setButtonState(shouldHide: true)
+    }
+    
+    func showChatButton() {
+        setButtonState(shouldHide: false)
+    }
+    
+}

@@ -57,7 +57,6 @@
 		4E38F0EF2C9EBAFA00C7B866 /* ORBAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38F0EE2C9EBAFA00C7B866 /* ORBAlertAction.swift */; };
 		4E393C9A2C48C9A6003403EC /* QuestResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E393C992C48C9A6003403EC /* QuestResultViewController.swift */; };
 		4E393C9C2C48C9B2003403EC /* QuestResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E393C9B2C48C9B2003403EC /* QuestResultView.swift */; };
-		4E3A32622CE4EDD0007228D0 /* CharacterChatLogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32612CE4EDD0007228D0 /* CharacterChatLogCell.swift */; };
 		4E3A32652CE4EE48007228D0 /* CharacterChatLogFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32642CE4EE48007228D0 /* CharacterChatLogFooter.swift */; };
 		4E3A32692CE510DF007228D0 /* CharacterChatAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32682CE510DF007228D0 /* CharacterChatAPI.swift */; };
 		4E3A326B2CE510ED007228D0 /* CharacterChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A326A2CE510ED007228D0 /* CharacterChatService.swift */; };
@@ -65,7 +64,6 @@
 		4E3A32712CE51176007228D0 /* CharacterChatPostResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32702CE51176007228D0 /* CharacterChatPostResponseDTO.swift */; };
 		4E3A32732CE51185007228D0 /* CharacterChatGetResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32722CE51185007228D0 /* CharacterChatGetResponseDTO.swift */; };
 		4E3A32892CE733F2007228D0 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32882CE733F2007228D0 /* LoadingView.swift */; };
-		4E3A32A42CE8E353007228D0 /* CharacterChatLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32A32CE8E353007228D0 /* CharacterChatLogViewModel.swift */; };
 		4E3F009E2C40D20800B9A31A /* OffroadTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */; };
 		4E416CE82C45DBE200CF6AB4 /* ORBPlaceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E416CE72C45DBE200CF6AB4 /* ORBPlaceCategory.swift */; };
 		4E456CC02CF4003D0011B50F /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E456CBF2CF4003D0011B50F /* UICollectionView+.swift */; };
@@ -106,7 +104,6 @@
 		4E4F317D2D4718F400C3B2FF /* CustomIntensityBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1EC2D24380700A8C130 /* CustomIntensityBlurView.swift */; };
 		4E4F317E2D4718F400C3B2FF /* KakaoAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8CE2CB4DDD800D5A2CD /* KakaoAuthManager.swift */; };
 		4E4F317F2D4718F400C3B2FF /* MarketingConsentRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466AB2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift */; };
-		4E4F31802D4718F400C3B2FF /* CharacterChatLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32A32CE8E353007228D0 /* CharacterChatLogViewModel.swift */; };
 		4E4F31812D4718F400C3B2FF /* LogoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466952C86F69F00CF10FD /* LogoutView.swift */; };
 		4E4F31822D4718F400C3B2FF /* MyPageCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BD451E2CC77C3200128E74 /* MyPageCustomButton.swift */; };
 		4E4F31832D4718F400C3B2FF /* CouponListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE049772CA0FD1300754488 /* CouponListResponseDTO.swift */; };
@@ -268,7 +265,6 @@
 		4E4F32212D4718F400C3B2FF /* RegisteredPlaceResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7964B2C4539FC005B47A5 /* RegisteredPlaceResponseDTO.swift */; };
 		4E4F32222D4718F400C3B2FF /* CouponService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0498C2CA10E2A00754488 /* CouponService.swift */; };
 		4E4F32232D4718F400C3B2FF /* CharacterChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A326A2CE510ED007228D0 /* CharacterChatService.swift */; };
-		4E4F32242D4718F400C3B2FF /* CharacterChatLogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3A32612CE4EDD0007228D0 /* CharacterChatLogCell.swift */; };
 		4E4F32252D4718F400C3B2FF /* ChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D01F2C3E873C002051AC /* ChoosingCharacterViewController.swift */; };
 		4E4F32262D4718F400C3B2FF /* ORBAlertViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6B03A2CC3E89F00066640 /* ORBAlertViewType.swift */; };
 		4E4F32272D4718F400C3B2FF /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */; };
@@ -356,6 +352,14 @@
 		4E58FC022C7DFE87002A951B /* QuestListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FC012C7DFE87002A951B /* QuestListService.swift */; };
 		4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */; };
 		4E59A11C2C4228C500B548C6 /* AVCameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */; };
+		4E59AFAD2DB148B5000A5EAD /* ChatLogCellUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFAC2DB148B5000A5EAD /* ChatLogCellUser.swift */; };
+		4E59AFAE2DB148B5000A5EAD /* ChatLogCellUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFAC2DB148B5000A5EAD /* ChatLogCellUser.swift */; };
+		4E59AFB12DB148C7000A5EAD /* ChatLogCellCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFB02DB148C7000A5EAD /* ChatLogCellCharacter.swift */; };
+		4E59AFB22DB148C7000A5EAD /* ChatLogCellCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFB02DB148C7000A5EAD /* ChatLogCellCharacter.swift */; };
+		4E59AFB42DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFB32DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift */; };
+		4E59AFB52DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFB32DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift */; };
+		4E59AFB82DB29353000A5EAD /* CharacterChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFB72DB29353000A5EAD /* CharacterChatItem.swift */; };
+		4E59AFB92DB29353000A5EAD /* CharacterChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59AFB72DB29353000A5EAD /* CharacterChatItem.swift */; };
 		4E6659382CEB96E70024ABEE /* MyInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6659372CEB96E70024ABEE /* MyInfoManager.swift */; };
 		4E66593D2CECA0CE0024ABEE /* StringLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66593C2CECA0CE0024ABEE /* StringLiterals.swift */; };
 		4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4E6A5BC22C2E8C290027FDF0 /* Then */; };
@@ -703,7 +707,6 @@
 		4E38F0EE2C9EBAFA00C7B866 /* ORBAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertAction.swift; sourceTree = "<group>"; };
 		4E393C992C48C9A6003403EC /* QuestResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestResultViewController.swift; sourceTree = "<group>"; };
 		4E393C9B2C48C9B2003403EC /* QuestResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestResultView.swift; sourceTree = "<group>"; };
-		4E3A32612CE4EDD0007228D0 /* CharacterChatLogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatLogCell.swift; sourceTree = "<group>"; };
 		4E3A32642CE4EE48007228D0 /* CharacterChatLogFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatLogFooter.swift; sourceTree = "<group>"; };
 		4E3A32682CE510DF007228D0 /* CharacterChatAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatAPI.swift; sourceTree = "<group>"; };
 		4E3A326A2CE510ED007228D0 /* CharacterChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatService.swift; sourceTree = "<group>"; };
@@ -711,7 +714,6 @@
 		4E3A32702CE51176007228D0 /* CharacterChatPostResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatPostResponseDTO.swift; sourceTree = "<group>"; };
 		4E3A32722CE51185007228D0 /* CharacterChatGetResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatGetResponseDTO.swift; sourceTree = "<group>"; };
 		4E3A32882CE733F2007228D0 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		4E3A32A32CE8E353007228D0 /* CharacterChatLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatLogViewModel.swift; sourceTree = "<group>"; };
 		4E3F009D2C40D20800B9A31A /* OffroadTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarController.swift; sourceTree = "<group>"; };
 		4E416CE72C45DBE200CF6AB4 /* ORBPlaceCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBPlaceCategory.swift; sourceTree = "<group>"; };
 		4E456CBF2CF4003D0011B50F /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
@@ -732,6 +734,10 @@
 		4E58FC012C7DFE87002A951B /* QuestListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListService.swift; sourceTree = "<group>"; };
 		4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListResponseDTO.swift; sourceTree = "<group>"; };
 		4E59A11B2C4228C500B548C6 /* AVCameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCameraPreview.swift; sourceTree = "<group>"; };
+		4E59AFAC2DB148B5000A5EAD /* ChatLogCellUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogCellUser.swift; sourceTree = "<group>"; };
+		4E59AFB02DB148C7000A5EAD /* ChatLogCellCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogCellCharacter.swift; sourceTree = "<group>"; };
+		4E59AFB32DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogCellCharacterLoading.swift; sourceTree = "<group>"; };
+		4E59AFB72DB29353000A5EAD /* CharacterChatItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatItem.swift; sourceTree = "<group>"; };
 		4E6659372CEB96E70024ABEE /* MyInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoManager.swift; sourceTree = "<group>"; };
 		4E66593C2CECA0CE0024ABEE /* StringLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLiterals.swift; sourceTree = "<group>"; };
 		4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBOverlayViewController.swift; sourceTree = "<group>"; };
@@ -1631,8 +1637,10 @@
 		4E3A32632CE4EDD4007228D0 /* ReusableView */ = {
 			isa = PBXGroup;
 			children = (
-				4E3A32612CE4EDD0007228D0 /* CharacterChatLogCell.swift */,
 				4E3A32642CE4EE48007228D0 /* CharacterChatLogFooter.swift */,
+				4E59AFAC2DB148B5000A5EAD /* ChatLogCellUser.swift */,
+				4E59AFB02DB148C7000A5EAD /* ChatLogCellCharacter.swift */,
+				4E59AFB32DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift */,
 			);
 			path = ReusableView;
 			sourceTree = "<group>";
@@ -1700,14 +1708,6 @@
 				4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		4E3A329E2CE8E136007228D0 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				4E3A32A32CE8E353007228D0 /* CharacterChatLogViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		4E3CA6312CEE23FF00E6E071 /* ViewControllers */ = {
@@ -1795,6 +1795,14 @@
 				4E58FC042C7DFEAC002A951B /* QuestListResponseDTO.swift */,
 			);
 			path = Response;
+			sourceTree = "<group>";
+		};
+		4E59AFB62DB2933B000A5EAD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4E59AFB72DB29353000A5EAD /* CharacterChatItem.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		4E6659362CEB96D60024ABEE /* MyInfoManager */ = {
@@ -2066,7 +2074,7 @@
 		4EEA82FA2CE3906A0062F0DE /* ChatLog */ = {
 			isa = PBXGroup;
 			children = (
-				4E3A329E2CE8E136007228D0 /* ViewModel */,
+				4E59AFB62DB2933B000A5EAD /* Model */,
 				4E3A329D2CE8E126007228D0 /* ViewControllers */,
 				4E3A329C2CE8E121007228D0 /* Views */,
 			);
@@ -3652,13 +3660,13 @@
 				4EDB392E2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */,
 				D004F8CF2CB4DDE600D5A2CD /* KakaoAuthManager.swift in Sources */,
 				D06466AC2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift in Sources */,
-				4E3A32A42CE8E353007228D0 /* CharacterChatLogViewModel.swift in Sources */,
 				D06466962C86F69F00CF10FD /* LogoutView.swift in Sources */,
 				D0BD451F2CC77C3200128E74 /* MyPageCustomButton.swift in Sources */,
 				4EE0497B2CA0FD1300754488 /* CouponListResponseDTO.swift in Sources */,
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
 				4EF6B0332CC3E22800066640 /* ORBAlertViewBaseUI.swift in Sources */,
 				D0600BEB2CE61EBC00D8F1D6 /* PushNotificationService.swift in Sources */,
+				4E59AFB42DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift in Sources */,
 				8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */,
 				4E4E2C0C2CCF6518000A634D /* AdventureMapViewModel.swift in Sources */,
 				D004F8582CA12B1500D5A2CD /* NoticeAPI.swift in Sources */,
@@ -3703,6 +3711,7 @@
 				4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */,
 				4EE049872CA10DA400754488 /* CouponRedemptionRequestDTO.swift in Sources */,
 				4EC15ACD2D2AA3A700BC5826 /* ShrinkableCollectionViewCell.swift in Sources */,
+				4E59AFAE2DB148B5000A5EAD /* ChatLogCellUser.swift in Sources */,
 				4EFCDFDF2C92BD8A006DEBB6 /* ORBAlertBackgroundView.swift in Sources */,
 				4EE049892CA10DC300754488 /* CouponRedemptionResponseDTO.swift in Sources */,
 				D0E796152C452797005B47A5 /* AuthAPI.swift in Sources */,
@@ -3770,6 +3779,7 @@
 				87D9A70D2CE9BC1700F1CECD /* ScrollLoadingView.swift in Sources */,
 				4E0394DD2C2ABEF2007F0517 /* UITextField+.swift in Sources */,
 				D06466A52C89EF8D00CF10FD /* DeleteAccountResponseDTO.swift in Sources */,
+				4E59AFB82DB29353000A5EAD /* CharacterChatItem.swift in Sources */,
 				4E3A32652CE4EE48007228D0 /* CharacterChatLogFooter.swift in Sources */,
 				4EF6B03F2CC3EEFE00066640 /* ORBAlertViewTextField.swift in Sources */,
 				D06D26C32C3D835300E79F25 /* HomeView.swift in Sources */,
@@ -3822,7 +3832,6 @@
 				D0E7964C2C4539FC005B47A5 /* RegisteredPlaceResponseDTO.swift in Sources */,
 				4EE0498D2CA10E2A00754488 /* CouponService.swift in Sources */,
 				4E3A326B2CE510ED007228D0 /* CharacterChatService.swift in Sources */,
-				4E3A32622CE4EDD0007228D0 /* CharacterChatLogCell.swift in Sources */,
 				8792D0202C3E873C002051AC /* ChoosingCharacterViewController.swift in Sources */,
 				4EF6B03B2CC3E89F00066640 /* ORBAlertViewType.swift in Sources */,
 				4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */,
@@ -3838,6 +3847,7 @@
 				4E9759E42D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */,
 				D00A48822C6E5D92008B286A /* NoticePostViewController.swift in Sources */,
 				879F62E82C89A56200FEC5BE /* CouponDetailView.swift in Sources */,
+				4E59AFB12DB148C7000A5EAD /* ChatLogCellCharacter.swift in Sources */,
 				4EC15AC32D2A76EA00BC5826 /* ShrinkableButton.swift in Sources */,
 				D00A48842C6E5DA7008B286A /* NoticePostView.swift in Sources */,
 				872F4BB52C68D66200284DE0 /* CharacterListViewController.swift in Sources */,
@@ -3944,7 +3954,6 @@
 				4EA272552D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */,
 				4E4F317F2D4718F400C3B2FF /* MarketingConsentRequestDTO.swift in Sources */,
 				4EA5F4F52D4C977300A59AB1 /* LogPrinterView.swift in Sources */,
-				4E4F31802D4718F400C3B2FF /* CharacterChatLogViewModel.swift in Sources */,
 				4E4F31812D4718F400C3B2FF /* LogoutView.swift in Sources */,
 				4E4F31822D4718F400C3B2FF /* MyPageCustomButton.swift in Sources */,
 				4E4F31832D4718F400C3B2FF /* CouponListResponseDTO.swift in Sources */,
@@ -3963,6 +3972,7 @@
 				4E4F318D2D4718F400C3B2FF /* CharacterDetailCell.swift in Sources */,
 				4EEB47DD2DAEA34B0025AAA2 /* ORBRecommendationGradientLayer.swift in Sources */,
 				D051FDF12D873FB400CA2485 /* MemoryLightView.swift in Sources */,
+				4E59AFAD2DB148B5000A5EAD /* ChatLogCellUser.swift in Sources */,
 				4E4F318E2D4718F400C3B2FF /* QuestService.swift in Sources */,
 				4E4F318F2D4718F400C3B2FF /* MoyaPlugin.swift in Sources */,
 				D02232072D762DE600DA6968 /* DiaryView.swift in Sources */,
@@ -4035,9 +4045,11 @@
 				4E4F31C32D4718F400C3B2FF /* GenderView.swift in Sources */,
 				4E4F31C42D4718F400C3B2FF /* QuestListView.swift in Sources */,
 				4E4F31C52D4718F400C3B2FF /* PushNotificationRedirectModel.swift in Sources */,
+				4E59AFB22DB148C7000A5EAD /* ChatLogCellCharacter.swift in Sources */,
 				4E4F31C62D4718F400C3B2FF /* NetworkResult.swift in Sources */,
 				4E4F31C72D4718F400C3B2FF /* UIView+.swift in Sources */,
 				4E4F31C82D4718F400C3B2FF /* MarketingConsentViewController.swift in Sources */,
+				4E59AFB92DB29353000A5EAD /* CharacterChatItem.swift in Sources */,
 				4E4F31C92D4718F400C3B2FF /* ORBAlertAction.swift in Sources */,
 				4E4F31CA2D4718F400C3B2FF /* GenderViewController.swift in Sources */,
 				4E4F31CB2D4718F400C3B2FF /* QuestListViewControllers.swift in Sources */,
@@ -4145,7 +4157,6 @@
 				4E4F32212D4718F400C3B2FF /* RegisteredPlaceResponseDTO.swift in Sources */,
 				4E4F32222D4718F400C3B2FF /* CouponService.swift in Sources */,
 				4E4F32232D4718F400C3B2FF /* CharacterChatService.swift in Sources */,
-				4E4F32242D4718F400C3B2FF /* CharacterChatLogCell.swift in Sources */,
 				4E4F32252D4718F400C3B2FF /* ChoosingCharacterViewController.swift in Sources */,
 				4E4F32262D4718F400C3B2FF /* ORBAlertViewType.swift in Sources */,
 				4E4F32272D4718F400C3B2FF /* CompleteChoosingCharacterView.swift in Sources */,
@@ -4182,6 +4193,7 @@
 				4E4F32452D4718F400C3B2FF /* SocialLoginResponseDTO.swift in Sources */,
 				4E4F32462D4718F400C3B2FF /* FcmTokenRequestDTO.swift in Sources */,
 				4E4F32472D4718F400C3B2FF /* AuthService.swift in Sources */,
+				4E59AFB52DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift in Sources */,
 				4E9759E52D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */,
 				4E4F32482D4718F400C3B2FF /* DeleteAccountRequestDTO.swift in Sources */,
 				4E4F32492D4718F400C3B2FF /* PlaceListCollectionViewController.swift in Sources */,
