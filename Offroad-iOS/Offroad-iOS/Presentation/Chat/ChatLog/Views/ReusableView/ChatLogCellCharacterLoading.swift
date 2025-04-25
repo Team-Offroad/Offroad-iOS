@@ -54,7 +54,7 @@ final class ChatLogCellCharacterLoading: UICollectionViewCell {
 
 private extension ChatLogCellCharacterLoading {
     
-    private func setupStyle() {
+    func setupStyle() {
         contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
         
         chatBubble.do { view in
@@ -95,12 +95,12 @@ private extension ChatLogCellCharacterLoading {
         }
     }
     
-    private func setupHierarchy() {
+    func setupHierarchy() {
         contentView.addSubview(totalStack)
         chatBubble.addSubview(contentStack)
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         characternameLabel.setContentHuggingPriority(.required, for: .vertical)
         characternameLabel.setContentHuggingPriority(.required, for: .horizontal)
         characternameLabel.setContentCompressionResistancePriority(.required, for: .horizontal)

@@ -177,26 +177,25 @@ private extension CharacterChatLogView {
 extension CharacterChatLogView {
     
     func hideChatButton() {
-        guard !isChatButtonHidden else { return }
-        isChatButtonHidden = true
-        chatButton.isUserInteractionEnabled = false
-        chatButtonHidingAnimator.stopAnimation(true)
-        chatButtonHidingAnimator.addAnimations { [weak self] in
-            guard let self else { return }
-            self.chatButtonBottomConstraint.constant = self.safeAreaInsets.bottom + self.chatButton.frame.height
-            self.layoutIfNeeded()
-        }
-        chatButtonHidingAnimator.startAnimation()
+        setButtonState(shouldHide: true)
     }
     
     func showChatButton() {
-        guard isChatButtonHidden else { return }
-        isChatButtonHidden = false
-        chatButton.isUserInteractionEnabled = true
+        setButtonState(shouldHide: false)
+    }
+    
+    func setButtonState(shouldHide: Bool) {
+        guard isChatButtonHidden != shouldHide else { return }
+        isChatButtonHidden = shouldHide
+        chatButton.isUserInteractionEnabled = !shouldHide
         chatButtonHidingAnimator.stopAnimation(true)
-        chatButtonHidingAnimator.addAnimations { [weak self] in
+        chatButtonHidingAnimator.addAnimations { [weak self] in 
             guard let self else { return }
-            self.chatButtonBottomConstraint.constant = -67.3
+            if shouldHide {
+                self.chatButtonBottomConstraint.constant = self.safeAreaInsets.bottom + self.chatButton.frame.height
+            } else {
+                self.chatButtonBottomConstraint.constant = -67.3
+            }
             self.layoutIfNeeded()
         }
         chatButtonHidingAnimator.startAnimation()

@@ -54,12 +54,12 @@ final class ChatLogCellUser: UICollectionViewCell {
 
 private extension ChatLogCellUser {
     
-    private func setupHierarchy() {
+    func setupHierarchy() {
         contentView.addSubviews(totalStack)
         chatBubble.addSubviews(messageLabel)
     }
     
-    private func setupStyle() {
+    func setupStyle() {
         contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
         
         timeLabel.do { label in
@@ -89,7 +89,7 @@ private extension ChatLogCellUser {
         }
     }
     
-    private func setupLayout() {
+    func setupLayout() {
         timeLabel.setContentHuggingPriority(.init(1), for: .horizontal)
         timeLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         

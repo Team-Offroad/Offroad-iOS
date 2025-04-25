@@ -109,7 +109,6 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         rootView.backgroundView.isHidden = false
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         tabBarController.enableTabBarInteraction()
-//        rootView.showChatButton()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
