@@ -67,7 +67,7 @@ private extension CharacterChatLogView {
     
     //MARK: - Layout Func
     
-    private func setupLayout() {
+    func setupLayout() {
         backgroundView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -119,7 +119,7 @@ private extension CharacterChatLogView {
     
     //MARK: - Private Func
     
-    private func setupStyle() {
+    func setupStyle() {
         backButton.do({ button in
             button.setImage(.backBarButton, for: .normal)
             button.tintColor = .main(.main1)
@@ -159,7 +159,7 @@ private extension CharacterChatLogView {
         }
     }
     
-    private func setupHierarchy() {
+    func setupHierarchy() {
         addSubviews(
             backgroundView,
             blurShadeView,
@@ -172,6 +172,23 @@ private extension CharacterChatLogView {
         customNavigationBar.addSubviews(backButton, customNavigationTitleLabel)
     }
     
+    func setButtonState(shouldHide: Bool) {
+        guard isChatButtonHidden != shouldHide else { return }
+        isChatButtonHidden = shouldHide
+        chatButton.isUserInteractionEnabled = !shouldHide
+        chatButtonHidingAnimator.stopAnimation(true)
+        chatButtonHidingAnimator.addAnimations { [weak self] in
+            guard let self else { return }
+            if shouldHide {
+                self.chatButtonBottomConstraint.constant = self.safeAreaInsets.bottom + self.chatButton.frame.height
+            } else {
+                self.chatButtonBottomConstraint.constant = -67.3
+            }
+            self.layoutIfNeeded()
+        }
+        chatButtonHidingAnimator.startAnimation()
+    }
+    
 }
 
 extension CharacterChatLogView {
@@ -182,23 +199,6 @@ extension CharacterChatLogView {
     
     func showChatButton() {
         setButtonState(shouldHide: false)
-    }
-    
-    func setButtonState(shouldHide: Bool) {
-        guard isChatButtonHidden != shouldHide else { return }
-        isChatButtonHidden = shouldHide
-        chatButton.isUserInteractionEnabled = !shouldHide
-        chatButtonHidingAnimator.stopAnimation(true)
-        chatButtonHidingAnimator.addAnimations { [weak self] in 
-            guard let self else { return }
-            if shouldHide {
-                self.chatButtonBottomConstraint.constant = self.safeAreaInsets.bottom + self.chatButton.frame.height
-            } else {
-                self.chatButtonBottomConstraint.constant = -67.3
-            }
-            self.layoutIfNeeded()
-        }
-        chatButtonHidingAnimator.startAnimation()
     }
     
 }
