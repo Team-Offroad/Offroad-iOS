@@ -44,7 +44,6 @@ final class ORBRecommendationMessageButton: ShrinkableButton, ORBRecommendationG
     
 }
 
-
 // Initial Setting
 private extension ORBRecommendationMessageButton {
     
