@@ -147,6 +147,20 @@ private extension ORBRecommendationMainView {
         }
     }
     
+    func enableMessageButton() {
+        orbMessageButton.isUserInteractionEnabled = true
+        guard subviews.last != orbMessageButton else { return }
+        bringSubviewToFront(orbMessageButton)
+    }
+    
+    // scrollToTop 동작 시 사용자가 중간에 동작을 멈추고 반대 방향으로 스크롤 시 잠깐 동안 message button의 alpha 값이 반영되지 않는 이슈
+    // -> 뷰 계층의 아래로 숨기기
+    func disableMessageButton() {
+        orbMessageButton.isUserInteractionEnabled = false
+        guard subviews.first != orbMessageButton else { return }
+        sendSubviewToBack(orbMessageButton)
+    }
+    
 }
 
 // 오브 메세지 버튼 보이기/숨기기 동작
@@ -183,12 +197,12 @@ extension ORBRecommendationMainView: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // 리스트(스크롤 뷰)가 오브 메시지 버튼을 얼마나 가렸는지 정도
         // 리스트를 끝까지 스크롤하여 버튼이 모두 보이는 경우 0, 리스트가 아래로 스크롤되어 버튼을 모두 가리는 경우 1.
-        let orbMessageHidingProcess = (recommendedContentView.contentOffset.y + topInset)/topInset
+        let orbMessageHidingProcess = (scrollView.contentOffset.y + topInset)/topInset
         
         // 버튼이 최대로 커지는 비율
         let maxSizeRatio: CGFloat = 1.15
-        // process에 따른 비율 계산
-        let shrinkRatio = abs(-(maxSizeRatio-1) * exp(orbMessageHidingProcess) + maxSizeRatio)
+        // 스크롤에 따라 자연스러운 크기 변화를 위해 process에 따른 비율 계산.
+        let shrinkRatio = max(-(maxSizeRatio-1) * exp(orbMessageHidingProcess) + maxSizeRatio, 0)
         orbMessageButton.transform = .init(scaleX: shrinkRatio, y: shrinkRatio)
         
         // 스크롤 정도에 따른 투명도 계산
@@ -204,13 +218,12 @@ extension ORBRecommendationMainView: UICollectionViewDelegate {
             orbMapViewTopConstraint.constant = 0
         }
         
-        // 버튼이 제자리에 왔을 때만 뷰 계층 맨 앞으로 옮긴 후 활성화
+        // 버튼이 제자리에 왔을 때만 orbMessageButton 활성화 활성화
+        // 버튼이 제자리에 올 때 실제 process 값은 0이 아닌 0.001... 의 값으로 계산됨.
         if -0.002...0.002 ~= orbMessageHidingProcess {
-            bringSubviewToFront(orbMessageButton)
-            orbMessageButton.isUserInteractionEnabled = true
+            enableMessageButton()
         } else {
-            sendSubviewToBack(orbMessageButton)
-            orbMessageButton.isUserInteractionEnabled = false
+            disableMessageButton()
         }
     }
     

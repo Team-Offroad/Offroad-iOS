@@ -119,7 +119,7 @@ extension ORBRecommendedContentView: UICollectionViewDataSource {
 
 extension ORBRecommendedContentView: UIGestureRecognizerDelegate {
     
-    // 상단 contentInset 영역 터치 시 제스처 무효화
+    // 상단 contentInset 영역 터치 시 제스처 무효화 (false 를 return)
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         let touchPoint = touch.location(in: self)
         if touchPoint.y < 0 {
@@ -129,7 +129,7 @@ extension ORBRecommendedContentView: UIGestureRecognizerDelegate {
                     mainView.showORBMessageButton()
                 }
             }
-            return false // 스크롤 시작하지 않음
+            return false
         }
         return true
     }
