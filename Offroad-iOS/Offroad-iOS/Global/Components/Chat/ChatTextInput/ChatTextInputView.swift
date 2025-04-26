@@ -231,9 +231,8 @@ public extension ChatTextInputView {
 extension ChatTextInputView: UITextViewDelegate {
     
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        print(#function)
         guard scrollView == userChatInputView else { return }
-        // 텍스트뷰에 글을 붙여넣기 하는 경우 추가된 텍스트의 커서로 텍스트뷰의 스크롤 위치 자동으로 이동함. (애니메이션)
+        // 텍스트뷰에 글을 붙여넣기 하는 경우 추가된 텍스트의 마지막 부분(==커서의 위치)로 텍스트뷰의 스크롤 위치 자동으로 이동함.
         // 그러나 긴 글을 붙여넣기 하는 경우..애니메이션이 끝나도 커서가 텍스트뷰의 bounds 안에 들어오지 않는 경우 발생.
         // -> 커서의 위치를 이동하는 함수를 UITextView의 extension으로 만들고 비동기로 호출하여 해결 (그냥 호출하는것도 안됨..)
         DispatchQueue.main.async {
