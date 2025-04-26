@@ -35,17 +35,17 @@ public class ChatTextInputView: UIView {
     
     private let inputTextRelay = PublishRelay<String>()
     private let sendingTextRelay = PublishRelay<String>()
-    private let userChatInputViewHeightAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     private let showingAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private let hidingAnimator = UIViewPropertyAnimator(duration: 0.3, dampingRatio: 1)
     
     private var disposeBag = DisposeBag()
     
-    private lazy var userChatInputViewHeightConstraint = userChatInputView.heightAnchor.constraint(equalToConstant: 40)
+    private lazy var userChatInputViewHeightConstraint = userChatInputView.heightAnchor.constraint(equalToConstant: 19 + 9*2)
     
     //MARK: - UI Properties
     
     private let userChatInputView = UITextView()
+    private let textViewBackground = UIView()
     private let sendButton = ShrinkableButton(shrinkScale: 0.9)
     
     //MARK: - Life Cycle
@@ -57,6 +57,7 @@ public class ChatTextInputView: UIView {
         setupHierarchy()
         setupLayout()
         setupActions()
+        userChatInputView.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -72,16 +73,21 @@ private extension ChatTextInputView {
     //MARK: - Layout Func
     
     private func setupLayout() {
-        userChatInputViewHeightConstraint.isActive = true
-        userChatInputView.snp.makeConstraints { make in
+        textViewBackground.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(16)
             make.leading.equalToSuperview().inset(24)
             make.bottom.equalTo(keyboardLayoutGuide.snp.top).offset(-16)
         }
         
+        userChatInputViewHeightConstraint.isActive = true
+        userChatInputView.snp.makeConstraints { make in
+            make.verticalEdges.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
         sendButton.snp.makeConstraints { make in
             make.centerY.equalTo(userChatInputView)
-            make.leading.equalTo(userChatInputView.snp.trailing).offset(7)
+            make.leading.equalTo(textViewBackground.snp.trailing).offset(7)
             make.trailing.equalToSuperview().inset(24)
             make.size.equalTo(40)
         }
@@ -92,17 +98,20 @@ private extension ChatTextInputView {
     private func setupStyle() {
         backgroundColor = .primary(.white)
         
+        textViewBackground.do { view in
+            view.backgroundColor = .neutral(.btnInactive)
+            view.roundCorners(cornerRadius: 12)
+        }
+        
         userChatInputView.do { textView in
+            textView.backgroundColor = .clear
             textView.textColor = .main(.main2)
             textView.font = .offroad(style: .iosTextAuto)
-            textView.backgroundColor = .neutral(.btnInactive)
-            textView.contentInset = .init(top: 9, left: 0, bottom: 9, right: 0)
-            textView.textContainerInset = .init(top: 0, left: 20, bottom: 0, right: 20)
+            textView.textContainerInset = .init(top: 9, left: 0, bottom: 9, right: 0)
             textView.textContainer.lineFragmentPadding = 0
-            textView.showsVerticalScrollIndicator = false
-            textView.verticalScrollIndicatorInsets = .init(top: 4, left: 0, bottom: 4, right: 10)
             textView.indicatorStyle = .black
-            textView.roundCorners(cornerRadius: 12)
+            textView.clipsToBounds = false
+            textView.verticalScrollIndicatorInsets = .init(top: 0, left: 0, bottom: 0, right: -10)
         }
         
         sendButton.do { button in
@@ -111,7 +120,8 @@ private extension ChatTextInputView {
     }
     
     private func setupHierarchy() {
-        addSubviews(userChatInputView, sendButton)
+        addSubviews(textViewBackground, sendButton)
+        textViewBackground.addSubview(userChatInputView)
     }
     
     private func setupActions() {
@@ -128,12 +138,8 @@ private extension ChatTextInputView {
                 !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && isSendingAllowed
                 
                 // 텍스트 줄 수에 따라 입력창 높이 설정
-                let textContentHeight = self.userChatInputView.textInputView.bounds.height
-                let isMultiline: Bool = textContentHeight > 30
-                let shortHeight: CGFloat = 19.0 + (9*2)
-                let longHeight: CGFloat = (19.0*2) + (9.0*2)
-                self.updateChatInputViewHeight(height: isMultiline ? longHeight : shortHeight)
-                self.userChatInputView.showsVerticalScrollIndicator = isMultiline
+                let textContentHeight = self.userChatInputView.contentSize.height
+                self.updateChatInputViewHeight(height: min(textContentHeight, (19*2) + 9*2))
                 self.layoutIfNeeded()
             }).disposed(by: disposeBag)
         
@@ -150,13 +156,18 @@ private extension ChatTextInputView {
         }).disposed(by: disposeBag)
     }
     
-    private func updateChatInputViewHeight(height: CGFloat, animated: Bool = false) {
-        userChatInputViewHeightAnimator.stopAnimation(true)
-        userChatInputViewHeightAnimator.addAnimations { [weak self] in
+    private func updateChatInputViewHeight(height: CGFloat) {
+        UIView.animate(
+            withDuration: 0.4,
+            delay: 0,
+            usingSpringWithDamping: 1,
+            initialSpringVelocity: 1
+        ) { [weak self] in
+            self?.userChatInputView.setNeedsLayout()
+            self?.userChatInputView.layoutIfNeeded()
             self?.userChatInputViewHeightConstraint.constant = height
             self?.superview?.layoutIfNeeded()
         }
-        userChatInputViewHeightAnimator.startAnimation()
     }
     
     private func show(animated: Bool = true) {
@@ -213,6 +224,21 @@ public extension ChatTextInputView {
             completion?()
         }
         userChatInputView.resignFirstResponder()
+    }
+    
+}
+
+extension ChatTextInputView: UITextViewDelegate {
+    
+    public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        print(#function)
+        guard scrollView == userChatInputView else { return }
+        // 텍스트뷰에 글을 붙여넣기 하는 경우 추가된 텍스트의 커서로 텍스트뷰의 스크롤 위치 자동으로 이동함. (애니메이션)
+        // 그러나 긴 글을 붙여넣기 하는 경우..애니메이션이 끝나도 커서가 텍스트뷰의 bounds 안에 들어오지 않는 경우 발생.
+        // -> 커서의 위치를 이동하는 함수를 UITextView의 extension으로 만들고 비동기로 호출하여 해결 (그냥 호출하는것도 안됨..)
+        DispatchQueue.main.async {
+            (scrollView as! UITextView).scrollToCursorPosition(animated: false)
+        }
     }
     
 }
