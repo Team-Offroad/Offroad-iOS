@@ -72,4 +72,16 @@ extension UITextView {
         self.contentOffset = currentOffset
     }
     
+    /// 커서가 텍스트 뷰의 `bounds` 밖으로 나간 경우, 커서가 보이도록 텍스트 뷰의 스크롤 위치를 조정하는 함수.
+    ///
+    /// - Parameters:
+    ///   - animated: 애니메이션 적용 여부
+    func scrollToCursorPosition(animated: Bool = true) {
+        guard let selectedTextRange = self.selectedTextRange else { return }
+        
+        // 커서 위치
+        let caretRect = self.caretRect(for: selectedTextRange.end)
+        scrollRectToVisible(caretRect, animated: animated)
+    }
+    
 }
