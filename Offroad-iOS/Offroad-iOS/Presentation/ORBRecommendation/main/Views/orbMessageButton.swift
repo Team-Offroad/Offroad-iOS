@@ -52,6 +52,7 @@ private extension ORBRecommendationMessageButton {
         titleLabel?.text = ""
         
         orbMessageLabel.do { label in
+            label.textColor = .main(.main2)
             label.font = .offroad(style: .iosBoxMedi)
             label.numberOfLines = 2
             label.textAlignment = .left
