@@ -12,8 +12,12 @@ import RxCocoa
 
 final class ORBRecommendationMainViewController: UIViewController {
     
+    // MARK: - Properties
+    
     private let rootView = ORBRecommendationMainView()
     private var disposeBag = DisposeBag()
+    
+    // MARK: - Life Cycle
     
     override func loadView() {
         view = rootView

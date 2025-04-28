@@ -43,7 +43,7 @@
 		4E1E94192C3AC27C00A7B08A /* AdventureMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */; };
 		4E1ED3832D188FA80058C8D9 /* EmptyStateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ED3822D188FA80058C8D9 /* EmptyStateCollectionView.swift */; };
 		4E23776E2CC81B2000716AFF /* NetworkMonitoringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */; };
-		4E246B352DB4F72300198433 /* ORBRecommendationMainViewController 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E246B342DB4F72300198433 /* ORBRecommendationMainViewController 2.swift */; };
+		4E246B352DB4F72300198433 /* ORBRecommendationMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E246B342DB4F72300198433 /* ORBRecommendationMainViewController.swift */; };
 		4E246B4E2DB5240C00198433 /* PlaceListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E246B4D2DB5240C00198433 /* PlaceListCell.swift */; };
 		4E246B4F2DB5240C00198433 /* PlaceListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E246B4D2DB5240C00198433 /* PlaceListCell.swift */; };
 		4E2A9C582DA5525900D8E6D1 /* ORBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */; };
@@ -705,7 +705,7 @@
 		4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureMapView.swift; sourceTree = "<group>"; };
 		4E1ED3822D188FA80058C8D9 /* EmptyStateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateCollectionView.swift; sourceTree = "<group>"; };
 		4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitoringManager.swift; sourceTree = "<group>"; };
-		4E246B342DB4F72300198433 /* ORBRecommendationMainViewController 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ORBRecommendationMainViewController 2.swift"; sourceTree = "<group>"; };
+		4E246B342DB4F72300198433 /* ORBRecommendationMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMainViewController.swift; sourceTree = "<group>"; };
 		4E246B4D2DB5240C00198433 /* PlaceListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCell.swift; sourceTree = "<group>"; };
 		4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapView.swift; sourceTree = "<group>"; };
 		4E2DE9D42DB49CD500DCE641 /* mainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainView.swift; sourceTree = "<group>"; };
@@ -2152,7 +2152,7 @@
 		4EF90E602DBA390C00A63DB0 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4E246B342DB4F72300198433 /* ORBRecommendationMainViewController 2.swift */,
+				4E246B342DB4F72300198433 /* ORBRecommendationMainViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -4087,7 +4087,7 @@
 				4E4F31BA2D4718F400C3B2FF /* UIColor+.swift in Sources */,
 				4E4F31BB2D4718F400C3B2FF /* AppleAuthManager.swift in Sources */,
 				4E4F31BC2D4718F400C3B2FF /* UILabel+.swift in Sources */,
-				4E246B352DB4F72300198433 /* ORBRecommendationMainViewController 2.swift in Sources */,
+				4E246B352DB4F72300198433 /* ORBRecommendationMainViewController.swift in Sources */,
 				D0CA20822D7FE06B00FDF7F4 /* MonthPickerModalView.swift in Sources */,
 				4E4F31BD2D4718F400C3B2FF /* NavigationPopButton.swift in Sources */,
 				4E4F31BE2D4718F400C3B2FF /* EmblemInfoResponseDTO.swift in Sources */,

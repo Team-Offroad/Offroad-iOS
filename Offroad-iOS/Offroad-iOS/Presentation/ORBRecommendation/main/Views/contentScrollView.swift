@@ -13,15 +13,19 @@ import SnapKit
 
 final class ORBRecommendedContentView: ExpandableCellCollectionView {
     
+    // MARK: - Properties
+    
     private let topInset: CGFloat = 138.5
     private let locationManager = CLLocationManager()
-    private let placeService = RegisteredPlaceService()
+    private let placeService = NetworkService.shared.placeService
+    
+    var places: [PlaceModel] = []
     
     // MARK: - UI Properties
     
     private let collectionViewContentBackground = UIView()
     
-    var places: [PlaceModel] = []
+    // MARK: - Life Cycle
     
     init() {
         let contentInset: UIEdgeInsets = .init(top: topInset, left: 0, bottom: 0, right: 0)
@@ -60,9 +64,7 @@ private extension ORBRecommendedContentView {
     }
     
     func setupHierarchy() {
-        addSubviews(
-            collectionViewContentBackground
-        )
+        addSubview(collectionViewContentBackground)
     }
     
     func setupLayout() {
@@ -79,7 +81,7 @@ private extension ORBRecommendedContentView {
     
     func getInitialPlaceData() {
         guard let currentLocation = locationManager.location else { return }
-        placeService.getRegisteredListPlaces(
+        placeService.getRegisteredMapPlaces(
             latitude: currentLocation.coordinate.latitude,
             longitude: currentLocation.coordinate.longitude,
             limit: 100) { [weak self] result in
@@ -99,6 +101,8 @@ private extension ORBRecommendedContentView {
     }
     
 }
+
+// MARK: - UICollectionViewDataSource
 
 extension ORBRecommendedContentView: UICollectionViewDataSource {
     
