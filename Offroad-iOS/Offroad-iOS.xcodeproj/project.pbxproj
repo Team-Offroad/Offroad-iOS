@@ -48,8 +48,8 @@
 		4E246B4F2DB5240C00198433 /* PlaceListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E246B4D2DB5240C00198433 /* PlaceListCell.swift */; };
 		4E2A9C582DA5525900D8E6D1 /* ORBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */; };
 		4E2A9C592DA5525900D8E6D1 /* ORBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */; };
-		4E2DE9D52DB49CD500DCE641 /* mainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DE9D42DB49CD500DCE641 /* mainView.swift */; };
-		4E2DE9D82DB49E6000DCE641 /* contentScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DE9D72DB49E6000DCE641 /* contentScrollView.swift */; };
+		4E2DE9D52DB49CD500DCE641 /* ORBRecommendationMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DE9D42DB49CD500DCE641 /* ORBRecommendationMainView.swift */; };
+		4E2DE9D82DB49E6000DCE641 /* ORBRecommendedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */; };
 		4E3120F82D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3120F72D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift */; };
 		4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6CE2C456FBF007358DA /* UITabBar+.swift */; };
 		4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */; };
@@ -458,8 +458,8 @@
 		4EF833EC2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */; };
 		4EF833EE2CC4268200D94314 /* ORBPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833ED2CC4268200D94314 /* ORBPopup.swift */; };
 		4EF833F02CC486EE00D94314 /* EmblemPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833EF2CC486EE00D94314 /* EmblemPopupViewController.swift */; };
-		4EF90E562DB9FEF000A63DB0 /* toolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF90E552DB9FEF000A63DB0 /* toolBar.swift */; };
-		4EF90E582DBA265C00A63DB0 /* orbMessageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF90E572DBA265C00A63DB0 /* orbMessageButton.swift */; };
+		4EF90E562DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */; };
+		4EF90E582DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF90E572DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift */; };
 		4EF90E5A2DBA383700A63DB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E0394352C2A9DCF007F0517 /* Assets.xcassets */; };
 		4EFA808B2C3E79E800876D05 /* ORBMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* ORBMapListButton.swift */; };
 		4EFC7D252D066D110068367E /* ScrollLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC7D242D066D110068367E /* ScrollLoading.swift */; };
@@ -708,8 +708,8 @@
 		4E246B342DB4F72300198433 /* ORBRecommendationMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMainViewController.swift; sourceTree = "<group>"; };
 		4E246B4D2DB5240C00198433 /* PlaceListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCell.swift; sourceTree = "<group>"; };
 		4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapView.swift; sourceTree = "<group>"; };
-		4E2DE9D42DB49CD500DCE641 /* mainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainView.swift; sourceTree = "<group>"; };
-		4E2DE9D72DB49E6000DCE641 /* contentScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contentScrollView.swift; sourceTree = "<group>"; };
+		4E2DE9D42DB49CD500DCE641 /* ORBRecommendationMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMainView.swift; sourceTree = "<group>"; };
+		4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendedContentView.swift; sourceTree = "<group>"; };
 		4E3120F72D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatReadGetResponseDTO.swift; sourceTree = "<group>"; };
 		4E37B6CE2C456FBF007358DA /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterView.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/View/CompleteChoosingCharacterView.swift"; sourceTree = SOURCE_ROOT; };
@@ -830,8 +830,8 @@
 		4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewAcquiredEmblem.swift; sourceTree = "<group>"; };
 		4EF833ED2CC4268200D94314 /* ORBPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBPopup.swift; sourceTree = "<group>"; };
 		4EF833EF2CC486EE00D94314 /* EmblemPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmblemPopupViewController.swift; sourceTree = "<group>"; };
-		4EF90E552DB9FEF000A63DB0 /* toolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toolBar.swift; sourceTree = "<group>"; };
-		4EF90E572DBA265C00A63DB0 /* orbMessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = orbMessageButton.swift; sourceTree = "<group>"; };
+		4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMainViewToolBar.swift; sourceTree = "<group>"; };
+		4EF90E572DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMessageButton.swift; sourceTree = "<group>"; };
 		4EFA808A2C3E79E800876D05 /* ORBMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapListButton.swift; sourceTree = "<group>"; };
 		4EFC7D242D066D110068367E /* ScrollLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoading.swift; sourceTree = "<group>"; };
 		4EFC7D3E2D06CB130068367E /* ScrollLoadingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoadingCollectionView.swift; sourceTree = "<group>"; };
@@ -2160,10 +2160,10 @@
 		4EF90E612DBA391E00A63DB0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4E2DE9D42DB49CD500DCE641 /* mainView.swift */,
-				4E2DE9D72DB49E6000DCE641 /* contentScrollView.swift */,
-				4EF90E552DB9FEF000A63DB0 /* toolBar.swift */,
-				4EF90E572DBA265C00A63DB0 /* orbMessageButton.swift */,
+				4E2DE9D42DB49CD500DCE641 /* ORBRecommendationMainView.swift */,
+				4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */,
+				4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */,
+				4EF90E572DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4058,7 +4058,7 @@
 				4EA272332D5793BA00F64B20 /* ChatTextInputView.swift in Sources */,
 				4E4F31A52D4718F400C3B2FF /* AdventureAPI.swift in Sources */,
 				4E4F31A62D4718F400C3B2FF /* ZeroDurationAnimator.swift in Sources */,
-				4E2DE9D82DB49E6000DCE641 /* contentScrollView.swift in Sources */,
+				4E2DE9D82DB49E6000DCE641 /* ORBRecommendedContentView.swift in Sources */,
 				D07D3A8B2D8DACD80030995E /* DiarySettingService.swift in Sources */,
 				4E4F31A72D4718F400C3B2FF /* SocialLoginRequestDTO.swift in Sources */,
 				4E4F31A82D4718F400C3B2FF /* ORBNavigationController.swift in Sources */,
@@ -4228,13 +4228,13 @@
 				4E4F32322D4718F400C3B2FF /* ShrinkableButton.swift in Sources */,
 				4E4F32332D4718F400C3B2FF /* NoticePostView.swift in Sources */,
 				4E4F32342D4718F400C3B2FF /* CharacterListViewController.swift in Sources */,
-				4EF90E582DBA265C00A63DB0 /* orbMessageButton.swift in Sources */,
+				4EF90E582DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift in Sources */,
 				4E4F32352D4718F400C3B2FF /* TermsModel.swift in Sources */,
 				4E4F32362D4718F400C3B2FF /* AVCameraPreview.swift in Sources */,
 				4E4F32372D4718F400C3B2FF /* CouponAPI.swift in Sources */,
 				4E4F32382D4718F400C3B2FF /* EmptyStateCollectionView.swift in Sources */,
 				4E4F32392D4718F400C3B2FF /* PushNotificationAPI.swift in Sources */,
-				4EF90E562DB9FEF000A63DB0 /* toolBar.swift in Sources */,
+				4EF90E562DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift in Sources */,
 				4E4F323A2D4718F400C3B2FF /* LoginView.swift in Sources */,
 				4E4F323B2D4718F400C3B2FF /* BirthView.swift in Sources */,
 				4E4F323C2D4718F400C3B2FF /* TermsConsentPopupView.swift in Sources */,
@@ -4252,7 +4252,7 @@
 				4E4F32472D4718F400C3B2FF /* AuthService.swift in Sources */,
 				4E59AFB52DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift in Sources */,
 				4E9759E52D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */,
-				4E2DE9D52DB49CD500DCE641 /* mainView.swift in Sources */,
+				4E2DE9D52DB49CD500DCE641 /* ORBRecommendationMainView.swift in Sources */,
 				4E4F32482D4718F400C3B2FF /* DeleteAccountRequestDTO.swift in Sources */,
 				4E4F32492D4718F400C3B2FF /* PlaceListCollectionViewController.swift in Sources */,
 				4E4F324A2D4718F400C3B2FF /* QuestResultViewController.swift in Sources */,
