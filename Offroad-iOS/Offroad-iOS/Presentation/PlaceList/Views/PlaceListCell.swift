@@ -332,7 +332,6 @@ extension PlaceListCell {
         
         if isVisitCountShowing {
             descriptionViewWithoutVisitCount.removeFromSuperview()
-            descriptionViewWithoutVisitCount.snp.removeConstraints()
             detailContentView.addSubview(descriptionViewIncludingVisitCount)
             descriptionViewIncludingVisitCount.snp.makeConstraints { make in
                 make.top.equalToSuperview().priority(.high)
@@ -341,7 +340,6 @@ extension PlaceListCell {
             }
         } else {
             descriptionViewIncludingVisitCount.removeFromSuperview()
-            descriptionViewIncludingVisitCount.snp.removeConstraints()
             detailContentView.addSubview(descriptionViewWithoutVisitCount)
             descriptionViewWithoutVisitCount.snp.makeConstraints { make in
                 make.top.equalToSuperview().priority(.high.advanced(by: 20))
