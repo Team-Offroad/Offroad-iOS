@@ -37,6 +37,7 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
     private let courseQuestInfoView = UIView()
     private var checkBoxImageViews: [UIImageView] = []
     private let courseQuestListStackView = UIStackView()
+    private let detailButton = ShrinkableButton()
     
     // MARK: - Initializer
     
@@ -89,7 +90,8 @@ extension CourseQuestCollectionViewCell {
         
         detailContentView.addSubviews(
             courseQuestDescriptionLabel,
-            courseQuestInfoView
+            courseQuestInfoView,
+            detailButton
         )
         
         courseQuestInfoView.addSubview(courseQuestListStackView)
@@ -136,6 +138,14 @@ extension CourseQuestCollectionViewCell {
             stackView.alignment = .leading
             stackView.distribution = .equalSpacing
         }
+        
+        detailButton.do {
+            $0.setTitle("자세히 보기", for: .normal)
+            $0.setTitleColor(.main(.main1), for: .normal)
+            $0.titleLabel?.font = .offroad(style: .iosBtnSmall)
+            $0.backgroundColor = .sub(.sub)
+            $0.roundCorners(cornerRadius: 5)
+        }
     }
     
     private func setupLayout() {
@@ -178,7 +188,14 @@ extension CourseQuestCollectionViewCell {
         
         courseQuestInfoView.snp.makeConstraints { make in
             make.top.equalTo(courseQuestDescriptionLabel.snp.bottom).offset(14)
-            make.horizontalEdges.bottom.equalToSuperview().inset(20)
+            make.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        detailButton.snp.makeConstraints { make in
+            make.height.equalTo(44)
+            make.top.equalTo(courseQuestInfoView.snp.bottom).offset(12)
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(16)
         }
     }
     
