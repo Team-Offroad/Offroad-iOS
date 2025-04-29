@@ -12,7 +12,6 @@
 		4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E03942C2C2A9DCE007F0517 /* AppDelegate.swift */; };
 		4E03942F2C2A9DCE007F0517 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E03942E2C2A9DCE007F0517 /* SceneDelegate.swift */; };
 		4E0394312C2A9DCE007F0517 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394302C2A9DCE007F0517 /* ViewController.swift */; };
-		4E0394362C2A9DCF007F0517 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E0394352C2A9DCF007F0517 /* Assets.xcassets */; };
 		4E0394392C2A9DCF007F0517 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E0394372C2A9DCF007F0517 /* LaunchScreen.storyboard */; };
 		4E0394442C2A9DCF007F0517 /* Offroad_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394432C2A9DCF007F0517 /* Offroad_iOSTests.swift */; };
 		4E03944E2C2A9DCF007F0517 /* Offroad_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E03944D2C2A9DCF007F0517 /* Offroad_iOSUITests.swift */; };
@@ -44,8 +43,13 @@
 		4E1E94192C3AC27C00A7B08A /* AdventureMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */; };
 		4E1ED3832D188FA80058C8D9 /* EmptyStateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ED3822D188FA80058C8D9 /* EmptyStateCollectionView.swift */; };
 		4E23776E2CC81B2000716AFF /* NetworkMonitoringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */; };
+		4E246B352DB4F72300198433 /* ORBRecommendationMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E246B342DB4F72300198433 /* ORBRecommendationMainViewController.swift */; };
+		4E246B4E2DB5240C00198433 /* PlaceListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E246B4D2DB5240C00198433 /* PlaceListCell.swift */; };
+		4E246B4F2DB5240C00198433 /* PlaceListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E246B4D2DB5240C00198433 /* PlaceListCell.swift */; };
 		4E2A9C582DA5525900D8E6D1 /* ORBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */; };
 		4E2A9C592DA5525900D8E6D1 /* ORBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */; };
+		4E2DE9D52DB49CD500DCE641 /* ORBRecommendationMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DE9D42DB49CD500DCE641 /* ORBRecommendationMainView.swift */; };
+		4E2DE9D82DB49E6000DCE641 /* ORBRecommendedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */; };
 		4E3120F82D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3120F72D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift */; };
 		4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6CE2C456FBF007358DA /* UITabBar+.swift */; };
 		4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */; };
@@ -454,6 +458,9 @@
 		4EF833EC2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */; };
 		4EF833EE2CC4268200D94314 /* ORBPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833ED2CC4268200D94314 /* ORBPopup.swift */; };
 		4EF833F02CC486EE00D94314 /* EmblemPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833EF2CC486EE00D94314 /* EmblemPopupViewController.swift */; };
+		4EF90E562DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */; };
+		4EF90E582DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF90E572DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift */; };
+		4EF90E5A2DBA383700A63DB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E0394352C2A9DCF007F0517 /* Assets.xcassets */; };
 		4EFA808B2C3E79E800876D05 /* ORBMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* ORBMapListButton.swift */; };
 		4EFC7D252D066D110068367E /* ScrollLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC7D242D066D110068367E /* ScrollLoading.swift */; };
 		4EFC7D3F2D06CB130068367E /* ScrollLoadingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC7D3E2D06CB130068367E /* ScrollLoadingCollectionView.swift */; };
@@ -698,7 +705,11 @@
 		4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureMapView.swift; sourceTree = "<group>"; };
 		4E1ED3822D188FA80058C8D9 /* EmptyStateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateCollectionView.swift; sourceTree = "<group>"; };
 		4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitoringManager.swift; sourceTree = "<group>"; };
+		4E246B342DB4F72300198433 /* ORBRecommendationMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMainViewController.swift; sourceTree = "<group>"; };
+		4E246B4D2DB5240C00198433 /* PlaceListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCell.swift; sourceTree = "<group>"; };
 		4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapView.swift; sourceTree = "<group>"; };
+		4E2DE9D42DB49CD500DCE641 /* ORBRecommendationMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMainView.swift; sourceTree = "<group>"; };
+		4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendedContentView.swift; sourceTree = "<group>"; };
 		4E3120F72D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatReadGetResponseDTO.swift; sourceTree = "<group>"; };
 		4E37B6CE2C456FBF007358DA /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterView.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/View/CompleteChoosingCharacterView.swift"; sourceTree = SOURCE_ROOT; };
@@ -819,6 +830,8 @@
 		4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewAcquiredEmblem.swift; sourceTree = "<group>"; };
 		4EF833ED2CC4268200D94314 /* ORBPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBPopup.swift; sourceTree = "<group>"; };
 		4EF833EF2CC486EE00D94314 /* EmblemPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmblemPopupViewController.swift; sourceTree = "<group>"; };
+		4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMainViewToolBar.swift; sourceTree = "<group>"; };
+		4EF90E572DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMessageButton.swift; sourceTree = "<group>"; };
 		4EFA808A2C3E79E800876D05 /* ORBMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapListButton.swift; sourceTree = "<group>"; };
 		4EFC7D242D066D110068367E /* ScrollLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoading.swift; sourceTree = "<group>"; };
 		4EFC7D3E2D06CB130068367E /* ScrollLoadingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoadingCollectionView.swift; sourceTree = "<group>"; };
@@ -1313,6 +1326,7 @@
 				4E0394762C2AA721007F0517 /* PlaceList */,
 				4E0394772C2AA72C007F0517 /* MyPage */,
 				4EEA82F92CE390540062F0DE /* Chat */,
+				4E2DE9D12DB49C7000DCE641 /* ORBRecommendation */,
 				4E0394302C2A9DCE007F0517 /* ViewController.swift */,
 			);
 			path = Presentation;
@@ -1563,6 +1577,7 @@
 				4E08B9582C5DF0B20082EFB8 /* PlaceListView.swift */,
 				4E08B9612C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift */,
 				4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */,
+				4E246B4D2DB5240C00198433 /* PlaceListCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1598,6 +1613,23 @@
 				4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */,
 			);
 			path = ORBMap;
+			sourceTree = "<group>";
+		};
+		4E2DE9D12DB49C7000DCE641 /* ORBRecommendation */ = {
+			isa = PBXGroup;
+			children = (
+				4E2DE9D22DB49CC000DCE641 /* main */,
+			);
+			path = ORBRecommendation;
+			sourceTree = "<group>";
+		};
+		4E2DE9D22DB49CC000DCE641 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				4EF90E612DBA391E00A63DB0 /* Views */,
+				4EF90E602DBA390C00A63DB0 /* ViewController */,
+			);
+			path = main;
 			sourceTree = "<group>";
 		};
 		4E38B7D82C6471EC0011D997 /* SegmentedControl */ = {
@@ -2115,6 +2147,25 @@
 				4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */,
 			);
 			path = AlertView;
+			sourceTree = "<group>";
+		};
+		4EF90E602DBA390C00A63DB0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E246B342DB4F72300198433 /* ORBRecommendationMainViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4EF90E612DBA391E00A63DB0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4E2DE9D42DB49CD500DCE641 /* ORBRecommendationMainView.swift */,
+				4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */,
+				4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */,
+				4EF90E572DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		4EFA80892C3E79B800876D05 /* UIComponents */ = {
@@ -3428,7 +3479,7 @@
 				4EDC3D412C31271F006A1493 /* Pretendard-Bold.otf in Resources */,
 				4EDC3D482C31271F006A1493 /* Pretendard-SemiBold.otf in Resources */,
 				4EDC3D452C31271F006A1493 /* Pretendard-Black.otf in Resources */,
-				4E0394362C2A9DCF007F0517 /* Assets.xcassets in Resources */,
+				4EF90E5A2DBA383700A63DB0 /* Assets.xcassets in Resources */,
 				4EDC3D492C31271F006A1493 /* Pretendard-ExtraLight.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3743,6 +3794,7 @@
 				D0E796012C45222D005B47A5 /* BaseTargetType.swift in Sources */,
 				D0E7964A2C4539CE005B47A5 /* RegisteredPlaceRequestDTO.swift in Sources */,
 				D09A19702D7058D500B07FC2 /* TimePeriod.swift in Sources */,
+				4E246B4F2DB5240C00198433 /* PlaceListCell.swift in Sources */,
 				D0E796222C45334D005B47A5 /* ProfileAPI.swift in Sources */,
 				D0E796592C455100005B47A5 /* EmblemAPI.swift in Sources */,
 				D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */,
@@ -4006,6 +4058,7 @@
 				4EA272332D5793BA00F64B20 /* ChatTextInputView.swift in Sources */,
 				4E4F31A52D4718F400C3B2FF /* AdventureAPI.swift in Sources */,
 				4E4F31A62D4718F400C3B2FF /* ZeroDurationAnimator.swift in Sources */,
+				4E2DE9D82DB49E6000DCE641 /* ORBRecommendedContentView.swift in Sources */,
 				D07D3A8B2D8DACD80030995E /* DiarySettingService.swift in Sources */,
 				4E4F31A72D4718F400C3B2FF /* SocialLoginRequestDTO.swift in Sources */,
 				4E4F31A82D4718F400C3B2FF /* ORBNavigationController.swift in Sources */,
@@ -4034,6 +4087,7 @@
 				4E4F31BA2D4718F400C3B2FF /* UIColor+.swift in Sources */,
 				4E4F31BB2D4718F400C3B2FF /* AppleAuthManager.swift in Sources */,
 				4E4F31BC2D4718F400C3B2FF /* UILabel+.swift in Sources */,
+				4E246B352DB4F72300198433 /* ORBRecommendationMainViewController.swift in Sources */,
 				D0CA20822D7FE06B00FDF7F4 /* MonthPickerModalView.swift in Sources */,
 				4E4F31BD2D4718F400C3B2FF /* NavigationPopButton.swift in Sources */,
 				4E4F31BE2D4718F400C3B2FF /* EmblemInfoResponseDTO.swift in Sources */,
@@ -4141,6 +4195,7 @@
 				4E4F32132D4718F400C3B2FF /* ChangeEmblemResponseDTO.swift in Sources */,
 				4E4F32142D4718F400C3B2FF /* ORBNMFMarker.swift in Sources */,
 				4E4F32152D4718F400C3B2FF /* CustomRecentProgressView.swift in Sources */,
+				4E246B4E2DB5240C00198433 /* PlaceListCell.swift in Sources */,
 				4EA5F4F32D4C975C00A59AB1 /* LogPrinterViewController.swift in Sources */,
 				4E4F32162D4718F400C3B2FF /* DeleteAccountViewController.swift in Sources */,
 				4E4F32172D4718F400C3B2FF /* TermsConsentPopupViewController.swift in Sources */,
@@ -4173,11 +4228,13 @@
 				4E4F32322D4718F400C3B2FF /* ShrinkableButton.swift in Sources */,
 				4E4F32332D4718F400C3B2FF /* NoticePostView.swift in Sources */,
 				4E4F32342D4718F400C3B2FF /* CharacterListViewController.swift in Sources */,
+				4EF90E582DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift in Sources */,
 				4E4F32352D4718F400C3B2FF /* TermsModel.swift in Sources */,
 				4E4F32362D4718F400C3B2FF /* AVCameraPreview.swift in Sources */,
 				4E4F32372D4718F400C3B2FF /* CouponAPI.swift in Sources */,
 				4E4F32382D4718F400C3B2FF /* EmptyStateCollectionView.swift in Sources */,
 				4E4F32392D4718F400C3B2FF /* PushNotificationAPI.swift in Sources */,
+				4EF90E562DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift in Sources */,
 				4E4F323A2D4718F400C3B2FF /* LoginView.swift in Sources */,
 				4E4F323B2D4718F400C3B2FF /* BirthView.swift in Sources */,
 				4E4F323C2D4718F400C3B2FF /* TermsConsentPopupView.swift in Sources */,
@@ -4195,6 +4252,7 @@
 				4E4F32472D4718F400C3B2FF /* AuthService.swift in Sources */,
 				4E59AFB52DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift in Sources */,
 				4E9759E52D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */,
+				4E2DE9D52DB49CD500DCE641 /* ORBRecommendationMainView.swift in Sources */,
 				4E4F32482D4718F400C3B2FF /* DeleteAccountRequestDTO.swift in Sources */,
 				4E4F32492D4718F400C3B2FF /* PlaceListCollectionViewController.swift in Sources */,
 				4E4F324A2D4718F400C3B2FF /* QuestResultViewController.swift in Sources */,
@@ -4818,7 +4876,7 @@
 			repositoryURL = "https://github.com/nolanMinsung/ExpandableCell.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.1;
+				minimumVersion = 2.0.1;
 			};
 		};
 		4E4F314C2D4718F400C3B2FF /* XCRemoteSwiftPackageReference "SnapKit" */ = {

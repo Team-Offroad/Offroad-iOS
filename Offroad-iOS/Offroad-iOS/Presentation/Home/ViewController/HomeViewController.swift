@@ -92,6 +92,7 @@ extension HomeViewController {
         rootView.chatButton.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
         rootView.changeCharacterButton.addTarget(self, action: #selector(changeCharacterButtonTapped), for: .touchUpInside)
         #if DevTarget
+        rootView.orbRecommendationButton.addTarget(self, action: #selector(orbRecommendationButtonTapped), for: .touchUpInside)
         rootView.diaryButton.addTarget(self, action: #selector(diaryButtonTapped), for: .touchUpInside)
         rootView.recommendButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         #else
@@ -376,6 +377,12 @@ extension HomeViewController {
     }
 
     #if DevTarget
+    @objc private func orbRecommendationButtonTapped() {
+        let viewController = ORBRecommendationMainViewController()
+        (viewController.view as! ORBRecommendationMainView).backButton.configureButtonTitle(titleString: "홈")
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
     @objc private func diaryButtonTapped() {
         let diaryViewController = DiaryViewController(shouldShowLatestDiary: !isReadLatestDiary)
         diaryViewController.setupCustomBackButton(buttonTitle: "홈")

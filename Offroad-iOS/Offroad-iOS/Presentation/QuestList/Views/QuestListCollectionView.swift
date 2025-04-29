@@ -81,6 +81,7 @@ extension QuestListCollectionView {
         )
 #endif
         dataSource = self
+        delegate = self
         animationSpeed = UIAccessibility.isReduceMotionEnabled ? .none : .medium
     }
     
@@ -219,7 +220,7 @@ extension QuestListCollectionView: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 
-extension QuestListCollectionView {
+extension QuestListCollectionView: UICollectionViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
