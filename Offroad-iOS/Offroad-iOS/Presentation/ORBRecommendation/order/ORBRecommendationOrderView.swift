@@ -33,7 +33,7 @@ final class ORBRecommendationOrderView: UIView {
     // MARK: - UI Properties
     
     private let navigationBar = UIView()
-    private let backButton = NavigationPopButton()
+    private(set) var backButton = NavigationPopButton()
     private let titleLabel = UILabel()
     private let divider = UIView()
     private let scrollView = UIScrollView()
@@ -389,14 +389,12 @@ private extension ORBRecommendationOrderView {
     }
     
     func updateRequiredLabelsLayout() {
-        answer1RequiredLabel.snp.updateConstraints { make in
-            let intrinsicHeight = answer1RequiredLabel.intrinsicContentSize.height
-            make.height.equalTo(selectedPlaceCategory.value == nil ? intrinsicHeight : 0)
-        }
-        answer2RequiredLabel.snp.updateConstraints { make in
-            let intrinsicHeight = answer2RequiredLabel.intrinsicContentSize.height
-            make.height.equalTo(placeDescription.value == "" ? intrinsicHeight : 0)
-        }
+        let answer1RequiredLabelNewHeight: CGFloat = (
+            selectedPlaceCategory.value == nil ? answer1RequiredLabel.intrinsicContentSize.height : 0
+        )
+        let answer2RequiredLabelNewHeight: CGFloat = (
+            placeDescription.value == "" ? answer2RequiredLabel.intrinsicContentSize.height : 0
+        )
         
         UIView.animate(
             withDuration: 0.5,
@@ -404,21 +402,30 @@ private extension ORBRecommendationOrderView {
             usingSpringWithDamping: 1,
             initialSpringVelocity: 1
         ) { [weak self] in
+            self?.answer1RequiredLabel.snp.updateConstraints { make in
+                make.height.equalTo(answer1RequiredLabelNewHeight)
+            }
+            self?.answer2RequiredLabel.snp.updateConstraints { make in
+                make.height.equalTo(answer2RequiredLabelNewHeight)
+            }
             self?.scrollView.layoutIfNeeded()
         }
     }
     
     func updateAnswer1RequiredLabelLayout() {
-        answer1RequiredLabel.snp.updateConstraints { make in
-            let intrinsicHeight = answer1RequiredLabel.intrinsicContentSize.height
-            make.height.equalTo(selectedPlaceCategory.value == nil ? intrinsicHeight : 0)
-        }
+        let answer1RequiredLabelNewHeight: CGFloat = (
+            selectedPlaceCategory.value == nil ? answer1RequiredLabel.intrinsicContentSize.height : 0
+        )
+        
         UIView.animate(
             withDuration: 0.5,
             delay: 0,
             usingSpringWithDamping: 1,
             initialSpringVelocity: 1
         ) { [weak self] in
+            self?.answer1RequiredLabel.snp.updateConstraints { make in
+                make.height.equalTo(answer1RequiredLabelNewHeight)
+            }
             self?.scrollView.layoutIfNeeded()
         }
     }
