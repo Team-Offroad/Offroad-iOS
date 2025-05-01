@@ -49,6 +49,8 @@ final class ORBRecommendationOrderView: UIView {
     private let question2Stack = UIStackView()
     private let question3Label = UILabel()
     private let answer3TextView = UITextView()
+    private let answer3TextViewPlaceholderView = UILabel()
+    private let answer3TextViewBottomInsetBar = UIView()
     private let characterCountLabel = UILabel()
     private let question3Stack = UIStackView()
     private let resetOrderButton = ShrinkableButton()
@@ -183,14 +185,29 @@ private extension ORBRecommendationOrderView {
             textView.textColor = .main(.main2)
             textView.layer.borderColor = UIColor.grayscale(.gray100).cgColor
             textView.layer.borderWidth = 1
+            textView.contentInset = .init(top: 0, left: 0, bottom: 13 + 17, right: 0)
+            textView.textContainerInset = .init(top: 13, left: 12, bottom: 0, right: 12)
+            textView.verticalScrollIndicatorInsets = .init(top: 0, left: 0, bottom: 13 + 17, right: 0)
+            textView.textContainer.lineFragmentPadding = 0
             textView.roundCorners(cornerRadius: 5)
+        }
+        
+        answer3TextViewPlaceholderView.do { label in
+            label.text = ORBRecommendationOrderText.answer3Placeholder
+            label.font = .offroad(style: .iosText)
+            label.textColor = .grayscale(.gray300)
+            label.numberOfLines = 0
+        }
+        
+        answer3TextViewBottomInsetBar.do { view in
+            view.backgroundColor = .main(.main3)
         }
         
         characterCountLabel.do { label in
             label.font = .offroad(style: .iosHint)
             label.textAlignment = .right
             label.textColor = .grayscale(.gray400)
-            label.highlightText(targetText: "/200", color: .grayscale(.gray300))
+            label.highlightText(targetText: "0/200", color: .grayscale(.gray300))
         }
         
         question3Stack.do { stackView in
@@ -236,7 +253,11 @@ private extension ORBRecommendationOrderView {
             question3Stack,
             resetOrderButton
         )
-        answer3TextView.addSubview(characterCountLabel)
+        answer3TextView.addSubviews(
+            answer3TextViewPlaceholderView,
+            answer3TextViewBottomInsetBar
+        )
+        answer3TextViewBottomInsetBar.addSubview(characterCountLabel)
     }
     
     func setupLayout() {
@@ -290,6 +311,22 @@ private extension ORBRecommendationOrderView {
         
         answer2RequiredLabel.snp.makeConstraints { make in
             make.height.equalTo(0)
+        }
+        
+        answer3TextViewPlaceholderView.snp.makeConstraints { make in
+            make.top.equalTo(answer3TextView.contentLayoutGuide).inset(13)
+            make.horizontalEdges.equalTo(answer3TextView.frameLayoutGuide).inset(12)
+        }
+        
+        answer3TextViewBottomInsetBar.snp.makeConstraints { make in
+            make.horizontalEdges.equalTo(answer3TextView.frameLayoutGuide)
+            make.bottom.equalTo(answer3TextView.frameLayoutGuide)
+            make.height.equalTo(30) // bottom inset: 13, 글자 수 라벨 높이: 17
+        }
+        
+        characterCountLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().inset(12)
         }
         
         textViewHeightConstraint.isActive = true
@@ -436,7 +473,7 @@ private extension ORBRecommendationOrderView {
 // Rx Subscription
 private extension ORBRecommendationOrderView {
     
-    // 터치 입력을 구독
+    // 사용자의 입력을 구독
     func bindActions() {
         let tapGesture = UITapGestureRecognizer()
         tapGesture.rx.event.asDriver().drive(onNext: { [weak self] gesture in
@@ -453,6 +490,18 @@ private extension ORBRecommendationOrderView {
             self?.selectedPlaceCategory.accept(.caffe)
             self?.endEditing(true)
         }).disposed(by: actionBindingDisposeBag)
+        
+        answer3TextView.rx.text.orEmpty.subscribe { [weak self] text in
+            self?.answer3TextViewPlaceholderView.isHidden = !text.isEmpty
+            if text.count > 200 {
+                let first200Characters = String(text[text.startIndex..<text.index(text.startIndex, offsetBy: 200)])
+                self?.answer3TextView.text = first200Characters
+                self?.characterCountLabel.text = "200/200"
+            } else {
+                self?.characterCountLabel.text = "\(text.count)/200"
+            }
+            self?.characterCountLabel.highlightText(targetText: "/200", color: .grayscale(.gray300))
+        }.disposed(by: actionBindingDisposeBag)
         
         resetOrderButton.rx.tap.asDriver().drive(
             onNext: { [weak self] in
@@ -510,6 +559,7 @@ private extension ORBRecommendationOrderView {
             .enumerated()
             .asDriver(onErrorJustReturn: (index: 0, element: ""))
             .drive { [weak self] index, additionalOrder in
+                self?.answer3TextViewPlaceholderView.isHidden = !additionalOrder.isEmpty
                 self?.answer3TextView.text = additionalOrder
                 guard index > 0 else { return }
                 self?.updateRequiredLabelsLayout()
@@ -530,16 +580,6 @@ private extension ORBRecommendationOrderView {
     
 }
 
-// MARK: - UIScrollViewDelegate
-
-extension ORBRecommendationOrderView: UIScrollViewDelegate {
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        self.endEditing(true)
-    }
-    
-}
-
 // MARK: - UITextFieldDelegate
 
 extension ORBRecommendationOrderView: UITextFieldDelegate {
@@ -547,11 +587,13 @@ extension ORBRecommendationOrderView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderColor = UIColor.main(.main2).cgColor
         completeButton.isEnabled = false
+        scrollView.isScrollEnabled = false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         placeDescription.accept(textField.text!)
+        scrollView.isScrollEnabled = true
     }
     
 }
@@ -563,11 +605,14 @@ extension ORBRecommendationOrderView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         textView.layer.borderColor = UIColor.main(.main2).cgColor
         completeButton.isEnabled = false
+        scrollView.isScrollEnabled = false
+        answer3TextView.bringSubviewToFront(answer3TextViewBottomInsetBar)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         textView.layer.borderColor = UIColor.grayscale(.gray100).cgColor
         additionalOrder.accept(textView.text!)
+        scrollView.isScrollEnabled = true
         completeButton.isEnabled = (selectedPlaceCategory.value != nil &&
                                     !placeDescription.value.isEmpty)
     }
