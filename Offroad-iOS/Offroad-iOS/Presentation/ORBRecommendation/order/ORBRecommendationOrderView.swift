@@ -80,6 +80,7 @@ private extension ORBRecommendationOrderView {
         navigationBar.backgroundColor = .main(.main1)
         
         titleLabel.do { label in
+            label.text = ORBRecommendationOrderText.title
             label.font = .offroad(style: .iosTextBold)
             label.textAlignment = .center
             label.textColor = .main(.main2)
@@ -90,7 +91,7 @@ private extension ORBRecommendationOrderView {
         scrollView.delaysContentTouches = false
         
         question1Label.do { label in
-            label.text = "어떤 추천이 필요하신가요? *"
+            label.text = ORBRecommendationOrderText.question1
             label.font = .offroad(style: .iosTextBold)
             label.textColor = .main(.main2)
         }
@@ -118,7 +119,7 @@ private extension ORBRecommendationOrderView {
         }
         
         answer1RequiredLabel.do { label in
-            label.text = "*필수 체크 사항입니다."
+            label.text = ORBRecommendationOrderText.answer1RequiredMessage
             label.font = .offroad(style: .iosHint)
             label.textColor = .primary(.errorNew)
         }
@@ -133,7 +134,7 @@ private extension ORBRecommendationOrderView {
         }
         
         question2Label.do { label in
-            label.text = "어느 지역으로 추천해 드릴까요? *"
+            label.text = ORBRecommendationOrderText.question2
             label.font = .offroad(style: .iosTextBold)
             label.textColor = .main(.main2)
         }
@@ -149,14 +150,14 @@ private extension ORBRecommendationOrderView {
             textField.leftViewMode = .always
             textField.rightViewMode = .always
             textField.attributedPlaceholder = .init(
-                string: "방문하실 지역을 입력하세요.",
+                string: ORBRecommendationOrderText.answer2Placeholder,
                 attributes: [.foregroundColor: UIColor.grayscale(.gray300)]
             )
             textField.roundCorners(cornerRadius: 5)
         }
         
         answer2RequiredLabel.do { label in
-            label.text = "*필수 입력 사항입니다."
+            label.text = ORBRecommendationOrderText.answer2RequiredMessage
             label.font = .offroad(style: .iosHint)
             label.textColor = .primary(.errorNew)
         }
@@ -171,7 +172,7 @@ private extension ORBRecommendationOrderView {
         }
         
         question3Label.do { label in
-            label.text = "추가로 원하시는 내용이 있다면 입력해주세요."
+            label.text = ORBRecommendationOrderText.question3
             label.font = .offroad(style: .iosTextBold)
             label.textColor = .main(.main2)
         }

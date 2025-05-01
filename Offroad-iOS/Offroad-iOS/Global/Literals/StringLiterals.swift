@@ -78,3 +78,14 @@ struct AmplitudeEventTitles {
     static let chatMessageSent = "send_chat"
     static let exploreSuccess = "explore_success"
 }
+
+struct ORBRecommendationOrderText {
+    static let title = "추천 주문서"
+    static let question1 = "어떤 추천이 필요하신가요? *"
+    static let answer1RequiredMessage = "*필수 체크 사항입니다."
+    static let question2 = "어느 지역으로 추천해 드릴까요? *"
+    static let answer2Placeholder = "방문하실 지역을 입력하세요."
+    static let answer2RequiredMessage = "*필수 입력 사항입니다."
+    static let question3 = "추가로 원하시는 내용이 있다면 입력해주세요."
+    static let answer3Placeholder = "기분이 안 좋은데 스트레스 풀릴만한 음식 추천해줘. 애인과 함께할 분위기 좋은 식당이면 좋겠어."
+}
