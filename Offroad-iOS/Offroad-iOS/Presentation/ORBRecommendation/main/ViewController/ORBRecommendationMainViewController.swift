@@ -40,6 +40,10 @@ final class ORBRecommendationMainViewController: UIViewController {
         rootView.backButton.rx.tap.subscribe { _ in
             self.navigationController?.popViewController(animated: true)
         }.disposed(by: disposeBag)
+        
+        rootView.orbMessageButton.rx.tap.subscribe { _ in
+            self.navigationController?.pushViewController(ORBRecommendationOrderViewController(), animated: true)
+        }.disposed(by: disposeBag)
     }
     
 }
