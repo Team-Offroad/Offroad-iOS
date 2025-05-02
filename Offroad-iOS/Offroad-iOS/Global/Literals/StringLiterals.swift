@@ -45,6 +45,7 @@ struct AlertMessage {
     static func diaryTimeSettinTitle(selectedTimePeriod: TimePeriod, selectedTime: Int) -> String {
         "\(selectedTimePeriod == .am ? "오전" : "오후") \(selectedTime)시"
     }
+    static let orbRecommendationOrderUnsavedExitMessage = "주문 내용이 저장되지 않아요.\n작성을 멈추고 나가시겠어요?"
 }
 
 struct LoadingMessage {

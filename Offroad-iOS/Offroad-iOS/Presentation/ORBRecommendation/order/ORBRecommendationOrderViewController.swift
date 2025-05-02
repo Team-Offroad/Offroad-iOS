@@ -25,7 +25,8 @@ final class ORBRecommendationOrderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        rootView.backButton.addTarget(self, action: #selector(pop), for: .touchUpInside)
+        rootView.backButton.addTarget(self, action: #selector(confirmExit), for: .touchUpInside)
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,8 +34,35 @@ final class ORBRecommendationOrderViewController: UIViewController {
         tabBarController.hideTabBarAnimation()
     }
     
-    @objc private func pop() {
-        self.navigationController?.popViewController(animated: true)
+}
+
+private extension ORBRecommendationOrderViewController {
+    
+    @objc func confirmExit() {
+        let popupViewController = ORBAlertController(
+            title: "",
+            message: AlertMessage.orbRecommendationOrderUnsavedExitMessage,
+            type: .messageOnly
+        )
+        let cancelAction = ORBAlertAction(title: "취소", style: .cancel, handler: { _ in return })
+        let okAction = ORBAlertAction(title: "확인", style: .default, handler: { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        })
+        popupViewController.addAction(cancelAction)
+        popupViewController.addAction(okAction)
+        popupViewController.xButton.isHidden = true
+        self.present(popupViewController, animated: true)
+    }
+    
+}
+
+// MARK: - UIGestureRecognizerDelegate
+
+extension ORBRecommendationOrderViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        confirmExit()
+        return false
     }
     
 }
