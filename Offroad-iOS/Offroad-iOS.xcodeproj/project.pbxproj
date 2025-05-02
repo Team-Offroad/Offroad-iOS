@@ -371,6 +371,7 @@
 		4E7A609F2D1C698F0079007C /* AdventureMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A609E2D1C698F0079007C /* AdventureMapViewController.swift */; };
 		4E8784812DC4FD2800B639EA /* ORBRecommendationChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8784802DC4FD2800B639EA /* ORBRecommendationChatViewController.swift */; };
 		4E8784882DC4FD6C00B639EA /* ORBRecommendationChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8784872DC4FD6C00B639EA /* ORBRecommendationChatView.swift */; };
+		4E87848A2DC4FF3100B639EA /* ORBRecommendationChatLogCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8784892DC4FF3100B639EA /* ORBRecommendationChatLogCollectionView.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
 		4E9759D22D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
@@ -757,6 +758,7 @@
 		4E7A609E2D1C698F0079007C /* AdventureMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureMapViewController.swift; sourceTree = "<group>"; };
 		4E8784802DC4FD2800B639EA /* ORBRecommendationChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatViewController.swift; sourceTree = "<group>"; };
 		4E8784872DC4FD6C00B639EA /* ORBRecommendationChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatView.swift; sourceTree = "<group>"; };
+		4E8784892DC4FF3100B639EA /* ORBRecommendationChatLogCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatLogCollectionView.swift; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info_Dev.plist"; sourceTree = "<group>"; };
 		4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBEmptyCaseStyle.swift; sourceTree = "<group>"; };
@@ -1881,6 +1883,7 @@
 			children = (
 				4E8784802DC4FD2800B639EA /* ORBRecommendationChatViewController.swift */,
 				4E8784872DC4FD6C00B639EA /* ORBRecommendationChatView.swift */,
+				4E8784892DC4FF3100B639EA /* ORBRecommendationChatLogCollectionView.swift */,
 			);
 			path = chat;
 			sourceTree = "<group>";
@@ -4062,6 +4065,7 @@
 				4E4F319D2D4718F400C3B2FF /* CharacterChatPostRequestDTO.swift in Sources */,
 				4E4F319E2D4718F400C3B2FF /* CollectedTitlesViewController.swift in Sources */,
 				4E4F319F2D4718F400C3B2FF /* CouponCollectionViewController.swift in Sources */,
+				4E87848A2DC4FF3100B639EA /* ORBRecommendationChatLogCollectionView.swift in Sources */,
 				4E4F31A02D4718F400C3B2FF /* QuestQRView.swift in Sources */,
 				4E8784882DC4FD6C00B639EA /* ORBRecommendationChatView.swift in Sources */,
 				4E4F31A12D4718F400C3B2FF /* CompleteChoosingCharacterViewController.swift in Sources */,
