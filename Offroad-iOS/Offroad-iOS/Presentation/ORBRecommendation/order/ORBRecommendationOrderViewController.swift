@@ -30,6 +30,8 @@ final class ORBRecommendationOrderViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         guard let tabBarController  = tabBarController as? OffroadTabBarController else { return }
         tabBarController.hideTabBarAnimation()
     }
