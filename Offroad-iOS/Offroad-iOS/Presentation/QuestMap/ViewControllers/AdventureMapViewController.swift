@@ -46,13 +46,14 @@ class AdventureMapViewController: OffroadTabBarViewController {
         rootView.orbMapView.mapView.positionMode = .direction
         locationManager.startUpdatingHeading()
         rootView.orbMapView.mapView.moveCamera(.init(heading: 0))
-        viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
-            guard let self else { return }
-            if authorizationCase != .fullAccuracy && authorizationCase != .reducedAccuracy {
-                // 사용자 위치 불러올 수 없을 시 초기 위치 설정
-                // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
-                rootView.orbMapView.moveCamera(scrollTo: .init(lat: 37.5716229, lng: 126.9767879), animationDuration: 0)
-                self.viewModel.updateRegisteredPlaces(at: .init(lat: 37.5716229, lng: 126.9767879))
+        viewModel.checkLocationAuthorizationStatus { authorizationCase in
+            DispatchQueue.main.async { [weak self] in
+                if authorizationCase != .fullAccuracy && authorizationCase != .reducedAccuracy {
+                    // 사용자 위치 불러올 수 없을 시 초기 위치 설정
+                    // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
+                    self?.rootView.orbMapView.moveCamera(scrollTo: .init(lat: 37.5716229, lng: 126.9767879), animationDuration: 0)
+                    self?.viewModel.updateRegisteredPlaces(at: .init(lat: 37.5716229, lng: 126.9767879))
+                }
             }
         }
         viewModel.updateRegisteredPlaces(at: currentPositionTarget)
