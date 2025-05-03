@@ -51,6 +51,7 @@
 		4E2DE9D52DB49CD500DCE641 /* ORBRecommendationMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DE9D42DB49CD500DCE641 /* ORBRecommendationMainView.swift */; };
 		4E2DE9D82DB49E6000DCE641 /* ORBRecommendedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */; };
 		4E3120F82D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3120F72D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift */; };
+		4E36622A2DBD1580001E70F5 /* ORBRecommendationOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3662282DBD1580001E70F5 /* ORBRecommendationOrderView.swift */; };
 		4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6CE2C456FBF007358DA /* UITabBar+.swift */; };
 		4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */; };
 		4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */; };
@@ -447,6 +448,7 @@
 		4EEB47DD2DAEA34B0025AAA2 /* ORBRecommendationGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB47DC2DAEA34B0025AAA2 /* ORBRecommendationGradientLayer.swift */; };
 		4EEB47E02DAEA3950025AAA2 /* ORBRecommendationBaseBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB47DF2DAEA3950025AAA2 /* ORBRecommendationBaseBackground.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
+		4EEF6E902DC3691A008C1E96 /* ORBRecommendationOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF6E8F2DC3691A008C1E96 /* ORBRecommendationOrderViewController.swift */; };
 		4EF6B0332CC3E22800066640 /* ORBAlertViewBaseUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6B0322CC3E22800066640 /* ORBAlertViewBaseUI.swift */; };
 		4EF6B0382CC3E7A900066640 /* ORBAlertViewNormal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6B0372CC3E7A900066640 /* ORBAlertViewNormal.swift */; };
 		4EF6B03B2CC3E89F00066640 /* ORBAlertViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6B03A2CC3E89F00066640 /* ORBAlertViewType.swift */; };
@@ -711,6 +713,7 @@
 		4E2DE9D42DB49CD500DCE641 /* ORBRecommendationMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMainView.swift; sourceTree = "<group>"; };
 		4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendedContentView.swift; sourceTree = "<group>"; };
 		4E3120F72D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatReadGetResponseDTO.swift; sourceTree = "<group>"; };
+		4E3662282DBD1580001E70F5 /* ORBRecommendationOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationOrderView.swift; sourceTree = "<group>"; };
 		4E37B6CE2C456FBF007358DA /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterView.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/View/CompleteChoosingCharacterView.swift"; sourceTree = SOURCE_ROOT; };
 		4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterViewController.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/ViewController/CompleteChoosingCharacterViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -819,6 +822,7 @@
 		4EEB47DC2DAEA34B0025AAA2 /* ORBRecommendationGradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationGradientLayer.swift; sourceTree = "<group>"; };
 		4EEB47DF2DAEA3950025AAA2 /* ORBRecommendationBaseBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationBaseBackground.swift; sourceTree = "<group>"; };
 		4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarViewController.swift; sourceTree = "<group>"; };
+		4EEF6E8F2DC3691A008C1E96 /* ORBRecommendationOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationOrderViewController.swift; sourceTree = "<group>"; };
 		4EF6B0322CC3E22800066640 /* ORBAlertViewBaseUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewBaseUI.swift; sourceTree = "<group>"; };
 		4EF6B0372CC3E7A900066640 /* ORBAlertViewNormal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewNormal.swift; sourceTree = "<group>"; };
 		4EF6B03A2CC3E89F00066640 /* ORBAlertViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewType.swift; sourceTree = "<group>"; };
@@ -1618,6 +1622,7 @@
 		4E2DE9D12DB49C7000DCE641 /* ORBRecommendation */ = {
 			isa = PBXGroup;
 			children = (
+				4EEF6E8E2DC36842008C1E96 /* order */,
 				4E2DE9D22DB49CC000DCE641 /* main */,
 			);
 			path = ORBRecommendation;
@@ -2121,6 +2126,15 @@
 				4EEB47D92DAEA3150025AAA2 /* ORBRecommendationGradientStyle.swift */,
 			);
 			path = ORBRecommendationGradient;
+			sourceTree = "<group>";
+		};
+		4EEF6E8E2DC36842008C1E96 /* order */ = {
+			isa = PBXGroup;
+			children = (
+				4E3662282DBD1580001E70F5 /* ORBRecommendationOrderView.swift */,
+				4EEF6E8F2DC3691A008C1E96 /* ORBRecommendationOrderViewController.swift */,
+			);
+			path = order;
 			sourceTree = "<group>";
 		};
 		4EF6B0312CC3E21200066640 /* Protocols */ = {
@@ -3978,6 +3992,7 @@
 				4E4F316C2D4718F400C3B2FF /* ORBAlertButton.swift in Sources */,
 				4E4F316D2D4718F400C3B2FF /* QuestQRViewController.swift in Sources */,
 				4E4F316E2D4718F400C3B2FF /* SVGKImage+.swift in Sources */,
+				4EEF6E902DC3691A008C1E96 /* ORBRecommendationOrderViewController.swift in Sources */,
 				4E4F316F2D4718F400C3B2FF /* CustomAlmostDoneProgressView.swift in Sources */,
 				4E4F31702D4718F400C3B2FF /* AdventuresQRAuthenticationRequestDTO.swift in Sources */,
 				4E4F31712D4718F400C3B2FF /* CouponDetailViewController.swift in Sources */,
@@ -4083,6 +4098,7 @@
 				4E4F31B62D4718F400C3B2FF /* FontLiterals.swift in Sources */,
 				D07D3AE32D9104AE0030995E /* DiaryColorsResponseDTO.swift in Sources */,
 				4E4F31B82D4718F400C3B2FF /* TitleModel.swift in Sources */,
+				4E36622A2DBD1580001E70F5 /* ORBRecommendationOrderView.swift in Sources */,
 				4E4F31B92D4718F400C3B2FF /* NoticeViewController.swift in Sources */,
 				4E4F31BA2D4718F400C3B2FF /* UIColor+.swift in Sources */,
 				4E4F31BB2D4718F400C3B2FF /* AppleAuthManager.swift in Sources */,
