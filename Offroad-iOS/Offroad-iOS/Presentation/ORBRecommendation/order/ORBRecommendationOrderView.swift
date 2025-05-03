@@ -37,22 +37,32 @@ final class ORBRecommendationOrderView: UIView {
     private let titleLabel = UILabel()
     private let divider = UIView()
     private let scrollView = UIScrollView()
+    
+    // 장소 카테고리를 선택하는 항목
+    // 필수 선택값이며, '식당', '카페' 중 하나를 선택
     private let question1Label = UILabel()
     private let buttonRestaurant = ShrinkableButton()
     private let buttonCaffe = ShrinkableButton()
     private let buttonStack = UIStackView()
     private let answer1RequiredLabel = UILabel()
     private let question1Stack = UIStackView()
+    
+    // 추천받을 지역을 입력하는 항목
+    // 필수 입력값이며, textField에 한 줄로 입력
     private let question2Label = UILabel()
     private let answer2TextField = UITextField()
     private let answer2RequiredLabel = UILabel()
     private let question2Stack = UIStackView()
+    
+    // 추가로 원하는 내용을 입력
+    // 필수 입력값이 아니며, textView에 여러 줄로 입력 가능. 글자 수 최대 200자
     private let question3Label = UILabel()
     private let answer3TextView = UITextView()
     private let answer3TextViewPlaceholderView = UILabel()
     private let answer3TextViewBottomInsetBar = UIView()
     private let characterCountLabel = UILabel()
     private let question3Stack = UIStackView()
+    
     private let resetOrderButton = ShrinkableButton()
     private let completeButton = ShrinkableButton()
     

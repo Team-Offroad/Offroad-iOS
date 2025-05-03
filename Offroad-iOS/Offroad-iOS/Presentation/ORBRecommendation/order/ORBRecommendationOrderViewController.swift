@@ -36,16 +36,22 @@ final class ORBRecommendationOrderViewController: UIViewController {
         tabBarController.hideTabBarAnimation()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+    }
+    
 }
 
 private extension ORBRecommendationOrderViewController {
     
     @objc func confirmExit() {
         let popupViewController = ORBAlertController(
-            title: "",
             message: AlertMessage.orbRecommendationOrderUnsavedExitMessage,
             type: .messageOnly
         )
+        popupViewController.configureMessageLabel { $0.setLineHeight(percentage: 150) }
         let cancelAction = ORBAlertAction(title: "취소", style: .cancel, handler: { _ in return })
         let okAction = ORBAlertAction(title: "확인", style: .default, handler: { [weak self] _ in
             self?.navigationController?.popViewController(animated: true)
