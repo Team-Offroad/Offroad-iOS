@@ -12,18 +12,21 @@ final class ORBRecommendationChatDataSource: UICollectionViewDiffableDataSource<
     init(collectionView: UICollectionView) {
         let orbCharacterCellRegistration = UICollectionView.CellRegistration<ChatLogCellCharacter, CharacterChatMessageItem>(
             handler: { cell, indexPath, item in
+                cell.setRecommendationMode()
                 cell.configure(with: item, characterName: "오브")
             }
         )
         
         let userCellRegistration = UICollectionView.CellRegistration<ChatLogCellUser, CharacterChatMessageItem>(
             handler: { cell, indexPath, item in
+                cell.setRecommendationMode()
                 cell.configure(with: item)
             }
         )
         
         let orbCharacterLoadingCellRegistration = UICollectionView.CellRegistration<ChatLogCellCharacterLoading, CharacterChatItem>(
             handler: { cell, indexPath, item in
+                cell.setRecommendationMode()
                 cell.configure(with: item, characterName: "오브")
             }
         )

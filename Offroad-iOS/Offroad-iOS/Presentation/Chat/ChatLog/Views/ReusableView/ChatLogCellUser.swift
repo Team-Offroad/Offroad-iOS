@@ -113,9 +113,15 @@ extension ChatLogCellUser {
         guard case let .user(content, _, _) = item else {
             fatalError("ChatLogCellUser received incompatible item.")
         }
-        
         messageLabel.text = content
         timeLabel.text = item.formattedTimeString
     }
+    
+#if DevTarget
+    func setRecommendationMode() {
+        contentView.transform = .identity
+        timeLabel.textColor = .main(.main2)
+    }
+#endif
     
 }

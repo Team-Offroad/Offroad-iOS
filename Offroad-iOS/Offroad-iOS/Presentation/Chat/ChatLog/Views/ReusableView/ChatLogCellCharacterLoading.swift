@@ -28,7 +28,12 @@ final class ChatLogCellCharacterLoading: UICollectionViewCell {
     
     // MARK: - UI Properties
     
+#if DevTarget
+    final class ChatBubble: UIView, ORBRecommendationGradientStyle { }
+    private let chatBubble = ChatBubble()
+#else
     private let chatBubble = UIView()
+#endif
     private let characternameLabel = UILabel()
     private let loadingAnimationView = LottieAnimationView(name: "loading2")
     private let timeLabel = UILabel()
@@ -138,5 +143,13 @@ extension ChatLogCellCharacterLoading {
         characternameLabel.text = "\(characterName) :"
         timeLabel.text = item.formattedTimeString
     }
+    
+#if DevTarget
+    func setRecommendationMode() {
+        chatBubble.applyGradientStyle(isBackgroundBlurred: false)
+        contentView.transform = .identity
+        timeLabel.textColor = .main(.main2)
+    }
+#endif
     
 }

@@ -28,7 +28,12 @@ final class ChatLogCellCharacter: UICollectionViewCell {
     
     // MARK: - UI Properties
     
+#if DevTarget
+    final class ChatBubble: UIView, ORBRecommendationGradientStyle { }
+    private let chatBubble = ChatBubble()
+#else
     private let chatBubble = UIView()
+#endif
     private let characternameLabel = UILabel()
     private let messageLabel = UILabel()
     private let timeLabel = UILabel()
@@ -130,10 +135,17 @@ extension ChatLogCellCharacter {
         guard case let .orbCharacter(content, _, _) = item else {
             fatalError("ChatLogCellUser received incompatible item.")
         }
-        
         characternameLabel.text = "\(characterName) :"
         messageLabel.text = content
         timeLabel.text = item.formattedTimeString
     }
+    
+#if DevTarget
+    func setRecommendationMode() {
+        chatBubble.applyGradientStyle(isBackgroundBlurred: false)
+        contentView.transform = .identity
+        timeLabel.textColor = .main(.main2)
+    }
+#endif
     
 }
