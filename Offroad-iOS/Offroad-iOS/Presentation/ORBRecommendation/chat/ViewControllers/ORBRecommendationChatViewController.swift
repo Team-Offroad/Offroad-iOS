@@ -23,7 +23,7 @@ final class ORBRecommendationChatViewController: UIViewController {
     private lazy var chats: [CharacterChatItem] = [firstChatItem]
     private lazy var dataSource = ORBRecommendationChatDataSource(collectionView: rootView.collectionView)
     private var disposeBag = DisposeBag()
-    private(set) var rootView = ORBRecommendationChatView()
+    private var rootView = ORBRecommendationChatView()
     
     // MARK: - Life Cycle
     
@@ -44,7 +44,7 @@ final class ORBRecommendationChatViewController: UIViewController {
         super.viewDidLoad()
         
         rootView.collectionView.delegate = self
-        dataSource.applySnapshot(of: chats)
+        dataSource.applySnapshot(of: chats, animatingDifferences: false)
         bindActions()
     }
     
@@ -58,7 +58,7 @@ private extension ORBRecommendationChatViewController {
             self.dismiss(animated: true)
         }.disposed(by: disposeBag)
         
-        // 채팅 UI 테스트용
+        // 채팅 UI 테스트용 - 번갈아가며 채팅 내용 입력할 수 있도록 임시로 구현
         rootView.chatInputView.onSendingText.subscribe(onNext: { [weak self] text in
             guard let self else { return }
             let lastChatItem = dataSource.snapshot().itemIdentifiers.last!
@@ -83,6 +83,29 @@ private extension ORBRecommendationChatViewController {
         }).disposed(by: disposeBag)
     }
     
+}
+
+// Custom Transition 관련
+extension ORBRecommendationChatViewController {
+    
+    var firstCell: ChatLogCellCharacter? {
+        rootView.collectionView.cellForItem(at: .init(item: 0, section: 0)) as? ChatLogCellCharacter
+    }
+    
+    var firstChatBubbleFrame: CGRect? {
+        guard let firstCell else { return nil }
+        return firstCell.chatBubble.convert(firstCell.chatBubble.frame, to: rootView)
+    }
+    
+    var firstChatBubbleAlpha: CGFloat {
+        get { firstCell?.chatBubble.alpha ?? 0.0 }
+        set { firstCell?.chatBubble.alpha = newValue }
+    }
+    
+    var collectionViewAlpha: CGFloat {
+        get { rootView.collectionView.alpha }
+        set { rootView.collectionView.alpha = newValue }
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -114,6 +137,5 @@ extension ORBRecommendationChatViewController: UICollectionViewDelegateFlowLayou
             )
         }
     }
-    
 }
 

@@ -35,6 +35,9 @@
 		4E08B9622C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9612C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift */; };
 		4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */; };
 		4E09BF572C48A5B7009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */; };
+		4E0A404E2DC7A4F400A0680C /* ORBRecommendationChatViewPresentingTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A404D2DC7A4F400A0680C /* ORBRecommendationChatViewPresentingTransition.swift */; };
+		4E0A40502DC7A51100A0680C /* ORBRecommendationChatViewDismissingTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A404F2DC7A51100A0680C /* ORBRecommendationChatViewDismissingTransition.swift */; };
+		4E0A40522DC7A70000A0680C /* ORBRecommendationChatPresentationFloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A40512DC7A70000A0680C /* ORBRecommendationChatPresentationFloatingView.swift */; };
 		4E0C69692C4724A100B6453E /* ORBNMFMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69682C4724A100B6453E /* ORBNMFMarker.swift */; };
 		4E1CFDEF2D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */; };
 		4E1CFDF02D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */; };
@@ -374,6 +377,7 @@
 		4E87852A2DC79B6D00B639EA /* ORBRecommendationChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8785292DC79B6D00B639EA /* ORBRecommendationChatView.swift */; };
 		4E87852C2DC79B8800B639EA /* ORBRecommendationChatBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87852B2DC79B8800B639EA /* ORBRecommendationChatBackgroundView.swift */; };
 		4E87852E2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87852D2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift */; };
+		4E8785312DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8785302DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
 		4E9759D22D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
@@ -704,6 +708,9 @@
 		4E08B9612C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationRequestDTO.swift; sourceTree = "<group>"; };
 		4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationResponsetDTO.swift; sourceTree = "<group>"; };
+		4E0A404D2DC7A4F400A0680C /* ORBRecommendationChatViewPresentingTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatViewPresentingTransition.swift; sourceTree = "<group>"; };
+		4E0A404F2DC7A51100A0680C /* ORBRecommendationChatViewDismissingTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatViewDismissingTransition.swift; sourceTree = "<group>"; };
+		4E0A40512DC7A70000A0680C /* ORBRecommendationChatPresentationFloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatPresentationFloatingView.swift; sourceTree = "<group>"; };
 		4E0C69682C4724A100B6453E /* ORBNMFMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBNMFMarker.swift; sourceTree = "<group>"; };
 		4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintLogInDevApp.swift; sourceTree = "<group>"; };
 		4E1E94102C39870700A7B08A /* ColorLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiterals.swift; sourceTree = "<group>"; };
@@ -764,6 +771,7 @@
 		4E8785292DC79B6D00B639EA /* ORBRecommendationChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatView.swift; sourceTree = "<group>"; };
 		4E87852B2DC79B8800B639EA /* ORBRecommendationChatBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatBackgroundView.swift; sourceTree = "<group>"; };
 		4E87852D2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatDataSource.swift; sourceTree = "<group>"; };
+		4E8785302DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationViewPresentationController.swift; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info_Dev.plist"; sourceTree = "<group>"; };
 		4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBEmptyCaseStyle.swift; sourceTree = "<group>"; };
@@ -1891,6 +1899,7 @@
 				4E8785252DC79AFC00B639EA /* ViewControllers */,
 				4E8785242DC79AF400B639EA /* Views */,
 				4E8785262DC79B0500B639EA /* DiffableDataSource */,
+				4E87852F2DC7A44F00B639EA /* Custom Transition */,
 			);
 			path = chat;
 			sourceTree = "<group>";
@@ -1918,6 +1927,17 @@
 				4E87852D2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift */,
 			);
 			path = DiffableDataSource;
+			sourceTree = "<group>";
+		};
+		4E87852F2DC7A44F00B639EA /* Custom Transition */ = {
+			isa = PBXGroup;
+			children = (
+				4E8785302DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift */,
+				4E0A404D2DC7A4F400A0680C /* ORBRecommendationChatViewPresentingTransition.swift */,
+				4E0A404F2DC7A51100A0680C /* ORBRecommendationChatViewDismissingTransition.swift */,
+				4E0A40512DC7A70000A0680C /* ORBRecommendationChatPresentationFloatingView.swift */,
+			);
+			path = "Custom Transition";
 			sourceTree = "<group>";
 		};
 		4E9759EB2DA012EC00F30692 /* DeveloperMode */ = {
@@ -4037,6 +4057,7 @@
 				4E4F316D2D4718F400C3B2FF /* QuestQRViewController.swift in Sources */,
 				4E4F316E2D4718F400C3B2FF /* SVGKImage+.swift in Sources */,
 				4EEF6E902DC3691A008C1E96 /* ORBRecommendationOrderViewController.swift in Sources */,
+				4E0A40522DC7A70000A0680C /* ORBRecommendationChatPresentationFloatingView.swift in Sources */,
 				4E4F316F2D4718F400C3B2FF /* CustomAlmostDoneProgressView.swift in Sources */,
 				4E4F31702D4718F400C3B2FF /* AdventuresQRAuthenticationRequestDTO.swift in Sources */,
 				4E4F31712D4718F400C3B2FF /* CouponDetailViewController.swift in Sources */,
@@ -4109,6 +4130,7 @@
 				4E4F319E2D4718F400C3B2FF /* CollectedTitlesViewController.swift in Sources */,
 				4E4F319F2D4718F400C3B2FF /* CouponCollectionViewController.swift in Sources */,
 				4E4F31A02D4718F400C3B2FF /* QuestQRView.swift in Sources */,
+				4E8785312DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift in Sources */,
 				4E4F31A12D4718F400C3B2FF /* CompleteChoosingCharacterViewController.swift in Sources */,
 				4E4F31A22D4718F400C3B2FF /* MyPageViewController.swift in Sources */,
 				4E4F31A32D4718F400C3B2FF /* QuestListService.swift in Sources */,
@@ -4211,6 +4233,7 @@
 				4E4F31EC2D4718F400C3B2FF /* NicknameAPI.swift in Sources */,
 				4E4F31ED2D4718F400C3B2FF /* UIWindow+.swift in Sources */,
 				4E4F31EE2D4718F400C3B2FF /* CharacterListView.swift in Sources */,
+				4E0A40502DC7A51100A0680C /* ORBRecommendationChatViewDismissingTransition.swift in Sources */,
 				4E4F31EF2D4718F400C3B2FF /* ScrollLoadingView.swift in Sources */,
 				4E4F31F02D4718F400C3B2FF /* UITextField+.swift in Sources */,
 				4E4F31F12D4718F400C3B2FF /* DeleteAccountResponseDTO.swift in Sources */,
@@ -4308,6 +4331,7 @@
 				4E4F32402D4718F400C3B2FF /* EmblemListResponseDTO.swift in Sources */,
 				4E4F32412D4718F400C3B2FF /* TokenIntercepter.swift in Sources */,
 				4E4F32422D4718F400C3B2FF /* SceneDelegate.swift in Sources */,
+				4E0A404E2DC7A4F400A0680C /* ORBRecommendationChatViewPresentingTransition.swift in Sources */,
 				4E9759D32D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */,
 				4E4F32432D4718F400C3B2FF /* CharacterChatAPI.swift in Sources */,
 				4E4F32442D4718F400C3B2FF /* ScrollLoading.swift in Sources */,

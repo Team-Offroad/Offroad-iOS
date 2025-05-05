@@ -32,9 +32,9 @@ final class ChatLogCellCharacter: UICollectionViewCell {
     
 #if DevTarget
     final class ChatBubble: UIView, ORBRecommendationGradientStyle { }
-    private let chatBubble = ChatBubble()
+    private(set) var chatBubble = ChatBubble()
 #else
-    private let chatBubble = UIView()
+    private(set) var chatBubble = UIView()
 #endif
     private let characternameLabel = UILabel()
     private let messageLabel = UILabel()

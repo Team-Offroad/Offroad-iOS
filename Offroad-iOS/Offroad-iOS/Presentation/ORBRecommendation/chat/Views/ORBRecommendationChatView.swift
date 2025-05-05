@@ -16,15 +16,13 @@ final class ORBRecommendationChatView: UIView {
     
     // MARK: - Properties
     
-    var disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
     
     // MARK: - UI Properties
     
-    let background = ORBRecommendationChatBackgroundView()
-    let xButton = UIButton()
-    
-    // 추천소 채팅에서는 스크롤 로딩 필요 없음. -> 그냥 UICollectionView
-    var collectionView: UICollectionView! = nil
+    private let background = ORBRecommendationChatBackgroundView()
+    private(set) var xButton = UIButton()
+    private(set) var collectionView: UICollectionView! = nil
     private(set) var chatInputView = ChatTextInputView()
     
     override init(frame: CGRect) {
@@ -76,7 +74,7 @@ private extension ORBRecommendationChatView {
         
         chatInputView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.bottom.equalTo(keyboardLayoutGuide)
+            make.bottom.equalToSuperview()
         }
         
         xButton.snp.makeConstraints { make in
