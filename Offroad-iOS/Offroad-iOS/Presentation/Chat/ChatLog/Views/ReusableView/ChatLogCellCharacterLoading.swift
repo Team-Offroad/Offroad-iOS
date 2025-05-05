@@ -12,14 +12,16 @@ import SnapKit
 
 final class ChatLogCellCharacterLoading: UICollectionViewCell {
     
+    /// 레이아웃 계산용 더미 셀. static func인 `calculatedCellSize` 에서 사용
+    static let dummyCell = ChatLogCellCharacterLoading()
+    
     // MARK: - Static Func
     
     static func calculatedCellSize(item: CharacterChatItem, characterName: String, fixedWidth: CGFloat) -> CGSize {
-        let cell = ChatLogCellCharacterLoading()
-        cell.configure(with: item, characterName: characterName)
+        dummyCell.configure(with: item, characterName: characterName)
         
         let targetSize = CGSize(width: fixedWidth, height: .greatestFiniteMagnitude)
-        return cell.contentView.systemLayoutSizeFitting(
+        return dummyCell.contentView.systemLayoutSizeFitting(
             targetSize,
             withHorizontalFittingPriority: .required,
             verticalFittingPriority: .fittingSizeLevel
