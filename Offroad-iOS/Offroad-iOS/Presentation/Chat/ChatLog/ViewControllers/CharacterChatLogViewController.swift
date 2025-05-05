@@ -216,6 +216,7 @@ private extension CharacterChatLogViewController {
             guard let self else { return }
             self.hideTabBar()
             self.rootView.chatTextInputView.startChat()
+            self.rootView.keyboardBackgroundView.alpha = 1
         }).disposed(by: disposeBag)
         
         rootView.chatTextInputView.onSendingText.subscribe(onNext: { [weak self] sendingText in
@@ -282,6 +283,7 @@ private extension CharacterChatLogViewController {
         tapGesture.rx.event.subscribe(onNext: { [weak self] _ in
             self?.showTabBar()
             self?.rootView.chatTextInputView.endChat()
+            self?.rootView.keyboardBackgroundView.alpha = 0
         }).disposed(by: disposeBag)
         rootView.chatLogCollectionView.addGestureRecognizer(tapGesture)
     }
