@@ -22,6 +22,7 @@ final class ORBCharacterChatView: UIView {
     let characterChatBox = ORBCharacterChatBox(mode: .withoutReplyButtonShrinked)
     let chatTextInputView = ChatTextInputView()
     let chatTextDisplayView = ChatTextDisplayView()
+    let keyboardBackgroundView = UIView()
     let endChatButton = ShrinkableButton(shrinkScale: 0.93)
     
     override init(frame: CGRect) {
@@ -57,13 +58,19 @@ extension ORBCharacterChatView {
         
         chatTextInputView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(keyboardLayoutGuide.snp.top)
         }
         
         chatTextDisplayView.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(chatTextInputView)
             // 두 뷰를 딱 붙여놓으니, 애니메이션 과정에서 경계선이 약간 보이는 문제가 있어 1포인트만큼 겹쳐놓았음.
             make.bottom.equalTo(chatTextInputView.snp.top).offset(1)
+        }
+        
+        keyboardBackgroundView.snp.makeConstraints { make in
+            make.top.equalTo(chatTextInputView.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
         endChatButton.snp.makeConstraints { make in
@@ -91,6 +98,12 @@ extension ORBCharacterChatView {
             view.layer.masksToBounds = false
         }
         
+        keyboardBackgroundView.do { view in
+            view.backgroundColor = .primary(.white)
+            view.alpha = 0
+            view.isUserInteractionEnabled = false
+        }
+        
         endChatButton.do { button in
             button.backgroundColor = .sub(.sub55)
             button.layer.borderColor = UIColor.sub(.sub).cgColor
@@ -104,7 +117,13 @@ extension ORBCharacterChatView {
     }
     
     private func setupHierarchy() {
-        addSubviews(characterChatBox, chatTextDisplayView, chatTextInputView, endChatButton)
+        addSubviews(
+            characterChatBox,
+            chatTextDisplayView,
+            chatTextInputView,
+            keyboardBackgroundView,
+            endChatButton
+        )
     }
     
 }

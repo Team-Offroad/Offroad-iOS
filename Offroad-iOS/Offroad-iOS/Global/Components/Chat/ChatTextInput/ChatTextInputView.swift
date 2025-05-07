@@ -74,9 +74,8 @@ private extension ChatTextInputView {
     
     private func setupLayout() {
         textViewBackground.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(16)
+            make.verticalEdges.equalToSuperview().inset(16)
             make.leading.equalToSuperview().inset(24)
-            make.bottom.equalTo(keyboardLayoutGuide.snp.top).offset(-16)
         }
         
         userChatInputViewHeightConstraint.isActive = true

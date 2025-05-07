@@ -172,6 +172,7 @@ extension ORBCharacterChatViewController {
         rootView.endChatButton.isHidden = false
         rootView.chatTextInputView.startChat()
         rootView.chatTextDisplayView.show()
+        rootView.keyboardBackgroundView.alpha = 1
         isChatTextInputViewShown = true
         panGesture.isEnabled = true
     }
@@ -180,6 +181,7 @@ extension ORBCharacterChatViewController {
         rootView.endChatButton.isHidden = true
         rootView.chatTextInputView.endChat(erase: true)
         rootView.chatTextDisplayView.hide(erase: true)
+        rootView.keyboardBackgroundView.alpha = 0
         isChatTextInputViewShown = false
         panGesture.isEnabled = false
     }

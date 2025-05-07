@@ -35,7 +35,7 @@ class CharacterChatLogView: UIView {
     //MARK: - UI Properties
     
     let backgroundView: UIView
-    let blurShadeView = UIView().then { $0.backgroundColor = .black.withAlphaComponent(0.2) }
+    private let blurShadeView = UIView().then { $0.backgroundColor = .black.withAlphaComponent(0.2) }
     private let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
     private let customNavigationBar = UIView()
     let backButton = UIButton()
@@ -44,7 +44,7 @@ class CharacterChatLogView: UIView {
     lazy var chatLogCollectionView = ScrollLoadingCollectionView(frame: .zero, collectionViewLayout: layout)
     let chatButton = ShrinkableButton(shrinkScale: 0.9)
     let chatTextInputView = ChatTextInputView()
-    
+    let keyboardBackgroundView = UIView()
     
     //MARK: - Life Cycle
     
@@ -113,6 +113,12 @@ private extension CharacterChatLogView {
         
         chatTextInputView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(keyboardLayoutGuide.snp.top)
+        }
+        
+        keyboardBackgroundView.snp.makeConstraints { make in
+            make.top.equalTo(chatTextInputView.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
         }
     }
@@ -157,6 +163,12 @@ private extension CharacterChatLogView {
             view.layer.shadowRadius = 10
             view.layer.masksToBounds = false   
         }
+        
+        keyboardBackgroundView.do { view in
+            view.backgroundColor = .primary(.white)
+            view.alpha = 0
+            view.isUserInteractionEnabled = false
+        }
     }
     
     func setupHierarchy() {
@@ -167,7 +179,8 @@ private extension CharacterChatLogView {
             customNavigationBar,
             chatLogCollectionView,
             chatButton,
-            chatTextInputView
+            chatTextInputView,
+            keyboardBackgroundView
         )
         customNavigationBar.addSubviews(backButton, customNavigationTitleLabel)
     }
