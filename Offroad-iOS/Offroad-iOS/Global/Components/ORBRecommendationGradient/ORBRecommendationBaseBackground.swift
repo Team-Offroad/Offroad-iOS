@@ -49,8 +49,8 @@ final class ORBRecommendationBaseBackground: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        // 뷰의 크기가 작아지는 애니메이션에서 gradient가 잘리는 현상이 없도록 30만큼 여유분 설정
-        gradient.frame = bounds.insetBy(dx: -30, dy: -30)
+        // 뷰의 크기가 작아지는 애니메이션에서 gradient가 잘리는 현상이 없도록 300만큼 여유분 설정
+        gradient.frame = bounds.insetBy(dx: -300, dy: -300)
         
         let borderWidth = gradientBorderWidth
         blur.frame = bounds.insetBy(dx: borderWidth, dy: borderWidth)
