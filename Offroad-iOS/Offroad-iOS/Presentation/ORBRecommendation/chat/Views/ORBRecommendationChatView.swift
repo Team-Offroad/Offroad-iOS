@@ -23,6 +23,9 @@ final class ORBRecommendationChatView: ORBRecommendationChatBackgroundView {
     private(set) var xButton = UIButton()
     private(set) var collectionView: UICollectionView! = nil
     private(set) var chatInputView = ChatTextInputView()
+    private let keyboardBackgroundView = UIView()
+    
+    // MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -36,7 +39,6 @@ final class ORBRecommendationChatView: ORBRecommendationChatBackgroundView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
 }
 
@@ -57,17 +59,27 @@ private extension ORBRecommendationChatView {
         chatInputView.roundCorners(cornerRadius: 20, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         chatInputView.layer.cornerCurve = .continuous
         
+        keyboardBackgroundView.do { view in
+            view.backgroundColor = .primary(.white)
+        }
+        
         xButton.do { button in
             button.setImage(.iconClose, for: .normal)
         }
     }
     
     func setupHierarchy() {
-        addSubviews(collectionView, chatInputView, xButton)
+        addSubviews(collectionView, chatInputView, keyboardBackgroundView, xButton)
     }
     
     func setupLayout() {
         chatInputView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(keyboardLayoutGuide.snp.top)
+        }
+        
+        keyboardBackgroundView.snp.makeConstraints { make in
+            make.top.equalTo(chatInputView.snp.bottom)
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
         }
@@ -81,7 +93,7 @@ private extension ORBRecommendationChatView {
         collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
-            make.bottom.equalTo(keyboardLayoutGuide.snp.top).offset(-60)
+            make.bottom.equalTo(chatInputView.snp.top)
         }
     }
     
