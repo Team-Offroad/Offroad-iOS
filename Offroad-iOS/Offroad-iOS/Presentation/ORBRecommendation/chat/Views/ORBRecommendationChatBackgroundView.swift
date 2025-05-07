@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ORBRecommendationChatBackgroundView: UIView {
+class ORBRecommendationChatBackgroundView: UIView {
     
     private(set) var plainLayer: CALayer!
     private(set) var gradientLayer: CAGradientLayer!

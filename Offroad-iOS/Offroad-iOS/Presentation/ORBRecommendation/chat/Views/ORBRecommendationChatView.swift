@@ -12,7 +12,7 @@ import RxCocoa
 import SnapKit
 import Then
 
-final class ORBRecommendationChatView: UIView {
+final class ORBRecommendationChatView: ORBRecommendationChatBackgroundView {
     
     // MARK: - Properties
     
@@ -20,7 +20,6 @@ final class ORBRecommendationChatView: UIView {
     
     // MARK: - UI Properties
     
-    private let background = ORBRecommendationChatBackgroundView()
     private(set) var xButton = UIButton()
     private(set) var collectionView: UICollectionView! = nil
     private(set) var chatInputView = ChatTextInputView()
@@ -64,14 +63,10 @@ private extension ORBRecommendationChatView {
     }
     
     func setupHierarchy() {
-        addSubviews(background, collectionView, chatInputView, xButton)
+        addSubviews(collectionView, chatInputView, xButton)
     }
     
     func setupLayout() {
-        background.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
         chatInputView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.bottom.equalToSuperview()
