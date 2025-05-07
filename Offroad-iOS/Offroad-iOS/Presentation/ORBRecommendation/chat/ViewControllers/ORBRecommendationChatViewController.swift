@@ -46,6 +46,7 @@ final class ORBRecommendationChatViewController: UIViewController {
         rootView.collectionView.delegate = self
         dataSource.applySnapshot(of: chats, animatingDifferences: false)
         bindActions()
+        rootView.chatInputView.startChat()
     }
     
 }
@@ -61,6 +62,7 @@ private extension ORBRecommendationChatViewController {
         // 채팅 UI 테스트용 - 번갈아가며 채팅 내용 입력할 수 있도록 임시로 구현
         rootView.chatInputView.onSendingText.subscribe(onNext: { [weak self] text in
             guard let self else { return }
+            self.rootView.exampleQuestionListView.isHidden = true
             let lastChatItem = dataSource.snapshot().itemIdentifiers.last!
             let newChatItem: CharacterChatItem
             switch lastChatItem {
@@ -81,6 +83,16 @@ private extension ORBRecommendationChatViewController {
             }
             self.rootView.collectionView.scrollToItem(at: .init(item: self.chats.count - 1, section: 0), at: .top, animated: true)
         }).disposed(by: disposeBag)
+        
+        rootView.exampleQuestionListView.exampleQuestionSelected
+            .asDriver(onErrorJustReturn: "")
+            .drive { [weak self] text in
+                guard let self else { return }
+                print(text)
+                self.rootView.exampleQuestionListView.isHidden = true
+                self.chats.append(.message(.user(content: text, createdDate: Date(), id: 0)))
+                self.dataSource.applySnapshot(of: chats)
+        }.disposed(by: disposeBag)
     }
     
 }

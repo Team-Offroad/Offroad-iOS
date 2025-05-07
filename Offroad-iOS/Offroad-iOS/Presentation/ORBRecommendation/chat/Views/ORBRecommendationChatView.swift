@@ -22,6 +22,7 @@ final class ORBRecommendationChatView: ORBRecommendationChatBackgroundView {
     
     private(set) var xButton = UIButton()
     private(set) var collectionView: UICollectionView! = nil
+    private(set) var exampleQuestionListView = ORBRecommendationChatExampleQuestionListView()
     private(set) var chatInputView = ChatTextInputView()
     private let keyboardBackgroundView = UIView()
     
@@ -70,7 +71,7 @@ private extension ORBRecommendationChatView {
     }
     
     func setupHierarchy() {
-        addSubviews(collectionView, chatInputView, keyboardBackgroundView, xButton)
+        addSubviews(collectionView, exampleQuestionListView, chatInputView, keyboardBackgroundView, xButton)
     }
     
     func setupLayout() {
@@ -89,6 +90,12 @@ private extension ORBRecommendationChatView {
             make.top.equalTo(safeAreaLayoutGuide).inset(3.3)
             make.trailing.equalTo(safeAreaLayoutGuide).inset(13.7)
             make.size.equalTo(44)
+        }
+        
+        exampleQuestionListView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(chatInputView.snp.top).offset(-15)
+            make.height.equalTo(64)
         }
         
         collectionView.snp.makeConstraints { make in
