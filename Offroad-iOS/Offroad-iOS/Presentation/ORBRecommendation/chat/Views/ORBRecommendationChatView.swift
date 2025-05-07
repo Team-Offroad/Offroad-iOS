@@ -34,6 +34,7 @@ final class ORBRecommendationChatView: ORBRecommendationChatBackgroundView {
         setupHierarchy()
         setupLayout()
         setupGestures()
+        setupNotification()
     }
     
     required init?(coder: NSCoder) {
@@ -53,7 +54,7 @@ private extension ORBRecommendationChatView {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.do { collectionView in
             collectionView.backgroundColor = .clear
-            collectionView.contentInset = .init(top: safeAreaInsets.top + 63.5, left: 0, bottom: 20, right: 0)
+            collectionView.contentInset = .init(top: 63.5, left: 0, bottom: 20, right: 0)
         }
         
         chatInputView.roundCorners(cornerRadius: 20, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
@@ -103,6 +104,38 @@ private extension ORBRecommendationChatView {
             self.endEditing(true)
         }.disposed(by: disposeBag)
         collectionView.addGestureRecognizer(tapGesture)
+    }
+    
+    func setupNotification() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil
+        )
+    }
+    
+}
+
+extension ORBRecommendationChatView {
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            let keyboardHeight = keyboardFrame.height
+            let verticalInsets = collectionView.contentInset.top + collectionView.contentInset.bottom
+            // 다음 `intersectingHeight`는 화면상에서 `contentView`와 키보드+입력창 이 교차하는 영역의 높이를 계산한 것입니다.
+            // 컨텐츠 영역 높이가 충분히 크지 않아 키보드 높이보다 적게 올라가야 하는 경우도 고려하여 수식을 이같이 작성했습니다.
+            // 컨텐츠 높이가 충분히 높아 값이 커질 경우 최댓값은 키보드가 올라온 만큼의 높이가 됩니다.
+            let intersectingHeightInBounds = (
+                safeAreaInsets.top + verticalInsets + collectionView.contentSize.height
+                + (chatInputView.frame.height + keyboardHeight)
+                - bounds.height
+            )
+            let minValue: CGFloat = 0
+            let maxValue: CGFloat = keyboardHeight - safeAreaInsets.bottom
+            collectionView.contentOffset.y += min(max(minValue, intersectingHeightInBounds), maxValue)
+        }
     }
     
 }
