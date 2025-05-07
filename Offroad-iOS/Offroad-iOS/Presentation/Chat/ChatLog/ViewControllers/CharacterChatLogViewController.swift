@@ -298,19 +298,21 @@ private extension CharacterChatLogViewController {
     
     @objc private func keyboardWillShow(notification: Notification) {
         rootView.layoutIfNeeded()
-        
-        // 키보드가 올라올 때는 두 가지 동작이 필요.
-        // 1. collectionView의 inset을 설정해주어야 함.
-        // 2. collectionView의 스크롤 위치를 끝으로 이동 (채팅하기 버튼은 끝까지 스크롤했을 때에만 보이기 때문)
-        
-        // collectionView의 inset 추가
-        rootView.chatLogCollectionView.contentInset.top = rootView.chatTextInputView.frame.height + 16
-        // collectionView의 contentOffset을 끝으로 이동
-        rootView.chatLogCollectionView.setContentOffset(
-            .init(x: 0, y: -(rootView.chatTextInputView.frame.height + 16)),
-            animated: false
-        )
-        isKeyboardShown = true
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            let keyboardHeight = keyboardFrame.height
+            // 키보드가 올라올 때는 두 가지 동작이 필요.
+            // 1. collectionView의 inset을 설정해주어야 함.
+            // 2. collectionView의 스크롤 위치를 끝으로 이동 (채팅하기 버튼은 끝까지 스크롤했을 때에만 보이기 때문)
+            
+            // collectionView의 inset 추가
+            rootView.chatLogCollectionView.contentInset.top = rootView.chatTextInputView.frame.height + 16 + keyboardHeight
+            // collectionView의 contentOffset을 끝으로 이동
+            rootView.chatLogCollectionView.setContentOffset(
+                .init(x: 0, y: -(rootView.chatTextInputView.frame.height + 16 + keyboardHeight)),
+                animated: false
+            )
+            isKeyboardShown = true
+        }
     }
     
     @objc private func keyboardWillHide(notification: Notification) {
