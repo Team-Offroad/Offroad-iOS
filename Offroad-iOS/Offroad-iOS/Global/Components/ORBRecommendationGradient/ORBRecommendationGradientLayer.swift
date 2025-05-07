@@ -58,18 +58,13 @@ final class ORBRecommendationGradientLayer: CAGradientLayer {
     }
     
     private func startAnimation() {
-        CATransaction.begin()
-        CATransaction.setCompletionBlock { [weak self] in
-            self?.startAnimation()
-        }
-        
         let glowAnimation = CAKeyframeAnimation(keyPath: "colors")
         glowAnimation.values = [colorCombinations1, colorCombinations2, colorCombinations3, colorCombinations4].randomElement()
         glowAnimation.keyTimes = [0, 0.25, 0.5, 0.75, 1]
         glowAnimation.duration = Double([4, 5, 6].randomElement()!)
+        glowAnimation.repeatCount = .infinity
+        glowAnimation.isRemovedOnCompletion = false
         add(glowAnimation, forKey: "glowAnimation")
-        
-        CATransaction.commit()
     }
     
 }
