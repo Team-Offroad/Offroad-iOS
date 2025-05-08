@@ -43,16 +43,17 @@ final class ORBRecommendationMainViewController: UIViewController {
         
         rootView.orbMessageButton.rx.tap.subscribe { [weak self] _ in
             guard let self else { return }
-            let chatViewController = ORBRecommendationChatViewController(
-                firstChatText: self.rootView.orbMessageButton.message
-            )
-            chatViewController.view.layoutIfNeeded()
-            chatViewController.transitioningDelegate = self
-            chatViewController.modalPresentationStyle = .custom
-            self.present(chatViewController, animated: true)
-            
-            // 2안을 선택할 경우 다음 코드 적용
-            //self.navigationController?.pushViewController(ORBRecommendationOrderViewController(), animated: true)
+            if UserDefaults.standard.bool(forKey: "useORBRecommendationChat") {
+                let chatViewController = ORBRecommendationChatViewController(
+                    firstChatText: self.rootView.orbMessageButton.message
+                )
+                chatViewController.view.layoutIfNeeded()
+                chatViewController.transitioningDelegate = self
+                chatViewController.modalPresentationStyle = .custom
+                self.present(chatViewController, animated: true)
+            } else {
+                self.navigationController?.pushViewController(ORBRecommendationOrderViewController(), animated: true)
+            }
         }.disposed(by: disposeBag)
     }
     
