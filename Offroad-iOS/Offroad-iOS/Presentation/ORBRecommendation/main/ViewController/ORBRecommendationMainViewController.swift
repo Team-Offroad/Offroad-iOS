@@ -99,10 +99,14 @@ extension ORBRecommendationMainViewController: UIViewControllerTransitioningDele
         presenting: UIViewController,
         source: UIViewController
     ) -> (any UIViewControllerAnimatedTransitioning)? {
-        return ORBRecommendationChatViewPresentingTransition(
-            buttonFrame: rootView.orbMessageButton.frame,
-            buttonText: rootView.orbMessageButton.message
-        )
+        if UIAccessibility.isReduceMotionEnabled {
+            return nil
+        } else {
+            return ORBRecommendationChatViewPresentingTransition(
+                buttonFrame: rootView.orbMessageButton.frame,
+                buttonText: rootView.orbMessageButton.message
+            )
+        }
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> (any UIViewControllerAnimatedTransitioning)? {
