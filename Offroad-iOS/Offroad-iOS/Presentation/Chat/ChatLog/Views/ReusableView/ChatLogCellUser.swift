@@ -21,7 +21,7 @@ final class ChatLogCellUser: UICollectionViewCell {
         dummyCell.configure(with: item)
         
         let targetSize = CGSize(width: fixedWidth, height: .greatestFiniteMagnitude)
-        return         dummyCell.contentView.systemLayoutSizeFitting(
+        return dummyCell.contentView.systemLayoutSizeFitting(
             targetSize,
             withHorizontalFittingPriority: .required,
             verticalFittingPriority: .fittingSizeLevel
@@ -92,10 +92,10 @@ private extension ChatLogCellUser {
     }
     
     func setupLayout() {
-        timeLabel.setContentHuggingPriority(.init(1), for: .horizontal)
         timeLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         messageLabel.setContentHuggingPriority(.required, for: .horizontal)
+        messageLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
         messageLabel.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview().inset(14)
             make.horizontalEdges.equalToSuperview().inset(14)
@@ -103,7 +103,8 @@ private extension ChatLogCellUser {
         
         totalStack.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(20)
+            make.leading.greaterThanOrEqualToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
         }
     }
     

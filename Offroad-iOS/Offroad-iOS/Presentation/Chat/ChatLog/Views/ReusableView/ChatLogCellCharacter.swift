@@ -120,12 +120,12 @@ private extension ChatLogCellCharacter {
             make.horizontalEdges.equalToSuperview().inset(20)
         }
         
-        timeLabel.setContentHuggingPriority(.init(1), for: .horizontal)
         timeLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         totalStack.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(20)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.lessThanOrEqualToSuperview().inset(20)
         }
     }
     
