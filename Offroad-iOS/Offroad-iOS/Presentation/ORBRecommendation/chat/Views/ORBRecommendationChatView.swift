@@ -16,6 +16,9 @@ final class ORBRecommendationChatView: ORBRecommendationChatBackgroundView {
     
     // MARK: - Properties
     
+    // 다른 앱으로 나갔다 들어왔을 때 keyboardWillShow 메서드가 한 번 더 호출됨.
+    // 이로 인해 채팅 목록이 의도치 않게 위로 더 올라가는 문제를 막기 위해 사용되는 flag.
+    private var isKeyboardShown: Bool = false
     private var disposeBag = DisposeBag()
     
     // MARK: - UI Properties
@@ -44,7 +47,7 @@ final class ORBRecommendationChatView: ORBRecommendationChatBackgroundView {
     
 }
 
-
+// Initial Settings
 private extension ORBRecommendationChatView {
     
     func setupStyle() {
@@ -120,14 +123,22 @@ private extension ORBRecommendationChatView {
             name: UIResponder.keyboardWillShowNotification,
             object: nil
         )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
     }
     
 }
 
-extension ORBRecommendationChatView {
+// keyboard 나타나고 사라질 때 동작 관련 메서드들
+private extension ORBRecommendationChatView {
     
     @objc func keyboardWillShow(_ notification: Notification) {
-        
+        guard !isKeyboardShown else { return }
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
             let keyboardHeight = keyboardFrame.height
             let verticalInsets = collectionView.contentInset.top + collectionView.contentInset.bottom
@@ -142,7 +153,14 @@ extension ORBRecommendationChatView {
             let minValue: CGFloat = 0
             let maxValue: CGFloat = keyboardHeight - safeAreaInsets.bottom
             collectionView.contentOffset.y += min(max(minValue, intersectingHeightInBounds), maxValue)
+            isKeyboardShown = true
+        } else {
+            assertionFailure("keyboard is about to show but cannot get keyboard frame.")
         }
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        isKeyboardShown = false
     }
     
 }
