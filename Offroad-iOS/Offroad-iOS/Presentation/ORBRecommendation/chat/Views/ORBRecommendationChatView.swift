@@ -74,7 +74,13 @@ private extension ORBRecommendationChatView {
     }
     
     func setupHierarchy() {
-        addSubviews(collectionView, exampleQuestionListView, chatInputView, keyboardBackgroundView, xButton)
+        addSubviews(
+            collectionView,
+            exampleQuestionListView,
+            chatInputView,
+            keyboardBackgroundView,
+            xButton
+        )
     }
     
     func setupLayout() {

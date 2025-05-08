@@ -9,6 +9,8 @@ import UIKit
 
 class ORBRecommendationChatBackgroundView: UIView {
     
+    // MARK: - UI Properties
+    
     private(set) var plainLayer: CALayer!
     private(set) var gradientLayer: CAGradientLayer!
     

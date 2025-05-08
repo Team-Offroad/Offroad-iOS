@@ -45,7 +45,7 @@ final class ORBRecommendationViewPresentationController: UIPresentationControlle
         presentedView.frame = containerView.bounds
         
         // 블러 효과를 보다 자연스럽게(천천히) 주기 위해 블러 애니메이션을 transition시간보다 약간 더 길게 설정.
-        // (블러 정도를 직접 조절하는 것은 쉽지 않음.)
+        // (애니메이션될 블러 정도를 직접 조절하는 것은 쉽지 않음. - 애니메이션 시간을 길게 설정함으로써 블러 효과를 천천히 구현)
         UIView.animate(withDuration: 0.7) { [weak self] in
             self?.blurView.effect = UIBlurEffect(style: .light)
         }

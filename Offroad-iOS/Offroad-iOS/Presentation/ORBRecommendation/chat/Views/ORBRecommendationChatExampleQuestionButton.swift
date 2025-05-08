@@ -31,7 +31,7 @@ private let question3 = ORBRecommendationChatExampleQuestion(
 )
 
 /// 오브의 추천소 채팅에서 예시 질의 버튼을 나타낼 버튼
-fileprivate final class ORBRecommendationChatExampleQuestionButton: ShrinkableButton {
+fileprivate final class ExampleQuestionButton: ShrinkableButton {
     
     // MARK: - Properties
     
@@ -43,6 +43,7 @@ fileprivate final class ORBRecommendationChatExampleQuestionButton: ShrinkableBu
         self.question = question
         super.init(frame: .zero)
         backgroundColor = .whiteOpacity(.white75)
+        // NOTE: contentEdgeInsets 는 configuration을 사용하면 무시되기 때문에, configuration 사용 시 주의 필요.
         contentEdgeInsets = .init(top: 10, left: 19, bottom: 10, right: 19)
         layer.cornerCurve = .continuous
         configureTitleDesign(with: question)
@@ -82,9 +83,9 @@ final class ORBRecommendationChatExampleQuestionListView: UIScrollView {
     
     // MARK: - UI Properties
     
-    private let button1 = ORBRecommendationChatExampleQuestionButton(question: question1)
-    private let button2 = ORBRecommendationChatExampleQuestionButton(question: question2)
-    private let button3 = ORBRecommendationChatExampleQuestionButton(question: question3)
+    private let button1 = ExampleQuestionButton(question: question1)
+    private let button2 = ExampleQuestionButton(question: question2)
+    private let button3 = ExampleQuestionButton(question: question3)
     private lazy var buttonStack = UIStackView(arrangedSubviews: [button1, button2, button3])
     
     // MARK: - Life Cycle
@@ -103,7 +104,7 @@ final class ORBRecommendationChatExampleQuestionListView: UIScrollView {
     }
     
     override func touchesShouldCancel(in view: UIView) -> Bool {
-        if view is ORBRecommendationChatExampleQuestionButton {
+        if view is ExampleQuestionButton {
             return true
         }
         return super.touchesShouldCancel(in: view)
@@ -111,7 +112,7 @@ final class ORBRecommendationChatExampleQuestionListView: UIScrollView {
     
 }
 
-// Initial Settings
+// 오브의 추천소 채팅에서 예시 질의를 보여줄 Scroll View의 Initial Settings
 private extension ORBRecommendationChatExampleQuestionListView {
     
     func setupStyle() {
@@ -144,7 +145,6 @@ private extension ORBRecommendationChatExampleQuestionListView {
             button.rx.tap.asDriver().drive { [weak self] _ in
                 self?.exampleQuestionSelected.accept(button.question.title)
             }.disposed(by: self.disposeBag)
-
         }
     }
     

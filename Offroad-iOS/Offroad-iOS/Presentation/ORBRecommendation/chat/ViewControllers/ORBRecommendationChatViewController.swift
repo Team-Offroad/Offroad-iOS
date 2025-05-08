@@ -14,6 +14,7 @@ final class ORBRecommendationChatViewController: UIViewController {
     
     // MARK: - Properties
     
+    private let rootView = ORBRecommendationChatView()
     private let firstChatText: String
     private var firstChatItem: CharacterChatItem {
         CharacterChatItem.message(
@@ -23,7 +24,6 @@ final class ORBRecommendationChatViewController: UIViewController {
     private lazy var chats: [CharacterChatItem] = [firstChatItem]
     private lazy var dataSource = ORBRecommendationChatDataSource(collectionView: rootView.collectionView)
     private var disposeBag = DisposeBag()
-    private var rootView = ORBRecommendationChatView()
     
     // MARK: - Life Cycle
     
@@ -88,7 +88,6 @@ private extension ORBRecommendationChatViewController {
             .asDriver(onErrorJustReturn: "")
             .drive { [weak self] text in
                 guard let self else { return }
-                print(text)
                 self.rootView.exampleQuestionListView.isHidden = true
                 self.chats.append(.message(.user(content: text, createdDate: Date(), id: 0)))
                 self.dataSource.applySnapshot(of: chats)
@@ -118,6 +117,7 @@ extension ORBRecommendationChatViewController {
         get { rootView.collectionView.alpha }
         set { rootView.collectionView.alpha = newValue }
     }
+    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -150,4 +150,3 @@ extension ORBRecommendationChatViewController: UICollectionViewDelegateFlowLayou
         }
     }
 }
-

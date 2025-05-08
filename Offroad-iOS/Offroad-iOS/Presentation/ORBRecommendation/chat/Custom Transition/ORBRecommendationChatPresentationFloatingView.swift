@@ -8,7 +8,7 @@
 import UIKit
 
 /// 오브의 추천소 채팅창을 `present`할 때 버튼이 채팅창으로 이동하는 것처럼 보이기 위해 커스텀 트랜지션 중에 활용되는 뷰
-class ORBRecommendationChatPresentationFloatingView: UIView, ORBRecommendationGradientStyle {
+final class ORBRecommendationChatPresentationFloatingView: UIView, ORBRecommendationGradientStyle {
     
     // MARK: - UI Properties
     
@@ -82,14 +82,6 @@ private extension ORBRecommendationChatPresentationFloatingView {
             make.verticalEdges.equalToSuperview().inset(14)
             make.horizontalEdges.equalToSuperview().inset(20)
         }
-    }
-    
-}
-
-extension ORBRecommendationChatPresentationFloatingView {
-    
-    func setMessage(_ message: String) {
-        self.messageLabel.text = message
     }
     
 }
