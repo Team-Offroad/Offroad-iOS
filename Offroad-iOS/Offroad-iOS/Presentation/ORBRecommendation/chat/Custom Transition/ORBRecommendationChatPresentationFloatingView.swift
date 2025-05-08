@@ -57,6 +57,7 @@ private extension ORBRecommendationChatPresentationFloatingView {
             label.font = .offroad(style: .iosText)
             label.textColor = .main(.main2)
             label.numberOfLines = 0
+            label.lineBreakStrategy = .pushOut
         }
         
         contentStack.do { stackView in

@@ -81,13 +81,14 @@ private extension ChatLogCellUser {
             label.font = .offroad(style: .iosText)
             label.textColor = .main(.main2)
             label.numberOfLines = 0
+            label.lineBreakStrategy = .pushOut
         }
         
         totalStack.do { stackView in
             stackView.axis = .horizontal
             stackView.spacing = 6
             stackView.alignment = .bottom
-            stackView.distribution = .fillProportionally
+            stackView.distribution = .fill
         }
     }
     

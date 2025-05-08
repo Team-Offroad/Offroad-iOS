@@ -85,6 +85,7 @@ private extension ChatLogCellCharacter {
             label.font = .offroad(style: .iosText)
             label.textColor = .main(.main2)
             label.numberOfLines = 0
+            label.lineBreakStrategy = .pushOut
         }
         
         contentStack.do { stackView in
@@ -104,7 +105,7 @@ private extension ChatLogCellCharacter {
             stackView.axis = .horizontal
             stackView.spacing = 6
             stackView.alignment = .bottom
-            stackView.distribution = .fillProportionally
+            stackView.distribution = .fill
         }
     }
     
