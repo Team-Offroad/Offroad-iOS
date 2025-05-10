@@ -66,6 +66,8 @@ private extension DeveloperModeSwitchCell {
             $0.textColor = .main(.main2)
             $0.textAlignment = .center
             $0.font = .offroad(style: .iosTabbarMedi)
+            $0.numberOfLines = 0
+            $0.textAlignment = .left
         }
         
         settingSwitch.do {
@@ -87,6 +89,7 @@ private extension DeveloperModeSwitchCell {
         
         settingSwitch.snp.makeConstraints {
             $0.centerY.equalToSuperview()
+            $0.leading.equalTo(titleLabel.snp.trailing).offset(14)
             $0.trailing.equalToSuperview().inset(14)
         }
     }
