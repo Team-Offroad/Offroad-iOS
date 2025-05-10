@@ -77,6 +77,9 @@
 		4E46E5FB2CBA3F55000A1EEE /* UIWindowScene+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */; };
 		4E46E5FD2CBA483D000A1EEE /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */; };
 		4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4A8FD62C4A5752001FB498 /* UIImage+.swift */; };
+		4E4D01482DCE0DB9002D9C6A /* MinimumSupportedVersionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D01472DCE0DB9002D9C6A /* MinimumSupportedVersionAPI.swift */; };
+		4E4D014B2DCE0DD6002D9C6A /* MinimumSupportedVersionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D014A2DCE0DD6002D9C6A /* MinimumSupportedVersionService.swift */; };
+		4E4D01502DCE371A002D9C6A /* MinimumSupportedVersionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D014E2DCE3719002D9C6A /* MinimumSupportedVersionResponseDTO.swift */; };
 		4E4E2C022CCE2841000A634D /* PlaceInfoTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */; };
 		4E4E2C0C2CCF6518000A634D /* AdventureMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C0B2CCF6518000A634D /* AdventureMapViewModel.swift */; };
 		4E4F31452D4716F500C3B2FF /* SecretConfig_Dev.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4E4F31442D4716F500C3B2FF /* SecretConfig_Dev.xcconfig */; };
@@ -736,6 +739,9 @@
 		4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindowScene+.swift"; sourceTree = "<group>"; };
 		4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		4E4A8FD62C4A5752001FB498 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		4E4D01472DCE0DB9002D9C6A /* MinimumSupportedVersionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimumSupportedVersionAPI.swift; sourceTree = "<group>"; };
+		4E4D014A2DCE0DD6002D9C6A /* MinimumSupportedVersionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimumSupportedVersionService.swift; sourceTree = "<group>"; };
+		4E4D014E2DCE3719002D9C6A /* MinimumSupportedVersionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimumSupportedVersionResponseDTO.swift; sourceTree = "<group>"; };
 		4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTooltip.swift; sourceTree = "<group>"; };
 		4E4E2C0B2CCF6518000A634D /* AdventureMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureMapViewModel.swift; sourceTree = "<group>"; };
 		4E4F31442D4716F500C3B2FF /* SecretConfig_Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretConfig_Dev.xcconfig; sourceTree = "<group>"; };
@@ -1258,6 +1264,7 @@
 			isa = PBXGroup;
 			children = (
 				4E0394672C2AA132007F0517 /* Base */,
+				4E4D01462DCE0D8F002D9C6A /* MinimumSupportedVersion */,
 				D0600BE32CE61DCD00D8F1D6 /* PushNotification */,
 				D004F84E2CA129FC00D5A2CD /* Notice */,
 				4EE0497A2CA0FD1300754488 /* Coupon */,
@@ -1789,6 +1796,24 @@
 				4E416CE72C45DBE200CF6AB4 /* ORBPlaceCategory.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4E4D01462DCE0D8F002D9C6A /* MinimumSupportedVersion */ = {
+			isa = PBXGroup;
+			children = (
+				4E4D014D2DCE36FB002D9C6A /* DTO */,
+				4E4D01472DCE0DB9002D9C6A /* MinimumSupportedVersionAPI.swift */,
+				4E4D014A2DCE0DD6002D9C6A /* MinimumSupportedVersionService.swift */,
+			);
+			path = MinimumSupportedVersion;
+			sourceTree = "<group>";
+		};
+		4E4D014D2DCE36FB002D9C6A /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				4E4D014E2DCE3719002D9C6A /* MinimumSupportedVersionResponseDTO.swift */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		4E4E2C082CCE7B52000A634D /* PlaceInfoTooltip */ = {
@@ -4091,6 +4116,7 @@
 				4E4F31B12D4718F400C3B2FF /* ShrinkableCollectionViewCell.swift in Sources */,
 				4E4F31B22D4718F400C3B2FF /* ORBAlertBackgroundView.swift in Sources */,
 				4E4F31B32D4718F400C3B2FF /* CouponRedemptionResponseDTO.swift in Sources */,
+				4E4D01502DCE371A002D9C6A /* MinimumSupportedVersionResponseDTO.swift in Sources */,
 				4E4F31B42D4718F400C3B2FF /* AuthAPI.swift in Sources */,
 				4EC611642D5F167300B09E23 /* PlaceListCollectionView.swift in Sources */,
 				D006EA312D6DB3C4004D3D95 /* MyPageScrollView.swift in Sources */,
@@ -4104,6 +4130,7 @@
 				4E4F31BB2D4718F400C3B2FF /* AppleAuthManager.swift in Sources */,
 				4E4F31BC2D4718F400C3B2FF /* UILabel+.swift in Sources */,
 				4E246B352DB4F72300198433 /* ORBRecommendationMainViewController.swift in Sources */,
+				4E4D01482DCE0DB9002D9C6A /* MinimumSupportedVersionAPI.swift in Sources */,
 				D0CA20822D7FE06B00FDF7F4 /* MonthPickerModalView.swift in Sources */,
 				4E4F31BD2D4718F400C3B2FF /* NavigationPopButton.swift in Sources */,
 				4E4F31BE2D4718F400C3B2FF /* EmblemInfoResponseDTO.swift in Sources */,
@@ -4166,6 +4193,7 @@
 				4E4F31EC2D4718F400C3B2FF /* NicknameAPI.swift in Sources */,
 				4E4F31ED2D4718F400C3B2FF /* UIWindow+.swift in Sources */,
 				4E4F31EE2D4718F400C3B2FF /* CharacterListView.swift in Sources */,
+				4E4D014B2DCE0DD6002D9C6A /* MinimumSupportedVersionService.swift in Sources */,
 				4E4F31EF2D4718F400C3B2FF /* ScrollLoadingView.swift in Sources */,
 				4E4F31F02D4718F400C3B2FF /* UITextField+.swift in Sources */,
 				4E4F31F12D4718F400C3B2FF /* DeleteAccountResponseDTO.swift in Sources */,
