@@ -11,8 +11,8 @@ class ORBRecommendationChatBackgroundView: UIView {
     
     // MARK: - UI Properties
     
-    private(set) var plainLayer: CALayer!
-    private(set) var gradientLayer: CAGradientLayer!
+    private var plainLayer: CALayer!
+    private var gradientLayer: CAGradientLayer!
     
     var color1: UIColor = UIColor.init(hex: "62DDFF")!.withAlphaComponent(0.1)
     var color2: UIColor = UIColor.init(hex: "455BFF")!.withAlphaComponent(0.05)
@@ -22,14 +22,14 @@ class ORBRecommendationChatBackgroundView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupGradientLayer()
+        setupBackgroundLayers()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupGradientLayer() {
+    private func setupBackgroundLayers() {
         plainLayer = CALayer()
         plainLayer.backgroundColor = UIColor.init(hex: "F6F4FF")!.cgColor
         layer.addSublayer(plainLayer)

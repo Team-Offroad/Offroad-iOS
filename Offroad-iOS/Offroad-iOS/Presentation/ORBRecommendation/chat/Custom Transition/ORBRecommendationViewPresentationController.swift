@@ -52,7 +52,7 @@ final class ORBRecommendationViewPresentationController: UIPresentationControlle
     }
     
     override func dismissalTransitionWillBegin() {
-        sourceViewController?.showORBMessageButtonBeformDismiss()
+        sourceViewController?.showORBMessageButtonBeforeDismiss()
         presentedViewController.transitionCoordinator?.animate(alongsideTransition: { [weak self] _ in
             self?.blurView.effect = nil
         }, completion: nil)

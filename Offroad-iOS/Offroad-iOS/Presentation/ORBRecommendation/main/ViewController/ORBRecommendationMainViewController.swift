@@ -69,7 +69,7 @@ extension ORBRecommendationMainViewController {
     }
     
     /// dismiss 트랜지션이 시작할 때 버튼 보이기
-    func showORBMessageButtonBeformDismiss() {
+    func showORBMessageButtonBeforeDismiss() {
         rootView.orbMessageButton.isHidden = false
     }
     
