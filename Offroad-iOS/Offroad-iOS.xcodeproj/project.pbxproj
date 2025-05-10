@@ -80,7 +80,7 @@
 		4E46E5FB2CBA3F55000A1EEE /* UIWindowScene+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */; };
 		4E46E5FD2CBA483D000A1EEE /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */; };
 		4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4A8FD62C4A5752001FB498 /* UIImage+.swift */; };
-		4E4D00FA2DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D00F92DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestionButton.swift */; };
+		4E4D00FA2DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D00F92DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift */; };
 		4E4E2C022CCE2841000A634D /* PlaceInfoTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */; };
 		4E4E2C0C2CCF6518000A634D /* AdventureMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C0B2CCF6518000A634D /* AdventureMapViewModel.swift */; };
 		4E4F31452D4716F500C3B2FF /* SecretConfig_Dev.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4E4F31442D4716F500C3B2FF /* SecretConfig_Dev.xcconfig */; };
@@ -748,7 +748,7 @@
 		4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindowScene+.swift"; sourceTree = "<group>"; };
 		4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		4E4A8FD62C4A5752001FB498 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
-		4E4D00F92DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatExampleQuestionButton.swift; sourceTree = "<group>"; };
+		4E4D00F92DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatExampleQuestion.swift; sourceTree = "<group>"; };
 		4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTooltip.swift; sourceTree = "<group>"; };
 		4E4E2C0B2CCF6518000A634D /* AdventureMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureMapViewModel.swift; sourceTree = "<group>"; };
 		4E4F31442D4716F500C3B2FF /* SecretConfig_Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretConfig_Dev.xcconfig; sourceTree = "<group>"; };
@@ -1911,7 +1911,7 @@
 			children = (
 				4E8785292DC79B6D00B639EA /* ORBRecommendationChatView.swift */,
 				4E87852B2DC79B8800B639EA /* ORBRecommendationChatBackgroundView.swift */,
-				4E4D00F92DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestionButton.swift */,
+				4E4D00F92DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4244,7 +4244,7 @@
 				4E4F31F32D4718F400C3B2FF /* ORBAlertViewTextField.swift in Sources */,
 				4E8785282DC79B2B00B639EA /* ORBRecommendationChatViewController.swift in Sources */,
 				4E4F31F42D4718F400C3B2FF /* HomeView.swift in Sources */,
-				4E4D00FA2DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestionButton.swift in Sources */,
+				4E4D00FA2DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift in Sources */,
 				D051FDF32D8742A800CA2485 /* MemoryLightCollectionViewCell.swift in Sources */,
 				4E4F31F52D4718F400C3B2FF /* ORBToastWindow.swift in Sources */,
 				4E4F31F62D4718F400C3B2FF /* CharacterChatLogView.swift in Sources */,

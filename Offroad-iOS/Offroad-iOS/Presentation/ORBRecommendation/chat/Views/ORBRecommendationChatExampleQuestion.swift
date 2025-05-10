@@ -1,5 +1,5 @@
 //
-//  ORBRecommendationChatExampleQuestionButton.swift
+//  ORBRecommendationChatExampleQuestion.swift
 //  ORB_Dev
 //
 //  Created by 김민성 on 5/7/25.
