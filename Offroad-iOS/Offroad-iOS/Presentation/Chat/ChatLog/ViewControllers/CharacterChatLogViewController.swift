@@ -51,6 +51,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private var isScrollLoading: Bool = false
     private var didGetAllChatLog: Bool = false
     private var isScrollingToTop: Bool = false
+    private var keyboardHeight: CGFloat = 0
     
     private let isCharacterResponding = BehaviorRelay<Bool>(value: false)
     private let patchChatReadRelay = PublishRelay<Int?>()
@@ -323,6 +324,7 @@ private extension CharacterChatLogViewController {
         rootView.layoutIfNeeded()
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
             let keyboardHeight = keyboardFrame.height
+            self.keyboardHeight = keyboardHeight
             // 키보드가 올라올 때는 두 가지 동작이 필요.
             // 1. collectionView의 inset을 설정해주어야 함.
             // 2. collectionView의 스크롤 위치를 끝으로 이동 (채팅하기 버튼은 끝까지 스크롤했을 때에만 보이기 때문)
@@ -427,7 +429,7 @@ private extension CharacterChatLogViewController {
     private func scrollToFirstCell(animated: Bool) {
         if isKeyboardShown {
             rootView.chatLogCollectionView.setContentOffset(
-                .init(x: 0, y: -(self.rootView.chatTextInputView.frame.height + 16)),
+                .init(x: 0, y: -(keyboardHeight + rootView.chatTextInputView.frame.height + 16)),
                 animated: true
             )
         } else {

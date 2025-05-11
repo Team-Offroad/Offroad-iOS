@@ -12,14 +12,16 @@ import SnapKit
 
 final class ChatLogCellUser: UICollectionViewCell {
     
+    /// 레이아웃 계산용 더미 셀. static func인 `calculatedCellSize` 에서 사용
+    static let dummyCell = ChatLogCellUser()
+    
     // MARK: - Type Func
     
     static func calculatedCellSize(item: CharacterChatMessageItem, fixedWidth: CGFloat) -> CGSize {
-        let cell = ChatLogCellUser()
-        cell.configure(with: item)
+        dummyCell.configure(with: item)
         
         let targetSize = CGSize(width: fixedWidth, height: .greatestFiniteMagnitude)
-        return cell.contentView.systemLayoutSizeFitting(
+        return dummyCell.contentView.systemLayoutSizeFitting(
             targetSize,
             withHorizontalFittingPriority: .required,
             verticalFittingPriority: .fittingSizeLevel
@@ -79,21 +81,22 @@ private extension ChatLogCellUser {
             label.font = .offroad(style: .iosText)
             label.textColor = .main(.main2)
             label.numberOfLines = 0
+            label.lineBreakStrategy = .pushOut
         }
         
         totalStack.do { stackView in
             stackView.axis = .horizontal
             stackView.spacing = 6
             stackView.alignment = .bottom
-            stackView.distribution = .fillProportionally
+            stackView.distribution = .fill
         }
     }
     
     func setupLayout() {
-        timeLabel.setContentHuggingPriority(.init(1), for: .horizontal)
         timeLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         messageLabel.setContentHuggingPriority(.required, for: .horizontal)
+        messageLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
         messageLabel.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview().inset(14)
             make.horizontalEdges.equalToSuperview().inset(14)
@@ -101,7 +104,8 @@ private extension ChatLogCellUser {
         
         totalStack.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(20)
+            make.leading.greaterThanOrEqualToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
         }
     }
     
@@ -113,9 +117,15 @@ extension ChatLogCellUser {
         guard case let .user(content, _, _) = item else {
             fatalError("ChatLogCellUser received incompatible item.")
         }
-        
         messageLabel.text = content
         timeLabel.text = item.formattedTimeString
     }
+    
+#if DevTarget
+    func setRecommendationMode() {
+        contentView.transform = .identity
+        timeLabel.textColor = .main(.main2)
+    }
+#endif
     
 }
