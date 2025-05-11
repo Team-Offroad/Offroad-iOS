@@ -4531,7 +4531,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 25033001;
+				CURRENT_PROJECT_VERSION = 25051101;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 548W892M42;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -4552,7 +4552,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.3;
 				OTHER_SWIFT_FLAGS = "-DReleaseTarget";
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4579,7 +4579,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 25033001;
+				CURRENT_PROJECT_VERSION = 25051101;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 548W892M42;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -4600,7 +4600,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.3;
 				OTHER_SWIFT_FLAGS = "-DReleaseTarget";
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
