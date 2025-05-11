@@ -42,6 +42,16 @@ struct LogPrinterSettingModel: DeveloperSettingModelToggleable {
     }
 }
 
+/// 개발자 모드의 항목 중 오브의 추천소 채팅 주문 뷰를 사용할 지 여부를 나타내는 모델 `isEnabled`가 `false`이면 오브의 추천 주문서(2안) 을 사용
+struct UsingORBRecommendationChat: DeveloperSettingModelToggleable {
+    var title: String = "오브의 추천소 주문 시\n채팅 화면(1안) 사용 여부"
+    
+    var isEnabled: Bool {
+        get { UserDefaults.standard.bool(forKey: "useORBRecommendationChat") }
+        set { UserDefaults.standard.set(newValue, forKey: "useORBRecommendationChat") }
+    }
+}
+
 /// 개발자 모드의 항목 중 현재 버전 번호를 표시하는 항목의 모델.
 struct VersionCheckSettingModel: DeveloperSettingModelNormal {
     let title = "버전 번호"

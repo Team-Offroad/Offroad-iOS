@@ -10,6 +10,29 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+enum CharacterChatLogError: LocalizedError {
+    case serverError
+    case invalidResponse
+    case invalidChatLogUpdating
+    case networkResultError
+    case decodingError
+    
+    var errorDescription: String? {
+        switch self {
+        case .serverError:
+            return "500대 서버 에러"
+        case .invalidResponse:
+            return "서버의 응답값이 올바른 형식이 아닙니다."
+        case .invalidChatLogUpdating:
+            return "updateChatLog 메서드가 호출된 시점에 chatLogDataList의 요소가 2개 이하면 안됩니다."
+        case .networkResultError:
+            return "네트워크 통신에 문제가 있습니다. `NetworkResult` 의 케이스 중 하나입니다."
+        case .decodingError:
+            return "응답값을 DTO로 변환하는 것을 실패했습니다."
+        }
+    }
+}
+
 class CharacterChatLogViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
@@ -28,6 +51,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     private var isScrollLoading: Bool = false
     private var didGetAllChatLog: Bool = false
     private var isScrollingToTop: Bool = false
+    private var keyboardHeight: CGFloat = 0
     
     private let isCharacterResponding = BehaviorRelay<Bool>(value: false)
     private let patchChatReadRelay = PublishRelay<Int?>()
@@ -300,6 +324,7 @@ private extension CharacterChatLogViewController {
         rootView.layoutIfNeeded()
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
             let keyboardHeight = keyboardFrame.height
+            self.keyboardHeight = keyboardHeight
             // 키보드가 올라올 때는 두 가지 동작이 필요.
             // 1. collectionView의 inset을 설정해주어야 함.
             // 2. collectionView의 스크롤 위치를 끝으로 이동 (채팅하기 버튼은 끝까지 스크롤했을 때에만 보이기 때문)
@@ -404,7 +429,7 @@ private extension CharacterChatLogViewController {
     private func scrollToFirstCell(animated: Bool) {
         if isKeyboardShown {
             rootView.chatLogCollectionView.setContentOffset(
-                .init(x: 0, y: -(self.rootView.chatTextInputView.frame.height + 16)),
+                .init(x: 0, y: -(keyboardHeight + rootView.chatTextInputView.frame.height + 16)),
                 animated: true
             )
         } else {
@@ -428,92 +453,77 @@ private extension CharacterChatLogViewController {
         let dto = CharacterChatPostRequestDTO(content: message)
         NetworkService.shared.characterChatService.postChat(characterId: characterId, body: dto) { [weak self] result in
             guard let self else { return }
-            switch result {
-            case .success(let dto):
-                guard let data = dto?.data else {
-                    self.showToast(message: "response data is Empty", inset: 66)
-                    return
-                }
-                do {
+            do {
+                switch result {
+                case .success(let dto):
+                    guard let data = dto?.data else {
+                        self.showToast(message: "response data is Empty", inset: 66)
+                        return
+                    }
                     let item = try CharacterChatItem.message(.from(dto: data))
-                    self.updateChatLog(chatSuccess: true, characterResponse: item)
-                } catch {
-                    assertionFailure("ChatDataModel init failed: \(error.localizedDescription)")
+                    switch item {
+                    case .message(let messageItem):
+                        try self.updateChatLog(result: .success(messageItem))
+                    case .loading:
+                        try self.updateChatLog(result: .failure(.invalidResponse))
+                    }
+                case .decodeErr:
+                    self.showToast(message: "decode Error occurred", inset: 66)
+                    try self.updateChatLog(result: .failure(.decodingError))
+                case .serverErr:
+                    self.showToast(message: "오브가 답변하기 힘든 질문이예요.\n다른 이야기를 해볼까요?", inset: 66)
+                    try self.updateChatLog(result: .failure(.networkResultError))
+                case .requestErr:
+                    self.showToast(message: "requestError occurred", inset: 66)
+                    try self.updateChatLog(result: .failure(.networkResultError))
+                case .unAuthentication:
+                    self.showToast(message: "unAuthentication Error occurred", inset: 66)
+                    try self.updateChatLog(result: .failure(.networkResultError))
+                case .unAuthorization:
+                    self.showToast(message: "unAuthorized Error occurred", inset: 66)
+                    try self.updateChatLog(result: .failure(.networkResultError))
+                case .apiArr:
+                    self.showToast(message: "api Error occurred", inset: 66)
+                    try self.updateChatLog(result: .failure(.networkResultError))
+                case .pathErr:
+                    self.showToast(message: "path Error occurred", inset: 66)
+                    try self.updateChatLog(result: .failure(.networkResultError))
+                case .registerErr:
+                    self.showToast(message: "register Error occurred", inset: 66)
+                    try self.updateChatLog(result: .failure(.networkResultError))
+                case .networkFail:
+                    self.showToast(message: ErrorMessages.networkError, inset: 66)
+                    try self.updateChatLog(result: .failure(.networkResultError))
                 }
-                
-            case .requestErr:
-                self.showToast(message: "requestError occurred", inset: 66)
-            case .unAuthentication:
-                self.showToast(message: "unAuthentication Error occurred", inset: 66)
-            case .unAuthorization:
-                self.showToast(message: "unAuthorized Error occurred", inset: 66)
-            case .apiArr:
-                self.showToast(message: "api Error occurred", inset: 66)
-            case .pathErr:
-                self.showToast(message: "path Error occurred", inset: 66)
-            case .registerErr:
-                self.showToast(message: "register Error occurred", inset: 66)
-            case .networkFail:
-                self.showToast(message: ErrorMessages.networkError, inset: 66)
-            case .serverErr:
-                self.showToast(message: "오브가 답변하기 힘든 질문이예요.\n다른 이야기를 해볼까요?", inset: 66)
-                self.updateChatLog(chatSuccess: false)
-            case .decodeErr:
-                self.showToast(message: "decode Error occurred", inset: 66)
+                self.isCharacterResponding.accept(false)
+            } catch {
+                assertionFailure(error.localizedDescription)
             }
-            self.isCharacterResponding.accept(false)
         }
     }
     
-    
-    /// 채팅의 결과가 나왔을 때, 채팅 로그를 업데이트하는 메서드
-    /// - Parameter chatSuccess: 채팅이 성공했는지, 실패했는지 여부
-    /// - Parameter characterResponse: 채팅이 성공했을 경우, 받은 캐릭터의 답장. chatSuccess 가 false인 경우, 이 값은 무시됨.
-    ///
-    /// 채팅이 성공했을 경우, 로딩 중이던 캐릭터의 말풍선이 캐릭터가 답변한 내용으로 변경됨.
-    ///
-    /// 채팅이 실패했을 경우, 로딩 중이던 캐릭터의 말풍선과 직전에 내가 했던 말풍선을 지움.
-    ///
-    /// 지우려는 말풍선의 indexPath를 구할 수 없는 경우, 채팅 로그 뷰컨트롤러를 nagivation stack에서 pop 하며 에러 메시지 토스트 표시
-    private func updateChatLog(chatSuccess: Bool, characterResponse: CharacterChatItem? = nil) {
-        let dataSourceSectionCount = dataSource.snapshot().sectionIdentifiers.count
-        let dataSourceLastSectionItemCount: Int
-        if let lastSection = dataSource.snapshot().sectionIdentifiers.last {
-            dataSourceLastSectionItemCount = dataSource.snapshot().itemIdentifiers(inSection: lastSection).count
-        } else {
-            dataSourceLastSectionItemCount = 0
+    private func updateChatLog(result: Result<CharacterChatMessageItem, CharacterChatLogError>) throws {
+        // 이 메서드는 채팅 시도 후 결과를 업데이트하기 위한 것이므로,
+        // `chatLogDataList`에 최소 2개(사용자가 보낸 채팅 아이템, 캐릭터 로딩 아이템) 이상의 요소가 존재해야 함.
+        guard chatLogDataList.count >= 2 else {
+            throw CharacterChatLogError.invalidChatLogUpdating
         }
-        
-        guard dataSourceSectionCount > 0, dataSourceLastSectionItemCount > 1 else { return }
-        
-        guard
-            rootView.chatLogCollectionView.getIndexPathFromLast(index: 1) != nil,
-            rootView.chatLogCollectionView.getIndexPathFromLast(index: 2) != nil
-        else {
-            showToast(message: "알 수 없는 오류가 발생했어요. 채팅을 다시 시도해 주세요.", inset: 66)
-            rootView.chatLogCollectionView.reloadData()
-            scrollToFirstCell(animated: true)
-            return
-        }
-        
-        if chatSuccess {
-            if let characterResponse, chatLogDataList.count > 0 {
-                chatLogDataList[0] = characterResponse
+        switch result {
+        case .success(let chatItem):
+            guard case .orbCharacter = chatItem else {
+                throw CharacterChatLogError.invalidResponse
             }
-            updateCollectionView(animatingDifferences: true) { [weak self] in
-                guard let self else { return }
-                self.scrollToFirstCell(animated: true)
-                self.patchChatReadRelay.accept(characterId)
-                self.rootView.showChatButton()
-            }
-        } else {
+            chatLogDataList[0] = .message(chatItem)
+        case .failure(let error):
+            assertionFailure(error.localizedDescription)
             chatLogDataList.removeFirst(2)
-            updateCollectionView(animatingDifferences: true) { [weak self] in
-                guard let self else { return }
-                self.scrollToFirstCell(animated: true)
-                self.patchChatReadRelay.accept(characterId)
-                self.rootView.showChatButton()
-            }
+        }
+        
+        updateCollectionView(animatingDifferences: true) { [weak self] in
+            guard let self else { return }
+            self.scrollToFirstCell(animated: true)
+            self.patchChatReadRelay.accept(characterId)
+            self.rootView.showChatButton()
         }
     }
     

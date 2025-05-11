@@ -18,7 +18,11 @@ final class DeveloperModeViewController: UIViewController {
     }
     
     private let rootView = DeveloperModeView()
-    private let switchableModels: [any DeveloperSettingModelToggleable] = [LocationBypassing(), LogPrinterSettingModel()]
+    private let switchableModels: [any DeveloperSettingModelToggleable] = [
+        LocationBypassing(),
+        LogPrinterSettingModel(),
+        UsingORBRecommendationChat()
+    ]
     private let normalStyleModels: [any DeveloperSettingModelNormal] = [VersionCheckSettingModel()]
     
     private var disposeBag = DisposeBag()

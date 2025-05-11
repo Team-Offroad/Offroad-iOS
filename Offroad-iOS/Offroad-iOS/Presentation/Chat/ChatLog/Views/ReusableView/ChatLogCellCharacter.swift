@@ -12,14 +12,16 @@ import SnapKit
 
 final class ChatLogCellCharacter: UICollectionViewCell {
     
+    /// 레이아웃 계산용 더미 셀. static func인 `calculatedCellSize` 에서 사용
+    static let dummyCell = ChatLogCellCharacter()
+    
     // MARK: - Type Func
     
     static func calculatedCellSize(item: CharacterChatMessageItem, characterName: String, fixedWidth: CGFloat) -> CGSize {
-        let cell = ChatLogCellCharacter()
-        cell.configure(with: item, characterName: characterName)
+        dummyCell.configure(with: item, characterName: characterName)
         
         let targetSize = CGSize(width: fixedWidth, height: .greatestFiniteMagnitude)
-        return cell.contentView.systemLayoutSizeFitting(
+        return dummyCell.contentView.systemLayoutSizeFitting(
             targetSize,
             withHorizontalFittingPriority: .required,
             verticalFittingPriority: .fittingSizeLevel
@@ -28,7 +30,12 @@ final class ChatLogCellCharacter: UICollectionViewCell {
     
     // MARK: - UI Properties
     
-    private let chatBubble = UIView()
+#if DevTarget
+    final class ChatBubble: UIView, ORBRecommendationGradientStyle { }
+    private(set) var chatBubble = ChatBubble()
+#else
+    private(set) var chatBubble = UIView()
+#endif
     private let characternameLabel = UILabel()
     private let messageLabel = UILabel()
     private let timeLabel = UILabel()
@@ -78,6 +85,7 @@ private extension ChatLogCellCharacter {
             label.font = .offroad(style: .iosText)
             label.textColor = .main(.main2)
             label.numberOfLines = 0
+            label.lineBreakStrategy = .pushOut
         }
         
         contentStack.do { stackView in
@@ -97,7 +105,7 @@ private extension ChatLogCellCharacter {
             stackView.axis = .horizontal
             stackView.spacing = 6
             stackView.alignment = .bottom
-            stackView.distribution = .fillProportionally
+            stackView.distribution = .fill
         }
     }
     
@@ -113,12 +121,12 @@ private extension ChatLogCellCharacter {
             make.horizontalEdges.equalToSuperview().inset(20)
         }
         
-        timeLabel.setContentHuggingPriority(.init(1), for: .horizontal)
         timeLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         totalStack.snp.makeConstraints { make in
             make.verticalEdges.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(20)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.lessThanOrEqualToSuperview().inset(20)
         }
     }
     
@@ -130,10 +138,17 @@ extension ChatLogCellCharacter {
         guard case let .orbCharacter(content, _, _) = item else {
             fatalError("ChatLogCellUser received incompatible item.")
         }
-        
         characternameLabel.text = "\(characterName) :"
         messageLabel.text = content
         timeLabel.text = item.formattedTimeString
     }
+    
+#if DevTarget
+    func setRecommendationMode() {
+        chatBubble.applyGradientStyle(isBackgroundBlurred: false)
+        contentView.transform = .identity
+        timeLabel.textColor = .main(.main2)
+    }
+#endif
     
 }
