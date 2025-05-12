@@ -45,7 +45,7 @@ final class SplashViewController: UIViewController {
                     self?.processToLogIn()
                 }
             } catch {
-                print(error.localizedDescription)
+                assertionFailure(error.localizedDescription)
             }
         }
 #else
