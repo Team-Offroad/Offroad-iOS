@@ -47,9 +47,9 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
         super.init(frame: frame)
         
         self.contentView.snp.makeConstraints { make in
-                make.top.equalToSuperview().inset(17) // ddayBubbleView 높이만큼
-                make.leading.trailing.bottom.equalToSuperview()
-            }
+            make.top.equalToSuperview().inset(17)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
         
         setupHierarchy()
         setupStyle()
@@ -91,7 +91,7 @@ extension CourseQuestCollectionViewCell {
     private func setupHierarchy() {
         addSubview(ddayBubbleView)
         ddayBubbleView.addSubview(ddayLabel)
-
+        
         mainContentView.addSubviews(
             courseQuestNameLabel,
             courseQuestProgressLabel,
@@ -118,7 +118,7 @@ extension CourseQuestCollectionViewCell {
             imageView.contentMode = .scaleAspectFit
             imageView.clipsToBounds = false
         }
-
+        
         ddayLabel.do {
             $0.text = "D-10"
             $0.font = .offroad(style: .iosTextBold)
@@ -182,7 +182,7 @@ extension CourseQuestCollectionViewCell {
             make.width.equalTo(76)
             make.height.equalTo(44.4)
         }
-
+        
         ddayLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10.7)
             make.centerX.equalToSuperview()
