@@ -27,6 +27,8 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
     }
     
     // MARK: - UI Components
+    private let ddayBubbleView = UIImageView()
+    private let ddayLabel = UILabel()
     
     private let courseQuestNameLabel = UILabel()
     private let courseQuestProgressLabel = UILabel()
@@ -43,6 +45,11 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        self.contentView.snp.makeConstraints { make in
+                make.top.equalToSuperview().inset(17) // ddayBubbleView 높이만큼
+                make.leading.trailing.bottom.equalToSuperview()
+            }
         
         setupHierarchy()
         setupStyle()
@@ -82,6 +89,9 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
 extension CourseQuestCollectionViewCell {
     
     private func setupHierarchy() {
+        addSubview(ddayBubbleView)
+        ddayBubbleView.addSubview(ddayLabel)
+
         mainContentView.addSubviews(
             courseQuestNameLabel,
             courseQuestProgressLabel,
@@ -102,6 +112,19 @@ extension CourseQuestCollectionViewCell {
         contentView.roundCorners(cornerRadius: 8)
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.systemGray4.cgColor
+        
+        ddayBubbleView.do { imageView in
+            imageView.image = UIImage.icnQuestListDdayBubble
+            imageView.contentMode = .scaleAspectFit
+            imageView.clipsToBounds = false
+        }
+
+        ddayLabel.do {
+            $0.text = "D-10"
+            $0.font = .offroad(style: .iosTextBold)
+            $0.textColor = .sub(.sub480)
+            $0.textAlignment = .center
+        }
         
         courseQuestNameLabel.do { label in
             label.font = .offroad(style: .iosTextBold)
@@ -150,6 +173,20 @@ extension CourseQuestCollectionViewCell {
     
     private func setupLayout() {
         mainContentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
+        mainContentView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(17)
+        }
+        
+        ddayBubbleView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.width.equalTo(76)
+            make.height.equalTo(44.4)
+        }
+
+        ddayLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(10.7)
+            make.centerX.equalToSuperview()
+        }
         
         courseQuestNameLabel.setContentHuggingPriority(
             courseQuestProgressLabel.contentHuggingPriority(for: .horizontal) - 1,
