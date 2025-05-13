@@ -109,9 +109,7 @@ extension CourseQuestCollectionViewCell {
     
     private func setupStyle() {
         contentView.backgroundColor = .white
-        contentView.roundCorners(cornerRadius: 8)
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.systemGray4.cgColor
+        contentView.roundCorners(cornerRadius: 5)
         
         ddayBubbleView.do { imageView in
             imageView.image = UIImage.icnQuestListDdayBubble
