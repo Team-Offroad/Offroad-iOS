@@ -28,5 +28,6 @@ final class NetworkService {
     #if DevTarget
     let diarySettingService: DiarySettingServiceProtocol = DiarySettingService()
     let diaryService: DiaryServiceProtocol = DiaryService()
+    let minimumSupportedVersionService = MinimumSupportedVersionService()
     #endif
 }
