@@ -34,11 +34,23 @@ final class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if ((UserDefaults.standard.string(forKey: "isLoggedIn")?.isEmpty) != nil) && KeychainManager.shared.loadAccessToken() != nil {
-            checkUserChoosingInfo()
-        } else {
-            presentViewController(viewController: LoginViewController())
+#if DevTarget
+        Task { [weak self] in
+            do {
+                guard let currentAppVersion = try self?.checkCurrentAppVersion() else { return }
+                guard let minimumVersion = try await self?.checkMinimumSupportedVersion() else { return }
+                if currentAppVersion < minimumVersion {
+                    self?.requestUserToUpdateApp()
+                } else {
+                    self?.processToLogIn()
+                }
+            } catch {
+                assertionFailure(error.localizedDescription)
+            }
         }
+#else
+        processToLogIn()
+#endif
     }
 }
 
@@ -84,4 +96,102 @@ extension SplashViewController {
         }
     }
     
+    @MainActor
+    private func processToLogIn() {
+        if ((UserDefaults.standard.string(forKey: "isLoggedIn")?.isEmpty) != nil
+            && KeychainManager.shared.loadAccessToken() != nil) {
+            checkUserChoosingInfo()
+        } else {
+            presentViewController(viewController: LoginViewController())
+        }
+    }
+    
 }
+
+#if DevTarget
+// 앱 버전 체크(강제 업데이트 유도) 관련
+private extension SplashViewController {
+    
+    enum AppVersionCheckError: LocalizedError {
+        case infoPlistNotFound
+        case versionNotFound
+        case dtoNotFound
+        case dtoDecodingFailed
+        case minimumSupportedVersionNotFound
+        case networkFail
+        
+        var errorDescription: String? {
+            switch self {
+            case .infoPlistNotFound: "Info.plist 확인 불가"
+            case .versionNotFound: "버전 번호 확인 불가"
+            case .dtoNotFound: "DTO 확인 불가. 응답값에서 데이터를 포함하지 않았을 가능성이 높습니다."
+            case .dtoDecodingFailed: "DTO 디코딩 실패. MinimumSupportedVersionResponseDTO의 데이터 형식을 확인하세요."
+            case .minimumSupportedVersionNotFound: "최소 지원 버전 확인 불가"
+            case .networkFail: "네트워크 통신 문제로 인해 최소 지원 버전 확인 불가"
+            }
+        }
+    }
+    
+    // 현재 설치된 앱의 버전 확인
+    func checkCurrentAppVersion() throws -> String {
+        guard let infoPlist = Bundle.main.infoDictionary else {
+            throw AppVersionCheckError.infoPlistNotFound
+        }
+        guard let version = infoPlist["CFBundleShortVersionString"] as? String else {
+            throw AppVersionCheckError.versionNotFound
+        }
+        return version
+    }
+    
+    // 서버에서 최소 지원 버전 확인
+    func checkMinimumSupportedVersion() async throws -> String {
+        let networkService = NetworkService.shared.minimumSupportedVersionService
+        let networkResult = await networkService.getMinimumSupportedVersion()
+        switch networkResult {
+        case .success(let dto):
+            guard let dto else { throw AppVersionCheckError.dtoNotFound }
+            return dto.ios
+        case .networkFail:
+            ORBToastManager.shared.showToast(message: ErrorMessages.networkError, inset: 0)
+            throw AppVersionCheckError.networkFail
+        case .decodeErr:
+            ORBToastManager.shared.showToast(message: "알 수 없는 문제가 발생했어요. 잠시 후 다시 시도해 주세요.", inset: 0)
+            throw AppVersionCheckError.dtoDecodingFailed
+        default:
+            ORBToastManager.shared.showToast(message: "알 수 없는 문제가 발생했어요. 잠시 후 다시 시도해 주세요.", inset: 0)
+            throw AppVersionCheckError.minimumSupportedVersionNotFound
+        }
+    }
+    
+    @MainActor
+    func requestUserToUpdateApp() {
+        let alertController = ORBAlertController(message: "원활한 기능 사용을 위해 최신 버전으로 앱을 업데이트해 주세요.", type: .messageOnly)
+        alertController.xButton.isHidden = true
+        let action = ORBAlertAction(title: "앱스토어로 이동", style: .default) { [weak self] _ in
+            self?.redirectToAppStore()
+        }
+        alertController.addAction(action)
+        present(alertController, animated: true)
+    }
+    
+    func redirectToAppStore() {
+        let urlString = "itms-apps://itunes.apple.com/app/id6541756824"
+        if let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        } else {
+            // 앱 설치가 불가능한 경우 사용자에게 안내.
+            // 설정 앱>스크린 타임>콘텐츠 및 개인 정보 보호 제한>iTunes 및 App Store 구입 -> '허용 안 함' 인 경우
+            alertIfAppStoreRedirectionFailed()
+        }
+    }
+    
+    func alertIfAppStoreRedirectionFailed() {
+        let alertController = ORBAlertController(message: "앱스토어를 열 수 없습니다. 다시 시도해 주세요.", type: .normal)
+        alertController.xButton.isHidden = true
+        let action = ORBAlertAction(title: "확인", style: .default) { _ in return }
+        alertController.addAction(action)
+        present(alertController, animated: true)
+    }
+    
+}
+#endif
