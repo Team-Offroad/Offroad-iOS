@@ -176,13 +176,13 @@ extension CourseQuestCollectionViewCell {
         }
         
         ddayBubbleView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
+            make.leading.equalToSuperview().offset(-2)
             make.width.equalTo(76)
             make.height.equalTo(44.4)
         }
         
         ddayLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10.7)
+            make.top.equalToSuperview().inset(8)
             make.centerX.equalToSuperview()
         }
         
