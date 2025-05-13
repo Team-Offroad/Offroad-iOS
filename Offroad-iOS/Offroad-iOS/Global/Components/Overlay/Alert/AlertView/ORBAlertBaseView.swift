@@ -36,7 +36,6 @@ class ORBAlertBaseView: UIView {
     
     private(set) var buttons: [ORBAlertButton] = [] {
         didSet {
-            print("현재 버튼의 수: \(buttons.count)")
             guard let addedButton = buttons.last else { return }
             buttonStackView.addArrangedSubview(addedButton)
         }

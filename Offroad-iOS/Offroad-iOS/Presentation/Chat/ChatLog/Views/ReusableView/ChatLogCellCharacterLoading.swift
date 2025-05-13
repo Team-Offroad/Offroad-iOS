@@ -12,14 +12,16 @@ import SnapKit
 
 final class ChatLogCellCharacterLoading: UICollectionViewCell {
     
+    /// 레이아웃 계산용 더미 셀. static func인 `calculatedCellSize` 에서 사용
+    static let dummyCell = ChatLogCellCharacterLoading()
+    
     // MARK: - Static Func
     
     static func calculatedCellSize(item: CharacterChatItem, characterName: String, fixedWidth: CGFloat) -> CGSize {
-        let cell = ChatLogCellCharacterLoading()
-        cell.configure(with: item, characterName: characterName)
+        dummyCell.configure(with: item, characterName: characterName)
         
         let targetSize = CGSize(width: fixedWidth, height: .greatestFiniteMagnitude)
-        return cell.contentView.systemLayoutSizeFitting(
+        return dummyCell.contentView.systemLayoutSizeFitting(
             targetSize,
             withHorizontalFittingPriority: .required,
             verticalFittingPriority: .fittingSizeLevel
@@ -28,7 +30,12 @@ final class ChatLogCellCharacterLoading: UICollectionViewCell {
     
     // MARK: - UI Properties
     
+#if DevTarget
+    final class ChatBubble: UIView, ORBRecommendationGradientStyle { }
+    private let chatBubble = ChatBubble()
+#else
     private let chatBubble = UIView()
+#endif
     private let characternameLabel = UILabel()
     private let loadingAnimationView = LottieAnimationView(name: "loading2")
     private let timeLabel = UILabel()
@@ -138,5 +145,13 @@ extension ChatLogCellCharacterLoading {
         characternameLabel.text = "\(characterName) :"
         timeLabel.text = item.formattedTimeString
     }
+    
+#if DevTarget
+    func setRecommendationMode() {
+        chatBubble.applyGradientStyle(isBackgroundBlurred: false)
+        contentView.transform = .identity
+        timeLabel.textColor = .main(.main2)
+    }
+#endif
     
 }

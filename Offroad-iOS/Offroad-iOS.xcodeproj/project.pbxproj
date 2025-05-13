@@ -12,7 +12,6 @@
 		4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E03942C2C2A9DCE007F0517 /* AppDelegate.swift */; };
 		4E03942F2C2A9DCE007F0517 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E03942E2C2A9DCE007F0517 /* SceneDelegate.swift */; };
 		4E0394312C2A9DCE007F0517 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394302C2A9DCE007F0517 /* ViewController.swift */; };
-		4E0394362C2A9DCF007F0517 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E0394352C2A9DCF007F0517 /* Assets.xcassets */; };
 		4E0394392C2A9DCF007F0517 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E0394372C2A9DCF007F0517 /* LaunchScreen.storyboard */; };
 		4E0394442C2A9DCF007F0517 /* Offroad_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394432C2A9DCF007F0517 /* Offroad_iOSTests.swift */; };
 		4E03944E2C2A9DCF007F0517 /* Offroad_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E03944D2C2A9DCF007F0517 /* Offroad_iOSUITests.swift */; };
@@ -36,6 +35,9 @@
 		4E08B9622C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E08B9612C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift */; };
 		4E09BF562C48A5AF009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */; };
 		4E09BF572C48A5B7009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */; };
+		4E0A404E2DC7A4F400A0680C /* ORBRecommendationChatViewPresentingTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A404D2DC7A4F400A0680C /* ORBRecommendationChatViewPresentingTransition.swift */; };
+		4E0A40502DC7A51100A0680C /* ORBRecommendationChatViewDismissingTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A404F2DC7A51100A0680C /* ORBRecommendationChatViewDismissingTransition.swift */; };
+		4E0A40522DC7A70000A0680C /* ORBRecommendationChatPresentationFloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A40512DC7A70000A0680C /* ORBRecommendationChatPresentationFloatingView.swift */; };
 		4E0C69692C4724A100B6453E /* ORBNMFMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69682C4724A100B6453E /* ORBNMFMarker.swift */; };
 		4E1CFDEF2D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */; };
 		4E1CFDF02D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */; };
@@ -44,9 +46,15 @@
 		4E1E94192C3AC27C00A7B08A /* AdventureMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */; };
 		4E1ED3832D188FA80058C8D9 /* EmptyStateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ED3822D188FA80058C8D9 /* EmptyStateCollectionView.swift */; };
 		4E23776E2CC81B2000716AFF /* NetworkMonitoringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */; };
+		4E246B352DB4F72300198433 /* ORBRecommendationMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E246B342DB4F72300198433 /* ORBRecommendationMainViewController.swift */; };
+		4E246B4E2DB5240C00198433 /* PlaceListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E246B4D2DB5240C00198433 /* PlaceListCell.swift */; };
+		4E246B4F2DB5240C00198433 /* PlaceListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E246B4D2DB5240C00198433 /* PlaceListCell.swift */; };
 		4E2A9C582DA5525900D8E6D1 /* ORBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */; };
 		4E2A9C592DA5525900D8E6D1 /* ORBMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */; };
+		4E2DE9D52DB49CD500DCE641 /* ORBRecommendationMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DE9D42DB49CD500DCE641 /* ORBRecommendationMainView.swift */; };
+		4E2DE9D82DB49E6000DCE641 /* ORBRecommendedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */; };
 		4E3120F82D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3120F72D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift */; };
+		4E36622A2DBD1580001E70F5 /* ORBRecommendationOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3662282DBD1580001E70F5 /* ORBRecommendationOrderView.swift */; };
 		4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6CE2C456FBF007358DA /* UITabBar+.swift */; };
 		4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */; };
 		4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */; };
@@ -72,6 +80,7 @@
 		4E46E5FB2CBA3F55000A1EEE /* UIWindowScene+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */; };
 		4E46E5FD2CBA483D000A1EEE /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */; };
 		4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4A8FD62C4A5752001FB498 /* UIImage+.swift */; };
+		4E4D00FA2DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D00F92DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift */; };
 		4E4E2C022CCE2841000A634D /* PlaceInfoTooltip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */; };
 		4E4E2C0C2CCF6518000A634D /* AdventureMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4E2C0B2CCF6518000A634D /* AdventureMapViewModel.swift */; };
 		4E4F31452D4716F500C3B2FF /* SecretConfig_Dev.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4E4F31442D4716F500C3B2FF /* SecretConfig_Dev.xcconfig */; };
@@ -365,6 +374,11 @@
 		4E6A5BC32C2E8C290027FDF0 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 4E6A5BC22C2E8C290027FDF0 /* Then */; };
 		4E700C852CB3CA1E00C664C2 /* ORBOverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */; };
 		4E7A609F2D1C698F0079007C /* AdventureMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7A609E2D1C698F0079007C /* AdventureMapViewController.swift */; };
+		4E8785282DC79B2B00B639EA /* ORBRecommendationChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8785272DC79B2B00B639EA /* ORBRecommendationChatViewController.swift */; };
+		4E87852A2DC79B6D00B639EA /* ORBRecommendationChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8785292DC79B6D00B639EA /* ORBRecommendationChatView.swift */; };
+		4E87852C2DC79B8800B639EA /* ORBRecommendationChatBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87852B2DC79B8800B639EA /* ORBRecommendationChatBackgroundView.swift */; };
+		4E87852E2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87852D2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift */; };
+		4E8785312DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8785302DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
 		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
 		4E9759D22D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
@@ -443,6 +457,7 @@
 		4EEB47DD2DAEA34B0025AAA2 /* ORBRecommendationGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB47DC2DAEA34B0025AAA2 /* ORBRecommendationGradientLayer.swift */; };
 		4EEB47E02DAEA3950025AAA2 /* ORBRecommendationBaseBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB47DF2DAEA3950025AAA2 /* ORBRecommendationBaseBackground.swift */; };
 		4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
+		4EEF6E902DC3691A008C1E96 /* ORBRecommendationOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF6E8F2DC3691A008C1E96 /* ORBRecommendationOrderViewController.swift */; };
 		4EF6B0332CC3E22800066640 /* ORBAlertViewBaseUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6B0322CC3E22800066640 /* ORBAlertViewBaseUI.swift */; };
 		4EF6B0382CC3E7A900066640 /* ORBAlertViewNormal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6B0372CC3E7A900066640 /* ORBAlertViewNormal.swift */; };
 		4EF6B03B2CC3E89F00066640 /* ORBAlertViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF6B03A2CC3E89F00066640 /* ORBAlertViewType.swift */; };
@@ -454,6 +469,9 @@
 		4EF833EC2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */; };
 		4EF833EE2CC4268200D94314 /* ORBPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833ED2CC4268200D94314 /* ORBPopup.swift */; };
 		4EF833F02CC486EE00D94314 /* EmblemPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF833EF2CC486EE00D94314 /* EmblemPopupViewController.swift */; };
+		4EF90E562DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */; };
+		4EF90E582DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF90E572DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift */; };
+		4EF90E5A2DBA383700A63DB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E0394352C2A9DCF007F0517 /* Assets.xcassets */; };
 		4EFA808B2C3E79E800876D05 /* ORBMapListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFA808A2C3E79E800876D05 /* ORBMapListButton.swift */; };
 		4EFC7D252D066D110068367E /* ScrollLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC7D242D066D110068367E /* ScrollLoading.swift */; };
 		4EFC7D3F2D06CB130068367E /* ScrollLoadingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFC7D3E2D06CB130068367E /* ScrollLoadingCollectionView.swift */; };
@@ -691,6 +709,9 @@
 		4E08B9612C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationRequestDTO.swift; sourceTree = "<group>"; };
 		4E09BF542C48A406009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventuresPlaceAuthenticationResponsetDTO.swift; sourceTree = "<group>"; };
+		4E0A404D2DC7A4F400A0680C /* ORBRecommendationChatViewPresentingTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatViewPresentingTransition.swift; sourceTree = "<group>"; };
+		4E0A404F2DC7A51100A0680C /* ORBRecommendationChatViewDismissingTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatViewDismissingTransition.swift; sourceTree = "<group>"; };
+		4E0A40512DC7A70000A0680C /* ORBRecommendationChatPresentationFloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatPresentationFloatingView.swift; sourceTree = "<group>"; };
 		4E0C69682C4724A100B6453E /* ORBNMFMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBNMFMarker.swift; sourceTree = "<group>"; };
 		4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintLogInDevApp.swift; sourceTree = "<group>"; };
 		4E1E94102C39870700A7B08A /* ColorLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiterals.swift; sourceTree = "<group>"; };
@@ -698,8 +719,13 @@
 		4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureMapView.swift; sourceTree = "<group>"; };
 		4E1ED3822D188FA80058C8D9 /* EmptyStateCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateCollectionView.swift; sourceTree = "<group>"; };
 		4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitoringManager.swift; sourceTree = "<group>"; };
+		4E246B342DB4F72300198433 /* ORBRecommendationMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMainViewController.swift; sourceTree = "<group>"; };
+		4E246B4D2DB5240C00198433 /* PlaceListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceListCell.swift; sourceTree = "<group>"; };
 		4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapView.swift; sourceTree = "<group>"; };
+		4E2DE9D42DB49CD500DCE641 /* ORBRecommendationMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMainView.swift; sourceTree = "<group>"; };
+		4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendedContentView.swift; sourceTree = "<group>"; };
 		4E3120F72D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatReadGetResponseDTO.swift; sourceTree = "<group>"; };
+		4E3662282DBD1580001E70F5 /* ORBRecommendationOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationOrderView.swift; sourceTree = "<group>"; };
 		4E37B6CE2C456FBF007358DA /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterView.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/View/CompleteChoosingCharacterView.swift"; sourceTree = SOURCE_ROOT; };
 		4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CompleteChoosingCharacterViewController.swift; path = "Offroad-iOS/Presentation/Character/CompleteChoosingCharacter/ViewController/CompleteChoosingCharacterViewController.swift"; sourceTree = SOURCE_ROOT; };
@@ -722,6 +748,7 @@
 		4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindowScene+.swift"; sourceTree = "<group>"; };
 		4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		4E4A8FD62C4A5752001FB498 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		4E4D00F92DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatExampleQuestion.swift; sourceTree = "<group>"; };
 		4E4E2C012CCE2841000A634D /* PlaceInfoTooltip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTooltip.swift; sourceTree = "<group>"; };
 		4E4E2C0B2CCF6518000A634D /* AdventureMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureMapViewModel.swift; sourceTree = "<group>"; };
 		4E4F31442D4716F500C3B2FF /* SecretConfig_Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretConfig_Dev.xcconfig; sourceTree = "<group>"; };
@@ -742,6 +769,11 @@
 		4E66593C2CECA0CE0024ABEE /* StringLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLiterals.swift; sourceTree = "<group>"; };
 		4E700C842CB3CA1E00C664C2 /* ORBOverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBOverlayViewController.swift; sourceTree = "<group>"; };
 		4E7A609E2D1C698F0079007C /* AdventureMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureMapViewController.swift; sourceTree = "<group>"; };
+		4E8785272DC79B2B00B639EA /* ORBRecommendationChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatViewController.swift; sourceTree = "<group>"; };
+		4E8785292DC79B6D00B639EA /* ORBRecommendationChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatView.swift; sourceTree = "<group>"; };
+		4E87852B2DC79B8800B639EA /* ORBRecommendationChatBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatBackgroundView.swift; sourceTree = "<group>"; };
+		4E87852D2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatDataSource.swift; sourceTree = "<group>"; };
+		4E8785302DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationViewPresentationController.swift; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info_Dev.plist"; sourceTree = "<group>"; };
 		4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBEmptyCaseStyle.swift; sourceTree = "<group>"; };
@@ -808,6 +840,7 @@
 		4EEB47DC2DAEA34B0025AAA2 /* ORBRecommendationGradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationGradientLayer.swift; sourceTree = "<group>"; };
 		4EEB47DF2DAEA3950025AAA2 /* ORBRecommendationBaseBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationBaseBackground.swift; sourceTree = "<group>"; };
 		4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffroadTabBarViewController.swift; sourceTree = "<group>"; };
+		4EEF6E8F2DC3691A008C1E96 /* ORBRecommendationOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationOrderViewController.swift; sourceTree = "<group>"; };
 		4EF6B0322CC3E22800066640 /* ORBAlertViewBaseUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewBaseUI.swift; sourceTree = "<group>"; };
 		4EF6B0372CC3E7A900066640 /* ORBAlertViewNormal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewNormal.swift; sourceTree = "<group>"; };
 		4EF6B03A2CC3E89F00066640 /* ORBAlertViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewType.swift; sourceTree = "<group>"; };
@@ -819,6 +852,8 @@
 		4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBAlertViewAcquiredEmblem.swift; sourceTree = "<group>"; };
 		4EF833ED2CC4268200D94314 /* ORBPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBPopup.swift; sourceTree = "<group>"; };
 		4EF833EF2CC486EE00D94314 /* EmblemPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmblemPopupViewController.swift; sourceTree = "<group>"; };
+		4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMainViewToolBar.swift; sourceTree = "<group>"; };
+		4EF90E572DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationMessageButton.swift; sourceTree = "<group>"; };
 		4EFA808A2C3E79E800876D05 /* ORBMapListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBMapListButton.swift; sourceTree = "<group>"; };
 		4EFC7D242D066D110068367E /* ScrollLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoading.swift; sourceTree = "<group>"; };
 		4EFC7D3E2D06CB130068367E /* ScrollLoadingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoadingCollectionView.swift; sourceTree = "<group>"; };
@@ -1313,6 +1348,7 @@
 				4E0394762C2AA721007F0517 /* PlaceList */,
 				4E0394772C2AA72C007F0517 /* MyPage */,
 				4EEA82F92CE390540062F0DE /* Chat */,
+				4E2DE9D12DB49C7000DCE641 /* ORBRecommendation */,
 				4E0394302C2A9DCE007F0517 /* ViewController.swift */,
 			);
 			path = Presentation;
@@ -1563,6 +1599,7 @@
 				4E08B9582C5DF0B20082EFB8 /* PlaceListView.swift */,
 				4E08B9612C5E78EB0082EFB8 /* PlaceCollectionViewCell.swift */,
 				4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */,
+				4E246B4D2DB5240C00198433 /* PlaceListCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1598,6 +1635,25 @@
 				4E2A9C572DA5525900D8E6D1 /* ORBMapView.swift */,
 			);
 			path = ORBMap;
+			sourceTree = "<group>";
+		};
+		4E2DE9D12DB49C7000DCE641 /* ORBRecommendation */ = {
+			isa = PBXGroup;
+			children = (
+				4EEF6E8E2DC36842008C1E96 /* order */,
+				4E87847F2DC4FD0300B639EA /* chat */,
+				4E2DE9D22DB49CC000DCE641 /* main */,
+			);
+			path = ORBRecommendation;
+			sourceTree = "<group>";
+		};
+		4E2DE9D22DB49CC000DCE641 /* main */ = {
+			isa = PBXGroup;
+			children = (
+				4EF90E612DBA391E00A63DB0 /* Views */,
+				4EF90E602DBA390C00A63DB0 /* ViewController */,
+			);
+			path = main;
 			sourceTree = "<group>";
 		};
 		4E38B7D82C6471EC0011D997 /* SegmentedControl */ = {
@@ -1837,6 +1893,54 @@
 				4ECCC95D2CC80088002B9C4F /* ORBToastView.swift */,
 			);
 			path = Toast;
+			sourceTree = "<group>";
+		};
+		4E87847F2DC4FD0300B639EA /* chat */ = {
+			isa = PBXGroup;
+			children = (
+				4E8785252DC79AFC00B639EA /* ViewControllers */,
+				4E8785242DC79AF400B639EA /* Views */,
+				4E8785262DC79B0500B639EA /* DiffableDataSource */,
+				4E87852F2DC7A44F00B639EA /* Custom Transition */,
+			);
+			path = chat;
+			sourceTree = "<group>";
+		};
+		4E8785242DC79AF400B639EA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4E8785292DC79B6D00B639EA /* ORBRecommendationChatView.swift */,
+				4E87852B2DC79B8800B639EA /* ORBRecommendationChatBackgroundView.swift */,
+				4E4D00F92DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4E8785252DC79AFC00B639EA /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4E8785272DC79B2B00B639EA /* ORBRecommendationChatViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4E8785262DC79B0500B639EA /* DiffableDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				4E87852D2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift */,
+			);
+			path = DiffableDataSource;
+			sourceTree = "<group>";
+		};
+		4E87852F2DC7A44F00B639EA /* Custom Transition */ = {
+			isa = PBXGroup;
+			children = (
+				4E8785302DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift */,
+				4E0A404D2DC7A4F400A0680C /* ORBRecommendationChatViewPresentingTransition.swift */,
+				4E0A404F2DC7A51100A0680C /* ORBRecommendationChatViewDismissingTransition.swift */,
+				4E0A40512DC7A70000A0680C /* ORBRecommendationChatPresentationFloatingView.swift */,
+			);
+			path = "Custom Transition";
 			sourceTree = "<group>";
 		};
 		4E9759EB2DA012EC00F30692 /* DeveloperMode */ = {
@@ -2091,6 +2195,15 @@
 			path = ORBRecommendationGradient;
 			sourceTree = "<group>";
 		};
+		4EEF6E8E2DC36842008C1E96 /* order */ = {
+			isa = PBXGroup;
+			children = (
+				4E3662282DBD1580001E70F5 /* ORBRecommendationOrderView.swift */,
+				4EEF6E8F2DC3691A008C1E96 /* ORBRecommendationOrderViewController.swift */,
+			);
+			path = order;
+			sourceTree = "<group>";
+		};
 		4EF6B0312CC3E21200066640 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -2115,6 +2228,25 @@
 				4EF833EB2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift */,
 			);
 			path = AlertView;
+			sourceTree = "<group>";
+		};
+		4EF90E602DBA390C00A63DB0 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E246B342DB4F72300198433 /* ORBRecommendationMainViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4EF90E612DBA391E00A63DB0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4E2DE9D42DB49CD500DCE641 /* ORBRecommendationMainView.swift */,
+				4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */,
+				4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */,
+				4EF90E572DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		4EFA80892C3E79B800876D05 /* UIComponents */ = {
@@ -3428,7 +3560,7 @@
 				4EDC3D412C31271F006A1493 /* Pretendard-Bold.otf in Resources */,
 				4EDC3D482C31271F006A1493 /* Pretendard-SemiBold.otf in Resources */,
 				4EDC3D452C31271F006A1493 /* Pretendard-Black.otf in Resources */,
-				4E0394362C2A9DCF007F0517 /* Assets.xcassets in Resources */,
+				4EF90E5A2DBA383700A63DB0 /* Assets.xcassets in Resources */,
 				4EDC3D492C31271F006A1493 /* Pretendard-ExtraLight.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3743,6 +3875,7 @@
 				D0E796012C45222D005B47A5 /* BaseTargetType.swift in Sources */,
 				D0E7964A2C4539CE005B47A5 /* RegisteredPlaceRequestDTO.swift in Sources */,
 				D09A19702D7058D500B07FC2 /* TimePeriod.swift in Sources */,
+				4E246B4F2DB5240C00198433 /* PlaceListCell.swift in Sources */,
 				D0E796222C45334D005B47A5 /* ProfileAPI.swift in Sources */,
 				D0E796592C455100005B47A5 /* EmblemAPI.swift in Sources */,
 				D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */,
@@ -3926,6 +4059,8 @@
 				4E4F316C2D4718F400C3B2FF /* ORBAlertButton.swift in Sources */,
 				4E4F316D2D4718F400C3B2FF /* QuestQRViewController.swift in Sources */,
 				4E4F316E2D4718F400C3B2FF /* SVGKImage+.swift in Sources */,
+				4EEF6E902DC3691A008C1E96 /* ORBRecommendationOrderViewController.swift in Sources */,
+				4E0A40522DC7A70000A0680C /* ORBRecommendationChatPresentationFloatingView.swift in Sources */,
 				4E4F316F2D4718F400C3B2FF /* CustomAlmostDoneProgressView.swift in Sources */,
 				4E4F31702D4718F400C3B2FF /* AdventuresQRAuthenticationRequestDTO.swift in Sources */,
 				4E4F31712D4718F400C3B2FF /* CouponDetailViewController.swift in Sources */,
@@ -3959,6 +4094,7 @@
 				4E4F31832D4718F400C3B2FF /* CouponListResponseDTO.swift in Sources */,
 				4E4F31842D4718F400C3B2FF /* NicknameView.swift in Sources */,
 				4E4F31852D4718F400C3B2FF /* ORBAlertViewBaseUI.swift in Sources */,
+				4E87852A2DC79B6D00B639EA /* ORBRecommendationChatView.swift in Sources */,
 				4EDB392F2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */,
 				4E4F31862D4718F400C3B2FF /* PushNotificationService.swift in Sources */,
 				4E4F31872D4718F400C3B2FF /* UIButton+.swift in Sources */,
@@ -3997,6 +4133,7 @@
 				4E4F319E2D4718F400C3B2FF /* CollectedTitlesViewController.swift in Sources */,
 				4E4F319F2D4718F400C3B2FF /* CouponCollectionViewController.swift in Sources */,
 				4E4F31A02D4718F400C3B2FF /* QuestQRView.swift in Sources */,
+				4E8785312DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift in Sources */,
 				4E4F31A12D4718F400C3B2FF /* CompleteChoosingCharacterViewController.swift in Sources */,
 				4E4F31A22D4718F400C3B2FF /* MyPageViewController.swift in Sources */,
 				4E4F31A32D4718F400C3B2FF /* QuestListService.swift in Sources */,
@@ -4006,6 +4143,7 @@
 				4EA272332D5793BA00F64B20 /* ChatTextInputView.swift in Sources */,
 				4E4F31A52D4718F400C3B2FF /* AdventureAPI.swift in Sources */,
 				4E4F31A62D4718F400C3B2FF /* ZeroDurationAnimator.swift in Sources */,
+				4E2DE9D82DB49E6000DCE641 /* ORBRecommendedContentView.swift in Sources */,
 				D07D3A8B2D8DACD80030995E /* DiarySettingService.swift in Sources */,
 				4E4F31A72D4718F400C3B2FF /* SocialLoginRequestDTO.swift in Sources */,
 				4E4F31A82D4718F400C3B2FF /* ORBNavigationController.swift in Sources */,
@@ -4030,10 +4168,12 @@
 				4E4F31B62D4718F400C3B2FF /* FontLiterals.swift in Sources */,
 				D07D3AE32D9104AE0030995E /* DiaryColorsResponseDTO.swift in Sources */,
 				4E4F31B82D4718F400C3B2FF /* TitleModel.swift in Sources */,
+				4E36622A2DBD1580001E70F5 /* ORBRecommendationOrderView.swift in Sources */,
 				4E4F31B92D4718F400C3B2FF /* NoticeViewController.swift in Sources */,
 				4E4F31BA2D4718F400C3B2FF /* UIColor+.swift in Sources */,
 				4E4F31BB2D4718F400C3B2FF /* AppleAuthManager.swift in Sources */,
 				4E4F31BC2D4718F400C3B2FF /* UILabel+.swift in Sources */,
+				4E246B352DB4F72300198433 /* ORBRecommendationMainViewController.swift in Sources */,
 				D0CA20822D7FE06B00FDF7F4 /* MonthPickerModalView.swift in Sources */,
 				4E4F31BD2D4718F400C3B2FF /* NavigationPopButton.swift in Sources */,
 				4E4F31BE2D4718F400C3B2FF /* EmblemInfoResponseDTO.swift in Sources */,
@@ -4096,12 +4236,15 @@
 				4E4F31EC2D4718F400C3B2FF /* NicknameAPI.swift in Sources */,
 				4E4F31ED2D4718F400C3B2FF /* UIWindow+.swift in Sources */,
 				4E4F31EE2D4718F400C3B2FF /* CharacterListView.swift in Sources */,
+				4E0A40502DC7A51100A0680C /* ORBRecommendationChatViewDismissingTransition.swift in Sources */,
 				4E4F31EF2D4718F400C3B2FF /* ScrollLoadingView.swift in Sources */,
 				4E4F31F02D4718F400C3B2FF /* UITextField+.swift in Sources */,
 				4E4F31F12D4718F400C3B2FF /* DeleteAccountResponseDTO.swift in Sources */,
 				4E4F31F22D4718F400C3B2FF /* CharacterChatLogFooter.swift in Sources */,
 				4E4F31F32D4718F400C3B2FF /* ORBAlertViewTextField.swift in Sources */,
+				4E8785282DC79B2B00B639EA /* ORBRecommendationChatViewController.swift in Sources */,
 				4E4F31F42D4718F400C3B2FF /* HomeView.swift in Sources */,
+				4E4D00FA2DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift in Sources */,
 				D051FDF32D8742A800CA2485 /* MemoryLightCollectionViewCell.swift in Sources */,
 				4E4F31F52D4718F400C3B2FF /* ORBToastWindow.swift in Sources */,
 				4E4F31F62D4718F400C3B2FF /* CharacterChatLogView.swift in Sources */,
@@ -4114,6 +4257,7 @@
 				4E4F31FD2D4718F400C3B2FF /* ORBAlertViewTextFieldWithSubMessage.swift in Sources */,
 				4E4F31FE2D4718F400C3B2FF /* LoadingView.swift in Sources */,
 				D0930BB82D6A4C64002A9DCA /* ORBAlertViewMessageOnly.swift in Sources */,
+				4E87852E2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift in Sources */,
 				4E4F31FF2D4718F400C3B2FF /* KeychainManager.swift in Sources */,
 				4E4F32002D4718F400C3B2FF /* NoticeService.swift in Sources */,
 				4E4F32012D4718F400C3B2FF /* ORBPopup.swift in Sources */,
@@ -4141,6 +4285,7 @@
 				4E4F32132D4718F400C3B2FF /* ChangeEmblemResponseDTO.swift in Sources */,
 				4E4F32142D4718F400C3B2FF /* ORBNMFMarker.swift in Sources */,
 				4E4F32152D4718F400C3B2FF /* CustomRecentProgressView.swift in Sources */,
+				4E246B4E2DB5240C00198433 /* PlaceListCell.swift in Sources */,
 				4EA5F4F32D4C975C00A59AB1 /* LogPrinterViewController.swift in Sources */,
 				4E4F32162D4718F400C3B2FF /* DeleteAccountViewController.swift in Sources */,
 				4E4F32172D4718F400C3B2FF /* TermsConsentPopupViewController.swift in Sources */,
@@ -4173,11 +4318,14 @@
 				4E4F32322D4718F400C3B2FF /* ShrinkableButton.swift in Sources */,
 				4E4F32332D4718F400C3B2FF /* NoticePostView.swift in Sources */,
 				4E4F32342D4718F400C3B2FF /* CharacterListViewController.swift in Sources */,
+				4EF90E582DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift in Sources */,
 				4E4F32352D4718F400C3B2FF /* TermsModel.swift in Sources */,
 				4E4F32362D4718F400C3B2FF /* AVCameraPreview.swift in Sources */,
+				4E87852C2DC79B8800B639EA /* ORBRecommendationChatBackgroundView.swift in Sources */,
 				4E4F32372D4718F400C3B2FF /* CouponAPI.swift in Sources */,
 				4E4F32382D4718F400C3B2FF /* EmptyStateCollectionView.swift in Sources */,
 				4E4F32392D4718F400C3B2FF /* PushNotificationAPI.swift in Sources */,
+				4EF90E562DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift in Sources */,
 				4E4F323A2D4718F400C3B2FF /* LoginView.swift in Sources */,
 				4E4F323B2D4718F400C3B2FF /* BirthView.swift in Sources */,
 				4E4F323C2D4718F400C3B2FF /* TermsConsentPopupView.swift in Sources */,
@@ -4187,6 +4335,7 @@
 				4E4F32402D4718F400C3B2FF /* EmblemListResponseDTO.swift in Sources */,
 				4E4F32412D4718F400C3B2FF /* TokenIntercepter.swift in Sources */,
 				4E4F32422D4718F400C3B2FF /* SceneDelegate.swift in Sources */,
+				4E0A404E2DC7A4F400A0680C /* ORBRecommendationChatViewPresentingTransition.swift in Sources */,
 				4E9759D32D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */,
 				4E4F32432D4718F400C3B2FF /* CharacterChatAPI.swift in Sources */,
 				4E4F32442D4718F400C3B2FF /* ScrollLoading.swift in Sources */,
@@ -4195,6 +4344,7 @@
 				4E4F32472D4718F400C3B2FF /* AuthService.swift in Sources */,
 				4E59AFB52DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift in Sources */,
 				4E9759E52D9F9A7E00F30692 /* QuestListEmptyPlaceholder.swift in Sources */,
+				4E2DE9D52DB49CD500DCE641 /* ORBRecommendationMainView.swift in Sources */,
 				4E4F32482D4718F400C3B2FF /* DeleteAccountRequestDTO.swift in Sources */,
 				4E4F32492D4718F400C3B2FF /* PlaceListCollectionViewController.swift in Sources */,
 				4E4F324A2D4718F400C3B2FF /* QuestResultViewController.swift in Sources */,
@@ -4381,7 +4531,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 25033001;
+				CURRENT_PROJECT_VERSION = 25051101;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 548W892M42;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -4402,7 +4552,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.3;
 				OTHER_SWIFT_FLAGS = "-DReleaseTarget";
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4429,7 +4579,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 25033001;
+				CURRENT_PROJECT_VERSION = 25051101;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 548W892M42;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -4450,7 +4600,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.3;
 				OTHER_SWIFT_FLAGS = "-DReleaseTarget";
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4818,7 +4968,7 @@
 			repositoryURL = "https://github.com/nolanMinsung/ExpandableCell.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.1;
+				minimumVersion = 2.0.1;
 			};
 		};
 		4E4F314C2D4718F400C3B2FF /* XCRemoteSwiftPackageReference "SnapKit" */ = {
