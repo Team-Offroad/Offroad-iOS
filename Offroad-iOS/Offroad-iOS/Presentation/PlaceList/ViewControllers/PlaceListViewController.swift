@@ -153,11 +153,6 @@ extension PlaceListViewController: ORBSegmentedControlDelegate {
             guard let self else { return }
             self.rootView.scrollView.contentOffset.x = self.rootView.scrollView.bounds.width * CGFloat(selectedIndex)
         }
-        if selectedIndex == 0 {
-            navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        } else {
-            navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        }
     }
     
 }

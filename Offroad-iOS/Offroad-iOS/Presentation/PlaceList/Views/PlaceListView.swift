@@ -89,6 +89,8 @@ extension PlaceListView {
         scrollView.do { scrollView in
             scrollView.isPagingEnabled = true
             scrollView.delaysContentTouches = false
+            scrollView.showsHorizontalScrollIndicator = false
+            scrollView.showsVerticalScrollIndicator = false
         }
     }
     
