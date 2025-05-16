@@ -16,27 +16,30 @@ class PlaceListViewController: UIViewController {
     
     //MARK: - Properties
     
-    private let rootView = PlaceListView()
-    private let operationQueue = OperationQueue()
-    private let locationManager = CLLocationManager()
+    /// 안 가본 곳 목록을 나타내는 목록을 나타내는 뷰 컨트롤러
+    private lazy var unvisitedPlaceViewController = PlaceListCollectionViewController(
+        place: currentCoordinate,
+        showVisitCount: false
+    )
+    /// 전체 장소 목록을 나타내는 뷰 컨트롤러
+    private lazy var allPlacesViewController = PlaceListCollectionViewController(
+        place: currentCoordinate,
+        showVisitCount: true
+    )
     
+    private lazy var rootView = PlaceListView(
+        viewAllPlaces: allPlacesViewController.view,
+        viewUnvisitedPlaces: unvisitedPlaceViewController.view
+    )
+    
+    private let locationManager = CLLocationManager()
     private var disposeBag = DisposeBag()
     private var distanceCursor: Double?
-    private var pageViewController: UIPageViewController { rootView.pageViewController }
     
     // 사용자 위치 불러올 수 없을 시 초기 위치 설정
     // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
     private lazy var currentCoordinate = locationManager.location?.coordinate ?? .init(latitude: 37.5716229,
                                                                                        longitude: 126.9767879)
-    private lazy var unvisitedPlaceViewController = PlaceListCollectionViewController(
-        place: currentCoordinate,
-        showVisitCount: false
-    )
-    private lazy var allPlacesViewController = PlaceListCollectionViewController(
-        place: currentCoordinate,
-        showVisitCount: true
-    )
-    private lazy var viewControllerList: [UIViewController] = [unvisitedPlaceViewController, allPlacesViewController]
     
     //MARK: - Life Cycle
     
@@ -50,8 +53,6 @@ class PlaceListViewController: UIViewController {
         setupButtonsActions()
         handleRxEvents()
         setupDelegates()
-        setPageViewControllerPage(to: 0)
-        
         loadAdditionalPlaces(limit: 12)
         rootView.segmentedControl.selectSegment(index: 0)
     }
@@ -93,15 +94,13 @@ extension PlaceListViewController {
     
     private func setupDelegates() {
         rootView.segmentedControl.delegate = self
-        
-        rootView.pageViewController.dataSource = self
-        rootView.pageViewController.delegate = self
+        rootView.scrollView.delegate = self
     }
     
     private func loadAdditionalPlaces(limit: Int) {
         rootView.segmentedControl.isUserInteractionEnabled = false
         if distanceCursor == nil {
-            rootView.pageViewController.view.startLoading(withoutShading: true)
+            rootView.scrollView.startCenterLoading(withoutShading: true)
         } else {
             unvisitedPlaceViewController.placeListCollectionView.startBottomScrollLoading()
             allPlacesViewController.placeListCollectionView.startBottomScrollLoading()
@@ -116,12 +115,12 @@ extension PlaceListViewController {
             guard let self else { return }
             
             defer {
-                rootView.pageViewController.view.stopLoading()
+                rootView.scrollView.stopCenterLoading()
                 unvisitedPlaceViewController.placeListCollectionView.stopBottomScrollLoading()
                 allPlacesViewController.placeListCollectionView.stopBottomScrollLoading()
                 
                 self.rootView.segmentedControl.isUserInteractionEnabled = true
-                self.rootView.pageViewController.view.isUserInteractionEnabled = true
+                self.rootView.scrollView.isUserInteractionEnabled = true
             }
             
             switch result {
@@ -137,30 +136,6 @@ extension PlaceListViewController {
         }
     }
     
-    private func setPageViewControllerPage(to targetIndex: Int) {
-        rootView.pageViewController.view.isUserInteractionEnabled = false
-        guard let currentViewCotnroller = pageViewController.viewControllers?.first else {
-            // viewDidLoad에서 호출될 때 (처음 한 번)
-            pageViewController.setViewControllers([viewControllerList.first!], direction: .forward, animated: false)
-            return
-        }
-        guard let currentIndex = viewControllerList.firstIndex(of: currentViewCotnroller) else { return }
-        guard targetIndex >= 0 else { return }
-        guard targetIndex < rootView.segmentedControl.titles.count,
-              targetIndex < viewControllerList.count
-        else { return }
-        
-        pageViewController.setViewControllers(
-            [viewControllerList[targetIndex]],
-            direction: targetIndex > currentIndex ? .forward : .reverse,
-            animated: true,
-            completion: ({ [weak self] isCompleted in
-                guard let self else { return }
-                self.rootView.pageViewController.view.isUserInteractionEnabled = true
-            })
-        )
-    }
-    
 }
 
 //MARK: - ORBSegmentedControlDelegate
@@ -168,51 +143,26 @@ extension PlaceListViewController {
 extension PlaceListViewController: ORBSegmentedControlDelegate {
     
     func segmentedControlDidSelect(segmentedControl: ORBSegmentedControl, selectedIndex: Int) {
-        setPageViewControllerPage(to: selectedIndex)
-    }
-    
-}
-
-//MARK: - UIPageViewControllerDataSource
-
-extension PlaceListViewController: UIPageViewControllerDataSource {
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index = viewControllerList.firstIndex(of: viewController) else { return nil }
-        let previousIndex = index - 1
-        if previousIndex < 0 { return nil }
-        return viewControllerList[previousIndex]
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let index = viewControllerList.firstIndex(of: viewController) else { return nil }
-        let nextIndex = index + 1
-        if nextIndex >= viewControllerList.count { return nil }
-        return viewControllerList[nextIndex]
-    }
-    
-}
-
-//MARK: - UIPageViewControllerDelegate
-
-extension PlaceListViewController: UIPageViewControllerDelegate {
-    
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        guard pageViewController.viewControllers?.first != nil else { return }
-        rootView.segmentedControl.isUserInteractionEnabled = false
-    }
-    
-    func pageViewController(
-        _ pageViewController: UIPageViewController,
-        didFinishAnimating finished: Bool,
-        previousViewControllers: [UIViewController],
-        transitionCompleted completed: Bool
-    ) {
-        guard pageViewController.viewControllers?.first != nil else { return }
-        rootView.segmentedControl.isUserInteractionEnabled = true
-        if let index = viewControllerList.firstIndex(of: pageViewController.viewControllers!.first!) {
-            rootView.segmentedControl.selectSegment(index: index)
+        // NOTE: scrollView에서 setContentOffset(...animated: true) 를 사용할 경우 underbar 위치가 튀는 현상 발생
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1) { [weak self] in
+            guard let self else { return }
+            self.rootView.scrollView.contentOffset.x = self.rootView.scrollView.bounds.width * CGFloat(selectedIndex)
         }
+        if selectedIndex == 0 {
+            navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        } else {
+            navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        }
+    }
+    
+}
+
+extension PlaceListViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let process = scrollView.contentOffset.x / scrollView.frame.width
+        let targetIndex: Int = Int(round(process))
+        rootView.segmentedControl.selectSegment(index: targetIndex)
     }
     
 }

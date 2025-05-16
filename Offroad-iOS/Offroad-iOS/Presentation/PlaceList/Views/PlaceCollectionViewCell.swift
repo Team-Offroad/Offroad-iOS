@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PlaceCollectionViewCell: UICollectionViewCell {
+class PlaceCollectionViewCell: ShrinkableCollectionViewCell {
     
     //MARK: - Properties
     
@@ -166,7 +166,7 @@ extension PlaceCollectionViewCell {
         }
         
         placeDesctiprionSeparator.do { view in
-            view.backgroundColor = .primary(.characterSelectBg3)
+            view.backgroundColor = .primary(.characterSelectBg1)
         }
         
         visitCountLabel.do { label in

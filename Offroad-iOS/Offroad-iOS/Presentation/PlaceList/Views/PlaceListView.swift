@@ -20,12 +20,20 @@ class PlaceListView: UIView {
     private let titleIcon = UIImageView(image: .imgQuest)
     let segmentedControl = ORBSegmentedControl(titles: ["안 가본 곳", "전체"])
     private let separator = UIView()
-    let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+    class PlaceListScrollView: UIScrollView, ORBCenterLoadingStyle { }
+    private(set) var scrollView = PlaceListScrollView()
+    private let viewAllPlaces: UIView
+    private let viewUnvisitedPlaces: UIView
     
     //MARK: - Life Cycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(
+        viewAllPlaces: UIView,
+        viewUnvisitedPlaces: UIView
+    ) {
+        self.viewAllPlaces = viewAllPlaces
+        self.viewUnvisitedPlaces = viewUnvisitedPlaces
+        super.init(frame: .zero)
         
         setupStyle()
         setupHierarchy()
@@ -77,6 +85,11 @@ extension PlaceListView {
         separator.do { view in
             view.backgroundColor = .grayscale(.gray100)
         }
+        
+        scrollView.do { scrollView in
+            scrollView.isPagingEnabled = true
+            scrollView.delaysContentTouches = false
+        }
     }
     
     private func setupHierarchy() {
@@ -87,8 +100,10 @@ extension PlaceListView {
             titleIcon,
             segmentedControl,
             separator,
-            pageViewController.view
+            scrollView
         )
+        
+        scrollView.addSubviews(viewAllPlaces, viewUnvisitedPlaces)
     }
     
     private func setupLayout() {
@@ -125,10 +140,23 @@ extension PlaceListView {
             make.height.equalTo(1)
         }
         
-        pageViewController.view.snp.makeConstraints { make in
+        scrollView.snp.makeConstraints { make in
             make.top.equalTo(separator.snp.bottom)
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
+        }
+        
+        viewAllPlaces.snp.makeConstraints { make in
+            make.verticalEdges.equalTo(scrollView.frameLayoutGuide)
+            make.leading.equalTo(scrollView.contentLayoutGuide)
+            make.width.equalTo(UIScreen.currentScreenSize.width)
+        }
+        
+        viewUnvisitedPlaces.snp.makeConstraints { make in
+            make.verticalEdges.equalTo(scrollView.frameLayoutGuide)
+            make.leading.equalTo(viewAllPlaces.snp.trailing)
+            make.trailing.equalTo(scrollView.contentLayoutGuide)
+            make.width.equalTo(UIScreen.currentScreenSize.width)
         }
     }
     

@@ -37,6 +37,7 @@ class PlaceListCollectionViewController: UICollectionViewController {
         super.init(nibName: nil, bundle: nil)
         
         collectionView = PlaceListCollectionView()
+        collectionView.delaysContentTouches = false
     }
     
     required init?(coder: NSCoder) {
