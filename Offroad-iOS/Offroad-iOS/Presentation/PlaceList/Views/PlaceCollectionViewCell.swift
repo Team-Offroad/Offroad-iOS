@@ -272,7 +272,7 @@ extension PlaceCollectionViewCell {
     
     //MARK: - Func
     
-    func configureCell(with place: RegisteredPlaceInfo, showingVisitingCount: Bool) {
+    func configureCell(with place: PlaceModel, showingVisitingCount: Bool) {
         placeSectionLabel.text = place.placeArea
         placeNameLabel.text = place.name
         addressLabel.text = place.address
@@ -287,23 +287,21 @@ extension PlaceCollectionViewCell {
         descriptionLabelTrailingConstraintToSuperView.isActive = !showingVisitingCount
         
         switch place.placeCategory {
-        case "CAFFE":
+        case .cafe:
             placeCategoryLabel.text = "카페"
             placeDescriptionImageView.image = .imgCategoryCafe
-        case "RESTAURANT":
+        case .restaurant:
             placeCategoryLabel.text = "식당"
             placeDescriptionImageView.image = .imgCategoryRestaurant
-        case "PARK":
+        case .park:
             placeCategoryLabel.text = "공원"
             placeDescriptionImageView.image = .imgCategoryPark
-        case "SPORT":
+        case .sport:
             placeCategoryLabel.text = "스포츠"
             placeDescriptionImageView.image = .imgCategorySports
-        case "CULTURE":
+        case .culture:
             placeCategoryLabel.text = "문화"
             placeDescriptionImageView.image = .imgCategoryCulture
-        default:
-            return
         }
         
         contentView.layoutIfNeeded()

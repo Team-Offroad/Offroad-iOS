@@ -25,7 +25,7 @@ class PlaceListCollectionViewController: UICollectionViewController {
     private let lastCellWillShowRelay: PublishRelay<Void> = .init()
     private let cellSelectionOperationQueue = OperationQueue()
     
-    private var source: [RegisteredPlaceInfo] = []
+    private var source: [PlaceModel] = []
     private var referenceCoordinate: CLLocationCoordinate2D
     private var showsVisitCount: Bool
     
@@ -52,7 +52,7 @@ extension PlaceListCollectionViewController {
     /// - Parameter newPlaces: 추가될 장소 목록
     ///
     /// 주의!) 반드시 메인쓰레드에서만 호출할 것
-    func appendNewItems(newPlaces: [RegisteredPlaceInfo]) {
+    func appendNewItems(newPlaces: [PlaceModel]) {
         guard !newPlaces.isEmpty else { return }
         
         let newIndexPaths: [IndexPath] = (0..<newPlaces.count).map { [weak self] in

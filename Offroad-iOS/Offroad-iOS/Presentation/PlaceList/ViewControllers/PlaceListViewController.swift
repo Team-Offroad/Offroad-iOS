@@ -128,8 +128,13 @@ extension PlaceListViewController {
                 guard let responsePlaces = response?.data.places else { return }
                 guard responsePlaces.count != 0 else { return }
                 distanceCursor = responsePlaces.last?.distanceFromUser
-                allPlacesViewController.appendNewItems(newPlaces: responsePlaces)
-                unvisitedPlaceViewController.appendNewItems(newPlaces: responsePlaces.filter({ $0.visitCount == 0 }))
+                do {
+                    let newModels = try responsePlaces.map { try PlaceModel($0) }
+                    allPlacesViewController.appendNewItems(newPlaces: newModels)
+                    unvisitedPlaceViewController.appendNewItems(newPlaces: newModels.filter({ $0.visitCount == 0 }))
+                } catch {
+                    fatalError(error.localizedDescription)
+                }
             default:
                 return
             }
