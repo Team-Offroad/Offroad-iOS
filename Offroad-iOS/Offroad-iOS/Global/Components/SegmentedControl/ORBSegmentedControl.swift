@@ -160,6 +160,20 @@ extension ORBSegmentedControl {
         delegate?.segmentedControlDidSelect?(segmentedControl: self, selectedIndex: index)
     }
     
+    /// 특정 위치로 underbar를 위치시키는 동작. 목표지점까지 애니메이션을 적용하는 것이 아니라 특정 위치로 underbar를 바로 이동시킴. (애니메이션 없음.)
+    /// - Parameter process: underbar가 segmented control 내에서 상대적으로 위치할 값.
+    /// 첫 번째 index에 있을 때가 0에 해당하며, 각 index간의 process 차이는 1에 해당.
+    /// 예를 들어, segment가 3 개 있을 때 두 번째 segment와 세 번째 segment의 중간에 underbar를 위치시키려는 경우, process에 1.5를 넣어야 함.
+    /// 이 값의 범위는 0 이상, 마지막 segment의 index 값 이하이며, 이 범위를 초과하는 경우 범위의 경계값으로 할당됨.
+    ///
+    /// 스크롤 정도에 따라 underbar를 interactive하게 움직이고 싶을 때 유용하게 사용 가능.
+    func setUnderbarPosition(process: CGFloat) {
+        let minValue: CGFloat = 0
+        let maxValue: CGFloat = CGFloat(titles.count - 1) * segmentWidth
+        self.underbarLeadingConstraint.constant = max(minValue, min(maxValue, process * segmentWidth))
+        self.layoutIfNeeded()
+    }
+    
 }
 
 // Buttons title 설정 관련 함수들
