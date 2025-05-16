@@ -56,7 +56,7 @@ final class TokenInterceptor: RequestInterceptor {
                 AppUtility.changeRootViewController(to: loginViewController)
                 
             /// 다른 기기에서 로그인 후 회원을 탈퇴하면 현재 갖고 있는 `refreshToken`에 해당하는 계정이 사라지면서
-            /// `HTTP` 상태 코드로 `401`이 아니라 `404`이 반환됨. 이에 대한 분기처리
+            /// `HTTP` 상태 코드로 `401`이 아니라 `404`가 반환됨. 이에 대한 분기처리
             /// 응답값: `{"message":"해당 ID의 유저가 존재하지 않습니다.","customErrorCode":"NOT_EXISTS_MEMBER"}`
             case .apiArr(let dto):
                 AppUtility.changeRootViewController(to: LoginViewController())
