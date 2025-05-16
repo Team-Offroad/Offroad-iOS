@@ -60,15 +60,7 @@ extension PlaceListCollectionViewController {
             return IndexPath(item: self.source.count + $0, section: 0)
         }
         source.append(contentsOf: newPlaces)
-        /*
-         iOS 17 버전의 시뮬레이터에서 collectionView에 insertItems를 사용하니 Invalid Batch Updates 에러가 발생하여,
-         iOS 17까지의 버전에서는 혹시 모를 에러를 막기 위해 reloadData() 사용.
-         */
-        if #available(iOS 18, *) {
-            collectionView.insertItems(at: newIndexPaths)
-        } else {
-            collectionView.reloadData()
-        }
+        collectionView.insertItems(at: newIndexPaths)
     }
     
 }
