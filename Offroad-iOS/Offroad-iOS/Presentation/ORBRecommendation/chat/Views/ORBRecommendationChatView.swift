@@ -59,6 +59,7 @@ private extension ORBRecommendationChatView {
         collectionView.do { collectionView in
             collectionView.backgroundColor = .clear
             collectionView.contentInset = .init(top: 63.5, left: 0, bottom: 20, right: 0)
+            collectionView.indicatorStyle = .black
         }
         
         chatInputView.roundCorners(cornerRadius: 20, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
