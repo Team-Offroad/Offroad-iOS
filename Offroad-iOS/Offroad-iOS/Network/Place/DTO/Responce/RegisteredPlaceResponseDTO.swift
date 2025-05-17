@@ -64,7 +64,7 @@ struct PlaceModel {
     let id: Int
     let name: String
     let address: String
-    let shorIntroduction: String
+    let shortIntroduction: String
     let placeCategory: Category
     let placeArea: String
     let coordinate: CLLocationCoordinate2D
@@ -75,7 +75,7 @@ struct PlaceModel {
         self.id = dto.id
         self.name = dto.name
         self.address = dto.address
-        self.shorIntroduction = dto.shortIntroduction
+        self.shortIntroduction = dto.shortIntroduction
         if let category = Category(rawValue: dto.placeCategory) {
             self.placeCategory = category
         } else {
