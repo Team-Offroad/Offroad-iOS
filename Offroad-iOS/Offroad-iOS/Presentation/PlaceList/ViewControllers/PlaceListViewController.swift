@@ -159,6 +159,12 @@ extension PlaceListViewController: ORBSegmentedControlDelegate {
 
 extension PlaceListViewController: UIScrollViewDelegate {
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let xOffset = scrollView.contentOffset.x
+        let process = xOffset / scrollView.frame.width
+        rootView.segmentedControl.setUnderbarPosition(process: process)
+    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let process = scrollView.contentOffset.x / scrollView.frame.width
         let targetIndex: Int = Int(round(process))
