@@ -4,7 +4,6 @@
 //
 //  Created by  정지원 on 5/13/25.
 //
-
 import UIKit
 
 import SnapKit
@@ -12,19 +11,26 @@ import Then
 
 class CourseQuestPlaceCell: UICollectionViewCell {
     
+    // MARK: - UI Components
+    
+    private let indicatorImageView = UIImageView()
+    private let containerView = UIView()
+    
     private let thumbnailImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
-        $0.layer.cornerRadius = 5
+        $0.roundCorners(cornerRadius: 5)
         $0.clipsToBounds = true
+    }
+    
+    private let typeLabelView = UIView().then {
+        $0.backgroundColor = UIColor.neutral(.nametagInactive)
+        $0.roundCorners(cornerRadius: 14)
     }
     
     private let typeLabel = UILabel().then {
         $0.font = .offroad(style: .iosTextContentsSmall)
         $0.textColor = .sub(.sub2)
-        $0.backgroundColor = UIColor.neutral(.nametagInactive)
-        $0.layer.cornerRadius = 4
-        $0.clipsToBounds = true
-        $0.textAlignment = .center
+        $0.numberOfLines = 1
     }
     
     private let nameLabel = UILabel().then {
@@ -46,8 +52,7 @@ class CourseQuestPlaceCell: UICollectionViewCell {
     }
     
     private let clearImageView = UIImageView().then {
-        $0.image = UIImage(named: "clear")
-        $0.contentMode = .scaleAspectFit
+        $0.image = UIImage(resource: .icnClearStamp)
         $0.isHidden = true
     }
     
@@ -55,6 +60,9 @@ class CourseQuestPlaceCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        setupHierarchy()
+        setupStyle()
         setupLayout()
         visitButton.addTarget(self, action: #selector(visitTapped), for: .touchUpInside)
     }
@@ -63,53 +71,77 @@ class CourseQuestPlaceCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setupStyle() {
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+        containerView.backgroundColor = .white
+        containerView.roundCorners(cornerRadius: 5)
+        containerView.clipsToBounds = true
+    }
+    
+    private func setupHierarchy() {
+        contentView.addSubviews(indicatorImageView, containerView)
+        containerView.addSubviews(
+            thumbnailImageView,
+            typeLabelView,
+            nameLabel,
+            visitButton,
+            clearImageView,
+            addressLabel
+        )
+        typeLabelView.addSubview(typeLabel)
+    }
+    
     private func setupLayout() {
-        contentView.backgroundColor = .white
-        contentView.layer.cornerRadius = 12
-        contentView.clipsToBounds = true
+        indicatorImageView.snp.makeConstraints {
+            $0.left.equalToSuperview()
+            $0.centerY.equalToSuperview()
+            $0.size.equalTo(24)
+        }
         
-        contentView.addSubview(thumbnailImageView)
-        contentView.addSubview(typeLabel)
-        contentView.addSubview(nameLabel)
-        contentView.addSubview(addressLabel)
-        contentView.addSubview(visitButton)
-        contentView.addSubview(clearImageView)
+        containerView.snp.makeConstraints {
+            $0.leading.equalTo(indicatorImageView.snp.trailing).offset(12)
+            $0.trailing.equalToSuperview()
+            $0.verticalEdges.equalToSuperview()
+            $0.height.equalTo(97)
+        }
         
         thumbnailImageView.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(12)
+            $0.leading.equalToSuperview().inset(14)
             $0.centerY.equalToSuperview()
-            $0.width.height.equalTo(76)
+            $0.size.equalTo(72)
+        }
+        
+        typeLabelView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(13.25)
+            $0.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
         }
         
         typeLabel.snp.makeConstraints {
-            $0.top.equalTo(thumbnailImageView.snp.top)
-            $0.left.equalTo(thumbnailImageView.snp.right).offset(12)
-            $0.height.equalTo(18)
+            $0.verticalEdges.equalToSuperview().inset(5)
+            $0.horizontalEdges.equalToSuperview().inset(10)
         }
         
         nameLabel.snp.makeConstraints {
-            $0.top.equalTo(typeLabel.snp.bottom).offset(4)
-            $0.left.equalTo(typeLabel.snp.left)
-            $0.right.equalToSuperview().inset(60)
+            $0.top.equalTo(typeLabelView.snp.bottom).offset(4)
+            $0.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
         }
         
         addressLabel.snp.makeConstraints {
-            $0.top.equalTo(nameLabel.snp.bottom).offset(2)
-            $0.left.equalTo(nameLabel.snp.left)
+            $0.top.equalTo(nameLabel.snp.bottom).offset(7)
+            $0.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
         }
         
         visitButton.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(12)
-            $0.centerY.equalToSuperview()
-            $0.width.equalTo(50)
+            $0.trailing.equalToSuperview().inset(15)
+            $0.centerY.equalTo(nameLabel)
+            $0.width.equalTo(56)
             $0.height.equalTo(28)
         }
         
         clearImageView.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(12)
+            $0.trailing.equalToSuperview().inset(6)
             $0.centerY.equalToSuperview()
-            $0.width.equalTo(50)
-            $0.height.equalTo(28)
         }
     }
     
@@ -119,12 +151,16 @@ class CourseQuestPlaceCell: UICollectionViewCell {
         nameLabel.text = model.name
         addressLabel.text = model.address
         
-        if model.isVisited {
-            visitButton.isHidden = true
-            clearImageView.isHidden = false
-        } else {
-            visitButton.isHidden = false
-            clearImageView.isHidden = true
+        // 방문 여부에 따라 버튼 or 스탬프 표시
+        visitButton.isHidden = model.isVisited
+        clearImageView.isHidden = !model.isVisited
+        
+        // 타입에 따라 indicator 색상 변경
+        switch model.type {
+        case "카페": indicatorImageView.image = UIImage(resource: .icnOrangeIndicator)
+        case "공원": indicatorImageView.image = UIImage(resource: .icnBlueIndicator)
+        case "식당": indicatorImageView.image = UIImage(resource: .icnPinkIndicator)
+        default: indicatorImageView.image = UIImage(resource: .icnOrangeIndicator)
         }
     }
     

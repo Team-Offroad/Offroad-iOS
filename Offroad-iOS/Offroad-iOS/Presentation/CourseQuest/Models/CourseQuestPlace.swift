@@ -4,7 +4,6 @@
 //
 //  Created by  정지원 on 5/13/25.
 //
-#if DevTarget
 import Foundation
 
 struct CourseQuestPlace {
@@ -15,4 +14,3 @@ struct CourseQuestPlace {
     let address: String
     var isVisited: Bool
 }
-#endif

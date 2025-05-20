@@ -4,7 +4,6 @@
 //
 //  Created by  정지원 on 5/13/25.
 //
-
 import UIKit
 
 import SnapKit
@@ -15,13 +14,13 @@ class CourseQuestViewController: UIViewController {
     private var quests: [CourseQuestPlace] = [
         .init(id: UUID(), imageName: "sampleImage", type: "카페", name: "브릭루즈", address: "경기도 파주시 지목로 143", isVisited: true),
         .init(id: UUID(), imageName: "sampleImage", type: "공원", name: "홍대 중앙공원", address: "경기도 파주시 지목로 143", isVisited: false),
-        .init(id: UUID(), imageName: "sampleImage", type: "카페", name: "브릭루즈", address: "경기도 파주시 지목로 143", isVisited: true)
+        .init(id: UUID(), imageName: "sampleImage", type: "식당", name: "브릭루즈", address: "경기도 파주시 지목로 143", isVisited: true)
     ]
 
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 40, height: 100)
-        layout.minimumLineSpacing = 16
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 48, height: 97)
+        layout.minimumLineSpacing = 14
         $0.collectionViewLayout = layout
         $0.backgroundColor = .clear
         $0.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
@@ -30,6 +29,7 @@ class CourseQuestViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = UIColor.systemGray6
         setupLayout()
         collectionView.dataSource = self
