@@ -22,10 +22,6 @@ final class CouponListViewController: UIViewController {
     private var availableCouponDataSource: [CouponInfo] = []
     private var usedCouponDataSource: [CouponInfo] = []
     
-    private var pageViewController: UIPageViewController {
-        rootView.pageViewController
-    }
-    
     // MARK: - UI Properties
     
     private let rootView = CouponListView()
@@ -48,7 +44,6 @@ final class CouponListViewController: UIViewController {
         setupDelegate()
         bindData()
         rootView.segmentedControl.selectSegment(index: 0)
-        setPageViewControllerPage(to: 0)
         getCouponListsFromServer(isUsed: false, size: 14, cursor: lastCursorIDForAvailableCoupons)
         getCouponListsFromServer(isUsed: true, size: 14, cursor: lastCursorIDForUsedCoupons)
     }
@@ -81,8 +76,7 @@ extension CouponListViewController{
         rootView.collectionViewForUsedCoupons.delegate = self
         rootView.collectionViewForUsedCoupons.dataSource = self
         rootView.segmentedControl.delegate = self
-        pageViewController.dataSource = self
-        pageViewController.delegate = self
+        rootView.scrollView.delegate = self
     }
     
     private func bindData() {
@@ -105,34 +99,6 @@ extension CouponListViewController{
                 self.getCouponListsFromServer(isUsed: true, size: 14, cursor: 0)
             }
         }).disposed(by: disposBag)
-    }
-    
-    private func setPageViewControllerPage(to targetIndex: Int) {
-        rootView.pageViewController.view.isUserInteractionEnabled = false
-        guard let currentViewCotnroller = pageViewController.viewControllers?.first else {
-            // viewDidLoad에서 호출될 때 (처음 한 번)
-            pageViewController.setViewControllers([viewControllerList.first!], direction: .forward, animated: false)
-            rootView.pageViewController.view.isUserInteractionEnabled = true
-            return
-        }
-        guard let currentIndex = viewControllerList.firstIndex(of: currentViewCotnroller) else { return }
-        guard targetIndex >= 0 else { return }
-        guard targetIndex < rootView.segmentedControl.titles.count,
-              targetIndex < viewControllerList.count
-        else {
-            rootView.pageViewController.view.isUserInteractionEnabled = true
-            return
-        }
-        
-        pageViewController.setViewControllers(
-            [viewControllerList[targetIndex]],
-            direction: targetIndex > currentIndex ? .forward : .reverse,
-            animated: true,
-            completion: { [weak self] isCompleted in
-                guard let self else { return }
-                self.rootView.pageViewController.view.isUserInteractionEnabled = true
-            }
-        )
     }
     
     private func getCouponListsFromServer(isUsed: Bool, size: Int, cursor: Int) {
@@ -268,51 +234,23 @@ extension CouponListViewController: UICollectionViewDelegate {
 extension CouponListViewController: ORBSegmentedControlDelegate {
     
     func segmentedControlDidSelect(segmentedControl: ORBSegmentedControl, selectedIndex: Int) {
-        setPageViewControllerPage(to: selectedIndex)
-    }
-    
-}
-
-//MARK: - UIPageViewControllerDataSource
-
-extension CouponListViewController: UIPageViewControllerDataSource {
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index = viewControllerList.firstIndex(of: viewController) else { return nil }
-        let previousIndex = index - 1
-        if previousIndex < 0 { return nil }
-        return viewControllerList[previousIndex]
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let index = viewControllerList.firstIndex(of: viewController) else { return nil }
-        let nextIndex = index + 1
-        if nextIndex >= viewControllerList.count { return nil }
-        return viewControllerList[nextIndex]
-    }
-    
-}
-
-//MARK: - UIPageViewControllerDelegate
-
-extension CouponListViewController: UIPageViewControllerDelegate {
-    
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        guard pageViewController.viewControllers?.first != nil else { return }
-        rootView.segmentedControl.isUserInteractionEnabled = false
-    }
-    
-    func pageViewController(
-        _ pageViewController: UIPageViewController,
-        didFinishAnimating finished: Bool,
-        previousViewControllers: [UIViewController],
-        transitionCompleted completed: Bool
-    ) {
-        guard pageViewController.viewControllers?.first != nil else { return }
-        rootView.segmentedControl.isUserInteractionEnabled = true
-        if let index = viewControllerList.firstIndex(of: pageViewController.viewControllers!.first!) {
-            rootView.segmentedControl.selectSegment(index: index)
+        // NOTE: scrollView에서 setContentOffset(...animated: true) 를 사용할 경우 underbar 위치가 튀는 현상 발생
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1) { [weak self] in
+            guard let self else { return }
+            self.rootView.scrollView.contentOffset.x = self.rootView.scrollView.bounds.width * CGFloat(selectedIndex)
         }
+    }
+    
+}
+
+//MARK: - UIScrollViewDelegate
+
+extension CouponListViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let process = scrollView.contentOffset.x / scrollView.frame.width
+        let targetIndex: Int = Int(round(process))
+        rootView.segmentedControl.selectSegment(index: targetIndex)
     }
     
 }

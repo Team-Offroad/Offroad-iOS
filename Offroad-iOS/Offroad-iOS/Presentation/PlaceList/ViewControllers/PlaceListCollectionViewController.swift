@@ -25,7 +25,7 @@ class PlaceListCollectionViewController: UICollectionViewController {
     private let lastCellWillShowRelay: PublishRelay<Void> = .init()
     private let cellSelectionOperationQueue = OperationQueue()
     
-    private var source: [RegisteredPlaceInfo] = []
+    private var source: [PlaceModel] = []
     private var referenceCoordinate: CLLocationCoordinate2D
     private var showsVisitCount: Bool
     
@@ -37,6 +37,7 @@ class PlaceListCollectionViewController: UICollectionViewController {
         super.init(nibName: nil, bundle: nil)
         
         collectionView = PlaceListCollectionView()
+        collectionView.delaysContentTouches = false
     }
     
     required init?(coder: NSCoder) {
@@ -51,7 +52,7 @@ extension PlaceListCollectionViewController {
     /// - Parameter newPlaces: 추가될 장소 목록
     ///
     /// 주의!) 반드시 메인쓰레드에서만 호출할 것
-    func appendNewItems(newPlaces: [RegisteredPlaceInfo]) {
+    func appendNewItems(newPlaces: [PlaceModel]) {
         guard !newPlaces.isEmpty else { return }
         
         let newIndexPaths: [IndexPath] = (0..<newPlaces.count).map { [weak self] in
@@ -59,15 +60,7 @@ extension PlaceListCollectionViewController {
             return IndexPath(item: self.source.count + $0, section: 0)
         }
         source.append(contentsOf: newPlaces)
-        /*
-         iOS 17 버전의 시뮬레이터에서 collectionView에 insertItems를 사용하니 Invalid Batch Updates 에러가 발생하여,
-         iOS 17까지의 버전에서는 혹시 모를 에러를 막기 위해 reloadData() 사용.
-         */
-        if #available(iOS 18, *) {
-            collectionView.insertItems(at: newIndexPaths)
-        } else {
-            collectionView.reloadData()
-        }
+        collectionView.insertItems(at: newIndexPaths)
     }
     
 }
