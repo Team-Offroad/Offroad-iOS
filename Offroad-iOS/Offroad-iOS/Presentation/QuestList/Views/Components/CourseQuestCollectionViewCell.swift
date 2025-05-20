@@ -46,11 +46,6 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(17)
-            make.leading.trailing.bottom.equalToSuperview()
-        }
-        
         setupHierarchy()
         setupStyle()
         setupLayout()
@@ -113,7 +108,7 @@ extension CourseQuestCollectionViewCell {
         
         ddayBubbleView.do { imageView in
             imageView.image = UIImage.icnQuestListDdayBubble
-            imageView.contentMode = .scaleAspectFit
+            imageView.contentMode = .left
             imageView.clipsToBounds = false
         }
         
@@ -170,13 +165,18 @@ extension CourseQuestCollectionViewCell {
     }
     
     private func setupLayout() {
+        contentView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(17)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
+        
         mainContentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
         mainContentView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(17)
         }
         
         ddayBubbleView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(-2)
+            make.leading.equalToSuperview()
             make.width.equalTo(76)
             make.height.equalTo(44.4)
         }
@@ -184,6 +184,7 @@ extension CourseQuestCollectionViewCell {
         ddayLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(8)
             make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-5.2)
         }
         
         courseQuestNameLabel.setContentHuggingPriority(
