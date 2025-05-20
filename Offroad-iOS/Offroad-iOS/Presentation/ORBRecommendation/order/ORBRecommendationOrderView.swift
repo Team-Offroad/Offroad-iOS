@@ -602,7 +602,7 @@ extension ORBRecommendationOrderView: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.layer.borderColor = UIColor.grayscale(.gray100).cgColor
-        placeDescription.accept(textField.text!)
+        placeDescription.accept(textField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
         scrollView.isScrollEnabled = true
     }
     
