@@ -239,6 +239,8 @@ extension CouponListViewController: ORBSegmentedControlDelegate {
             guard let self else { return }
             self.rootView.scrollView.contentOffset.x = self.rootView.scrollView.bounds.width * CGFloat(selectedIndex)
         }
+        // 아이폰 미러링 시 popGesture(screenEdgeGesture)와 스크롤 뷰의 가로 스크롤 제스처가 동시에 적용되는 문제 방지
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = (selectedIndex == 0)
     }
     
 }
