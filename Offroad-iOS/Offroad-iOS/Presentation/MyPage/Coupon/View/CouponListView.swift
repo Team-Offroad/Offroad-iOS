@@ -15,7 +15,6 @@ class CouponListView: UIView {
     // MARK: - UI Properties
     
     let customBackButton = NavigationPopButton()
-    let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     
     private let labelView = UIView()
     private let mainLabel = UILabel()
@@ -43,6 +42,8 @@ class CouponListView: UIView {
     lazy var collectionViewForAvailableCoupons = ScrollLoadingCollectionView(message: EmptyCaseMessage.availableCoupons, frame: .zero, collectionViewLayout: layoutMaker)
     lazy var collectionViewForUsedCoupons = ScrollLoadingCollectionView(message: EmptyCaseMessage.usedCoupons, frame: .zero, collectionViewLayout: layoutMaker)
     let loadingView = LottieAnimationView(name: "loading1")
+    
+    let scrollView = UIScrollView()
     
     // MARK: - Life Cycle
     
@@ -97,13 +98,20 @@ class CouponListView: UIView {
             animationView.contentMode = .scaleAspectFit
             animationView.loopMode = .loop
         }
+        
+        scrollView.do { scrollView in
+            scrollView.isPagingEnabled = true
+            scrollView.delaysContentTouches = false
+            scrollView.showsHorizontalScrollIndicator = false
+            scrollView.showsVerticalScrollIndicator = false
+        }
     }
     
     private func setupHierarchy() {
         addSubviews(
             labelView,
-            pageViewController.view,
-            separator
+            separator,
+            scrollView
         )
         
         labelView.addSubviews(
@@ -111,6 +119,11 @@ class CouponListView: UIView {
             mainLabel,
             couponLogoImage,
             segmentedControl
+        )
+        
+        scrollView.addSubviews(
+            collectionViewForAvailableCoupons,
+            collectionViewForUsedCoupons
         )
     }
     
@@ -150,9 +163,23 @@ class CouponListView: UIView {
             make.height.equalTo(1)
         }
         
-        pageViewController.view.snp.makeConstraints { make in
-            make.top.equalTo(labelView.snp.bottom)
-            make.horizontalEdges.bottom.equalToSuperview()
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(separator.snp.bottom)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
+        }
+        
+        collectionViewForAvailableCoupons.snp.makeConstraints { make in
+            make.verticalEdges.equalTo(scrollView.frameLayoutGuide)
+            make.leading.equalTo(scrollView.contentLayoutGuide)
+            make.width.equalTo(UIScreen.currentScreenSize.width)
+        }
+        
+        collectionViewForUsedCoupons.snp.makeConstraints { make in
+            make.verticalEdges.equalTo(scrollView.frameLayoutGuide)
+            make.leading.equalTo(collectionViewForAvailableCoupons.snp.trailing)
+            make.trailing.equalTo(scrollView.contentLayoutGuide)
+            make.width.equalTo(UIScreen.currentScreenSize.width)
         }
     }
     

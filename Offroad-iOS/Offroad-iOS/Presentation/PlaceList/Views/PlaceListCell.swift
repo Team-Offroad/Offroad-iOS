@@ -326,8 +326,8 @@ extension PlaceListCell {
         placeAreaLabel.text = model.placeArea
         placeNameLabel.text = model.name
         addressLabel.text = model.address
-        descriptionLabel1.text = model.shorIntroduction
-        descriptionLabel2.text = model.shorIntroduction
+        descriptionLabel1.text = model.shortIntroduction
+        descriptionLabel2.text = model.shortIntroduction
         visitCountLabel.text = "탐험횟수: \(model.visitCount)"
         
         if isVisitCountShowing {
