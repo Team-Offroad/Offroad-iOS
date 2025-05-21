@@ -171,9 +171,6 @@ extension CourseQuestCollectionViewCell {
         }
         
         mainContentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
-        mainContentView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(17)
-        }
         
         ddayBubbleView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
