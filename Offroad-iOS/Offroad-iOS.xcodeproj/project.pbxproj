@@ -383,6 +383,8 @@
 		4E87852E2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87852D2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift */; };
 		4E8785312DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8785302DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
+		4E92A9ED2DDCC1F90021F14B /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92A9EC2DDCC1F90021F14B /* PlaceModel.swift */; };
+		4E92A9EE2DDCC1F90021F14B /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92A9EC2DDCC1F90021F14B /* PlaceModel.swift */; };
 		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
 		4E9759D22D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
 		4E9759D32D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */; };
@@ -787,6 +789,7 @@
 		4E87852D2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatDataSource.swift; sourceTree = "<group>"; };
 		4E8785302DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationViewPresentationController.swift; sourceTree = "<group>"; };
 		4E9252F45B6891FFCE593629 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4E92A9EC2DDCC1F90021F14B /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
 		4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info_Dev.plist"; sourceTree = "<group>"; };
 		4E9759D12D9F975600F30692 /* ORBEmptyCaseStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBEmptyCaseStyle.swift; sourceTree = "<group>"; };
 		4E9759E02D9F9A6C00F30692 /* QuestListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestListCollectionView.swift; sourceTree = "<group>"; };
@@ -1459,6 +1462,7 @@
 		4E0394762C2AA721007F0517 /* PlaceList */ = {
 			isa = PBXGroup;
 			children = (
+				4E92A9EB2DDCC1CD0021F14B /* Model */,
 				4E08B9552C5DF07F0082EFB8 /* Views */,
 				4E08B9542C5DF0780082EFB8 /* ViewControllers */,
 			);
@@ -1976,6 +1980,14 @@
 				4E0A40512DC7A70000A0680C /* ORBRecommendationChatPresentationFloatingView.swift */,
 			);
 			path = "Custom Transition";
+			sourceTree = "<group>";
+		};
+		4E92A9EB2DDCC1CD0021F14B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4E92A9EC2DDCC1F90021F14B /* PlaceModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		4E9759EB2DA012EC00F30692 /* DeveloperMode */ = {
@@ -3846,6 +3858,7 @@
 				8791EDF82C7E1D2B00E7F8B9 /* CouponDetailViewController.swift in Sources */,
 				4E3A32732CE51185007228D0 /* CharacterChatGetResponseDTO.swift in Sources */,
 				D0E796032C452271005B47A5 /* BaseService.swift in Sources */,
+				4E92A9ED2DDCC1F90021F14B /* PlaceModel.swift in Sources */,
 				4E66593D2CECA0CE0024ABEE /* StringLiterals.swift in Sources */,
 				4ECEEA6E2CB2C15E0029369A /* ORBTabBarShapeView.swift in Sources */,
 				D00A48642C633959008B286A /* SettingViewController.swift in Sources */,
@@ -4227,6 +4240,7 @@
 				4E4F31AD2D4718F400C3B2FF /* UserModel.swift in Sources */,
 				D022320E2D76CCF500DA6968 /* DiaryGuideViewController.swift in Sources */,
 				4E4F31AF2D4718F400C3B2FF /* UIScreen+.swift in Sources */,
+				4E92A9EE2DDCC1F90021F14B /* PlaceModel.swift in Sources */,
 				D07D3A8E2D8DACE10030995E /* DiarySettingAPI.swift in Sources */,
 				4E4F31B02D4718F400C3B2FF /* CouponRedemptionRequestDTO.swift in Sources */,
 				D07D3AEE2D9147D30030995E /* DiaryCheckStatusResponseDTO.swift in Sources */,

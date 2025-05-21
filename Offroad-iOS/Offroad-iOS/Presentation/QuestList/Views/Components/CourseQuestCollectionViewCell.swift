@@ -27,6 +27,8 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
     }
     
     // MARK: - UI Components
+    private let ddayBubbleView = UIImageView()
+    private let ddayLabel = UILabel()
     
     private let courseQuestNameLabel = UILabel()
     private let courseQuestProgressLabel = UILabel()
@@ -37,6 +39,7 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
     private let courseQuestInfoView = UIView()
     private var checkBoxImageViews: [UIImageView] = []
     private let courseQuestListStackView = UIStackView()
+    private let detailButton = ShrinkableButton()
     
     // MARK: - Initializer
     
@@ -81,6 +84,9 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
 extension CourseQuestCollectionViewCell {
     
     private func setupHierarchy() {
+        addSubview(ddayBubbleView)
+        ddayBubbleView.addSubview(ddayLabel)
+        
         mainContentView.addSubviews(
             courseQuestNameLabel,
             courseQuestProgressLabel,
@@ -89,7 +95,8 @@ extension CourseQuestCollectionViewCell {
         
         detailContentView.addSubviews(
             courseQuestDescriptionLabel,
-            courseQuestInfoView
+            courseQuestInfoView,
+            detailButton
         )
         
         courseQuestInfoView.addSubview(courseQuestListStackView)
@@ -97,9 +104,20 @@ extension CourseQuestCollectionViewCell {
     
     private func setupStyle() {
         contentView.backgroundColor = .white
-        contentView.roundCorners(cornerRadius: 8)
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.systemGray4.cgColor
+        contentView.roundCorners(cornerRadius: 5)
+        
+        ddayBubbleView.do { imageView in
+            imageView.image = UIImage.icnQuestListDdayBubble
+            imageView.contentMode = .left
+            imageView.clipsToBounds = false
+        }
+        
+        ddayLabel.do {
+            $0.text = "D-10"
+            $0.font = .offroad(style: .iosTextBold)
+            $0.textColor = .sub(.sub480)
+            $0.textAlignment = .center
+        }
         
         courseQuestNameLabel.do { label in
             label.font = .offroad(style: .iosTextBold)
@@ -136,10 +154,35 @@ extension CourseQuestCollectionViewCell {
             stackView.alignment = .leading
             stackView.distribution = .equalSpacing
         }
+        
+        detailButton.do {
+            $0.setTitle("자세히 보기", for: .normal)
+            $0.setTitleColor(.main(.main1), for: .normal)
+            $0.titleLabel?.font = .offroad(style: .iosBtnSmall)
+            $0.backgroundColor = .sub(.sub)
+            $0.roundCorners(cornerRadius: 5)
+        }
     }
     
     private func setupLayout() {
+        contentView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(17)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
+        
         mainContentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 60).isActive = true
+        
+        ddayBubbleView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.width.equalTo(76)
+            make.height.equalTo(44.4)
+        }
+        
+        ddayLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(8)
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-5.2)
+        }
         
         courseQuestNameLabel.setContentHuggingPriority(
             courseQuestProgressLabel.contentHuggingPriority(for: .horizontal) - 1,
@@ -178,13 +221,21 @@ extension CourseQuestCollectionViewCell {
         
         courseQuestInfoView.snp.makeConstraints { make in
             make.top.equalTo(courseQuestDescriptionLabel.snp.bottom).offset(14)
-            make.horizontalEdges.bottom.equalToSuperview().inset(20)
+            make.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        detailButton.snp.makeConstraints { make in
+            make.height.equalTo(44)
+            make.top.equalTo(courseQuestInfoView.snp.bottom).offset(12)
+            make.horizontalEdges.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(16)
         }
     }
     
     // MARK: - Configure Cell
     
     func configureCell(with quest: CourseQuest) {
+        ddayLabel.text = quest.dday
         courseQuestNameLabel.text = quest.title
         courseQuestProgressLabel.text = "달성도 (\(quest.progress))"
         courseQuestProgressLabel.highlightText(targetText: "달성도", color: .grayscale(.gray400))

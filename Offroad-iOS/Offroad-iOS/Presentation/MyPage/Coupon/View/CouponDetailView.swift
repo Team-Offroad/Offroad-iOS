@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class CouponDetailView: UIScrollView {
+final class CouponDetailView: UIScrollView, ORBCenterLoadingStyle {
     
     // MARK: - UI Properties
     
