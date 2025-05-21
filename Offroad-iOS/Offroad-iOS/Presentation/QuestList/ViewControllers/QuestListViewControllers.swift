@@ -79,6 +79,12 @@ extension QuestListViewController {
     private func setupControlsTarget() {
         rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
         rootView.ongoingQuestSwitch.addTarget(self, action: #selector(ongoingQuestSwitchValueChanged(sender:)), for: .valueChanged)
+        
+#if DevTarget
+        rootView.questListCollectionView.onTapCourseQuestDetail = { [weak self] in
+            let vc = CourseQuestViewController()
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+#endif
     }
-    
 }

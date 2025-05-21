@@ -43,6 +43,8 @@ final class QuestListCollectionView: ExpandableCellCollectionView, ORBEmptyCaseS
         }
     }
     
+    var onTapCourseQuestDetail: (() -> Void)?
+    
     // MARK: - UI Properties
     
     let emptyPlaceholder = QuestListEmptyPlaceholder()
@@ -176,7 +178,7 @@ extension QuestListCollectionView: UICollectionViewDataSource {
         
 #if DevTarget
         let quest = quests[indexPath.item]
-
+        
         switch quest {
         case let quest as Quest:
             guard let cell = collectionView.dequeueReusableCell(
@@ -194,6 +196,11 @@ extension QuestListCollectionView: UICollectionViewDataSource {
                 fatalError("CourseQuestCollectionViewCell dequeuing failed!")
             }
             cell.configureCell(with: courseQuest)
+            
+            cell.onTapDetailButton = { [weak self] in
+                self?.onTapCourseQuestDetail?()
+            }
+            
             return cell
             
         default:

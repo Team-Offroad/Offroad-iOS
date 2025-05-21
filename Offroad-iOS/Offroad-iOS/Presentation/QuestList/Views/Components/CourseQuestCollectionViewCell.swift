@@ -40,6 +40,7 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
     private var checkBoxImageViews: [UIImageView] = []
     private let courseQuestListStackView = UIStackView()
     private let detailButton = ShrinkableButton()
+    var onTapDetailButton: (() -> Void)?
     
     // MARK: - Initializer
     
@@ -49,6 +50,8 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
         setupHierarchy()
         setupStyle()
         setupLayout()
+        
+        detailButton.addTarget(self, action: #selector(detailButtonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -113,7 +116,6 @@ extension CourseQuestCollectionViewCell {
         }
         
         ddayLabel.do {
-            $0.text = "D-10"
             $0.font = .offroad(style: .iosTextBold)
             $0.textColor = .sub(.sub480)
             $0.textAlignment = .center
@@ -230,6 +232,10 @@ extension CourseQuestCollectionViewCell {
             make.horizontalEdges.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(16)
         }
+    }
+    
+    @objc private func detailButtonTapped() {
+        onTapDetailButton?()
     }
     
     // MARK: - Configure Cell
