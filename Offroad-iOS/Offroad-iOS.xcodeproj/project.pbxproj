@@ -523,6 +523,8 @@
 		87D9A70D2CE9BC1700F1CECD /* ScrollLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9A70C2CE9BC1700F1CECD /* ScrollLoadingView.swift */; };
 		87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046932C3D2B38002D12C2 /* BirthViewController.swift */; };
 		87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046972C3D5E3D002D12C2 /* NicknameView.swift */; };
+		87F51BB42DDDFD800020AF04 /* CourseQuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F51BB32DDDFD780020AF04 /* CourseQuestView.swift */; };
+		87F51BB52DDDFD800020AF04 /* CourseQuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F51BB32DDDFD780020AF04 /* CourseQuestView.swift */; };
 		AFD0294A332A568516A1C70E /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C748B13438908AFF5CFFFA4 /* Pods_Offroad_iOSTests.framework */; };
 		D004F8562CA12A7A00D5A2CD /* NoticeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8552CA12A7A00D5A2CD /* NoticeResponseDTO.swift */; };
 		D004F8582CA12B1500D5A2CD /* NoticeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8572CA12B1000D5A2CD /* NoticeAPI.swift */; };
@@ -912,6 +914,7 @@
 		87D9A70C2CE9BC1700F1CECD /* ScrollLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoadingView.swift; sourceTree = "<group>"; };
 		87E046932C3D2B38002D12C2 /* BirthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewController.swift; sourceTree = "<group>"; };
 		87E046972C3D5E3D002D12C2 /* NicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameView.swift; sourceTree = "<group>"; };
+		87F51BB32DDDFD780020AF04 /* CourseQuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseQuestView.swift; sourceTree = "<group>"; };
 		C9C00FCF31F1DF74855DC482 /* Pods_Offroad_iOS_Offroad_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOS_Offroad_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D004F8552CA12A7A00D5A2CD /* NoticeResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeResponseDTO.swift; sourceTree = "<group>"; };
 		D004F8572CA12B1000D5A2CD /* NoticeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeAPI.swift; sourceTree = "<group>"; };
@@ -2458,6 +2461,7 @@
 		87A7D88C2DD362FE00B89109 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				87F51BB32DDDFD780020AF04 /* CourseQuestView.swift */,
 				87A7D8952DD3648600B89109 /* CourseQuestPlaceCell.swift */,
 			);
 			path = Views;
@@ -3891,6 +3895,7 @@
 				D0E7963D2C453787005B47A5 /* QuestService.swift in Sources */,
 				D0E796082C45229B005B47A5 /* MoyaPlugin.swift in Sources */,
 				4EF6B0452CC3F50900066640 /* ORBAlertViewExplorationResult.swift in Sources */,
+				87F51BB42DDDFD800020AF04 /* CourseQuestView.swift in Sources */,
 				D00A48712C63443F008B286A /* NoticeView.swift in Sources */,
 				D063E98E2C49483000434A09 /* UIImageView+.swift in Sources */,
 				4E56F54C2C995BA800EEE677 /* ORBAlertViewModel.swift in Sources */,
@@ -4394,6 +4399,7 @@
 				4E4F32222D4718F400C3B2FF /* CouponService.swift in Sources */,
 				4E4F32232D4718F400C3B2FF /* CharacterChatService.swift in Sources */,
 				4E4F32252D4718F400C3B2FF /* ChoosingCharacterViewController.swift in Sources */,
+				87F51BB52DDDFD800020AF04 /* CourseQuestView.swift in Sources */,
 				4E4F32262D4718F400C3B2FF /* ORBAlertViewType.swift in Sources */,
 				4E4F32272D4718F400C3B2FF /* CompleteChoosingCharacterView.swift in Sources */,
 				4E4F32282D4718F400C3B2FF /* ChoosingCharacterView.swift in Sources */,

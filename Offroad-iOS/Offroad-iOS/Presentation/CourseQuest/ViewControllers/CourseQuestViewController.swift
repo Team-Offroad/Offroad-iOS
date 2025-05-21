@@ -10,6 +10,8 @@ import SnapKit
 import Then
 
 class CourseQuestViewController: UIViewController {
+    
+    private let rootView = CourseQuestView()
 
     private var quests: [CourseQuestPlace] = [
         .init(id: UUID(), imageName: "sampleImage", type: "카페", name: "브릭루즈", address: "경기도 파주시 지목로 143", isVisited: true),
@@ -27,19 +29,26 @@ class CourseQuestViewController: UIViewController {
         $0.register(CourseQuestPlaceCell.self, forCellWithReuseIdentifier: "CourseQuestPlaceCell")
     }
 
+    override func loadView() {
+            view = rootView
+        }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.systemGray6
-        setupLayout()
-        collectionView.dataSource = self
+        rootView.courseQuestPlaceCollectionView.dataSource = self
+        setupControlsTarget()
     }
-
-    private func setupLayout() {
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+        offroadTabBarController.hideTabBarAnimation()
+    }
+    
+    private func setupControlsTarget() {
+        rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
     }
 
     func showToast(_ message: String) {
@@ -69,6 +78,10 @@ class CourseQuestViewController: UIViewController {
                 toast.removeFromSuperview()
             })
         })
+    }
+    
+    @objc private func customBackButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
