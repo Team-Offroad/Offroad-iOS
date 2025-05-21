@@ -235,6 +235,7 @@ extension CourseQuestCollectionViewCell {
     // MARK: - Configure Cell
     
     func configureCell(with quest: CourseQuest) {
+        ddayLabel.text = quest.dday
         courseQuestNameLabel.text = quest.title
         courseQuestProgressLabel.text = "달성도 (\(quest.progress))"
         courseQuestProgressLabel.highlightText(targetText: "달성도", color: .grayscale(.gray400))

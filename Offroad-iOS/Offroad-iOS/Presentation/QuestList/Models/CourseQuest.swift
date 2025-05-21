@@ -14,6 +14,7 @@ struct CourseQuest {
     let description: String
     let quests: [QuestDetail]
     let reward: String
+    let dday: String
 }
 
 struct QuestDetail {
@@ -33,7 +34,8 @@ extension CourseQuest {
                     QuestDetail(locationName: "장소 B", mission: "미션 2"),
                     QuestDetail(locationName: "장소 C", mission: "미션 3")
                 ],
-                reward: "보상 1"
+                reward: "보상 1",
+                dday: "D-5"
             ),
             CourseQuest(
                 title: "코스 퀘스트 2",
@@ -43,7 +45,8 @@ extension CourseQuest {
                     QuestDetail(locationName: "장소 D", mission: "미션 4"),
                     QuestDetail(locationName: "장소 E", mission: "미션 5")
                 ],
-                reward: "보상 2"
+                reward: "보상 2",
+                dday: "D-10"
             )
         ]
     }
