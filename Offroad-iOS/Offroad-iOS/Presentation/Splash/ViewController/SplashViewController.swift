@@ -39,7 +39,7 @@ final class SplashViewController: UIViewController {
             do {
                 guard let currentAppVersion = try self?.checkCurrentAppVersion() else { return }
                 guard let minimumVersion = try await self?.checkMinimumSupportedVersion() else { return }
-                if currentAppVersion < minimumVersion {
+                if currentAppVersion > minimumVersion {
                     self?.requestUserToUpdateApp()
                 } else {
                     self?.processToLogIn()
@@ -169,9 +169,13 @@ private extension SplashViewController {
     
     @MainActor
     func requestUserToUpdateApp() {
-        let alertController = ORBAlertController(message: "원활한 기능 사용을 위해 최신 버전으로 앱을 업데이트해 주세요.", type: .messageOnly)
+        let alertController = ORBAlertController(
+            title: AlertMessage.enforceAppUpdateTitle,
+            message: AlertMessage.enforceAppUpdateMessage,
+            type: .normal
+        )
         alertController.xButton.isHidden = true
-        let action = ORBAlertAction(title: "앱스토어로 이동", style: .default) { [weak self] _ in
+        let action = ORBAlertAction(title: "업데이트하기", style: .default) { [weak self] _ in
             self?.redirectToAppStore()
         }
         alertController.addAction(action)
@@ -190,7 +194,10 @@ private extension SplashViewController {
     }
     
     func alertIfAppStoreRedirectionFailed() {
-        let alertController = ORBAlertController(message: "앱스토어를 열 수 없습니다. 다시 시도해 주세요.", type: .normal)
+        let alertController = ORBAlertController(
+            message: ErrorMessages.appStoreRedirectionFailure,
+            type: .normal
+        )
         alertController.xButton.isHidden = true
         let action = ORBAlertAction(title: "확인", style: .default) { _ in return }
         alertController.addAction(action)
