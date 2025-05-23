@@ -10,10 +10,7 @@ import Foundation
 import Moya
 
 final class MinimumSupportedVersionService: BaseService {
-    private let provider = MoyaProvider<MinimumSupportedVersionAPI>.init(
-        session: Session(interceptor: TokenInterceptor.shared),
-        plugins: [MoyaPlugin()]
-    )
+    private let provider = MoyaProvider<MinimumSupportedVersionAPI>.init(plugins: [MoyaPlugin()])
     
     func getMinimumSupportedVersion() async -> NetworkResult<MinimumSupportedVersionResponseDTO> {
         await withCheckedContinuation { continuation in
