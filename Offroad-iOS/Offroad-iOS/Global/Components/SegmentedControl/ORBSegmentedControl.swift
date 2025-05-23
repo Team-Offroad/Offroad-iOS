@@ -20,8 +20,8 @@ final class ORBSegmentedControl: UIView {
     
     private let underbarAnimator = UIViewPropertyAnimator(duration: 0, dampingRatio: 1)
     private lazy var underbarLeadingConstraint = underbar.leadingAnchor.constraint(equalTo: leadingAnchor)
-    private var segmentWidth: CGFloat { frame.width / CGFloat(titles.count) }
-    var segmentsCount: Int { stackView.arrangedSubviews.count }
+    private var segmentWidth: CGFloat { frame.width / CGFloat(segmentsCount) }
+    var segmentsCount: Int { titles.count }
     
     private(set) var titles: [String]
     private(set) var selectedIndex: Int = 0
