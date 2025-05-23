@@ -145,21 +145,25 @@ private extension SplashViewController {
     
     // 서버에서 최소 지원 버전 확인
     func checkMinimumSupportedVersion() async throws -> String {
-        let networkService = NetworkService.shared.minimumSupportedVersionService
-        let networkResult = await networkService.getMinimumSupportedVersion()
-        switch networkResult {
-        case .success(let dto):
-            guard let dto else { throw AppVersionCheckError.dtoNotFound }
-            return dto.ios
-        case .networkFail:
-            ORBToastManager.shared.showToast(message: ErrorMessages.networkError, inset: 0)
-            throw AppVersionCheckError.networkFail
-        case .decodeErr:
-            ORBToastManager.shared.showToast(message: "알 수 없는 문제가 발생했어요. 잠시 후 다시 시도해 주세요.", inset: 0)
-            throw AppVersionCheckError.dtoDecodingFailed
-        default:
-            ORBToastManager.shared.showToast(message: "알 수 없는 문제가 발생했어요. 잠시 후 다시 시도해 주세요.", inset: 0)
-            throw AppVersionCheckError.minimumSupportedVersionNotFound
+        do {
+            let networkService = NetworkService.shared.minimumSupportedVersionService
+            let networkResult = try await networkService.getMinimumSupportedVersion()
+            switch networkResult {
+            case .success(let dto):
+                guard let dto else { throw AppVersionCheckError.dtoNotFound }
+                return dto.ios
+            case .networkFail:
+                ORBToastManager.shared.showToast(message: ErrorMessages.networkError, inset: 0)
+                throw AppVersionCheckError.networkFail
+            case .decodeErr:
+                ORBToastManager.shared.showToast(message: "알 수 없는 문제가 발생했어요. 잠시 후 다시 시도해 주세요.", inset: 0)
+                throw AppVersionCheckError.dtoDecodingFailed
+            default:
+                ORBToastManager.shared.showToast(message: "알 수 없는 문제가 발생했어요. 잠시 후 다시 시도해 주세요.", inset: 0)
+                throw AppVersionCheckError.minimumSupportedVersionNotFound
+            }
+        } catch {
+            throw error
         }
     }
     
