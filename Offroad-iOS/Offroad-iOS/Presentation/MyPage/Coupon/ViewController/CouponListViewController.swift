@@ -239,6 +239,8 @@ extension CouponListViewController: ORBSegmentedControlDelegate {
             guard let self else { return }
             self.rootView.scrollView.contentOffset.x = self.rootView.scrollView.bounds.width * CGFloat(selectedIndex)
         }
+        // 아이폰 미러링 시 popGesture(screenEdgeGesture)와 스크롤 뷰의 가로 스크롤 제스처가 동시에 적용되는 문제 방지
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = (selectedIndex == 0)
     }
     
 }
@@ -246,6 +248,12 @@ extension CouponListViewController: ORBSegmentedControlDelegate {
 //MARK: - UIScrollViewDelegate
 
 extension CouponListViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let xOffset = scrollView.contentOffset.x
+        let process = xOffset / scrollView.frame.width
+        rootView.segmentedControl.setUnderbarPosition(process: process)
+    }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let process = scrollView.contentOffset.x / scrollView.frame.width
