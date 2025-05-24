@@ -39,7 +39,7 @@ final class SplashViewController: UIViewController {
             do {
                 guard let currentAppVersion = try self?.checkCurrentAppVersion() else { return }
                 guard let minimumVersion = try await self?.checkMinimumSupportedVersion() else { return }
-                if currentAppVersion > minimumVersion {
+                if currentAppVersion < minimumVersion {
                     self?.requestUserToUpdateApp()
                 } else {
                     self?.processToLogIn()
