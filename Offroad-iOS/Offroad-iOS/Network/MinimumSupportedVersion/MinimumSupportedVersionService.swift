@@ -10,13 +10,10 @@ import Foundation
 import Moya
 
 final class MinimumSupportedVersionService: BaseService {
-    private let provider = MoyaProvider<MinimumSupportedVersionAPI>.init(
-        session: Session(interceptor: TokenInterceptor.shared),
-        plugins: [MoyaPlugin()]
-    )
+    private let provider = MoyaProvider<MinimumSupportedVersionAPI>.init(plugins: [MoyaPlugin()])
     
-    func getMinimumSupportedVersion() async -> NetworkResult<MinimumSupportedVersionResponseDTO> {
-        await withCheckedContinuation { continuation in
+    func getMinimumSupportedVersion() async throws -> NetworkResult<MinimumSupportedVersionResponseDTO> {
+        try await withCheckedThrowingContinuation { continuation in
             provider.request(.getMinimumSupportedVersion, completion: { [weak self] result in
                 guard let self else { return }
                 switch result {
@@ -30,6 +27,8 @@ final class MinimumSupportedVersionService: BaseService {
                     print(error.localizedDescription)
                     if case .underlying(_, let response) = error, response == nil {
                         continuation.resume(returning: .networkFail())
+                    } else {
+                        continuation.resume(throwing: error)
                     }
                 }
             })
