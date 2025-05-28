@@ -34,7 +34,6 @@ final class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-#if DevTarget
         Task { [weak self] in
             do {
                 guard let currentAppVersion = try self?.checkCurrentAppVersion() else { return }
@@ -48,9 +47,6 @@ final class SplashViewController: UIViewController {
                 assertionFailure(error.localizedDescription)
             }
         }
-#else
-        processToLogIn()
-#endif
     }
 }
 
@@ -108,7 +104,6 @@ extension SplashViewController {
     
 }
 
-#if DevTarget
 // 앱 버전 체크(강제 업데이트 유도) 관련
 private extension SplashViewController {
     
@@ -205,4 +200,3 @@ private extension SplashViewController {
     }
     
 }
-#endif

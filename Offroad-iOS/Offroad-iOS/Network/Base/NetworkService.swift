@@ -25,9 +25,9 @@ final class NetworkService {
     let placeService: RegisteredPlaceService = RegisteredPlaceService()
     let pushNotificationService: PushNotificationServiceProtocol = PushNotificationService()
     let characterChatService: CharacterChatService = CharacterChatService()
+    let minimumSupportedVersionService = MinimumSupportedVersionService()
     #if DevTarget
     let diarySettingService: DiarySettingServiceProtocol = DiarySettingService()
     let diaryService: DiaryServiceProtocol = DiaryService()
-    let minimumSupportedVersionService = MinimumSupportedVersionService()
     #endif
 }
