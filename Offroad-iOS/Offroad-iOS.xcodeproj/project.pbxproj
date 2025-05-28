@@ -455,6 +455,9 @@
 		4EE0498B2CA10DFC00754488 /* CouponAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0498A2CA10DFC00754488 /* CouponAPI.swift */; };
 		4EE0498D2CA10E2A00754488 /* CouponService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0498C2CA10E2A00754488 /* CouponService.swift */; };
 		4EE049912CA14E6500754488 /* CouponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE049902CA14E6500754488 /* CouponCell.swift */; };
+		4EE20BF02DE6FB5800B818BD /* MinimumSupportedVersionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D014E2DCE3719002D9C6A /* MinimumSupportedVersionResponseDTO.swift */; };
+		4EE20BF12DE6FB5D00B818BD /* MinimumSupportedVersionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D01472DCE0DB9002D9C6A /* MinimumSupportedVersionAPI.swift */; };
+		4EE20BF22DE6FB6100B818BD /* MinimumSupportedVersionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D014A2DCE0DD6002D9C6A /* MinimumSupportedVersionService.swift */; };
 		4EE6B5242D85703700AEFCD4 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */; };
 		4EEA82FC2CE3907C0062F0DE /* CharacterChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA82FB2CE3907C0062F0DE /* CharacterChatLogView.swift */; };
 		4EEA82FE2CE3908C0062F0DE /* CharacterChatLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */; };
@@ -3833,6 +3836,7 @@
 				D06466962C86F69F00CF10FD /* LogoutView.swift in Sources */,
 				D0BD451F2CC77C3200128E74 /* MyPageCustomButton.swift in Sources */,
 				4EE0497B2CA0FD1300754488 /* CouponListResponseDTO.swift in Sources */,
+				4EE20BF22DE6FB6100B818BD /* MinimumSupportedVersionService.swift in Sources */,
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
 				4EF6B0332CC3E22800066640 /* ORBAlertViewBaseUI.swift in Sources */,
 				D0600BEB2CE61EBC00D8F1D6 /* PushNotificationService.swift in Sources */,
@@ -3863,6 +3867,7 @@
 				D0EAF2262C3B7D7F00566543 /* LoginViewController.swift in Sources */,
 				4E3A326F2CE5114C007228D0 /* CharacterChatPostRequestDTO.swift in Sources */,
 				D063E9A12C6107D300434A09 /* CollectedTitlesViewController.swift in Sources */,
+				4EE20BF12DE6FB5D00B818BD /* MinimumSupportedVersionAPI.swift in Sources */,
 				4EC3EC932CA9049F008139BE /* CouponCollectionViewController.swift in Sources */,
 				4EBE34942C3FC749006DB244 /* QuestQRView.swift in Sources */,
 				4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */,
@@ -4027,6 +4032,7 @@
 				4EE0498B2CA10DFC00754488 /* CouponAPI.swift in Sources */,
 				4E1ED3832D188FA80058C8D9 /* EmptyStateCollectionView.swift in Sources */,
 				D0600BE92CE61EB000D8F1D6 /* PushNotificationAPI.swift in Sources */,
+				4EE20BF02DE6FB5800B818BD /* MinimumSupportedVersionResponseDTO.swift in Sources */,
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
 				8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */,
 				4E38A44A2DAAACCF00110780 /* QuestListCell.swift in Sources */,
