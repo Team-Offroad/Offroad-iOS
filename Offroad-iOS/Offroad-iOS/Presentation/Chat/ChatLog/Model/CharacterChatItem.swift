@@ -114,32 +114,32 @@ extension CharacterChatMessageItem {
     
     var formattedDateString: String {
         switch self {
-        case .user(_, let createdDate, _):
+        case .user(_, let createdDate, _), .orbCharacter(_, let createdDate, _):
             let formatter = DateFormatter()
             formatter.locale = Locale(identifier: "ko_KR")
             formatter.dateFormat = "M월 d일 EEEE"
             return formatter.string(from: createdDate)
-        case .orbCharacter(_, let createdDate, _):
-            let formatter = DateFormatter()
-            formatter.locale = Locale(identifier: "ko_KR")
-            formatter.dateFormat = "M월 d일 EEEE"
-            return formatter.string(from: createdDate)
+//        case .orbCharacter(_, let createdDate, _):
+//            let formatter = DateFormatter()
+//            formatter.locale = Locale(identifier: "ko_KR")
+//            formatter.dateFormat = "M월 d일 EEEE"
+//            return formatter.string(from: createdDate)
         }
     }
     
     var formattedTimeString: String {
         switch self {
-        case .user(_, let createdDate, _):
+        case .user(_, let createdDate, _), .orbCharacter(_, let createdDate, _):
             let dateFormatter = DateFormatter()
             dateFormatter.locale = Locale(identifier: "ko_KR")
             dateFormatter.dateFormat = "a hh:mm"
             return dateFormatter.string(from: createdDate)
             
-        case .orbCharacter(_, let createdDate, _):
-            let dateFormatter = DateFormatter()
-            dateFormatter.locale = Locale(identifier: "ko_KR")
-            dateFormatter.dateFormat = "a hh:mm"
-            return dateFormatter.string(from: createdDate)
+//        case .orbCharacter(_, let createdDate, _):
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.locale = Locale(identifier: "ko_KR")
+//            dateFormatter.dateFormat = "a hh:mm"
+//            return dateFormatter.string(from: createdDate)
         }
     }
     
