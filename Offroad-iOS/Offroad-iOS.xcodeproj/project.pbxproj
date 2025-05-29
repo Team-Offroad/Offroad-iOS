@@ -458,6 +458,8 @@
 		4EE20BF02DE6FB5800B818BD /* MinimumSupportedVersionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D014E2DCE3719002D9C6A /* MinimumSupportedVersionResponseDTO.swift */; };
 		4EE20BF12DE6FB5D00B818BD /* MinimumSupportedVersionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D01472DCE0DB9002D9C6A /* MinimumSupportedVersionAPI.swift */; };
 		4EE20BF22DE6FB6100B818BD /* MinimumSupportedVersionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D014A2DCE0DD6002D9C6A /* MinimumSupportedVersionService.swift */; };
+		4EE20C522DE826CC00B818BD /* NetworkResultError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE20C512DE826CB00B818BD /* NetworkResultError.swift */; };
+		4EE20C532DE826CC00B818BD /* NetworkResultError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE20C512DE826CB00B818BD /* NetworkResultError.swift */; };
 		4EE6B5242D85703700AEFCD4 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */; };
 		4EEA82FC2CE3907C0062F0DE /* CharacterChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA82FB2CE3907C0062F0DE /* CharacterChatLogView.swift */; };
 		4EEA82FE2CE3908C0062F0DE /* CharacterChatLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */; };
@@ -846,6 +848,7 @@
 		4EE0498A2CA10DFC00754488 /* CouponAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponAPI.swift; sourceTree = "<group>"; };
 		4EE0498C2CA10E2A00754488 /* CouponService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponService.swift; sourceTree = "<group>"; };
 		4EE049902CA14E6500754488 /* CouponCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponCell.swift; sourceTree = "<group>"; };
+		4EE20C512DE826CB00B818BD /* NetworkResultError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResultError.swift; sourceTree = "<group>"; };
 		4EEA82FB2CE3907C0062F0DE /* CharacterChatLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatLogView.swift; sourceTree = "<group>"; };
 		4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatLogViewController.swift; sourceTree = "<group>"; };
 		4EEB47D92DAEA3150025AAA2 /* ORBRecommendationGradientStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationGradientStyle.swift; sourceTree = "<group>"; };
@@ -1316,6 +1319,7 @@
 				D0E796072C45229B005B47A5 /* MoyaPlugin.swift */,
 				D0E796092C4522CF005B47A5 /* NetworkService.swift */,
 				D0E7960B2C4522F2005B47A5 /* NetworkResult.swift */,
+				4EE20C512DE826CB00B818BD /* NetworkResultError.swift */,
 				D0E7961F2C4532A6005B47A5 /* ErrorResponseDTO.swift */,
 			);
 			path = Base;
@@ -3883,6 +3887,7 @@
 				872F4BB92C6B80A600284DE0 /* CharacterDetailView.swift in Sources */,
 				4EFFAFAE2CE442E900EFA714 /* ChatLogNavigationAnimator.swift in Sources */,
 				D0E795FF2C44FC2C005B47A5 /* UserModel.swift in Sources */,
+				4EE20C522DE826CC00B818BD /* NetworkResultError.swift in Sources */,
 				4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */,
 				4EE049872CA10DA400754488 /* CouponRedemptionRequestDTO.swift in Sources */,
 				4EC15ACD2D2AA3A700BC5826 /* ShrinkableCollectionViewCell.swift in Sources */,
@@ -4142,6 +4147,7 @@
 				4EDB392F2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */,
 				4E4F31862D4718F400C3B2FF /* PushNotificationService.swift in Sources */,
 				4E4F31872D4718F400C3B2FF /* UIButton+.swift in Sources */,
+				4EE20C532DE826CC00B818BD /* NetworkResultError.swift in Sources */,
 				4E4F31882D4718F400C3B2FF /* AdventureMapViewModel.swift in Sources */,
 				4ECD02712D9D722C00830534 /* ORBScrollLoadingStyle.swift in Sources */,
 				4E4F31892D4718F400C3B2FF /* NoticeAPI.swift in Sources */,
