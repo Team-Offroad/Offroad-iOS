@@ -143,6 +143,17 @@ extension PlaceListViewController {
     
 }
 
+private extension PlaceListViewController {
+    
+    /// alert 를 띄우는 함수. 장소 목록을 불러오는 데 실패했을 경우 사용
+    /// - Parameter message: alert에 띄울 메시지.
+    func presentAlertMessage(message: String) {
+        let alertController = ORBAlertController(message: message, type: .messageOnly)
+        let okAction = ORBAlertAction(title: "확인", style: .default) { _ in return }
+        present(alertController, animated: true)
+    }
+}
+
 //MARK: - ORBSegmentedControlDelegate
 
 extension PlaceListViewController: ORBSegmentedControlDelegate {
