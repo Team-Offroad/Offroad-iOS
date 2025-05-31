@@ -105,7 +105,7 @@ extension PlaceListView {
             scrollView
         )
         
-        scrollView.addSubviews(viewAllPlaces, viewUnvisitedPlaces)
+        scrollView.addSubviews(viewUnvisitedPlaces, viewAllPlaces)
     }
     
     private func setupLayout() {
@@ -148,15 +148,15 @@ extension PlaceListView {
             make.bottom.equalToSuperview()
         }
         
-        viewAllPlaces.snp.makeConstraints { make in
+        viewUnvisitedPlaces.snp.makeConstraints { make in
             make.verticalEdges.equalTo(scrollView.frameLayoutGuide)
             make.leading.equalTo(scrollView.contentLayoutGuide)
             make.width.equalTo(UIScreen.currentScreenSize.width)
         }
         
-        viewUnvisitedPlaces.snp.makeConstraints { make in
+        viewAllPlaces.snp.makeConstraints { make in
             make.verticalEdges.equalTo(scrollView.frameLayoutGuide)
-            make.leading.equalTo(viewAllPlaces.snp.trailing)
+            make.leading.equalTo(viewUnvisitedPlaces.snp.trailing)
             make.trailing.equalTo(scrollView.contentLayoutGuide)
             make.width.equalTo(UIScreen.currentScreenSize.width)
         }
