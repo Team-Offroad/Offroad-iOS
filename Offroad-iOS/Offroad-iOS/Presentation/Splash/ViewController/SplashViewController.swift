@@ -44,8 +44,7 @@ final class SplashViewController: UIViewController {
                     self?.processToLogIn()
                 }
             } catch {
-                assertionFailure(error.localizedDescription)
-                
+                print(error.localizedDescription)
                 if let appVersionCheckError = error as? AppVersionCheckError {
                     switch appVersionCheckError {
                     case .networkFail:
@@ -54,7 +53,7 @@ final class SplashViewController: UIViewController {
                         ORBToastManager.shared.showToast(message: "알 수 없는 문제가 발생했어요. 잠시 후 다시 시도해 주세요.", inset: 0)
                     }
                 } else {
-                    assertionFailure()
+                    assertionFailure(error.localizedDescription)
                 }
             }
         }
