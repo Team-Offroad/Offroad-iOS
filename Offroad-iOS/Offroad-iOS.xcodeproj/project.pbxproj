@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -1050,7 +1050,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		D0C6FD0E2CE6551C00517480 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		D0C6FD0E2CE6551C00517480 /* Exceptions for "NotificationServiceExtension" folder in "NotificationServiceExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -1060,7 +1060,14 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		D0C6FD0A2CE6551C00517480 /* NotificationServiceExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (D0C6FD0E2CE6551C00517480 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = NotificationServiceExtension; sourceTree = "<group>"; };
+		D0C6FD0A2CE6551C00517480 /* NotificationServiceExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D0C6FD0E2CE6551C00517480 /* Exceptions for "NotificationServiceExtension" folder in "NotificationServiceExtension" target */,
+			);
+			path = NotificationServiceExtension;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3546,7 +3553,6 @@
 				};
 			};
 			buildConfigurationList = 4E0394242C2A9DCE007F0517 /* Build configuration list for PBXProject "Offroad-iOS" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -3568,6 +3574,7 @@
 				D0CA206A2D7DCF5900FDF7F4 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				4E38A4432DAAAC8A00110780 /* XCRemoteSwiftPackageReference "ExpandableCell" */,
 			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = 4E03942A2C2A9DCE007F0517 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
