@@ -4450,7 +4450,7 @@
 /* Begin XCBuildConfiguration section */
 		4E0394512C2A9DCF007F0517 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E4F31442D4716F500C3B2FF /* SecretConfig_Dev.xcconfig */;
+			baseConfigurationReference = 05CE10D0D2341109A6ABBFDD /* Pods-Offroad-iOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -4514,7 +4514,7 @@
 		};
 		4E0394522C2A9DCF007F0517 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E4F31482D4717B100C3B2FF /* SecretConfig.xcconfig */;
+			baseConfigurationReference = 78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -4571,7 +4571,7 @@
 		};
 		4E0394542C2A9DCF007F0517 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 05CE10D0D2341109A6ABBFDD /* Pods-Offroad-iOS.debug.xcconfig */;
+			baseConfigurationReference = 4E4F31482D4717B100C3B2FF /* SecretConfig.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -4619,7 +4619,7 @@
 		};
 		4E0394552C2A9DCF007F0517 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */;
+			baseConfigurationReference = 4E4F31482D4717B100C3B2FF /* SecretConfig.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -4747,7 +4747,7 @@
 		};
 		4E4F32782D4718F400C3B2FF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 05CE10D0D2341109A6ABBFDD /* Pods-Offroad-iOS.debug.xcconfig */;
+			baseConfigurationReference = 4E4F31442D4716F500C3B2FF /* SecretConfig_Dev.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_Dev;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -4796,7 +4796,7 @@
 		};
 		4E4F32792D4718F400C3B2FF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 78F0993563C495E017073FC7 /* Pods-Offroad-iOS.release.xcconfig */;
+			baseConfigurationReference = 4E4F31442D4716F500C3B2FF /* SecretConfig_Dev.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_Dev;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
