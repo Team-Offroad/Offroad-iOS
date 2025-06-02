@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_Offroad_iOSVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_Offroad_iOSVersionString[];
+FOUNDATION_EXPORT double Pods_ORBVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_ORBVersionString[];
 
