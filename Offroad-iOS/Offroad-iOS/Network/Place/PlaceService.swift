@@ -95,13 +95,12 @@ final class RegisteredPlaceService: BaseService, RegisteredPlaceServiceProtocol 
     
     // 아직 사용되지 않는 함수임.
     func getRegisteredMapPlaces(
-        latitude: Double,
-        longitude: Double,
+        at coordinate: CLLocationCoordinate2D,
         limit: Int
     ) async throws -> [PlaceModel] {
         let api = PlaceAPI.getRegisteredMapPlaces(
-            latitude: latitude,
-            longitude: longitude,
+            latitude: coordinate.latitude,
+            longitude: coordinate.longitude,
             limit: limit
         )
         return try await fetchPlaces(using: api)
@@ -145,7 +144,7 @@ final class RegisteredPlaceService: BaseService, RegisteredPlaceServiceProtocol 
                         return
                     }
                     
-                    // 디코딩된 데이터를 최종적으로 반화하는 타입으로 변환.
+                    // 디코딩된 데이터를 최종적으로 반환하는 타입으로 변환.
                     do {
                         let decodedDTOList = decodedDTO.data.places
                         let places = try decodedDTOList.map { try PlaceModel($0) }

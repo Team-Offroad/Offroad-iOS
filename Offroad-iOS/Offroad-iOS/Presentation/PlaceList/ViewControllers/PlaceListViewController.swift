@@ -40,8 +40,10 @@ class PlaceListViewController: UIViewController {
     
     // 사용자 위치 불러올 수 없을 시 초기 위치 설정
     // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
-    private lazy var currentCoordinate = locationManager.location?.coordinate ?? .init(latitude: 37.5716229,
-                                                                                       longitude: 126.9767879)
+    private lazy var currentCoordinate = locationManager.location?.coordinate ?? .init(
+        latitude: 37.5716229,
+        longitude: 126.9767879
+    )
     
     //MARK: - Life Cycle
     
