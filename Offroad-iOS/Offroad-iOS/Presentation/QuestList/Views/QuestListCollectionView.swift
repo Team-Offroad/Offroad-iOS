@@ -18,7 +18,7 @@ final class QuestListCollectionView: ExpandableCellCollectionView, ORBEmptyCaseS
     
     //MARK: - Properties
     
-    private var questListService = QuestListService()
+    private var questListService = NetworkService.shared.questListService
     private var allQuestList: [Quest] = []
     private var activeQuestList: [Quest] = []
     private var extendedListSize = 20

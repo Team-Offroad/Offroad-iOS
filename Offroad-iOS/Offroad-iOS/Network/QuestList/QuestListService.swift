@@ -35,6 +35,7 @@ final class QuestListService: BaseService {
         }
     }
     
+    // async 함수로 구현해보았음. 아직 미적용한 상태.
     func getQuestList(isActive: Bool, cursor: Int, size: Int) async throws -> QuestListResponseDTO {
         let api = QuestListAPI.getQuestList(isActive: isActive, cursor: cursor, size: size)
         let resultHandler = NetworkResultHandler()
