@@ -136,14 +136,18 @@ extension PlaceListViewController {
                     newPlaces: newModels.filter { $0.visitCount == 0 }
                 )
             } catch let error as NetworkResultError {
-                print(error.localizedDescription)
+                printLog(error.localizedDescription)
                 switch error {
-                case .httpError(_), .decodingFailed:
-                    presentAlertMessage(message: "장소 목록을 받아오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.")
-                case .networkFailed, .networkTimeout:
-                    presentAlertMessage(message: "장소 목록을 받아오는 데 실패했습니다. 네트워크 연결 상태를 확인해주세요.")
+                case .httpError, .decodingFailed, .unknownURLError, .unknown:
+                    presentAlertMessage(message: "장소 목록을 받아오지 못했습니다.\n잠시 후 다시 시도해 주세요.")
+                case .notConnectedToInternet, .timeOut:
+                    presentAlertMessage(message: "장소 목록을 받아오지 못했습니다.\n네트워크 연결 상태를 확인해주세요.")
+                case .networkCancelled:
+                    return
                 }
+            // NetworkResultError가 아닌 다른 종류의 에러를 받았을 경우
             } catch {
+                presentAlertMessage(message: "장소 목록을 받아오지 못했습니다.\n잠시 후 다시 시도해 주세요.")
                 print("NetworkResultError가 아닌 다른 종류의 에러입니다.")
                 print(error.localizedDescription)
             }
@@ -158,7 +162,9 @@ private extension PlaceListViewController {
     /// - Parameter message: alert에 띄울 메시지.
     func presentAlertMessage(message: String) {
         let alertController = ORBAlertController(message: message, type: .messageOnly)
+        alertController.xButton.isHidden = true
         let okAction = ORBAlertAction(title: "확인", style: .default) { _ in return }
+        alertController.addAction(okAction)
         present(alertController, animated: true)
     }
 }
