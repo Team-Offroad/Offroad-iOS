@@ -411,6 +411,8 @@
 		4EA272432D58560B00F64B20 /* AmplitudeSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA272422D58560B00F64B20 /* AmplitudeSwift */; };
 		4EA272552D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272542D58E27300F64B20 /* ChatTextDisplayView.swift */; };
 		4EA272562D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA272542D58E27300F64B20 /* ChatTextDisplayView.swift */; };
+		4EA3AD392DEFEFC200177623 /* NetworkResultHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3AD382DEFEFC200177623 /* NetworkResultHandler.swift */; };
+		4EA3AD3A2DEFEFC200177623 /* NetworkResultHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3AD382DEFEFC200177623 /* NetworkResultHandler.swift */; };
 		4EA5F4EE2D4C96BD00A59AB1 /* LogPrinterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4EC2D4C96BD00A59AB1 /* LogPrinterManager.swift */; };
 		4EA5F4F12D4C970600A59AB1 /* LogPrinterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4EF2D4C970600A59AB1 /* LogPrinterWindow.swift */; };
 		4EA5F4F32D4C975C00A59AB1 /* LogPrinterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA5F4F22D4C975C00A59AB1 /* LogPrinterViewController.swift */; };
@@ -808,6 +810,7 @@
 		4E99008A2CE0CB61007EEFF7 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
 		4EA272312D5793BA00F64B20 /* ChatTextInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextInputView.swift; sourceTree = "<group>"; };
 		4EA272542D58E27300F64B20 /* ChatTextDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextDisplayView.swift; sourceTree = "<group>"; };
+		4EA3AD382DEFEFC200177623 /* NetworkResultHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResultHandler.swift; sourceTree = "<group>"; };
 		4EA5F4EC2D4C96BD00A59AB1 /* LogPrinterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPrinterManager.swift; sourceTree = "<group>"; };
 		4EA5F4EF2D4C970600A59AB1 /* LogPrinterWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPrinterWindow.swift; sourceTree = "<group>"; };
 		4EA5F4F22D4C975C00A59AB1 /* LogPrinterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogPrinterViewController.swift; sourceTree = "<group>"; };
@@ -1320,6 +1323,7 @@
 				D0E796092C4522CF005B47A5 /* NetworkService.swift */,
 				D0E7960B2C4522F2005B47A5 /* NetworkResult.swift */,
 				4EE20C512DE826CB00B818BD /* NetworkResultError.swift */,
+				4EA3AD382DEFEFC200177623 /* NetworkResultHandler.swift */,
 				D0E7961F2C4532A6005B47A5 /* ErrorResponseDTO.swift */,
 			);
 			path = Base;
@@ -3867,6 +3871,7 @@
 				D00A48772C634530008B286A /* SettingBaseView.swift in Sources */,
 				4EA272322D5793BA00F64B20 /* ChatTextInputView.swift in Sources */,
 				D00A487A2C634710008B286A /* SettingBaseCollectionViewCell.swift in Sources */,
+				4EA3AD3A2DEFEFC200177623 /* NetworkResultHandler.swift in Sources */,
 				D05C31DF2CDEB574004761A7 /* AppUtility.swift in Sources */,
 				D0EAF2262C3B7D7F00566543 /* LoginViewController.swift in Sources */,
 				4E3A326F2CE5114C007228D0 /* CharacterChatPostRequestDTO.swift in Sources */,
@@ -4118,6 +4123,7 @@
 				D0CA206E2D7E005100FDF7F4 /* CustomDiaryCalendarCell.swift in Sources */,
 				4E4F31742D4718F400C3B2FF /* StringLiterals.swift in Sources */,
 				4E4F31752D4718F400C3B2FF /* ORBTabBarShapeView.swift in Sources */,
+				4EA3AD392DEFEFC200177623 /* NetworkResultHandler.swift in Sources */,
 				4E9759EF2DA0138800F30692 /* DeveloperModeViewController.swift in Sources */,
 				4E4F31762D4718F400C3B2FF /* SettingViewController.swift in Sources */,
 				4E38A4492DAAACCF00110780 /* QuestListCell.swift in Sources */,
