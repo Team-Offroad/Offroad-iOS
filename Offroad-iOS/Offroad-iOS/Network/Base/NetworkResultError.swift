@@ -23,7 +23,7 @@ enum NetworkResultError: LocalizedError {
     //===----------------------------------------------------------------------===//
     
     /// 네트워크 Timeout. `URLError.Code`가 `.timedOut`인 경우에 해당.
-    case timeOut
+    case timeout
     
     /// 인터넷에 연결되어있지 않은 경우. `URLError.Code`가 `.notConnectedToInternet`인 경우에 해당.
     case notConnectedToInternet
@@ -58,7 +58,7 @@ enum NetworkResultError: LocalizedError {
             }
         case .decodingFailed:
             return "서버의 응답값(Body)을 지정한 DTO로 디코딩하는 데에 실패했습니다. 서버의 응답값 형식 또는 DTO를 확인하세요."
-        case .timeOut:
+        case .timeout:
             return "네트워크 타임아웃."
         case .notConnectedToInternet:
             return "네트워크 통신에 실패했습니다. 인터넷 연결 상태를 확인하세요."

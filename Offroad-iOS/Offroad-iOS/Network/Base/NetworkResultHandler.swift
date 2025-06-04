@@ -80,7 +80,7 @@ struct NetworkResultHandler {
         case .notConnectedToInternet:
             return .notConnectedToInternet
         case .timedOut:
-            return .timeOut
+            return .timeout
         default:
             return .unknownURLError(urlError)
         }

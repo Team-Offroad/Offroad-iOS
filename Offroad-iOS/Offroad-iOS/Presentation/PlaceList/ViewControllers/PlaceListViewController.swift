@@ -140,7 +140,7 @@ extension PlaceListViewController {
                 switch error {
                 case .httpError, .decodingFailed, .unknownURLError, .unknown:
                     presentAlertMessage(message: "장소 목록을 받아오지 못했습니다.\n잠시 후 다시 시도해 주세요.")
-                case .notConnectedToInternet, .timeOut:
+                case .notConnectedToInternet, .timeout:
                     presentAlertMessage(message: "장소 목록을 받아오지 못했습니다.\n네트워크 연결 상태를 확인해주세요.")
                 case .networkCancelled:
                     return

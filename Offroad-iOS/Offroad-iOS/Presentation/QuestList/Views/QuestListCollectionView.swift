@@ -124,7 +124,7 @@ extension QuestListCollectionView {
                 switch networkError {
                 case .httpError, .decodingFailed, .unknownURLError, .unknown:
                     shouldAlertMessage.accept("퀘스트 목록을 받아오지 못했습니다.\n잠시 후 다시 시도해 주세요.")
-                case .notConnectedToInternet, .timeOut:
+                case .notConnectedToInternet, .timeout:
                     shouldAlertMessage.accept("퀘스트 목록을 받아오지 못했습니다.\n네트워크 연결 상태를 확인해주세요.")
                 case .networkCancelled:
                     return
@@ -167,7 +167,7 @@ extension QuestListCollectionView {
                 switch networkError {
                 case .httpError, .decodingFailed, .unknownURLError, .unknown:
                     shouldAlertMessage.accept("퀘스트 목록을 받아오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.")
-                case .notConnectedToInternet, .timeOut:
+                case .notConnectedToInternet, .timeout:
                     shouldAlertMessage.accept("퀘스트 목록을 받아오는 데 실패했습니다. 네트워크 연결 상태를 확인해주세요.")
                 case .networkCancelled:
                     return
