@@ -35,11 +35,15 @@ class PlaceListViewController: UIViewController {
     private let locationManager = CLLocationManager()
     private var disposeBag = DisposeBag()
     private var distanceCursor: Double?
+    // 중복된 네트워크 요청을 막기 위한 flag
+    private var isLoadingNewPlaces: Bool = false
     
     // 사용자 위치 불러올 수 없을 시 초기 위치 설정
     // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
-    private lazy var currentCoordinate = locationManager.location?.coordinate ?? .init(latitude: 37.5716229,
-                                                                                       longitude: 126.9767879)
+    private lazy var currentCoordinate = locationManager.location?.coordinate ?? .init(
+        latitude: 37.5716229,
+        longitude: 126.9767879
+    )
     
     //MARK: - Life Cycle
     
@@ -98,7 +102,10 @@ extension PlaceListViewController {
     }
     
     private func loadAdditionalPlaces(limit: Int) {
-        rootView.segmentedControl.isUserInteractionEnabled = false
+        // 무한스크롤 중에 trigger로 인해 생기는 중복된 요청 방지
+        guard !isLoadingNewPlaces else { return }
+        isLoadingNewPlaces = true
+        
         if distanceCursor == nil {
             rootView.scrollView.startCenterLoading(withoutShading: true)
         } else {
@@ -106,41 +113,60 @@ extension PlaceListViewController {
             allPlacesViewController.placeListCollectionView.startBottomScrollLoading()
         }
         
-        NetworkService.shared.placeService.getRegisteredListPlaces(
-            latitude: currentCoordinate.latitude,
-            longitude: currentCoordinate.longitude,
-            limit: limit,
-            cursorDistance: distanceCursor
-        ) { [weak self] result in
+        Task { [weak self] in
             guard let self else { return }
             
+            // 네트워크 처리가 끝난 후에 실행할 동작. (로딩 애니메이션 제거)
             defer {
-                rootView.scrollView.stopCenterLoading()
-                unvisitedPlaceViewController.placeListCollectionView.stopBottomScrollLoading()
-                allPlacesViewController.placeListCollectionView.stopBottomScrollLoading()
-                
-                self.rootView.segmentedControl.isUserInteractionEnabled = true
-                self.rootView.scrollView.isUserInteractionEnabled = true
+                self.rootView.scrollView.stopCenterLoading()
+                self.unvisitedPlaceViewController.placeListCollectionView.stopBottomScrollLoading()
+                self.allPlacesViewController.placeListCollectionView.stopBottomScrollLoading()
+                self.isLoadingNewPlaces = false
             }
             
-            switch result {
-            case .success(let response):
-                guard let responsePlaces = response?.data.places else { return }
-                guard responsePlaces.count != 0 else { return }
-                distanceCursor = responsePlaces.last?.distanceFromUser
-                do {
-                    let newModels = try responsePlaces.map { try PlaceModel($0) }
-                    allPlacesViewController.appendNewItems(newPlaces: newModels)
-                    unvisitedPlaceViewController.appendNewItems(newPlaces: newModels.filter({ $0.visitCount == 0 }))
-                } catch {
-                    fatalError(error.localizedDescription)
+            do {
+                let newModels = try await NetworkService.shared.placeService.getRegisteredListPlaces(
+                    at: currentCoordinate,
+                    limit: limit,
+                    cursorDistance: distanceCursor
+                )
+                distanceCursor = newModels.last?.distanceFromUser
+                self.allPlacesViewController.appendNewItems(newPlaces: newModels)
+                self.unvisitedPlaceViewController.appendNewItems(
+                    newPlaces: newModels.filter { $0.visitCount == 0 }
+                )
+            } catch let error as NetworkResultError {
+                printLog(error.localizedDescription)
+                switch error {
+                case .httpError, .decodingFailed, .unknownURLError, .unknown:
+                    presentAlertMessage(message: "장소 목록을 받아오지 못했습니다.\n잠시 후 다시 시도해 주세요.")
+                case .notConnectedToInternet, .timeout:
+                    presentAlertMessage(message: "장소 목록을 받아오지 못했습니다.\n네트워크 연결 상태를 확인해주세요.")
+                case .networkCancelled:
+                    return
                 }
-            default:
-                return
+            // NetworkResultError가 아닌 다른 종류의 에러를 받았을 경우
+            } catch {
+                presentAlertMessage(message: "장소 목록을 받아오지 못했습니다.\n잠시 후 다시 시도해 주세요.")
+                print("NetworkResultError가 아닌 다른 종류의 에러입니다.")
+                print(error.localizedDescription)
             }
         }
     }
     
+}
+
+private extension PlaceListViewController {
+    
+    /// alert 를 띄우는 함수. 장소 목록을 불러오는 데 실패했을 경우 사용
+    /// - Parameter message: alert에 띄울 메시지.
+    func presentAlertMessage(message: String) {
+        let alertController = ORBAlertController(message: message, type: .messageOnly)
+        alertController.xButton.isHidden = true
+        let okAction = ORBAlertAction(title: "확인", style: .default) { _ in return }
+        alertController.addAction(okAction)
+        present(alertController, animated: true)
+    }
 }
 
 //MARK: - ORBSegmentedControlDelegate

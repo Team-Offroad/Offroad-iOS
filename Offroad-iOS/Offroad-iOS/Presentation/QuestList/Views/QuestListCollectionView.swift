@@ -8,6 +8,8 @@
 import UIKit
 
 import ExpandableCell
+import RxSwift
+import RxRelay
 
 /// 퀘스트 목록을 보여줄 collection view
 final class QuestListCollectionView: ExpandableCellCollectionView, ORBEmptyCaseStyle, ORBCenterLoadingStyle, ORBScrollLoadingStyle {
@@ -16,11 +18,12 @@ final class QuestListCollectionView: ExpandableCellCollectionView, ORBEmptyCaseS
     
     //MARK: - Properties
     
-    private var questListService = QuestListService()
+    private var questListService = NetworkService.shared.questListService
     private var allQuestList: [Quest] = []
     private var activeQuestList: [Quest] = []
     private var extendedListSize = 20
     private var lastCursorID = 0
+    let shouldAlertMessage = PublishRelay<String>.init()
     
 #if DevTarget
     // 코스 퀘스트는 항상 activeQuestList의 최상단에 위치
@@ -91,8 +94,8 @@ extension QuestListCollectionView {
         questListService.getQuestList(isActive: isActive, cursor: cursor, size: size) { [weak self] result in
             guard let self else { return }
             switch result {
-            case .success(let response):
-                guard let questListFromServer = response?.data.questList else { return }
+            case .success(let decodedData):
+                let questListFromServer = decodedData.data.questList
                 if isActive {
                     self.activeQuestList = questListFromServer
                     if self.activeQuestList.isEmpty {
@@ -116,8 +119,16 @@ extension QuestListCollectionView {
                 self.performBatchUpdates(nil)
                 CATransaction.commit()
                 lastCursorID = questListFromServer.last?.cursorId ?? Int()
-            default:
-                return
+            case .failure(let networkError):
+                self.stopCenterLoading()
+                switch networkError {
+                case .httpError, .decodingFailed, .unknownURLError, .unknown:
+                    shouldAlertMessage.accept("퀘스트 목록을 받아오지 못했습니다.\n잠시 후 다시 시도해 주세요.")
+                case .notConnectedToInternet, .timeout:
+                    shouldAlertMessage.accept("퀘스트 목록을 받아오지 못했습니다.\n네트워크 연결 상태를 확인해주세요.")
+                case .networkCancelled:
+                    return
+                }
             }
         }
     }
@@ -129,7 +140,7 @@ extension QuestListCollectionView {
             guard let self else { return }
             switch result {
             case .success(let response):
-                guard let questListFromServer = response?.data.questList else { return }
+                let questListFromServer = response.data.questList
                 
                 let currentCount = isActive ? self.activeQuestList.count : self.allQuestList.count
                 let newItems = questListFromServer
@@ -151,9 +162,16 @@ extension QuestListCollectionView {
                 self.stopBottomScrollLoading()
                 self.insertItems(at: newIndices)
                 self.lastCursorID = newItems.last?.cursorId ?? Int()
-                
-            default:
+            case .failure(let networkError):
                 self.stopBottomScrollLoading()
+                switch networkError {
+                case .httpError, .decodingFailed, .unknownURLError, .unknown:
+                    shouldAlertMessage.accept("퀘스트 목록을 받아오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.")
+                case .notConnectedToInternet, .timeout:
+                    shouldAlertMessage.accept("퀘스트 목록을 받아오는 데 실패했습니다. 네트워크 연결 상태를 확인해주세요.")
+                case .networkCancelled:
+                    return
+                }
             }
         }
     }

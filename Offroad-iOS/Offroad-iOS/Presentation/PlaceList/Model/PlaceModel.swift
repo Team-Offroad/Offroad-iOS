@@ -41,6 +41,8 @@ struct PlaceModel {
     let coordinate: CLLocationCoordinate2D
     let visitCount: Int
     let categoryImageUrl: URL
+    // 장소 목록 데이터를 불러올 때 페이징 시 필요한 값.
+    let distanceFromUser: Double?
     
     init(_ dto: RegisteredPlaceInfo) throws {
         self.id = dto.id
@@ -60,6 +62,7 @@ struct PlaceModel {
         } else {
             throw PlaceModelError.invalidCategoryValue(wrongValue: dto.categoryImageUrl)
         }
+        self.distanceFromUser = dto.distanceFromUser
     }
     
 }

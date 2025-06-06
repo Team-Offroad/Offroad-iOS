@@ -147,7 +147,7 @@ extension CouponListViewController{
                     self.lastIndexPathForAvailableCoupons = IndexPath(item: self.availableCouponDataSource.count - 1, section: 0)
                 }
             default:
-                return
+                showToast(message: ErrorMessages.networkError, inset: 54)
             }
         }
     }
