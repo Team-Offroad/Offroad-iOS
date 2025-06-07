@@ -22,8 +22,8 @@
 	</array>
 	<key>NATIVE_APP_KEY</key>
 	<string>$(NATIVE_APP_KEY)</string>
-	<key>NMFClientId</key>
-	<string>$(NMFClientId)</string>
+	<key>NMFNcpKeyId</key>
+	<string>$(NMFNCPKEYID)</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
