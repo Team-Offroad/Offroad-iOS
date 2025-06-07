@@ -77,6 +77,8 @@
 		4E46E5F92CB99944000A1EEE /* ORBToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5F82CB99944000A1EEE /* ORBToastWindow.swift */; };
 		4E46E5FB2CBA3F55000A1EEE /* UIWindowScene+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */; };
 		4E46E5FD2CBA483D000A1EEE /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */; };
+		4E47F7C12DF4367100C5AA41 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = 4E47F7C02DF4367100C5AA41 /* NMapsMap */; };
+		4E47F7C42DF4368300C5AA41 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = 4E47F7C32DF4368300C5AA41 /* NMapsMap */; };
 		4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4A8FD62C4A5752001FB498 /* UIImage+.swift */; };
 		4E4D00FA2DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D00F92DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift */; };
 		4E4D01482DCE0DB9002D9C6A /* MinimumSupportedVersionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D01472DCE0DB9002D9C6A /* MinimumSupportedVersionAPI.swift */; };
@@ -1083,6 +1085,7 @@
 				4E0394D12C2AB846007F0517 /* KakaoSDKAuth in Frameworks */,
 				D0600BDA2CE50CF900D8F1D6 /* FirebaseMessaging in Frameworks */,
 				4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */,
+				4E47F7C42DF4368300C5AA41 /* NMapsMap in Frameworks */,
 				4E38A4472DAAAC9C00110780 /* ExpandableCell in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1118,6 +1121,7 @@
 				4E4F325F2D4718F400C3B2FF /* SnapKit in Frameworks */,
 				4E4F32602D4718F400C3B2FF /* KakaoSDKCommon in Frameworks */,
 				4E4F32612D4718F400C3B2FF /* RxRelay in Frameworks */,
+				4E47F7C12DF4367100C5AA41 /* NMapsMap in Frameworks */,
 				4E4F32622D4718F400C3B2FF /* KakaoSDKAuth in Frameworks */,
 				4E4F32632D4718F400C3B2FF /* FirebaseMessaging in Frameworks */,
 				D0CA206C2D7DCF5900FDF7F4 /* FSCalendar in Frameworks */,
@@ -1146,6 +1150,7 @@
 				4E03942B2C2A9DCE007F0517 /* Offroad-iOS */,
 				4E0394422C2A9DCF007F0517 /* Offroad-iOSTests */,
 				4E03944C2C2A9DCF007F0517 /* Offroad-iOSUITests */,
+				4E47F7C22DF4368300C5AA41 /* Frameworks */,
 				4E03942A2C2A9DCE007F0517 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1818,6 +1823,13 @@
 				4E416CE72C45DBE200CF6AB4 /* ORBPlaceCategory.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4E47F7C22DF4368300C5AA41 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		4E4D01462DCE0D8F002D9C6A /* MinimumSupportedVersion */ = {
@@ -3385,6 +3397,7 @@
 				D0600BD92CE50CF900D8F1D6 /* FirebaseMessaging */,
 				4EA272422D58560B00F64B20 /* AmplitudeSwift */,
 				4E38A4462DAAAC9C00110780 /* ExpandableCell */,
+				4E47F7C32DF4368300C5AA41 /* NMapsMap */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E0394292C2A9DCE007F0517 /* ORB.app */;
@@ -3457,6 +3470,7 @@
 				4EA272402D5855E700F64B20 /* AmplitudeSwift */,
 				D0CA206B2D7DCF5900FDF7F4 /* FSCalendar */,
 				4E38A4442DAAAC8A00110780 /* ExpandableCell */,
+				4E47F7C02DF4367100C5AA41 /* NMapsMap */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E4F327A2D4718F400C3B2FF /* ORB_Dev.app */;
@@ -3532,6 +3546,7 @@
 				4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */,
 				D0CA206A2D7DCF5900FDF7F4 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				4E38A4432DAAAC8A00110780 /* XCRemoteSwiftPackageReference "ExpandableCell" */,
+				4E47F7BF2DF4367100C5AA41 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4E03942A2C2A9DCE007F0517 /* Products */;
@@ -4841,6 +4856,14 @@
 				minimumVersion = 2.0.1;
 			};
 		};
+		4E47F7BF2DF4367100C5AA41 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/navermaps/SPM-NMapsMap.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.21.0;
+			};
+		};
 		4E4F314C2D4718F400C3B2FF /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -5011,6 +5034,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E38A4432DAAAC8A00110780 /* XCRemoteSwiftPackageReference "ExpandableCell" */;
 			productName = ExpandableCell;
+		};
+		4E47F7C02DF4367100C5AA41 /* NMapsMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E47F7BF2DF4367100C5AA41 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */;
+			productName = NMapsMap;
+		};
+		4E47F7C32DF4368300C5AA41 /* NMapsMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E47F7BF2DF4367100C5AA41 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */;
+			productName = NMapsMap;
 		};
 		4E4F314B2D4718F400C3B2FF /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
