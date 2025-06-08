@@ -22,15 +22,15 @@ enum PlaceModelError: LocalizedError {
     }
 }
 
+enum ORBPlaceCategory: String {
+    case cafe = "CAFFE"
+    case restaurant = "RESTAURANT"
+    case park = "PARK"
+    case sport = "SPORT"
+    case culture = "CULTURE"
+}
+
 struct PlaceModel {
-    
-    enum Category: String {
-        case cafe = "CAFFE"
-        case restaurant = "RESTAURANT"
-        case park = "PARK"
-        case sport = "SPORT"
-        case culture = "CULTURE"
-    }
     
     let id: Int
     let name: String
