@@ -1,0 +1,28 @@
+//
+//  ORBRecommendationResponseDTO.swift
+//  Offroad-iOS
+//
+//  Created by 김민성 on 6/7/25.
+//
+
+struct ORBRecommendationResponseDTO: Decodable {
+    var message: String
+    var data: ORBRecommendationResponseData
+}
+
+struct ORBRecommendationResponseData: Decodable {
+    var recommendataion: [ORBRecommendationPlace]
+}
+
+struct ORBRecommendationPlace: Decodable {
+    let id: Int
+    let recommendationType: String
+    let name: String
+    let address: String
+    let shortIntroduction: String
+    let placeCategory: String
+    let placeArea: String
+    let latitude: Double
+    let longitude: Double
+    let categoryImageUrl: String
+}
