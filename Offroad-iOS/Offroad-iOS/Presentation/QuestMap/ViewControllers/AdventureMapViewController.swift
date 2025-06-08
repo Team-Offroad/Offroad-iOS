@@ -108,12 +108,6 @@ extension AdventureMapViewController {
                 self?.rootView.startCenterLoading(withoutShading: false)
         }).disposed(by: disposeBag)
         
-        viewModel.stopLoading
-            .asDriver(onErrorJustReturn: ())
-            .drive(onNext: { [weak self] in
-                self?.rootView.stopCenterLoading()
-            }).disposed(by: disposeBag)
-        
         viewModel.networkFailureSubject
             .asDriver(onErrorJustReturn: ())
             .drive(onNext: { [weak self] in
@@ -121,7 +115,7 @@ extension AdventureMapViewController {
             }).disposed(by: disposeBag)
         
         viewModel.locationServicesDisabledRelay
-            .observe(on: ConcurrentMainScheduler.instance)
+            .observe(on: MainScheduler.instance)
             .subscribe { [weak self] _ in
                 guard let self else { return }
                 self.showToast(message: AlertMessage.locationServicesDisabledMessage, inset: 66)
@@ -141,16 +135,39 @@ extension AdventureMapViewController {
                 self.present(alertController, animated: true)
             }.disposed(by: disposeBag)
         
-        viewModel.didReceiveMarkers
-            .flatMap { Observable.from($0) }
-            .subscribe(onNext: { [weak self] marker in
+        // 새 위치 정보(마커 정보)를 받아왔을 때 뷰에 바인딩.
+        viewModel.markers
+            .asDriver()
+            .do(onNext: { [weak self] _ in self?.rootView.stopCenterLoading() })
+            .drive(onNext: { [weak self] markers in
                 guard let self else { return }
-                marker.touchHandler = { [weak self] overlay in
-                    guard let marker = overlay as? ORBNMFMarker else { return false }
-                    self?.rootView.orbMapView.showTooltip(marker)
-                    return true
+                markers.forEach { marker in
+                    // 마커 탭 시 동작 정의 (툴팁 띄우도록)
+                    marker.touchHandler = { [weak self] overlay in
+                        guard let marker = overlay as? ORBNMFMarker else { return false }
+                        self?.rootView.orbMapView.showTooltip(marker)
+                        return true
+                    }
+                    // 마커 지도에 표시
+                    marker.mapView = self.rootView.orbMapView.mapView
                 }
-                marker.mapView = self.rootView.orbMapView.mapView
+            }).disposed(by: disposeBag)
+        
+        // 새 위치 정보(마커 정보)를 받아오는 과정에서 에러가 발생한 경우.
+        viewModel.markersError
+            .observe(on: MainScheduler.instance)
+            .do(onNext: { [weak self] _ in self?.rootView.stopCenterLoading() })
+            .subscribe(onNext: {  [weak self] error in
+                if let networkResultError = error as? NetworkResultError {
+                    switch networkResultError {
+                    case .timeout, .notConnectedToInternet, .unknownURLError:
+                        self?.showToast(message: ErrorMessages.networkError, inset: 66)
+                    case .httpError, .decodingFailed, .networkCancelled, .unknown:
+                        self?.showToast(message: "장소 목록을 받아오지 못했어요. 잠시 후 다시 시도해 주세요.", inset: 66)
+                    }
+                } else {
+                    self?.showToast(message: "장소 목록을 받아오지 못했어요. 잠시 후 다시 시도해 주세요.", inset: 66)
+                }
             }).disposed(by: disposeBag)
         
         Observable.zip(
@@ -181,7 +198,6 @@ extension AdventureMapViewController {
         rootView.reloadPlaceButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
             self.rootView.reloadPlaceButton.isEnabled = false
-            try? self.viewModel.didReceiveMarkers.value().forEach({ marker in marker.mapView = nil })
             self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
             self.rootView.orbMapView.hideTooltip()
         }.disposed(by: disposeBag)

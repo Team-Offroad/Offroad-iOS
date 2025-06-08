@@ -33,9 +33,11 @@ final class AdventureMapViewModel: SVGFetchable {
     let adventureResultSubject = PublishSubject<AdventuresPlaceAuthenticationResultData>()
     
     let startLoading = PublishRelay<Void>()
-    let stopLoading = PublishRelay<Void>()
     let networkFailureSubject = PublishSubject<Void>()
-    let didReceiveMarkers = BehaviorSubject<[ORBNMFMarker]>(value: [])
+    /// 지도에 표시될 마커 정보 데이터를 방출
+    let markers = BehaviorRelay<[ORBNMFMarker]>(value: [])
+    /// 마커 정보를 가져오는 과정에서 발생하는 에러를 방출
+    let markersError = PublishRelay<Error>()
     let customOverlayImage = NMFOverlayImage(image: .icnQuestMapPlaceMarker)
     let locationUnauthorizedMessage = PublishRelay<String>()
     let locationServicesDisabledRelay = PublishRelay<Void>()
@@ -114,24 +116,24 @@ extension AdventureMapViewModel {
     
     func updateRegisteredPlaces(at target: NMGLatLng) {
         startLoading.accept(())
-        NetworkService.shared.placeService.getRegisteredMapPlaces(
-            latitude: target.lat,
-            longitude: target.lng,
-            limit: 100
-        ) { [weak self] response in
-            guard let self else { return }
-            self.stopLoading.accept(())
-            switch response {
-            case .success(let data):
-                let markers = data!.data.places.map {
-                    return ORBNMFMarker(placeInfo: $0, iconImage: self.customOverlayImage)
-                        .then { $0.width = 26; $0.height = 32 }
+        
+        let networkService = NetworkService.shared.placeService
+        let targetCoordinate = CLLocationCoordinate2D(latitude: target.lat, longitude: target.lng)
+        
+        Task {
+            do {
+                let places = try await networkService.getRegisteredListPlaces(at: targetCoordinate, limit: 100)
+                let markers = places.map {
+                    let marker = ORBNMFMarker(place: $0, iconImage: customOverlayImage)
+                    (marker.width, marker.height) = (26, 32)
+                    return marker
                 }
-                
-                self.didReceiveMarkers.onNext(markers)
-            default:
-                self.networkFailureSubject.onNext(())
-                return
+                // 기존 마커 지도에서 제거
+                self.markers.value.forEach { $0.mapView = nil }
+                // 새 마커 정보 방출
+                self.markers.accept(markers)
+            } catch {
+                self.markersError.accept(error)
             }
         }
     }

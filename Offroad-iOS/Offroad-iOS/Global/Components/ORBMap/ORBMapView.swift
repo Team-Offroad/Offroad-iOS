@@ -79,7 +79,7 @@ final class ORBMapView: NMFNaverMapView {
     // MARK: - Rx Properties
     
     private var disposeBag = DisposeBag()
-    let exploreButtonTapped = PublishSubject<RegisteredPlaceInfo>()
+    let exploreButtonTapped = PublishSubject<PlaceModel>()
     let onMapViewCameraIdle = PublishRelay<Void>()
     let tooltipWillShow = PublishRelay<Void>()
     let tooltipDidShow = PublishRelay<Void>()
