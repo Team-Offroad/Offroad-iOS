@@ -136,7 +136,7 @@ extension AdventureMapViewModel {
         }
     }
     
-    func authenticatePlaceAdventure(placeInfo: RegisteredPlaceInfo) {
+    func authenticatePlaceAdventure(placeInfo: PlaceModel) {
         guard let currentLocation else {
             locationUnauthorizedMessage.accept(ErrorMessages.accessingLocationDataFailure)
             return
@@ -148,8 +148,8 @@ extension AdventureMapViewModel {
         if locationAuthenticationBypassing {
             dto = AdventuresPlaceAuthenticationRequestDTO(
                 placeId: placeInfo.id,
-                latitude: placeInfo.latitude,
-                longitude: placeInfo.longitude
+                latitude: placeInfo.coordinate.latitude,
+                longitude: placeInfo.coordinate.longitude
             )
         } else {
             dto = AdventuresPlaceAuthenticationRequestDTO(

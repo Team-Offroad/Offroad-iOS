@@ -132,7 +132,7 @@ extension ORBMapView {
         tooltip.exploreButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
             if let selectedMarker = tooltip.marker {
-                self.exploreButtonTapped.onNext(selectedMarker.placeInfo)
+                self.exploreButtonTapped.onNext(selectedMarker.place)
             } else {
                 self.exploreButtonTapped.onError(ORBMapError.EmptyTooltip)
             }

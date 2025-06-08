@@ -14,19 +14,19 @@ class ORBNMFMarker: NMFMarker {
     
     //MARK: - Properties
     
-    let placeInfo: RegisteredPlaceInfo
+    let place: PlaceModel
     
     //MARK: - Life Cycle
     
-    init(placeInfo: RegisteredPlaceInfo) {
-        self.placeInfo = placeInfo
+    init(place: PlaceModel) {
+        self.place = place
     }
     
-    convenience init(placeInfo: RegisteredPlaceInfo, iconImage: NMFOverlayImage) {
-        self.init(placeInfo: placeInfo)
+    convenience init(place: PlaceModel, iconImage: NMFOverlayImage) {
+        self.init(place: place)
         self.position = NMGLatLng(
-            lat: placeInfo.latitude,
-            lng: placeInfo.longitude
+            lat: place.coordinate.latitude,
+            lng: place.coordinate.longitude
         )
         self.iconImage = iconImage
         self.anchor = .init(x: 0.5, y: 1)
