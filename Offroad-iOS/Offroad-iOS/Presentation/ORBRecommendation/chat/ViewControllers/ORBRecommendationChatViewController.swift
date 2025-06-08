@@ -63,27 +63,7 @@ private extension ORBRecommendationChatViewController {
         rootView.chatInputView.onSendingText.subscribe(onNext: { [weak self] text in
             guard let self else { return }
             self.rootView.exampleQuestionListView.isHidden = true
-            let lastChatItem = dataSource.snapshot().itemIdentifiers.last!
-            let newChatItem: CharacterChatItem
-            switch lastChatItem {
-            case .message(let messageItem):
-                switch messageItem {
-                case .user:
-                    newChatItem = CharacterChatItem.message(.orbCharacter(content: text, createdDate: Date(), id: 0))
-                case .orbCharacter:
-                    newChatItem = CharacterChatItem.message(.user(content: text, createdDate: Date(), id: 0))
-                case .orbRecommendation:
-                    fatalError("오브의 추천소 채팅에는 추천소로 이동을 유도하는 셀이 존재할 수 없습니다.")
-                }
-            case .loading:
-                return
-            }
-            
-            self.chats.append(newChatItem)
-            self.dataSource.applySnapshot(of: self.chats) {
-                self.rootView.chatInputView.isSendingAllowed = true
-            }
-            self.rootView.collectionView.scrollToItem(at: .init(item: self.chats.count - 1, section: 0), at: .top, animated: true)
+            self.sendChat(text: text)
         }).disposed(by: disposeBag)
         
         rootView.exampleQuestionListView.exampleQuestionSelected
@@ -91,8 +71,7 @@ private extension ORBRecommendationChatViewController {
             .drive { [weak self] text in
                 guard let self else { return }
                 self.rootView.exampleQuestionListView.isHidden = true
-                self.chats.append(.message(.user(content: text, createdDate: Date(), id: 0)))
-                self.dataSource.applySnapshot(of: chats)
+                self.sendChat(text: text)
         }.disposed(by: disposeBag)
     }
     
@@ -118,6 +97,54 @@ extension ORBRecommendationChatViewController {
     var collectionViewAlpha: CGFloat {
         get { rootView.collectionView.alpha }
         set { rootView.collectionView.alpha = newValue }
+    }
+    
+}
+
+// 채팅 기능 관련
+extension ORBRecommendationChatViewController {
+    
+    func sendChat(text: String) {
+        let myNewChatItem = CharacterChatItem.message(
+            .user(content: text, createdDate: Date(), id: nil)
+        )
+        chats.append(myNewChatItem)
+        dataSource.applySnapshot(of: chats) { [weak self] in
+            guard let self else { return }
+            let loadingChatItem = CharacterChatItem.loading(createdDate: Date())
+            self.chats.append(loadingChatItem)
+            self.dataSource.applySnapshot(of: self.chats)
+        }
+        
+        Task { [weak self] in
+            guard let self else { return }
+            do {
+                let networkService = NetworkService.shared.orbRecommendationService
+                let (recommendationSuccess, answer) = try await networkService.sendRecommendationChat(content: text)
+                
+                // 서버 내부 장소 추천 로직이 성공했을 때 처리
+                if recommendationSuccess {
+                    // ...외부로 이벤트 방출 필요 -> Combine 사용 시도?
+                }
+                
+                // 응답 메시지 채팅 화면에 반영
+                let characterAnswerChatItem = CharacterChatItem.message(
+                    .orbCharacter(content: answer, createdDate: Date(), id: nil)
+                )
+                self.chats.removeLast()
+                self.chats.append(characterAnswerChatItem)
+                self.dataSource.applySnapshot(of: self.chats)
+            } catch let error as NetworkResultError {
+                switch error {
+                case .timeout, .notConnectedToInternet, .unknownURLError(_):
+                    showToast(message: ErrorMessages.networkError, inset: 66)
+                default:
+                    showToast(message: "문제가 발생했어요. 잠시 후 다시 시도해 주세요.", inset: 66)
+                }
+            }
+            // 채팅이 끝난 후에는 전송 버튼 활성화.
+            rootView.chatInputView.isSendingAllowed = true
+        }
     }
     
 }
