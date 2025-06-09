@@ -41,7 +41,6 @@
 		4E1CFDF02D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */; };
 		4E1E94112C39870700A7B08A /* ColorLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94102C39870700A7B08A /* ColorLiterals.swift */; };
 		4E1E94132C398C4200A7B08A /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94122C398C4200A7B08A /* String+.swift */; };
-		4E1E94192C3AC27C00A7B08A /* AdventureMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */; };
 		4E1ED3832D188FA80058C8D9 /* EmptyStateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ED3822D188FA80058C8D9 /* EmptyStateCollectionView.swift */; };
 		4E23776E2CC81B2000716AFF /* NetworkMonitoringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */; };
 		4E246B352DB4F72300198433 /* ORBRecommendationMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E246B342DB4F72300198433 /* ORBRecommendationMainViewController.swift */; };
@@ -95,7 +94,6 @@
 		4E4F31682D4718F400C3B2FF /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */; };
 		4E4F31692D4718F400C3B2FF /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
 		4E4F316A2D4718F400C3B2FF /* AdventureInfoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7966B2C457D64005B47A5 /* AdventureInfoResponseDTO.swift */; };
-		4E4F316B2D4718F400C3B2FF /* AdventureMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */; };
 		4E4F316C2D4718F400C3B2FF /* ORBAlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE22C92C1F1006DEBB6 /* ORBAlertButton.swift */; };
 		4E4F316D2D4718F400C3B2FF /* QuestQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE34912C3FC73C006DB244 /* QuestQRViewController.swift */; };
 		4E4F316E2D4718F400C3B2FF /* SVGKImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E98B2C49328200434A09 /* SVGKImage+.swift */; };
@@ -382,6 +380,8 @@
 		4E87852E2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87852D2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift */; };
 		4E8785312DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8785302DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
+		4E9134222DF6B13300AB6172 /* AdventureMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */; };
+		4E9134232DF6B14D00AB6172 /* AdventureMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */; };
 		4E92A9ED2DDCC1F90021F14B /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92A9EC2DDCC1F90021F14B /* PlaceModel.swift */; };
 		4E92A9EE2DDCC1F90021F14B /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92A9EC2DDCC1F90021F14B /* PlaceModel.swift */; };
 		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
@@ -3635,6 +3635,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E9134222DF6B13300AB6172 /* AdventureMapView.swift in Sources */,
 				4E09BF572C48A5B7009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */,
 				4E4E2C022CCE2841000A634D /* PlaceInfoTooltip.swift in Sources */,
 				4E700C852CB3CA1E00C664C2 /* ORBOverlayViewController.swift in Sources */,
@@ -3643,7 +3644,6 @@
 				4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */,
 				D0E7966C2C457D64005B47A5 /* AdventureInfoResponseDTO.swift in Sources */,
 				4E1CFDF02D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */,
-				4E1E94192C3AC27C00A7B08A /* AdventureMapView.swift in Sources */,
 				4EFCDFE32C92C1F1006DEBB6 /* ORBAlertButton.swift in Sources */,
 				4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */,
 				D063E98C2C49328300434A09 /* SVGKImage+.swift in Sources */,
@@ -3663,7 +3663,6 @@
 				D0E796572C453BCB005B47A5 /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
 				4ECD02702D9D722C00830534 /* ORBScrollLoadingStyle.swift in Sources */,
 				4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */,
-				4E1E94192C3AC27C00A7B08A /* AdventureMapView.swift in Sources */,
 				4EC4A1ED2D24380700A8C130 /* CustomIntensityBlurView.swift in Sources */,
 				4EDB392E2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */,
 				D004F8CF2CB4DDE600D5A2CD /* KakaoAuthManager.swift in Sources */,
@@ -3926,6 +3925,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E9134232DF6B14D00AB6172 /* AdventureMapView.swift in Sources */,
 				4E4F31642D4718F400C3B2FF /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */,
 				4E4F31652D4718F400C3B2FF /* PlaceInfoTooltip.swift in Sources */,
 				4E4F31662D4718F400C3B2FF /* ORBOverlayViewController.swift in Sources */,
@@ -3934,7 +3934,6 @@
 				4E4F31692D4718F400C3B2FF /* OffroadTabBarViewController.swift in Sources */,
 				4E4F316A2D4718F400C3B2FF /* AdventureInfoResponseDTO.swift in Sources */,
 				D07D3AD72D9074B70030995E /* DiaryService.swift in Sources */,
-				4E4F316B2D4718F400C3B2FF /* AdventureMapView.swift in Sources */,
 				87C27F6B2D7FED19008036FA /* CourseQuestCollectionViewCell.swift in Sources */,
 				D022320C2D76CCE700DA6968 /* DiaryGuideView.swift in Sources */,
 				4E4F316C2D4718F400C3B2FF /* ORBAlertButton.swift in Sources */,
@@ -3965,7 +3964,6 @@
 				4E9759F22DA013B300F30692 /* DeveloperModeView.swift in Sources */,
 				4EEB47DA2DAEA3150025AAA2 /* ORBRecommendationGradientStyle.swift in Sources */,
 				4E4F317C2D4718F400C3B2FF /* QuestListResponseDTO.swift in Sources */,
-				4E4F316B2D4718F400C3B2FF /* AdventureMapView.swift in Sources */,
 				4E4F317D2D4718F400C3B2FF /* CustomIntensityBlurView.swift in Sources */,
 				4E4F317E2D4718F400C3B2FF /* KakaoAuthManager.swift in Sources */,
 				4EA272552D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */,
