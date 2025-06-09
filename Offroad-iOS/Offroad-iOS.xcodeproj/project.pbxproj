@@ -79,7 +79,6 @@
 		4E46E5FD2CBA483D000A1EEE /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */; };
 		4E47F7C12DF4367100C5AA41 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = 4E47F7C02DF4367100C5AA41 /* NMapsMap */; };
 		4E47F7C42DF4368300C5AA41 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = 4E47F7C32DF4368300C5AA41 /* NMapsMap */; };
-		4E47F7C52DF4397900C5AA41 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E03943A2C2A9DCF007F0517 /* Info.plist */; };
 		4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4A8FD62C4A5752001FB498 /* UIImage+.swift */; };
 		4E4D00FA2DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D00F92DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift */; };
 		4E4D01482DCE0DB9002D9C6A /* MinimumSupportedVersionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D01472DCE0DB9002D9C6A /* MinimumSupportedVersionAPI.swift */; };
@@ -622,7 +621,6 @@
 		D0CA20822D7FE06B00FDF7F4 /* MonthPickerModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20812D7FE05A00FDF7F4 /* MonthPickerModalView.swift */; };
 		D0CA20842D7FE08200FDF7F4 /* MonthPickerModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20832D7FE07F00FDF7F4 /* MonthPickerModalViewController.swift */; };
 		D0CA20872D8018FA00FDF7F4 /* MyDiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20862D8018F400FDF7F4 /* MyDiaryManager.swift */; };
-		D0CF2E052D772570000334B5 /* Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CF2E032D772570000334B5 /* Info_Dev.plist */; };
 		D0CF2E1D2D77EC96000334B5 /* GuideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */; };
 		D0E6BE902CED2827006CDAA8 /* PushNotificationRedirectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E6BE8F2CED2815006CDAA8 /* PushNotificationRedirectModel.swift */; };
 		D0E795FC2C447511005B47A5 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */; };
@@ -3576,7 +3574,6 @@
 				4EDC3D442C31271F006A1493 /* Pretendard-ExtraBold.otf in Resources */,
 				4EDC3D472C31271F006A1493 /* Pretendard-Thin.otf in Resources */,
 				4EDC3D462C31271F006A1493 /* Pretendard-Medium.otf in Resources */,
-				4E47F7C52DF4397900C5AA41 /* Info.plist in Resources */,
 				4EDC3D432C31271F006A1493 /* Pretendard-Regular.otf in Resources */,
 				4EDC3D412C31271F006A1493 /* Pretendard-Bold.otf in Resources */,
 				4EDC3D482C31271F006A1493 /* Pretendard-SemiBold.otf in Resources */,
@@ -3606,7 +3603,6 @@
 			files = (
 				4E4F32672D4718F400C3B2FF /* LaunchScreen.storyboard in Resources */,
 				4E4F32682D4718F400C3B2FF /* loading1.json in Resources */,
-				D0CF2E052D772570000334B5 /* Info_Dev.plist in Resources */,
 				4E4F326A2D4718F400C3B2FF /* loading2.json in Resources */,
 				4E4F326B2D4718F400C3B2FF /* Optician-Sans.otf in Resources */,
 				4E4F326C2D4718F400C3B2FF /* Pretendard-Light.otf in Resources */,
