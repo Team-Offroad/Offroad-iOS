@@ -106,7 +106,7 @@ extension AdventureMapViewController {
             .asDriver(onErrorJustReturn: ())
             .drive(onNext: { [weak self] in
                 self?.rootView.startCenterLoading(withoutShading: false)
-        }).disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
         viewModel.networkFailureSubject
             .asDriver(onErrorJustReturn: ())
@@ -254,7 +254,7 @@ extension AdventureMapViewController {
     private func setupTooltipAction() {
         rootView.orbMapView.exploreButtonTapped.subscribe(
             // 툴팁의 탐험하기 버튼 탭 후 정상적으로 장소 데이터와 함께 이벤트를 받아온 경우
-            onNext: { [weak self] placeInfo in
+            onNext: { [weak self] place in
                 guard let self else { return }
                 self.viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
                     guard let self else { return }
@@ -262,7 +262,7 @@ extension AdventureMapViewController {
                     case .notDetermined:
                         return
                     case .fullAccuracy:
-                        self.viewModel.authenticatePlaceAdventure(placeInfo: placeInfo)
+                        self.viewModel.authenticatePlaceAdventure(placeInfo: place)
                     case .reducedAccuracy:
                         self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationReducedAccuracyMessage)
                     case .denied, .restricted:
@@ -271,10 +271,6 @@ extension AdventureMapViewController {
                         self.viewModel.locationServicesDisabledRelay.accept(())
                     }
                 }
-            },
-            // 툴팁의 탐험하기 버튼 탭 이벤트를 전달받을 때 장소 데이터를 제대로 받아오지 못한 경우
-            onError: { error in
-                print((error as? ORBMapError)?.localizedDescription ?? error.localizedDescription)
             }
         ).disposed(by: disposeBag)
     }

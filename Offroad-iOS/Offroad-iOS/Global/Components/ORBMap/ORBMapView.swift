@@ -79,7 +79,7 @@ final class ORBMapView: NMFNaverMapView {
     // MARK: - Rx Properties
     
     private var disposeBag = DisposeBag()
-    let exploreButtonTapped = PublishSubject<PlaceModel>()
+    let exploreButtonTapped = PublishRelay<PlaceModel>()
     let onMapViewCameraIdle = PublishRelay<Void>()
     let tooltipWillShow = PublishRelay<Void>()
     let tooltipDidShow = PublishRelay<Void>()
@@ -131,10 +131,11 @@ extension ORBMapView {
         
         tooltip.exploreButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
-            if let selectedMarker = tooltip.marker {
-                self.exploreButtonTapped.onNext(selectedMarker.place)
+            // 툴팁에 마커 정보(장소 정보)가 있을 때만 탭 이벤트 전달.
+            if let selectedMarker = self.tooltip.marker {
+                self.exploreButtonTapped.accept(selectedMarker.place)
             } else {
-                self.exploreButtonTapped.onError(ORBMapError.EmptyTooltip)
+                printLog("툴팁에서 마커 정보(위치 정보)를 갖고 있지 않아 값을 전달할 수 없습니다.")
             }
         }).disposed(by: disposeBag)
     }
