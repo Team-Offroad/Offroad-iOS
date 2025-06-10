@@ -22,19 +22,16 @@ final class AdventureMapViewModel: SVGFetchable {
     
     let locationManager = CLLocationManager()
     
-    let isLocationAuthorized = PublishRelay<Bool>()
-    let isFirstVisitToday = PublishRelay<Bool>()
-    let successCharacterImageUrl = PublishRelay<String>()
-    let successCharacterImage = PublishSubject<UIImage?>()
-    let completeQuestList = PublishRelay<[CompleteQuest]?>()
-    let adventureResultSubject = PublishSubject<AdventuresPlaceAuthenticationResultData>()
-    
     let startLoading = PublishRelay<Void>()
-    let networkFailureSubject = PublishSubject<Void>()
     /// 지도에 표시될 마커 정보 데이터를 방출
     let markers = BehaviorRelay<[ORBNMFMarker]>(value: [])
     /// 마커 정보를 가져오는 과정에서 발생하는 에러를 방출
     let markersError = PublishRelay<Error>()
+    /// 위치 인증 기반 탐험 결과와 팝업에 띄울 이미지를 함께 방출 (`AdventureResult` 타입으로 래핑)
+    let placeAuthenticationResult = PublishRelay<AdventureResult>()
+    /// 위치 인증 기반 탐험 과정에서 발생하는 에러를 방출
+    let placeAuthenticationError = PublishRelay<Error>()
+    
     let customOverlayImage = NMFOverlayImage(image: .icnQuestMapPlaceMarker)
     let locationUnauthorizedMessage = PublishRelay<String>()
     let locationServicesDisabledRelay = PublishRelay<Void>()
@@ -43,17 +40,6 @@ final class AdventureMapViewModel: SVGFetchable {
         locationManager.startUpdatingLocation()
         guard let coordinate = locationManager.location?.coordinate else { return nil }
         return NMGLatLng(lat: coordinate.latitude, lng: coordinate.longitude)
-    }
-    
-    //MARK: - Life Cycle
-    
-    init() {
-        successCharacterImageUrl.subscribe(onNext: { [weak self] imageUrl in
-            guard let self else { return }
-            self.fetchSVG(svgURLString: imageUrl) { image in
-                self.successCharacterImage.onNext(image)
-            }
-        }).disposed(by: disposeBag)
     }
     
 }
@@ -128,6 +114,7 @@ extension AdventureMapViewModel {
                 // 새 마커들을 지도에 추가하기 전에 기존에 지도에 뜨던 마커들을 지도에서 제거하는 동작.
                 /// - Note: 네이버 지도에 추가된 오버레이(마커 포함)의 속성은 메인 스레드에서 접근해야 하며,
                 /// 그렇지 않을 경우 `NSObjectInaccessibleException` 발생.
+                /// 참고) NMFMarker 클래스는 MainActor가 아님.
                 /// 오버레이가 지도에 추가되지 았았을 경우에 한해서 다른 스레드에서 접근 시 예외가 발생하지 않음.
                 /// 비동기 컨텍스트에서 지도에 표시된 마커의 `mapView`에 값을 할당함에도 예외가 발생하지 않는 이유는 지도에서 제거하는 동작이기 때문.
                 /// 만약 지도에서 제거하는 동작 외에 마커의 속성에 접근하면 에러가 발생하니, 이 경우에는 반드시
@@ -173,22 +160,25 @@ extension AdventureMapViewModel {
         #endif
         
         startLoading.accept(())
-        NetworkService.shared.adventureService.authenticatePlaceAdventure(
-            adventureAuthDTO: dto,
-            completion: { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case .success(let data):
-                    guard let data else { return }
-                    self.isLocationAuthorized.accept(data.data.isValidPosition)
-                    self.successCharacterImageUrl.accept(data.data.successCharacterImageUrl)
-                    self.completeQuestList.accept(data.data.completeQuestList)
-                    self.isFirstVisitToday.accept(data.data.isFirstVisitToday)
-                default:
-                    self.networkFailureSubject.onNext(())
-                    return
+        Task { [weak self] in
+            do {
+                let networkService = NetworkService.shared.adventureService
+                // 탐험 시도 및 결과 받아오기
+                let authenticationResult = try await networkService.authenticatePlaceAdventure(adventureAuthDTO: dto)
+                let adventureResult = try await authenticationResult.asAdventureResult()
+                
+                // 탐험 결과와 이미지 방출
+                self?.placeAuthenticationResult.accept(adventureResult)
+                
+                // 탐험 성공 시 추가 로직
+                if adventureResult.isAdventureSuccess {
+                    AmplitudeManager.shared.trackEvent(withName: AmplitudeEventTitles.exploreSuccess)
+                    MyInfoManager.shared.didSuccessAdventure.accept(())
                 }
-            })
+            } catch let error as NetworkResultError {
+                self?.placeAuthenticationError.accept(error)
+            }
+        }
     }
     
 }

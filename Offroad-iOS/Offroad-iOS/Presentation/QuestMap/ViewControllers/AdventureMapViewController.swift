@@ -66,7 +66,6 @@ class AdventureMapViewController: OffroadTabBarViewController {
         guard let offroadTabBarController = tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.showTabBarAnimation()
         
-//        rootView.orbMapView.isCompassMode = false
         rootView.orbMapView.trackingMode = .normal
     }
     
@@ -106,12 +105,6 @@ extension AdventureMapViewController {
             .asDriver(onErrorJustReturn: ())
             .drive(onNext: { [weak self] in
                 self?.rootView.startCenterLoading(withoutShading: false)
-            }).disposed(by: disposeBag)
-        
-        viewModel.networkFailureSubject
-            .asDriver(onErrorJustReturn: ())
-            .drive(onNext: { [weak self] in
-                self?.rootView.stopCenterLoading()
             }).disposed(by: disposeBag)
         
         viewModel.locationServicesDisabledRelay
@@ -161,7 +154,7 @@ extension AdventureMapViewController {
                 if let networkResultError = error as? NetworkResultError {
                     switch networkResultError {
                     case .timeout, .notConnectedToInternet, .unknownURLError:
-                        self?.showToast(message: ErrorMessages.networkError, inset: 66)
+                        self?.showToast(message: "장소 목록을 받아오지 못했어요. \(ErrorMessages.networkError)", inset: 66)
                     case .httpError, .decodingFailed, .networkCancelled, .unknown:
                         self?.showToast(message: "장소 목록을 받아오지 못했어요. 잠시 후 다시 시도해 주세요.", inset: 66)
                     }
@@ -170,30 +163,41 @@ extension AdventureMapViewController {
                 }
             }).disposed(by: disposeBag)
         
-        Observable.zip(
-            viewModel.isLocationAuthorized.asObservable(),
-            viewModel.successCharacterImage.asObservable(),
-            viewModel.completeQuestList.asObservable(),
-            viewModel.isFirstVisitToday.asObservable()
+        /// `viewModel`의 `placeAuthenticationResult`구독 시 드라이버가 에러를 받을 경우 반환할 더미 값.
+        let dummyAdventureResult = AdventureResult(
+            isValidPosition: false,
+            isFirstVisitToday: false,
+            completedQuests: nil,
+            resultImage: UIImage()
         )
-        .observe(on: MainScheduler.instance)
-        .subscribe(onNext: { [weak self] locationValidation, image, completeQuests, isFirstVisitToday in
-            guard let self else { return }
-            if locationValidation {
-                self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
-                MyInfoManager.shared.shouldUpdateCharacterAnimation.accept(latestCategory ?? "NONE")
-                MyInfoManager.shared.didSuccessAdventure.accept(())
-            }
-            self.rootView.stopCenterLoading()
-            if locationValidation && isFirstVisitToday {
-                AmplitudeManager.shared.trackEvent(withName: AmplitudeEventTitles.exploreSuccess)
-                rootView.orbMapView.hideTooltip()
-            }
-            self.popupAdventureResult(isValidLocation: locationValidation,
-                                      image: image,
-                                      completeQuests: completeQuests,
-                                      isFirstVisitToday: isFirstVisitToday)
-        }).disposed(by: disposeBag)
+        viewModel.placeAuthenticationResult
+            .asDriver(onErrorJustReturn: dummyAdventureResult)
+            .drive(onNext: { [weak self] adventureResult in
+                guard let self else { return }
+                self.rootView.stopCenterLoading()
+                if adventureResult.isAdventureSuccess {
+                    self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
+                    self.rootView.orbMapView.hideTooltip()
+                    MyInfoManager.shared.shouldUpdateCharacterAnimation.accept(latestCategory ?? "NONE")
+                }
+                self.popupAdventureResult(adventureResult)
+            }).disposed(by: disposeBag)
+        
+        viewModel.placeAuthenticationError
+            .observe(on: MainScheduler.instance)
+            .do(onNext: { [weak self] _ in self?.rootView.stopCenterLoading() })
+            .subscribe(onNext: {  [weak self] error in
+                if let networkResultError = error as? NetworkResultError {
+                    switch networkResultError {
+                    case .timeout, .notConnectedToInternet, .unknownURLError:
+                        self?.showToast(message: "탐험에 실패했어요.\n\(ErrorMessages.networkError)", inset: 66)
+                    case .httpError, .decodingFailed, .networkCancelled, .unknown:
+                        self?.showToast(message: "탐험에 실패했어요. 잠시 후 다시 시도해 주세요.", inset: 66)
+                    }
+                } else {
+                    self?.showToast(message: "탐험에 실패했어요. 잠시 후 다시 시도해 주세요.", inset: 66)
+                }
+            }).disposed(by: disposeBag)
         
         rootView.reloadPlaceButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
@@ -288,47 +292,47 @@ extension AdventureMapViewController {
     }
     
     private func popupAdventureResult(
-        isValidLocation: Bool,
-        image: UIImage?,
-        completeQuests: [CompleteQuest]?,
-        isFirstVisitToday: Bool
+        _ result: AdventureResult
     ) {
-        let title: String = (isValidLocation && isFirstVisitToday
-                             ? AlertMessage.adventureSuccessTitle
-                             : AlertMessage.adventureFailureTitle)
+        let title: String = (
+            result.isAdventureSuccess
+            ? AlertMessage.adventureSuccessTitle
+            : AlertMessage.adventureFailureTitle
+        )
         let message: String
         let buttonTitle: String
+        let isValidPosition = result.isValidPosition
+        let isFirstVisitToday = result.isFirstVisitToday
         
-        // 탐험 성공
-        if isValidLocation && isFirstVisitToday {
+        switch (isValidPosition, isFirstVisitToday) {
+        case (true, true):
+            // 탐험 성공
             message = AlertMessage.adventureSuccessMessage
             buttonTitle = "홈으로"
-            
-        // 위치는 맞으나, 해당 날짜에 두 번째 방문인 경우
-        } else if isValidLocation && !isFirstVisitToday {
+        case (true, false):
+            // 위치는 맞으나, 해당 날짜에 두 번째 방문인 경우
             message = AlertMessage.adventureFailureVisitCountMessage
             buttonTitle = "확인"
-            
-        // isValidLocation이 false인 경우 (잘못된 위치)
-        } else {
+        default:
+            // isValidLocation이 false인 경우 (위치 인증 실패)
             message = AlertMessage.adventureFailureLocationMessage
             buttonTitle = "확인"
         }
         
         let alertController = ORBAlertController(title: title, message: message, type: .explorationResult)
-        alertController.configureExplorationResultImage { $0.image = image }
+        alertController.configureExplorationResultImage { $0.image = result.resultImage }
         alertController.configureMessageLabel {
             $0.highlightText(targetText: "위치", font: .offroad(style: .iosTextBold))
             $0.highlightText(targetText: "내일 다시", font: .offroad(style: .iosTextBold))
-            if isValidLocation && !isFirstVisitToday {
+            if isValidPosition && !isFirstVisitToday {
                 $0.highlightText(targetText: "한 번", font: .offroad(style: .iosTextBold))
             }
         }
         alertController.xButton.isHidden = true
         let okAction = ORBAlertAction(title: buttonTitle, style: .default) { [weak self] _ in
-            guard isValidLocation && isFirstVisitToday else { return }
+            guard isValidPosition && isFirstVisitToday else { return }
             self?.tabBarController?.selectedIndex = 0
-            if let completeQuests {
+            if let completeQuests = result.completedQuests {
                 self?.popupQuestCompletion(completeQuests: completeQuests)
             }
         }

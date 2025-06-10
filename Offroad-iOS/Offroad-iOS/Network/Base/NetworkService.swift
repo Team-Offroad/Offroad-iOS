@@ -14,7 +14,7 @@ final class NetworkService {
     private init() {}
     
     let authService: AuthServiceProtocol = AuthService()
-    let adventureService: AdventureServiceProtocol = AdventureService()
+    let adventureService = AdventureService()
     let questService: QuestServiceProtocol = QuestService()
     let questListService = QuestListService()
     let emblemService: EmblemServiceProtocol = EmblemService()

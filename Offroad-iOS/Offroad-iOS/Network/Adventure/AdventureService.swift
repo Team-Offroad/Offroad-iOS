@@ -72,4 +72,32 @@ final class AdventureService: BaseService, AdventureServiceProtocol {
             }
         }
     }
+    
+    // 바로 위의 authenticatePlaceAdventure 메서드를 async/await 코드로 변환
+    func authenticatePlaceAdventure(
+        adventureAuthDTO: AdventuresPlaceAuthenticationRequestDTO
+    ) async throws -> AdventuresPlaceAuthenticationResultData {
+        let api = AdventureAPI.adventurePlaceAuthentication(adventurePlaceAuth: adventureAuthDTO)
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(api) { result in
+                switch result {
+                case .success(let moyaResponse):
+                    do {
+                        let decodedDTO = try NetworkResultHandler().handleSuccessCase(
+                            response: moyaResponse,
+                            decodingType: AdventuresPlaceAuthenticationResponseDTO.self
+                        )
+                        continuation.resume(returning: decodedDTO.data)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                case .failure(let moyaError):
+                    let errorToThrow = NetworkResultHandler().handleFailureCase(moyaError: moyaError)
+                    continuation.resume(throwing: errorToThrow)
+                }
+            }
+        }
+        
+    }
+    
 }
