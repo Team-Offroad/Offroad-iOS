@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		37B7D2FACC4E6E2443C27330 /* Pods_Offroad_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C209A381BCFA0780CFEA9C93 /* Pods_Offroad_iOSUITests.framework */; };
 		4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E03942C2C2A9DCE007F0517 /* AppDelegate.swift */; };
 		4E03942F2C2A9DCE007F0517 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E03942E2C2A9DCE007F0517 /* SceneDelegate.swift */; };
 		4E0394312C2A9DCE007F0517 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0394302C2A9DCE007F0517 /* ViewController.swift */; };
@@ -42,7 +41,6 @@
 		4E1CFDF02D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */; };
 		4E1E94112C39870700A7B08A /* ColorLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94102C39870700A7B08A /* ColorLiterals.swift */; };
 		4E1E94132C398C4200A7B08A /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94122C398C4200A7B08A /* String+.swift */; };
-		4E1E94192C3AC27C00A7B08A /* AdventureMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */; };
 		4E1ED3832D188FA80058C8D9 /* EmptyStateCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1ED3822D188FA80058C8D9 /* EmptyStateCollectionView.swift */; };
 		4E23776E2CC81B2000716AFF /* NetworkMonitoringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23776D2CC81B2000716AFF /* NetworkMonitoringManager.swift */; };
 		4E246B352DB4F72300198433 /* ORBRecommendationMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E246B342DB4F72300198433 /* ORBRecommendationMainViewController.swift */; };
@@ -78,6 +76,8 @@
 		4E46E5F92CB99944000A1EEE /* ORBToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5F82CB99944000A1EEE /* ORBToastWindow.swift */; };
 		4E46E5FB2CBA3F55000A1EEE /* UIWindowScene+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FA2CBA3F55000A1EEE /* UIWindowScene+.swift */; };
 		4E46E5FD2CBA483D000A1EEE /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5FC2CBA483D000A1EEE /* UIViewController+.swift */; };
+		4E47F7C12DF4367100C5AA41 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = 4E47F7C02DF4367100C5AA41 /* NMapsMap */; };
+		4E47F7C42DF4368300C5AA41 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = 4E47F7C32DF4368300C5AA41 /* NMapsMap */; };
 		4E4A8FD72C4A5752001FB498 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4A8FD62C4A5752001FB498 /* UIImage+.swift */; };
 		4E4D00FA2DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D00F92DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift */; };
 		4E4D01482DCE0DB9002D9C6A /* MinimumSupportedVersionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D01472DCE0DB9002D9C6A /* MinimumSupportedVersionAPI.swift */; };
@@ -94,7 +94,6 @@
 		4E4F31682D4718F400C3B2FF /* AdventuresPlaceAuthenticationRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E09BF522C48A2F8009B316A /* AdventuresPlaceAuthenticationRequestDTO.swift */; };
 		4E4F31692D4718F400C3B2FF /* OffroadTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEC2FA72C41216700007353 /* OffroadTabBarViewController.swift */; };
 		4E4F316A2D4718F400C3B2FF /* AdventureInfoResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E7966B2C457D64005B47A5 /* AdventureInfoResponseDTO.swift */; };
-		4E4F316B2D4718F400C3B2FF /* AdventureMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */; };
 		4E4F316C2D4718F400C3B2FF /* ORBAlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCDFE22C92C1F1006DEBB6 /* ORBAlertButton.swift */; };
 		4E4F316D2D4718F400C3B2FF /* QuestQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE34912C3FC73C006DB244 /* QuestQRViewController.swift */; };
 		4E4F316E2D4718F400C3B2FF /* SVGKImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D063E98B2C49328200434A09 /* SVGKImage+.swift */; };
@@ -381,6 +380,8 @@
 		4E87852E2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87852D2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift */; };
 		4E8785312DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8785302DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift */; };
 		4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4E8B478E2C382A4800D9B8EE /* Lottie */; };
+		4E9134222DF6B13300AB6172 /* AdventureMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */; };
+		4E9134232DF6B14D00AB6172 /* AdventureMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94182C3AC27C00A7B08A /* AdventureMapView.swift */; };
 		4E92A9ED2DDCC1F90021F14B /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92A9EC2DDCC1F90021F14B /* PlaceModel.swift */; };
 		4E92A9EE2DDCC1F90021F14B /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E92A9EC2DDCC1F90021F14B /* PlaceModel.swift */; };
 		4E94E6462D48DD08009E6195 /* GoogleService-Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E94E6452D48DD08009E6195 /* GoogleService-Info_Dev.plist */; };
@@ -522,8 +523,6 @@
 		87D9A70D2CE9BC1700F1CECD /* ScrollLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9A70C2CE9BC1700F1CECD /* ScrollLoadingView.swift */; };
 		87E046942C3D2B38002D12C2 /* BirthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046932C3D2B38002D12C2 /* BirthViewController.swift */; };
 		87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E046972C3D5E3D002D12C2 /* NicknameView.swift */; };
-		944D165CBEB71E3086FC2E45 /* Pods_Offroad_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE809E87F4768974FD850C0 /* Pods_Offroad_iOSTests.framework */; };
-		A7D613751839773D9FCA3CA9 /* Pods_ORB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE483DE5ED96A7C33C582FFA /* Pods_ORB.framework */; };
 		D004F8562CA12A7A00D5A2CD /* NoticeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8552CA12A7A00D5A2CD /* NoticeResponseDTO.swift */; };
 		D004F8582CA12B1500D5A2CD /* NoticeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8572CA12B1000D5A2CD /* NoticeAPI.swift */; };
 		D004F85A2CA12B2200D5A2CD /* NoticeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D004F8592CA12B1C00D5A2CD /* NoticeService.swift */; };
@@ -622,8 +621,6 @@
 		D0CA20822D7FE06B00FDF7F4 /* MonthPickerModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20812D7FE05A00FDF7F4 /* MonthPickerModalView.swift */; };
 		D0CA20842D7FE08200FDF7F4 /* MonthPickerModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20832D7FE07F00FDF7F4 /* MonthPickerModalViewController.swift */; };
 		D0CA20872D8018FA00FDF7F4 /* MyDiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20862D8018F400FDF7F4 /* MyDiaryManager.swift */; };
-		D0CF2E042D772570000334B5 /* Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CF2E032D772570000334B5 /* Info_Dev.plist */; };
-		D0CF2E052D772570000334B5 /* Info_Dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CF2E032D772570000334B5 /* Info_Dev.plist */; };
 		D0CF2E1D2D77EC96000334B5 /* GuideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */; };
 		D0E6BE902CED2827006CDAA8 /* PushNotificationRedirectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E6BE8F2CED2815006CDAA8 /* PushNotificationRedirectModel.swift */; };
 		D0E795FC2C447511005B47A5 /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E795FB2C447511005B47A5 /* AppleAuthManager.swift */; };
@@ -670,7 +667,6 @@
 		D0EAF21F2C3B02B700566543 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF21E2C3B02B700566543 /* SplashView.swift */; };
 		D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF2232C3B7D7100566543 /* LoginView.swift */; };
 		D0EAF2262C3B7D7F00566543 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF2252C3B7D7F00566543 /* LoginViewController.swift */; };
-		FBAFDE38260AF6D1A1B50426 /* Pods_ORB_Dev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48899B3EA1AAE31920125638 /* Pods_ORB_Dev.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -691,8 +687,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		12264F5DAFBA1AB303BBB696 /* Pods-Offroad-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSUITests/Pods-Offroad-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
-		48899B3EA1AAE31920125638 /* Pods_ORB_Dev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ORB_Dev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E0394292C2A9DCE007F0517 /* ORB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ORB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E03942C2C2A9DCE007F0517 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E03942E2C2A9DCE007F0517 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -879,8 +873,6 @@
 		4EFD004F2CCB4C25005C294D /* SVGFetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGFetchable.swift; sourceTree = "<group>"; };
 		4EFFAFAD2CE442E900EFA714 /* ChatLogNavigationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogNavigationAnimator.swift; sourceTree = "<group>"; };
 		4EFFAFB02CE4576300EFA714 /* ORBNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBNavigationController.swift; sourceTree = "<group>"; };
-		547D8C2FE4ED5E6E938EE1DF /* Pods-ORB_Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ORB_Dev.release.xcconfig"; path = "Target Support Files/Pods-ORB_Dev/Pods-ORB_Dev.release.xcconfig"; sourceTree = "<group>"; };
-		7EE809E87F4768974FD850C0 /* Pods_Offroad_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		872F4BAD2C68C1F600284DE0 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
 		872F4BB02C68C43800284DE0 /* CharacterListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListCell.swift; sourceTree = "<group>"; };
 		872F4BB42C68D66200284DE0 /* CharacterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewController.swift; sourceTree = "<group>"; };
@@ -909,12 +901,6 @@
 		87D9A70C2CE9BC1700F1CECD /* ScrollLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoadingView.swift; sourceTree = "<group>"; };
 		87E046932C3D2B38002D12C2 /* BirthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthViewController.swift; sourceTree = "<group>"; };
 		87E046972C3D5E3D002D12C2 /* NicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameView.swift; sourceTree = "<group>"; };
-		96F098F7E0B814A1C69A1FF0 /* Pods-ORB_Dev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ORB_Dev.debug.xcconfig"; path = "Target Support Files/Pods-ORB_Dev/Pods-ORB_Dev.debug.xcconfig"; sourceTree = "<group>"; };
-		B2E70168F4B79E9143AC0062 /* Pods-ORB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ORB.release.xcconfig"; path = "Target Support Files/Pods-ORB/Pods-ORB.release.xcconfig"; sourceTree = "<group>"; };
-		B37F601CF65BEA98AEF5A9EF /* Pods-ORB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ORB.debug.xcconfig"; path = "Target Support Files/Pods-ORB/Pods-ORB.debug.xcconfig"; sourceTree = "<group>"; };
-		BE483DE5ED96A7C33C582FFA /* Pods_ORB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ORB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BF14B3C72E9D68D07F2CD92A /* Pods-Offroad-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSUITests/Pods-Offroad-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		C209A381BCFA0780CFEA9C93 /* Pods_Offroad_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Offroad_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D004F8552CA12A7A00D5A2CD /* NoticeResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeResponseDTO.swift; sourceTree = "<group>"; };
 		D004F8572CA12B1000D5A2CD /* NoticeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeAPI.swift; sourceTree = "<group>"; };
 		D004F8592CA12B1C00D5A2CD /* NoticeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeService.swift; sourceTree = "<group>"; };
@@ -1054,8 +1040,6 @@
 		D0EAF21E2C3B02B700566543 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		D0EAF2232C3B7D7100566543 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		D0EAF2252C3B7D7F00566543 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		D26F5C5C958DC514932CEC17 /* Pods-Offroad-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		DF4FAC4F1A93114933B5F990 /* Pods-Offroad-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Offroad-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Offroad-iOSTests/Pods-Offroad-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -1099,8 +1083,8 @@
 				4E0394D12C2AB846007F0517 /* KakaoSDKAuth in Frameworks */,
 				D0600BDA2CE50CF900D8F1D6 /* FirebaseMessaging in Frameworks */,
 				4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */,
+				4E47F7C42DF4368300C5AA41 /* NMapsMap in Frameworks */,
 				4E38A4472DAAAC9C00110780 /* ExpandableCell in Frameworks */,
-				A7D613751839773D9FCA3CA9 /* Pods_ORB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1108,7 +1092,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				944D165CBEB71E3086FC2E45 /* Pods_Offroad_iOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1116,7 +1099,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37B7D2FACC4E6E2443C27330 /* Pods_Offroad_iOSUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1137,11 +1119,11 @@
 				4E4F325F2D4718F400C3B2FF /* SnapKit in Frameworks */,
 				4E4F32602D4718F400C3B2FF /* KakaoSDKCommon in Frameworks */,
 				4E4F32612D4718F400C3B2FF /* RxRelay in Frameworks */,
+				4E47F7C12DF4367100C5AA41 /* NMapsMap in Frameworks */,
 				4E4F32622D4718F400C3B2FF /* KakaoSDKAuth in Frameworks */,
 				4E4F32632D4718F400C3B2FF /* FirebaseMessaging in Frameworks */,
 				D0CA206C2D7DCF5900FDF7F4 /* FSCalendar in Frameworks */,
 				4E4F32642D4718F400C3B2FF /* Lottie in Frameworks */,
-				FBAFDE38260AF6D1A1B50426 /* Pods_ORB_Dev.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1166,9 +1148,8 @@
 				4E03942B2C2A9DCE007F0517 /* Offroad-iOS */,
 				4E0394422C2A9DCF007F0517 /* Offroad-iOSTests */,
 				4E03944C2C2A9DCF007F0517 /* Offroad-iOSUITests */,
+				4E47F7C22DF4368300C5AA41 /* Frameworks */,
 				4E03942A2C2A9DCE007F0517 /* Products */,
-				80700C167D3310A86AF0ADA5 /* Pods */,
-				8B9AD99A554C5F1A72FF3E61 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1842,6 +1823,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		4E47F7C22DF4368300C5AA41 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4E4D01462DCE0D8F002D9C6A /* MinimumSupportedVersion */ = {
 			isa = PBXGroup;
 			children = (
@@ -2347,21 +2335,6 @@
 			path = NavigationController;
 			sourceTree = "<group>";
 		};
-		80700C167D3310A86AF0ADA5 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B37F601CF65BEA98AEF5A9EF /* Pods-ORB.debug.xcconfig */,
-				B2E70168F4B79E9143AC0062 /* Pods-ORB.release.xcconfig */,
-				96F098F7E0B814A1C69A1FF0 /* Pods-ORB_Dev.debug.xcconfig */,
-				547D8C2FE4ED5E6E938EE1DF /* Pods-ORB_Dev.release.xcconfig */,
-				DF4FAC4F1A93114933B5F990 /* Pods-Offroad-iOSTests.debug.xcconfig */,
-				D26F5C5C958DC514932CEC17 /* Pods-Offroad-iOSTests.release.xcconfig */,
-				BF14B3C72E9D68D07F2CD92A /* Pods-Offroad-iOSUITests.debug.xcconfig */,
-				12264F5DAFBA1AB303BBB696 /* Pods-Offroad-iOSUITests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		871CF5892C44F7A6001026AA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2485,17 +2458,6 @@
 				8792D0142C3E581E002051AC /* GenderViewController.swift */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		8B9AD99A554C5F1A72FF3E61 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				BE483DE5ED96A7C33C582FFA /* Pods_ORB.framework */,
-				48899B3EA1AAE31920125638 /* Pods_ORB_Dev.framework */,
-				7EE809E87F4768974FD850C0 /* Pods_Offroad_iOSTests.framework */,
-				C209A381BCFA0780CFEA9C93 /* Pods_Offroad_iOSUITests.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D004F84E2CA129FC00D5A2CD /* Notice */ = {
@@ -3407,11 +3369,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E0394532C2A9DCF007F0517 /* Build configuration list for PBXNativeTarget "ORB" */;
 			buildPhases = (
-				32AFB86DC24EED2A4123CF37 /* [CP] Check Pods Manifest.lock */,
 				4E0394252C2A9DCE007F0517 /* Sources */,
 				4E0394262C2A9DCE007F0517 /* Frameworks */,
 				4E0394272C2A9DCE007F0517 /* Resources */,
-				DC24051A3958D845A8466BC7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3435,6 +3395,7 @@
 				D0600BD92CE50CF900D8F1D6 /* FirebaseMessaging */,
 				4EA272422D58560B00F64B20 /* AmplitudeSwift */,
 				4E38A4462DAAAC9C00110780 /* ExpandableCell */,
+				4E47F7C32DF4368300C5AA41 /* NMapsMap */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E0394292C2A9DCE007F0517 /* ORB.app */;
@@ -3444,7 +3405,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E0394562C2A9DCF007F0517 /* Build configuration list for PBXNativeTarget "Offroad-iOSTests" */;
 			buildPhases = (
-				9026312462080C7597D13D2B /* [CP] Check Pods Manifest.lock */,
 				4E03943B2C2A9DCF007F0517 /* Sources */,
 				4E03943C2C2A9DCF007F0517 /* Frameworks */,
 				4E03943D2C2A9DCF007F0517 /* Resources */,
@@ -3463,7 +3423,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E0394592C2A9DCF007F0517 /* Build configuration list for PBXNativeTarget "Offroad-iOSUITests" */;
 			buildPhases = (
-				08DC7594E9584174FC54302E /* [CP] Check Pods Manifest.lock */,
 				4E0394452C2A9DCF007F0517 /* Sources */,
 				4E0394462C2A9DCF007F0517 /* Frameworks */,
 				4E0394472C2A9DCF007F0517 /* Resources */,
@@ -3482,11 +3441,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E4F32772D4718F400C3B2FF /* Build configuration list for PBXNativeTarget "ORB_Dev" */;
 			buildPhases = (
-				2AF4E14D1E7C7840765BFECC /* [CP] Check Pods Manifest.lock */,
 				4E4F31632D4718F400C3B2FF /* Sources */,
 				4E4F32562D4718F400C3B2FF /* Frameworks */,
 				4E4F32662D4718F400C3B2FF /* Resources */,
-				B24124A01C3E26AEA2059199 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3511,6 +3468,7 @@
 				4EA272402D5855E700F64B20 /* AmplitudeSwift */,
 				D0CA206B2D7DCF5900FDF7F4 /* FSCalendar */,
 				4E38A4442DAAAC8A00110780 /* ExpandableCell */,
+				4E47F7C02DF4367100C5AA41 /* NMapsMap */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E4F327A2D4718F400C3B2FF /* ORB_Dev.app */;
@@ -3586,6 +3544,7 @@
 				4EA2723F2D5855E700F64B20 /* XCRemoteSwiftPackageReference "Amplitude-Swift" */,
 				D0CA206A2D7DCF5900FDF7F4 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				4E38A4432DAAAC8A00110780 /* XCRemoteSwiftPackageReference "ExpandableCell" */,
+				4E47F7BF2DF4367100C5AA41 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4E03942A2C2A9DCE007F0517 /* Products */;
@@ -3608,7 +3567,6 @@
 			files = (
 				4E0394392C2A9DCF007F0517 /* LaunchScreen.storyboard in Resources */,
 				4E9900882CE0768B007EEFF7 /* loading1.json in Resources */,
-				D0CF2E042D772570000334B5 /* Info_Dev.plist in Resources */,
 				D0600BE22CE6192300D8F1D6 /* GoogleService-Info.plist in Resources */,
 				4E9900892CE0768B007EEFF7 /* loading2.json in Resources */,
 				D06D26B92C3BA91900E79F25 /* Optician-Sans.otf in Resources */,
@@ -3645,7 +3603,6 @@
 			files = (
 				4E4F32672D4718F400C3B2FF /* LaunchScreen.storyboard in Resources */,
 				4E4F32682D4718F400C3B2FF /* loading1.json in Resources */,
-				D0CF2E052D772570000334B5 /* Info_Dev.plist in Resources */,
 				4E4F326A2D4718F400C3B2FF /* loading2.json in Resources */,
 				4E4F326B2D4718F400C3B2FF /* Optician-Sans.otf in Resources */,
 				4E4F326C2D4718F400C3B2FF /* Pretendard-Light.otf in Resources */,
@@ -3673,136 +3630,12 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		08DC7594E9584174FC54302E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Offroad-iOSUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2AF4E14D1E7C7840765BFECC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ORB_Dev-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		32AFB86DC24EED2A4123CF37 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ORB-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9026312462080C7597D13D2B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Offroad-iOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B24124A01C3E26AEA2059199 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ORB_Dev/Pods-ORB_Dev-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ORB_Dev/Pods-ORB_Dev-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ORB_Dev/Pods-ORB_Dev-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DC24051A3958D845A8466BC7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ORB/Pods-ORB-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ORB/Pods-ORB-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ORB/Pods-ORB-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		4E0394252C2A9DCE007F0517 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E9134222DF6B13300AB6172 /* AdventureMapView.swift in Sources */,
 				4E09BF572C48A5B7009B316A /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */,
 				4E4E2C022CCE2841000A634D /* PlaceInfoTooltip.swift in Sources */,
 				4E700C852CB3CA1E00C664C2 /* ORBOverlayViewController.swift in Sources */,
@@ -3811,7 +3644,6 @@
 				4EEC2FA82C41216700007353 /* OffroadTabBarViewController.swift in Sources */,
 				D0E7966C2C457D64005B47A5 /* AdventureInfoResponseDTO.swift in Sources */,
 				4E1CFDF02D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */,
-				4E1E94192C3AC27C00A7B08A /* AdventureMapView.swift in Sources */,
 				4EFCDFE32C92C1F1006DEBB6 /* ORBAlertButton.swift in Sources */,
 				4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */,
 				D063E98C2C49328300434A09 /* SVGKImage+.swift in Sources */,
@@ -3831,7 +3663,6 @@
 				D0E796572C453BCB005B47A5 /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
 				4ECD02702D9D722C00830534 /* ORBScrollLoadingStyle.swift in Sources */,
 				4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */,
-				4E1E94192C3AC27C00A7B08A /* AdventureMapView.swift in Sources */,
 				4EC4A1ED2D24380700A8C130 /* CustomIntensityBlurView.swift in Sources */,
 				4EDB392E2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */,
 				D004F8CF2CB4DDE600D5A2CD /* KakaoAuthManager.swift in Sources */,
@@ -4094,6 +3925,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E9134232DF6B14D00AB6172 /* AdventureMapView.swift in Sources */,
 				4E4F31642D4718F400C3B2FF /* AdventuresPlaceAuthenticationResponsetDTO.swift in Sources */,
 				4E4F31652D4718F400C3B2FF /* PlaceInfoTooltip.swift in Sources */,
 				4E4F31662D4718F400C3B2FF /* ORBOverlayViewController.swift in Sources */,
@@ -4102,7 +3934,6 @@
 				4E4F31692D4718F400C3B2FF /* OffroadTabBarViewController.swift in Sources */,
 				4E4F316A2D4718F400C3B2FF /* AdventureInfoResponseDTO.swift in Sources */,
 				D07D3AD72D9074B70030995E /* DiaryService.swift in Sources */,
-				4E4F316B2D4718F400C3B2FF /* AdventureMapView.swift in Sources */,
 				87C27F6B2D7FED19008036FA /* CourseQuestCollectionViewCell.swift in Sources */,
 				D022320C2D76CCE700DA6968 /* DiaryGuideView.swift in Sources */,
 				4E4F316C2D4718F400C3B2FF /* ORBAlertButton.swift in Sources */,
@@ -4133,7 +3964,6 @@
 				4E9759F22DA013B300F30692 /* DeveloperModeView.swift in Sources */,
 				4EEB47DA2DAEA3150025AAA2 /* ORBRecommendationGradientStyle.swift in Sources */,
 				4E4F317C2D4718F400C3B2FF /* QuestListResponseDTO.swift in Sources */,
-				4E4F316B2D4718F400C3B2FF /* AdventureMapView.swift in Sources */,
 				4E4F317D2D4718F400C3B2FF /* CustomIntensityBlurView.swift in Sources */,
 				4E4F317E2D4718F400C3B2FF /* KakaoAuthManager.swift in Sources */,
 				4EA272552D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */,
@@ -4457,7 +4287,6 @@
 /* Begin XCBuildConfiguration section */
 		4E0394512C2A9DCF007F0517 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B37F601CF65BEA98AEF5A9EF /* Pods-ORB.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -4521,7 +4350,6 @@
 		};
 		4E0394522C2A9DCF007F0517 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B2E70168F4B79E9143AC0062 /* Pods-ORB.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -4674,7 +4502,6 @@
 		};
 		4E0394572C2A9DCF007F0517 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF4FAC4F1A93114933B5F990 /* Pods-Offroad-iOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -4695,7 +4522,6 @@
 		};
 		4E0394582C2A9DCF007F0517 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D26F5C5C958DC514932CEC17 /* Pods-Offroad-iOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -4716,7 +4542,6 @@
 		};
 		4E03945A2C2A9DCF007F0517 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BF14B3C72E9D68D07F2CD92A /* Pods-Offroad-iOSUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -4735,7 +4560,6 @@
 		};
 		4E03945B2C2A9DCF007F0517 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 12264F5DAFBA1AB303BBB696 /* Pods-Offroad-iOSUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -5026,6 +4850,14 @@
 				minimumVersion = 2.0.1;
 			};
 		};
+		4E47F7BF2DF4367100C5AA41 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/navermaps/SPM-NMapsMap.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.21.0;
+			};
+		};
 		4E4F314C2D4718F400C3B2FF /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -5196,6 +5028,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E38A4432DAAAC8A00110780 /* XCRemoteSwiftPackageReference "ExpandableCell" */;
 			productName = ExpandableCell;
+		};
+		4E47F7C02DF4367100C5AA41 /* NMapsMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E47F7BF2DF4367100C5AA41 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */;
+			productName = NMapsMap;
+		};
+		4E47F7C32DF4368300C5AA41 /* NMapsMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E47F7BF2DF4367100C5AA41 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */;
+			productName = NMapsMap;
 		};
 		4E4F314B2D4718F400C3B2FF /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
