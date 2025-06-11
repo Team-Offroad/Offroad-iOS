@@ -48,15 +48,32 @@ final class AdventureMapViewModel: SVGFetchable {
 
 extension AdventureMapViewModel {
     
+    /// 위치 정보 사용 가능 상태
     enum LocationAuthorizationCase: Int {
-        case notDetermined = 0 
+        /// 아직 정해지지 않음. 처음 앱을 시작하거나, 위치 접근 허용 옵션이 '다음번에 묻기 또는 내가 공유할 때' 인 경우
+        case notDetermined = 0
+        
+        /// 위치 정보를 얻어올 수 있으면서, '정확한 위치' 옵션이 활성화된 경우.
         case fullAccuracy
+        
+        /// 위치 정보를 얻어올 수 있으나, '정확한 위치' 옵션이 활성화되어있지 않아 정확한 위치를 얻어올 수 없는 경우
         case reducedAccuracy
+        
+        /// 사용자가 위치 접근 권한을 거부한 경우
         case denied
+        
+        /// 가족 공유 등의 기능에서 부모 혹은 보호자가 제한했을 때
         case restricted
+        
+        /// 위치 서비스 자체가 불가능한 경우 (위치 서비스 기능 자체를 끈 경우)
         case servicesDisabled
     }
     
+    /// 현재 위치 접근 권한 상태.
+    ///
+    /// 비동기적으로 반환하는 이유는
+    /// 위치 서비스 여부를 묻는 `CLLocationManager.locationServicesEnabled()` 함수를 메인스레드에서 실행 시
+    /// Xcode에서 경고를 띄우기 때문.
     var locationAuthorizationStatus: LocationAuthorizationCase {
         get async {
             guard CLLocationManager.locationServicesEnabled() else {
@@ -71,12 +88,9 @@ extension AdventureMapViewModel {
                 return .notDetermined
                 
             case .restricted:
-                // 가족 공유 등의 기능에서 부모 혹은 보호자가 앱을 사용할 수 없도록 제한했을 때
                 return .restricted
                 
             case .denied:
-                // 사용자가 앱에 위치 사용 권한을 허용하지 않은 경우
-                // 위치 서비스를 끈 경우
                 return .denied
                 
             case .authorizedAlways, .authorizedWhenInUse:
@@ -92,6 +106,8 @@ extension AdventureMapViewModel {
         }
     }
     
+    /// 특정 위치를 기준으로 지도에 표시될 장소 목록을 업데이트
+    /// - Parameter target: 업데이트할 기준 좌표.
     func updateRegisteredPlaces(at target: NMGLatLng) {
         startLoading.accept(())
         
@@ -124,6 +140,10 @@ extension AdventureMapViewModel {
         }
     }
     
+    /// 위치 기반 탐험 인증을 시도.
+    /// - Parameter placeInfo: 탐험을 시도할 위치 정보.
+    ///
+    /// 개발용 `Target`(`ORB_Dev`)에서는 개발자 모드의 설정값 중 '탐험 시 위치 인증 무시' 값에 따라 분기처리됨.
     func authenticatePlaceAdventure(placeInfo: PlaceModel) {
         guard let currentLocation else {
             locationUnauthorizedMessage.accept(ErrorMessages.accessingLocationDataFailure)
