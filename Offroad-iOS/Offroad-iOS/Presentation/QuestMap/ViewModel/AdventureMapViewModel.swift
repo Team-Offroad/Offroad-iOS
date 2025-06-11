@@ -55,46 +55,39 @@ extension AdventureMapViewModel {
         case servicesDisabled
     }
     
-    //MARK: - Func
-    
-    func checkLocationAuthorizationStatus(completion: ((LocationAuthorizationCase) -> Void)? = nil) {
-        
-        DispatchQueue.global().async { [weak self] in
-            guard let self else { return }
-            
+    var locationAuthorizationStatus: LocationAuthorizationCase {
+        get async {
             guard CLLocationManager.locationServicesEnabled() else {
                 self.locationServicesDisabledRelay.accept(())
-                completion?(.servicesDisabled)
-                return
+                return .servicesDisabled
             }
             
             let status = self.locationManager.authorizationStatus
             switch status {
             case .notDetermined:
                 self.locationManager.requestWhenInUseAuthorization()
-                completion?(.notDetermined)
+                return .notDetermined
                 
-                // 가족 공유 등의 기능에서 부모 혹은 보호자가 앱을 사용할 수 없도록 제한했을 때
             case .restricted:
-                completion?(.restricted)
+                // 가족 공유 등의 기능에서 부모 혹은 보호자가 앱을 사용할 수 없도록 제한했을 때
+                return .restricted
                 
-                /*
-                 - 사용자가 앱에 위치 사용 권한을 허용하지 않은 경우
-                 - 위치 서비스를 끈 경우
-                 */
             case .denied:
-                completion?(.denied)
+                // 사용자가 앱에 위치 사용 권한을 허용하지 않은 경우
+                // 위치 서비스를 끈 경우
+                return .denied
                 
             case .authorizedAlways, .authorizedWhenInUse:
-                guard locationManager.accuracyAuthorization == .fullAccuracy else {
-                    completion?(.reducedAccuracy)
-                    return
+                if locationManager.accuracyAuthorization == .fullAccuracy {
+                    return .fullAccuracy
+                } else {
+                    return .reducedAccuracy
                 }
-                completion?(.fullAccuracy)
+                
             @unknown default:
-                return
+                return .servicesDisabled
             }
-        }   
+        }
     }
     
     func updateRegisteredPlaces(at target: NMGLatLng) {

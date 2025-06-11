@@ -31,6 +31,10 @@ class AdventureMapViewController: OffroadTabBarViewController {
         rootView.orbMapView.mapView.cameraPosition.target
     }
     
+    private var locationAuthorizationStatus: AdventureMapViewModel.LocationAuthorizationCase {
+        get async { await viewModel.locationAuthorizationStatus }
+    }
+    
     //MARK: - Life Cycle
     
     override func loadView() {
@@ -46,17 +50,21 @@ class AdventureMapViewController: OffroadTabBarViewController {
         rootView.orbMapView.mapView.positionMode = .direction
         locationManager.startUpdatingHeading()
         rootView.orbMapView.mapView.moveCamera(.init(heading: 0))
-        viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
-            if authorizationCase != .fullAccuracy && authorizationCase != .reducedAccuracy {
-                DispatchQueue.main.async { [weak self] in
-                    // 사용자 위치 불러올 수 없을 시 초기 위치 설정
-                    // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
-                    self?.rootView.orbMapView.moveCamera(scrollTo: .init(lat: 37.5716229, lng: 126.9767879), animationDuration: 0)
-                    self?.viewModel.updateRegisteredPlaces(at: .init(lat: 37.5716229, lng: 126.9767879))
-                }
+        
+        Task { [weak self] in
+            guard let self else { return }
+            let locationAuthorizationStatus = await self.viewModel.locationAuthorizationStatus
+            switch locationAuthorizationStatus {
+            case .fullAccuracy, .reducedAccuracy:
+                self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
+            default:
+                // 사용자 위치 불러올 수 없을 시 초기 위치 설정
+                // 초기 위치: 광화문광장 (37.5716229, 126.9767879)
+                self.rootView.orbMapView.moveCamera(scrollTo: .init(lat: 37.5716229, lng: 126.9767879), animationDuration: 0)
+                self.viewModel.updateRegisteredPlaces(at: .init(lat: 37.5716229, lng: 126.9767879))
+                
             }
         }
-        viewModel.updateRegisteredPlaces(at: currentPositionTarget)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -209,9 +217,9 @@ extension AdventureMapViewController {
         rootView.switchTrackingModeButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
             
-            viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
+            Task { [weak self] in
                 guard let self else { return }
-                switch authorizationCase {
+                switch await self.locationAuthorizationStatus {
                 case .notDetermined:
                     return
                 case .fullAccuracy, .reducedAccuracy:
@@ -259,10 +267,9 @@ extension AdventureMapViewController {
         rootView.orbMapView.exploreButtonTapped.subscribe(
             // 툴팁의 탐험하기 버튼 탭 후 정상적으로 장소 데이터와 함께 이벤트를 받아온 경우
             onNext: { [weak self] place in
-                guard let self else { return }
-                self.viewModel.checkLocationAuthorizationStatus { [weak self] authorizationCase in
+                Task { [weak self] in
                     guard let self else { return }
-                    switch authorizationCase {
+                    switch await self.locationAuthorizationStatus {
                     case .notDetermined:
                         return
                     case .fullAccuracy:
@@ -380,8 +387,9 @@ extension AdventureMapViewController: CLLocationManagerDelegate {
             }
         }
         
-        viewModel.checkLocationAuthorizationStatus { authorizationCase in
-            switch authorizationCase {
+        Task { [weak self] in
+            guard let self else { return }
+            switch await self.locationAuthorizationStatus {
             case .notDetermined, .reducedAccuracy:
                 return
             case .fullAccuracy:
