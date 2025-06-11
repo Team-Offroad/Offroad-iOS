@@ -251,7 +251,7 @@ private extension ORBMapView {
 extension ORBMapView {
     
     /// 특정 마커에 툴팁을 띄우는 함수.
-    public func showTooltip(_ marker: ORBNMFMarker) {
+    public func showTooltip(_ marker: AdventureMapMarker) {
         tooltip.setMarker(marker)
         guard let tooltipPoint = tooltip.getPoint(in: mapView) else { return }
         
