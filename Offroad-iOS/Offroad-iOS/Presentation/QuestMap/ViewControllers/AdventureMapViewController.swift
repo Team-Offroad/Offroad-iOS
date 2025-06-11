@@ -131,7 +131,9 @@ extension AdventureMapViewController {
                     title: AlertMessage.locationUnauthorizedTitle,
                     message: message, type: .normal
                 )
-                let okAction = ORBAlertAction(title: "확인", style: .default) { _ in return }
+                let okAction = ORBAlertAction(title: "설정으로 이동", style: .default) { _ in
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                }
                 alertController.addAction(okAction)
                 self.present(alertController, animated: true)
             }.disposed(by: disposeBag)
