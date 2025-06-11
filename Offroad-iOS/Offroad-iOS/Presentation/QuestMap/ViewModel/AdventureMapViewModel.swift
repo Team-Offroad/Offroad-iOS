@@ -158,7 +158,7 @@ extension AdventureMapViewModel {
                 let networkService = NetworkService.shared.adventureService
                 // 탐험 시도 및 결과 받아오기
                 let authenticationResult = try await networkService.authenticatePlaceAdventure(adventureAuthDTO: dto)
-                let adventureResult = try await authenticationResult.asAdventureResult()
+                let adventureResult = try await authenticationResult.asAdventureResult(at: placeInfo)
                 
                 // 탐험 결과와 이미지 방출
                 self?.placeAuthenticationResult.accept(adventureResult)

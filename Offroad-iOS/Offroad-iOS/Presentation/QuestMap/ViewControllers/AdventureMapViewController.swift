@@ -173,26 +173,24 @@ extension AdventureMapViewController {
                 }
             }).disposed(by: disposeBag)
         
-        /// `viewModel`의 `placeAuthenticationResult`구독 시 드라이버가 에러를 받을 경우 반환할 더미 값.
-        let dummyAdventureResult = AdventureResult(
-            isValidPosition: false,
-            isFirstVisitToday: false,
-            completedQuests: nil,
-            resultImage: UIImage()
-        )
+        // 위치 기반 탐험 결과를 성공적으로 받아온 경우 실행할 동작 정의
         viewModel.placeAuthenticationResult
-            .asDriver(onErrorJustReturn: dummyAdventureResult)
-            .drive(onNext: { [weak self] adventureResult in
+            .observe(on: MainScheduler.instance)
+            .do(onNext: { [weak self] _ in self?.rootView.stopCenterLoading() })
+            .subscribe(onNext: { [weak self] adventureResult in
                 guard let self else { return }
-                self.rootView.stopCenterLoading()
+                // 탐험이 성공하면? -> 위치 정보를 업데이트하고, 툴팁을 숨기고, 홈 화면의 캐릭터 애니메이션 종류 업데이트.
                 if adventureResult.isAdventureSuccess {
                     self.viewModel.updateRegisteredPlaces(at: self.currentPositionTarget)
                     self.rootView.orbMapView.hideTooltip()
-                    MyInfoManager.shared.shouldUpdateCharacterAnimation.accept(latestCategory ?? "NONE")
+                    MyInfoManager.shared.shouldUpdateCharacterAnimation.accept(
+                        adventureResult.place.placeCategory.rawValue
+                    )
                 }
                 self.popupAdventureResult(adventureResult)
             }).disposed(by: disposeBag)
         
+        // 위치 기반 탐험 결과를 받아오는 과정에서 발생하는 에러를 구독
         viewModel.placeAuthenticationError
             .observe(on: MainScheduler.instance)
             .do(onNext: { [weak self] _ in self?.rootView.stopCenterLoading() })
@@ -218,7 +216,6 @@ extension AdventureMapViewController {
         
         rootView.switchTrackingModeButton.rx.tap.bind { [weak self] _ in
             guard let self else { return }
-            
             Task { [weak self] in
                 guard let self else { return }
                 switch await self.locationAuthorizationStatus {
