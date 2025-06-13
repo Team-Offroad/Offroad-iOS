@@ -124,13 +124,11 @@ extension AdventureMapViewModel {
                 // 새 마커들을 지도에 추가하기 전에 기존에 지도에 뜨던 마커들을 지도에서 제거하는 동작.
                 /// - Note: 네이버 지도에 추가된 오버레이(마커 포함)의 속성은 메인 스레드에서 접근해야 하며,
                 /// 그렇지 않을 경우 `NSObjectInaccessibleException` 발생.
-                /// 참고) NMFMarker 클래스는 MainActor가 아님.
                 /// 오버레이가 지도에 추가되지 았았을 경우에 한해서 다른 스레드에서 접근 시 예외가 발생하지 않음.
-                /// 비동기 컨텍스트에서 지도에 표시된 마커의 `mapView`에 값을 할당함에도 예외가 발생하지 않는 이유는 지도에서 제거하는 동작이기 때문.
-                /// 만약 지도에서 제거하는 동작 외에 마커의 속성에 접근하면 에러가 발생하니, 이 경우에는 반드시
-                /// `MainActor.run { ... }`
-                /// 등의 코드로 감쌀 거나 코드의 위치를 메인 스레드가 동작하는 환경으로 옮겨야 함.
-                self.markers.value.forEach { $0.mapView = nil }
+                /// 참고) `NMFMarker` 클래스는 `MainActor`에 격리되어 있지 않음.
+                await MainActor.run { [weak self] in
+                    self?.markers.value.forEach { $0.mapView = nil }
+                }
                 // 새 마커 정보 방출
                 self.markers.accept(markers)
             } catch {
