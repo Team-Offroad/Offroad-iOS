@@ -20,12 +20,8 @@ class AdventureMapViewController: OffroadTabBarViewController {
     
     private let viewModel = AdventureMapViewModel()
     private let rootView = AdventureMapView()
-    private let locationService = RegisteredPlaceService()
     
     private var disposeBag = DisposeBag()
-    private var searchedPlaceArray: [RegisteredPlaceInfo] = []
-    private var latestCategory: String?
-    
     private var locationManager: CLLocationManager { viewModel.locationManager }
     private var currentPositionTarget: NMGLatLng {
         rootView.orbMapView.mapView.cameraPosition.target
@@ -240,14 +236,6 @@ extension AdventureMapViewController {
             guard let self else { return }
             self.navigationController?.pushViewController(PlaceListViewController(), animated: true)
         }.disposed(by: disposeBag)
-        
-        rootView.orbMapView.tooltipWillShow.subscribe(onNext: { [weak self] in
-            self?.rootView.compass.isHidden = true
-        }).disposed(by: disposeBag)
-        
-        rootView.orbMapView.tooltipDidHide.subscribe(onNext: { [weak self] in
-            self?.rootView.compass.isHidden = false
-        }).disposed(by: disposeBag)
         
         #if DevTarget
         MyDiaryManager.shared.didCompleteCreateDiary

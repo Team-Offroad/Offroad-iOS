@@ -81,8 +81,7 @@ extension AdventureMapViewModel {
                 return .servicesDisabled
             }
             
-            let status = self.locationManager.authorizationStatus
-            switch status {
+            switch locationManager.authorizationStatus {
             case .notDetermined:
                 self.locationManager.requestWhenInUseAuthorization()
                 return .notDetermined
