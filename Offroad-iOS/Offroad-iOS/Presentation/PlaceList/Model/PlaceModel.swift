@@ -22,21 +22,21 @@ enum PlaceModelError: LocalizedError {
     }
 }
 
+enum ORBPlaceCategory: String {
+    case cafe = "CAFFE"
+    case restaurant = "RESTAURANT"
+    case park = "PARK"
+    case sport = "SPORT"
+    case culture = "CULTURE"
+}
+
 struct PlaceModel {
-    
-    enum Category: String {
-        case cafe = "CAFFE"
-        case restaurant = "RESTAURANT"
-        case park = "PARK"
-        case sport = "SPORT"
-        case culture = "CULTURE"
-    }
     
     let id: Int
     let name: String
     let address: String
     let shortIntroduction: String
-    let placeCategory: Category
+    let placeCategory: ORBPlaceCategory
     let placeArea: String
     let coordinate: CLLocationCoordinate2D
     let visitCount: Int
@@ -49,7 +49,7 @@ struct PlaceModel {
         self.name = dto.name
         self.address = dto.address
         self.shortIntroduction = dto.shortIntroduction
-        if let category = Category(rawValue: dto.placeCategory) {
+        if let category = ORBPlaceCategory(rawValue: dto.placeCategory) {
             self.placeCategory = category
         } else {
             throw PlaceModelError.invalidCategoryImageURL(wrongURL: dto.placeCategory)

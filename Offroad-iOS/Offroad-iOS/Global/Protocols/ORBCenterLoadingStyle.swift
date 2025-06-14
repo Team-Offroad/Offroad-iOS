@@ -11,6 +11,7 @@ import Lottie
 import SnapKit
 
 /// 어떤 뷰의 중앙에 로딩 화면을 띄우고자 할 경우, 해당 뷰에서 이 프로토콜을 채택하세요.
+@MainActor
 public protocol ORBCenterLoadingStyle: UIView {
     
     func startCenterLoading(withoutShading: Bool)

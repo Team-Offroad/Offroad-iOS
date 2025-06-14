@@ -168,6 +168,7 @@ extension HomeViewController {
     private func bindData() {
         MyInfoManager.shared.didSuccessAdventure
             .debug()
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
                 self.getUserAdventureInfo()
@@ -175,6 +176,7 @@ extension HomeViewController {
             }).disposed(by: disposeBag)
         
         MyInfoManager.shared.didChangeRepresentativeCharacter
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
                 guard let self else { return }
                 self.getUserAdventureInfo()

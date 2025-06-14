@@ -70,6 +70,7 @@ extension MyPageViewController {
         Observable.merge([MyInfoManager.shared.didSuccessAdventure.asObservable(),
                           MyInfoManager.shared.didChangeRepresentativeCharacter.asObservable(),
                           MyInfoManager.shared.shouldUpdateUserInfoData.asObservable()])
+        .observe(on: MainScheduler.instance)
         .subscribe(onNext: { [weak self] in
             guard let self else { return }
             self.getUserInfo()

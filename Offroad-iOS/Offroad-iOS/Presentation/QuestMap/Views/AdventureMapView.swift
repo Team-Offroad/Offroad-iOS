@@ -15,6 +15,10 @@ import Then
 
 final class AdventureMapView: UIView, ORBCenterLoadingStyle {
     
+    // MARK: - Properties
+    
+    var disposeBag = DisposeBag()
+    
     //MARK: - UI Properties
     
     let customNavigationBar = UIView()
@@ -33,8 +37,6 @@ final class AdventureMapView: UIView, ORBCenterLoadingStyle {
     private let triangleArrowOverlayImage = NMFOverlayImage(image: .icnQuestMapNavermapLocationOverlaySubIcon1)
     let locationOverlayImage = NMFOverlayImage(image: .icnQuestMapCircleInWhiteBorder)
     
-    private var disposBag = DisposeBag()
-    
     //MARK: - Life Cycle
     
     override init(frame: CGRect) {
@@ -44,6 +46,7 @@ final class AdventureMapView: UIView, ORBCenterLoadingStyle {
         setupStyle()
         setupLayout()
         setupCustomCompass()
+        setupBindings()
     }
     
     required init?(coder: NSCoder) {
@@ -189,12 +192,25 @@ extension AdventureMapView {
         
         orbMapView.onMapViewCameraIdle.subscribe(onNext: { [weak self] in
             self?.reloadPlaceButton.isEnabled = true
-        }).disposed(by: disposBag)
+        }).disposed(by: disposeBag)
     }
     
     private func setupCustomCompass() {
         compass.contentMode = .scaleAspectFit
         compass.mapView = orbMapView.mapView
+    }
+    
+    private func setupBindings() {
+        
+        // 툴팁이 떠 있을 때는 나침반 아이콘을 숨기도록 동작
+        
+        orbMapView.tooltipWillShow.subscribe(onNext: { [weak self] in
+            self?.compass.isHidden = true
+        }).disposed(by: disposeBag)
+        
+        orbMapView.tooltipDidHide.subscribe(onNext: { [weak self] in
+            self?.compass.isHidden = false
+        }).disposed(by: disposeBag)
     }
     
 }
