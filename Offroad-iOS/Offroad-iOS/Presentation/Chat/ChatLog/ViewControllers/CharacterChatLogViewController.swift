@@ -144,6 +144,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
+        navigationController?.view.isUserInteractionEnabled = true
         ORBCharacterChatManager.shared.currentChatLogViewController = nil
     }
     
@@ -179,7 +180,12 @@ private extension CharacterChatLogViewController {
         let orbRecommendationCellRegistration = UICollectionView.CellRegistration<ChatLogCellCharacterRecommendation, CharacterChatMessageItem>(
             handler: { [weak self] cell, indexPath, item in
                 guard let self else { return }
-                cell.configure(with: item, characterName: self.characterName)
+                cell.configure(with: item, characterName: self.characterName, buttonTapAction: { [weak self] in
+                    self?.navigationController?.pushViewController(
+                        ORBRecommendationMainViewController(),
+                        animated: true
+                    )
+                })
             }
         )
 #endif

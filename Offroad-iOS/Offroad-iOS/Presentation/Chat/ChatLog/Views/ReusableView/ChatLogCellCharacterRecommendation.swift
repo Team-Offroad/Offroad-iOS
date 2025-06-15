@@ -40,13 +40,15 @@ final class ChatLogCellCharacterRecommendation: UICollectionViewCell {
     let recommendationButton = RecommendationButtonInChatLogCell()
     private lazy var totalStack = UIStackView(arrangedSubviews: [chatBubble, timeLabel])
     
+    /// '오브의 추천소' 버튼이 눌렸을 때 실행할 동작. 외부에서 주입 가능.
+    var buttonTapAction: (() -> Void)? = nil
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setupHierarchy()
         setupStyle()
         setupLayout()
-        setRecommendationMode()
     }
     
     required init?(coder: NSCoder) {
@@ -73,6 +75,8 @@ private extension ChatLogCellCharacterRecommendation {
             view.layer.borderColor = UIColor.neutral(.btnInactive).cgColor
             view.layer.borderWidth = 1
         }
+        // 추천소 그라데이션 설정은 layer 설정이 끝난 마지막에 추가되어야 함.
+        chatBubble.applyGradientStyle(isBackgroundBlurred: false)
         
         characternameLabel.do { label in
             label.font = .offroad(style: .iosTextBold)
@@ -140,18 +144,20 @@ private extension ChatLogCellCharacterRecommendation {
 
 extension ChatLogCellCharacterRecommendation {
     
-    func configure(with item: CharacterChatMessageItem, characterName: String) {
+    func configure(with item: CharacterChatMessageItem, characterName: String, buttonTapAction: (() -> Void)? = nil) {
         guard case let .orbRecommendation(content, _, _) = item else {
             fatalError("ChatLogCellCharacterRecommendation received incompatible item.")
         }
         characternameLabel.text = "\(characterName) :"
         messageLabel.text = content
         timeLabel.text = item.formattedTimeString
+        
+        self.buttonTapAction = buttonTapAction
+        recommendationButton.addTarget(self, action: #selector(self.onButtonTapped), for: .touchUpInside)
     }
     
-    func setRecommendationMode() {
-        chatBubble.applyGradientStyle(isBackgroundBlurred: false)
-        timeLabel.textColor = .main(.main2)
+    @objc private func onButtonTapped() {
+        buttonTapAction?()
     }
     
 }
