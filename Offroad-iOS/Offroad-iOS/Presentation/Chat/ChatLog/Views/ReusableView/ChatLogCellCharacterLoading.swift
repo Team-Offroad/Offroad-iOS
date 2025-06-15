@@ -140,7 +140,7 @@ extension ChatLogCellCharacterLoading {
     
     func configure(with item: CharacterChatItem, characterName: String) {
         guard case .loading = item else {
-            fatalError("ChatLogCellUser received incompatible item.")
+            fatalError("ChatLogCellCharacterLoading received incompatible item.")
         }
         characternameLabel.text = "\(characterName) :"
         timeLabel.text = item.formattedTimeString

@@ -7,7 +7,6 @@
 
 import UIKit
 
-import Lottie
 import SnapKit
 
 final class ChatLogCellCharacter: UICollectionViewCell {
@@ -136,7 +135,7 @@ extension ChatLogCellCharacter {
     
     func configure(with item: CharacterChatMessageItem, characterName: String) {
         guard case let .orbCharacter(content, _, _) = item else {
-            fatalError("ChatLogCellUser received incompatible item.")
+            fatalError("ChatLogCellCharacter received incompatible item.")
         }
         characternameLabel.text = "\(characterName) :"
         messageLabel.text = content
