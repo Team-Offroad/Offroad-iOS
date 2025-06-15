@@ -72,6 +72,8 @@ private extension ORBRecommendationChatViewController {
                     newChatItem = CharacterChatItem.message(.orbCharacter(content: text, createdDate: Date(), id: 0))
                 case .orbCharacter:
                     newChatItem = CharacterChatItem.message(.user(content: text, createdDate: Date(), id: 0))
+                case .orbRecommendation:
+                    fatalError("오브의 추천소 채팅에는 추천소로 이동을 유도하는 셀이 존재할 수 없습니다.")
                 }
             case .loading:
                 return
@@ -140,6 +142,8 @@ extension ORBRecommendationChatViewController: UICollectionViewDelegateFlowLayou
                     characterName: "오브",
                     fixedWidth: collectionView.bounds.width
                 )
+            case .orbRecommendation:
+                fatalError("오브의 추천소 채팅에는 추천소로 이동을 유도하는 셀이 존재할 수 없습니다.")
             }
         case .loading:
             return ChatLogCellCharacterLoading.calculatedCellSize(

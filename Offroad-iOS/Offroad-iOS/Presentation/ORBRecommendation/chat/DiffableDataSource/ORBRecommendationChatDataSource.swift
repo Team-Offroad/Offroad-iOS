@@ -47,6 +47,8 @@ final class ORBRecommendationChatDataSource: UICollectionViewDiffableDataSource<
                         for: indexPath,
                         item: messageItem
                     )
+                case .orbRecommendation:
+                    fatalError("오브의 추천소 채팅에는 추천소로 이동을 유도하는 셀이 존재할 수 없습니다.")
                 }
             case .loading:
                 return collectionView.dequeueConfiguredReusableCell(

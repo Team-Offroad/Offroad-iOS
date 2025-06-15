@@ -40,14 +40,9 @@ enum CharacterChatItem: Hashable {
     }
     
     var formattedTimeString: String {
-        switch self {
-        case .message(let messageItem):
-            return messageItem.formattedTimeString
-        case .loading(let createdDate):
-            let dateFormatter = DateFormatter()
-            dateFormatter.locale = Locale(identifier: "ko_KR")
-            dateFormatter.dateFormat = "a hh:mm"
-            return dateFormatter.string(from: createdDate)
-        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        dateFormatter.dateFormat = "a hh:mm"
+        return dateFormatter.string(from: createdDate)
     }
 }
