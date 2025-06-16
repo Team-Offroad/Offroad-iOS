@@ -43,6 +43,8 @@ final class ChatLogCellCharacterRecommendation: UICollectionViewCell {
     /// '오브의 추천소' 버튼이 눌렸을 때 실행할 동작. 외부에서 주입 가능.
     var buttonTapAction: (() -> Void)? = nil
     
+    // MARK: - Life Cycle
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -57,8 +59,7 @@ final class ChatLogCellCharacterRecommendation: UICollectionViewCell {
     
 }
 
-// MARK: - Private Func
-
+// Initial Settings
 private extension ChatLogCellCharacterRecommendation {
     
     func setupHierarchy() {
@@ -76,7 +77,7 @@ private extension ChatLogCellCharacterRecommendation {
             view.layer.borderWidth = 1
         }
         // 추천소 그라데이션 설정은 layer 설정이 끝난 마지막에 추가되어야 함.
-        chatBubble.applyGradientStyle(isBackgroundBlurred: false)
+        chatBubble.applyGradientStyle(isBackgroundBlurred: true)
         
         characternameLabel.do { label in
             label.font = .offroad(style: .iosTextBold)
