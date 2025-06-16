@@ -37,7 +37,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
     
-    private var rootView: CharacterChatLogView!
+    private(set) var rootView: CharacterChatLogView!
     private var chatLogDataList: [CharacterChatItem] = [] {
         didSet {
             chatLogDataSourceForSnapshot = groupChatsByDate(items: chatLogDataList)
@@ -133,12 +133,6 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         rootView.backgroundView.isHidden = false
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         tabBarController.enableTabBarInteraction()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        rootView.backgroundView.isHidden = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {

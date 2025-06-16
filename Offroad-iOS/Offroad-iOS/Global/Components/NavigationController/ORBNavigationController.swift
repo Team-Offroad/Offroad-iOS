@@ -46,6 +46,9 @@ extension ORBNavigationController {
         
         switch gesture.state {
         case .began:
+            if let chatLogViewController = self.topViewController as? CharacterChatLogViewController {
+                chatLogViewController.rootView.backgroundView.isHidden = true
+            }
             customPopTransition = UIPercentDrivenInteractiveTransition()
             popViewController(animated: true)
         case .changed:
@@ -100,6 +103,12 @@ extension ORBNavigationController {
 extension ORBNavigationController: UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        
+        // ScreenEdgePanGesture로 pop을 시작하는 시점에서는
+        // 새로 보일 뷰컨트롤러가 navigationController의 topViewController임.
+        if let chatLogViewController = self.topViewController as? CharacterChatLogViewController {
+            chatLogViewController.rootView.backgroundView.isHidden = false
+        }
         guard let tabBarController = tabBarController as? OffroadTabBarController else { return }
         guard !tabBarController.isTabBarShown else { return }
         tabBarController.disableTabBarInteraction()
