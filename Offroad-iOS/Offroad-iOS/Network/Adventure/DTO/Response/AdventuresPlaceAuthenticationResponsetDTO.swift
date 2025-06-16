@@ -5,7 +5,7 @@
 //  Created by 김민성 on 2024/07/18.
 //
 
-import Foundation
+import UIKit
 
 struct AdventuresPlaceAuthenticationResponseDTO: Codable {
     let message: String
@@ -22,8 +22,6 @@ struct AdventuresPlaceAuthenticationResultData: Codable {
 struct CompleteQuest: Codable {
     let name: String
 }
-
-import UIKit
 
 extension AdventuresPlaceAuthenticationResultData: SVGFetchable {
     
