@@ -11,8 +11,8 @@ import Moya
 
 protocol AdventureServiceProtocol {
     func getAdventureInfo(category: String, completion: @escaping (NetworkResult<AdventureInfoResponseDTO>) -> ())
-    func authenticateQRAdventure(adventureAuthDTO: AdventuresQRAuthenticationRequestDTO, completion: @escaping (NetworkResult<AdventuresQRAuthenticationResponseDTO>) -> ())
-    func authenticatePlaceAdventure(adventureAuthDTO: AdventuresPlaceAuthenticationRequestDTO, completion: @escaping (NetworkResult<AdventuresPlaceAuthenticationResponseDTO>) -> ())
+    func authenticateAdventureQR(adventureAuthDTO: AdventuresQRAuthenticationRequestDTO, completion: @escaping (NetworkResult<AdventuresQRAuthenticationResponseDTO>) -> ())
+    func authenticateAdventurePlace(adventureAuthDTO: AdventuresPlaceAuthenticationRequestDTO, completion: @escaping (NetworkResult<AdventuresPlaceAuthenticationResponseDTO>) -> ())
 }
 
 final class AdventureService: BaseService, AdventureServiceProtocol {
@@ -34,7 +34,7 @@ final class AdventureService: BaseService, AdventureServiceProtocol {
         }
     }
     
-    func authenticateQRAdventure(adventureAuthDTO: AdventuresQRAuthenticationRequestDTO, completion: @escaping (NetworkResult<AdventuresQRAuthenticationResponseDTO>) -> ()) {
+    func authenticateAdventureQR(adventureAuthDTO: AdventuresQRAuthenticationRequestDTO, completion: @escaping (NetworkResult<AdventuresQRAuthenticationResponseDTO>) -> ()) {
         provider.request(.adventureQRAuthentication(adventureQRAuth: adventureAuthDTO)) { result in
             switch result {
             case .success(let response):
@@ -49,7 +49,7 @@ final class AdventureService: BaseService, AdventureServiceProtocol {
         }
     }
     
-    func authenticatePlaceAdventure(adventureAuthDTO: AdventuresPlaceAuthenticationRequestDTO, completion: @escaping (NetworkResult<AdventuresPlaceAuthenticationResponseDTO>) -> ()) {
+    func authenticateAdventurePlace(adventureAuthDTO: AdventuresPlaceAuthenticationRequestDTO, completion: @escaping (NetworkResult<AdventuresPlaceAuthenticationResponseDTO>) -> ()) {
         provider.request(.adventurePlaceAuthentication(adventurePlaceAuth: adventureAuthDTO)) { result in
             switch result {
             case .success(let response):
@@ -74,7 +74,7 @@ final class AdventureService: BaseService, AdventureServiceProtocol {
     }
     
     // 바로 위의 authenticatePlaceAdventure 메서드를 async/await 코드로 변환
-    func authenticatePlaceAdventure(
+    func authenticateAdventurePlace(
         adventureAuthDTO: AdventuresPlaceAuthenticationRequestDTO
     ) async throws -> AdventuresPlaceAuthenticationResultData {
         let api = AdventureAPI.adventurePlaceAuthentication(adventurePlaceAuth: adventureAuthDTO)

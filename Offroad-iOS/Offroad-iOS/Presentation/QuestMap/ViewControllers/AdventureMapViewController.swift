@@ -260,7 +260,7 @@ extension AdventureMapViewController {
                     case .notDetermined:
                         return
                     case .fullAccuracy:
-                        self.viewModel.authenticatePlaceAdventure(placeInfo: place)
+                        self.viewModel.authenticateAdventurePlace(placeInfo: place)
                     case .reducedAccuracy:
                         self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationReducedAccuracyMessage)
                     case .denied, .restricted:

@@ -141,7 +141,7 @@ extension AdventureMapViewModel {
     /// - Parameter placeInfo: 탐험을 시도할 위치 정보.
     ///
     /// 개발용 `Target`(`ORB_Dev`)에서는 개발자 모드의 설정값 중 '탐험 시 위치 인증 무시' 값에 따라 분기처리됨.
-    func authenticatePlaceAdventure(placeInfo: PlaceModel) {
+    func authenticateAdventurePlace(placeInfo: PlaceModel) {
         guard let currentLocation else {
             locationUnauthorizedMessage.accept(ErrorMessages.accessingLocationDataFailure)
             return
@@ -176,7 +176,7 @@ extension AdventureMapViewModel {
             do {
                 let networkService = NetworkService.shared.adventureService
                 // 탐험 시도 및 결과 받아오기
-                let authenticationResult = try await networkService.authenticatePlaceAdventure(adventureAuthDTO: dto)
+                let authenticationResult = try await networkService.authenticateAdventurePlace(adventureAuthDTO: dto)
                 let adventureResult = try await authenticationResult.asAdventureResult(at: placeInfo)
                 
                 // 탐험 결과와 이미지 방출
