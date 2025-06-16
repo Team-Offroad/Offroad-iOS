@@ -38,7 +38,7 @@
 		4E0A40522DC7A70000A0680C /* ORBRecommendationChatPresentationFloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A40512DC7A70000A0680C /* ORBRecommendationChatPresentationFloatingView.swift */; };
 		4E0A6BDF2DF740E600956D7F /* AdventureResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A6BDE2DF740E600956D7F /* AdventureResult.swift */; };
 		4E0A6BE02DF740E600956D7F /* AdventureResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A6BDE2DF740E600956D7F /* AdventureResult.swift */; };
-		4E0C69692C4724A100B6453E /* AdventureMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69682C4724A100B6453E /* AdventureMapMarker.swift */; };
+		4E0C69692C4724A100B6453E /* PlaceMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69682C4724A100B6453E /* PlaceMapMarker.swift */; };
 		4E1CFDEF2D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */; };
 		4E1CFDF02D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */; };
 		4E1E94112C39870700A7B08A /* ColorLiterals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1E94102C39870700A7B08A /* ColorLiterals.swift */; };
@@ -260,7 +260,7 @@
 		4E4F32112D4718F400C3B2FF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26C42C3D83AA00E79F25 /* HomeViewController.swift */; };
 		4E4F32122D4718F400C3B2FF /* ORBAlertViewCouponRedemptionFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */; };
 		4E4F32132D4718F400C3B2FF /* ChangeEmblemResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E796602C455391005B47A5 /* ChangeEmblemResponseDTO.swift */; };
-		4E4F32142D4718F400C3B2FF /* AdventureMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69682C4724A100B6453E /* AdventureMapMarker.swift */; };
+		4E4F32142D4718F400C3B2FF /* PlaceMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69682C4724A100B6453E /* PlaceMapMarker.swift */; };
 		4E4F32152D4718F400C3B2FF /* CustomRecentProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D26CC2C3E6EA200E79F25 /* CustomRecentProgressView.swift */; };
 		4E4F32162D4718F400C3B2FF /* DeleteAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06466992C86FCDB00CF10FD /* DeleteAccountViewController.swift */; };
 		4E4F32172D4718F400C3B2FF /* TermsConsentPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D064668F2C83A18400CF10FD /* TermsConsentPopupViewController.swift */; };
@@ -716,7 +716,7 @@
 		4E0A404F2DC7A51100A0680C /* ORBRecommendationChatViewDismissingTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatViewDismissingTransition.swift; sourceTree = "<group>"; };
 		4E0A40512DC7A70000A0680C /* ORBRecommendationChatPresentationFloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatPresentationFloatingView.swift; sourceTree = "<group>"; };
 		4E0A6BDE2DF740E600956D7F /* AdventureResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureResult.swift; sourceTree = "<group>"; };
-		4E0C69682C4724A100B6453E /* AdventureMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureMapMarker.swift; sourceTree = "<group>"; };
+		4E0C69682C4724A100B6453E /* PlaceMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMapMarker.swift; sourceTree = "<group>"; };
 		4E1CFDEE2D4E5CB70067344B /* PrintLogInDevApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintLogInDevApp.swift; sourceTree = "<group>"; };
 		4E1E94102C39870700A7B08A /* ColorLiterals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiterals.swift; sourceTree = "<group>"; };
 		4E1E94122C398C4200A7B08A /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
@@ -2299,7 +2299,7 @@
 			isa = PBXGroup;
 			children = (
 				4EFA808A2C3E79E800876D05 /* ORBMapListButton.swift */,
-				4E0C69682C4724A100B6453E /* AdventureMapMarker.swift */,
+				4E0C69682C4724A100B6453E /* PlaceMapMarker.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -3829,7 +3829,7 @@
 				D06D26C52C3D83AA00E79F25 /* HomeViewController.swift in Sources */,
 				4EC4A1FE2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift in Sources */,
 				D0E796612C455391005B47A5 /* ChangeEmblemResponseDTO.swift in Sources */,
-				4E0C69692C4724A100B6453E /* AdventureMapMarker.swift in Sources */,
+				4E0C69692C4724A100B6453E /* PlaceMapMarker.swift in Sources */,
 				D06D26CD2C3E6EA200E79F25 /* CustomRecentProgressView.swift in Sources */,
 				D064669A2C86FCDB00CF10FD /* DeleteAccountViewController.swift in Sources */,
 				D06466902C83A18400CF10FD /* TermsConsentPopupViewController.swift in Sources */,
@@ -4169,7 +4169,7 @@
 				D0CA20872D8018FA00FDF7F4 /* MyDiaryManager.swift in Sources */,
 				4E4F32122D4718F400C3B2FF /* ORBAlertViewCouponRedemptionFailure.swift in Sources */,
 				4E4F32132D4718F400C3B2FF /* ChangeEmblemResponseDTO.swift in Sources */,
-				4E4F32142D4718F400C3B2FF /* AdventureMapMarker.swift in Sources */,
+				4E4F32142D4718F400C3B2FF /* PlaceMapMarker.swift in Sources */,
 				4E4F32152D4718F400C3B2FF /* CustomRecentProgressView.swift in Sources */,
 				4E246B4E2DB5240C00198433 /* PlaceListCell.swift in Sources */,
 				4EA5F4F32D4C975C00A59AB1 /* LogPrinterViewController.swift in Sources */,

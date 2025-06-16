@@ -30,7 +30,7 @@ final class PlaceInfoTooltip: UIView {
     private let addressLabel = UILabel()
     private let visitCountLabel = UILabel()
     
-    private(set) var marker: AdventureMapMarker? = nil {
+    private(set) var marker: PlaceMapMarker? = nil {
         didSet {
             nameLabel.text = marker?.place.name ?? ""
             shortDescriptionLabel.text = marker?.place.shortIntroduction ?? ""
@@ -220,7 +220,7 @@ extension PlaceInfoTooltip  {
     
     //MARK: - Func
     
-    func setMarker(_ marker: AdventureMapMarker?) {
+    func setMarker(_ marker: PlaceMapMarker?) {
         self.marker = marker
     }
     

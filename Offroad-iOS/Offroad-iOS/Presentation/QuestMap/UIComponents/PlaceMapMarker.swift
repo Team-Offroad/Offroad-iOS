@@ -1,5 +1,5 @@
 //
-//  AdventureMapMarker.swift
+//  PlaceMapMarker.swift
 //  Offroad-iOS
 //
 //  Created by 김민성 on 2024/07/17.
@@ -11,7 +11,7 @@ import NMapsMap
 import Then
 
 /// 탐험 지도에 띄울 보라색 마커.
-class AdventureMapMarker: NMFMarker {
+class PlaceMapMarker: NMFMarker {
     
     //MARK: - Properties
     
