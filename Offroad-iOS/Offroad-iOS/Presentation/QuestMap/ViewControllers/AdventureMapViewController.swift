@@ -143,7 +143,7 @@ extension AdventureMapViewController {
                 markers.forEach { marker in
                     // 마커 탭 시 동작 정의 (툴팁 띄우도록)
                     marker.touchHandler = { [weak self] overlay in
-                        guard let marker = overlay as? AdventureMapMarker else { return false }
+                        guard let marker = overlay as? PlaceMapMarker else { return false }
                         self?.rootView.orbMapView.showTooltip(marker)
                         return true
                     }

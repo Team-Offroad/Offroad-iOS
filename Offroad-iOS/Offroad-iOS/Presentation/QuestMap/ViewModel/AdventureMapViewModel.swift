@@ -24,7 +24,7 @@ final class AdventureMapViewModel: SVGFetchable {
     
     let startLoading = PublishRelay<Void>()
     /// 지도에 표시될 마커 정보 데이터를 방출
-    let markers = BehaviorRelay<[AdventureMapMarker]>(value: [])
+    let markers = BehaviorRelay<[PlaceMapMarker]>(value: [])
     /// 마커 정보를 가져오는 과정에서 발생하는 에러를 방출
     let markersError = PublishRelay<Error>()
     /// 위치 인증 기반 탐험 결과와 팝업에 띄울 이미지를 함께 방출 (`AdventureResult` 타입으로 래핑)
@@ -117,7 +117,7 @@ extension AdventureMapViewModel {
             do {
                 let places = try await networkService.getRegisteredListPlaces(at: targetCoordinate, limit: 100)
                 let markers = places.map {
-                    let marker = AdventureMapMarker(place: $0)
+                    let marker = PlaceMapMarker(place: $0)
                     (marker.width, marker.height) = (26, 32)
                     return marker
                 }
