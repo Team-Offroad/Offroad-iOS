@@ -29,7 +29,7 @@ struct NetworkResultHandler {
         
         // 지정된 DTO 형식으로 디코딩.
         guard let decodedDTO = try? JSONDecoder().decode(T.self, from: response.data) else {
-            throw NetworkResultError.decodingFailed
+            throw NetworkResultError.decodingFailed(T.self)
         }
         
         return decodedDTO
