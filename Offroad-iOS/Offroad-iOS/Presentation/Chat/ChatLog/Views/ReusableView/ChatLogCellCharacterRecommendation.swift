@@ -32,11 +32,11 @@ final class ChatLogCellCharacterRecommendation: UICollectionViewCell {
     final class ChatBubble: UIView, ORBRecommendationGradientStyle { }
     private(set) var chatBubble = ChatBubble()
     
-    private let characternameLabel = UILabel()
+    private let characterNameLabel = UILabel()
     private let messageLabel = UILabel()
     private let timeLabel = UILabel()
     
-    private lazy var contentStack = UIStackView(arrangedSubviews: [characternameLabel, messageLabel])
+    private lazy var contentStack = UIStackView(arrangedSubviews: [characterNameLabel, messageLabel])
     let recommendationButton = RecommendationButtonInChatLogCell()
     private lazy var totalStack = UIStackView(arrangedSubviews: [chatBubble, timeLabel])
     
@@ -79,7 +79,7 @@ private extension ChatLogCellCharacterRecommendation {
         // 추천소 그라데이션 설정은 layer 설정이 끝난 마지막에 추가되어야 함.
         chatBubble.applyGradientStyle(isBackgroundBlurred: true)
         
-        characternameLabel.do { label in
+        characterNameLabel.do { label in
             label.font = .offroad(style: .iosTextBold)
             label.textColor = .sub(.sub4)
         }
@@ -113,8 +113,8 @@ private extension ChatLogCellCharacterRecommendation {
     }
     
     func setupLayout() {
-        characternameLabel.setContentHuggingPriority(.required, for: .horizontal)
-        characternameLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        characterNameLabel.setContentHuggingPriority(.required, for: .horizontal)
+        characterNameLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         messageLabel.setContentHuggingPriority(.required, for: .horizontal)
         messageLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
@@ -149,7 +149,7 @@ extension ChatLogCellCharacterRecommendation {
         guard case let .orbRecommendation(content, _, _) = item else {
             fatalError("ChatLogCellCharacterRecommendation received incompatible item.")
         }
-        characternameLabel.text = "\(characterName) :"
+        characterNameLabel.text = "\(characterName) :"
         messageLabel.text = content
         timeLabel.text = item.formattedTimeString
         

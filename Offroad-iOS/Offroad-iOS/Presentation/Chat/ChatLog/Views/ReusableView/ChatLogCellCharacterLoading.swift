@@ -36,11 +36,11 @@ final class ChatLogCellCharacterLoading: UICollectionViewCell {
 #else
     private let chatBubble = UIView()
 #endif
-    private let characternameLabel = UILabel()
+    private let characterNameLabel = UILabel()
     private let loadingAnimationView = LottieAnimationView(name: "loading2")
     private let timeLabel = UILabel()
     
-    private lazy var contentStack = UIStackView(arrangedSubviews: [characternameLabel, loadingAnimationView])
+    private lazy var contentStack = UIStackView(arrangedSubviews: [characterNameLabel, loadingAnimationView])
     private lazy var totalStack = UIStackView(arrangedSubviews: [chatBubble, timeLabel])
     
     override init(frame: CGRect) {
@@ -71,7 +71,7 @@ private extension ChatLogCellCharacterLoading {
             view.layer.borderWidth = 1
         }
         
-        characternameLabel.do { label in
+        characterNameLabel.do { label in
             label.font = .offroad(style: .iosTextBold)
             label.textColor = .sub(.sub4)
         }
@@ -108,9 +108,9 @@ private extension ChatLogCellCharacterLoading {
     }
     
     func setupLayout() {
-        characternameLabel.setContentHuggingPriority(.required, for: .vertical)
-        characternameLabel.setContentHuggingPriority(.required, for: .horizontal)
-        characternameLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        characterNameLabel.setContentHuggingPriority(.required, for: .vertical)
+        characterNameLabel.setContentHuggingPriority(.required, for: .horizontal)
+        characterNameLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         loadingAnimationView.setContentCompressionResistancePriority(.required, for: .horizontal)
         loadingAnimationView.setContentHuggingPriority(.defaultHigh, for: .vertical)
@@ -142,7 +142,7 @@ extension ChatLogCellCharacterLoading {
         guard case .loading = item else {
             fatalError("ChatLogCellCharacterLoading received incompatible item.")
         }
-        characternameLabel.text = "\(characterName) :"
+        characterNameLabel.text = "\(characterName) :"
         timeLabel.text = item.formattedTimeString
     }
     
