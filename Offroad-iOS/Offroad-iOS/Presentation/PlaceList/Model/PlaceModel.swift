@@ -30,9 +30,12 @@ enum ORBPlaceCategory: String {
     case culture = "CULTURE"
 }
 
-struct PlaceModel {
+/// 지도, 장소 목록 뷰에서 사용되는 장소 데이터
+struct PlaceModel: PlaceDescribable, Identifiable {
     
-    let id: Int
+    typealias ID = Int
+    
+    let id: ID
     let name: String
     let address: String
     let shortIntroduction: String

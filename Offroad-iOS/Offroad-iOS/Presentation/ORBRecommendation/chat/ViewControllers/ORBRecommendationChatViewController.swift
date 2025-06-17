@@ -59,7 +59,6 @@ private extension ORBRecommendationChatViewController {
             self.dismiss(animated: true)
         }.disposed(by: disposeBag)
         
-        // 채팅 UI 테스트용 - 번갈아가며 채팅 내용 입력할 수 있도록 임시로 구현
         rootView.chatInputView.onSendingText.subscribe(onNext: { [weak self] text in
             guard let self else { return }
             self.rootView.exampleQuestionListView.isHidden = true

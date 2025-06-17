@@ -49,6 +49,14 @@ final class PlaceInfoTooltip: UIView {
                 }
             }()
             placeCategoryImageView.image = categoryImage
+            
+            if marker?.place is PlaceModel {
+                exploreButton.setTitle("탐험하기", for: .normal)
+            } else if marker?.place is ORBRecommendationPlaceModel {
+                exploreButton.setTitle("지도 열기", for: .normal)
+            } else {
+                exploreButton.setTitle("", for: .normal)
+            }
         }
     }
     
@@ -186,7 +194,6 @@ extension PlaceInfoTooltip  {
         }
         
         exploreButton.do { button in
-            button.setTitle("탐험하기", for: .normal)
             button.setTitleColor(.primary(.white), for: .normal)
             button.configureBackgroundColorWhen(normal: .sub(.sub4),
                                                 highlighted: .sub(.sub480),

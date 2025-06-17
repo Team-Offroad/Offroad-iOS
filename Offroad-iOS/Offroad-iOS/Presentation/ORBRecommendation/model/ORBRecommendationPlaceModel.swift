@@ -27,7 +27,7 @@ enum ORBRecommendationPlaceModelError: LocalizedError {
     }
 }
 
-struct ORBRecommendationPlaceModel {
+struct ORBRecommendationPlaceModel: PlaceDescribable {
     
     let id: Int
     let name: String

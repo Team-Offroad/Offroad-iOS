@@ -15,11 +15,11 @@ class PlaceMapMarker: NMFMarker {
     //MARK: - Properties
     
     /// 마커가 띄울 장소 정보.
-    let place: PlaceModel
+    let place: any PlaceDescribable
     
     //MARK: - Life Cycle
     
-    init(place: PlaceModel) {
+    init(place: some PlaceDescribable) {
         self.place = place
         super.init()
         
