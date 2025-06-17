@@ -15,6 +15,8 @@ struct ORBRecommendationService {
         plugins: [MoyaPlugin()]
     )
     
+    /// 오브의 추천 장소 목록을 비동기적으로 받아오는 함수.
+    /// - Returns: 오브의 추천 장소 목록. `[ORBRecommendationPlaceModel]` 타입.
     func getRecommendedPlaces() async throws -> [ORBRecommendationPlaceModel] {
         let api = ORBRecommendationAPI.getRecommendedPlaces
         
@@ -28,7 +30,7 @@ struct ORBRecommendationService {
                             decodingType: ORBRecommendationResponseDTO.self
                         )
                         
-                        let places = try decodedDTO.data.recommendataion.map { try ORBRecommendationPlaceModel($0) }
+                        let places = try decodedDTO.data.recommendations.map { try ORBRecommendationPlaceModel($0) }
                         continuation.resume(returning: places)
                     } catch {
                         continuation.resume(throwing: error)
@@ -41,6 +43,11 @@ struct ORBRecommendationService {
         }
     }
     
+    /// 오브의 추천소에서 채팅을 보내는 함수.
+    /// - Parameter content: 채팅을 보낼 메시지.
+    /// - Returns: 장소 추천이 성공했는지 여부와, 오브의 답장 텍스트.
+    ///
+    /// 오브의 추천소에서 채팅을 통해 주문서를 작성할 때, 채팅을 보내는 동작에 해당.
     func sendRecommendationChat(content: String) async throws -> (Bool, String) {
         let api = ORBRecommendationAPI.postRecommendationChat(content: content)
         

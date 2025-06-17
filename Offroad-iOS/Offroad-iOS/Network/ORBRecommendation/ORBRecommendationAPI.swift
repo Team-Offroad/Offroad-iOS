@@ -22,7 +22,7 @@ extension ORBRecommendationAPI {
     var path: String {
         switch self {
         case .getRecommendedPlaces:
-            return "/place-recommendations/order"
+            return "/place-recommendations"
         case .postRecommendationChat:
             return "/place-recommendations/order/chat"
         }
@@ -32,7 +32,7 @@ extension ORBRecommendationAPI {
         switch self {
         case .getRecommendedPlaces:
             return .get
-        case .postRecommendationChat(let content):
+        case .postRecommendationChat:
             return .post
         }
     }

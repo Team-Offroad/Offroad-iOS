@@ -8,7 +8,6 @@
 import UIKit
 
 import NMapsMap
-import Then
 
 /// 탐험 지도에 띄울 보라색 마커.
 class PlaceMapMarker: NMFMarker {

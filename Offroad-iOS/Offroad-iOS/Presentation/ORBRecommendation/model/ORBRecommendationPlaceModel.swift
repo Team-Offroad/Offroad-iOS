@@ -14,14 +14,11 @@ enum ORBRecommendationType: String {
 }
 
 enum ORBRecommendationPlaceModelError: LocalizedError {
-    case invalidRecommendationType(wrongValue: String)
     case invalidCategoryValue(wrongValue: String)
     case invalidCategoryImageURL(wrongURL: String)
     
     var errorDescription: String? {
         switch self {
-        case .invalidRecommendationType(wrongValue: let wrongValue):
-            return "잘못된 오브의 장소 추천 타입: \(wrongValue). 오브의 장소 추천 타입은 식당, 카페 중 하나여야 합니다."
         case .invalidCategoryValue(let wrongValue):
             return "Invalid category value: \(wrongValue)"
         case .invalidCategoryImageURL(let wrongURL):
@@ -33,31 +30,30 @@ enum ORBRecommendationPlaceModelError: LocalizedError {
 struct ORBRecommendationPlaceModel {
     
     let id: Int
-    let recommendationType: ORBRecommendationType
     let name: String
     let address: String
     let shortIntroduction: String
-    let placeCategory: PlaceCategory
+    let placeCategory: ORBPlaceCategory
     let placeArea: String
+    let visitCount: Int
     let coordinate: CLLocationCoordinate2D
     let categoryImageUrl: URL
     
     init(_ dto: ORBRecommendationPlace) throws {
         self.id = dto.id
-        if let recommendationType = ORBRecommendationType(rawValue: dto.recommendationType) {
-            self.recommendationType = recommendationType
-        } else {
-            throw ORBRecommendationPlaceModelError.invalidRecommendationType(wrongValue: dto.recommendationType)
-        }
         self.name = dto.name
         self.address = dto.address
         self.shortIntroduction = dto.shortIntroduction
-        if let category = PlaceCategory(rawValue: dto.placeCategory) {
+        if let category = ORBPlaceCategory(rawValue: dto.placeCategory) {
             self.placeCategory = category
         } else {
             throw ORBRecommendationPlaceModelError.invalidCategoryValue(wrongValue: dto.placeCategory)
         }
         self.placeArea = dto.placeArea
+        // 현재 서버 응답값에 visitCount가 포함되어있지 않아서 visitCount가 nil로 들어옴.
+        // 우선 런타임 에러 막기 위해 기본값 0 할당.
+        // 서버에서 visitCount 포함하여 데이터 넘겨주면 반영할 예정
+        self.visitCount = dto.visitCount ?? 0
         self.coordinate = .init(latitude: dto.latitude, longitude: dto.longitude)
         if let imageURL = URL(string: dto.categoryImageUrl) {
             self.categoryImageUrl = imageURL

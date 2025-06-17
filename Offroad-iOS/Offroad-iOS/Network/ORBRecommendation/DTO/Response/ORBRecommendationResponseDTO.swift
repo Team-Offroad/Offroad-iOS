@@ -11,7 +11,7 @@ struct ORBRecommendationResponseDTO: Decodable {
 }
 
 struct ORBRecommendationResponseData: Decodable {
-    var recommendataion: [ORBRecommendationPlace]
+    var recommendations: [ORBRecommendationPlace]
 }
 
 struct ORBRecommendationPlace: Decodable {
@@ -22,6 +22,7 @@ struct ORBRecommendationPlace: Decodable {
     let shortIntroduction: String
     let placeCategory: String
     let placeArea: String
+    let visitCount: Int?
     let latitude: Double
     let longitude: Double
     let categoryImageUrl: String
