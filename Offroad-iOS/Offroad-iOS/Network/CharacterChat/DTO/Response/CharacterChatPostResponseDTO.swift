@@ -17,4 +17,5 @@ struct ChatDataDTO: Codable {
     let content: String
     let createdAt: String
     let id: Int
+    let isPlaceRecommendation: Bool
 }

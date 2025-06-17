@@ -140,6 +140,7 @@ private extension CharacterChatLogView {
         chatLogCollectionView.do { collectionView in
             collectionView.backgroundColor = .clear
             collectionView.contentInsetAdjustmentBehavior = .never
+            collectionView.delaysContentTouches = false
             collectionView.transform = verticalFlipTransform
         }
         

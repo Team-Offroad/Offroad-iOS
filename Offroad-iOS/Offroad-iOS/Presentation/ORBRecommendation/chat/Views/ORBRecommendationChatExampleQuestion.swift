@@ -43,7 +43,7 @@ fileprivate final class ExampleQuestionButton: ShrinkableButton {
         self.question = question
         super.init(frame: .zero)
         backgroundColor = .whiteOpacity(.white75)
-        // NOTE: contentEdgeInsets 는 configuration을 사용하면 무시되기 때문에, configuration 사용 시 주의 필요.
+        /// - NOTE: contentEdgeInsets 는 configuration을 사용하면 무시되기 때문에, configuration 사용 시 주의 필요.
         contentEdgeInsets = .init(top: 10, left: 19, bottom: 10, right: 19)
         layer.cornerCurve = .continuous
         configureTitleDesign(with: question)
