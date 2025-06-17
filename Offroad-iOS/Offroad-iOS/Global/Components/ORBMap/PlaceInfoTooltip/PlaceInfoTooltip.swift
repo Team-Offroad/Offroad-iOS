@@ -30,28 +30,22 @@ final class PlaceInfoTooltip: UIView {
     private let addressLabel = UILabel()
     private let visitCountLabel = UILabel()
     
-    private(set) var marker: ORBNMFMarker? = nil {
+    private(set) var marker: PlaceMapMarker? = nil {
         didSet {
-            nameLabel.text = marker?.placeInfo.name ?? ""
-            shortDescriptionLabel.text = marker?.placeInfo.shortIntroduction ?? ""
-            addressLabel.text = marker?.placeInfo.address ?? ""
-            visitCountLabel.text = "탐험횟수: \(marker?.placeInfo.visitCount ?? 0)"
+            nameLabel.text = marker?.place.name ?? ""
+            shortDescriptionLabel.text = marker?.place.shortIntroduction ?? ""
+            addressLabel.text = marker?.place.address ?? ""
+            visitCountLabel.text = "탐험횟수: \(marker?.place.visitCount ?? 0)"
             exploreButton.isEnabled = marker != nil
             // 카테고리 이미지 할당
             let categoryImage: UIImage? = {
-                guard let marker, let category = ORBPlaceCategory(
-                    rawValue: marker.placeInfo.placeCategory.lowercased()
-                ) else {
-                    return nil
-                }
-                
-                switch category {
-                case .caffe: return cafeImage
+                guard let marker else { return nil }
+                switch marker.place.placeCategory {
+                case .cafe: return cafeImage
                 case .park: return parkImage
                 case .restaurant: return restaurantImage
                 case .culture: return cultureImage
                 case .sport: return sportsImage
-                default: return nil
                 }
             }()
             placeCategoryImageView.image = categoryImage
@@ -226,7 +220,7 @@ extension PlaceInfoTooltip  {
     
     //MARK: - Func
     
-    func setMarker(_ marker: ORBNMFMarker?) {
+    func setMarker(_ marker: PlaceMapMarker?) {
         self.marker = marker
     }
     

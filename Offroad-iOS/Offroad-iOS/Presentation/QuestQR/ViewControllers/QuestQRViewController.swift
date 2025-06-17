@@ -206,7 +206,7 @@ extension QuestQRViewController: AVCaptureMetadataOutputObjectsDelegate {
                 latitude: placeInformation.latitude,
                 longitude: placeInformation.longitude
             )
-            networkService.adventureService.authenticateQRAdventure(adventureAuthDTO: adventureAuthRequestDTO) { [weak self] result in
+            networkService.adventureService.authenticateAdventureQR(adventureAuthDTO: adventureAuthRequestDTO) { [weak self] result in
                 guard let self else { return }
                 switch result {
                 case .success(let response):
