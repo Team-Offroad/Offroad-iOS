@@ -35,8 +35,8 @@ final class ORBRecommendationMainView: UIView {
     private let titleImageView = UIImageView(image: .icnOrbRecommendationMainTitle)
     private lazy var titleStack = UIStackView(arrangedSubviews: [titleLabel, titleImageView])
     let orbMessageButton = ORBRecommendationMessageButton()
-    private let orbMapView = ORBMapView()
-    private let recommendedContentView = ORBRecommendedContentView()
+    let orbMapView = ORBMapView()
+    let recommendedContentView = ORBRecommendedContentView()
     private let contentToolBar = ORBRecommendationMainViewToolBar()
     
     override init(frame: CGRect) {

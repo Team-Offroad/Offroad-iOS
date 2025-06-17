@@ -19,7 +19,7 @@ final class ORBRecommendedContentView: ExpandableCellCollectionView {
     private let locationManager = CLLocationManager()
     private let placeService = NetworkService.shared.placeService
     
-    var places: [PlaceModel] = []
+    var places: [ORBRecommendationPlaceModel] = []
     
     // MARK: - UI Properties
     
@@ -37,7 +37,6 @@ final class ORBRecommendedContentView: ExpandableCellCollectionView {
         setupLayout()
         locationManager.startUpdatingLocation()
         setupCollectionView()
-        getInitialPlaceData()
         panGestureRecognizer.delegate = self
     }
     
@@ -79,27 +78,6 @@ private extension ORBRecommendedContentView {
         register(PlaceListCell.self, forCellWithReuseIdentifier: PlaceListCell.className)
     }
     
-    func getInitialPlaceData() {
-        guard let currentLocation = locationManager.location else { return }
-        placeService.getRegisteredMapPlaces(
-            latitude: currentLocation.coordinate.latitude,
-            longitude: currentLocation.coordinate.longitude,
-            limit: 100) { [weak self] result in
-            switch result {
-            case .success(let data):
-                guard let data = data?.data else { return }
-                do {
-                    self?.places = try data.places.map({ try PlaceModel($0) })
-                    self?.reloadData()
-                } catch {
-                    print(error.localizedDescription)
-                }
-            default:
-                return
-            }
-        }
-    }
-    
 }
 
 // MARK: - UICollectionViewDataSource
@@ -112,7 +90,7 @@ extension ORBRecommendedContentView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaceListCell.className, for: indexPath) as? PlaceListCell else { fatalError("PlaceListCell dequeueing failed") }
-        cell.configure(with: places[indexPath.item], isVisitCountShowing: true)
+        cell.configure(with: places[indexPath.item], isVisitCountShowing: false)
         return cell
     }
     

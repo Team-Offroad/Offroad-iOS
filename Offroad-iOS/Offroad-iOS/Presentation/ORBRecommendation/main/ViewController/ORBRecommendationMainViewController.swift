@@ -7,6 +7,7 @@
 
 import UIKit
 
+import NMapsMap
 import RxSwift
 import RxCocoa
 
@@ -16,6 +17,7 @@ final class ORBRecommendationMainViewController: UIViewController {
     
     private let rootView = ORBRecommendationMainView()
     private var disposeBag = DisposeBag()
+    private var markers: [PlaceMapMarker] = []
     
     // MARK: - Life Cycle
     
@@ -27,6 +29,7 @@ final class ORBRecommendationMainViewController: UIViewController {
         super.viewDidLoad()
         
         setupButtonActions()
+        updateRecommendedPlaces()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,6 +115,39 @@ extension ORBRecommendationMainViewController: UIViewControllerTransitioningDele
     
     func animationController(forDismissed dismissed: UIViewController) -> (any UIViewControllerAnimatedTransitioning)? {
         return ORBRecommendationChatViewDismissingTransition()
+    }
+    
+}
+
+// 뷰의 컨텐츠 업데이트 관련
+extension ORBRecommendationMainViewController {
+    
+    func updateRecommendedPlaces() {
+        Task { [weak self] in
+            let networkService = NetworkService.shared.orbRecommendationService
+            do {
+                let recommendedPlaces = try await networkService.getRecommendedPlaces()
+                // 장소 목록 셀 업데이트하기
+                self?.rootView.recommendedContentView.places = recommendedPlaces
+                self?.rootView.recommendedContentView.reloadData()
+                
+                // 지도에 마커 추가
+                let newMarkers = recommendedPlaces.map {
+                    let marker = PlaceMapMarker(place: $0)
+                    (marker.width, marker.height) = (26, 32)
+                    marker.mapView = self?.rootView.orbMapView.mapView
+                    marker.touchHandler = { overlay in
+                        self?.rootView.orbMapView.showTooltip(marker)
+                        return true
+                    }
+                    return marker
+                }
+                self?.markers = newMarkers
+                
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
 }
