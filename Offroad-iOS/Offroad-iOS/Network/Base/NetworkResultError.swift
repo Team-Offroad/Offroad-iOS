@@ -16,7 +16,7 @@ enum NetworkResultError: LocalizedError {
     case httpError(statusCode: Int)
     
     /// 응답값이 정해진 DTO로 디코딩되지 않음.
-    case decodingFailed
+    case decodingFailed(any Decodable.Type)
     
     //===----------------------------------------------------------------------===//
     // 여기부터 URLError
@@ -56,8 +56,8 @@ enum NetworkResultError: LocalizedError {
             case 502: return "502(Bad Gateway)"
             default: return "코드에서 명시되지 않은 기타 HTTP 응답 상태 에러. 상태 코드: \(statusCode)"
             }
-        case .decodingFailed:
-            return "서버의 응답값(Body)을 지정한 DTO로 디코딩하는 데에 실패했습니다. 서버의 응답값 형식 또는 DTO를 확인하세요."
+        case .decodingFailed(let dtoType):
+            return "서버의 응답값(Body)을 지정한 DTO로 디코딩하는 데에 실패했습니다. DTO타입: \(dtoType). 서버의 응답값 형식 또는 DTO를 확인하세요."
         case .timeout:
             return "네트워크 타임아웃."
         case .notConnectedToInternet:
