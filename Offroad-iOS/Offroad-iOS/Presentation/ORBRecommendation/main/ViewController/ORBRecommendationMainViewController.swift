@@ -144,6 +144,12 @@ extension ORBRecommendationMainViewController {
                 }
                 self?.markers = newMarkers
                 
+                // 모든 장소가 모두 보일 곳으로 이동하기
+                let naverMapCoordinates: [NMGLatLng] = recommendedPlaces.map { place in
+                    NMGLatLng(from: place.coordinate)
+                }
+                self?.rootView.orbMapView.moveCamera(placesToShow: naverMapCoordinates, padding: 50)
+                
             } catch {
                 print(error.localizedDescription)
             }
