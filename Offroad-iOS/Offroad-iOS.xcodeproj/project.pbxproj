@@ -40,7 +40,7 @@
 		4E0A6BE02DF740E600956D7F /* AdventureResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A6BDE2DF740E600956D7F /* AdventureResult.swift */; };
 		4E0C69692C4724A100B6453E /* PlaceMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0C69682C4724A100B6453E /* PlaceMapMarker.swift */; };
 		4E101D112DF4529C00BE62B0 /* ORBRecommendationChatResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E101D0F2DF4529C00BE62B0 /* ORBRecommendationChatResponseDTO.swift */; };
-		4E101D142DF453CE00BE62B0 /* ORBRecommendationResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E101D122DF453CE00BE62B0 /* ORBRecommendationResponseDTO.swift */; };
+		4E101D142DF453CE00BE62B0 /* ORBRecommendationPlacesResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E101D122DF453CE00BE62B0 /* ORBRecommendationPlacesResponseDTO.swift */; };
 		4E101D172DF473A500BE62B0 /* ORBRecommendationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E101D162DF473A500BE62B0 /* ORBRecommendationAPI.swift */; };
 		4E101D1C2DF4759B00BE62B0 /* ORBRecommendationChatRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E101D1B2DF4759B00BE62B0 /* ORBRecommendationChatRequestDTO.swift */; };
 		4E101D1E2DF475F200BE62B0 /* ORBRecommendationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E101D1D2DF475F200BE62B0 /* ORBRecommendationService.swift */; };
@@ -730,7 +730,7 @@
 		4E0A6BDE2DF740E600956D7F /* AdventureResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureResult.swift; sourceTree = "<group>"; };
 		4E0C69682C4724A100B6453E /* PlaceMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMapMarker.swift; sourceTree = "<group>"; };
 		4E101D0F2DF4529C00BE62B0 /* ORBRecommendationChatResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatResponseDTO.swift; sourceTree = "<group>"; };
-		4E101D122DF453CE00BE62B0 /* ORBRecommendationResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationResponseDTO.swift; sourceTree = "<group>"; };
+		4E101D122DF453CE00BE62B0 /* ORBRecommendationPlacesResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationPlacesResponseDTO.swift; sourceTree = "<group>"; };
 		4E101D162DF473A500BE62B0 /* ORBRecommendationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationAPI.swift; sourceTree = "<group>"; };
 		4E101D1B2DF4759B00BE62B0 /* ORBRecommendationChatRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationChatRequestDTO.swift; sourceTree = "<group>"; };
 		4E101D1D2DF475F200BE62B0 /* ORBRecommendationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationService.swift; sourceTree = "<group>"; };
@@ -1680,7 +1680,7 @@
 			isa = PBXGroup;
 			children = (
 				4E101D0F2DF4529C00BE62B0 /* ORBRecommendationChatResponseDTO.swift */,
-				4E101D122DF453CE00BE62B0 /* ORBRecommendationResponseDTO.swift */,
+				4E101D122DF453CE00BE62B0 /* ORBRecommendationPlacesResponseDTO.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -4246,7 +4246,7 @@
 				4E4F320E2D4718F400C3B2FF /* MyPageView.swift in Sources */,
 				4E4F320F2D4718F400C3B2FF /* CustomerInquiryView.swift in Sources */,
 				4E4F32102D4718F400C3B2FF /* CollectedTitleModel.swift in Sources */,
-				4E101D142DF453CE00BE62B0 /* ORBRecommendationResponseDTO.swift in Sources */,
+				4E101D142DF453CE00BE62B0 /* ORBRecommendationPlacesResponseDTO.swift in Sources */,
 				4E4F32112D4718F400C3B2FF /* HomeViewController.swift in Sources */,
 				D0CA20872D8018FA00FDF7F4 /* MyDiaryManager.swift in Sources */,
 				4E101D172DF473A500BE62B0 /* ORBRecommendationAPI.swift in Sources */,

@@ -27,7 +27,7 @@ struct ORBRecommendationService {
                     do {
                         let decodedDTO = try NetworkResultHandler().handleSuccessCase(
                             response: response,
-                            decodingType: ORBRecommendationResponseDTO.self
+                            decodingType: ORBRecommendationPlacesResponseDTO.self
                         )
                         
                         let places = try decodedDTO.data.recommendations.map { try ORBRecommendationPlaceModel($0) }
