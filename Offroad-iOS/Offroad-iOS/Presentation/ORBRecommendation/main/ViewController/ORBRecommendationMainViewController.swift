@@ -29,6 +29,7 @@ final class ORBRecommendationMainViewController: UIViewController {
         super.viewDidLoad()
         
         setupButtonActions()
+        updateFixedPhrase()
         updateRecommendedPlaces()
     }
     
@@ -120,7 +121,17 @@ extension ORBRecommendationMainViewController: UIViewControllerTransitioningDele
 }
 
 // 뷰의 컨텐츠 업데이트 관련
-extension ORBRecommendationMainViewController {
+private extension ORBRecommendationMainViewController {
+    
+    func updateFixedPhrase() {
+        Task { [weak self] in
+            let networkService = NetworkService.shared.orbRecommendationService
+            let fixedPhrase = try? await networkService.getFixedPhrase()
+            // 에러 종류에 상관없이 고정 문구 받아오는 데 실패한 경우 에러를 사용자에게 안내하는 대신 다음과 같이 기본값 적용.
+            self?.rootView.orbMessageButton.message =
+            fixedPhrase ?? "어라! 어디 가고 싶은 곳이 있는 표정이야! 나 추천 오브 츄링이한테 말해봐 츄츄~"
+        }
+    }
     
     func updateRecommendedPlaces() {
         Task { [weak self] in

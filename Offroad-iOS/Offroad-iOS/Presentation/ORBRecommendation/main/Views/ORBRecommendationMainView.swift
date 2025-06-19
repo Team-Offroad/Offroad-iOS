@@ -77,8 +77,6 @@ private extension ORBRecommendationMainView {
             stackView.distribution = .fillProportionally
         }
         
-        orbMessageButton.message = "오브의 추천소에 어서와~\n여기서는 ~~~소개소개"
-        
         orbMapView.isHidden = true
     }
     
