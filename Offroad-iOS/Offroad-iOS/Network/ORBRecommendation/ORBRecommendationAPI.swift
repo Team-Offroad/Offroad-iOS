@@ -10,6 +10,8 @@ import Foundation
 import Moya
 
 enum ORBRecommendationAPI: BaseTargetType {
+    /// 오브의 추천소 메인화면 상단 고정 문구 요청(`GET`)
+    case getFixedPhrase
     case getRecommendedPlaces
     case postRecommendationChat(content: String)
 }
@@ -21,6 +23,8 @@ extension ORBRecommendationAPI {
     
     var path: String {
         switch self {
+        case .getFixedPhrase:
+            return "/place-recommendations/fixed-phrase"
         case .getRecommendedPlaces:
             return "/place-recommendations"
         case .postRecommendationChat:
@@ -30,7 +34,7 @@ extension ORBRecommendationAPI {
     
     var method: Moya.Method {
         switch self {
-        case .getRecommendedPlaces:
+        case .getFixedPhrase, .getRecommendedPlaces:
             return .get
         case .postRecommendationChat:
             return .post
@@ -39,7 +43,7 @@ extension ORBRecommendationAPI {
     
     var task: Moya.Task {
         switch self {
-        case .getRecommendedPlaces:
+        case .getFixedPhrase, .getRecommendedPlaces:
             return .requestPlain
         case .postRecommendationChat(let content):
             let requestDTO = ORBREcommendationChatRequestDTO(content: content)

@@ -84,6 +84,7 @@
 		4E43C7412DFEAAD200CED213 /* CharacterChatMessageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E43C73F2DFEAAD200CED213 /* CharacterChatMessageItem.swift */; };
 		4E43C7C02E01B08A00CED213 /* PlaceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E43C7BF2E01B08A00CED213 /* PlaceProtocols.swift */; };
 		4E43C7C12E01B08A00CED213 /* PlaceProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E43C7BF2E01B08A00CED213 /* PlaceProtocols.swift */; };
+		4E43C8012E04542D00CED213 /* ORBRecommendationFixedPhraseResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E43C8002E04542D00CED213 /* ORBRecommendationFixedPhraseResponseDTO.swift */; };
 		4E456CC02CF4003D0011B50F /* UICollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E456CBF2CF4003D0011B50F /* UICollectionView+.swift */; };
 		4E46E5F72CB997B4000A1EEE /* ORBToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5F62CB997B4000A1EEE /* ORBToastManager.swift */; };
 		4E46E5F92CB99944000A1EEE /* ORBToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E46E5F82CB99944000A1EEE /* ORBToastWindow.swift */; };
@@ -767,6 +768,7 @@
 		4E43C7392DFE8F5B00CED213 /* RecommendationButtonInChatLogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationButtonInChatLogCell.swift; sourceTree = "<group>"; };
 		4E43C73F2DFEAAD200CED213 /* CharacterChatMessageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatMessageItem.swift; sourceTree = "<group>"; };
 		4E43C7BF2E01B08A00CED213 /* PlaceProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceProtocols.swift; sourceTree = "<group>"; };
+		4E43C8002E04542D00CED213 /* ORBRecommendationFixedPhraseResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationFixedPhraseResponseDTO.swift; sourceTree = "<group>"; };
 		4E456CBF2CF4003D0011B50F /* UICollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+.swift"; sourceTree = "<group>"; };
 		4E46E5F62CB997B4000A1EEE /* ORBToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastManager.swift; sourceTree = "<group>"; };
 		4E46E5F82CB99944000A1EEE /* ORBToastWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBToastWindow.swift; sourceTree = "<group>"; };
@@ -1679,6 +1681,7 @@
 		4E101D1A2DF4751B00BE62B0 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				4E43C8002E04542D00CED213 /* ORBRecommendationFixedPhraseResponseDTO.swift */,
 				4E101D0F2DF4529C00BE62B0 /* ORBRecommendationChatResponseDTO.swift */,
 				4E101D122DF453CE00BE62B0 /* ORBRecommendationPlacesResponseDTO.swift */,
 			);
@@ -4148,6 +4151,7 @@
 				4E4F31C42D4718F400C3B2FF /* QuestListView.swift in Sources */,
 				4E4F31C52D4718F400C3B2FF /* PushNotificationRedirectModel.swift in Sources */,
 				4E59AFB22DB148C7000A5EAD /* ChatLogCellCharacter.swift in Sources */,
+				4E43C8012E04542D00CED213 /* ORBRecommendationFixedPhraseResponseDTO.swift in Sources */,
 				4E4F31C62D4718F400C3B2FF /* NetworkResult.swift in Sources */,
 				4E4F31C72D4718F400C3B2FF /* UIView+.swift in Sources */,
 				4E4F31C82D4718F400C3B2FF /* MarketingConsentViewController.swift in Sources */,

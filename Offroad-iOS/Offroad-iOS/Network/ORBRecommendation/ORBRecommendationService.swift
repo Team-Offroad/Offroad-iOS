@@ -15,6 +15,33 @@ struct ORBRecommendationService {
         plugins: [MoyaPlugin()]
     )
     
+    /// 오브의 추천소 메인 화면 상단에 띄울 고정 문구를 서버에서 비동기적으로 받아오는 함수.
+    /// - Returns: 오브의 추천소 메인 화면 상단 버튼에 띄울 고정 문구
+    func getFixedPhrase() async throws -> String {
+        let api = ORBRecommendationAPI.getFixedPhrase
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            provider.request(api) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let decodedDTO = try NetworkResultHandler().handleSuccessCase(
+                            response: response,
+                            decodingType: ORBRecommendationFixedPhraseResponseDTO.self
+                        )
+                        
+                        continuation.resume(returning: decodedDTO.data.content)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                case .failure(let moyaError):
+                    let errorToThrow = NetworkResultHandler().handleFailureCase(moyaError: moyaError)
+                    continuation.resume(throwing: errorToThrow)
+                }
+            }
+        }
+    }
+    
     /// 오브의 추천 장소 목록을 비동기적으로 받아오는 함수.
     /// - Returns: 오브의 추천 장소 목록. `[ORBRecommendationPlaceModel]` 타입.
     func getRecommendedPlaces() async throws -> [ORBRecommendationPlaceModel] {
