@@ -23,10 +23,10 @@ final class ORBRecommendationChatView: ORBRecommendationChatBackgroundView {
     
     // MARK: - UI Properties
     
-    private(set) var xButton = UIButton()
+    let xButton = UIButton()
     private(set) var collectionView: UICollectionView! = nil
-    private(set) var exampleQuestionListView = ORBRecommendationChatExampleQuestionListView()
-    private(set) var chatInputView = ChatTextInputView()
+    let exampleQuestionListView = ORBRecommendationChatExampleQuestionListView()
+    let chatInputView = ChatTextInputView()
     private let keyboardBackgroundView = UIView()
     
     // MARK: - Life Cycle

@@ -260,6 +260,9 @@ extension AdventureMapViewController {
                     case .notDetermined:
                         return
                     case .fullAccuracy:
+                        // 탐험 지도 뷰에서 사용되는 place는 구체 타입이 PlaceModel이어야 함.
+                        // 그렇지 않은 경우, 잘못된 할당.
+                        guard let place = place as? PlaceModel else { return }
                         self.viewModel.authenticateAdventurePlace(placeInfo: place)
                     case .reducedAccuracy:
                         self.viewModel.locationUnauthorizedMessage.accept(AlertMessage.locationReducedAccuracyMessage)

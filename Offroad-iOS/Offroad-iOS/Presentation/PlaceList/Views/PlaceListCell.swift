@@ -300,7 +300,7 @@ private extension PlaceListCell {
 
 extension PlaceListCell {
     
-    func configure(with model: PlaceModel, isVisitCountShowing: Bool) {
+    func configure(with model: some PlaceDescribable, isVisitCountShowing: Bool) {
         switch model.placeCategory {
         case .cafe:
             categoryLabel.text = "카페"

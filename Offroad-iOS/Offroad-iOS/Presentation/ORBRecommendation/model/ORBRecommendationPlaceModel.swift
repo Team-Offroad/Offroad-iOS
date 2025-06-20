@@ -1,14 +1,19 @@
 //
-//  PlaceModel.swift
-//  Offroad-iOS
+//  ORBRecommendationPlaceModel.swift
+//  ORB_Dev
 //
-//  Created by 김민성 on 5/20/25.
+//  Created by 김민성 on 6/7/25.
 //
 
 import CoreLocation
 import Foundation
 
-enum PlaceModelError: LocalizedError {
+enum ORBRecommendationType: String {
+    case restaurant = "RESTAURANT"
+    case cafe = "CAFE"
+}
+
+enum ORBRecommendationPlaceModelError: LocalizedError {
     case invalidCategoryValue(wrongValue: String)
     case invalidCategoryImageURL(wrongURL: String)
     
@@ -22,32 +27,19 @@ enum PlaceModelError: LocalizedError {
     }
 }
 
-enum ORBPlaceCategory: String {
-    case cafe = "CAFFE"
-    case restaurant = "RESTAURANT"
-    case park = "PARK"
-    case sport = "SPORT"
-    case culture = "CULTURE"
-}
-
-/// 지도, 장소 목록 뷰에서 사용되는 장소 데이터
-struct PlaceModel: PlaceDescribable, Identifiable {
+struct ORBRecommendationPlaceModel: PlaceDescribable {
     
-    typealias ID = Int
-    
-    let id: ID
+    let id: Int
     let name: String
     let address: String
     let shortIntroduction: String
     let placeCategory: ORBPlaceCategory
     let placeArea: String
-    let coordinate: CLLocationCoordinate2D
     let visitCount: Int
+    let coordinate: CLLocationCoordinate2D
     let categoryImageUrl: URL
-    // 장소 목록 데이터를 불러올 때 페이징 시 필요한 값.
-    let distanceFromUser: Double
     
-    init(_ dto: RegisteredPlaceInfo) throws {
+    init(_ dto: ORBRecommendationPlace) throws {
         self.id = dto.id
         self.name = dto.name
         self.address = dto.address
@@ -55,17 +47,19 @@ struct PlaceModel: PlaceDescribable, Identifiable {
         if let category = ORBPlaceCategory(rawValue: dto.placeCategory) {
             self.placeCategory = category
         } else {
-            throw PlaceModelError.invalidCategoryImageURL(wrongURL: dto.placeCategory)
+            throw ORBRecommendationPlaceModelError.invalidCategoryValue(wrongValue: dto.placeCategory)
         }
         self.placeArea = dto.placeArea
+        // 현재 서버 응답값에 visitCount가 포함되어있지 않아서 visitCount가 nil로 들어옴.
+        // 우선 런타임 에러 막기 위해 기본값 0 할당.
+        // 서버에서 visitCount 포함하여 데이터 넘겨주면 반영할 예정
+        self.visitCount = dto.visitCount ?? 0
         self.coordinate = .init(latitude: dto.latitude, longitude: dto.longitude)
-        self.visitCount = dto.visitCount
         if let imageURL = URL(string: dto.categoryImageUrl) {
             self.categoryImageUrl = imageURL
         } else {
             throw PlaceModelError.invalidCategoryValue(wrongValue: dto.categoryImageUrl)
         }
-        self.distanceFromUser = dto.distanceFromUser
     }
     
 }

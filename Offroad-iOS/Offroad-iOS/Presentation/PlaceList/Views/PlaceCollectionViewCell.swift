@@ -272,7 +272,7 @@ extension PlaceCollectionViewCell {
     
     //MARK: - Func
     
-    func configureCell(with place: PlaceModel, showingVisitingCount: Bool) {
+    func configureCell(with place: some PlaceDescribable, showingVisitingCount: Bool) {
         placeSectionLabel.text = place.placeArea
         placeNameLabel.text = place.name
         addressLabel.text = place.address
