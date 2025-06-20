@@ -49,7 +49,7 @@ final class ORBMapView: NMFNaverMapView {
     
     private let locationManager = CLLocationManager()
     
-    /// 툴팁이 떠 있을 때 툴팁 아래의 배경을 터치할 수 있는지 여부. 기본값은 `true`
+    /// 툴팁이 떠 있을 때 지도 배경 터치를 막을지 여부. 기본값은 `true`
     var shouldBlockBackgroundTouch: Bool = true
     
     /// 툴팁이 떠 있을 때 지도가 움직이면 툴팁이 닫힐 지 여부. 기본값은 `true`
@@ -110,6 +110,7 @@ final class ORBMapView: NMFNaverMapView {
 extension ORBMapView {
     
     private func setupStyle() {
+        clipsToBounds = true
         shadingView.isUserInteractionEnabled = false
         tooltip.isHidden = true
     }

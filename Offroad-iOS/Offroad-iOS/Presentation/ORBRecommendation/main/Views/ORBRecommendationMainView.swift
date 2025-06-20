@@ -78,6 +78,7 @@ private extension ORBRecommendationMainView {
         }
         
         orbMapView.isHidden = true
+        orbMapView.mapView.maxTilt = 0
     }
     
     func setupHierarchy() {
