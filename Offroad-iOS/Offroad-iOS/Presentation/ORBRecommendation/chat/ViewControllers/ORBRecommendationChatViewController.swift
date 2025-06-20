@@ -101,7 +101,7 @@ extension ORBRecommendationChatViewController {
 }
 
 // 채팅 기능 관련
-extension ORBRecommendationChatViewController {
+private extension ORBRecommendationChatViewController {
     
     func sendChat(text: String) {
         let myNewChatItem = CharacterChatItem.message(
@@ -112,9 +112,15 @@ extension ORBRecommendationChatViewController {
             guard let self else { return }
             let loadingChatItem = CharacterChatItem.loading(createdDate: Date())
             self.chats.append(loadingChatItem)
-            self.dataSource.applySnapshot(of: self.chats)
+            self.dataSource.applySnapshot(of: self.chats) {
+                self.getChatResponse(onSending: text)
+            }
         }
-        
+    }
+    
+    /// 서버에 채팅을 요청하고 응답값을 받아서 UI에 반영하는 함수.
+    /// - Parameter text: (서버에) 보낼 체팅 문구
+    func getChatResponse(onSending text: String) {
         Task { [weak self] in
             guard let self else { return }
             do {
@@ -134,6 +140,8 @@ extension ORBRecommendationChatViewController {
                 self.chats.append(characterAnswerChatItem)
                 self.dataSource.applySnapshot(of: self.chats)
             } catch let error as NetworkResultError {
+                self.chats.removeLast()
+                self.dataSource.applySnapshot(of: self.chats)
                 switch error {
                 case .timeout, .notConnectedToInternet, .unknownURLError(_):
                     showToast(message: ErrorMessages.networkError, inset: 66)
