@@ -5,6 +5,7 @@
 //  Created by 김민성 on 4/20/25.
 //
 
+import Combine
 import UIKit
 
 import NMapsMap
@@ -17,6 +18,8 @@ final class ORBRecommendationMainViewController: UIViewController {
     
     private let rootView = ORBRecommendationMainView()
     private var disposeBag = DisposeBag()
+    // RxSwift의 DisposeBag 역할
+    private var cancellables = Set<AnyCancellable>()
     private var markers: [PlaceMapMarker] = []
     
     // MARK: - Life Cycle
@@ -51,6 +54,13 @@ final class ORBRecommendationMainViewController: UIViewController {
                 let chatViewController = ORBRecommendationChatViewController(
                     firstChatText: self.rootView.orbMessageButton.message
                 )
+                
+                // 추천소 채팅 뷰컨트롤러의 Combine 구독
+                chatViewController.shouldUpdatePlaces
+                    .sink { [weak self] in
+                        self?.updateRecommendedPlaces()
+                    }.store(in: &cancellables)
+                
                 chatViewController.view.layoutIfNeeded()
                 chatViewController.transitioningDelegate = self
                 chatViewController.modalPresentationStyle = .custom

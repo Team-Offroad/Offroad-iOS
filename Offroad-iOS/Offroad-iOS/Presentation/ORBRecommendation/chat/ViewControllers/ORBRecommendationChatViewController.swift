@@ -5,6 +5,7 @@
 //  Created by 김민성 on 5/4/25.
 //
 
+import Combine
 import UIKit
 
 import RxSwift
@@ -13,6 +14,10 @@ import RxCocoa
 final class ORBRecommendationChatViewController: UIViewController {
     
     // MARK: - Properties
+    
+    /// 추천소 채팅 로그 뷰에서 장소 추천 채팅이 성공했을 때 이벤트를 방출하는 `PassthroughSubject`
+    // RxSwift에서 PublishRelay 역할
+    let shouldUpdatePlaces = PassthroughSubject<Void, Never>()
     
     private let rootView = ORBRecommendationChatView()
     private let firstChatText: String
@@ -127,9 +132,9 @@ private extension ORBRecommendationChatViewController {
                 let networkService = NetworkService.shared.orbRecommendationService
                 let (recommendationSuccess, answer) = try await networkService.sendRecommendationChat(content: text)
                 
-                // 서버 내부 장소 추천 로직이 성공했을 때 처리
+                // 서버 내부 장소 추천 로직이 성공했을 때 외부로 이벤트 방출
                 if recommendationSuccess {
-                    // ...외부로 이벤트 방출 필요 -> Combine 사용 시도?
+                    shouldUpdatePlaces.send()
                 }
                 
                 // 응답 메시지 채팅 화면에 반영
