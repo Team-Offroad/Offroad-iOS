@@ -14,20 +14,20 @@ import SnapKit
 /// 오브의 추천소 채팅에서 예시 질의 데이터
 fileprivate struct ORBRecommendationChatExampleQuestion {
     var title: String
-    var highlightedText: String
+    var highlightedTexts: [String]
 }
 
 private let question1 = ORBRecommendationChatExampleQuestion(
-    title: "오늘 날씨에 맞는 식당을\n추천해줘.",
-    highlightedText: "오늘 날씨에 맞는 식당"
+    title: "강남에 가는데\n오늘 날씨에 맞는 식당 추천해줘.",
+    highlightedTexts: ["강남", "오늘 날씨에 맞는 식당"]
 )
 private let question2 = ORBRecommendationChatExampleQuestion(
-    title: "기분이 별로야.\n스트레스 풀릴만한 음식 없을까?",
-    highlightedText: "스트레스 풀릴만한 음식"
+    title: "기분이 별로야.\n판교에 스트레스 풀릴 음식 없나?",
+    highlightedTexts: ["판교", "스트레스 풀릴"]
 )
 private let question3 = ORBRecommendationChatExampleQuestion(
-    title: "신촌역 근처에\n분위기 좋은 카페 좀 찾아줘.",
-    highlightedText: "신촌역 근처에\n분위기 좋은 카페"
+    title: "여의도 점심 메뉴 추천해주라.\n소화 잘 되는 음식이면 좋겠어.",
+    highlightedTexts: ["여의도 점심 메뉴"]
 )
 
 /// 오브의 추천소 채팅에서 예시 질의 버튼을 나타낼 버튼
@@ -58,13 +58,20 @@ fileprivate final class ExampleQuestionButton: ShrinkableButton {
     /// - Parameter question: 버튼에 표시할 예시 질의 데이터
     private func configureTitleDesign(with question: ORBRecommendationChatExampleQuestion) {
         let attributedString = NSMutableAttributedString(string: question.title)
-        let range = (question.title as NSString).range(of: question.highlightedText)
-        attributedString.addAttribute(
-            .foregroundColor,
-            value: UIColor.blackOpacity(.black55),
-            range: range
-        )
-        setAttributedTitle(attributedString, for: .normal)
+        
+        for highlightedText in question.highlightedTexts {
+            let range = (question.title as NSString).range(of: highlightedText)
+            attributedString.addAttribute(
+                .foregroundColor,
+                value: UIColor.blackOpacity(.black55),
+                range: range
+            )
+        }
+        titleLabel?.attributedText = attributedString
+        titleLabel?.setLineHeight(percentage: 160)
+        /// `setAttributedTitle(_:for:)` 메서드의 매개변수로 `NSAttributedString`이 들어가므로,
+        /// 모든 `attribute`들을 다 적용한 후에 마지막으로 이 메서드를 호출해야 함.
+        setAttributedTitle(titleLabel?.attributedText, for: .normal)
         setTitleColor(.blackOpacity(.black25), for: .normal)
         titleLabel?.numberOfLines = 2
         titleLabel?.font = .offroad(style: .iosBoxMedi)
