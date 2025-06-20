@@ -11,7 +11,7 @@ import UIKit
 import ExpandableCell
 import SnapKit
 
-final class ORBRecommendedContentView: ExpandableCellCollectionView {
+final class ORBRecommendedContentView: ExpandableCellCollectionView, ORBCenterLoadingStyle {
     
     // MARK: - Properties
     

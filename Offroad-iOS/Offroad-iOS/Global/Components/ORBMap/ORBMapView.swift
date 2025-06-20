@@ -337,7 +337,7 @@ extension ORBMapView {
     
     /// 여러 장소의 좌표를 받아 이 장소들을 모두 비추도록 지도의 카메라를 이동하는 함수.
     /// - Parameters:
-    ///   - placesToShow: 지도에 보여질 장소들의 좌표.
+    ///   - coordinates: 지도에 보여질 장소들의 좌표.
     ///   - padding: 카메라가 변경된 후 영역과 지도 화면 간 확보할 최소 여백. pt 단위.
     ///   - animationCurve: 지도가 움직일 때의 애니메이션 종류. NMFCameraUpdateAnimation 타입.
     ///   - animationDuration: 애니메이션 시간. 0으로 설정할 경우, 애니메이션 없이 바로 이동. 기본값은 NAVER Map iOS SDK에서 설정하는 0.2

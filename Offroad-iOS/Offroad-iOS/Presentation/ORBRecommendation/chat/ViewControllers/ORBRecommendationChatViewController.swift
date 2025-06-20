@@ -17,7 +17,7 @@ final class ORBRecommendationChatViewController: UIViewController {
     
     /// 추천소 채팅 로그 뷰에서 장소 추천 채팅이 성공했을 때 이벤트를 방출하는 `PassthroughSubject`
     // RxSwift에서 PublishRelay 역할
-    let shouldUpdatePlaces = PassthroughSubject<Void, Never>()
+    let shouldUpdatePlaces = PassthroughSubject<[ORBRecommendationPlaceModel], Never>()
     
     private let rootView = ORBRecommendationChatView()
     private let firstChatText: String
@@ -109,6 +109,9 @@ extension ORBRecommendationChatViewController {
 private extension ORBRecommendationChatViewController {
     
     func sendChat(text: String) {
+        // 채팅이 시작하면 X 버튼 비활성화
+        rootView.xButton.isEnabled = false
+        
         let myNewChatItem = CharacterChatItem.message(
             .user(content: text, createdDate: Date(), id: nil)
         )
@@ -126,37 +129,65 @@ private extension ORBRecommendationChatViewController {
     /// 서버에 채팅을 요청하고 응답값을 받아서 UI에 반영하는 함수.
     /// - Parameter text: (서버에) 보낼 체팅 문구
     func getChatResponse(onSending text: String) {
+        
+        /// 응답 메시지를 채팅 화면에 반영하는 함수.
+        ///
+        /// `getChatResponse(onSending:)`의 중첩 함수임.
+        func addReply(_ reply: String) {
+            let characterAnswerChatItem = CharacterChatItem.message(
+                .orbCharacter(content: reply, createdDate: Date(), id: nil)
+            )
+            if case .loading = chats.last {
+                self.chats.removeLast()
+            }
+            self.chats.append(characterAnswerChatItem)
+            self.dataSource.applySnapshot(of: self.chats)
+        }
+        
         Task { [weak self] in
             guard let self else { return }
-            do {
-                let networkService = NetworkService.shared.orbRecommendationService
-                let (recommendationSuccess, answer) = try await networkService.sendRecommendationChat(content: text)
-                
-                // 서버 내부 장소 추천 로직이 성공했을 때 외부로 이벤트 방출
-                if recommendationSuccess {
-                    shouldUpdatePlaces.send()
-                }
-                
-                // 응답 메시지 채팅 화면에 반영
-                let characterAnswerChatItem = CharacterChatItem.message(
-                    .orbCharacter(content: answer, createdDate: Date(), id: nil)
-                )
-                self.chats.removeLast()
-                self.chats.append(characterAnswerChatItem)
-                self.dataSource.applySnapshot(of: self.chats)
-            } catch let error as NetworkResultError {
-                self.chats.removeLast()
-                self.dataSource.applySnapshot(of: self.chats)
-                switch error {
-                case .timeout, .notConnectedToInternet, .unknownURLError(_):
-                    showToast(message: ErrorMessages.networkError, inset: 66)
-                default:
-                    showToast(message: "문제가 발생했어요. 잠시 후 다시 시도해 주세요.", inset: 66)
-                }
+            defer {
+                // 채팅이 끝난 후에는 X버튼, 전송 버튼 활성화.
+                rootView.xButton.isEnabled = true
+                rootView.chatInputView.isSendingAllowed = true
             }
-            // 채팅이 끝난 후에는 전송 버튼 활성화.
-            rootView.chatInputView.isSendingAllowed = true
+            
+            let characterReply = await getChatResponse(onSending: text)
+            addReply(characterReply)
         }
+    }
+    
+    /// 채팅을 보낸 후 캐릭터가 답변할 내용을 비동기적으로 반환하는 함수.
+    /// - Parameter text: 사용자가 채팅을 보낸 문자열
+    /// - Returns: 캐릭터가 답변할 문자열.
+    func getChatResponse(onSending text: String) async -> String {
+        let networkService = NetworkService.shared.orbRecommendationService
+        guard let (recommendationSuccess, answer) = try? await networkService.sendRecommendationChat(content: text) else {
+            return "이런...장소 추천에 실패했어..잠시 후에 다시 시도해볼래?"
+        }
+        
+        // 서버의 장소 추천 로직이 성공하였는가?
+        guard recommendationSuccess else {
+            // 서버 로직 상 추천이 되지 않았을 경우
+            return answer
+        }
+        
+        // 추천 장소 목록을 성공적으로 불러왔는가?
+        guard let recommendedPlaces = try? await networkService.getRecommendedPlaces() else {
+            // 업데이트된 추천 장소 목록을 받아오는 데 실패한 경우
+            return "이런...추천 장소 목록을 받아오는 데 실패했어..잠시 후에 다시 시도해볼래?"
+        }
+        // 업데이트된 추천 장소 목록 외부로 전파.
+        shouldUpdatePlaces.send(recommendedPlaces)
+        
+        // 추천 장소 목록이 비어있지는 않은가?
+        guard !recommendedPlaces.isEmpty else {
+            // 장소 추천 로직은 성공했으나, 추천된 장소가 하나도 없는 경우
+            return "적절한 장소를 찾지 못했어..다른 조건으로 장소를 찾아봐줄래?"
+        }
+        
+        // (서버 추천 로직 성공 && 추천 장소 업데이트 성공 && 추천 장소 목록 존재) 인 경우
+        return answer
     }
     
 }

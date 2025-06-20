@@ -33,7 +33,7 @@ final class ORBRecommendationMainViewController: UIViewController {
         
         setupButtonActions()
         updateFixedPhrase()
-        updateRecommendedPlaces()
+        initialSettings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,8 +57,8 @@ final class ORBRecommendationMainViewController: UIViewController {
                 
                 // 추천소 채팅 뷰컨트롤러의 Combine 구독
                 chatViewController.shouldUpdatePlaces
-                    .sink { [weak self] in
-                        self?.updateRecommendedPlaces()
+                    .sink { [weak self] recommendedPlaces in
+                        self?.updateRecommendedPlaces(recommendedPlaces)
                     }.store(in: &cancellables)
                 
                 chatViewController.view.layoutIfNeeded()
@@ -143,38 +143,73 @@ private extension ORBRecommendationMainViewController {
         }
     }
     
-    func updateRecommendedPlaces() {
-        Task { [weak self] in
-            let networkService = NetworkService.shared.orbRecommendationService
+    // 오브의 추천소 초기 세팅. 처음 오브의 추천소 화면이 뜰 때 한 번만 호출됨. (viewDidLoad에서)
+    // 실패 시 팝업 띄우도록 구현함. (추천소 채팅 화면에서는 실패 시 팝업이 아닌, 채팅 문구로 피드백)
+    func initialSettings() {
+        rootView.recommendedContentView.startCenterLoading(withoutShading: true)
+        rootView.contentToolBar.isUserInteractionEnabled = false
+        Task {
+            defer {
+                self.rootView.recommendedContentView.stopCenterLoading()
+                self.rootView.contentToolBar.isUserInteractionEnabled = true
+            }
             do {
-                let recommendedPlaces = try await networkService.getRecommendedPlaces()
-                // 장소 목록 셀 업데이트하기
-                self?.rootView.recommendedContentView.places = recommendedPlaces
-                self?.rootView.recommendedContentView.reloadData()
-                
-                // 지도에 마커 추가
-                let newMarkers = recommendedPlaces.map {
-                    let marker = PlaceMapMarker(place: $0)
-                    (marker.width, marker.height) = (26, 32)
-                    marker.mapView = self?.rootView.orbMapView.mapView
-                    marker.touchHandler = { overlay in
-                        self?.rootView.orbMapView.showTooltip(marker)
-                        return true
-                    }
-                    return marker
+                let recommendedPlaces = try await self.getRecommendedPlace()
+                self.updateRecommendedPlaces(recommendedPlaces)
+            } catch let error as NetworkResultError {
+                let message: String
+                switch error {
+                case .httpError, .decodingFailed, .networkCancelled, .unknown:
+                    message = "오브의 추천 장소 목록을 불러오는데 실패했습니다.\n잠시 후 다시 시도해 주세요."
+                case .timeout, .notConnectedToInternet, .unknownURLError:
+                    message = "오브의 추천 장소 목록을 불러오는데 실패했습니다.\n\(ErrorMessages.networkError)"
                 }
-                self?.markers = newMarkers
                 
-                // 모든 장소가 모두 보일 곳으로 이동하기
-                let naverMapCoordinates: [NMGLatLng] = recommendedPlaces.map { place in
-                    NMGLatLng(from: place.coordinate)
-                }
-                self?.rootView.orbMapView.moveCamera(placesToShow: naverMapCoordinates, padding: 50)
-                
-            } catch {
-                print(error.localizedDescription)
+                // 데이터 불러오기 실패 시 alert 팝업 띄우는 코드.
+                let alertController = ORBAlertController(message: message, type: .messageOnly)
+                let okAction = ORBAlertAction(title: "화인", style: .default) { _ in return }
+                alertController.addAction(okAction)
+                alertController.xButton.isHidden = true
+                self.present(alertController, animated: true)
             }
         }
+    }
+    
+    func getRecommendedPlace() async throws -> [ORBRecommendationPlaceModel] {
+        let networkService = NetworkService.shared.orbRecommendationService
+        do {
+            let recommendedPlaces = try await networkService.getRecommendedPlaces()
+            return recommendedPlaces
+        } catch {
+            throw error
+        }
+    }
+    
+    func updateRecommendedPlaces(_ places: [ORBRecommendationPlaceModel]) {
+        rootView.recommendedContentView.places = places
+        rootView.recommendedContentView.reloadData()
+        
+        // 현재 떠 있는 마커 지도에서 지우기
+        markers.forEach { $0.mapView = nil }
+        // 지도에 새 장소들 마커 추가
+        let newMarkers = places.map {
+            let marker = PlaceMapMarker(place: $0)
+            (marker.width, marker.height) = (26, 32)
+            marker.mapView = rootView.orbMapView.mapView
+            marker.touchHandler = { [weak self] overlay in
+                self?.rootView.orbMapView.showTooltip(marker)
+                return true
+            }
+            return marker
+        }
+        markers = newMarkers
+        
+        // 새로 추천된 장소가 존재할 때만 새 추천 장소들에 맞게 지도 카메라 이동
+        guard !newMarkers.isEmpty else { return }
+        let naverMapCoordinates: [NMGLatLng] = places.map { place in
+            NMGLatLng(from: place.coordinate)
+        }
+        rootView.orbMapView.moveCamera(placesToShow: naverMapCoordinates, padding: 50)
     }
     
 }

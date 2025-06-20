@@ -37,7 +37,7 @@ final class ORBRecommendationMainView: UIView {
     let orbMessageButton = ORBRecommendationMessageButton()
     let orbMapView = ORBMapView()
     let recommendedContentView = ORBRecommendedContentView()
-    private let contentToolBar = ORBRecommendationMainViewToolBar()
+    let contentToolBar = ORBRecommendationMainViewToolBar()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
