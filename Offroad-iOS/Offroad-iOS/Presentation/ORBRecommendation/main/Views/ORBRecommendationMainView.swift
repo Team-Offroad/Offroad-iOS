@@ -98,7 +98,8 @@ private extension ORBRecommendationMainView {
         }
         
         titleStack.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(132.5)
+            let topInset: CGFloat = UIScreen.current.isAspectRatioTall ? 30 : 10
+            make.top.equalTo(backButton.snp.bottom).offset(topInset)
             make.leading.equalToSuperview().inset(24)
             make.trailing.lessThanOrEqualToSuperview().inset(24)
         }
