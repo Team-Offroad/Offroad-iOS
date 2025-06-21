@@ -117,3 +117,12 @@ extension ORBRecommendedContentView: UIGestureRecognizerDelegate {
     }
     
 }
+
+
+// MARK: ORBEmptyCaseStyle
+
+extension ORBRecommendedContentView: ORBEmptyCaseStyle {
+    
+    typealias placeholder = ORBRecommendationEmptyCaseView
+    
+}

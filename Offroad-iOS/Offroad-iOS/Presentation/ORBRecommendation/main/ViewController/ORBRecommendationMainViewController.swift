@@ -22,6 +22,10 @@ final class ORBRecommendationMainViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     private var markers: [PlaceMapMarker] = []
     
+    // MARK: - UI Properties
+    
+    private let emptyCaseView = ORBRecommendationEmptyCaseView()
+    
     // MARK: - Life Cycle
     
     override func loadView() {
@@ -51,24 +55,16 @@ final class ORBRecommendationMainViewController: UIViewController {
         rootView.orbMessageButton.rx.tap.subscribe { [weak self] _ in
             guard let self else { return }
             if UserDefaults.standard.bool(forKey: "useORBRecommendationChat") {
-                let chatViewController = ORBRecommendationChatViewController(
-                    firstChatText: self.rootView.orbMessageButton.message
-                )
-                
-                // 추천소 채팅 뷰컨트롤러의 Combine 구독
-                chatViewController.shouldUpdatePlaces
-                    .sink { [weak self] recommendedPlaces in
-                        self?.updateRecommendedPlaces(recommendedPlaces)
-                    }.store(in: &cancellables)
-                
-                chatViewController.view.layoutIfNeeded()
-                chatViewController.transitioningDelegate = self
-                chatViewController.modalPresentationStyle = .custom
-                self.present(chatViewController, animated: true)
+                self.presentChatViewController()
             } else {
                 self.navigationController?.pushViewController(ORBRecommendationOrderViewController(), animated: true)
             }
         }.disposed(by: disposeBag)
+        
+        emptyCaseView.askButton.rx.tap
+            .subscribe { [weak self] _ in
+                self?.presentChatViewController()
+            }.disposed(by: disposeBag)
     }
     
 }
@@ -85,6 +81,28 @@ extension ORBRecommendationMainViewController {
     /// dismiss 트랜지션이 시작할 때 버튼 보이기
     func showORBMessageButtonBeforeDismiss() {
         rootView.orbMessageButton.isHidden = false
+    }
+    
+}
+
+// present 동작
+private extension ORBRecommendationMainViewController {
+    
+    func presentChatViewController() {
+        let chatViewController = ORBRecommendationChatViewController(
+            firstChatText: self.rootView.orbMessageButton.message
+        )
+        
+        // 추천소 채팅 뷰컨트롤러의 Combine 구독
+        chatViewController.shouldUpdatePlaces
+            .sink { [weak self] recommendedPlaces in
+                self?.updateRecommendedPlaces(recommendedPlaces)
+            }.store(in: &cancellables)
+        
+        chatViewController.view.layoutIfNeeded()
+        chatViewController.transitioningDelegate = self
+        chatViewController.modalPresentationStyle = .custom
+        self.present(chatViewController, animated: true)
     }
     
 }
@@ -195,12 +213,16 @@ private extension ORBRecommendationMainViewController {
         }
         markers = newMarkers
         
-        // 새로 추천된 장소가 존재할 때만 새 추천 장소들에 맞게 지도 카메라 이동
-        guard !newMarkers.isEmpty else { return }
-        let naverMapCoordinates: [NMGLatLng] = places.map { place in
-            NMGLatLng(from: place.coordinate)
+        // 새로 추천된 장소가 빈 경우 엠티 케이스 표시
+        if newMarkers.isEmpty {
+            rootView.recommendedContentView.showEmptyPlaceholder(view: emptyCaseView)
+        } else {
+            rootView.recommendedContentView.removeEmptyPlaceholder()
+            let naverMapCoordinates: [NMGLatLng] = places.map { place in
+                NMGLatLng(from: place.coordinate)
+            }
+            rootView.orbMapView.moveCamera(placesToShow: naverMapCoordinates, padding: 50)
         }
-        rootView.orbMapView.moveCamera(placesToShow: naverMapCoordinates, padding: 50)
     }
     
 }
