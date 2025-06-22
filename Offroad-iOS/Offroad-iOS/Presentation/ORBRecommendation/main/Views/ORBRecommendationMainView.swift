@@ -35,9 +35,9 @@ final class ORBRecommendationMainView: UIView {
     private let titleImageView = UIImageView(image: .icnOrbRecommendationMainTitle)
     private lazy var titleStack = UIStackView(arrangedSubviews: [titleLabel, titleImageView])
     let orbMessageButton = ORBRecommendationMessageButton()
-    private let orbMapView = ORBMapView()
-    private let recommendedContentView = ORBRecommendedContentView()
-    private let contentToolBar = ORBRecommendationMainViewToolBar()
+    let orbMapView = ORBMapView()
+    let recommendedContentView = ORBRecommendedContentView()
+    let contentToolBar = ORBRecommendationMainViewToolBar()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -77,9 +77,8 @@ private extension ORBRecommendationMainView {
             stackView.distribution = .fillProportionally
         }
         
-        orbMessageButton.message = "오브의 추천소에 어서와~\n여기서는 ~~~소개소개"
-        
         orbMapView.isHidden = true
+        orbMapView.mapView.maxTilt = 0
     }
     
     func setupHierarchy() {
@@ -99,7 +98,8 @@ private extension ORBRecommendationMainView {
         }
         
         titleStack.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(132.5)
+            let topInset: CGFloat = UIScreen.current.isAspectRatioTall ? 30 : 10
+            make.top.equalTo(backButton.snp.bottom).offset(topInset)
             make.leading.equalToSuperview().inset(24)
             make.trailing.lessThanOrEqualToSuperview().inset(24)
         }

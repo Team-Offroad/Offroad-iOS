@@ -8,7 +8,6 @@
 import UIKit
 
 import NMapsMap
-import Then
 
 /// 탐험 지도에 띄울 보라색 마커.
 class PlaceMapMarker: NMFMarker {
@@ -16,11 +15,11 @@ class PlaceMapMarker: NMFMarker {
     //MARK: - Properties
     
     /// 마커가 띄울 장소 정보.
-    let place: PlaceModel
+    let place: any PlaceDescribable
     
     //MARK: - Life Cycle
     
-    init(place: PlaceModel) {
+    init(place: some PlaceDescribable) {
         self.place = place
         super.init()
         
