@@ -50,12 +50,21 @@ final class PlaceInfoTooltip: UIView {
             }()
             placeCategoryImageView.image = categoryImage
             
-            if marker?.place is PlaceModel {
+            // 툴팁 하단의 버튼에 보일 문구 설정.
+            guard let marker else {
+                exploreButton.setTitle("알 수 없음", for: .normal)
+                return
+            }
+            
+            if marker.place is PlaceModel {
                 exploreButton.setTitle("탐험하기", for: .normal)
-            } else if marker?.place is ORBRecommendationPlaceModel {
+            } else if marker.place is ORBRecommendationPlaceModel {
                 exploreButton.setTitle("지도 열기", for: .normal)
             } else {
-                exploreButton.setTitle("", for: .normal)
+                exploreButton.setTitle("알 수 없음", for: .normal)
+                assertionFailure(
+                    "잘못된 장소 모델 타입이 사용되었습니다: \(type(of:marker.place))\nPlaceModel 혹은 ORBRecommendationPlaceModel 타입만 사용 가능합니다."
+                )
             }
         }
     }

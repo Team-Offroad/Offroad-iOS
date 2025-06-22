@@ -141,7 +141,7 @@ extension AdventureMapViewModel {
     /// - Parameter placeInfo: 탐험을 시도할 위치 정보.
     ///
     /// 개발용 `Target`(`ORB_Dev`)에서는 개발자 모드의 설정값 중 '탐험 시 위치 인증 무시' 값에 따라 분기처리됨.
-    func authenticateAdventurePlace<T: PlaceDescribable>(placeInfo: T) where T: Identifiable, T.ID == Int {
+    func authenticateAdventurePlace(placeInfo: PlaceModel) {
         guard let currentLocation else {
             locationUnauthorizedMessage.accept(ErrorMessages.accessingLocationDataFailure)
             return

@@ -81,10 +81,10 @@ struct ORBRecommendationService {
         return try await withCheckedThrowingContinuation { continuation in
             provider.request(api) { result in
                 switch result {
-                case .success(let resposne):
+                case .success(let response):
                     do {
                         let decodedDTO = try NetworkResultHandler().handleSuccessCase(
-                            response: resposne,
+                            response: response,
                             decodingType: ORBRecommendationChatResponseDTO.self
                         )
                         continuation.resume(returning: (decodedDTO.data.success, decodedDTO.data.content))

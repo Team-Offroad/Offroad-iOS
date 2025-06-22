@@ -152,15 +152,15 @@ private extension ORBRecommendationChatViewController {
                 rootView.chatInputView.isSendingAllowed = true
             }
             
-            let characterReply = await getChatResponse(onSending: text)
+            let characterReply = await getChatReplyText(onSending: text)
             addReply(characterReply)
         }
     }
     
-    /// 채팅을 보낸 후 캐릭터가 답변할 내용을 비동기적으로 반환하는 함수.
+    /// 채팅을 보낸 후 캐릭터가 답변할 텍스트를 비동기적으로 반환하는 함수. 추천 로직 결과 및 추천 장소 유무에 따라 분기처리됨.
     /// - Parameter text: 사용자가 채팅을 보낸 문자열
-    /// - Returns: 캐릭터가 답변할 문자열.
-    func getChatResponse(onSending text: String) async -> String {
+    /// - Returns: 캐릭터가 답변할 텍스트 문자열.
+    func getChatReplyText(onSending text: String) async -> String {
         let networkService = NetworkService.shared.orbRecommendationService
         guard let (recommendationSuccess, answer) = try? await networkService.sendRecommendationChat(content: text) else {
             return "이런...장소 추천에 실패했어..잠시 후에 다시 시도해볼래?"

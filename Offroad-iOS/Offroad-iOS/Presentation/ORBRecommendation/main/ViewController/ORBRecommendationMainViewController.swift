@@ -154,7 +154,8 @@ private extension ORBRecommendationMainViewController {
                 self.rootView.contentToolBar.isUserInteractionEnabled = true
             }
             do {
-                let recommendedPlaces = try await self.getRecommendedPlace()
+                let networkService = NetworkService.shared.orbRecommendationService
+                let recommendedPlaces = try await networkService.getRecommendedPlaces()
                 self.updateRecommendedPlaces(recommendedPlaces)
             } catch let error as NetworkResultError {
                 let message: String
@@ -167,21 +168,11 @@ private extension ORBRecommendationMainViewController {
                 
                 // 데이터 불러오기 실패 시 alert 팝업 띄우는 코드.
                 let alertController = ORBAlertController(message: message, type: .messageOnly)
-                let okAction = ORBAlertAction(title: "화인", style: .default) { _ in return }
+                let okAction = ORBAlertAction(title: "확인", style: .default) { _ in return }
                 alertController.addAction(okAction)
                 alertController.xButton.isHidden = true
                 self.present(alertController, animated: true)
             }
-        }
-    }
-    
-    func getRecommendedPlace() async throws -> [ORBRecommendationPlaceModel] {
-        let networkService = NetworkService.shared.orbRecommendationService
-        do {
-            let recommendedPlaces = try await networkService.getRecommendedPlaces()
-            return recommendedPlaces
-        } catch {
-            throw error
         }
     }
     
@@ -196,7 +187,7 @@ private extension ORBRecommendationMainViewController {
             let marker = PlaceMapMarker(place: $0)
             (marker.width, marker.height) = (26, 32)
             marker.mapView = rootView.orbMapView.mapView
-            marker.touchHandler = { [weak self] overlay in
+            marker.touchHandler = { [weak self] _ in
                 self?.rootView.orbMapView.showTooltip(marker)
                 return true
             }
