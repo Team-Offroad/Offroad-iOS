@@ -8,18 +8,19 @@ import UIKit
 
 import SnapKit
 import Then
+import Kingfisher
+import SVGKit
 
-class CourseQuestPlaceCell: UICollectionViewCell {
+class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
     
     // MARK: - UI Components
     
     private let indicatorImageView = UIImageView()
     private let containerView = UIView()
     
-    private let thumbnailImageView = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
+    private var thumbnailImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
         $0.roundCorners(cornerRadius: 5)
-        $0.clipsToBounds = true
     }
     
     private let typeLabelView = UIView().then {
@@ -144,23 +145,24 @@ class CourseQuestPlaceCell: UICollectionViewCell {
         }
     }
     
-    func configure(with model: CourseQuestPlace) {
-        thumbnailImageView.image = UIImage(named: model.imageName)
-        typeLabel.text = " \(model.type) "
+    func configure(with model: CourseQuestDetailPlaceDTO) {
+//        if model.categoryImage.lowercased().hasSuffix(".svg") { thumbnailImageView.fetchSvgURLToImageView(svgUrlString: model.categoryImage) } else { thumbnailImageView.kf.setImage(with: URL(string: model.categoryImage)) }
+        thumbnailImageView.fetchSvgURLToImageView(svgUrlString: model.categoryImage)
+        typeLabel.text = model.category
         nameLabel.text = model.name
         addressLabel.text = model.address
         
         // 방문 여부에 따라 버튼 or 스탬프 표시
-        visitButton.isHidden = model.isVisited
-        clearImageView.isHidden = !model.isVisited
+        visitButton.isHidden = model.isVisited ?? false
+        clearImageView.isHidden = !(model.isVisited ?? false)
         
         // 타입에 따라 indicator 색상 변경
-        switch model.type {
+        switch model.category {
         case "카페": indicatorImageView.image = UIImage(resource: .icnYellowIndicator)
         case "공원": indicatorImageView.image = UIImage(resource: .icnGreenIndicator)
         case "식당": indicatorImageView.image = UIImage(resource: .icnOrangeIndicator)
         case "문화": indicatorImageView.image = UIImage(resource: .icnPinkIndicator)
-        case "식당": indicatorImageView.image = UIImage(resource: .icnBlueIndicator)
+        case "스포츠": indicatorImageView.image = UIImage(resource: .icnBlueIndicator)
         default: indicatorImageView.image = UIImage(resource: .icnOrangeIndicator)
         }
     }

@@ -11,18 +11,9 @@ import Then
 
 class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIGestureRecognizerDelegate {
     
-    private let rootView = CourseQuestView()
-    
-    private var quests: [CourseQuestPlace] = [
-        .init(id: UUID(), imageName: "sampleImage", type: "카페", name: "브릭루즈", address: "경기도 파주시 지목로 143", isVisited: true),
-        .init(id: UUID(), imageName: "sampleImage", type: "공원", name: "홍대 중앙공원", address: "경기도 파주시 지목로 143", isVisited: false),
-        .init(id: UUID(), imageName: "sampleImage", type: "식당", name: "브릭루즈", address: "경기도 파주시 지목로 143", isVisited: true),
-        .init(id: UUID(), imageName: "sampleImage", type: "식당", name: "브릭루즈", address: "경기도 파주시 지목로 143", isVisited: true),
-        .init(id: UUID(), imageName: "sampleImage", type: "식당", name: "브릭루즈", address: "경기도 파주시 지목로 143", isVisited: true),
-        .init(id: UUID(), imageName: "sampleImage", type: "식당", name: "브릭루즈", address: "경기도 파주시 지목로 143", isVisited: true),
-        .init(id: UUID(), imageName: "sampleImage", type: "식당", name: "브릭루즈", address: "경기도 파주시 지목로 143", isVisited: true),
-        .init(id: UUID(), imageName: "sampleImage", type: "식당", name: "브릭루즈", address: "경기도 파주시 지목로 143", isVisited: true)
-    ]
+    private let courseQuestView = CourseQuestView()
+    private let courseQuestDetailService = CourseQuestDetailService()
+    private var quests: [CourseQuestDetailPlaceDTO] = []
     
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         let layout = UICollectionViewFlowLayout()
@@ -35,15 +26,31 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     }
     
     override func loadView() {
-        view = rootView
+        view = courseQuestView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        rootView.courseQuestPlaceCollectionView.dataSource = self
-        rootView.listContainerView.delegate = self
+        courseQuestView.courseQuestPlaceCollectionView.dataSource = self
+        courseQuestView.listContainerView.delegate = self
         setupControlsTarget()
+        
+        fetchCourseQuestDetail(questId: 47)
+    }
+    
+    private func fetchCourseQuestDetail(questId: Int) {
+        courseQuestDetailService.getCourseQuestDetail(questId: questId) { [weak self] result in
+            switch result {
+            case .success(let dto):
+                DispatchQueue.main.async {
+                    self?.quests = dto.data.places
+                    self?.courseQuestView.courseQuestPlaceCollectionView.reloadData()
+                }
+            case .failure(let error):
+                print("❌ 코스 퀘스트 상세 정보 로드 실패:", error.localizedDescription)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +61,7 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     }
     
     private func setupControlsTarget() {
-        rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
+        courseQuestView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
     }
     
     @objc private func customBackButtonTapped() {
@@ -92,7 +99,16 @@ extension CourseQuestViewController: UICollectionViewDataSource {
         let quest = quests[indexPath.item]
         cell.configure(with: quest)
         cell.onVisit = { [weak self] in
-            self?.quests[indexPath.item].isVisited = true
+            self?.quests[indexPath.item] = CourseQuestDetailPlaceDTO(
+                category: quest.category,
+                name: quest.name,
+                address: quest.address,
+                latitude: quest.latitude,
+                longitude: quest.longitude,
+                isVisited: true,
+                categoryImage: quest.categoryImage,
+                description: quest.description
+            )
             collectionView.reloadItems(at: [indexPath])
             self?.showToast("방문 성공! 앞으로 N곳 남았어요")
         }
