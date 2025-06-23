@@ -3808,7 +3808,6 @@
 				D0E7963D2C453787005B47A5 /* QuestService.swift in Sources */,
 				D0E796082C45229B005B47A5 /* MoyaPlugin.swift in Sources */,
 				4EF6B0452CC3F50900066640 /* ORBAlertViewExplorationResult.swift in Sources */,
-				87F51BB42DDDFD800020AF04 /* CourseQuestView.swift in Sources */,
 				D00A48712C63443F008B286A /* NoticeView.swift in Sources */,
 				D063E98E2C49483000434A09 /* UIImageView+.swift in Sources */,
 				4E56F54C2C995BA800EEE677 /* ORBAlertViewModel.swift in Sources */,
