@@ -251,14 +251,15 @@ extension CourseQuestCollectionViewCell {
         let checkBoxImage: UIImage = .icnQuestListCheckBox
         
         if let places = quest.courseQuestPlaces {
-                for place in places {
-                    let label = "\(place.name): \(place.description)"
-                    let questStackView = IconLabelStackView(icon: checkBoxImage, text: label)
-                    courseQuestListStackView.addArrangedSubview(questStackView)
-                }
+            for place in places {
+                let icon = CourseQuestCategoryIcon.image(for: place.category)
+                let label = "\(place.name) \(place.description)"
+                let questStackView = IconLabelStackView(icon: icon, text: label)
+                courseQuestListStackView.addArrangedSubview(questStackView)
             }
+        }
         
-        let rewardStackView = IconLabelStackView(icon: checkBoxImage, text: "보상: \(quest.reward)")
+        let rewardStackView = IconLabelStackView(icon: UIImage.icnQuestListGiftBox, text: "\(quest.requirement) \(quest.reward)")
         courseQuestListStackView.addArrangedSubview(rewardStackView)
         
         contentView.layoutIfNeeded()
