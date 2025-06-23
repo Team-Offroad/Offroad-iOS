@@ -17,7 +17,7 @@ final class CourseQuestView: UIView {
     private let customNavigationBar = UIView()
     let customBackButton = NavigationPopButton()
     
-    let mapView = UIView()
+    let mapView = CourseQuestMapView()
     let ddayView = UIView()
     let ddayLabel = UILabel()
     let listContainerView = UIScrollView()
@@ -156,5 +156,9 @@ final class CourseQuestView: UIView {
             $0.bottom.equalToSuperview().inset(45.6)
             $0.height.equalTo(54)
         }
+    }
+    
+    func configureMap(with places: [CourseQuestDetailPlaceDTO]) {
+        mapView.configure(with: places)
     }
 }

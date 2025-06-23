@@ -46,6 +46,8 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
                 DispatchQueue.main.async {
                     self?.quests = dto.data.places
                     self?.courseQuestView.courseQuestPlaceCollectionView.reloadData()
+                    //지도에 마커 표시
+                    self?.courseQuestView.configureMap(with: dto.data.places)
                 }
             case .failure(let error):
                 print("❌ 코스 퀘스트 상세 정보 로드 실패:", error.localizedDescription)
