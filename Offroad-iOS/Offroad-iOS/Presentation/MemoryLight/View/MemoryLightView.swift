@@ -16,6 +16,7 @@ final class MemoryLightView: UIView {
     
     private var gradientLayer: CAGradientLayer?
     private var blurEffectView: CustomIntensityBlurView?
+    let imageToShareView = UIView()
     private let backgroundGradientView = UIView()
     let closeButton = UIButton()
     let memoryLightCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
@@ -89,14 +90,19 @@ private extension MemoryLightView {
     
     func setupHierarchy() {
         addSubviews(
-            backgroundGradientView,
+            imageToShareView,
             closeButton,
-            memoryLightCollectionView,
             shareButton
         )
+        
+        imageToShareView.addSubviews(backgroundGradientView, memoryLightCollectionView)
     }
     
     func setupLayout() {
+        imageToShareView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
         backgroundGradientView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }

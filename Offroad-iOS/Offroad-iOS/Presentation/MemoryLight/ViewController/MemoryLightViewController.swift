@@ -136,8 +136,7 @@ private extension MemoryLightViewController {
     }
     
     func shareButtonTapped() {
-        guard let cell = rootView.memoryLightCollectionView.cellForItem(at: IndexPath(item: displayedDiaryIndex, section: 0)),
-              let image = cell.convertViewToImage() else { return }
+        guard let image = rootView.imageToShareView.convertViewToImage() else { return }
         
         // 권한 요청 후 sheet 띄우기
         PHPhotoLibrary.requestAuthorization { status in
