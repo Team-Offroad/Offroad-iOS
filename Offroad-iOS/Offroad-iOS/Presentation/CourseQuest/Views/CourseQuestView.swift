@@ -29,7 +29,7 @@ final class CourseQuestView: UIView {
         layout.minimumLineSpacing = 14
         $0.collectionViewLayout = layout
         $0.backgroundColor = .clear
-        $0.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
+        $0.contentInset = .init(top: 17, left: 0, bottom: 103.5, right: 0)
         $0.register(CourseQuestPlaceCell.self, forCellWithReuseIdentifier: "CourseQuestPlaceCell")
     }
     
@@ -92,6 +92,7 @@ final class CourseQuestView: UIView {
             button.setTitleColor(.main(.main1), for: .normal)
             button.setTitleColor(.main(.main1), for: .highlighted)
             button.setTitleColor(.main(.main1), for: .disabled)
+            button.configureTitleFontWhen(normal: .offroad(style: .iosTextBold), disabled: .offroad(style: .iosTextBold))
             button.configureBackgroundColorWhen(normal: .main(.main2), disabled: .blackOpacity(.black15))
             button.roundCorners(cornerRadius: 5)
             button.isEnabled = false
@@ -133,7 +134,7 @@ final class CourseQuestView: UIView {
         }
         
         ddayView.snp.makeConstraints {
-            $0.top.equalTo(listContainerView.contentLayoutGuide)
+            $0.top.equalToSuperview()
             $0.horizontalEdges.equalTo(listContainerView.frameLayoutGuide)
             $0.height.equalTo(46)
         }
@@ -145,16 +146,16 @@ final class CourseQuestView: UIView {
         
         courseQuestPlaceCollectionView.snp.makeConstraints {
             $0.top.equalTo(ddayView.snp.bottom)
-            $0.bottom.equalTo(listContainerView.contentLayoutGuide)
+            $0.bottom.equalToSuperview()
             $0.horizontalEdges.equalTo(listContainerView.frameLayoutGuide)
             $0.height.equalTo(357)
         }
         
         rewardButton.snp.makeConstraints {
-            $0.top.equalTo(listContainerView.snp.bottom).offset(12)
-            $0.horizontalEdges.equalToSuperview().inset(12)
-            $0.bottom.equalTo(safeAreaLayoutGuide).inset(12)
-            $0.height.equalTo(44)
+            $0.top.equalTo(listContainerView.snp.bottom).offset(13.3)
+            $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.bottom.equalTo(safeAreaLayoutGuide).inset(24.6)
+            $0.height.equalTo(54)
         }
     }
 }
