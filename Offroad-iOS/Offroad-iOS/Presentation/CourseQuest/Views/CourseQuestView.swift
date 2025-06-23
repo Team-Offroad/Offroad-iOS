@@ -18,7 +18,10 @@ final class CourseQuestView: UIView {
     let customBackButton = NavigationPopButton()
     
     let mapView = UIView()
-    let listContainerView = UIView()
+    let ddayView = UIView()
+    let ddayLabel = UILabel()
+    let listContainerView = UIScrollView()
+    var listTopConstraint: Constraint? = nil
     
     let courseQuestPlaceCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         let layout = UICollectionViewFlowLayout()
@@ -31,8 +34,6 @@ final class CourseQuestView: UIView {
     }
     
     private let rewardButton = ShrinkableButton()
-    
-    var listTopConstraint: Constraint? = nil
     
     //MARK: - Life Cycle
     
@@ -59,14 +60,31 @@ final class CourseQuestView: UIView {
         
         customBackButton.configureButtonTitle(titleString: "퀘스트 목록")
         
-        listContainerView.do { collectionView in
-            collectionView.backgroundColor = .primary(.listBg)
-            collectionView.clipsToBounds = true
+        mapView.do { view in
+            view.backgroundColor = .red
+            view.clipsToBounds = true
+        }
+        
+        ddayView.do { view in
+            view.backgroundColor = .main(.main1)
+        }
+        
+        ddayLabel.do { label in
+            label.font = UIFont.offroad(style: .iosBoxMedi)
+            label.textColor = .grayscale(.gray400)
+            label.text = "퀘스트 마감일: 25.02.10   🗓️  D-10"
+        }
+        
+        listContainerView.do { view in
+            view.backgroundColor = .orange
+            view.clipsToBounds = true
+            view.showsVerticalScrollIndicator = false
         }
         
         courseQuestPlaceCollectionView.do { collectionView in
-            collectionView.backgroundColor = .primary(.listBg)
+            collectionView.backgroundColor = .main(.main1)
             collectionView.delaysContentTouches = false
+            collectionView.showsVerticalScrollIndicator = false
         }
         
         rewardButton.do { button in
@@ -88,7 +106,8 @@ final class CourseQuestView: UIView {
             listContainerView,
             rewardButton
         )
-        listContainerView.addSubview(courseQuestPlaceCollectionView)
+        listContainerView.addSubviews(ddayView, courseQuestPlaceCollectionView)
+        ddayView.addSubview(ddayLabel)
     }
     
     private func setupLayout() {
@@ -109,16 +128,31 @@ final class CourseQuestView: UIView {
         }
         
         listContainerView.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview()
-            self.listTopConstraint = make.top.equalTo(mapView.snp.bottom).constraint
+            listTopConstraint = make.top.equalTo(mapView.snp.bottom).constraint
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide)
+        }
+        
+        ddayView.snp.makeConstraints {
+            $0.top.equalTo(listContainerView.contentLayoutGuide)
+            $0.horizontalEdges.equalTo(listContainerView.frameLayoutGuide)
+            $0.height.equalTo(46)
+        }
+        
+        ddayLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(22)
+            $0.trailing.equalToSuperview().inset(24)
         }
         
         courseQuestPlaceCollectionView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalTo(ddayView.snp.bottom)
+            $0.bottom.equalTo(listContainerView.contentLayoutGuide)
+            $0.horizontalEdges.equalTo(listContainerView.frameLayoutGuide)
+            $0.height.equalTo(357)
         }
         
         rewardButton.snp.makeConstraints {
-            $0.left.right.equalToSuperview().inset(12)
+            $0.top.equalTo(listContainerView.snp.bottom).offset(12)
+            $0.horizontalEdges.equalToSuperview().inset(12)
             $0.bottom.equalTo(safeAreaLayoutGuide).inset(12)
             $0.height.equalTo(44)
         }
