@@ -34,7 +34,6 @@ final class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-#if DevTarget
         Task { [weak self] in
             do {
                 guard let currentAppVersion = try self?.checkCurrentAppVersion() else { return }
@@ -45,12 +44,19 @@ final class SplashViewController: UIViewController {
                     self?.processToLogIn()
                 }
             } catch {
-                assertionFailure(error.localizedDescription)
+                print(error.localizedDescription)
+                if let appVersionCheckError = error as? AppVersionCheckError {
+                    switch appVersionCheckError {
+                    case .networkFail:
+                        ORBToastManager.shared.showToast(message: ErrorMessages.networkError, inset: 0)
+                    default:
+                        ORBToastManager.shared.showToast(message: "알 수 없는 문제가 발생했어요. 잠시 후 다시 시도해 주세요.", inset: 0)
+                    }
+                } else {
+                    assertionFailure(error.localizedDescription)
+                }
             }
         }
-#else
-        processToLogIn()
-#endif
     }
 }
 
@@ -108,7 +114,6 @@ extension SplashViewController {
     
 }
 
-#if DevTarget
 // 앱 버전 체크(강제 업데이트 유도) 관련
 private extension SplashViewController {
     
@@ -145,29 +150,34 @@ private extension SplashViewController {
     
     // 서버에서 최소 지원 버전 확인
     func checkMinimumSupportedVersion() async throws -> String {
-        let networkService = NetworkService.shared.minimumSupportedVersionService
-        let networkResult = await networkService.getMinimumSupportedVersion()
-        switch networkResult {
-        case .success(let dto):
-            guard let dto else { throw AppVersionCheckError.dtoNotFound }
-            return dto.ios
-        case .networkFail:
-            ORBToastManager.shared.showToast(message: ErrorMessages.networkError, inset: 0)
-            throw AppVersionCheckError.networkFail
-        case .decodeErr:
-            ORBToastManager.shared.showToast(message: "알 수 없는 문제가 발생했어요. 잠시 후 다시 시도해 주세요.", inset: 0)
-            throw AppVersionCheckError.dtoDecodingFailed
-        default:
-            ORBToastManager.shared.showToast(message: "알 수 없는 문제가 발생했어요. 잠시 후 다시 시도해 주세요.", inset: 0)
-            throw AppVersionCheckError.minimumSupportedVersionNotFound
+        do {
+            let networkService = NetworkService.shared.minimumSupportedVersionService
+            let networkResult = try await networkService.getMinimumSupportedVersion()
+            switch networkResult {
+            case .success(let dto):
+                guard let dto else { throw AppVersionCheckError.dtoNotFound }
+                return dto.ios
+            case .networkFail:
+                throw AppVersionCheckError.networkFail
+            case .decodeErr:
+                throw AppVersionCheckError.dtoDecodingFailed
+            default:
+                throw AppVersionCheckError.minimumSupportedVersionNotFound
+            }
+        } catch {
+            throw error
         }
     }
     
     @MainActor
     func requestUserToUpdateApp() {
-        let alertController = ORBAlertController(message: "원활한 기능 사용을 위해 최신 버전으로 앱을 업데이트해 주세요.", type: .messageOnly)
+        let alertController = ORBAlertController(
+            title: AlertMessage.enforceAppUpdateTitle,
+            message: AlertMessage.enforceAppUpdateMessage,
+            type: .normal
+        )
         alertController.xButton.isHidden = true
-        let action = ORBAlertAction(title: "앱스토어로 이동", style: .default) { [weak self] _ in
+        let action = ORBAlertAction(title: "업데이트하기", style: .default) { [weak self] _ in
             self?.redirectToAppStore()
         }
         alertController.addAction(action)
@@ -186,7 +196,10 @@ private extension SplashViewController {
     }
     
     func alertIfAppStoreRedirectionFailed() {
-        let alertController = ORBAlertController(message: "앱스토어를 열 수 없습니다. 다시 시도해 주세요.", type: .normal)
+        let alertController = ORBAlertController(
+            message: ErrorMessages.appStoreRedirectionFailure,
+            type: .normal
+        )
         alertController.xButton.isHidden = true
         let action = ORBAlertAction(title: "확인", style: .default) { _ in return }
         alertController.addAction(action)
@@ -194,4 +207,3 @@ private extension SplashViewController {
     }
     
 }
-#endif

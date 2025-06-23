@@ -49,7 +49,7 @@ final class ORBMapView: NMFNaverMapView {
     
     private let locationManager = CLLocationManager()
     
-    /// 툴팁이 떠 있을 때 툴팁 아래의 배경을 터치할 수 있는지 여부. 기본값은 `true`
+    /// 툴팁이 떠 있을 때 지도 배경 터치를 막을지 여부. 기본값은 `true`
     var shouldBlockBackgroundTouch: Bool = true
     
     /// 툴팁이 떠 있을 때 지도가 움직이면 툴팁이 닫힐 지 여부. 기본값은 `true`
@@ -79,7 +79,7 @@ final class ORBMapView: NMFNaverMapView {
     // MARK: - Rx Properties
     
     private var disposeBag = DisposeBag()
-    let exploreButtonTapped = PublishSubject<RegisteredPlaceInfo>()
+    let exploreButtonTapped = PublishRelay<any PlaceDescribable>()
     let onMapViewCameraIdle = PublishRelay<Void>()
     let tooltipWillShow = PublishRelay<Void>()
     let tooltipDidShow = PublishRelay<Void>()
@@ -110,6 +110,7 @@ final class ORBMapView: NMFNaverMapView {
 extension ORBMapView {
     
     private func setupStyle() {
+        clipsToBounds = true
         shadingView.isUserInteractionEnabled = false
         tooltip.isHidden = true
     }
@@ -131,10 +132,11 @@ extension ORBMapView {
         
         tooltip.exploreButton.rx.tap.bind(onNext: { [weak self] in
             guard let self else { return }
-            if let selectedMarker = tooltip.marker {
-                self.exploreButtonTapped.onNext(selectedMarker.placeInfo)
+            // 툴팁에 마커 정보(장소 정보)가 있을 때만 탭 이벤트 전달.
+            if let selectedMarker = self.tooltip.marker {
+                self.exploreButtonTapped.accept(selectedMarker.place)
             } else {
-                self.exploreButtonTapped.onError(ORBMapError.EmptyTooltip)
+                printLog("툴팁에서 마커 정보(위치 정보)를 갖고 있지 않아 값을 전달할 수 없습니다.")
             }
         }).disposed(by: disposeBag)
     }
@@ -250,7 +252,7 @@ private extension ORBMapView {
 extension ORBMapView {
     
     /// 특정 마커에 툴팁을 띄우는 함수.
-    public func showTooltip(_ marker: ORBNMFMarker) {
+    public func showTooltip(_ marker: PlaceMapMarker) {
         tooltip.setMarker(marker)
         guard let tooltipPoint = tooltip.getPoint(in: mapView) else { return }
         
@@ -326,6 +328,43 @@ extension ORBMapView {
         completion: ((Bool) -> Void)? = nil
     ) {
         let cameraUpdate = NMFCameraUpdate(scrollBy: delta)
+        cameraUpdate.reason = reason
+        cameraUpdate.animation = animationCurve
+        cameraUpdate.animationDuration = animationDuration
+        mapView.moveCamera(cameraUpdate) { isCancelled in
+            completion?(isCancelled)
+        }
+    }
+    
+    /// 여러 장소의 좌표를 받아 이 장소들을 모두 비추도록 지도의 카메라를 이동하는 함수.
+    /// - Parameters:
+    ///   - coordinates: 지도에 보여질 장소들의 좌표.
+    ///   - padding: 카메라가 변경된 후 영역과 지도 화면 간 확보할 최소 여백. pt 단위.
+    ///   - animationCurve: 지도가 움직일 때의 애니메이션 종류. NMFCameraUpdateAnimation 타입.
+    ///   - animationDuration: 애니메이션 시간. 0으로 설정할 경우, 애니메이션 없이 바로 이동. 기본값은 NAVER Map iOS SDK에서 설정하는 0.2
+    ///   - reason: 카메라 이동에 사용될 `NMFCameraUpdate` 타입의 `reason` 속성에 할당할 값. 기본값은 `NMFMapChangedByDeveloper`이며, -1에 해당. (개발자가 API를 호출해 카메라가 움직였음을 의미)
+    ///   - completion: 카메라 이동이 완료되었을 때 호출되는 콜백 블록. 애니메이션이 있으면 완전히 끝난 후에 호출됩니다. `Bool` 타입의 매개변수는 카메라 이동이 완료되기 전에 다른 카메라 이동이 호출되거나 사용자가 제스처로 지도를 조작한 경우 `true`입니다.
+    ///
+    ///  - Note: 빈 배열이 전달될 경우, 오류가 나며 앱이 꺼질 수 있으므로, 빈 배열이 전달될 시, 기본 장소 값으로 광화문 광장을 설정하였습니다.
+    ///  기본 장소 값은 추후 변경될 수 있음.
+    public func moveCamera(
+        placesToShow coordinates: [NMGLatLng],
+        padding: CGFloat = 0,
+        animationCurve: NMFCameraUpdateAnimation = .easeOut,
+        // NAVER Map iOS SDK에서 지정하는 기본값이 0.2
+        animationDuration: TimeInterval = 0.2,
+        reason: Int32 = Int32(NMFMapChangedByDeveloper),
+        completion: ((Bool) -> Void)? = nil
+    ) {
+        // 빈 배열이 전달될 경우 기본 위치(광화문 광장)으로 이동.
+        guard !coordinates.isEmpty else {
+            /// 광화문광장 (37.5716229, 126.9767879)
+            let gwanghwamunSquare = NMGLatLng(lat: 37.5716229, lng: 126.9767879)
+            moveCamera(scrollTo: gwanghwamunSquare)
+            return
+        }
+        let bounds = NMGLatLngBounds(latLngs: coordinates)
+        let cameraUpdate = NMFCameraUpdate(fit: bounds, padding: padding)
         cameraUpdate.reason = reason
         cameraUpdate.animation = animationCurve
         cameraUpdate.animationDuration = animationDuration

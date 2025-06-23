@@ -22,32 +22,37 @@ enum PlaceModelError: LocalizedError {
     }
 }
 
-struct PlaceModel {
+enum ORBPlaceCategory: String {
+    case cafe = "CAFFE"
+    case restaurant = "RESTAURANT"
+    case park = "PARK"
+    case sport = "SPORT"
+    case culture = "CULTURE"
+}
+
+/// 지도, 장소 목록 뷰에서 사용되는 장소 데이터
+struct PlaceModel: PlaceDescribable, Identifiable {
     
-    enum Category: String {
-        case cafe = "CAFFE"
-        case restaurant = "RESTAURANT"
-        case park = "PARK"
-        case sport = "SPORT"
-        case culture = "CULTURE"
-    }
+    typealias ID = Int
     
-    let id: Int
+    let id: ID
     let name: String
     let address: String
     let shortIntroduction: String
-    let placeCategory: Category
+    let placeCategory: ORBPlaceCategory
     let placeArea: String
     let coordinate: CLLocationCoordinate2D
     let visitCount: Int
     let categoryImageUrl: URL
+    // 장소 목록 데이터를 불러올 때 페이징 시 필요한 값.
+    let distanceFromUser: Double
     
     init(_ dto: RegisteredPlaceInfo) throws {
         self.id = dto.id
         self.name = dto.name
         self.address = dto.address
         self.shortIntroduction = dto.shortIntroduction
-        if let category = Category(rawValue: dto.placeCategory) {
+        if let category = ORBPlaceCategory(rawValue: dto.placeCategory) {
             self.placeCategory = category
         } else {
             throw PlaceModelError.invalidCategoryImageURL(wrongURL: dto.placeCategory)
@@ -60,6 +65,7 @@ struct PlaceModel {
         } else {
             throw PlaceModelError.invalidCategoryValue(wrongValue: dto.categoryImageUrl)
         }
+        self.distanceFromUser = dto.distanceFromUser
     }
     
 }

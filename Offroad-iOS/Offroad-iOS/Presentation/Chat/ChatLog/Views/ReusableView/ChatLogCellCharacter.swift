@@ -7,7 +7,6 @@
 
 import UIKit
 
-import Lottie
 import SnapKit
 
 final class ChatLogCellCharacter: UICollectionViewCell {
@@ -36,11 +35,11 @@ final class ChatLogCellCharacter: UICollectionViewCell {
 #else
     private(set) var chatBubble = UIView()
 #endif
-    private let characternameLabel = UILabel()
+    private let characterNameLabel = UILabel()
     private let messageLabel = UILabel()
     private let timeLabel = UILabel()
     
-    private lazy var contentStack = UIStackView(arrangedSubviews: [characternameLabel, messageLabel])
+    private lazy var contentStack = UIStackView(arrangedSubviews: [characterNameLabel, messageLabel])
     private lazy var totalStack = UIStackView(arrangedSubviews: [chatBubble, timeLabel])
     
     override init(frame: CGRect) {
@@ -76,7 +75,7 @@ private extension ChatLogCellCharacter {
             view.layer.borderWidth = 1
         }
         
-        characternameLabel.do { label in
+        characterNameLabel.do { label in
             label.font = .offroad(style: .iosTextBold)
             label.textColor = .sub(.sub4)
         }
@@ -110,8 +109,8 @@ private extension ChatLogCellCharacter {
     }
     
     func setupLayout() {
-        characternameLabel.setContentHuggingPriority(.required, for: .horizontal)
-        characternameLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        characterNameLabel.setContentHuggingPriority(.required, for: .horizontal)
+        characterNameLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
         
         messageLabel.setContentHuggingPriority(.required, for: .horizontal)
         messageLabel.setContentCompressionResistancePriority(.init(999), for: .horizontal)
@@ -136,9 +135,9 @@ extension ChatLogCellCharacter {
     
     func configure(with item: CharacterChatMessageItem, characterName: String) {
         guard case let .orbCharacter(content, _, _) = item else {
-            fatalError("ChatLogCellUser received incompatible item.")
+            fatalError("ChatLogCellCharacter received incompatible item.")
         }
-        characternameLabel.text = "\(characterName) :"
+        characterNameLabel.text = "\(characterName) :"
         messageLabel.text = content
         timeLabel.text = item.formattedTimeString
     }

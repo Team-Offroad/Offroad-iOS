@@ -30,31 +30,42 @@ final class PlaceInfoTooltip: UIView {
     private let addressLabel = UILabel()
     private let visitCountLabel = UILabel()
     
-    private(set) var marker: ORBNMFMarker? = nil {
+    private(set) var marker: PlaceMapMarker? = nil {
         didSet {
-            nameLabel.text = marker?.placeInfo.name ?? ""
-            shortDescriptionLabel.text = marker?.placeInfo.shortIntroduction ?? ""
-            addressLabel.text = marker?.placeInfo.address ?? ""
-            visitCountLabel.text = "탐험횟수: \(marker?.placeInfo.visitCount ?? 0)"
+            nameLabel.text = marker?.place.name ?? ""
+            shortDescriptionLabel.text = marker?.place.shortIntroduction ?? ""
+            addressLabel.text = marker?.place.address ?? ""
+            visitCountLabel.text = "탐험횟수: \(marker?.place.visitCount ?? 0)"
             exploreButton.isEnabled = marker != nil
             // 카테고리 이미지 할당
             let categoryImage: UIImage? = {
-                guard let marker, let category = ORBPlaceCategory(
-                    rawValue: marker.placeInfo.placeCategory.lowercased()
-                ) else {
-                    return nil
-                }
-                
-                switch category {
-                case .caffe: return cafeImage
+                guard let marker else { return nil }
+                switch marker.place.placeCategory {
+                case .cafe: return cafeImage
                 case .park: return parkImage
                 case .restaurant: return restaurantImage
                 case .culture: return cultureImage
                 case .sport: return sportsImage
-                default: return nil
                 }
             }()
             placeCategoryImageView.image = categoryImage
+            
+            // 툴팁 하단의 버튼에 보일 문구 설정.
+            guard let marker else {
+                exploreButton.setTitle("알 수 없음", for: .normal)
+                return
+            }
+            
+            if marker.place is PlaceModel {
+                exploreButton.setTitle("탐험하기", for: .normal)
+            } else if marker.place is ORBRecommendationPlaceModel {
+                exploreButton.setTitle("지도 열기", for: .normal)
+            } else {
+                exploreButton.setTitle("알 수 없음", for: .normal)
+                assertionFailure(
+                    "잘못된 장소 모델 타입이 사용되었습니다: \(type(of:marker.place))\nPlaceModel 혹은 ORBRecommendationPlaceModel 타입만 사용 가능합니다."
+                )
+            }
         }
     }
     
@@ -192,7 +203,6 @@ extension PlaceInfoTooltip  {
         }
         
         exploreButton.do { button in
-            button.setTitle("탐험하기", for: .normal)
             button.setTitleColor(.primary(.white), for: .normal)
             button.configureBackgroundColorWhen(normal: .sub(.sub4),
                                                 highlighted: .sub(.sub480),
@@ -226,7 +236,7 @@ extension PlaceInfoTooltip  {
     
     //MARK: - Func
     
-    func setMarker(_ marker: ORBNMFMarker?) {
+    func setMarker(_ marker: PlaceMapMarker?) {
         self.marker = marker
     }
     

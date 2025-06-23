@@ -6,22 +6,6 @@
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES"
       buildArchitectures = "Automatic">
-      <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4E0394282C2A9DCE007F0517"
-               BuildableName = "ORB.app"
-               BlueprintName = "ORB"
-               ReferencedContainer = "container:Offroad-iOS.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -50,18 +34,9 @@
             ReferencedContainer = "container:Offroad-iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4E0394282C2A9DCE007F0517"
-            BuildableName = "ORB.app"
-            BlueprintName = "ORB"
-            ReferencedContainer = "container:Offroad-iOS.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -70,9 +45,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4E0394282C2A9DCE007F0517"
-            BuildableName = "ORB.app"
-            BlueprintName = "ORB"
+            BlueprintIdentifier = "4E4F314A2D4718F400C3B2FF"
+            BuildableName = "ORB_Dev.app"
+            BlueprintName = "ORB_Dev"
             ReferencedContainer = "container:Offroad-iOS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

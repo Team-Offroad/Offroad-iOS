@@ -12,9 +12,9 @@ final class ORBRecommendationChatPresentationFloatingView: UIView, ORBRecommenda
     
     // MARK: - UI Properties
     
-    private let characternameLabel = UILabel()
+    private let characterNameLabel = UILabel()
     private let messageLabel = UILabel()
-    private lazy var contentStack = UIStackView(arrangedSubviews: [characternameLabel, messageLabel])
+    private lazy var contentStack = UIStackView(arrangedSubviews: [characterNameLabel, messageLabel])
     
     // MARK: - Life Cycle
     
@@ -47,7 +47,7 @@ private extension ORBRecommendationChatPresentationFloatingView {
         layer.cornerCurve = .continuous
         applyGradientStyle(isBackgroundBlurred: false)
         
-        characternameLabel.do { label in
+        characterNameLabel.do { label in
             label.text = "오브 :"
             label.font = .offroad(style: .iosTextBold)
             label.textColor = .sub(.sub4)
@@ -73,8 +73,8 @@ private extension ORBRecommendationChatPresentationFloatingView {
     }
     
     func setupLayout() {
-        characternameLabel.setContentHuggingPriority(.required, for: .horizontal)
-        characternameLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        characterNameLabel.setContentHuggingPriority(.required, for: .horizontal)
+        characterNameLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         messageLabel.setContentHuggingPriority(.required, for: .horizontal)
         messageLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         

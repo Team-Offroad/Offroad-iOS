@@ -13,6 +13,7 @@ struct ErrorMessages {
     static let birthDateError = "다시 한 번 확인해주세요."
     static let getCharacterListFailure = "캐릭터 목록을 불러오는 데 실패하였습니다."
     static let accessingLocationDataFailure = "위치 정보를 가져오는 데 실패했습니다."
+    static let appStoreRedirectionFailure = "앱스토어를 열 수 없어요.\n앱 설치 가능 여부를 확인해 주세요"
 }
 
 struct AlertMessage {
@@ -46,6 +47,8 @@ struct AlertMessage {
         "\(selectedTimePeriod == .am ? "오전" : "오후") \(selectedTime)시"
     }
     static let orbRecommendationOrderUnsavedExitMessage = "주문 내용이 저장되지 않아요.\n작성을 멈추고 나가시겠어요?"
+    static let enforceAppUpdateTitle = "업데이트 안내"
+    static let enforceAppUpdateMessage = "오브의 공간에 변화가 생겼어요!\n앱을 최신 버전으로 업데이트 해주세요."
 }
 
 struct LoadingMessage {

@@ -72,7 +72,5 @@ final class MoyaPlugin: PluginType {
         log.append("<-- END HTTP")
         print(log)
         printLog(log)
-        
-        ORBToastManager.shared.showToast(message: ErrorMessages.networkError, inset: 54)
     }
 }

@@ -14,8 +14,9 @@ final class NetworkService {
     private init() {}
     
     let authService: AuthServiceProtocol = AuthService()
-    let adventureService: AdventureServiceProtocol = AdventureService()
+    let adventureService = AdventureService()
     let questService: QuestServiceProtocol = QuestService()
+    let questListService = QuestListService()
     let emblemService: EmblemServiceProtocol = EmblemService()
     let characterService: CharacterServiceProtocol = CharacterService()
     let nicknameService: NicknameServiceProtocol = NicknameService()
@@ -25,9 +26,10 @@ final class NetworkService {
     let placeService: RegisteredPlaceService = RegisteredPlaceService()
     let pushNotificationService: PushNotificationServiceProtocol = PushNotificationService()
     let characterChatService: CharacterChatService = CharacterChatService()
+    let minimumSupportedVersionService = MinimumSupportedVersionService()
     #if DevTarget
     let diarySettingService: DiarySettingServiceProtocol = DiarySettingService()
     let diaryService: DiaryServiceProtocol = DiaryService()
-    let minimumSupportedVersionService = MinimumSupportedVersionService()
+    let orbRecommendationService = ORBRecommendationService()
     #endif
 }

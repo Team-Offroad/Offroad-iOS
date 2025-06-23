@@ -37,7 +37,7 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
     
     //MARK: - Properties
     
-    private var rootView: CharacterChatLogView!
+    private(set) var rootView: CharacterChatLogView!
     private var chatLogDataList: [CharacterChatItem] = [] {
         didSet {
             chatLogDataSourceForSnapshot = groupChatsByDate(items: chatLogDataList)
@@ -135,15 +135,10 @@ class CharacterChatLogViewController: OffroadTabBarViewController {
         tabBarController.enableTabBarInteraction()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        rootView.backgroundView.isHidden = true
-    }
-    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
+        navigationController?.view.isUserInteractionEnabled = true
         ORBCharacterChatManager.shared.currentChatLogViewController = nil
     }
     
@@ -174,6 +169,20 @@ private extension CharacterChatLogViewController {
         let userCellRegistration = UICollectionView.CellRegistration<ChatLogCellUser, CharacterChatMessageItem>(
             handler: { cell, indexPath, item in cell.configure(with: item) }
         )
+        
+#if DevTarget
+        let orbRecommendationCellRegistration = UICollectionView.CellRegistration<ChatLogCellCharacterRecommendation, CharacterChatMessageItem>(
+            handler: { [weak self] cell, indexPath, item in
+                guard let self else { return }
+                cell.configure(with: item, characterName: self.characterName, buttonTapAction: { [weak self] in
+                    self?.navigationController?.pushViewController(
+                        ORBRecommendationMainViewController(),
+                        animated: true
+                    )
+                })
+            }
+        )
+#endif
         
         let orbCharacterLoadingCellRegistration = UICollectionView.CellRegistration<ChatLogCellCharacterLoading, CharacterChatItem>(
             handler: { [weak self] cell, indexPath, item in
@@ -222,6 +231,14 @@ private extension CharacterChatLogViewController {
                             for: indexPath,
                             item: messageItem
                         )
+#if DevTarget
+                    case .orbRecommendation:
+                        return collectionView.dequeueConfiguredReusableCell(
+                            using: orbRecommendationCellRegistration,
+                            for: indexPath,
+                            item: messageItem
+                        )
+#endif
                     }
                 }
             }
@@ -385,10 +402,7 @@ private extension CharacterChatLogViewController {
                 guard chatLogDataList.count > 0, let lastItem = chatLogDataList.last else { return }
                 switch lastItem {
                 case .message(let messageItem):
-                    switch messageItem {
-                    case .user(_, _, id: let id):
-                        self.lastCursor = id
-                    case .orbCharacter(_, _, id: let id):
+                    if let id = messageItem.id {
                         self.lastCursor = id
                     }
                 case .loading:
@@ -510,10 +524,19 @@ private extension CharacterChatLogViewController {
         }
         switch result {
         case .success(let chatItem):
-            guard case .orbCharacter = chatItem else {
+            switch chatItem {
+            case .user:
                 throw CharacterChatLogError.invalidResponse
+            case .orbCharacter:
+                // 로딩 셀이던 가장 최신 셀을 메시지 셀로 교체
+                chatLogDataList[0] = .message(chatItem)
+#if DevTarget
+            case .orbRecommendation:
+                // 로딩 셀이던 가장 최신 셀을 메시지 셀로 교체
+                chatLogDataList[0] = .message(chatItem)
+#endif
+                
             }
-            chatLogDataList[0] = .message(chatItem)
         case .failure(let error):
             assertionFailure(error.localizedDescription)
             chatLogDataList.removeFirst(2)
@@ -650,6 +673,14 @@ extension CharacterChatLogViewController: UICollectionViewDelegateFlowLayout {
                     characterName: characterName,
                     fixedWidth: collectionView.bounds.width
                 )
+#if DevTarget
+            case .orbRecommendation:
+                return ChatLogCellCharacterRecommendation.calculatedCellSize(
+                    item: messageItem,
+                    characterName: characterName,
+                    fixedWidth: collectionView.bounds.width
+                )
+#endif
             }
         case .loading:
             return ChatLogCellCharacterLoading.calculatedCellSize(
