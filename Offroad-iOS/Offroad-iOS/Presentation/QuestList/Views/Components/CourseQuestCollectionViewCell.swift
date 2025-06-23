@@ -240,24 +240,36 @@ extension CourseQuestCollectionViewCell {
     
     // MARK: - Configure Cell
     
-    func configureCell(with quest: CourseQuest) {
-        ddayLabel.text = quest.dday
-        courseQuestNameLabel.text = quest.title
-        courseQuestProgressLabel.text = "달성도 (\(quest.progress))"
+    func configureCell(with quest: Quest) {
+        ddayLabel.text = Self.dday(from: quest.deadline)
+        courseQuestNameLabel.text = quest.questName
+        courseQuestProgressLabel.text = "달성도 (\(quest.currentCount)/\(quest.totalCount))"
         courseQuestProgressLabel.highlightText(targetText: "달성도", color: .grayscale(.gray400))
         courseQuestDescriptionLabel.text = quest.description
         courseQuestListStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
         let checkBoxImage: UIImage = .icnQuestListCheckBox
-        for questDetail in quest.quests {
-            let questStackView = IconLabelStackView(icon: checkBoxImage, text: "\(questDetail.locationName): \(questDetail.mission)")
-            courseQuestListStackView.addArrangedSubview(questStackView)
-        }
+        
+        if let places = quest.courseQuestPlaces {
+                for place in places {
+                    let label = "\(place.name): \(place.description)"
+                    let questStackView = IconLabelStackView(icon: checkBoxImage, text: label)
+                    courseQuestListStackView.addArrangedSubview(questStackView)
+                }
+            }
         
         let rewardStackView = IconLabelStackView(icon: checkBoxImage, text: "보상: \(quest.reward)")
         courseQuestListStackView.addArrangedSubview(rewardStackView)
         
         contentView.layoutIfNeeded()
+    }
+    
+    private static func dday(from deadline: String?) -> String {
+        guard let deadline = deadline else { return "D-?" }
+        let formatter = ISO8601DateFormatter()
+        guard let deadlineDate = formatter.date(from: deadline) else { return "D-?" }
+        let daysLeft = Calendar.current.dateComponents([.day], from: Date(), to: deadlineDate).day ?? 0
+        return daysLeft >= 0 ? "D-\(daysLeft)" : "종료"
     }
 }
 #endif

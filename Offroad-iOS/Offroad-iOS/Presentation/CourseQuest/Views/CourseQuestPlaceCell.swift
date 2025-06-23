@@ -96,7 +96,6 @@ class CourseQuestPlaceCell: UICollectionViewCell {
         indicatorImageView.snp.makeConstraints {
             $0.left.equalToSuperview()
             $0.centerY.equalToSuperview()
-            $0.size.equalTo(24)
         }
         
         containerView.snp.makeConstraints {
@@ -157,9 +156,11 @@ class CourseQuestPlaceCell: UICollectionViewCell {
         
         // 타입에 따라 indicator 색상 변경
         switch model.type {
-        case "카페": indicatorImageView.image = UIImage(resource: .icnOrangeIndicator)
-        case "공원": indicatorImageView.image = UIImage(resource: .icnBlueIndicator)
-        case "식당": indicatorImageView.image = UIImage(resource: .icnPinkIndicator)
+        case "카페": indicatorImageView.image = UIImage(resource: .icnYellowIndicator)
+        case "공원": indicatorImageView.image = UIImage(resource: .icnGreenIndicator)
+        case "식당": indicatorImageView.image = UIImage(resource: .icnOrangeIndicator)
+        case "문화": indicatorImageView.image = UIImage(resource: .icnPinkIndicator)
+        case "식당": indicatorImageView.image = UIImage(resource: .icnBlueIndicator)
         default: indicatorImageView.image = UIImage(resource: .icnOrangeIndicator)
         }
     }

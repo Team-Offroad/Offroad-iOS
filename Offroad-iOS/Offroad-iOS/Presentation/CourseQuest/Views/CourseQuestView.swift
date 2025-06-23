@@ -52,7 +52,7 @@ final class CourseQuestView: UIView {
     //MARK: - Private Func
     
     private func setupStyle() {
-        backgroundColor = .primary(.listBg)
+        backgroundColor = .main(.main1)
         
         customNavigationBar.do { view in
             view.backgroundColor = .main(.main1)
@@ -77,7 +77,6 @@ final class CourseQuestView: UIView {
         
         listContainerView.do { view in
             view.backgroundColor = .orange
-            view.clipsToBounds = true
             view.showsVerticalScrollIndicator = false
         }
         
@@ -92,7 +91,7 @@ final class CourseQuestView: UIView {
             button.setTitleColor(.main(.main1), for: .normal)
             button.setTitleColor(.main(.main1), for: .highlighted)
             button.setTitleColor(.main(.main1), for: .disabled)
-            button.configureTitleFontWhen(normal: .offroad(style: .iosTextBold), disabled: .offroad(style: .iosTextBold))
+            button.configureTitleFontWhen(normal: .offroad(style: .iosText), disabled: .offroad(style: .iosTextBold))
             button.configureBackgroundColorWhen(normal: .main(.main2), disabled: .blackOpacity(.black15))
             button.roundCorners(cornerRadius: 5)
             button.isEnabled = false
@@ -154,7 +153,7 @@ final class CourseQuestView: UIView {
         rewardButton.snp.makeConstraints {
             $0.top.equalTo(listContainerView.snp.bottom).offset(13.3)
             $0.horizontalEdges.equalToSuperview().inset(24)
-            $0.bottom.equalTo(safeAreaLayoutGuide).inset(24.6)
+            $0.bottom.equalToSuperview().inset(45.6)
             $0.height.equalTo(54)
         }
     }
