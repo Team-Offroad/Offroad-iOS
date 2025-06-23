@@ -110,9 +110,5 @@ final class CourseQuestMapView: NMFNaverMapView {
 extension CourseQuestMapView: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         mapView.locationOverlay.heading = newHeading.trueHeading
-        let cameraUpdate = NMFCameraUpdate(heading: newHeading.trueHeading)
-        cameraUpdate.reason = 10
-        cameraUpdate.animation = .easeOut
-        mapView.moveCamera(cameraUpdate)
     }
 }
