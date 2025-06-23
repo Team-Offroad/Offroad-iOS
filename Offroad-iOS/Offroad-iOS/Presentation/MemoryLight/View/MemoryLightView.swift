@@ -17,7 +17,7 @@ final class MemoryLightView: UIView {
     private var gradientLayer: CAGradientLayer?
     private var blurEffectView: CustomIntensityBlurView?
     let imageToShareView = UIView()
-    private let backgroundGradientView = UIView()
+    let backgroundGradientView = UIView()
     let closeButton = UIButton()
     let memoryLightCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let shareButton = ShrinkableButton()
