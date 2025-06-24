@@ -20,7 +20,10 @@ final class ORBRecommendationMainViewController: UIViewController {
     private var disposeBag = DisposeBag()
     // RxSwift의 DisposeBag 역할
     private var cancellables = Set<AnyCancellable>()
-    private var markers: [PlaceMapMarker] = []
+    private var markers: [PlaceMapMarker] = [] {
+        didSet { places = markers.map(\.place) as! [ORBRecommendationPlaceModel] }
+    }
+    private var places: [ORBRecommendationPlaceModel] = []
     
     // MARK: - UI Properties
     
@@ -35,6 +38,7 @@ final class ORBRecommendationMainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupCollectionView()
         setupButtonActions()
         updateFixedPhrase()
         initialSettings()
@@ -45,6 +49,14 @@ final class ORBRecommendationMainViewController: UIViewController {
         
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
+    }
+    
+    private func setupCollectionView() {
+        rootView.recommendedContentView.register(
+            PlaceListCell.self,
+            forCellWithReuseIdentifier: PlaceListCell.className
+        )
+        rootView.recommendedContentView.dataSource = self
     }
     
     private func setupButtonActions() {
@@ -195,7 +207,7 @@ private extension ORBRecommendationMainViewController {
     }
     
     func updateRecommendedPlaces(_ places: [ORBRecommendationPlaceModel]) {
-        rootView.recommendedContentView.places = places
+        self.places = places
         rootView.recommendedContentView.reloadData()
         
         // 현재 떠 있는 마커 지도에서 지우기
@@ -223,6 +235,22 @@ private extension ORBRecommendationMainViewController {
             }
             rootView.orbMapView.moveCamera(placesToShow: naverMapCoordinates, padding: 50)
         }
+    }
+    
+}
+
+
+// MARK: - UICollectionViewDataSource
+extension ORBRecommendationMainViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return places.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaceListCell.className, for: indexPath) as? PlaceListCell else { fatalError("PlaceListCell dequeueing failed") }
+        cell.configure(with: places[indexPath.item], isVisitCountShowing: false)
+        return cell
     }
     
 }

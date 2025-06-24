@@ -19,8 +19,6 @@ final class ORBRecommendedContentView: ExpandableCellCollectionView, ORBCenterLo
     private let locationManager = CLLocationManager()
     private let placeService = NetworkService.shared.placeService
     
-    var places: [ORBRecommendationPlaceModel] = []
-    
     // MARK: - UI Properties
     
     private let collectionViewContentBackground = UIView()
@@ -36,7 +34,6 @@ final class ORBRecommendedContentView: ExpandableCellCollectionView, ORBCenterLo
         setupHierarchy()
         setupLayout()
         locationManager.startUpdatingLocation()
-        setupCollectionView()
         panGestureRecognizer.delegate = self
     }
     
@@ -71,27 +68,6 @@ private extension ORBRecommendedContentView {
             make.top.equalTo(contentLayoutGuide)
             make.horizontalEdges.bottom.equalTo(frameLayoutGuide)
         }
-    }
-    
-    func setupCollectionView() {
-        dataSource = self
-        register(PlaceListCell.self, forCellWithReuseIdentifier: PlaceListCell.className)
-    }
-    
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension ORBRecommendedContentView: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return places.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaceListCell.className, for: indexPath) as? PlaceListCell else { fatalError("PlaceListCell dequeueing failed") }
-        cell.configure(with: places[indexPath.item], isVisitCountShowing: false)
-        return cell
     }
     
 }
