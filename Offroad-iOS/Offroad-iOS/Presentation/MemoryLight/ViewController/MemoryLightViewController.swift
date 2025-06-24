@@ -136,8 +136,6 @@ private extension MemoryLightViewController {
     }
     
     func shareButtonTapped() {
-        let image: UIImage?
-        
         let displayedDiaryCell = rootView.memoryLightCollectionView.cellForItem(at: IndexPath(item: displayedDiaryIndex, section: 0)) ?? UICollectionViewCell()
 
         let backgroundImage = rootView.backgroundGradientView.convertViewToImage()
@@ -148,7 +146,7 @@ private extension MemoryLightViewController {
         let (originX, originY) = ((backgroundSize.width - cellSize.width) / 2, (backgroundSize.height - cellSize.height) / 2)
         let renderer = UIGraphicsImageRenderer(size: backgroundSize)
 
-        image = renderer.image { context in
+        let image = renderer.image { context in
             backgroundImage?.draw(in: CGRect(origin: .zero, size: backgroundSize))
             cellImage?.draw(in: CGRect(origin: CGPoint(x: originX, y: originY),
                                        size: cellSize))
@@ -157,7 +155,7 @@ private extension MemoryLightViewController {
         // 권한 요청 후 sheet 띄우기
         PHPhotoLibrary.requestAuthorization { status in
             DispatchQueue.main.async {
-                self.presentShareSheet(image: image ?? UIImage(), status: status)
+                self.presentShareSheet(image: image, status: status)
             }
         }
     }
