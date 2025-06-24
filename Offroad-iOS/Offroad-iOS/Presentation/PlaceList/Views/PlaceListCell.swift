@@ -40,6 +40,7 @@ final class PlaceListCell: ExpandableCell, Shrinkable {
     
     private let placeNameLabel = UILabel()
     private let addressLabel = UILabel()
+    let externalMapButton = UIButton()
     private lazy var nameAddressStack = UIStackView(arrangedSubviews: [placeNameLabel, addressLabel])
     private let chevronImageView = UIImageView(image: .icnPlaceListExpendableCellChevron)
     
@@ -151,6 +152,11 @@ private extension PlaceListCell {
             label.numberOfLines = 0
         }
         
+        externalMapButton.do { button in
+            button.setImage(.icnOrbRecommendationMainExternalLink, for: .normal)
+            button.isHidden = true
+        }
+        
         nameAddressStack.do { stackView in
             stackView.axis = .vertical
             stackView.spacing = 12
@@ -220,6 +226,7 @@ private extension PlaceListCell {
         mainContentView.addSubviews(
             categoryStack,
             nameAddressStack,
+            externalMapButton,
             chevronImageView
         )
         
@@ -248,6 +255,12 @@ private extension PlaceListCell {
             make.leading.equalTo(20)
             make.trailing.lessThanOrEqualTo(chevronImageView.snp.leading)
             make.bottom.equalToSuperview().inset(18)
+        }
+        
+        externalMapButton.snp.makeConstraints { make in
+            make.centerY.equalTo(addressLabel)
+            make.leading.equalTo(addressLabel.snp.trailing)
+            make.width.height.equalTo(30)
         }
         
         chevronImageView.snp.makeConstraints { make in
@@ -326,6 +339,7 @@ extension PlaceListCell {
         placeAreaLabel.text = model.placeArea
         placeNameLabel.text = model.name
         addressLabel.text = model.address
+        externalMapButton.isHidden = !(model is ORBRecommendationPlaceModel)
         descriptionLabel1.text = model.shortIntroduction
         descriptionLabel2.text = model.shortIntroduction
         visitCountLabel.text = "탐험횟수: \(model.visitCount)"
