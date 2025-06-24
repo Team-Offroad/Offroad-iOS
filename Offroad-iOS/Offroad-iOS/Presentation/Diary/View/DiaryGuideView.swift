@@ -14,6 +14,7 @@ final class DiaryGuideView: UIView {
     
     //MARK: - UI Properties
     
+    private let blurView = CustomIntensityBlurView(blurStyle: .dark, intensity: 0.15)
     let closeButton = UIButton()
     let guideCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let pageControl = UIPageControl()
@@ -83,6 +84,7 @@ private extension DiaryGuideView {
     
     func setupHierarchy() {
         addSubviews(
+            blurView,
             closeButton,
             guideCollectionView,
             pageControl,
@@ -91,6 +93,10 @@ private extension DiaryGuideView {
     }
     
     func setupLayout() {
+        blurView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
         closeButton.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide).inset(4)
             $0.trailing.equalToSuperview().inset(14)
