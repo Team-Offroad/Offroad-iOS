@@ -40,7 +40,7 @@ final class PlaceListCell: ExpandableCell, Shrinkable {
     
     private let placeNameLabel = UILabel()
     private let addressLabel = UILabel()
-    let externalMapButton = UIButton()
+    let externalMapButton = ExternalMapOpeningButton()
     private lazy var nameAddressStack = UIStackView(arrangedSubviews: [placeNameLabel, addressLabel])
     private let chevronImageView = UIImageView(image: .icnPlaceListExpendableCellChevron)
     
@@ -88,6 +88,7 @@ final class PlaceListCell: ExpandableCell, Shrinkable {
         descriptionLabel1.text = ""
         descriptionLabel2.text = ""
         visitCountLabel.text = "탐험횟수: "
+        externalMapButton.place = nil
     }
     
     override func animateExpansion() {
@@ -150,11 +151,6 @@ private extension PlaceListCell {
             label.textColor = .grayscale(.gray400)
             label.textAlignment = .left
             label.numberOfLines = 0
-        }
-        
-        externalMapButton.do { button in
-            button.setImage(.icnOrbRecommendationMainExternalLink, for: .normal)
-            button.isHidden = true
         }
         
         nameAddressStack.do { stackView in
@@ -339,7 +335,6 @@ extension PlaceListCell {
         placeAreaLabel.text = model.placeArea
         placeNameLabel.text = model.name
         addressLabel.text = model.address
-        externalMapButton.isHidden = !(model is ORBRecommendationPlaceModel)
         descriptionLabel1.text = model.shortIntroduction
         descriptionLabel2.text = model.shortIntroduction
         visitCountLabel.text = "탐험횟수: \(model.visitCount)"
@@ -362,6 +357,15 @@ extension PlaceListCell {
             }
         }
         
+        // 외부 지도로 이동하는 버튼 관련 설정
+        if let place = model as? ORBRecommendationPlaceModel {
+            externalMapButton.isHidden = false
+            externalMapButton.place = place
+        } else {
+            externalMapButton.isHidden = true
+            externalMapButton.place = nil
+        }
+        
         contentView.layoutSubviews()
     }
     
@@ -380,6 +384,24 @@ final class PlaceListCellCategoryLabel: UILabel {
         contentSize.height += (inset.top + inset.bottom)
         contentSize.width += (inset.left + inset.right)
         return contentSize
+    }
+    
+}
+
+/// 외부 지도로 이동하는 기능을 가진 버튼.
+/// 외부 지도로 이동할 때 외부 지도에서 띄울 장소 데이터를 selector로 전달해야 하므로, `place` 속성을 가짐.
+final class ExternalMapOpeningButton: UIButton {
+    
+    fileprivate(set) var place: ORBRecommendationPlaceModel? = nil
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setImage(.icnOrbRecommendationMainExternalLink, for: .normal)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
 }

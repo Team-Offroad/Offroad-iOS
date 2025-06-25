@@ -73,6 +73,13 @@ final class ORBRecommendationMainViewController: UIViewController {
             }
         }.disposed(by: disposeBag)
         
+        rootView.orbMapView.exploreButtonTapped.subscribe { [weak self] place in
+            guard let place = place.element as? ORBRecommendationPlaceModel else {
+                fatalError("잘못된 장소 모델 타입이 사용되었습니다: 오브의 추천소 지도의 툴팁에서 사용될 장소 데이터는 ORBRecommendationPlaceModel 타입이어야 합니다.")
+            }
+            self?.openExternalMap(for: place)
+        }.disposed(by: disposeBag)
+        
         emptyCaseView.askButton.rx.tap
             .subscribe { [weak self] _ in
                 self?.presentChatViewController()
@@ -240,6 +247,71 @@ private extension ORBRecommendationMainViewController {
 }
 
 
+// 앱의 번들 ID 확인하는 기능 관련.
+// 추후 스플래시 뷰에서의 앱 버전 확인 등의 기능을 포함하여 별도 타입으로 분리해도 좋을 것 같음.
+private extension ORBRecommendationMainViewController {
+    
+    enum AppBundleIDCheckError: LocalizedError {
+        case infoPlistNotFound
+        case bundleIDNotFound
+        
+        var errorDescription: String? {
+            switch self {
+            case .infoPlistNotFound: "Info.plist 확인 불가"
+            case .bundleIDNotFound: "번들 ID 확인 불가"
+            }
+        }
+    }
+    
+    /// 현재 앱의 번들 ID 확인.
+    func getBundleIdentifier() throws -> String {
+        guard let infoPlist = Bundle.main.infoDictionary else {
+            throw AppBundleIDCheckError.infoPlistNotFound
+        }
+        guard let bundleID = infoPlist["CFBundleIdentifier"] as? String else {
+            throw AppBundleIDCheckError.bundleIDNotFound
+        }
+        return bundleID
+        // 사실 bundleID는 `Bundle.main.bundleIdentifier` 와 같은 방법으로도 가져올 수 있긴 한데(String? 타입 반환)
+        // 스플래시 뷰에서 앱의 현재 버전 확인하는 코드와 일관성을 맞추기 위함.
+        // 추후 리팩토링 때 앱의 버전, 번들ID 등을 확인하는 통합적인 타입을 만드는 것도 좋을 것 같음.
+    }
+    
+}
+
+
+// 외부 지도로 이동하는 기능 관련
+private extension ORBRecommendationMainViewController {
+    
+    /// 셀 안의 '외부 지도로 이동' 버튼을 탭 했을 때 실행할 동작.
+    /// - Parameter sender: sender가 장소 정보를 갖고 있어야, 이를 바탕으로 외부 지도를 띄울 수 있으므로, 장소 정보를 갖는 `ExternalMapOpeningButton` 타입.
+    @objc func onExternalMapButtonTapped(sender: ExternalMapOpeningButton) {
+        guard let place = sender.place else { return }
+        openExternalMap(for: place)
+    }
+    
+    /// 네이버 지도를 열어 특정 장소를 보여줌.
+    /// - Parameter place: 네이버 지도에 표시할 장소.
+    func openExternalMap(for place: ORBRecommendationPlaceModel) {
+        // bundleID를 정상적으로 가져오지 못할 경우, 배포용 오브 앱의 번들 ID를 넣도록 하드코딩함.
+        // 추후 에러 처리 개선 가능.
+        let bundleID = (try? getBundleIdentifier()) ?? "com.offroadapp.offroad"
+        let latitude = place.coordinate.latitude
+        let longitude = place.coordinate.longitude
+        let placeName = place.name
+        let url = URL(string: "nmap://place?lat=\(latitude)&lng=\(longitude)&name=\(placeName)&appname=\(bundleID)")!
+        let appStoreURL = URL(string: "http://itunes.apple.com/app/id311867728?mt=8")!
+
+        if UIApplication.shared.canOpenURL(url) {
+          UIApplication.shared.open(url)
+        } else {
+          UIApplication.shared.open(appStoreURL)
+        }
+    }
+    
+}
+
+
 // MARK: - UICollectionViewDataSource
 extension ORBRecommendationMainViewController: UICollectionViewDataSource {
     
@@ -250,6 +322,7 @@ extension ORBRecommendationMainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaceListCell.className, for: indexPath) as? PlaceListCell else { fatalError("PlaceListCell dequeueing failed") }
         cell.configure(with: places[indexPath.item], isVisitCountShowing: false)
+        cell.externalMapButton.addTarget(self, action: #selector(onExternalMapButtonTapped), for: .touchUpInside)
         return cell
     }
     
