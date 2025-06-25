@@ -26,11 +26,15 @@ final class QuestListCollectionView: ExpandableCellCollectionView, ORBEmptyCaseS
     let shouldAlertMessage = PublishRelay<String>.init()
     
 #if DevTarget
+    /// 코스 퀘스트 데이터만 분리하여 최상단 고정 노출하기 위한 리스트
     private var courseQuests: [Quest] = []
+    /// 일반 퀘스트 데이터 (isCourse == false)를 담는 리스트
     private var generalQuests: [Quest] = []
+    /// 진행 중인 일반 퀘스트만 필터링한 리스트
     private var generalActiveQuestList: [Quest] {
         return activeQuestList.filter { !$0.isCourse }
     }
+    /// 표시할 퀘스트 목록: 진행 중 탭이면 course + generalActive, 아니면 course + 전체 general
     private var visibleQuests: [Quest] {
         return isActive ? (courseQuests + generalActiveQuestList) : (courseQuests + generalQuests)
     }
@@ -98,14 +102,14 @@ extension QuestListCollectionView {
                 
 #if DevTarget
                 self.courseQuests = questListFromServer.filter { $0.isCourse }
-                               self.generalQuests = questListFromServer.filter { !$0.isCourse }
-
-                               self.activeQuestList = self.generalQuests.filter { $0.currentCount > 0 }
-                               self.allQuestList = self.generalQuests
-
-                               if self.visibleQuests.isEmpty {
-                                   showEmptyPlaceholder(view: emptyPlaceholder)
-                               }
+                self.generalQuests = questListFromServer.filter { !$0.isCourse }
+                
+                self.activeQuestList = self.generalQuests.filter { $0.currentCount > 0 }
+                self.allQuestList = self.generalQuests
+                
+                if self.visibleQuests.isEmpty {
+                    showEmptyPlaceholder(view: emptyPlaceholder)
+                }
 #else
                 if isActive {
                     self.activeQuestList = questListFromServer
@@ -254,27 +258,27 @@ extension QuestListCollectionView: UICollectionViewDataSource {
         let quest = visibleQuests[indexPath.item]
         
         if quest.isCourse {
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: CourseQuestCollectionViewCell.className,
-                        for: indexPath
-                    ) as? CourseQuestCollectionViewCell else {
-                        fatalError("CourseQuestCollectionViewCell dequeuing failed!")
-                    }
-                    cell.configureCell(with: quest)
-                    cell.onTapDetailButton = { [weak self] in
-                        self?.onTapCourseQuestDetail?(quest)
-                    }
-                    return cell
-                } else {
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: QuestListCell.className,
-                        for: indexPath
-                    ) as? QuestListCell else {
-                        fatalError("QuestListCell dequeuing failed!")
-                    }
-                    cell.configureCell(with: quest)
-                    return cell
-                }
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: CourseQuestCollectionViewCell.className,
+                for: indexPath
+            ) as? CourseQuestCollectionViewCell else {
+                fatalError("CourseQuestCollectionViewCell dequeuing failed!")
+            }
+            cell.configureCell(with: quest)
+            cell.onTapDetailButton = { [weak self] in
+                self?.onTapCourseQuestDetail?(quest)
+            }
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: QuestListCell.className,
+                for: indexPath
+            ) as? QuestListCell else {
+                fatalError("QuestListCell dequeuing failed!")
+            }
+            cell.configureCell(with: quest)
+            return cell
+        }
 #else
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: QuestListCell.className,
