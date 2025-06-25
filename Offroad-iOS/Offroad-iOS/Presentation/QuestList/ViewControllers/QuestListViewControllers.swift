@@ -87,7 +87,7 @@ extension QuestListViewController {
         rootView.ongoingQuestSwitch.addTarget(self, action: #selector(ongoingQuestSwitchValueChanged(sender:)), for: .valueChanged)
         
 #if DevTarget
-        rootView.questListCollectionView.onTapCourseQuestDetail = { [weak self] in
+        rootView.questListCollectionView.onTapCourseQuestDetail = { [weak self] quest in
             let vc = CourseQuestViewController()
             self?.navigationController?.pushViewController(vc, animated: true)
         }
