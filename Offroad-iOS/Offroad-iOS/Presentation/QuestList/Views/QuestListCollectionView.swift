@@ -26,32 +26,24 @@ final class QuestListCollectionView: ExpandableCellCollectionView, ORBEmptyCaseS
     let shouldAlertMessage = PublishRelay<String>.init()
     
 #if DevTarget
-    private enum QuestWrapper {
-        case general(Quest)
-        case course(Quest)
-    }
     private var courseQuests: [Quest] = []
-    // 코스 퀘스트는 항상 activeQuestList의 최상단에 위치
-    private var quests: [QuestWrapper] {
-        let sortedGeneralQuests = isActive ? activeQuestList : allQuestList
-        return isActive ? (courseQuests.map { .course($0) } + sortedGeneralQuests.map { .general($0) }) : sortedGeneralQuests.map { .general($0) }
+    private var generalQuests: [Quest] = []
+    private var generalActiveQuestList: [Quest] {
+        return activeQuestList.filter { !$0.isCourse }
+    }
+    private var visibleQuests: [Quest] {
+        return isActive ? (courseQuests + generalActiveQuestList) : (courseQuests + generalQuests)
     }
 #endif
     
     var isActive = true {
         didSet {
-            if isActive {
-                activeQuestList = []
-            } else {
-                allQuestList = []
-            }
             extendedListSize = 20
             getInitialQuestList(isActive: isActive)
-            reloadData()
         }
     }
     
-    var onTapCourseQuestDetail: (() -> Void)?
+    var onTapCourseQuestDetail: ((Quest) -> Void)?
     
     // MARK: - UI Properties
     
@@ -106,19 +98,14 @@ extension QuestListCollectionView {
                 
 #if DevTarget
                 self.courseQuests = questListFromServer.filter { $0.isCourse }
-                let generalQuests = questListFromServer.filter { !$0.isCourse }
-                
-                if isActive {
-                    self.activeQuestList = generalQuests.filter { $0.currentCount > 0 }
-                    if self.activeQuestList.isEmpty && courseQuests.isEmpty {
-                        showEmptyPlaceholder(view: emptyPlaceholder)
-                    }
-                } else {
-                    self.allQuestList = generalQuests
-                    if self.allQuestList.isEmpty {
-                        showEmptyPlaceholder(view: emptyPlaceholder)
-                    }
-                }
+                               self.generalQuests = questListFromServer.filter { !$0.isCourse }
+
+                               self.activeQuestList = self.generalQuests.filter { $0.currentCount > 0 }
+                               self.allQuestList = self.generalQuests
+
+                               if self.visibleQuests.isEmpty {
+                                   showEmptyPlaceholder(view: emptyPlaceholder)
+                               }
 #else
                 if isActive {
                     self.activeQuestList = questListFromServer
@@ -254,43 +241,40 @@ extension QuestListCollectionView {
 extension QuestListCollectionView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if isActive {
-            return activeQuestList.count
-        } else {
-            return allQuestList.count
-        }
+#if DevTarget
+        return visibleQuests.count
+#else
+        return isActive ? activeQuestList.count : allQuestList.count
+#endif
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
 #if DevTarget
-        let questWrapper = quests[indexPath.item]
+        let quest = visibleQuests[indexPath.item]
         
-        switch questWrapper {
-        case .general(let quest):
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: QuestListCell.className,
-                for: indexPath
-            ) as? QuestListCell else { fatalError("QuestListCell dequeuing failed!") }
-            cell.configureCell(with: quest)
-            return cell
-            
-        case .course(let quest):
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: CourseQuestCollectionViewCell.className,
-                for: indexPath
-            ) as? CourseQuestCollectionViewCell else {
-                fatalError("CourseQuestCollectionViewCell dequeuing failed!")
-            }
-            cell.configureCell(with: quest)
-            cell.onTapDetailButton = { [weak self] in
-                self?.onTapCourseQuestDetail?()
-            }
-            return cell
-            
-        default:
-            fatalError("Unknown quest type found in quest list.")
-        }
+        if quest.isCourse {
+                    guard let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: CourseQuestCollectionViewCell.className,
+                        for: indexPath
+                    ) as? CourseQuestCollectionViewCell else {
+                        fatalError("CourseQuestCollectionViewCell dequeuing failed!")
+                    }
+                    cell.configureCell(with: quest)
+                    cell.onTapDetailButton = { [weak self] in
+                        self?.onTapCourseQuestDetail?(quest)
+                    }
+                    return cell
+                } else {
+                    guard let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: QuestListCell.className,
+                        for: indexPath
+                    ) as? QuestListCell else {
+                        fatalError("QuestListCell dequeuing failed!")
+                    }
+                    cell.configureCell(with: quest)
+                    return cell
+                }
 #else
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: QuestListCell.className,
