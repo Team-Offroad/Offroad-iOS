@@ -109,7 +109,8 @@ extension CourseQuestViewController: UICollectionViewDataSource {
                 longitude: quest.longitude,
                 isVisited: true,
                 categoryImage: quest.categoryImage,
-                description: quest.description
+                description: quest.description,
+                placeId: quest.placeId
             )
             collectionView.reloadItems(at: [indexPath])
             self?.showToast("방문 성공! 앞으로 N곳 남았어요")

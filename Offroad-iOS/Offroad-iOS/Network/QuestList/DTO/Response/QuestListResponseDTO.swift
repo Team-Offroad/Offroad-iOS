@@ -39,4 +39,5 @@ struct CourseQuestPlaceDTO: Codable {
     let isVisited: Bool?
     let categoryImage: String
     let description: String
+    let placeId: Int
 }
