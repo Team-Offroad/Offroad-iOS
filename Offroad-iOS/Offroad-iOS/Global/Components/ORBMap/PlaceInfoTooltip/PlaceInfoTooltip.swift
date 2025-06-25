@@ -55,7 +55,7 @@ final class PlaceInfoTooltip: UIView {
                 exploreButton.setTitle("알 수 없음", for: .normal)
                 return
             }
-            
+            #if DevTarget
             if marker.place is PlaceModel {
                 exploreButton.setTitle("탐험하기", for: .normal)
             } else if marker.place is ORBRecommendationPlaceModel {
@@ -66,6 +66,16 @@ final class PlaceInfoTooltip: UIView {
                     "잘못된 장소 모델 타입이 사용되었습니다: \(type(of:marker.place))\nPlaceModel 혹은 ORBRecommendationPlaceModel 타입만 사용 가능합니다."
                 )
             }
+            #else
+            if marker.place is PlaceModel {
+                exploreButton.setTitle("탐험하기", for: .normal)
+            } else {
+                exploreButton.setTitle("알 수 없음", for: .normal)
+                assertionFailure(
+                    "잘못된 장소 모델 타입이 사용되었습니다: \(type(of:marker.place))\nPlaceModel 타입만 사용 가능합니다."
+                )
+            }
+            #endif
         }
     }
     
