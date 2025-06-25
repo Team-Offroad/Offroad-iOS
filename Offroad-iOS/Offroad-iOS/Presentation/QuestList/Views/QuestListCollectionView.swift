@@ -175,11 +175,12 @@ extension QuestListCollectionView {
                 } else {
                     let newItems = newGeneralQuests
                     self.allQuestList.append(contentsOf: newItems)
+                    self.generalQuests.append(contentsOf: newItems)
                     if self.allQuestList.isEmpty {
                         showEmptyPlaceholder(view: emptyPlaceholder)
                     }
                     
-                    let newIndices = (currentCount..<(currentCount + newItems.count)).map { IndexPath(item: $0, section: 0) }
+                    let newIndices = (currentCount..<(currentCount + newItems.count)).map { IndexPath(item: $0 + self.courseQuests.count, section: 0) }
                     self.insertItems(at: newIndices)
                 }
                 
