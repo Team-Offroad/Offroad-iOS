@@ -183,7 +183,7 @@ private extension ORBRecommendationChatViewController {
         // 추천 장소 목록이 비어있지는 않은가?
         guard !recommendedPlaces.isEmpty else {
             // 장소 추천 로직은 성공했으나, 추천된 장소가 하나도 없는 경우
-            return "적절한 장소를 찾지 못했어..다른 조건으로 장소를 찾아봐줄래?"
+            return ORBRecommendationTextGenerator.getRandomText()
         }
         
         // (서버 추천 로직 성공 && 추천 장소 업데이트 성공 && 추천 장소 목록 존재) 인 경우

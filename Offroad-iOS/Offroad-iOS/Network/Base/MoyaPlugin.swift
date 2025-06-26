@@ -15,7 +15,6 @@ final class MoyaPlugin: PluginType {
     
     func willSend(_ request: RequestType, target: TargetType) {
         guard let httpRequest = request.request else {
-            print("--> ❌❌❌유효하지 않은 요청❌❌❌")
             printLog("--> ❌❌❌유효하지 않은 요청❌❌❌")
             return
         }
@@ -30,7 +29,6 @@ final class MoyaPlugin: PluginType {
             log.append("\(bodyString)\n")
         }
         log.append("=========================== END \(method) ===========================")
-        print(log)
         printLog(log)
     }
 
@@ -57,7 +55,6 @@ final class MoyaPlugin: PluginType {
             log.append("4️⃣\(reString)\n")
         }
         log.append("=========================== END HTTP ===========================")
-        print(log)
         printLog(log)
     }
 
@@ -70,7 +67,6 @@ final class MoyaPlugin: PluginType {
         log.append("<-- \(error.errorCode)\n")
         log.append("\(error.failureReason ?? error.errorDescription ?? "unknown error")\n")
         log.append("<-- END HTTP")
-        print(log)
         printLog(log)
     }
 }
