@@ -13,9 +13,6 @@ class QuestListViewController: UIViewController {
     
     //MARK: - Properties
     
-#if DevTarget
-    private var courseQuests: [Quest] = []
-#endif
     private var questListService = QuestListService()
     private var allQuestList: [Quest] = []
     private var activeQuestList: [Quest] = []
