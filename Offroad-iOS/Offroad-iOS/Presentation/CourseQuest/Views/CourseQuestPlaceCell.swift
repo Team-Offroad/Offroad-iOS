@@ -41,6 +41,7 @@ class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
     private let addressLabel = UILabel().then {
         $0.font = .offroad(style: .iosTextContentsSmall)
         $0.textColor = .grayscale(.gray400)
+        $0.numberOfLines = 1
     }
     
     private let visitButton = UIButton().then {

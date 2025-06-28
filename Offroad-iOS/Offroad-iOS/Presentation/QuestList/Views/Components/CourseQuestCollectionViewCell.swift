@@ -4,7 +4,6 @@
 //
 //  Created by  정지원 on 3/11/25.
 //
-#if DevTarget
 import UIKit
 
 import ExpandableCell
@@ -283,5 +282,4 @@ extension CourseQuestCollectionViewCell {
         return daysLeft >= 0 ? "D-\(daysLeft)" : "종료"
     }
 }
-#endif
 

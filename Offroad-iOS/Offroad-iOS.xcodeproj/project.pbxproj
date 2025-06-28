@@ -533,16 +533,12 @@
 		8792D0242C3F0843002051AC /* ChoosingCharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792D0232C3F0843002051AC /* ChoosingCharacterCell.swift */; };
 		879F62E82C89A56200FEC5BE /* CouponDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879F62E72C89A56200FEC5BE /* CouponDetailView.swift */; };
 		87A7D88F2DD3632E00B89109 /* CourseQuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7D88E2DD3632500B89109 /* CourseQuestViewController.swift */; };
-		87A7D8902DD3632E00B89109 /* CourseQuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7D88E2DD3632500B89109 /* CourseQuestViewController.swift */; };
 		87A7D8922DD3638600B89109 /* CourseQuestPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7D8912DD3637C00B89109 /* CourseQuestPlace.swift */; };
-		87A7D8932DD3638600B89109 /* CourseQuestPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7D8912DD3637C00B89109 /* CourseQuestPlace.swift */; };
-		87A7D8962DD3648E00B89109 /* CourseQuestPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7D8952DD3648600B89109 /* CourseQuestPlaceCell.swift */; };
 		87A7D8972DD3648E00B89109 /* CourseQuestPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7D8952DD3648600B89109 /* CourseQuestPlaceCell.swift */; };
 		87C27F6B2D7FED19008036FA /* CourseQuestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F692D7FED19008036FA /* CourseQuestCollectionViewCell.swift */; };
 		87C27F8D2D80482F008036FA /* IconLabelStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F8C2D80482F008036FA /* IconLabelStackView.swift */; };
 		87D9A70D2CE9BC1700F1CECD /* ScrollLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9A70C2CE9BC1700F1CECD /* ScrollLoadingView.swift */; };
 		87D9CA0B2E09EC7400DD8493 /* CourseQuestCategoryIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9CA0A2E09EC6F00DD8493 /* CourseQuestCategoryIcon.swift */; };
-		87D9CA0C2E09EC7400DD8493 /* CourseQuestCategoryIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9CA0A2E09EC6F00DD8493 /* CourseQuestCategoryIcon.swift */; };
 		87D9CA102E09EEDD00DD8493 /* CourseQuestDetailResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9CA0F2E09EEDD00DD8493 /* CourseQuestDetailResponseDTO.swift */; };
 		87D9CA112E09EEDD00DD8493 /* CourseQuestDetailResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9CA0F2E09EEDD00DD8493 /* CourseQuestDetailResponseDTO.swift */; };
 		87D9CA142E09EFE500DD8493 /* CourseQuestDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9CA132E09EFE500DD8493 /* CourseQuestDetailAPI.swift */; };
@@ -3986,7 +3982,6 @@
 				4E3A32892CE733F2007228D0 /* LoadingView.swift in Sources */,
 				D063E9922C57FE7400434A09 /* KeychainManager.swift in Sources */,
 				D004F85A2CA12B2200D5A2CD /* NoticeService.swift in Sources */,
-				87A7D8902DD3632E00B89109 /* CourseQuestViewController.swift in Sources */,
 				4EF833EE2CC4268200D94314 /* ORBPopup.swift in Sources */,
 				D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */,
 				4EF6B0382CC3E7A900066640 /* ORBAlertViewNormal.swift in Sources */,
@@ -4021,7 +4016,6 @@
 				4E08B9572C5DF0920082EFB8 /* PlaceListViewController.swift in Sources */,
 				D0E7964C2C4539FC005B47A5 /* RegisteredPlaceResponseDTO.swift in Sources */,
 				4EE0498D2CA10E2A00754488 /* CouponService.swift in Sources */,
-				87A7D8962DD3648E00B89109 /* CourseQuestPlaceCell.swift in Sources */,
 				4E3A326B2CE510ED007228D0 /* CharacterChatService.swift in Sources */,
 				8792D0202C3E873C002051AC /* ChoosingCharacterViewController.swift in Sources */,
 				4EF6B03B2CC3E89F00066640 /* ORBAlertViewType.swift in Sources */,
@@ -4041,7 +4035,6 @@
 				4E59AFB12DB148C7000A5EAD /* ChatLogCellCharacter.swift in Sources */,
 				87D9CA142E09EFE500DD8493 /* CourseQuestDetailAPI.swift in Sources */,
 				4EC15AC32D2A76EA00BC5826 /* ShrinkableButton.swift in Sources */,
-				87A7D8932DD3638600B89109 /* CourseQuestPlace.swift in Sources */,
 				D00A48842C6E5DA7008B286A /* NoticePostView.swift in Sources */,
 				872F4BB52C68D66200284DE0 /* CharacterListViewController.swift in Sources */,
 				D064668E2C7F127A00CF10FD /* TermsModel.swift in Sources */,
@@ -4053,7 +4046,6 @@
 				87D9CA172E09EFF600DD8493 /* CourseQuestDetailService.swift in Sources */,
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
 				8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */,
-				87D9CA0C2E09EC7400DD8493 /* CourseQuestCategoryIcon.swift in Sources */,
 				4E38A44A2DAAACCF00110780 /* QuestListCell.swift in Sources */,
 				D00A488C2C7830F3008B286A /* TermsConsentPopupView.swift in Sources */,
 				4E9900802CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift in Sources */,
