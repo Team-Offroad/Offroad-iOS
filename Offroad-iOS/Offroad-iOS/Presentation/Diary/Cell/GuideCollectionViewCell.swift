@@ -68,7 +68,9 @@ private extension GuideCollectionViewCell {
     func setupLayout() {
         imageView.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(70)
+            $0.centerX.equalToSuperview()
+            $0.width.lessThanOrEqualToSuperview().inset(23)
+            $0.width.greaterThanOrEqualToSuperview().inset(70)
         }
         
         descriptionLabel.snp.makeConstraints {

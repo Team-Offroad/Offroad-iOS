@@ -93,3 +93,14 @@ struct ORBRecommendationOrderText {
     static let question3 = "추가로 원하시는 내용이 있다면 입력해주세요."
     static let answer3Placeholder = "기분이 안 좋은데 스트레스 풀릴만한 음식 추천해줘. 애인과 함께할 분위기 좋은 식당이면 좋겠어."
 }
+
+/// 오브의 추천소의 답변 메시지. 서버에서 추천 로직 자체는 성공했으나, 추천 장소 목록이 비어있을 경우에 대한 답변
+struct ORBRecommendationChatPlacesNotFoundText {
+    static let text1 = "으앙… 딱 맞는 곳이 안 보여😣\n다른 말로 한 번 더 알려줄래? 다시 찾아볼게 츄츄!"
+    static let text2 = "괜찮은 장소를 못 찾았어😢\n지역이나 내용을 조금 바꿔보지 않을래 츄츄?"
+    static let text3 = "우움 지금은 딱 떠오르는 데가 없네\n기분이나 상황을 조금만 더 알려주라 츄츄🎶"
+    static let text4 = "미안해… 추천할 장소를 못 찾았어💦\n혹시 다른 조건으로 찾아보는건 어때 츄츄?"
+    static let text5 = "마땅한 장소를 못 찾았어 미안해애…\n지역이나 원하는 내용을 다시 정해주라 츄츄😢"
+
+    static let textList: [String] = [text1, text2, text3, text4, text5]
+}

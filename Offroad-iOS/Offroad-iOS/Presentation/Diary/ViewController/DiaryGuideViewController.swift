@@ -13,7 +13,7 @@ final class DiaryGuideViewController: UIViewController {
     
     private let rootView = DiaryGuideView()
     
-    private let guideCharacterData: [UIImage] = [.imgCharacterDiaryGuide, .imgCharacterDiaryGuide]
+    private let guideCharacterData: [UIImage] = [.imgCharacterDiaryGuide, .imgMemoryLight]
     private let guideDescriptions = [DiaryGuideMessage.diaryGuideDescription1, DiaryGuideMessage.diaryGuideDescription2]
     private var currentPage = 0
 
