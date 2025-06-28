@@ -266,10 +266,20 @@ extension CourseQuestCollectionViewCell {
     }
     
     private static func dday(from deadline: String?) -> String {
-        guard let deadline = deadline else { return "D-?" }
-        let formatter = ISO8601DateFormatter()
-        guard let deadlineDate = formatter.date(from: deadline) else { return "D-?" }
-        let daysLeft = Calendar.current.dateComponents([.day], from: Date(), to: deadlineDate).day ?? 0
+        guard let deadline = deadline else {
+            return "D-?"
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        formatter.locale = Locale(identifier: "ko_KR")
+        guard let deadlineDate = formatter.date(from: deadline) else {
+            return "D-?"
+        }
+
+        let today = Calendar.current.startOfDay(for: Date())
+        let target = Calendar.current.startOfDay(for: deadlineDate)
+        let daysLeft = Calendar.current.dateComponents([.day], from: today, to: target).day ?? 0
+
         return daysLeft >= 0 ? "D-\(daysLeft)" : "종료"
     }
 }
