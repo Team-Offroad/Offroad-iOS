@@ -42,6 +42,4 @@ extension QuestListAPI: BaseTargetType {
                                       encoding: URLEncoding.queryString)
         }
     }
-    
-    
 }

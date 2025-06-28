@@ -35,7 +35,7 @@ class IconLabelStackView: UIStackView {
         }
         
         textLabel.font = .offroad(style: .iosBoxMedi)
-        textLabel.textColor = .grayscale(.gray400)
+        textLabel.textColor = .main(.main2)
         textLabel.numberOfLines = 0
         textLabel.textAlignment = .left
         textLabel.lineBreakMode = .byWordWrapping
