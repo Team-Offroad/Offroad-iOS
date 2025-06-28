@@ -125,11 +125,14 @@ class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
         nameLabel.snp.makeConstraints {
             $0.top.equalTo(typeLabelView.snp.bottom).offset(6)
             $0.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
+            $0.trailing.lessThanOrEqualToSuperview().inset(75)
         }
         
         addressLabel.snp.makeConstraints {
             $0.top.equalTo(visitButton.snp.bottom).offset(5.2)
             $0.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
+            $0.trailing.lessThanOrEqualToSuperview().inset(14)
+            $0.bottom.lessThanOrEqualToSuperview().inset(12.8)
         }
         
         visitButton.snp.makeConstraints {
