@@ -24,12 +24,14 @@ struct Quest: Codable {
     let requirement: String
     let reward: String
     let cursorId: Int
+#if DevTarget
     let isCourse: Bool
     let deadline: String?
     let courseQuestPlaces: [CourseQuestPlaceDTO]?
     let questId: Int
+#endif
 }
-
+#if DevTarget
 struct CourseQuestPlaceDTO: Codable {
     let category: String
     let name: String
@@ -41,3 +43,4 @@ struct CourseQuestPlaceDTO: Codable {
     let description: String
     let placeId: Int
 }
+#endif
