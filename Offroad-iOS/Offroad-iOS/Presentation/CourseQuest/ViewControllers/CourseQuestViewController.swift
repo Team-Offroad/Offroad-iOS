@@ -41,7 +41,8 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
         if let deadline = deadline {
             let ddayString = Self.dday(from: deadline)
             let dateString = formattedDate(from: deadline)
-            courseQuestView.ddayLabel.text = "퀘스트 마감일: \(dateString)   🗓️  \(ddayString)"
+            courseQuestView.deadlineDateLabel.text = "퀘스트 마감일: \(dateString)"
+            courseQuestView.ddayBadgeLabel.text = ddayString
         }
         
         if let questId = questId {

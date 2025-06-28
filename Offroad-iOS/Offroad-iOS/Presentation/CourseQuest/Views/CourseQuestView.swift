@@ -18,8 +18,10 @@ final class CourseQuestView: UIView {
     let customBackButton = NavigationPopButton()
     
     let mapView = CourseQuestMapView()
-    let ddayView = UIView()
-    let ddayLabel = UILabel()
+    private let ddayContainerView = UIView()
+    let ddayBadgeLabel = UILabel()
+    private let calendarIconImageView = UIImageView()
+    let deadlineDateLabel = UILabel()
     let listContainerView = UIScrollView()
     var listTopConstraint: Constraint? = nil
     
@@ -65,18 +67,25 @@ final class CourseQuestView: UIView {
             view.clipsToBounds = true
         }
         
-        ddayView.do { view in
-            view.backgroundColor = .main(.main1)
+        calendarIconImageView.do { icon in
+            icon.image = UIImage.icnPurpleCalendar
+            //            icon.setContentHuggingPriority(.required, for: .horizontal)
         }
         
-        ddayLabel.do { label in
-            label.font = UIFont.offroad(style: .iosBoxMedi)
+        deadlineDateLabel.do { label in
+            label.font = .offroad(style: .iosBoxMedi)
             label.textColor = .grayscale(.gray400)
-            label.text = "퀘스트 마감일: 25.02.10   🗓️  D-10"
+            label.text = "퀘스트 마감일:__.__.__"
+        }
+        
+        ddayBadgeLabel.do { label in
+            label.font = .offroad(style: .iosQuestComplete)
+            label.textColor = .sub(.sub480)
+            label.text = "D-?"
         }
         
         listContainerView.do { view in
-            view.backgroundColor = .orange
+            view.backgroundColor = .main(.main1)
             view.showsVerticalScrollIndicator = false
         }
         
@@ -106,8 +115,12 @@ final class CourseQuestView: UIView {
             listContainerView,
             rewardButton
         )
-        listContainerView.addSubviews(ddayView, courseQuestPlaceCollectionView)
-        ddayView.addSubview(ddayLabel)
+        listContainerView.addSubviews(ddayContainerView, courseQuestPlaceCollectionView)
+        ddayContainerView.addSubviews(
+            deadlineDateLabel,
+            calendarIconImageView,
+            ddayBadgeLabel
+        )
     }
     
     private func setupLayout() {
@@ -132,19 +145,28 @@ final class CourseQuestView: UIView {
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
         }
         
-        ddayView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.horizontalEdges.equalTo(listContainerView.frameLayoutGuide)
-            $0.height.equalTo(46)
+        ddayContainerView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(22)
+            $0.trailing.equalTo(listContainerView.frameLayoutGuide).inset(24)
+            $0.height.equalTo(24)
         }
         
-        ddayLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(22)
-            $0.trailing.equalToSuperview().inset(24)
+        deadlineDateLabel.snp.makeConstraints {
+            $0.leading.centerY.equalToSuperview()
+        }
+        
+        calendarIconImageView.snp.makeConstraints {
+            $0.leading.equalTo(deadlineDateLabel.snp.trailing).offset(8)
+            $0.size.equalTo(24)
+        }
+        
+        ddayBadgeLabel.snp.makeConstraints {
+            $0.leading.equalTo(calendarIconImageView.snp.trailing).offset(4)
+            $0.centerY.trailing.equalToSuperview()
         }
         
         courseQuestPlaceCollectionView.snp.makeConstraints {
-            $0.top.equalTo(ddayView.snp.bottom)
+            $0.top.equalTo(ddayContainerView.snp.bottom)
             $0.bottom.equalToSuperview()
             $0.horizontalEdges.equalTo(listContainerView.frameLayoutGuide)
             $0.height.equalTo(357)
