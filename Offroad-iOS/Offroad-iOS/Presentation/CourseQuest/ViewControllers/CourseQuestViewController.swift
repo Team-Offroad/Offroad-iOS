@@ -14,6 +14,8 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     private let courseQuestView = CourseQuestView()
     private let courseQuestDetailService = CourseQuestDetailService()
     private var quests: [CourseQuestDetailPlaceDTO] = []
+    var questId: Int?
+    var deadline: String?
     
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         let layout = UICollectionViewFlowLayout()
@@ -36,7 +38,15 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
         courseQuestView.listContainerView.delegate = self
         setupControlsTarget()
         
-        fetchCourseQuestDetail(questId: 47)
+        if let deadline = deadline {
+            let ddayString = Self.dday(from: deadline)
+            let dateString = formattedDate(from: deadline)
+            courseQuestView.ddayLabel.text = "퀘스트 마감일: \(dateString)   🗓️  \(ddayString)"
+        }
+        
+        if let questId = questId {
+            fetchCourseQuestDetail(questId: questId)
+        }
     }
     
     private func fetchCourseQuestDetail(questId: Int) {
@@ -64,6 +74,40 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     
     private func setupControlsTarget() {
         courseQuestView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
+    }
+    
+    /// 이 함수는 CourseQuestViewController 전용 D-Day 계산 함수입니다.
+    /// CourseQuestCollectionViewCell에도 유사한 함수가 존재하지만, QuestListViewController에서 D-Day를 표시하기 위한 용도이며,
+    /// 책임이 분리되어야 한다고 판단하여 별도로 정의했습니다.
+    private static func dday(from deadline: String?) -> String {
+        guard let deadline = deadline else {
+            return "D-?"
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        formatter.locale = Locale(identifier: "ko_KR")
+        guard let deadlineDate = formatter.date(from: deadline) else {
+            return "D-?"
+        }
+        
+        let today = Calendar.current.startOfDay(for: Date())
+        let target = Calendar.current.startOfDay(for: deadlineDate)
+        let daysLeft = Calendar.current.dateComponents([.day], from: today, to: target).day ?? 0
+        
+        return daysLeft >= 0 ? "D-\(daysLeft)" : "종료"
+    }
+    
+    private func formattedDate(from deadline: String) -> String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        inputFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "yy.MM.dd"
+        outputFormatter.locale = Locale(identifier: "ko_KR")
+        
+        guard let date = inputFormatter.date(from: deadline) else { return "--.--.--" }
+        return outputFormatter.string(from: date)
     }
     
     @objc private func customBackButtonTapped() {
