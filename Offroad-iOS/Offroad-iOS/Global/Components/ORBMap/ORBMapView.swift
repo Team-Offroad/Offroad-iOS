@@ -150,6 +150,10 @@ extension ORBMapView {
         showZoomControls = false
         showCompass = false
         
+        // 초기 위치는 광화문
+        let gwanghwamunSquare = NMGLatLng(lat: 37.5716229, lng: 126.9767879)
+        moveCamera(scrollTo: gwanghwamunSquare)
+        
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
     }

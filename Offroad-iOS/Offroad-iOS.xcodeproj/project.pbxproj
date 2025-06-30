@@ -476,6 +476,7 @@
 		4EE20C522DE826CC00B818BD /* NetworkResultError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE20C512DE826CB00B818BD /* NetworkResultError.swift */; };
 		4EE20C532DE826CC00B818BD /* NetworkResultError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE20C512DE826CB00B818BD /* NetworkResultError.swift */; };
 		4EE6B5242D85703700AEFCD4 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED6BE3B2D7B3C000020C871 /* AmplitudeManager.swift */; };
+		4EE74B752E06602700632767 /* ORBRecommendationEmptyCaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE74B742E06602700632767 /* ORBRecommendationEmptyCaseView.swift */; };
 		4EEA82FC2CE3907C0062F0DE /* CharacterChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA82FB2CE3907C0062F0DE /* CharacterChatLogView.swift */; };
 		4EEA82FE2CE3908C0062F0DE /* CharacterChatLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */; };
 		4EEB47DA2DAEA3150025AAA2 /* ORBRecommendationGradientStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB47D92DAEA3150025AAA2 /* ORBRecommendationGradientStyle.swift */; };
@@ -879,6 +880,7 @@
 		4EE0498C2CA10E2A00754488 /* CouponService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponService.swift; sourceTree = "<group>"; };
 		4EE049902CA14E6500754488 /* CouponCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponCell.swift; sourceTree = "<group>"; };
 		4EE20C512DE826CB00B818BD /* NetworkResultError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResultError.swift; sourceTree = "<group>"; };
+		4EE74B742E06602700632767 /* ORBRecommendationEmptyCaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationEmptyCaseView.swift; sourceTree = "<group>"; };
 		4EEA82FB2CE3907C0062F0DE /* CharacterChatLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatLogView.swift; sourceTree = "<group>"; };
 		4EEA82FD2CE3908C0062F0DE /* CharacterChatLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterChatLogViewController.swift; sourceTree = "<group>"; };
 		4EEB47D92DAEA3150025AAA2 /* ORBRecommendationGradientStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORBRecommendationGradientStyle.swift; sourceTree = "<group>"; };
@@ -2397,6 +2399,7 @@
 				4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */,
 				4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */,
 				4EF90E572DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift */,
+				4EE74B742E06602700632767 /* ORBRecommendationEmptyCaseView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4150,6 +4153,7 @@
 				4E4F31832D4718F400C3B2FF /* CouponListResponseDTO.swift in Sources */,
 				4E4F31842D4718F400C3B2FF /* NicknameView.swift in Sources */,
 				4E4F31852D4718F400C3B2FF /* ORBAlertViewBaseUI.swift in Sources */,
+				4EE74B752E06602700632767 /* ORBRecommendationEmptyCaseView.swift in Sources */,
 				4E87852A2DC79B6D00B639EA /* ORBRecommendationChatView.swift in Sources */,
 				4EDB392F2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */,
 				4E4F31862D4718F400C3B2FF /* PushNotificationService.swift in Sources */,
