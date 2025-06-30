@@ -27,8 +27,9 @@ final class CourseQuestView: UIView {
     
     let courseQuestPlaceCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 48, height: 97)
-        layout.minimumLineSpacing = 14
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.itemSize = UICollectionViewFlowLayout.automaticSize
+        layout.minimumLineSpacing = 19
         $0.collectionViewLayout = layout
         $0.backgroundColor = .clear
         $0.contentInset = .init(top: 17, left: 0, bottom: 103.5, right: 0)

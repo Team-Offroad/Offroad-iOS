@@ -36,12 +36,15 @@ class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
     private let nameLabel = UILabel().then {
         $0.font = .offroad(style: .iosTextBold)
         $0.textColor = .main(.main2)
+        $0.numberOfLines = 0
+        $0.lineBreakMode = .byWordWrapping
     }
     
     private let addressLabel = UILabel().then {
         $0.font = .offroad(style: .iosTextContentsSmall)
         $0.textColor = .grayscale(.gray400)
-        $0.numberOfLines = 1
+        $0.numberOfLines = 0
+        $0.lineBreakMode = .byWordWrapping
     }
     
     private let visitButton = UIButton().then {
@@ -95,15 +98,18 @@ class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
     
     private func setupLayout() {
         indicatorImageView.snp.makeConstraints {
-            $0.left.equalToSuperview()
-            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview()
+            $0.centerY.equalTo(containerView)
+            $0.size.equalTo(34)
         }
         
         containerView.snp.makeConstraints {
+            $0.top.equalToSuperview()
             $0.leading.equalTo(indicatorImageView.snp.trailing).offset(12)
             $0.trailing.equalToSuperview()
-            $0.verticalEdges.equalToSuperview()
-            $0.height.equalTo(97)
+//            $0.bottom.equalTo(addressLabel.snp.bottom).offset(12.8)
+            $0.bottom.equalToSuperview()
+            $0.width.equalTo(UIScreen.main.bounds.width - 94)
         }
         
         thumbnailImageView.snp.makeConstraints {
@@ -130,15 +136,15 @@ class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
         }
         
         addressLabel.snp.makeConstraints {
-            $0.top.equalTo(visitButton.snp.bottom).offset(5.2)
+            $0.top.equalTo(nameLabel.snp.bottom).offset(7)
             $0.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
             $0.trailing.lessThanOrEqualToSuperview().inset(14)
             $0.bottom.lessThanOrEqualToSuperview().inset(12.8)
         }
         
         visitButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(15)
-            $0.centerY.equalTo(nameLabel)
+            $0.trailing.equalToSuperview().inset(14.7)
+            $0.centerY.equalToSuperview()
             $0.width.equalTo(56)
             $0.height.equalTo(28)
         }

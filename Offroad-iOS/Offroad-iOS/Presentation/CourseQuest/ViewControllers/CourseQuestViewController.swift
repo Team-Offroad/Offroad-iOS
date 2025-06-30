@@ -17,16 +17,6 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     var questId: Int?
     var deadline: String?
     
-    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 48, height: 97)
-        layout.minimumLineSpacing = 14
-        $0.collectionViewLayout = layout
-        $0.backgroundColor = .clear
-        $0.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
-        $0.register(CourseQuestPlaceCell.self, forCellWithReuseIdentifier: "CourseQuestPlaceCell")
-    }
-    
     override func loadView() {
         view = courseQuestView
     }
