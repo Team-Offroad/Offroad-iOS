@@ -6,17 +6,24 @@
 //
 
 import UIKit
+
 import NMapsMap
 import CoreLocation
 
 final class CourseQuestMapView: NMFNaverMapView {
-
+    
+    //MARK: - Properties
+    
     private let locationManager = CLLocationManager()
     private var markers: [NMFMarker] = []
-
+    
+    //MARK: - UI Properties
+    
     private let locationOverlayImage = NMFOverlayImage(image: .icnQuestMapCircleInWhiteBorder)
     private let triangleArrowOverlayImage = NMFOverlayImage(image: .icnQuestMapNavermapLocationOverlaySubIcon1)
-
+    
+    //MARK: - Life Cycle
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -24,11 +31,13 @@ final class CourseQuestMapView: NMFNaverMapView {
         customizeLocationOverlay()
         setupLocationManager()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    //MARK: - Private Func
+    
     private func setupMapView() {
         mapView.logoAlign = .leftTop
         mapView.logoInteractionEnabled = true
@@ -37,7 +46,7 @@ final class CourseQuestMapView: NMFNaverMapView {
         showCompass = false
         mapView.locationOverlay.hidden = false
     }
-
+    
     private func customizeLocationOverlay() {
         mapView.locationOverlay.do { overlay in
             overlay.icon = locationOverlayImage
@@ -48,34 +57,34 @@ final class CourseQuestMapView: NMFNaverMapView {
             overlay.circleColor = .sub(.sub).withAlphaComponent(0.25)
         }
     }
-
+    
     private func setupLocationManager() {
         locationManager.delegate = self
         
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
     }
-
+    
     func configure(with places: [CourseQuestDetailPlaceDTO]) {
         // 기존 마커 제거
         markers.forEach { $0.mapView = nil }
         markers.removeAll()
-
+        
         let positions = places.map { place -> NMGLatLng in
             let position = NMGLatLng(lat: place.latitude, lng: place.longitude)
             let marker = NMFMarker(position: position)
-
+            
             marker.iconImage = getMarkerIconImage(for: place.category)
             marker.captionText = place.name
             marker.mapView = self.mapView
-
+            
             markers.append(marker)
             return position
         }
-
+        
         moveCamera(placesToShow: positions, padding: 80)
     }
-
+    
     private func getMarkerIconImage(for category: String) -> NMFOverlayImage {
         switch category {
         case "카페":
@@ -92,7 +101,7 @@ final class CourseQuestMapView: NMFNaverMapView {
             return NMFOverlayImage(image: UIImage(resource: .icnOrangeIndicator))
         }
     }
-
+    
     private func moveCamera(placesToShow coordinates: [NMGLatLng], padding: CGFloat = 0) {
         guard !coordinates.isEmpty else {
             let gwanghwamunSquare = NMGLatLng(lat: 37.5716229, lng: 126.9767879)
@@ -100,12 +109,14 @@ final class CourseQuestMapView: NMFNaverMapView {
             mapView.moveCamera(cameraUpdate)
             return
         }
-
+        
         let bounds = NMGLatLngBounds(latLngs: coordinates)
         let cameraUpdate = NMFCameraUpdate(fit: bounds, padding: padding)
         mapView.moveCamera(cameraUpdate)
     }
 }
+
+// MARK: - CLLocationManagerDelegate
 
 extension CourseQuestMapView: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {

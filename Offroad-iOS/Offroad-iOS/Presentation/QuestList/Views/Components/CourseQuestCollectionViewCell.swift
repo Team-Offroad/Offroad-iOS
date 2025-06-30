@@ -26,6 +26,7 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
     }
     
     // MARK: - UI Components
+    
     private let ddayBubbleView = UIImageView()
     private let ddayLabel = UILabel()
     
@@ -41,7 +42,7 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
     private let detailButton = ShrinkableButton()
     var onTapDetailButton: (() -> Void)?
     
-    // MARK: - Initializer
+    // MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -81,7 +82,7 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
     
 }
 
-// MARK: - UI Setup
+// MARK: - Private Func
 
 extension CourseQuestCollectionViewCell {
     
@@ -274,11 +275,11 @@ extension CourseQuestCollectionViewCell {
         guard let deadlineDate = formatter.date(from: deadline) else {
             return "D-?"
         }
-
+        
         let today = Calendar.current.startOfDay(for: Date())
         let target = Calendar.current.startOfDay(for: deadlineDate)
         let daysLeft = Calendar.current.dateComponents([.day], from: today, to: target).day ?? 0
-
+        
         return daysLeft >= 0 ? "D-\(daysLeft)" : "종료"
     }
 }

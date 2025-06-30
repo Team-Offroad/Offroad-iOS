@@ -85,10 +85,12 @@ extension QuestListViewController {
         
 #if DevTarget
         rootView.questListCollectionView.onTapCourseQuestDetail = { [weak self] quest in
-            let vc = CourseQuestViewController()
-            vc.questId = quest.questId
-            vc.deadline = quest.deadline
-            self?.navigationController?.pushViewController(vc, animated: true)
+            guard let deadline = quest.deadline else { return }
+            let courseQuestViewController = CourseQuestViewController(
+                questId: quest.questId,
+                deadline: deadline
+            )
+            self?.navigationController?.pushViewController(courseQuestViewController, animated: true)
         }
 #endif
     }

@@ -11,12 +11,16 @@ import Then
 import Kingfisher
 import SVGKit
 
-class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
+final class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
     
     // MARK: - UI Components
     
     private let indicatorImageView = UIImageView()
-    private let containerView = UIView()
+    private let containerView = UIView().then {
+        $0.backgroundColor = .main(.main3)
+        $0.roundCorners(cornerRadius: 5)
+        $0.clipsToBounds = true
+    }
     
     private var thumbnailImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
@@ -78,9 +82,6 @@ class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
     private func setupStyle() {
         backgroundColor = .clear
         contentView.backgroundColor = .clear
-        containerView.backgroundColor = .white
-        containerView.roundCorners(cornerRadius: 5)
-        containerView.clipsToBounds = true
     }
     
     private func setupHierarchy() {
@@ -107,7 +108,7 @@ class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
             $0.top.equalToSuperview()
             $0.leading.equalTo(indicatorImageView.snp.trailing).offset(12)
             $0.trailing.equalToSuperview()
-//            $0.bottom.equalTo(addressLabel.snp.bottom).offset(12.8)
+            //            $0.bottom.equalTo(addressLabel.snp.bottom).offset(12.8)
             $0.bottom.equalToSuperview()
             $0.width.equalTo(UIScreen.main.bounds.width - 94)
         }
@@ -155,18 +156,20 @@ class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
         }
     }
     
+    ///참고: thumbnailImageView가 현재 URL이 아닌 svg 아이콘 파일로 서버에서 내려주고 있습니다.
+    /// 장소 정보 모델을 기반으로 셀의 내용을 설정하는 함수
+    /// - 썸네일 이미지, 카테고리 라벨, 장소명, 주소 등을 표시
+    /// - 방문 여부에 따라 '방문' 버튼 또는 스탬프를 보여줌
+    /// - 카테고리에 따라 인디케이터 색상을 설정
     func configure(with model: CourseQuestDetailPlaceDTO) {
-//        if model.categoryImage.lowercased().hasSuffix(".svg") { thumbnailImageView.fetchSvgURLToImageView(svgUrlString: model.categoryImage) } else { thumbnailImageView.kf.setImage(with: URL(string: model.categoryImage)) }
         thumbnailImageView.fetchSvgURLToImageView(svgUrlString: model.categoryImage)
         typeLabel.text = model.category
         nameLabel.text = model.name
         addressLabel.text = model.address
         
-        // 방문 여부에 따라 버튼 or 스탬프 표시
         visitButton.isHidden = model.isVisited ?? false
         clearImageView.isHidden = !(model.isVisited ?? false)
         
-        // 타입에 따라 indicator 색상 변경
         switch model.category {
         case "카페": indicatorImageView.image = UIImage(resource: .icnYellowIndicator)
         case "공원": indicatorImageView.image = UIImage(resource: .icnGreenIndicator)

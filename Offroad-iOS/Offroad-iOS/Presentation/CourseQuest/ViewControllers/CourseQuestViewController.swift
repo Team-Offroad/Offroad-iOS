@@ -11,61 +11,15 @@ import Then
 
 class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIGestureRecognizerDelegate {
     
+    // MARK: - Properties
+    
     private let courseQuestView = CourseQuestView()
     private let courseQuestDetailService = CourseQuestDetailService()
-    private var quests: [CourseQuestDetailPlaceDTO] = []
+    private var courseQuestPlaces: [CourseQuestDetailPlaceDTO] = []
     var questId: Int?
     var deadline: String?
     
-    override func loadView() {
-        view = courseQuestView
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        courseQuestView.courseQuestPlaceCollectionView.dataSource = self
-        courseQuestView.listContainerView.delegate = self
-        setupControlsTarget()
-        
-        if let deadline = deadline {
-            let ddayString = Self.dday(from: deadline)
-            let dateString = formattedDate(from: deadline)
-            courseQuestView.deadlineDateLabel.text = "퀘스트 마감일: \(dateString)"
-            courseQuestView.ddayBadgeLabel.text = ddayString
-        }
-        
-        if let questId = questId {
-            fetchCourseQuestDetail(questId: questId)
-        }
-    }
-    
-    private func fetchCourseQuestDetail(questId: Int) {
-        courseQuestDetailService.getCourseQuestDetail(questId: questId) { [weak self] result in
-            switch result {
-            case .success(let dto):
-                DispatchQueue.main.async {
-                    self?.quests = dto.data.places
-                    self?.courseQuestView.courseQuestPlaceCollectionView.reloadData()
-                    //지도에 마커 표시
-                    self?.courseQuestView.configureMap(with: dto.data.places)
-                }
-            case .failure(let error):
-                print("❌ 코스 퀘스트 상세 정보 로드 실패:", error.localizedDescription)
-            }
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
-        offroadTabBarController.hideTabBarAnimation()
-    }
-    
-    private func setupControlsTarget() {
-        courseQuestView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
-    }
+    // MARK: - Type Methods
     
     /// 이 함수는 CourseQuestViewController 전용 D-Day 계산 함수입니다.
     /// CourseQuestCollectionViewCell에도 유사한 함수가 존재하지만, QuestListViewController에서 D-Day를 표시하기 위한 용도이며,
@@ -90,15 +44,82 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     
     private func formattedDate(from deadline: String) -> String {
         let inputFormatter = DateFormatter()
+        inputFormatter.calendar = .init(identifier: .gregorian)
         inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        inputFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        inputFormatter.timeZone = TimeZone(secondsFromGMT: 32400)
         
         let outputFormatter = DateFormatter()
+        outputFormatter.calendar = .init(identifier: .gregorian)
         outputFormatter.dateFormat = "yy.MM.dd"
+        outputFormatter.timeZone = TimeZone(secondsFromGMT: 32400)
         outputFormatter.locale = Locale(identifier: "ko_KR")
         
         guard let date = inputFormatter.date(from: deadline) else { return "--.--.--" }
         return outputFormatter.string(from: date)
+    }
+    
+    // MARK: - Life Cycle
+    
+    init(questId: Int, deadline: String) {
+        self.questId = questId
+        self.deadline = deadline
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        view = courseQuestView
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        courseQuestView.courseQuestPlaceCollectionView.dataSource = self
+        courseQuestView.listContainerView.delegate = self
+        setupControlsTarget()
+        
+        if let deadline = deadline {
+            let ddayString = Self.dday(from: deadline)
+            let dateString = formattedDate(from: deadline)
+            courseQuestView.deadlineDateLabel.text = "퀘스트 마감일: \(dateString)"
+            courseQuestView.ddayBadgeLabel.text = ddayString
+        }
+        
+        if let questId = questId {
+            fetchCourseQuestDetail(questId: questId)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
+        offroadTabBarController.hideTabBarAnimation()
+    }
+    
+    // MARK: - Private Func
+    
+    private func fetchCourseQuestDetail(questId: Int) {
+        courseQuestDetailService.getCourseQuestDetail(questId: questId) { result in
+            switch result {
+            case .success(let dto):
+                DispatchQueue.main.async { [weak self] in
+                    self?.courseQuestPlaces = dto.data.places
+                    self?.courseQuestView.courseQuestPlaceCollectionView.reloadData()
+                    //지도에 마커 표시
+                    self?.courseQuestView.configureMap(with: dto.data.places)
+                }
+            case .failure(let error):
+                print("❌ 코스 퀘스트 상세 정보 로드 실패:", error.localizedDescription)
+            }
+        }
+    }
+    
+    private func setupControlsTarget() {
+        courseQuestView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
     }
     
     @objc private func customBackButtonTapped() {
@@ -106,37 +127,21 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     }
 }
 
-//extension CourseQuestViewController: UIScrollViewDelegate {
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let yOffset = scrollView.contentOffset.y
-//
-//        let maxOffset: CGFloat = 259   // mapView 높이와 동일
-//        let threshold: CGFloat = 100   // 디데이 뷰가 어느 정도 올라갔을 때 trigger
-//
-//        if yOffset > threshold {
-//            // 모달처럼 붙임
-//            rootView.listTopConstraint?.update(offset: -maxOffset)
-//        } else {
-//            // 원래 위치
-//            rootView.listTopConstraint?.update(offset: 0)
-//        }
-//    }
-//}
-
+// MARK: - CLLocationManagerDelegate
 
 extension CourseQuestViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return quests.count
+        return courseQuestPlaces.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CourseQuestPlaceCell", for: indexPath) as? CourseQuestPlaceCell else {
             return UICollectionViewCell()
         }
-        let quest = quests[indexPath.item]
+        let quest = courseQuestPlaces[indexPath.item]
         cell.configure(with: quest)
         cell.onVisit = { [weak self] in
-            self?.quests[indexPath.item] = CourseQuestDetailPlaceDTO(
+            self?.courseQuestPlaces[indexPath.item] = CourseQuestDetailPlaceDTO(
                 category: quest.category,
                 name: quest.name,
                 address: quest.address,

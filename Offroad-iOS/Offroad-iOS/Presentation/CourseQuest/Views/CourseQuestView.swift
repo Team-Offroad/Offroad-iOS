@@ -64,13 +64,11 @@ final class CourseQuestView: UIView {
         customBackButton.configureButtonTitle(titleString: "퀘스트 목록")
         
         mapView.do { view in
-            view.backgroundColor = .red
             view.clipsToBounds = true
         }
         
         calendarIconImageView.do { icon in
             icon.image = UIImage.icnPurpleCalendar
-            //            icon.setContentHuggingPriority(.required, for: .horizontal)
         }
         
         deadlineDateLabel.do { label in
@@ -158,6 +156,7 @@ final class CourseQuestView: UIView {
         
         calendarIconImageView.snp.makeConstraints {
             $0.leading.equalTo(deadlineDateLabel.snp.trailing).offset(8)
+            $0.verticalEdges.equalToSuperview()
             $0.size.equalTo(24)
         }
         
