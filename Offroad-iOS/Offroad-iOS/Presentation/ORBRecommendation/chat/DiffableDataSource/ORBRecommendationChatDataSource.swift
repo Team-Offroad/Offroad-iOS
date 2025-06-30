@@ -9,7 +9,10 @@ import UIKit
 
 final class ORBRecommendationChatDataSource: UICollectionViewDiffableDataSource<Int, CharacterChatItem> {
     
+    weak var collectionView: UICollectionView?
+    
     init(collectionView: UICollectionView) {
+        self.collectionView = collectionView
         let orbCharacterCellRegistration = UICollectionView.CellRegistration<ChatLogCellCharacter, CharacterChatMessageItem>(
             handler: { cell, indexPath, item in
                 cell.setRecommendationMode()
@@ -69,5 +72,7 @@ final class ORBRecommendationChatDataSource: UICollectionViewDiffableDataSource<
         snapshot.appendSections([0])
         snapshot.appendItems(chats, toSection: 0)
         self.apply(snapshot, animatingDifferences: animatingDifferences, completion: completion)
+        let lastIndexPath = IndexPath(item: chats.count - 1, section: 0)
+        self.collectionView?.scrollToItem(at: lastIndexPath, at: .top, animated: true)
     }
 }

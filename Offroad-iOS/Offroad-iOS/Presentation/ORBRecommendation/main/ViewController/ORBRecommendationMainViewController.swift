@@ -20,7 +20,14 @@ final class ORBRecommendationMainViewController: UIViewController {
     private var disposeBag = DisposeBag()
     // RxSwift의 DisposeBag 역할
     private var cancellables = Set<AnyCancellable>()
-    private var markers: [PlaceMapMarker] = []
+    private var markers: [PlaceMapMarker] = [] {
+        didSet { places = markers.map(\.place) as! [ORBRecommendationPlaceModel] }
+    }
+    private var places: [ORBRecommendationPlaceModel] = []
+    
+    // MARK: - UI Properties
+    
+    private let emptyCaseView = ORBRecommendationEmptyCaseView()
     
     // MARK: - Life Cycle
     
@@ -31,6 +38,7 @@ final class ORBRecommendationMainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupCollectionView()
         setupButtonActions()
         updateFixedPhrase()
         initialSettings()
@@ -43,6 +51,14 @@ final class ORBRecommendationMainViewController: UIViewController {
         offroadTabBarController.hideTabBarAnimation()
     }
     
+    private func setupCollectionView() {
+        rootView.recommendedContentView.register(
+            PlaceListCell.self,
+            forCellWithReuseIdentifier: PlaceListCell.className
+        )
+        rootView.recommendedContentView.dataSource = self
+    }
+    
     private func setupButtonActions() {
         rootView.backButton.rx.tap.subscribe { _ in
             self.navigationController?.popViewController(animated: true)
@@ -51,24 +67,23 @@ final class ORBRecommendationMainViewController: UIViewController {
         rootView.orbMessageButton.rx.tap.subscribe { [weak self] _ in
             guard let self else { return }
             if UserDefaults.standard.bool(forKey: "useORBRecommendationChat") {
-                let chatViewController = ORBRecommendationChatViewController(
-                    firstChatText: self.rootView.orbMessageButton.message
-                )
-                
-                // 추천소 채팅 뷰컨트롤러의 Combine 구독
-                chatViewController.shouldUpdatePlaces
-                    .sink { [weak self] recommendedPlaces in
-                        self?.updateRecommendedPlaces(recommendedPlaces)
-                    }.store(in: &cancellables)
-                
-                chatViewController.view.layoutIfNeeded()
-                chatViewController.transitioningDelegate = self
-                chatViewController.modalPresentationStyle = .custom
-                self.present(chatViewController, animated: true)
+                self.presentChatViewController()
             } else {
                 self.navigationController?.pushViewController(ORBRecommendationOrderViewController(), animated: true)
             }
         }.disposed(by: disposeBag)
+        
+        rootView.orbMapView.exploreButtonTapped.subscribe { [weak self] place in
+            guard let place = place.element as? ORBRecommendationPlaceModel else {
+                fatalError("잘못된 장소 모델 타입이 사용되었습니다: 오브의 추천소 지도의 툴팁에서 사용될 장소 데이터는 ORBRecommendationPlaceModel 타입이어야 합니다.")
+            }
+            self?.openExternalMap(for: place)
+        }.disposed(by: disposeBag)
+        
+        emptyCaseView.askButton.rx.tap
+            .subscribe { [weak self] _ in
+                self?.presentChatViewController()
+            }.disposed(by: disposeBag)
     }
     
 }
@@ -85,6 +100,28 @@ extension ORBRecommendationMainViewController {
     /// dismiss 트랜지션이 시작할 때 버튼 보이기
     func showORBMessageButtonBeforeDismiss() {
         rootView.orbMessageButton.isHidden = false
+    }
+    
+}
+
+// present 동작
+private extension ORBRecommendationMainViewController {
+    
+    func presentChatViewController() {
+        let chatViewController = ORBRecommendationChatViewController(
+            firstChatText: self.rootView.orbMessageButton.message
+        )
+        
+        // 추천소 채팅 뷰컨트롤러의 Combine 구독
+        chatViewController.shouldUpdatePlaces
+            .sink { [weak self] recommendedPlaces in
+                self?.updateRecommendedPlaces(recommendedPlaces)
+            }.store(in: &cancellables)
+        
+        chatViewController.view.layoutIfNeeded()
+        chatViewController.transitioningDelegate = self
+        chatViewController.modalPresentationStyle = .custom
+        self.present(chatViewController, animated: true)
     }
     
 }
@@ -177,7 +214,7 @@ private extension ORBRecommendationMainViewController {
     }
     
     func updateRecommendedPlaces(_ places: [ORBRecommendationPlaceModel]) {
-        rootView.recommendedContentView.places = places
+        self.places = places
         rootView.recommendedContentView.reloadData()
         
         // 현재 떠 있는 마커 지도에서 지우기
@@ -195,12 +232,98 @@ private extension ORBRecommendationMainViewController {
         }
         markers = newMarkers
         
-        // 새로 추천된 장소가 존재할 때만 새 추천 장소들에 맞게 지도 카메라 이동
-        guard !newMarkers.isEmpty else { return }
-        let naverMapCoordinates: [NMGLatLng] = places.map { place in
-            NMGLatLng(from: place.coordinate)
+        // 새로 추천된 장소가 빈 경우 엠티 케이스 표시
+        if newMarkers.isEmpty {
+            rootView.recommendedContentView.showEmptyPlaceholder(view: emptyCaseView)
+        } else {
+            rootView.recommendedContentView.removeEmptyPlaceholder()
+            let naverMapCoordinates: [NMGLatLng] = places.map { place in
+                NMGLatLng(from: place.coordinate)
+            }
+            rootView.orbMapView.moveCamera(placesToShow: naverMapCoordinates, padding: 50)
         }
-        rootView.orbMapView.moveCamera(placesToShow: naverMapCoordinates, padding: 50)
+    }
+    
+}
+
+
+// 앱의 번들 ID 확인하는 기능 관련.
+// 추후 스플래시 뷰에서의 앱 버전 확인 등의 기능을 포함하여 별도 타입으로 분리해도 좋을 것 같음.
+private extension ORBRecommendationMainViewController {
+    
+    enum AppBundleIDCheckError: LocalizedError {
+        case infoPlistNotFound
+        case bundleIDNotFound
+        
+        var errorDescription: String? {
+            switch self {
+            case .infoPlistNotFound: "Info.plist 확인 불가"
+            case .bundleIDNotFound: "번들 ID 확인 불가"
+            }
+        }
+    }
+    
+    /// 현재 앱의 번들 ID 확인.
+    func getBundleIdentifier() throws -> String {
+        guard let infoPlist = Bundle.main.infoDictionary else {
+            throw AppBundleIDCheckError.infoPlistNotFound
+        }
+        guard let bundleID = infoPlist["CFBundleIdentifier"] as? String else {
+            throw AppBundleIDCheckError.bundleIDNotFound
+        }
+        return bundleID
+        // 사실 bundleID는 `Bundle.main.bundleIdentifier` 와 같은 방법으로도 가져올 수 있긴 한데(String? 타입 반환)
+        // 스플래시 뷰에서 앱의 현재 버전 확인하는 코드와 일관성을 맞추기 위함.
+        // 추후 리팩토링 때 앱의 버전, 번들ID 등을 확인하는 통합적인 타입을 만드는 것도 좋을 것 같음.
+    }
+    
+}
+
+
+// 외부 지도로 이동하는 기능 관련
+private extension ORBRecommendationMainViewController {
+    
+    /// 셀 안의 '외부 지도로 이동' 버튼을 탭 했을 때 실행할 동작.
+    /// - Parameter sender: sender가 장소 정보를 갖고 있어야, 이를 바탕으로 외부 지도를 띄울 수 있으므로, 장소 정보를 갖는 `ExternalMapOpeningButton` 타입.
+    @objc func onExternalMapButtonTapped(sender: ExternalMapOpeningButton) {
+        guard let place = sender.place else { return }
+        openExternalMap(for: place)
+    }
+    
+    /// 네이버 지도를 열어 특정 장소를 보여줌.
+    /// - Parameter place: 네이버 지도에 표시할 장소.
+    func openExternalMap(for place: ORBRecommendationPlaceModel) {
+        // bundleID를 정상적으로 가져오지 못할 경우, 배포용 오브 앱의 번들 ID를 넣도록 하드코딩함.
+        // 추후 에러 처리 개선 가능.
+        let bundleID = (try? getBundleIdentifier()) ?? "com.offroadapp.offroad"
+        let latitude = place.coordinate.latitude
+        let longitude = place.coordinate.longitude
+        let placeName = place.name
+        let url = URL(string: "nmap://place?lat=\(latitude)&lng=\(longitude)&name=\(placeName)&appname=\(bundleID)")!
+        let appStoreURL = URL(string: "http://itunes.apple.com/app/id311867728?mt=8")!
+
+        if UIApplication.shared.canOpenURL(url) {
+          UIApplication.shared.open(url)
+        } else {
+          UIApplication.shared.open(appStoreURL)
+        }
+    }
+    
+}
+
+
+// MARK: - UICollectionViewDataSource
+extension ORBRecommendationMainViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return places.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaceListCell.className, for: indexPath) as? PlaceListCell else { fatalError("PlaceListCell dequeueing failed") }
+        cell.configure(with: places[indexPath.item], isVisitCountShowing: false)
+        cell.externalMapButton.addTarget(self, action: #selector(onExternalMapButtonTapped), for: .touchUpInside)
+        return cell
     }
     
 }
