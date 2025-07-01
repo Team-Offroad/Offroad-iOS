@@ -4,7 +4,6 @@
 //
 //  Created by  정지원 on 3/11/25.
 //
-#if DevTarget
 import UIKit
 
 import ExpandableCell
@@ -27,6 +26,7 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
     }
     
     // MARK: - UI Components
+    
     private let ddayBubbleView = UIImageView()
     private let ddayLabel = UILabel()
     
@@ -40,8 +40,9 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
     private var checkBoxImageViews: [UIImageView] = []
     private let courseQuestListStackView = UIStackView()
     private let detailButton = ShrinkableButton()
+    var onTapDetailButton: (() -> Void)?
     
-    // MARK: - Initializer
+    // MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,6 +50,8 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
         setupHierarchy()
         setupStyle()
         setupLayout()
+        
+        detailButton.addTarget(self, action: #selector(detailButtonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -79,7 +82,7 @@ class CourseQuestCollectionViewCell: ExpandableCell, Shrinkable {
     
 }
 
-// MARK: - UI Setup
+// MARK: - Private Func
 
 extension CourseQuestCollectionViewCell {
     
@@ -113,7 +116,6 @@ extension CourseQuestCollectionViewCell {
         }
         
         ddayLabel.do {
-            $0.text = "D-10"
             $0.font = .offroad(style: .iosTextBold)
             $0.textColor = .sub(.sub480)
             $0.textAlignment = .center
@@ -232,27 +234,53 @@ extension CourseQuestCollectionViewCell {
         }
     }
     
+    @objc private func detailButtonTapped() {
+        onTapDetailButton?()
+    }
+    
     // MARK: - Configure Cell
     
-    func configureCell(with quest: CourseQuest) {
-        ddayLabel.text = quest.dday
-        courseQuestNameLabel.text = quest.title
-        courseQuestProgressLabel.text = "달성도 (\(quest.progress))"
+    func configureCell(with quest: Quest) {
+        ddayLabel.text = Self.dday(from: quest.deadline)
+        courseQuestNameLabel.text = quest.questName
+        courseQuestProgressLabel.text = "달성도 (\(quest.currentCount)/\(quest.totalCount))"
         courseQuestProgressLabel.highlightText(targetText: "달성도", color: .grayscale(.gray400))
         courseQuestDescriptionLabel.text = quest.description
         courseQuestListStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
         let checkBoxImage: UIImage = .icnQuestListCheckBox
-        for questDetail in quest.quests {
-            let questStackView = IconLabelStackView(icon: checkBoxImage, text: "\(questDetail.locationName): \(questDetail.mission)")
-            courseQuestListStackView.addArrangedSubview(questStackView)
+        
+        if let places = quest.courseQuestPlaces {
+            for place in places {
+                let icon = CourseQuestCategoryIcon.image(for: place.category)
+                let label = "\(place.name) \(place.description)"
+                let questStackView = IconLabelStackView(icon: icon, text: label)
+                courseQuestListStackView.addArrangedSubview(questStackView)
+            }
         }
         
-        let rewardStackView = IconLabelStackView(icon: checkBoxImage, text: "보상: \(quest.reward)")
+        let rewardStackView = IconLabelStackView(icon: UIImage.icnQuestListGiftBox, text: "\(quest.requirement) \(quest.reward)")
         courseQuestListStackView.addArrangedSubview(rewardStackView)
         
         contentView.layoutIfNeeded()
     }
+    
+    private static func dday(from deadline: String?) -> String {
+        guard let deadline = deadline else {
+            return "D-?"
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        formatter.locale = Locale(identifier: "ko_KR")
+        guard let deadlineDate = formatter.date(from: deadline) else {
+            return "D-?"
+        }
+        
+        let today = Calendar.current.startOfDay(for: Date())
+        let target = Calendar.current.startOfDay(for: deadlineDate)
+        let daysLeft = Calendar.current.dateComponents([.day], from: today, to: target).day ?? 0
+        
+        return daysLeft >= 0 ? "D-\(daysLeft)" : "종료"
+    }
 }
-#endif
 

@@ -13,9 +13,6 @@ class QuestListViewController: UIViewController {
     
     //MARK: - Properties
     
-#if DevTarget
-    private var courseQuests: [CourseQuest] = []
-#endif
     private var questListService = QuestListService()
     private var allQuestList: [Quest] = []
     private var activeQuestList: [Quest] = []
@@ -85,6 +82,17 @@ extension QuestListViewController {
     private func setupControlsTarget() {
         rootView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
         rootView.ongoingQuestSwitch.addTarget(self, action: #selector(ongoingQuestSwitchValueChanged(sender:)), for: .valueChanged)
+        
+#if DevTarget
+        rootView.questListCollectionView.onTapCourseQuestDetail = { [weak self] quest in
+            guard let deadline = quest.deadline else { return }
+            let courseQuestViewController = CourseQuestViewController(
+                questId: quest.questId,
+                deadline: deadline
+            )
+            self?.navigationController?.pushViewController(courseQuestViewController, animated: true)
+        }
+#endif
     }
     
     // alert 를 띄우는 함수. 장소 목록을 불러오는 데 실패했을 경우 사용
