@@ -8,6 +8,7 @@ import UIKit
 
 import SnapKit
 import Then
+import CoreLocation
 
 class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIGestureRecognizerDelegate {
     
@@ -41,6 +42,7 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     private var courseQuestPlaces: [CourseQuestDetailPlaceDTO] = []
     var questId: Int?
     var deadline: String?
+    private let locationManager = CLLocationManager()
     
     // MARK: - Life Cycle
     
@@ -75,6 +77,9 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
         if let questId = questId {
             fetchCourseQuestDetail(questId: questId)
         }
+        
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,19 +146,60 @@ extension CourseQuestViewController: UICollectionViewDataSource {
         let quest = courseQuestPlaces[indexPath.item]
         cell.configure(with: quest)
         cell.onVisit = { [weak self] in
-            self?.courseQuestPlaces[indexPath.item] = CourseQuestDetailPlaceDTO(
-                category: quest.category,
-                name: quest.name,
-                address: quest.address,
-                latitude: quest.latitude,
-                longitude: quest.longitude,
-                isVisited: true,
-                categoryImage: quest.categoryImage,
-                description: quest.description,
-                placeId: quest.placeId
+            guard let self else { return }
+            let place = quest
+            
+            guard let currentCoordinate = locationManager.location?.coordinate else {
+                self.showToast("현재 위치를 가져올 수 없어요. 위치 권한을 확인해주세요.")
+                return
+            }
+            
+            let requestDTO = AdventuresPlaceAuthenticationRequestDTO(
+                placeId: place.placeId,
+                latitude: currentCoordinate.latitude,
+                longitude: currentCoordinate.longitude
             )
-            collectionView.reloadItems(at: [indexPath])
-            self?.showToast("방문 성공! 앞으로 N곳 남았어요")
+            
+            Task {
+                do {
+                    let result = try await AdventureService().authenticateAdventurePlace(adventureAuthDTO: requestDTO)
+                    
+                    // 탐험 결과 메시지
+                    let toastMessage: String
+                    switch (result.isValidPosition, result.isFirstVisitToday) {
+                    case (true, true):
+                        toastMessage = "탐험 성공! 보상을 획득했어요!"
+                    case (true, false):
+                        toastMessage = "이미 오늘 방문했어요.\n다른 장소를 탐험해보세요!"
+                    default:
+                        toastMessage = "현재 위치에서 인증할 수 없어요.\n장소를 다시 확인해주세요!"
+                    }
+                    
+                    // 방문 성공 시 모델 갱신
+                    if result.isValidPosition {
+                        self.courseQuestPlaces[indexPath.item] = CourseQuestDetailPlaceDTO(
+                            category: place.category,
+                            name: place.name,
+                            address: place.address,
+                            latitude: place.latitude,
+                            longitude: place.longitude,
+                            isVisited: true,
+                            categoryImage: place.categoryImage,
+                            description: place.description,
+                            placeId: place.placeId
+                        )
+                        collectionView.reloadItems(at: [indexPath])
+                    }
+                    // 결과 메시지 표시
+                    await MainActor.run {
+                        self.showToast(toastMessage)
+                    }
+                } catch {
+                    await MainActor.run {
+                        self.showToast("탐험 인증에 실패했어요. 다시 시도해주세요.")
+                    }
+                }
+            }
         }
         return cell
     }
