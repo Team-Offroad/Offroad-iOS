@@ -11,14 +11,6 @@ import Then
 
 class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIGestureRecognizerDelegate {
     
-    // MARK: - Properties
-    
-    private let courseQuestView = CourseQuestView()
-    private let courseQuestDetailService = CourseQuestDetailService()
-    private var courseQuestPlaces: [CourseQuestDetailPlaceDTO] = []
-    var questId: Int?
-    var deadline: String?
-    
     // MARK: - Type Methods
     
     /// 이 함수는 CourseQuestViewController 전용 D-Day 계산 함수입니다.
@@ -42,21 +34,13 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
         return daysLeft >= 0 ? "D-\(daysLeft)" : "종료"
     }
     
-    private func formattedDate(from deadline: String) -> String {
-        let inputFormatter = DateFormatter()
-        inputFormatter.calendar = .init(identifier: .gregorian)
-        inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        inputFormatter.timeZone = TimeZone(secondsFromGMT: 32400)
-        
-        let outputFormatter = DateFormatter()
-        outputFormatter.calendar = .init(identifier: .gregorian)
-        outputFormatter.dateFormat = "yy.MM.dd"
-        outputFormatter.timeZone = TimeZone(secondsFromGMT: 32400)
-        outputFormatter.locale = Locale(identifier: "ko_KR")
-        
-        guard let date = inputFormatter.date(from: deadline) else { return "--.--.--" }
-        return outputFormatter.string(from: date)
-    }
+    // MARK: - Properties
+    
+    private let courseQuestView = CourseQuestView()
+    private let courseQuestDetailService = CourseQuestDetailService()
+    private var courseQuestPlaces: [CourseQuestDetailPlaceDTO] = []
+    var questId: Int?
+    var deadline: String?
     
     // MARK: - Life Cycle
     
@@ -120,6 +104,22 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     
     private func setupControlsTarget() {
         courseQuestView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
+    }
+    
+    private func formattedDate(from deadline: String) -> String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.calendar = .init(identifier: .gregorian)
+        inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        inputFormatter.timeZone = TimeZone(secondsFromGMT: 32400)
+        
+        let outputFormatter = DateFormatter()
+        outputFormatter.calendar = .init(identifier: .gregorian)
+        outputFormatter.dateFormat = "yy.MM.dd"
+        outputFormatter.timeZone = TimeZone(secondsFromGMT: 32400)
+        outputFormatter.locale = Locale(identifier: "ko_KR")
+        
+        guard let date = inputFormatter.date(from: deadline) else { return "--.--.--" }
+        return outputFormatter.string(from: date)
     }
     
     @objc private func customBackButtonTapped() {
