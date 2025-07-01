@@ -28,7 +28,8 @@ final class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
     }
     
     private let typeLabelView = UIImageView().then {
-        $0.image = .icnPurpleCategory
+        $0.roundCorners(cornerRadius: 10)
+        $0.backgroundColor = .neutral(.nametagInactive)
     }
     
     private let typeLabel = UILabel().then {
@@ -108,7 +109,6 @@ final class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
             $0.top.equalToSuperview()
             $0.leading.equalTo(indicatorImageView.snp.trailing).offset(12)
             $0.trailing.equalToSuperview()
-            //            $0.bottom.equalTo(addressLabel.snp.bottom).offset(12.8)
             $0.bottom.equalToSuperview()
             $0.width.equalTo(UIScreen.main.bounds.width - 94)
         }
