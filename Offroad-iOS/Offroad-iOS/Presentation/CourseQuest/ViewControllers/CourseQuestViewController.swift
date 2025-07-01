@@ -149,34 +149,34 @@ extension CourseQuestViewController: UICollectionViewDataSource {
             guard let self else { return }
             let place = quest
             
-            guard let currentCoordinate = locationManager.location?.coordinate else {
-                self.showToast("현재 위치를 가져올 수 없어요. 위치 권한을 확인해주세요.")
-                return
-            }
+            guard let currentCoordinate = locationManager.location?.coordinate else { return }
             
-            let requestDTO = AdventuresPlaceAuthenticationRequestDTO(
-                placeId: place.placeId,
-                latitude: currentCoordinate.latitude,
-                longitude: currentCoordinate.longitude
-            )
+            // 변수 먼저 선언
+            var requestDTO: AdventuresPlaceAuthenticationRequestDTO
+            
+            // 개발자 모드의 설정값 중 '탐험 시 위치 인증 무시' 값에 따라 분기 처리
+            let locationAuthenticationBypassing = UserDefaults.standard.bool(forKey: "bypassLocationAuthentication")
+            if locationAuthenticationBypassing {
+                requestDTO = AdventuresPlaceAuthenticationRequestDTO(
+                    placeId: place.placeId,
+                    latitude: place.latitude,
+                    longitude: place.longitude
+                )
+            } else {
+                requestDTO = AdventuresPlaceAuthenticationRequestDTO(
+                    placeId: place.placeId,
+                    latitude: currentCoordinate.latitude,
+                    longitude: currentCoordinate.longitude
+                )
+            }
             
             Task {
                 do {
                     let result = try await AdventureService().authenticateAdventurePlace(adventureAuthDTO: requestDTO)
                     
-                    // 탐험 결과 메시지
-                    let toastMessage: String
                     switch (result.isValidPosition, result.isFirstVisitToday) {
                     case (true, true):
-                        toastMessage = "탐험 성공! 보상을 획득했어요!"
-                    case (true, false):
-                        toastMessage = "이미 오늘 방문했어요.\n다른 장소를 탐험해보세요!"
-                    default:
-                        toastMessage = "현재 위치에서 인증할 수 없어요.\n장소를 다시 확인해주세요!"
-                    }
-                    
-                    // 방문 성공 시 모델 갱신
-                    if result.isValidPosition {
+                        // 탐험 성공
                         self.courseQuestPlaces[indexPath.item] = CourseQuestDetailPlaceDTO(
                             category: place.category,
                             name: place.name,
@@ -189,47 +189,46 @@ extension CourseQuestViewController: UICollectionViewDataSource {
                             placeId: place.placeId
                         )
                         collectionView.reloadItems(at: [indexPath])
+                        await MainActor.run {
+                            CourseQuestPopUp.showPopUp(
+                                on: self.view,
+                                message: "방문 성공! 앞으로 N곳 남았어요"
+                            ) {
+                                $0.highlightText(targetText: "N곳", font: .offroad(style: .iosTextBold))
+                            }
+                        }
+                        
+                    default:
+                        // 위치 인증 실패 → ORBAlertController 사용
+                        let message = AlertMessage.courseQuestFailureLocationMessage
+                        let buttonTitle = "확인"
+                        
+                        await MainActor.run {
+                            let alertController = ORBAlertController(
+                                title: AlertMessage.courseQuestFailureLocationTitle,
+                                message: message,
+                                type: .normal
+                            )
+                            alertController.configureMessageLabel {
+                                $0.highlightText(targetText: "위치", font: .offroad(style: .iosTextBold))
+                                $0.highlightText(targetText: "내일 다시", font: .offroad(style: .iosTextBold))
+                            }
+                            alertController.xButton.isHidden = true
+                            let action = ORBAlertAction(title: buttonTitle, style: .default) { _ in
+                                // 위치 인증 실패 시 후처리
+                            }
+                            alertController.addAction(action)
+                            self.present(alertController, animated: true)
+                        }
                     }
-                    // 결과 메시지 표시
-                    await MainActor.run {
-                        self.showToast(toastMessage)
-                    }
+                    
                 } catch {
                     await MainActor.run {
-                        self.showToast("탐험 인증에 실패했어요. 다시 시도해주세요.")
+                        print("탐험 인증에 실패했어요. 다시 시도해주세요.")
                     }
                 }
             }
         }
         return cell
-    }
-    
-    func showToast(_ message: String) {
-        let toast = UILabel()
-        toast.text = message
-        toast.textAlignment = .center
-        toast.backgroundColor = UIColor.black.withAlphaComponent(0.55)
-        toast.textColor = .white
-        toast.font = .offroad(style: .iosText)
-        toast.roundCorners(cornerRadius: 10)
-        toast.clipsToBounds = true
-        
-        view.addSubview(toast)
-        toast.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(80)
-            make.height.equalTo(40)
-            make.width.lessThanOrEqualToSuperview().offset(-40)
-        }
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            toast.alpha = 1
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.3, delay: 2, options: [], animations: {
-                toast.alpha = 0
-            }, completion: { _ in
-                toast.removeFromSuperview()
-            })
-        })
     }
 }
