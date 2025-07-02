@@ -27,7 +27,7 @@ final class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
         $0.roundCorners(cornerRadius: 5)
     }
     
-    private let typeLabelView = UIImageView().then {
+    private let typeLabelView = UIView().then {
         $0.roundCorners(cornerRadius: 10)
         $0.backgroundColor = .neutral(.nametagInactive)
     }
