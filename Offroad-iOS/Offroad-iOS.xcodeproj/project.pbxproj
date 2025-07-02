@@ -4650,7 +4650,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ProvisioningProfile_Development_250122;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ProvisioningProfile_Development_250701;
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -4824,7 +4824,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.offroadapp.offroad.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ProvisioningProfile_Development_forDevApp_250126;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = ProvisioningProfile_Development_forDevApp_250701;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
