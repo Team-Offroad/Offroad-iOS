@@ -88,7 +88,9 @@ extension QuestListViewController {
             guard let deadline = quest.deadline else { return }
             let courseQuestViewController = CourseQuestViewController(
                 questId: quest.questId,
-                deadline: deadline
+                deadline: deadline,
+                totalCount: quest.totalCount,
+                currentCount: quest.currentCount
             )
             self?.navigationController?.pushViewController(courseQuestViewController, animated: true)
         }

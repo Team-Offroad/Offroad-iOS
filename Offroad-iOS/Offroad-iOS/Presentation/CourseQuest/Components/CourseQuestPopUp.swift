@@ -70,8 +70,9 @@ final class CourseQuestPopUp: UIView {
 
         popup.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(80)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(66.3)
             $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.height.equalTo(45)
         }
 
         UIView.animate(withDuration: 0.3, animations: {

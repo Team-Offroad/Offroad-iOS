@@ -42,13 +42,17 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     private var courseQuestPlaces: [CourseQuestDetailPlaceDTO] = []
     var questId: Int?
     var deadline: String?
+    var totalCount: Int
+    var currentCount: Int
     private let locationManager = CLLocationManager()
     
     // MARK: - Life Cycle
     
-    init(questId: Int, deadline: String) {
+    init(questId: Int, deadline: String, totalCount: Int, currentCount: Int) {
         self.questId = questId
         self.deadline = deadline
+        self.totalCount = totalCount
+        self.currentCount = currentCount
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -188,13 +192,25 @@ extension CourseQuestViewController: UICollectionViewDataSource {
                             description: place.description,
                             placeId: place.placeId
                         )
+                        self.currentCount += 1
+                        //남은 탐험 수
+                        let remainCount = max(self.totalCount - self.currentCount, 0)
                         collectionView.reloadItems(at: [indexPath])
                         await MainActor.run {
-                            CourseQuestPopUp.showPopUp(
-                                on: self.view,
-                                message: "방문 성공! 앞으로 N곳 남았어요"
-                            ) {
-                                $0.highlightText(targetText: "N곳", font: .offroad(style: .iosTextBold))
+                            if remainCount == 0 {
+                                CourseQuestPopUp.showPopUp(
+                                    on: self.view,
+                                    message: "퀘스트 클리어! 보상을 받아보세요"
+                                ) {
+                                    $0.highlightText(targetText: "보상", font: .offroad(style: .iosTextBold))
+                                }
+                            } else {
+                                CourseQuestPopUp.showPopUp(
+                                    on: self.view,
+                                    message: "방문 성공! 앞으로 \(remainCount)곳 남았어요"
+                                ) {
+                                    $0.highlightText(targetText: "\(remainCount)곳", font: .offroad(style: .iosTextBold))
+                                }
                             }
                         }
                         
