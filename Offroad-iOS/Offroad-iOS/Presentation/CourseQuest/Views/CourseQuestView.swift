@@ -98,6 +98,7 @@ final class CourseQuestView: UIView {
             collectionView.backgroundColor = .yellow
             collectionView.delaysContentTouches = false
             collectionView.showsVerticalScrollIndicator = false
+            collectionView.isScrollEnabled = false
         }
         
         rewardButton.do { button in
@@ -131,11 +132,11 @@ final class CourseQuestView: UIView {
     private func setupLayout() {
         customNavigationBar.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
-            make.height.equalTo(112)
+            make.height.equalTo(123)
         }
         
         customBackButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(60)
+            make.top.equalToSuperview().inset(69)
             make.leading.equalToSuperview().inset(14)
         }
         
@@ -148,6 +149,7 @@ final class CourseQuestView: UIView {
         listContainerView.snp.makeConstraints { make in
             listTopConstraint = make.top.equalTo(mapView.snp.bottom).constraint
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
         }
         
         ddayContainerView.snp.makeConstraints {

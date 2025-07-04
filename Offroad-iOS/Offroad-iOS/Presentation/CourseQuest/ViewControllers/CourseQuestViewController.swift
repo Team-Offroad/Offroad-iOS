@@ -130,9 +130,32 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     
     @objc private func panGestureHandler(sender: UIPanGestureRecognizer) {
         let translationY = sender.translation(in: view).y
-        courseQuestView.listTopConstraint?.update(offset: (courseQuestView.listTopConstraint?.layoutConstraints.first?.constant ?? 0) + translationY)
+        
+        // scroll offset 막기
+        courseQuestView.listContainerView.contentOffset = .zero
+        
+        let currentOffset = courseQuestView.listTopConstraint?.layoutConstraints.first?.constant ?? 0
+        let newOffset = currentOffset + translationY
+        
+        // 바운스 방지: 최소값 = customNavigationBar 아래
+        let maxOffset: CGFloat = 0
+        let minOffset = -courseQuestView.mapView.frame.height - courseQuestView.customNavigationBar.frame.height
+        let clampedOffset = min(max(newOffset, minOffset), maxOffset)
+        
+        courseQuestView.listTopConstraint?.update(offset: clampedOffset)
         sender.setTranslation(.zero, in: view)
         view.layoutIfNeeded()
+        
+        // 최종 위치에서 스크롤 활성화
+        if sender.state == .ended {
+            if clampedOffset == minOffset {
+                courseQuestView.listContainerView.isScrollEnabled = true
+                courseQuestView.courseQuestPlaceCollectionView.isScrollEnabled = false
+            } else {
+                courseQuestView.listContainerView.isScrollEnabled = false
+                courseQuestView.courseQuestPlaceCollectionView.isScrollEnabled = true
+            }
+        }
     }
 }
 
