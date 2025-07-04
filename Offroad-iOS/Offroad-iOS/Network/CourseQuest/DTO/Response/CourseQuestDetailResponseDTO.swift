@@ -6,8 +6,6 @@
 //
 import Foundation
 
-import CoreLocation
-
 struct CourseQuestDetailResponseDTO: Codable {
     let message: String
     let data: CourseQuestDetailDataDTO

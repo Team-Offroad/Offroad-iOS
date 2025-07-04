@@ -43,18 +43,13 @@ final class CourseQuestPopUp: UIView {
 
         messageLabel.snp.makeConstraints {
             $0.leading.equalTo(iconImageView.snp.trailing).offset(11)
-            $0.centerY.equalToSuperview()
             $0.trailing.lessThanOrEqualToSuperview().inset(24)
+            $0.centerY.equalToSuperview()
+            $0.verticalEdges.equalToSuperview().inset(10.8)
         }
 
         messageLabel.text = message
         highlight?(messageLabel)
-    }
-
-    /// NSAttributedString으로 직접 전달받는 경우를 위한 생성자 (선택사항)
-    convenience init(attributedMessage: NSAttributedString) {
-        self.init(message: "")
-        messageLabel.attributedText = attributedMessage
     }
 
     required init?(coder: NSCoder) {

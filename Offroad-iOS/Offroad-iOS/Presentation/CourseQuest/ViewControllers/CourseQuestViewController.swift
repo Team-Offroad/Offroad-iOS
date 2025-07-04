@@ -40,8 +40,8 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     private let courseQuestView = CourseQuestView()
     private let courseQuestDetailService = CourseQuestDetailService()
     private var courseQuestPlaces: [CourseQuestDetailPlaceDTO] = []
-    var questId: Int?
-    var deadline: String?
+    private let questId: Int
+    private let deadline: String
     var totalCount: Int
     var currentCount: Int
     private let locationManager = CLLocationManager()
@@ -71,16 +71,12 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
         courseQuestView.listContainerView.delegate = self
         setupControlsTarget()
         
-        if let deadline = deadline {
-            let ddayString = Self.dday(from: deadline)
-            let dateString = formattedDate(from: deadline)
-            courseQuestView.deadlineDateLabel.text = "퀘스트 마감일: \(dateString)"
-            courseQuestView.ddayBadgeLabel.text = ddayString
-        }
+        let ddayString = Self.dday(from: deadline)
+        let dateString = formattedDate(from: deadline)
+        courseQuestView.deadlineDateLabel.text = "퀘스트 마감일: \(dateString)"
+        courseQuestView.ddayBadgeLabel.text = ddayString
         
-        if let questId = questId {
-            fetchCourseQuestDetail(questId: questId)
-        }
+        fetchCourseQuestDetail(questId: questId)
         
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
@@ -174,7 +170,9 @@ extension CourseQuestViewController: UICollectionViewDataSource {
                 )
             }
             
-            Task {
+            Task { [weak self] in
+                guard let self else { return }
+                
                 do {
                     let result = try await AdventureService().authenticateAdventurePlace(adventureAuthDTO: requestDTO)
                     
@@ -196,21 +194,19 @@ extension CourseQuestViewController: UICollectionViewDataSource {
                         //남은 탐험 수
                         let remainCount = max(self.totalCount - self.currentCount, 0)
                         collectionView.reloadItems(at: [indexPath])
-                        await MainActor.run {
-                            if remainCount == 0 {
-                                CourseQuestPopUp.showPopUp(
-                                    on: self.view,
-                                    message: "퀘스트 클리어! 보상을 받아보세요"
-                                ) {
-                                    $0.highlightText(targetText: "보상", font: .offroad(style: .iosTextBold))
-                                }
-                            } else {
-                                CourseQuestPopUp.showPopUp(
-                                    on: self.view,
-                                    message: "방문 성공! 앞으로 \(remainCount)곳 남았어요"
-                                ) {
-                                    $0.highlightText(targetText: "\(remainCount)곳", font: .offroad(style: .iosTextBold))
-                                }
+                        if remainCount == 0 {
+                            CourseQuestPopUp.showPopUp(
+                                on: self.view,
+                                message: "퀘스트 클리어! 보상을 받아보세요"
+                            ) {
+                                $0.highlightText(targetText: "보상", font: .offroad(style: .iosTextBold))
+                            }
+                        } else {
+                            CourseQuestPopUp.showPopUp(
+                                on: self.view,
+                                message: "방문 성공! 앞으로 \(remainCount)곳 남았어요"
+                            ) {
+                                $0.highlightText(targetText: "\(remainCount)곳", font: .offroad(style: .iosTextBold))
                             }
                         }
                         
@@ -219,29 +215,25 @@ extension CourseQuestViewController: UICollectionViewDataSource {
                         let message = AlertMessage.courseQuestFailureLocationMessage
                         let buttonTitle = "확인"
                         
-                        await MainActor.run {
-                            let alertController = ORBAlertController(
-                                title: AlertMessage.courseQuestFailureLocationTitle,
-                                message: message,
-                                type: .normal
-                            )
-                            alertController.configureMessageLabel {
-                                $0.highlightText(targetText: "위치", font: .offroad(style: .iosTextBold))
-                                $0.highlightText(targetText: "내일 다시", font: .offroad(style: .iosTextBold))
-                            }
-                            alertController.xButton.isHidden = true
-                            let action = ORBAlertAction(title: buttonTitle, style: .default) { _ in
-                                // 위치 인증 실패 시 후처리
-                            }
-                            alertController.addAction(action)
-                            self.present(alertController, animated: true)
+                        let alertController = ORBAlertController(
+                            title: AlertMessage.courseQuestFailureLocationTitle,
+                            message: message,
+                            type: .normal
+                        )
+                        alertController.configureMessageLabel {
+                            $0.highlightText(targetText: "위치", font: .offroad(style: .iosTextBold))
+                            $0.highlightText(targetText: "내일 다시", font: .offroad(style: .iosTextBold))
                         }
+                        alertController.xButton.isHidden = true
+                        let action = ORBAlertAction(title: buttonTitle, style: .default) { _ in
+                            // 위치 인증 실패 시 후처리
+                        }
+                        alertController.addAction(action)
+                        self.present(alertController, animated: true)
                     }
                     
                 } catch {
-                    await MainActor.run {
-                        print("탐험 인증에 실패했어요. 다시 시도해주세요.")
-                    }
+                    print("탐험 인증에 실패했어요. 다시 시도해주세요.")
                 }
             }
         }
