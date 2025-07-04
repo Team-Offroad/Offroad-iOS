@@ -79,6 +79,7 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
         
         courseQuestView.courseQuestPlaceCollectionView.dataSource = self
         courseQuestView.listContainerView.delegate = self
+        
         setupControlsTarget()
         
         if let deadline = deadline {
@@ -120,10 +121,18 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     
     private func setupControlsTarget() {
         courseQuestView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
+        courseQuestView.panGesture.addTarget(self, action: #selector(panGestureHandler))
     }
     
     @objc private func customBackButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func panGestureHandler(sender: UIPanGestureRecognizer) {
+        let translationY = sender.translation(in: view).y
+        courseQuestView.listTopConstraint?.update(offset: (courseQuestView.listTopConstraint?.layoutConstraints.first?.constant ?? 0) + translationY)
+        sender.setTranslation(.zero, in: view)
+        view.layoutIfNeeded()
     }
 }
 
@@ -185,5 +194,38 @@ extension CourseQuestViewController: UICollectionViewDataSource {
                 toast.removeFromSuperview()
             })
         })
+    }
+}
+
+extension CourseQuestViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let yOffset = scrollView.contentOffset.y
+        
+        let navBarBottom = courseQuestView.customNavigationBar.frame.maxY
+        
+        if yOffset > 0 && yOffset < navBarBottom {
+            courseQuestView.listContainerView.snp.remakeConstraints { make in
+                make.top.equalTo(courseQuestView.mapView.snp.bottom).offset(-yOffset)
+                make.horizontalEdges.equalTo(courseQuestView.safeAreaLayoutGuide)
+            }
+        } else if yOffset >= navBarBottom {
+            courseQuestView.listContainerView.snp.remakeConstraints { make in
+                make.top.equalTo(courseQuestView.customNavigationBar.snp.bottom)
+                make.horizontalEdges.equalTo(courseQuestView.safeAreaLayoutGuide)
+            }
+            courseQuestView.listContainerView.isScrollEnabled = true
+        }
+    }
+
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let yOffset = scrollView.contentOffset.y
+        let navBarBottom = courseQuestView.customNavigationBar.frame.maxY
+        let snapThreshold = navBarBottom / 2
+        
+        if yOffset < snapThreshold {
+            targetContentOffset.pointee.y = 0
+        } else {
+            targetContentOffset.pointee.y = -navBarBottom
+        }
     }
 }

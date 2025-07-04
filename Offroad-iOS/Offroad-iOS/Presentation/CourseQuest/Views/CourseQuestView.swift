@@ -14,7 +14,7 @@ final class CourseQuestView: UIView {
     
     //MARK: - UI Properties
     
-    private let customNavigationBar = UIView()
+    let customNavigationBar = UIView()
     let customBackButton = NavigationPopButton()
     
     let mapView = CourseQuestMapView()
@@ -37,6 +37,10 @@ final class CourseQuestView: UIView {
     }
     
     private let rewardButton = ShrinkableButton()
+    
+    //MARK: - Properties
+    
+    let panGesture = UIPanGestureRecognizer()
     
     //MARK: - Life Cycle
     
@@ -84,12 +88,14 @@ final class CourseQuestView: UIView {
         }
         
         listContainerView.do { view in
-            view.backgroundColor = .main(.main1)
+            view.backgroundColor = .red
             view.showsVerticalScrollIndicator = false
+            view.addGestureRecognizer(panGesture)
+            view.isScrollEnabled = false
         }
         
         courseQuestPlaceCollectionView.do { collectionView in
-            collectionView.backgroundColor = .main(.main1)
+            collectionView.backgroundColor = .yellow
             collectionView.delaysContentTouches = false
             collectionView.showsVerticalScrollIndicator = false
         }
@@ -169,7 +175,7 @@ final class CourseQuestView: UIView {
             $0.top.equalTo(ddayContainerView.snp.bottom)
             $0.bottom.equalToSuperview()
             $0.horizontalEdges.equalTo(listContainerView.frameLayoutGuide)
-            $0.height.equalTo(357)
+            $0.height.equalTo(UIScreen.main.bounds.height - 169)
         }
         
         rewardButton.snp.makeConstraints {
