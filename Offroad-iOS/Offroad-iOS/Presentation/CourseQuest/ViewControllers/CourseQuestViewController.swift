@@ -45,6 +45,9 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     var totalCount: Int
     var currentCount: Int
     private let locationManager = CLLocationManager()
+    private var completedQuests: [CompleteQuest] = []
+    var onQuestCompleted: (([CompleteQuest]) -> Void)?
+    var onQuestProgressUpdated: (() -> Void)?
     
     // MARK: - Life Cycle
     
@@ -128,6 +131,10 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     }
     
     @objc private func customBackButtonTapped() {
+        onQuestProgressUpdated?()
+        if !completedQuests.isEmpty {
+            onQuestCompleted?(completedQuests)
+        }
         navigationController?.popViewController(animated: true)
     }
 }
@@ -175,6 +182,9 @@ extension CourseQuestViewController: UICollectionViewDataSource {
                 
                 do {
                     let result = try await AdventureService().authenticateAdventurePlace(adventureAuthDTO: requestDTO)
+                    if let completedList = result.completeQuestList {
+                        self.completedQuests = completedList
+                    }
                     
                     switch (result.isValidPosition, result.isFirstVisitToday) {
                     case (true, true):
@@ -225,9 +235,7 @@ extension CourseQuestViewController: UICollectionViewDataSource {
                             $0.highlightText(targetText: "내일 다시", font: .offroad(style: .iosTextBold))
                         }
                         alertController.xButton.isHidden = true
-                        let action = ORBAlertAction(title: buttonTitle, style: .default) { _ in
-                            // 위치 인증 실패 시 후처리
-                        }
+                        let action = ORBAlertAction(title: buttonTitle, style: .default) { _ in }
                         alertController.addAction(action)
                         self.present(alertController, animated: true)
                     }

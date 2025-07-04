@@ -153,6 +153,7 @@ final class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
         clearImageView.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(6)
             $0.centerY.equalToSuperview()
+            $0.size.equalTo(75)
         }
     }
     

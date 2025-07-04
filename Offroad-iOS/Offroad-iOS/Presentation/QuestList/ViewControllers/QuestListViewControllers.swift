@@ -92,6 +92,13 @@ extension QuestListViewController {
                 totalCount: quest.totalCount,
                 currentCount: quest.currentCount
             )
+            courseQuestViewController.onQuestProgressUpdated = { [weak self] in
+                self?.rootView.questListCollectionView.getInitialQuestList(isActive: true)
+                self?.rootView.questListCollectionView.reloadData()
+            }
+            courseQuestViewController.onQuestCompleted = { [weak self] completedQuests in
+                self?.popupQuestCompletion(completeQuests: completedQuests)
+            }
             self?.navigationController?.pushViewController(courseQuestViewController, animated: true)
         }
 #endif
@@ -105,6 +112,32 @@ extension QuestListViewController {
         let okAction = ORBAlertAction(title: "확인", style: .default) { _ in return }
         alertController.addAction(okAction)
         present(alertController, animated: true)
+    }
+    
+    ///코스퀘스트 장소 방문으로 타 퀘스트 클리어 했을 때의 예외케이스 팝업 띄우는 함수
+    private func popupQuestCompletion(completeQuests: [CompleteQuest]) {
+        let message: String
+        if completeQuests.isEmpty { return }
+        else if completeQuests.count == 1 {
+            message = AlertMessage.completeSingleQuestMessage(questName: completeQuests.first!.name)
+        } else {
+            message = AlertMessage.completeMultipleQuestsMessage(
+                firstQuestName: completeQuests.first!.name,
+                questCount: completeQuests.count
+            )
+        }
+        
+        let questCompleteAlertController = ORBAlertController(
+            title: AlertMessage.completeQuestsTitle,
+            message: message,
+            type: .normal
+        )
+        questCompleteAlertController.xButton.isHidden = true
+        let action = ORBAlertAction(title: "확인", style: .default) { _ in
+            AmplitudeManager.shared.trackEvent(withName: AmplitudeEventTitles.questSuccess)
+        }
+        questCompleteAlertController.addAction(action)
+        present(questCompleteAlertController, animated: true)
     }
     
 }
