@@ -129,31 +129,47 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     }
     
     @objc private func panGestureHandler(sender: UIPanGestureRecognizer) {
-        let translationY = sender.translation(in: view).y
-        
-        // scroll offset 막기
+        let draggedDistanceY = sender.translation(in: view).y
+
         courseQuestView.listContainerView.contentOffset = .zero
-        
-        let currentOffset = courseQuestView.listTopConstraint?.layoutConstraints.first?.constant ?? 0
-        let newOffset = currentOffset + translationY
-        
-        // 바운스 방지: 최소값 = customNavigationBar 아래
-        let maxOffset: CGFloat = 0
-        let minOffset = -courseQuestView.mapView.frame.height - courseQuestView.customNavigationBar.frame.height
-        let clampedOffset = min(max(newOffset, minOffset), maxOffset)
-        
-        courseQuestView.listTopConstraint?.update(offset: clampedOffset)
+
+        // listContainerView가 얼마나 위로 올라갔는지에 대한 offset
+        let currentTopOffset = courseQuestView.listTopConstraint?.layoutConstraints.first?.constant ?? 0
+        // 팬 드래그 양만큼 새로운 위치 계산
+        let proposedTopOffset = currentTopOffset + draggedDistanceY
+
+         ///고정 위치 정의
+         /// -fullyCollapsedOffset: navigationBar 아래에 붙은 위치
+         /// -fullyExpandedOffset: mapView 아래 기본 위치
+        let fullyCollapsedOffset: CGFloat = -courseQuestView.mapView.frame.height
+        let fullyExpandedOffset: CGFloat = 0
+
+        // 바운스 방지를 위한 offset 제한
+        let boundedTopOffset = min(max(proposedTopOffset, fullyCollapsedOffset), fullyExpandedOffset)
+
+        courseQuestView.listTopConstraint?.update(offset: boundedTopOffset)
         sender.setTranslation(.zero, in: view)
-        view.layoutIfNeeded()
-        
-        // 최종 위치에서 스크롤 활성화
+
+        /// 팬 동작이 끝났을 때: 위로 붙일지, 아래로 내릴지 결정하는 코드
         if sender.state == .ended {
-            if clampedOffset == minOffset {
+            // 스냅 기준: 위로 얼마만큼 가까이 올라갔는지를 기준으로 결정
+            let snapThreshold = courseQuestView.mapView.frame.height / 2
+            let distanceToCollapse = abs(boundedTopOffset - fullyCollapsedOffset)
+
+            if distanceToCollapse < snapThreshold {
+                // 위로 절반 이상 올라갔다면: navigationBar 아래로 딱 붙이기
+                courseQuestView.listTopConstraint?.update(offset: fullyCollapsedOffset)
                 courseQuestView.listContainerView.isScrollEnabled = true
-                courseQuestView.courseQuestPlaceCollectionView.isScrollEnabled = false
-            } else {
-                courseQuestView.listContainerView.isScrollEnabled = false
                 courseQuestView.courseQuestPlaceCollectionView.isScrollEnabled = true
+            } else {
+                // 절반 미만이면: 다시 아래로 내려오기 (기본 위치)
+                courseQuestView.listTopConstraint?.update(offset: fullyExpandedOffset)
+                courseQuestView.listContainerView.isScrollEnabled = false
+                courseQuestView.courseQuestPlaceCollectionView.isScrollEnabled = false
+            }
+
+            UIView.animate(withDuration: 0.25, delay: 0, options: [.curveEaseInOut]) {
+                self.view.layoutIfNeeded()
             }
         }
     }
@@ -217,38 +233,5 @@ extension CourseQuestViewController: UICollectionViewDataSource {
                 toast.removeFromSuperview()
             })
         })
-    }
-}
-
-extension CourseQuestViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let yOffset = scrollView.contentOffset.y
-        
-        let navBarBottom = courseQuestView.customNavigationBar.frame.maxY
-        
-        if yOffset > 0 && yOffset < navBarBottom {
-            courseQuestView.listContainerView.snp.remakeConstraints { make in
-                make.top.equalTo(courseQuestView.mapView.snp.bottom).offset(-yOffset)
-                make.horizontalEdges.equalTo(courseQuestView.safeAreaLayoutGuide)
-            }
-        } else if yOffset >= navBarBottom {
-            courseQuestView.listContainerView.snp.remakeConstraints { make in
-                make.top.equalTo(courseQuestView.customNavigationBar.snp.bottom)
-                make.horizontalEdges.equalTo(courseQuestView.safeAreaLayoutGuide)
-            }
-            courseQuestView.listContainerView.isScrollEnabled = true
-        }
-    }
-
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let yOffset = scrollView.contentOffset.y
-        let navBarBottom = courseQuestView.customNavigationBar.frame.maxY
-        let snapThreshold = navBarBottom / 2
-        
-        if yOffset < snapThreshold {
-            targetContentOffset.pointee.y = 0
-        } else {
-            targetContentOffset.pointee.y = -navBarBottom
-        }
     }
 }

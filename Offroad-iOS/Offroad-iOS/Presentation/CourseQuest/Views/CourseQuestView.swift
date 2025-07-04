@@ -88,14 +88,14 @@ final class CourseQuestView: UIView {
         }
         
         listContainerView.do { view in
-            view.backgroundColor = .red
+            view.backgroundColor = .main(.main1)
             view.showsVerticalScrollIndicator = false
             view.addGestureRecognizer(panGesture)
             view.isScrollEnabled = false
         }
         
         courseQuestPlaceCollectionView.do { collectionView in
-            collectionView.backgroundColor = .yellow
+            collectionView.backgroundColor = .main(.main1)
             collectionView.delaysContentTouches = false
             collectionView.showsVerticalScrollIndicator = false
             collectionView.isScrollEnabled = false
@@ -149,7 +149,8 @@ final class CourseQuestView: UIView {
         listContainerView.snp.makeConstraints { make in
             listTopConstraint = make.top.equalTo(mapView.snp.bottom).constraint
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
-            make.bottom.equalToSuperview()
+            //더미 rewardButton 삭제 요청 받을 시 활성화시킬 코드
+            //make.bottom.equalToSuperview()
         }
         
         ddayContainerView.snp.makeConstraints {
