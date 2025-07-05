@@ -47,7 +47,6 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     private let locationManager = CLLocationManager()
     private var completedQuests: [CompleteQuest] = []
     var onQuestCompleted: (([CompleteQuest]) -> Void)?
-    var onQuestProgressUpdated: (() -> Void)?
     
     // MARK: - Life Cycle
     
@@ -131,7 +130,6 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     }
     
     @objc private func customBackButtonTapped() {
-        onQuestProgressUpdated?()
         if !completedQuests.isEmpty {
             onQuestCompleted?(completedQuests)
         }

@@ -58,6 +58,9 @@ class QuestListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        rootView.questListCollectionView.getInitialQuestList(isActive: true)
+        rootView.questListCollectionView.reloadData()
+        
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
     }
@@ -92,10 +95,6 @@ extension QuestListViewController {
                 totalCount: quest.totalCount,
                 currentCount: quest.currentCount
             )
-            courseQuestViewController.onQuestProgressUpdated = { [weak self] in
-                self?.rootView.questListCollectionView.getInitialQuestList(isActive: true)
-                self?.rootView.questListCollectionView.reloadData()
-            }
             courseQuestViewController.onQuestCompleted = { [weak self] completedQuests in
                 self?.popupQuestCompletion(completeQuests: completedQuests)
             }

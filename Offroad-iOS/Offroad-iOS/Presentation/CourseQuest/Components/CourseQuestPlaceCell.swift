@@ -62,7 +62,6 @@ final class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
     
     private let clearImageView = UIImageView().then {
         $0.image = UIImage(resource: .icnClearStamp)
-        $0.isHidden = true
     }
     
     var onVisit: (() -> Void)?
@@ -168,8 +167,15 @@ final class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
         nameLabel.text = model.name
         addressLabel.text = model.address
         
-        visitButton.isHidden = model.isVisited ?? false
-        clearImageView.isHidden = !(model.isVisited ?? false)
+        //        visitButton.isHidden = model.isVisited ?? false
+        //        clearImageView.isHidden = !(model.isVisited ?? false)
+        let isVisited = model.isVisited == true
+        
+        visitButton.alpha = isVisited ? 0 : 1
+        visitButton.isUserInteractionEnabled = !isVisited
+        
+        clearImageView.alpha = isVisited ? 1 : 0
+        clearImageView.isHidden = !isVisited
         
         switch model.category {
         case "카페": indicatorImageView.image = UIImage(resource: .icnYellowIndicator)
