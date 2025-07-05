@@ -130,9 +130,7 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     }
     
     @objc private func customBackButtonTapped() {
-        if !completedQuests.isEmpty {
-            onQuestCompleted?(completedQuests)
-        }
+        onQuestCompleted?(completedQuests)
         navigationController?.popViewController(animated: true)
     }
 }

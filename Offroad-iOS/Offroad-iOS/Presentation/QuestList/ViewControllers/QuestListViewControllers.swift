@@ -34,6 +34,7 @@ class QuestListViewController: UIViewController {
     }
     
     private let operationQueue = OperationQueue()
+    private var completedQuestsFromCourse: [CompleteQuest]?
     
     //MARK: - UI Properties
     
@@ -57,6 +58,11 @@ class QuestListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if let completed = completedQuestsFromCourse, !completed.isEmpty {
+                popupQuestCompletion(completeQuests: completed)
+                completedQuestsFromCourse = nil // 한 번만 띄우도록 초기화
+            }
         
         rootView.questListCollectionView.getInitialQuestList(isActive: true)
         rootView.questListCollectionView.reloadData()
@@ -96,7 +102,7 @@ extension QuestListViewController {
                 currentCount: quest.currentCount
             )
             courseQuestViewController.onQuestCompleted = { [weak self] completedQuests in
-                self?.popupQuestCompletion(completeQuests: completedQuests)
+                self?.completedQuestsFromCourse = completedQuests
             }
             self?.navigationController?.pushViewController(courseQuestViewController, animated: true)
         }
