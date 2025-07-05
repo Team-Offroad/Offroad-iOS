@@ -32,7 +32,7 @@ final class CourseQuestView: UIView {
         layout.minimumLineSpacing = 19
         $0.collectionViewLayout = layout
         $0.backgroundColor = .clear
-        $0.contentInset = .init(top: 17, left: 0, bottom: 103.5, right: 0)
+        $0.contentInset = .init(top: 17, left: 0, bottom: 125, right: 0)
         $0.register(CourseQuestPlaceCell.self, forCellWithReuseIdentifier: "CourseQuestPlaceCell")
     }
     
