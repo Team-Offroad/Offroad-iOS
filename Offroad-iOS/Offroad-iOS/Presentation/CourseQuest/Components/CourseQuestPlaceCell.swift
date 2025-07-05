@@ -139,7 +139,7 @@ final class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
             $0.top.equalTo(nameLabel.snp.bottom).offset(7)
             $0.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
             $0.trailing.lessThanOrEqualToSuperview().inset(14)
-            $0.bottom.lessThanOrEqualToSuperview().inset(12.8)
+            $0.bottom.equalToSuperview().inset(12.8)
         }
         
         visitButton.snp.makeConstraints {
