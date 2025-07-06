@@ -71,6 +71,7 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
         
         courseQuestView.courseQuestPlaceCollectionView.dataSource = self
         courseQuestView.listContainerView.delegate = self
+        
         setupControlsTarget()
         
         let ddayString = Self.dday(from: deadline)
@@ -111,6 +112,7 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     
     private func setupControlsTarget() {
         courseQuestView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
+        courseQuestView.panGesture.addTarget(self, action: #selector(panGestureHandler))
     }
     
     private func formattedDate(from deadline: String) -> String {
@@ -132,6 +134,52 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     @objc private func customBackButtonTapped() {
         onQuestCompleted?(completedQuests)
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func panGestureHandler(sender: UIPanGestureRecognizer) {
+        let draggedDistanceY = sender.translation(in: view).y
+
+        courseQuestView.listContainerView.contentOffset = .zero
+
+        // listContainerView가 얼마나 위로 올라갔는지에 대한 offset
+        let currentTopOffset = courseQuestView.listTopConstraint?.layoutConstraints.first?.constant ?? 0
+        // 팬 드래그 양만큼 새로운 위치 계산
+        let proposedTopOffset = currentTopOffset + draggedDistanceY
+
+         ///고정 위치 정의
+         /// -fullyCollapsedOffset: navigationBar 아래에 붙은 위치
+         /// -fullyExpandedOffset: mapView 아래 기본 위치
+        let fullyCollapsedOffset: CGFloat = -courseQuestView.mapView.frame.height
+        let fullyExpandedOffset: CGFloat = 0
+
+        // 바운스 방지를 위한 offset 제한
+        let boundedTopOffset = min(max(proposedTopOffset, fullyCollapsedOffset), fullyExpandedOffset)
+
+        courseQuestView.listTopConstraint?.update(offset: boundedTopOffset)
+        sender.setTranslation(.zero, in: view)
+
+        /// 팬 동작이 끝났을 때: 위로 붙일지, 아래로 내릴지 결정하는 코드
+        if sender.state == .ended {
+            // 스냅 기준: 위로 얼마만큼 가까이 올라갔는지를 기준으로 결정
+            let snapThreshold = courseQuestView.mapView.frame.height / 2
+            let distanceToCollapse = abs(boundedTopOffset - fullyCollapsedOffset)
+
+            if distanceToCollapse < snapThreshold {
+                // 위로 절반 이상 올라갔다면: navigationBar 아래로 딱 붙이기
+                courseQuestView.listTopConstraint?.update(offset: fullyCollapsedOffset)
+                courseQuestView.listContainerView.isScrollEnabled = true
+                courseQuestView.courseQuestPlaceCollectionView.isScrollEnabled = true
+            } else {
+                // 절반 미만이면: 다시 아래로 내려오기 (기본 위치)
+                courseQuestView.listTopConstraint?.update(offset: fullyExpandedOffset)
+                courseQuestView.listContainerView.isScrollEnabled = false
+                courseQuestView.courseQuestPlaceCollectionView.isScrollEnabled = false
+            }
+
+            UIView.animate(withDuration: 0.25, delay: 0, options: [.curveEaseInOut]) {
+                self.view.layoutIfNeeded()
+            }
+        }
     }
 }
 
