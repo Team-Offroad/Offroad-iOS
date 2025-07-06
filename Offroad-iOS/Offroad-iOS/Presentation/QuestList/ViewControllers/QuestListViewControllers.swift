@@ -60,11 +60,12 @@ class QuestListViewController: UIViewController {
         super.viewWillAppear(animated)
         
         if let completed = completedQuestsFromCourse, !completed.isEmpty {
-                popupQuestCompletion(completeQuests: completed)
-                completedQuestsFromCourse = nil // 한 번만 띄우도록 초기화
-            }
+            popupQuestCompletion(completeQuests: completed)
+            completedQuestsFromCourse = nil // 한 번만 띄우도록 초기화
+        }
         
-        rootView.questListCollectionView.getInitialQuestList(isActive: true)
+        let currentIsActive = rootView.questListCollectionView.isActive
+        rootView.questListCollectionView.getInitialQuestList(isActive: currentIsActive)
         rootView.questListCollectionView.reloadData()
         
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
