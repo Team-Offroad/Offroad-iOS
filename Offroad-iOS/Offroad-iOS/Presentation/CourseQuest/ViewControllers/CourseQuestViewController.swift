@@ -8,16 +8,9 @@ import UIKit
 
 import SnapKit
 import Then
+import CoreLocation
 
 class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIGestureRecognizerDelegate {
-    
-    // MARK: - Properties
-    
-    private let courseQuestView = CourseQuestView()
-    private let courseQuestDetailService = CourseQuestDetailService()
-    private var courseQuestPlaces: [CourseQuestDetailPlaceDTO] = []
-    var questId: Int?
-    var deadline: String?
     
     // MARK: - Type Methods
     
@@ -42,27 +35,26 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
         return daysLeft >= 0 ? "D-\(daysLeft)" : "종료"
     }
     
-    private func formattedDate(from deadline: String) -> String {
-        let inputFormatter = DateFormatter()
-        inputFormatter.calendar = .init(identifier: .gregorian)
-        inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        inputFormatter.timeZone = TimeZone(secondsFromGMT: 32400)
-        
-        let outputFormatter = DateFormatter()
-        outputFormatter.calendar = .init(identifier: .gregorian)
-        outputFormatter.dateFormat = "yy.MM.dd"
-        outputFormatter.timeZone = TimeZone(secondsFromGMT: 32400)
-        outputFormatter.locale = Locale(identifier: "ko_KR")
-        
-        guard let date = inputFormatter.date(from: deadline) else { return "--.--.--" }
-        return outputFormatter.string(from: date)
-    }
+    // MARK: - Properties
+    
+    private let courseQuestView = CourseQuestView()
+    private let courseQuestDetailService = CourseQuestDetailService()
+    private var courseQuestPlaces: [CourseQuestDetailPlaceDTO] = []
+    private let questId: Int
+    private let deadline: String
+    var totalCount: Int
+    var currentCount: Int
+    private let locationManager = CLLocationManager()
+    private var completedQuests: [CompleteQuest] = []
+    var onQuestCompleted: (([CompleteQuest]) -> Void)?
     
     // MARK: - Life Cycle
     
-    init(questId: Int, deadline: String) {
+    init(questId: Int, deadline: String, totalCount: Int, currentCount: Int) {
         self.questId = questId
         self.deadline = deadline
+        self.totalCount = totalCount
+        self.currentCount = currentCount
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -81,16 +73,15 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
         courseQuestView.listContainerView.delegate = self
         setupControlsTarget()
         
-        if let deadline = deadline {
-            let ddayString = Self.dday(from: deadline)
-            let dateString = formattedDate(from: deadline)
-            courseQuestView.deadlineDateLabel.text = "퀘스트 마감일: \(dateString)"
-            courseQuestView.ddayBadgeLabel.text = ddayString
-        }
+        let ddayString = Self.dday(from: deadline)
+        let dateString = formattedDate(from: deadline)
+        courseQuestView.deadlineDateLabel.text = "퀘스트 마감일: \(dateString)"
+        courseQuestView.ddayBadgeLabel.text = ddayString
         
-        if let questId = questId {
-            fetchCourseQuestDetail(questId: questId)
-        }
+        fetchCourseQuestDetail(questId: questId)
+        
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,7 +113,24 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
         courseQuestView.customBackButton.addTarget(self, action: #selector(customBackButtonTapped), for: .touchUpInside)
     }
     
+    private func formattedDate(from deadline: String) -> String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.calendar = .init(identifier: .gregorian)
+        inputFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        inputFormatter.timeZone = TimeZone(secondsFromGMT: 32400)
+        
+        let outputFormatter = DateFormatter()
+        outputFormatter.calendar = .init(identifier: .gregorian)
+        outputFormatter.dateFormat = "yy.MM.dd"
+        outputFormatter.timeZone = TimeZone(secondsFromGMT: 32400)
+        outputFormatter.locale = Locale(identifier: "ko_KR")
+        
+        guard let date = inputFormatter.date(from: deadline) else { return "--.--.--" }
+        return outputFormatter.string(from: date)
+    }
+    
     @objc private func customBackButtonTapped() {
+        onQuestCompleted?(completedQuests)
         navigationController?.popViewController(animated: true)
     }
 }
@@ -141,49 +149,98 @@ extension CourseQuestViewController: UICollectionViewDataSource {
         let quest = courseQuestPlaces[indexPath.item]
         cell.configure(with: quest)
         cell.onVisit = { [weak self] in
-            self?.courseQuestPlaces[indexPath.item] = CourseQuestDetailPlaceDTO(
-                category: quest.category,
-                name: quest.name,
-                address: quest.address,
-                latitude: quest.latitude,
-                longitude: quest.longitude,
-                isVisited: true,
-                categoryImage: quest.categoryImage,
-                description: quest.description,
-                placeId: quest.placeId
-            )
-            collectionView.reloadItems(at: [indexPath])
-            self?.showToast("방문 성공! 앞으로 N곳 남았어요")
+            guard let self else { return }
+            let place = quest
+            
+            guard let currentCoordinate = locationManager.location?.coordinate else { return }
+            
+            // 변수 먼저 선언
+            var requestDTO: AdventuresPlaceAuthenticationRequestDTO
+            
+            // 개발자 모드의 설정값 중 '탐험 시 위치 인증 무시' 값에 따라 분기 처리
+            let locationAuthenticationBypassing = UserDefaults.standard.bool(forKey: "bypassLocationAuthentication")
+            if locationAuthenticationBypassing {
+                requestDTO = AdventuresPlaceAuthenticationRequestDTO(
+                    placeId: place.placeId,
+                    latitude: place.latitude,
+                    longitude: place.longitude
+                )
+            } else {
+                requestDTO = AdventuresPlaceAuthenticationRequestDTO(
+                    placeId: place.placeId,
+                    latitude: currentCoordinate.latitude,
+                    longitude: currentCoordinate.longitude
+                )
+            }
+            
+            Task { [weak self] in
+                guard let self else { return }
+                
+                do {
+                    let result = try await AdventureService().authenticateAdventurePlace(adventureAuthDTO: requestDTO)
+                    if let completedList = result.completeQuestList {
+                        self.completedQuests = completedList
+                    }
+                    
+                    switch (result.isValidPosition, result.isFirstVisitToday) {
+                    case (true, true):
+                        // 탐험 성공
+                        self.courseQuestPlaces[indexPath.item] = CourseQuestDetailPlaceDTO(
+                            category: place.category,
+                            name: place.name,
+                            address: place.address,
+                            latitude: place.latitude,
+                            longitude: place.longitude,
+                            isVisited: true,
+                            categoryImage: place.categoryImage,
+                            description: place.description,
+                            placeId: place.placeId
+                        )
+                        self.currentCount += 1
+                        //남은 탐험 수
+                        let remainCount = max(self.totalCount - self.currentCount, 0)
+                        collectionView.reloadItems(at: [indexPath])
+                        if remainCount == 0 {
+                            CourseQuestPopUp.showPopUp(
+                                on: self.view,
+                                message: "퀘스트 클리어! 보상을 받아보세요"
+                            ) {
+                                $0.highlightText(targetText: "보상", font: .offroad(style: .iosTextBold))
+                            }
+                        } else {
+                            CourseQuestPopUp.showPopUp(
+                                on: self.view,
+                                message: "방문 성공! 앞으로 \(remainCount)곳 남았어요"
+                            ) {
+                                $0.highlightText(targetText: "\(remainCount)곳", font: .offroad(style: .iosTextBold))
+                            }
+                        }
+                        
+                    default:
+                        // 위치 인증 실패 → ORBAlertController 사용
+                        let message = AlertMessage.courseQuestFailureLocationMessage
+                        let buttonTitle = "확인"
+                        
+                        let alertController = ORBAlertController(
+                            title: AlertMessage.courseQuestFailureLocationTitle,
+                            message: message,
+                            type: .normal
+                        )
+                        alertController.configureMessageLabel {
+                            $0.highlightText(targetText: "위치", font: .offroad(style: .iosTextBold))
+                            $0.highlightText(targetText: "내일 다시", font: .offroad(style: .iosTextBold))
+                        }
+                        alertController.xButton.isHidden = true
+                        let action = ORBAlertAction(title: buttonTitle, style: .default) { _ in }
+                        alertController.addAction(action)
+                        self.present(alertController, animated: true)
+                    }
+                    
+                } catch {
+                    print("탐험 인증에 실패했어요. 다시 시도해주세요.")
+                }
+            }
         }
         return cell
-    }
-    
-    func showToast(_ message: String) {
-        let toast = UILabel()
-        toast.text = message
-        toast.textAlignment = .center
-        toast.backgroundColor = UIColor.black.withAlphaComponent(0.55)
-        toast.textColor = .white
-        toast.font = .offroad(style: .iosText)
-        toast.roundCorners(cornerRadius: 10)
-        toast.clipsToBounds = true
-        
-        view.addSubview(toast)
-        toast.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(80)
-            make.height.equalTo(40)
-            make.width.lessThanOrEqualToSuperview().offset(-40)
-        }
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            toast.alpha = 1
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.3, delay: 2, options: [], animations: {
-                toast.alpha = 0
-            }, completion: { _ in
-                toast.removeFromSuperview()
-            })
-        })
     }
 }

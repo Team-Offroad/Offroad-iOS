@@ -536,6 +536,7 @@
 		87A7D88F2DD3632E00B89109 /* CourseQuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7D88E2DD3632500B89109 /* CourseQuestViewController.swift */; };
 		87A7D8922DD3638600B89109 /* CourseQuestPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7D8912DD3637C00B89109 /* CourseQuestPlace.swift */; };
 		87A7D8972DD3648E00B89109 /* CourseQuestPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7D8952DD3648600B89109 /* CourseQuestPlaceCell.swift */; };
+		87ACD2AC2E14075D0043D323 /* CourseQuestPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ACD2AB2E1407470043D323 /* CourseQuestPopUp.swift */; };
 		87C27F6B2D7FED19008036FA /* CourseQuestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F692D7FED19008036FA /* CourseQuestCollectionViewCell.swift */; };
 		87C27F8D2D80482F008036FA /* IconLabelStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F8C2D80482F008036FA /* IconLabelStackView.swift */; };
 		87D9A70D2CE9BC1700F1CECD /* ScrollLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9A70C2CE9BC1700F1CECD /* ScrollLoadingView.swift */; };
@@ -938,6 +939,7 @@
 		87A7D88E2DD3632500B89109 /* CourseQuestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseQuestViewController.swift; sourceTree = "<group>"; };
 		87A7D8912DD3637C00B89109 /* CourseQuestPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseQuestPlace.swift; sourceTree = "<group>"; };
 		87A7D8952DD3648600B89109 /* CourseQuestPlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseQuestPlaceCell.swift; sourceTree = "<group>"; };
+		87ACD2AB2E1407470043D323 /* CourseQuestPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseQuestPopUp.swift; sourceTree = "<group>"; };
 		87C27F692D7FED19008036FA /* CourseQuestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseQuestCollectionViewCell.swift; sourceTree = "<group>"; };
 		87C27F8C2D80482F008036FA /* IconLabelStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabelStackView.swift; sourceTree = "<group>"; };
 		87D9A70C2CE9BC1700F1CECD /* ScrollLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollLoadingView.swift; sourceTree = "<group>"; };
@@ -2544,6 +2546,7 @@
 		87A7D88B2DD362BD00B89109 /* CourseQuest */ = {
 			isa = PBXGroup;
 			children = (
+				87ACD2AA2E1407360043D323 /* Components */,
 				87A7D8942DD3638F00B89109 /* Models */,
 				87A7D88D2DD3630F00B89109 /* ViewControllers */,
 				87A7D88C2DD362FE00B89109 /* Views */,
@@ -2556,7 +2559,6 @@
 			children = (
 				878849042E0A070B00CD0E0C /* CourseQuestMapView.swift */,
 				87F51BB32DDDFD780020AF04 /* CourseQuestView.swift */,
-				87A7D8952DD3648600B89109 /* CourseQuestPlaceCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2575,6 +2577,15 @@
 				87A7D8912DD3637C00B89109 /* CourseQuestPlace.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		87ACD2AA2E1407360043D323 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				87ACD2AB2E1407470043D323 /* CourseQuestPopUp.swift */,
+				87A7D8952DD3648600B89109 /* CourseQuestPlaceCell.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		87D9CA0D2E09EE7E00DD8493 /* CourseQuest */ = {
@@ -4111,6 +4122,7 @@
 				4E4F31692D4718F400C3B2FF /* OffroadTabBarViewController.swift in Sources */,
 				4E4F316A2D4718F400C3B2FF /* AdventureInfoResponseDTO.swift in Sources */,
 				D07D3AD72D9074B70030995E /* DiaryService.swift in Sources */,
+				87ACD2AC2E14075D0043D323 /* CourseQuestPopUp.swift in Sources */,
 				87C27F6B2D7FED19008036FA /* CourseQuestCollectionViewCell.swift in Sources */,
 				D022320C2D76CCE700DA6968 /* DiaryGuideView.swift in Sources */,
 				4E4F316C2D4718F400C3B2FF /* ORBAlertButton.swift in Sources */,

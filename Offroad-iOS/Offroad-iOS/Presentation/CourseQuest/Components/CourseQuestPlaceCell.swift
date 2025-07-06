@@ -27,8 +27,9 @@ final class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
         $0.roundCorners(cornerRadius: 5)
     }
     
-    private let typeLabelView = UIImageView().then {
-        $0.image = .icnPurpleCategory
+    private let typeLabelView = UIView().then {
+        $0.roundCorners(cornerRadius: 10)
+        $0.backgroundColor = .neutral(.nametagInactive)
     }
     
     private let typeLabel = UILabel().then {
@@ -61,7 +62,6 @@ final class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
     
     private let clearImageView = UIImageView().then {
         $0.image = UIImage(resource: .icnClearStamp)
-        $0.isHidden = true
     }
     
     var onVisit: (() -> Void)?
@@ -108,7 +108,6 @@ final class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
             $0.top.equalToSuperview()
             $0.leading.equalTo(indicatorImageView.snp.trailing).offset(12)
             $0.trailing.equalToSuperview()
-            //            $0.bottom.equalTo(addressLabel.snp.bottom).offset(12.8)
             $0.bottom.equalToSuperview()
             $0.width.equalTo(UIScreen.main.bounds.width - 94)
         }
@@ -140,7 +139,7 @@ final class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
             $0.top.equalTo(nameLabel.snp.bottom).offset(7)
             $0.leading.equalTo(thumbnailImageView.snp.trailing).offset(12)
             $0.trailing.lessThanOrEqualToSuperview().inset(14)
-            $0.bottom.lessThanOrEqualToSuperview().inset(12.8)
+            $0.bottom.equalToSuperview().inset(12.8)
         }
         
         visitButton.snp.makeConstraints {
@@ -153,6 +152,7 @@ final class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
         clearImageView.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(6)
             $0.centerY.equalToSuperview()
+            $0.size.equalTo(75)
         }
     }
     
@@ -167,8 +167,15 @@ final class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
         nameLabel.text = model.name
         addressLabel.text = model.address
         
-        visitButton.isHidden = model.isVisited ?? false
-        clearImageView.isHidden = !(model.isVisited ?? false)
+        //        visitButton.isHidden = model.isVisited ?? false
+        //        clearImageView.isHidden = !(model.isVisited ?? false)
+        let isVisited = model.isVisited == true
+        
+        visitButton.alpha = isVisited ? 0 : 1
+        visitButton.isUserInteractionEnabled = !isVisited
+        
+        clearImageView.alpha = isVisited ? 1 : 0
+        clearImageView.isHidden = !isVisited
         
         switch model.category {
         case "카페": indicatorImageView.image = UIImage(resource: .icnYellowIndicator)
