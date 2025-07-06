@@ -49,6 +49,8 @@ struct AlertMessage {
     static let orbRecommendationOrderUnsavedExitMessage = "주문 내용이 저장되지 않아요.\n작성을 멈추고 나가시겠어요?"
     static let enforceAppUpdateTitle = "업데이트 안내"
     static let enforceAppUpdateMessage = "오브의 공간에 변화가 생겼어요!\n앱을 최신 버전으로 업데이트 해주세요."
+    static let courseQuestFailureLocationTitle = "방문 실패"
+    static let courseQuestFailureLocationMessage = "거리가 너무 멀어요.\n더 가까이에서 방문 버튼을 눌러주세요."
 }
 
 struct LoadingMessage {

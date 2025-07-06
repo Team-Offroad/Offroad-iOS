@@ -34,6 +34,7 @@ class QuestListViewController: UIViewController {
     }
     
     private let operationQueue = OperationQueue()
+    private var completedQuestsFromCourse: [CompleteQuest]?
     
     //MARK: - UI Properties
     
@@ -57,6 +58,14 @@ class QuestListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if let completed = completedQuestsFromCourse, !completed.isEmpty {
+                popupQuestCompletion(completeQuests: completed)
+                completedQuestsFromCourse = nil // 한 번만 띄우도록 초기화
+            }
+        
+        rootView.questListCollectionView.getInitialQuestList(isActive: true)
+        rootView.questListCollectionView.reloadData()
         
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
@@ -88,8 +97,13 @@ extension QuestListViewController {
             guard let deadline = quest.deadline else { return }
             let courseQuestViewController = CourseQuestViewController(
                 questId: quest.questId,
-                deadline: deadline
+                deadline: deadline,
+                totalCount: quest.totalCount,
+                currentCount: quest.currentCount
             )
+            courseQuestViewController.onQuestCompleted = { [weak self] completedQuests in
+                self?.completedQuestsFromCourse = completedQuests
+            }
             self?.navigationController?.pushViewController(courseQuestViewController, animated: true)
         }
 #endif
@@ -103,6 +117,32 @@ extension QuestListViewController {
         let okAction = ORBAlertAction(title: "확인", style: .default) { _ in return }
         alertController.addAction(okAction)
         present(alertController, animated: true)
+    }
+    
+    ///코스퀘스트 장소 방문으로 타 퀘스트 클리어 했을 때의 예외케이스 팝업 띄우는 함수
+    private func popupQuestCompletion(completeQuests: [CompleteQuest]) {
+        let message: String
+        if completeQuests.isEmpty { return }
+        else if completeQuests.count == 1 {
+            message = AlertMessage.completeSingleQuestMessage(questName: completeQuests.first!.name)
+        } else {
+            message = AlertMessage.completeMultipleQuestsMessage(
+                firstQuestName: completeQuests.first!.name,
+                questCount: completeQuests.count
+            )
+        }
+        
+        let questCompleteAlertController = ORBAlertController(
+            title: AlertMessage.completeQuestsTitle,
+            message: message,
+            type: .normal
+        )
+        questCompleteAlertController.xButton.isHidden = true
+        let action = ORBAlertAction(title: "확인", style: .default) { _ in
+            AmplitudeManager.shared.trackEvent(withName: AmplitudeEventTitles.questSuccess)
+        }
+        questCompleteAlertController.addAction(action)
+        present(questCompleteAlertController, animated: true)
     }
     
 }
