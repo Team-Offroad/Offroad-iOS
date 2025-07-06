@@ -14,7 +14,7 @@ final class CourseQuestView: UIView {
     
     //MARK: - UI Properties
     
-    private let customNavigationBar = UIView()
+    let customNavigationBar = UIView()
     let customBackButton = NavigationPopButton()
     
     let mapView = CourseQuestMapView()
@@ -37,6 +37,10 @@ final class CourseQuestView: UIView {
     }
     
     private let rewardButton = ShrinkableButton()
+    
+    //MARK: - Properties
+    
+    let panGesture = UIPanGestureRecognizer()
     
     //MARK: - Life Cycle
     
@@ -86,12 +90,15 @@ final class CourseQuestView: UIView {
         listContainerView.do { view in
             view.backgroundColor = .main(.main1)
             view.showsVerticalScrollIndicator = false
+            view.addGestureRecognizer(panGesture)
+            view.isScrollEnabled = false
         }
         
         courseQuestPlaceCollectionView.do { collectionView in
             collectionView.backgroundColor = .main(.main1)
             collectionView.delaysContentTouches = false
             collectionView.showsVerticalScrollIndicator = false
+            collectionView.isScrollEnabled = false
         }
         
         rewardButton.do { button in
@@ -125,11 +132,11 @@ final class CourseQuestView: UIView {
     private func setupLayout() {
         customNavigationBar.snp.makeConstraints { make in
             make.top.horizontalEdges.equalToSuperview()
-            make.height.equalTo(112)
+            make.height.equalTo(123)
         }
         
         customBackButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(60)
+            make.top.equalToSuperview().inset(69)
             make.leading.equalToSuperview().inset(14)
         }
         
@@ -142,6 +149,8 @@ final class CourseQuestView: UIView {
         listContainerView.snp.makeConstraints { make in
             listTopConstraint = make.top.equalTo(mapView.snp.bottom).constraint
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
+            //더미 rewardButton 삭제 요청 받을 시 활성화시킬 코드
+            //make.bottom.equalToSuperview()
         }
         
         ddayContainerView.snp.makeConstraints {
@@ -169,7 +178,7 @@ final class CourseQuestView: UIView {
             $0.top.equalTo(ddayContainerView.snp.bottom)
             $0.bottom.equalToSuperview()
             $0.horizontalEdges.equalTo(listContainerView.frameLayoutGuide)
-            $0.height.equalTo(357)
+            $0.height.equalTo(UIScreen.main.bounds.height - 169)
         }
         
         rewardButton.snp.makeConstraints {
