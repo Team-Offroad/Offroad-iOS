@@ -100,17 +100,6 @@ final class CourseQuestView: UIView {
             collectionView.showsVerticalScrollIndicator = false
             collectionView.isScrollEnabled = false
         }
-        
-        rewardButton.do { button in
-            button.setTitle("보상: 포인트 1000원 적립", for: .normal)
-            button.setTitleColor(.main(.main1), for: .normal)
-            button.setTitleColor(.main(.main1), for: .highlighted)
-            button.setTitleColor(.main(.main1), for: .disabled)
-            button.configureTitleFontWhen(normal: .offroad(style: .iosText), disabled: .offroad(style: .iosTextBold))
-            button.configureBackgroundColorWhen(normal: .main(.main2), disabled: .blackOpacity(.black15))
-            button.roundCorners(cornerRadius: 5)
-            button.isEnabled = false
-        }
     }
     
     private func setupHierarchy() {
@@ -118,8 +107,7 @@ final class CourseQuestView: UIView {
             customNavigationBar,
             customBackButton,
             mapView,
-            listContainerView,
-            rewardButton
+            listContainerView
         )
         listContainerView.addSubviews(ddayContainerView, courseQuestPlaceCollectionView)
         ddayContainerView.addSubviews(
@@ -149,8 +137,7 @@ final class CourseQuestView: UIView {
         listContainerView.snp.makeConstraints { make in
             listTopConstraint = make.top.equalTo(mapView.snp.bottom).constraint
             make.horizontalEdges.equalTo(safeAreaLayoutGuide)
-            //더미 rewardButton 삭제 요청 받을 시 활성화시킬 코드
-            //make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
         ddayContainerView.snp.makeConstraints {
@@ -179,13 +166,6 @@ final class CourseQuestView: UIView {
             $0.bottom.equalToSuperview()
             $0.horizontalEdges.equalTo(listContainerView.frameLayoutGuide)
             $0.height.equalTo(UIScreen.main.bounds.height - 169)
-        }
-        
-        rewardButton.snp.makeConstraints {
-            $0.top.equalTo(listContainerView.snp.bottom).offset(13.3)
-            $0.horizontalEdges.equalToSuperview().inset(24)
-            $0.bottom.equalToSuperview().inset(45.6)
-            $0.height.equalTo(54)
         }
     }
     

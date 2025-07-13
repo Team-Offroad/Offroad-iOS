@@ -10,7 +10,7 @@ import UIKit
 final class CourseQuestToastWindow: ORBToastWindow {
 
     init(message: String, inset: CGFloat = 66.3, withImage image: UIImage? = nil, highlight: ((UILabel) -> Void)? = nil) {
-        let toastView = CourseQuestToastView(message: message, withImage: image, highlight: highlight)
+        let toastView = CourseQuestToastView(message: message, highlight: highlight)
         super.init(toastView: toastView, inset: inset)
     }
 
