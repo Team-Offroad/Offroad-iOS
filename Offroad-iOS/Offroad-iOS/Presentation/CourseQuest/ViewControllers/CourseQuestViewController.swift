@@ -47,6 +47,8 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     private let locationManager = CLLocationManager()
     private var completedQuests: [CompleteQuest] = []
     var onQuestCompleted: (([CompleteQuest]) -> Void)?
+    var onCourseQuestProgressChanged: ((Bool) -> Void)?
+    private var didProgressChanged: Bool = false
     
     // MARK: - Life Cycle
     
@@ -90,6 +92,14 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
         
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if self.isMovingFromParent {
+            onCourseQuestProgressChanged?(didProgressChanged)
+        }
     }
     
     // MARK: - Private Func
@@ -228,6 +238,7 @@ extension CourseQuestViewController: UICollectionViewDataSource {
                     updatedPlace.isVisited = true
                     self.courseQuestPlaces[indexPath.item] = updatedPlace
                     self.currentCount += 1
+                    self.didProgressChanged = true
                     let remainCount = max(self.totalCount - self.currentCount, 0)
                     collectionView.reloadItems(at: [indexPath])
                     

@@ -35,6 +35,8 @@ class QuestListViewController: UIViewController {
     
     private let operationQueue = OperationQueue()
     private var completedQuestsFromCourse: [CompleteQuest]?
+    //CourseQuestViewController에서 돌아왔을 때 API 다시 호출할지 여부
+    private var shouldRefreshOnAppear = false
     
     //MARK: - UI Properties
     
@@ -64,9 +66,13 @@ class QuestListViewController: UIViewController {
             completedQuestsFromCourse = nil // 한 번만 띄우도록 초기화
         }
         
-        let currentIsActive = rootView.questListCollectionView.isActive
-        rootView.questListCollectionView.getInitialQuestList(isActive: currentIsActive)
-        rootView.questListCollectionView.reloadData()
+        if shouldRefreshOnAppear {
+            let currentIsActive = rootView.questListCollectionView.isActive
+            rootView.questListCollectionView.getInitialQuestList(isActive: currentIsActive)
+            shouldRefreshOnAppear = false
+        } else {
+            rootView.questListCollectionView.reloadData()
+        }
         
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
@@ -104,6 +110,12 @@ extension QuestListViewController {
             )
             courseQuestViewController.onQuestCompleted = { [weak self] completedQuests in
                 self?.completedQuestsFromCourse = completedQuests
+            }
+            //currentCount 변화 여부에 따라 새로고침 여부 결정
+            courseQuestViewController.onCourseQuestProgressChanged = { [weak self] didProgressChanged in
+                if didProgressChanged {
+                    self?.shouldRefreshOnAppear = true
+                }
             }
             self?.navigationController?.pushViewController(courseQuestViewController, animated: true)
         }
