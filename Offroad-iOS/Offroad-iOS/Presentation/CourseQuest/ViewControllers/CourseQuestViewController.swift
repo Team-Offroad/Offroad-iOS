@@ -263,8 +263,7 @@ extension CourseQuestViewController: UICollectionViewDataSource {
                         type: .normal
                     )
                     alertController.configureMessageLabel {
-                        $0.highlightText(targetText: "위치", font: .offroad(style: .iosTextBold))
-                        $0.highlightText(targetText: "내일 다시", font: .offroad(style: .iosTextBold))
+                        $0.highlightText(targetText: "더 가까이에서", font: .offroad(style: .iosTextBold))
                     }
                     alertController.xButton.isHidden = true
                     alertController.addAction(ORBAlertAction(title: "확인", style: .default) { _ in })
