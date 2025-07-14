@@ -63,10 +63,8 @@ final class HomeViewController: OffroadTabBarViewController {
         
         requestPushNotificationPermission()
         redirectViewControllerForPushNotification()
-        #if DevTarget
         postDiarySettingDataRecord()
         getLatestDiaryInfo()
-        #endif
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,13 +89,9 @@ extension HomeViewController {
         rootView.changeTitleButton.addTarget(self, action: #selector(changeTitleButtonTapped), for: .touchUpInside)
         rootView.chatButton.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
         rootView.changeCharacterButton.addTarget(self, action: #selector(changeCharacterButtonTapped), for: .touchUpInside)
-        #if DevTarget
         rootView.orbRecommendationButton.addTarget(self, action: #selector(orbRecommendationButtonTapped), for: .touchUpInside)
         rootView.diaryButton.addTarget(self, action: #selector(diaryButtonTapped), for: .touchUpInside)
         rootView.recommendButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
-        #else
-        rootView.shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
-        #endif
     }
     
     private func getUserAdventureInfo() {
@@ -197,7 +191,6 @@ extension HomeViewController {
             self.getLastChatInfo()
         }).disposed(by: disposeBag)
         
-        #if DevTarget
         MyDiaryManager.shared.didCompleteCreateDiary
             .bind { _ in
                 guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
@@ -213,7 +206,6 @@ extension HomeViewController {
                 self.getLatestDiaryInfo()
             }
             .disposed(by: disposeBag)
-        #endif
     }
     
     private func redirectNoticePost() {
@@ -297,17 +289,14 @@ extension HomeViewController {
             case "CHARACTER_CHAT":
                 ORBCharacterChatManager.shared.chatViewController.patchChatReadRelay.accept(())
                 ORBCharacterChatManager.shared.showCharacterChatBox(character: self.pushType?.data?["characterName"] as! String, message: self.pushType?.data?["message"] as! String, mode: .withReplyButtonShrinked)
-            #if DevTarget
             case "MEMBER_DIARY_CREATE":
                 MyDiaryManager.shared.didCompleteCreateDiary.accept(())
-            #endif
             default:
                 break
             }
         }
     }
     
-    #if DevTarget
     private func postDiarySettingDataRecord() {
         NetworkService.shared.diarySettingService.postDiarySettingDataRecord { response in
             switch response {
@@ -336,7 +325,6 @@ extension HomeViewController {
             }
         }
     }
-    #endif
     
     //MARK: - Func
     
@@ -378,7 +366,6 @@ extension HomeViewController {
         self.navigationController?.pushViewController(characterListViewController, animated: true)
     }
 
-    #if DevTarget
     @objc private func orbRecommendationButtonTapped() {
         let viewController = ORBRecommendationMainViewController()
         (viewController.view as! ORBRecommendationMainView).backButton.configureButtonTitle(titleString: "홈")
@@ -390,7 +377,6 @@ extension HomeViewController {
         diaryViewController.setupCustomBackButton(buttonTitle: "홈")
         self.navigationController?.pushViewController(diaryViewController, animated: true)
     }
-    #endif
     
     @objc private func changeTitleButtonTapped() {
         let titlePopupViewController = TitlePopupViewController(emblemString: userEmblemString)

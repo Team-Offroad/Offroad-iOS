@@ -64,6 +64,75 @@
 		4E37B6CF2C456FBF007358DA /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6CE2C456FBF007358DA /* UITabBar+.swift */; };
 		4E37B6D12C4594CE007358DA /* CompleteChoosingCharacterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D02C4594CE007358DA /* CompleteChoosingCharacterView.swift */; };
 		4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E37B6D22C4594D9007358DA /* CompleteChoosingCharacterViewController.swift */; };
+		4E3852B22E25126F002F5D54 /* ORBRecommendationGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB47DC2DAEA34B0025AAA2 /* ORBRecommendationGradientLayer.swift */; };
+		4E3852B32E25126F002F5D54 /* ORBRecommendationBaseBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB47DF2DAEA3950025AAA2 /* ORBRecommendationBaseBackground.swift */; };
+		4E3852B42E25126F002F5D54 /* ORBRecommendationGradientStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEB47D92DAEA3150025AAA2 /* ORBRecommendationGradientStyle.swift */; };
+		4E3852B52E25128D002F5D54 /* MyDiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20862D8018F400FDF7F4 /* MyDiaryManager.swift */; };
+		4E3852B62E2512AD002F5D54 /* MonthPickerModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20812D7FE05A00FDF7F4 /* MonthPickerModalView.swift */; };
+		4E3852B72E2512AD002F5D54 /* DiaryGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022320B2D76CCE100DA6968 /* DiaryGuideView.swift */; };
+		4E3852B82E2512AD002F5D54 /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02232062D762DE400DA6968 /* DiaryView.swift */; };
+		4E3852B92E2512AD002F5D54 /* GuideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CF2E1C2D77EC95000334B5 /* GuideCollectionViewCell.swift */; };
+		4E3852BA2E2512AD002F5D54 /* CustomDiaryCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA206D2D7E004A00FDF7F4 /* CustomDiaryCalendarCell.swift */; };
+		4E3852BB2E2512B4002F5D54 /* DiaryGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022320D2D76CCEE00DA6968 /* DiaryGuideViewController.swift */; };
+		4E3852BC2E2512B4002F5D54 /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20722D7F4BB900FDF7F4 /* DiaryViewModel.swift */; };
+		4E3852BD2E2512B4002F5D54 /* MonthPickerModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CA20832D7FE07F00FDF7F4 /* MonthPickerModalViewController.swift */; };
+		4E3852BE2E2512B4002F5D54 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02232032D762DD800DA6968 /* DiaryViewController.swift */; };
+		4E3852BF2E2512C9002F5D54 /* MemoryLightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDF02D873FB000CA2485 /* MemoryLightView.swift */; };
+		4E3852C02E2512C9002F5D54 /* MemoryLightViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025CCAC2D8B3A20006592C6 /* MemoryLightViewModel.swift */; };
+		4E3852C12E2512C9002F5D54 /* MemoryLightModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D025CCA92D8B3818006592C6 /* MemoryLightModel.swift */; };
+		4E3852C22E2512C9002F5D54 /* MemoryLightCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDF22D8742A000CA2485 /* MemoryLightCollectionViewCell.swift */; };
+		4E3852C32E2512C9002F5D54 /* MemoryLightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDEE2D873F9600CA2485 /* MemoryLightViewController.swift */; };
+		4E3852C42E2512D8002F5D54 /* CourseQuestPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7D8952DD3648600B89109 /* CourseQuestPlaceCell.swift */; };
+		4E3852C52E2512D8002F5D54 /* CourseQuestMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878849042E0A070B00CD0E0C /* CourseQuestMapView.swift */; };
+		4E3852C62E2512D8002F5D54 /* CourseQuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F51BB32DDDFD780020AF04 /* CourseQuestView.swift */; };
+		4E3852C72E2512D8002F5D54 /* CourseQuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7D88E2DD3632500B89109 /* CourseQuestViewController.swift */; };
+		4E3852C82E2512D8002F5D54 /* CourseQuestPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7D8912DD3637C00B89109 /* CourseQuestPlace.swift */; };
+		4E3852C92E2512D8002F5D54 /* CourseQuestPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ACD2AB2E1407470043D323 /* CourseQuestPopUp.swift */; };
+		4E3852CA2E25130F002F5D54 /* ORBRecommendationChatPresentationFloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A40512DC7A70000A0680C /* ORBRecommendationChatPresentationFloatingView.swift */; };
+		4E3852CB2E25130F002F5D54 /* ORBRecommendationMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E246B342DB4F72300198433 /* ORBRecommendationMainViewController.swift */; };
+		4E3852CC2E25130F002F5D54 /* ORBRecommendationPlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E101D202DF4847900BE62B0 /* ORBRecommendationPlaceModel.swift */; };
+		4E3852CD2E25130F002F5D54 /* ORBRecommendationChatReplyTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E04FDC32E0BCC09004A53D2 /* ORBRecommendationChatReplyTexts.swift */; };
+		4E3852CE2E25130F002F5D54 /* ORBRecommendationMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DE9D42DB49CD500DCE641 /* ORBRecommendationMainView.swift */; };
+		4E3852CF2E25130F002F5D54 /* ORBRecommendationChatBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87852B2DC79B8800B639EA /* ORBRecommendationChatBackgroundView.swift */; };
+		4E3852D02E25130F002F5D54 /* ORBRecommendationMessageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF90E572DBA265C00A63DB0 /* ORBRecommendationMessageButton.swift */; };
+		4E3852D12E25130F002F5D54 /* ORBRecommendationChatViewPresentingTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A404D2DC7A4F400A0680C /* ORBRecommendationChatViewPresentingTransition.swift */; };
+		4E3852D22E25130F002F5D54 /* ORBRecommendedContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2DE9D72DB49E6000DCE641 /* ORBRecommendedContentView.swift */; };
+		4E3852D32E25130F002F5D54 /* ORBRecommendationChatViewDismissingTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A404F2DC7A51100A0680C /* ORBRecommendationChatViewDismissingTransition.swift */; };
+		4E3852D42E25130F002F5D54 /* ORBRecommendationMainViewToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF90E552DB9FEF000A63DB0 /* ORBRecommendationMainViewToolBar.swift */; };
+		4E3852D52E25130F002F5D54 /* ORBRecommendationViewPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8785302DC7A49E00B639EA /* ORBRecommendationViewPresentationController.swift */; };
+		4E3852D62E25130F002F5D54 /* ORBRecommendationOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEF6E8F2DC3691A008C1E96 /* ORBRecommendationOrderViewController.swift */; };
+		4E3852D72E25130F002F5D54 /* ORBRecommendationChatExampleQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D00F92DCB42DC002D9C6A /* ORBRecommendationChatExampleQuestion.swift */; };
+		4E3852D82E25130F002F5D54 /* ORBRecommendationChatDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E87852D2DC79BD000B639EA /* ORBRecommendationChatDataSource.swift */; };
+		4E3852D92E25130F002F5D54 /* ORBRecommendationChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8785272DC79B2B00B639EA /* ORBRecommendationChatViewController.swift */; };
+		4E3852DA2E25130F002F5D54 /* ORBRecommendationChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8785292DC79B6D00B639EA /* ORBRecommendationChatView.swift */; };
+		4E3852DB2E25130F002F5D54 /* ORBRecommendationEmptyCaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE74B742E06602700632767 /* ORBRecommendationEmptyCaseView.swift */; };
+		4E3852DC2E25130F002F5D54 /* ORBRecommendationOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3662282DBD1580001E70F5 /* ORBRecommendationOrderView.swift */; };
+		4E3852DE2E25135A002F5D54 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 4E3852DD2E25135A002F5D54 /* FSCalendar */; };
+		4E3852E02E251389002F5D54 /* ShrinkableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC15ACC2D2AA3A700BC5826 /* ShrinkableCollectionViewCell.swift */; };
+		4E3852E12E251389002F5D54 /* CustomIntensityBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1EC2D24380700A8C130 /* CustomIntensityBlurView.swift */; };
+		4E3852E22E251389002F5D54 /* TermsConsentPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A488B2C7830F3008B286A /* TermsConsentPopupView.swift */; };
+		4E3852E32E251389002F5D54 /* MemoryLightGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051FDF72D87C6EB00CA2485 /* MemoryLightGradientView.swift */; };
+		4E3852E42E2513CD002F5D54 /* CourseQuestCategoryIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9CA0A2E09EC6F00DD8493 /* CourseQuestCategoryIcon.swift */; };
+		4E3852E52E2513CD002F5D54 /* CourseQuestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F692D7FED19008036FA /* CourseQuestCollectionViewCell.swift */; };
+		4E3852E62E2513F0002F5D54 /* DiarySettingCheckedResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AA52D8DF7F50030995E /* DiarySettingCheckedResponseDTO.swift */; };
+		4E3852E72E2513F0002F5D54 /* DiarySettingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3A8C2D8DACDC0030995E /* DiarySettingAPI.swift */; };
+		4E3852E82E2513F0002F5D54 /* DiarySettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3A892D8DACD10030995E /* DiarySettingService.swift */; };
+		4E3852E92E251402002F5D54 /* DiaryInitialDateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AEA2D9147160030995E /* DiaryInitialDateResponseDTO.swift */; };
+		4E3852EA2E251402002F5D54 /* ORBRecommendationFixedPhraseResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E43C8002E04542D00CED213 /* ORBRecommendationFixedPhraseResponseDTO.swift */; };
+		4E3852EB2E251402002F5D54 /* ORBRecommendationChatRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E101D1B2DF4759B00BE62B0 /* ORBRecommendationChatRequestDTO.swift */; };
+		4E3852EC2E251402002F5D54 /* DiaryColorsResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AE12D91049A0030995E /* DiaryColorsResponseDTO.swift */; };
+		4E3852ED2E251402002F5D54 /* DiaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AD62D9074AF0030995E /* DiaryService.swift */; };
+		4E3852EE2E251402002F5D54 /* DiaryCheckStatusResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AED2D9147830030995E /* DiaryCheckStatusResponseDTO.swift */; };
+		4E3852EF2E251402002F5D54 /* DiaryResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AE42D9105FD0030995E /* DiaryResponseDTO.swift */; };
+		4E3852F02E251402002F5D54 /* ORBRecommendationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E101D162DF473A500BE62B0 /* ORBRecommendationAPI.swift */; };
+		4E3852F12E251402002F5D54 /* ORBRecommendationPlacesResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E101D122DF453CE00BE62B0 /* ORBRecommendationPlacesResponseDTO.swift */; };
+		4E3852F22E251402002F5D54 /* ORBRecommendationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E101D1D2DF475F200BE62B0 /* ORBRecommendationService.swift */; };
+		4E3852F32E251402002F5D54 /* DiaryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07D3AD92D9074BC0030995E /* DiaryAPI.swift */; };
+		4E3852F42E251402002F5D54 /* ORBRecommendationChatResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E101D0F2DF4529C00BE62B0 /* ORBRecommendationChatResponseDTO.swift */; };
+		4E3852F52E251425002F5D54 /* DiaryTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D32D63285F00A1E206 /* DiaryTimeViewController.swift */; };
+		4E3852F62E251425002F5D54 /* DiaryTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05B70D02D63257000A1E206 /* DiaryTimeView.swift */; };
+		4E3852F72E2514CB002F5D54 /* ChatLogCellCharacterRecommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E43C7362DFDDCA900CED213 /* ChatLogCellCharacterRecommendation.swift */; };
+		4E3852F82E2514EF002F5D54 /* RecommendationButtonInChatLogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E43C7392DFE8F5B00CED213 /* RecommendationButtonInChatLogCell.swift */; };
 		4E38A4452DAAAC8A00110780 /* ExpandableCell in Frameworks */ = {isa = PBXBuildFile; productRef = 4E38A4442DAAAC8A00110780 /* ExpandableCell */; };
 		4E38A4472DAAAC9C00110780 /* ExpandableCell in Frameworks */ = {isa = PBXBuildFile; productRef = 4E38A4462DAAAC9C00110780 /* ExpandableCell */; };
 		4E38A4492DAAACCF00110780 /* QuestListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E38A4482DAAACCF00110780 /* QuestListCell.swift */; };
@@ -438,10 +507,8 @@
 		4EBE34942C3FC749006DB244 /* QuestQRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE34932C3FC749006DB244 /* QuestQRView.swift */; };
 		4EC15AC12D2A74B200BC5826 /* Shrinkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC15AC02D2A74B200BC5826 /* Shrinkable.swift */; };
 		4EC15AC32D2A76EA00BC5826 /* ShrinkableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC15AC22D2A76EA00BC5826 /* ShrinkableButton.swift */; };
-		4EC15ACD2D2AA3A700BC5826 /* ShrinkableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC15ACC2D2AA3A700BC5826 /* ShrinkableCollectionViewCell.swift */; };
 		4EC3EC932CA9049F008139BE /* CouponCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC3EC922CA9049F008139BE /* CouponCollectionViewController.swift */; };
 		4EC3EC952CA91A0C008139BE /* PlaceListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC3EC942CA91A0C008139BE /* PlaceListCollectionViewController.swift */; };
-		4EC4A1ED2D24380700A8C130 /* CustomIntensityBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1EC2D24380700A8C130 /* CustomIntensityBlurView.swift */; };
 		4EC4A1FE2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC4A1FD2D246BB700A8C130 /* ORBAlertViewCouponRedemptionFailure.swift */; };
 		4EC611632D5F167300B09E23 /* PlaceListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */; };
 		4EC611642D5F167300B09E23 /* PlaceListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC611622D5F167300B09E23 /* PlaceListCollectionView.swift */; };
@@ -566,7 +633,6 @@
 		D00A48822C6E5D92008B286A /* NoticePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48812C6E5D92008B286A /* NoticePostViewController.swift */; };
 		D00A48842C6E5DA7008B286A /* NoticePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48832C6E5DA7008B286A /* NoticePostView.swift */; };
 		D00A48892C763D24008B286A /* NavigationPopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48882C763D24008B286A /* NavigationPopButton.swift */; };
-		D00A488C2C7830F3008B286A /* TermsConsentPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A488B2C7830F3008B286A /* TermsConsentPopupView.swift */; };
 		D00A48942C78396F008B286A /* TermsConsentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48932C78396F008B286A /* TermsConsentView.swift */; };
 		D00A48962C783988008B286A /* TermsConsentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48952C783987008B286A /* TermsConsentViewController.swift */; };
 		D00A48992C7F04CF008B286A /* TermsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A48982C7F04CF008B286A /* TermsListTableViewCell.swift */; };
@@ -1130,6 +1196,7 @@
 				4E0394D32C2AB846007F0517 /* KakaoSDKCommon in Frameworks */,
 				4E56F5562C99ACD300EEE677 /* RxRelay in Frameworks */,
 				4E0394D12C2AB846007F0517 /* KakaoSDKAuth in Frameworks */,
+				4E3852DE2E25135A002F5D54 /* FSCalendar in Frameworks */,
 				D0600BDA2CE50CF900D8F1D6 /* FirebaseMessaging in Frameworks */,
 				4E8B478F2C382A4800D9B8EE /* Lottie in Frameworks */,
 				4E47F7C42DF4368300C5AA41 /* NMapsMap in Frameworks */,
@@ -3579,6 +3646,7 @@
 				4EA272422D58560B00F64B20 /* AmplitudeSwift */,
 				4E38A4462DAAAC9C00110780 /* ExpandableCell */,
 				4E47F7C32DF4368300C5AA41 /* NMapsMap */,
+				4E3852DD2E25135A002F5D54 /* FSCalendar */,
 			);
 			productName = "Offroad-iOS";
 			productReference = 4E0394292C2A9DCE007F0517 /* ORB.app */;
@@ -3828,7 +3896,12 @@
 				D0E7966C2C457D64005B47A5 /* AdventureInfoResponseDTO.swift in Sources */,
 				4E1CFDF02D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */,
 				4E43C7412DFEAAD200CED213 /* CharacterChatMessageItem.swift in Sources */,
+				4E3852E42E2513CD002F5D54 /* CourseQuestCategoryIcon.swift in Sources */,
+				4E3852E52E2513CD002F5D54 /* CourseQuestCollectionViewCell.swift in Sources */,
 				4EFCDFE32C92C1F1006DEBB6 /* ORBAlertButton.swift in Sources */,
+				4E3852B22E25126F002F5D54 /* ORBRecommendationGradientLayer.swift in Sources */,
+				4E3852B32E25126F002F5D54 /* ORBRecommendationBaseBackground.swift in Sources */,
+				4E3852B42E25126F002F5D54 /* ORBRecommendationGradientStyle.swift in Sources */,
 				4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */,
 				D063E98C2C49328300434A09 /* SVGKImage+.swift in Sources */,
 				D06D26CF2C3E79EC00E79F25 /* CustomAlmostDoneProgressView.swift in Sources */,
@@ -3841,13 +3914,26 @@
 				4ECEEA6E2CB2C15E0029369A /* ORBTabBarShapeView.swift in Sources */,
 				D00A48642C633959008B286A /* SettingViewController.swift in Sources */,
 				4E9900842CDBD730007EEFF7 /* ORBCharacterChatBox.swift in Sources */,
+				4E3852E62E2513F0002F5D54 /* DiarySettingCheckedResponseDTO.swift in Sources */,
+				4E3852E72E2513F0002F5D54 /* DiarySettingAPI.swift in Sources */,
+				4E3852E82E2513F0002F5D54 /* DiarySettingService.swift in Sources */,
 				D06D26DA2C3FE1C700E79F25 /* TitlePopupViewController.swift in Sources */,
 				D063E9902C496EA500434A09 /* LottieAnimationView+.swift in Sources */,
 				4E9900822CDBCD9E007EEFF7 /* ORBCharacterChatView.swift in Sources */,
 				D0E796572C453BCB005B47A5 /* AdventuresQRAuthenticationResponseDTO.swift in Sources */,
 				4ECD02702D9D722C00830534 /* ORBScrollLoadingStyle.swift in Sources */,
+				4E3852C42E2512D8002F5D54 /* CourseQuestPlaceCell.swift in Sources */,
+				4E3852C52E2512D8002F5D54 /* CourseQuestMapView.swift in Sources */,
+				4E3852C62E2512D8002F5D54 /* CourseQuestView.swift in Sources */,
+				4E3852C72E2512D8002F5D54 /* CourseQuestViewController.swift in Sources */,
+				4E3852C82E2512D8002F5D54 /* CourseQuestPlace.swift in Sources */,
+				4E3852C92E2512D8002F5D54 /* CourseQuestPopUp.swift in Sources */,
 				4E58FC052C7DFEAC002A951B /* QuestListResponseDTO.swift in Sources */,
-				4EC4A1ED2D24380700A8C130 /* CustomIntensityBlurView.swift in Sources */,
+				4E3852BF2E2512C9002F5D54 /* MemoryLightView.swift in Sources */,
+				4E3852C02E2512C9002F5D54 /* MemoryLightViewModel.swift in Sources */,
+				4E3852C12E2512C9002F5D54 /* MemoryLightModel.swift in Sources */,
+				4E3852C22E2512C9002F5D54 /* MemoryLightCollectionViewCell.swift in Sources */,
+				4E3852C32E2512C9002F5D54 /* MemoryLightViewController.swift in Sources */,
 				4EDB392E2D54EF750082F8E6 /* PlaceInfoTooltipHelper.swift in Sources */,
 				D004F8CF2CB4DDE600D5A2CD /* KakaoAuthManager.swift in Sources */,
 				D06466AC2C8A0FD600CF10FD /* MarketingConsentRequestDTO.swift in Sources */,
@@ -3858,6 +3944,11 @@
 				87E046982C3D5E3D002D12C2 /* NicknameView.swift in Sources */,
 				4EF6B0332CC3E22800066640 /* ORBAlertViewBaseUI.swift in Sources */,
 				D0600BEB2CE61EBC00D8F1D6 /* PushNotificationService.swift in Sources */,
+				4E3852B62E2512AD002F5D54 /* MonthPickerModalView.swift in Sources */,
+				4E3852B72E2512AD002F5D54 /* DiaryGuideView.swift in Sources */,
+				4E3852B82E2512AD002F5D54 /* DiaryView.swift in Sources */,
+				4E3852B92E2512AD002F5D54 /* GuideCollectionViewCell.swift in Sources */,
+				4E3852BA2E2512AD002F5D54 /* CustomDiaryCalendarCell.swift in Sources */,
 				4E59AFB42DB148D4000A5EAD /* ChatLogCellCharacterLoading.swift in Sources */,
 				8792D0192C3E5E40002051AC /* UIButton+.swift in Sources */,
 				4E4E2C0C2CCF6518000A634D /* AdventureMapViewModel.swift in Sources */,
@@ -3865,9 +3956,25 @@
 				872F4BB72C6B809800284DE0 /* CharacterDetailViewController.swift in Sources */,
 				4E3120F82D0FECD80055F0B0 /* CharacterChatReadGetResponseDTO.swift in Sources */,
 				D06466A12C89CB5200CF10FD /* UserInfoResponseDTO.swift in Sources */,
+				4E3852E02E251389002F5D54 /* ShrinkableCollectionViewCell.swift in Sources */,
+				4E3852E12E251389002F5D54 /* CustomIntensityBlurView.swift in Sources */,
+				4E3852E22E251389002F5D54 /* TermsConsentPopupView.swift in Sources */,
+				4E3852E32E251389002F5D54 /* MemoryLightGradientView.swift in Sources */,
 				872F4BBB2C6B917800284DE0 /* CharacterDetailCell.swift in Sources */,
 				D0E7963D2C453787005B47A5 /* QuestService.swift in Sources */,
 				D0E796082C45229B005B47A5 /* MoyaPlugin.swift in Sources */,
+				4E3852E92E251402002F5D54 /* DiaryInitialDateResponseDTO.swift in Sources */,
+				4E3852EA2E251402002F5D54 /* ORBRecommendationFixedPhraseResponseDTO.swift in Sources */,
+				4E3852EB2E251402002F5D54 /* ORBRecommendationChatRequestDTO.swift in Sources */,
+				4E3852EC2E251402002F5D54 /* DiaryColorsResponseDTO.swift in Sources */,
+				4E3852ED2E251402002F5D54 /* DiaryService.swift in Sources */,
+				4E3852EE2E251402002F5D54 /* DiaryCheckStatusResponseDTO.swift in Sources */,
+				4E3852EF2E251402002F5D54 /* DiaryResponseDTO.swift in Sources */,
+				4E3852F02E251402002F5D54 /* ORBRecommendationAPI.swift in Sources */,
+				4E3852F12E251402002F5D54 /* ORBRecommendationPlacesResponseDTO.swift in Sources */,
+				4E3852F22E251402002F5D54 /* ORBRecommendationService.swift in Sources */,
+				4E3852F32E251402002F5D54 /* DiaryAPI.swift in Sources */,
+				4E3852F42E251402002F5D54 /* ORBRecommendationChatResponseDTO.swift in Sources */,
 				4EF6B0452CC3F50900066640 /* ORBAlertViewExplorationResult.swift in Sources */,
 				D00A48712C63443F008B286A /* NoticeView.swift in Sources */,
 				D063E98E2C49483000434A09 /* UIImageView+.swift in Sources */,
@@ -3905,11 +4012,33 @@
 				4EE20C522DE826CC00B818BD /* NetworkResultError.swift in Sources */,
 				4E0394E62C2AC16A007F0517 /* UIScreen+.swift in Sources */,
 				4EE049872CA10DA400754488 /* CouponRedemptionRequestDTO.swift in Sources */,
-				4EC15ACD2D2AA3A700BC5826 /* ShrinkableCollectionViewCell.swift in Sources */,
 				4E59AFAE2DB148B5000A5EAD /* ChatLogCellUser.swift in Sources */,
 				4EFCDFDF2C92BD8A006DEBB6 /* ORBAlertBackgroundView.swift in Sources */,
 				87D9CA102E09EEDD00DD8493 /* CourseQuestDetailResponseDTO.swift in Sources */,
 				4EE049892CA10DC300754488 /* CouponRedemptionResponseDTO.swift in Sources */,
+				4E3852BB2E2512B4002F5D54 /* DiaryGuideViewController.swift in Sources */,
+				4E3852BC2E2512B4002F5D54 /* DiaryViewModel.swift in Sources */,
+				4E3852BD2E2512B4002F5D54 /* MonthPickerModalViewController.swift in Sources */,
+				4E3852BE2E2512B4002F5D54 /* DiaryViewController.swift in Sources */,
+				4E3852CA2E25130F002F5D54 /* ORBRecommendationChatPresentationFloatingView.swift in Sources */,
+				4E3852CB2E25130F002F5D54 /* ORBRecommendationMainViewController.swift in Sources */,
+				4E3852CC2E25130F002F5D54 /* ORBRecommendationPlaceModel.swift in Sources */,
+				4E3852CD2E25130F002F5D54 /* ORBRecommendationChatReplyTexts.swift in Sources */,
+				4E3852CE2E25130F002F5D54 /* ORBRecommendationMainView.swift in Sources */,
+				4E3852CF2E25130F002F5D54 /* ORBRecommendationChatBackgroundView.swift in Sources */,
+				4E3852D02E25130F002F5D54 /* ORBRecommendationMessageButton.swift in Sources */,
+				4E3852D12E25130F002F5D54 /* ORBRecommendationChatViewPresentingTransition.swift in Sources */,
+				4E3852D22E25130F002F5D54 /* ORBRecommendedContentView.swift in Sources */,
+				4E3852D32E25130F002F5D54 /* ORBRecommendationChatViewDismissingTransition.swift in Sources */,
+				4E3852D42E25130F002F5D54 /* ORBRecommendationMainViewToolBar.swift in Sources */,
+				4E3852D52E25130F002F5D54 /* ORBRecommendationViewPresentationController.swift in Sources */,
+				4E3852D62E25130F002F5D54 /* ORBRecommendationOrderViewController.swift in Sources */,
+				4E3852D72E25130F002F5D54 /* ORBRecommendationChatExampleQuestion.swift in Sources */,
+				4E3852D82E25130F002F5D54 /* ORBRecommendationChatDataSource.swift in Sources */,
+				4E3852D92E25130F002F5D54 /* ORBRecommendationChatViewController.swift in Sources */,
+				4E3852DA2E25130F002F5D54 /* ORBRecommendationChatView.swift in Sources */,
+				4E3852DB2E25130F002F5D54 /* ORBRecommendationEmptyCaseView.swift in Sources */,
+				4E3852DC2E25130F002F5D54 /* ORBRecommendationOrderView.swift in Sources */,
 				D0E796152C452797005B47A5 /* AuthAPI.swift in Sources */,
 				4E0A6BDF2DF740E600956D7F /* AdventureResult.swift in Sources */,
 				D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */,
@@ -3967,6 +4096,8 @@
 				4EF833EC2CC40CC200D94314 /* ORBAlertViewAcquiredEmblem.swift in Sources */,
 				4EE049912CA14E6500754488 /* CouponCell.swift in Sources */,
 				4E23776E2CC81B2000716AFF /* NetworkMonitoringManager.swift in Sources */,
+				4E3852F52E251425002F5D54 /* DiaryTimeViewController.swift in Sources */,
+				4E3852F62E251425002F5D54 /* DiaryTimeView.swift in Sources */,
 				D05C31DC2CDB4441004761A7 /* ShareableImageProvider.swift in Sources */,
 				D0E796352C4536E8005B47A5 /* CharacterAPI.swift in Sources */,
 				4E6659382CEB96E70024ABEE /* MyInfoManager.swift in Sources */,
@@ -3999,6 +4130,7 @@
 				4EF833EE2CC4268200D94314 /* ORBPopup.swift in Sources */,
 				D06D26E22C400C3800E79F25 /* TitleCollectionViewCell.swift in Sources */,
 				4EF6B0382CC3E7A900066640 /* ORBAlertViewNormal.swift in Sources */,
+				4E3852B52E25128D002F5D54 /* MyDiaryManager.swift in Sources */,
 				872F4BB12C68C43800284DE0 /* CharacterListCell.swift in Sources */,
 				D0E796672C455467005B47A5 /* StartingCharacterResponseDTO.swift in Sources */,
 				4E03942D2C2A9DCE007F0517 /* AppDelegate.swift in Sources */,
@@ -4038,6 +4170,7 @@
 				8792CFFE2C3D85BE002051AC /* NicknameViewController.swift in Sources */,
 				8773EC562DA54FBA00600948 /* IconLabelStackView.swift in Sources */,
 				87738CBA2C8C1B0500E107C7 /* CharacterListResponseDTO.swift in Sources */,
+				4E3852F82E2514EF002F5D54 /* RecommendationButtonInChatLogCell.swift in Sources */,
 				4E99008B2CE0CB61007EEFF7 /* UITextView+.swift in Sources */,
 				4EFD00502CCB4C25005C294D /* SVGFetchable.swift in Sources */,
 				4E56F53D2C987C1E00EEE677 /* ZeroDurationTransitionDelegate.swift in Sources */,
@@ -4061,7 +4194,6 @@
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
 				8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */,
 				4E38A44A2DAAACCF00110780 /* QuestListCell.swift in Sources */,
-				D00A488C2C7830F3008B286A /* TermsConsentPopupView.swift in Sources */,
 				4E9900802CDBCD88007EEFF7 /* ORBCharacterChatViewController.swift in Sources */,
 				8792D0242C3F0843002051AC /* ChoosingCharacterCell.swift in Sources */,
 				4E08B95F2C5E53C10082EFB8 /* ORBSegmentedControlButton.swift in Sources */,
@@ -4074,6 +4206,7 @@
 				D0E7961E2C45280F005B47A5 /* SocialLoginResponseDTO.swift in Sources */,
 				D0600BE72CE61E6A00D8F1D6 /* FcmTokenRequestDTO.swift in Sources */,
 				D0E796172C4527AA005B47A5 /* AuthService.swift in Sources */,
+				4E3852F72E2514CB002F5D54 /* ChatLogCellCharacterRecommendation.swift in Sources */,
 				D06466A32C89EF6B00CF10FD /* DeleteAccountRequestDTO.swift in Sources */,
 				4E9759D22D9F975600F30692 /* ORBEmptyCaseStyle.swift in Sources */,
 				4EC3EC952CA91A0C008139BE /* PlaceListCollectionViewController.swift in Sources */,
@@ -4636,10 +4769,10 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "이미지 저장을 위해서는 사진 접근 허용이 필요해요.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4684,10 +4817,10 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "탐험을 인증하기 위해서는 모험가님의 위치 정보가 필요해요.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "이미지 저장을 위해서는 사진 접근 허용이 필요해요.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5228,6 +5361,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4E0394CF2C2AB846007F0517 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		4E3852DD2E25135A002F5D54 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0CA206A2D7DCF5900FDF7F4 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 		4E38A4442DAAAC8A00110780 /* ExpandableCell */ = {
 			isa = XCSwiftPackageProductDependency;

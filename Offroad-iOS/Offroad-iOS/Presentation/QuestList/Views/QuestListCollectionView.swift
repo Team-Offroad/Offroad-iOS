@@ -25,7 +25,6 @@ final class QuestListCollectionView: ExpandableCellCollectionView, ORBEmptyCaseS
     private var lastCursorID = 0
     let shouldAlertMessage = PublishRelay<String>.init()
     
-#if DevTarget
     /// 코스 퀘스트 데이터만 분리하여 최상단 고정 노출하기 위한 리스트
     private var courseQuests: [Quest] = []
     /// 일반 퀘스트 데이터 (isCourse == false)를 담는 리스트
@@ -38,7 +37,6 @@ final class QuestListCollectionView: ExpandableCellCollectionView, ORBEmptyCaseS
     private var visibleQuests: [Quest] {
         return isActive ? (courseQuests + generalActiveQuestList) : (courseQuests + generalQuests)
     }
-#endif
     
     var isActive = true {
         didSet {
@@ -80,12 +78,10 @@ extension QuestListCollectionView {
             QuestListCell.self,
             forCellWithReuseIdentifier: QuestListCell.className
         )
-#if DevTarget
         register(
             CourseQuestCollectionViewCell.self,
             forCellWithReuseIdentifier: CourseQuestCollectionViewCell.className
         )
-#endif
         dataSource = self
         delegate = self
         animationSpeed = UIAccessibility.isReduceMotionEnabled ? .none : .medium
@@ -100,7 +96,6 @@ extension QuestListCollectionView {
             case .success(let decodedData):
                 let questListFromServer = decodedData.data.questList
                 
-#if DevTarget
                 self.courseQuests = questListFromServer.filter { $0.isCourse }
                 self.generalQuests = questListFromServer.filter { !$0.isCourse }
                 
@@ -110,19 +105,7 @@ extension QuestListCollectionView {
                 if self.visibleQuests.isEmpty {
                     showEmptyPlaceholder(view: emptyPlaceholder)
                 }
-#else
-                if isActive {
-                    self.activeQuestList = questListFromServer
-                    if self.activeQuestList.isEmpty {
-                        showEmptyPlaceholder(view: emptyPlaceholder)
-                    }
-                } else {
-                    self.allQuestList = questListFromServer
-                    if self.allQuestList.isEmpty {
-                        showEmptyPlaceholder(view: emptyPlaceholder)
-                    }
-                }
-#endif
+                
                 self.alpha = 0
                 self.reloadData()
                 CATransaction.begin()
@@ -154,7 +137,6 @@ extension QuestListCollectionView {
         removeEmptyPlaceholder()
         questListService.getQuestList(isActive: isActive, cursor: cursor, size: size) { [weak self] result in
             guard let self else { return }
-#if DevTarget
             switch result {
             case .success(let response):
                 let questListFromServer = response.data.questList
@@ -198,44 +180,6 @@ extension QuestListCollectionView {
                     return
                 }
             }
-#else
-            switch result {
-            case .success(let response):
-                let questListFromServer = response.data.questList
-                
-                let currentCount = isActive ? self.activeQuestList.count : self.allQuestList.count
-                let newItems = questListFromServer
-                
-                if isActive {
-                    self.activeQuestList.append(contentsOf: newItems)
-                    if self.activeQuestList.isEmpty {
-                        showEmptyPlaceholder(view: emptyPlaceholder)
-                    }
-                } else {
-                    self.allQuestList.append(contentsOf: newItems)
-                    if self.allQuestList.isEmpty {
-                        showEmptyPlaceholder(view: emptyPlaceholder)
-                    }
-                }
-                
-                let newIndices = (currentCount..<(currentCount + newItems.count)).map { IndexPath(item: $0, section: 0) }
-                
-                self.stopBottomScrollLoading()
-                self.insertItems(at: newIndices)
-                self.lastCursorID = newItems.last?.cursorId ?? Int()
-                
-            case .failure(let networkError):
-                self.stopBottomScrollLoading()
-                switch networkError {
-                case .httpError, .decodingFailed, .unknownURLError, .unknown:
-                    shouldAlertMessage.accept("퀘스트 목록을 받아오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.")
-                case .notConnectedToInternet, .timeout:
-                    shouldAlertMessage.accept("퀘스트 목록을 받아오는 데 실패했습니다. 네트워크 연결 상태를 확인해주세요.")
-                case .networkCancelled:
-                    return
-                }
-            }
-#endif
         }
     }
     
@@ -246,16 +190,10 @@ extension QuestListCollectionView {
 extension QuestListCollectionView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-#if DevTarget
         return visibleQuests.count
-#else
-        return isActive ? activeQuestList.count : allQuestList.count
-#endif
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-#if DevTarget
         let quest = visibleQuests[indexPath.item]
         
         if quest.isCourse {
@@ -280,20 +218,6 @@ extension QuestListCollectionView: UICollectionViewDataSource {
             cell.configureCell(with: quest)
             return cell
         }
-#else
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: QuestListCell.className,
-            for: indexPath
-        ) as? QuestListCell else { fatalError("cell dequeing Failed!") }
-        
-        if isActive {
-            cell.configureCell(with: activeQuestList[indexPath.item])
-        } else {
-            cell.configureCell(with: allQuestList[indexPath.item])
-        }
-        
-        return cell
-#endif
     }
     
 }

@@ -40,9 +40,9 @@ final class PlaceListCell: ExpandableCell, Shrinkable {
     
     private let placeNameLabel = UILabel()
     private let addressLabel = UILabel()
-    #if DevTarget
+    
     let externalMapButton = ExternalMapOpeningButton()
-    #endif
+    
     private lazy var nameAddressStack = UIStackView(arrangedSubviews: [placeNameLabel, addressLabel])
     private let chevronImageView = UIImageView(image: .icnPlaceListExpendableCellChevron)
     
@@ -90,9 +90,7 @@ final class PlaceListCell: ExpandableCell, Shrinkable {
         descriptionLabel1.text = ""
         descriptionLabel2.text = ""
         visitCountLabel.text = "탐험횟수: "
-#if DevTarget
         externalMapButton.place = nil
-#endif
     }
     
     override func animateExpansion() {
@@ -223,21 +221,12 @@ private extension PlaceListCell {
     }
     
     private func setupHierarchy() {
-        #if DevTarget
         mainContentView.addSubviews(
             categoryStack,
             nameAddressStack,
             externalMapButton,
             chevronImageView
         )
-        #else
-        mainContentView.addSubviews(
-            categoryStack,
-            nameAddressStack,
-            chevronImageView
-        )
-        #endif
-        
         
         detailContentView.addSubviews(
             descriptionViewWithoutVisitCount,
@@ -266,13 +255,11 @@ private extension PlaceListCell {
             make.bottom.equalToSuperview().inset(18)
         }
         
-        #if DevTarget
         externalMapButton.snp.makeConstraints { make in
             make.centerY.equalTo(addressLabel)
             make.leading.equalTo(addressLabel.snp.trailing)
             make.width.height.equalTo(30)
         }
-        #endif
         
         chevronImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
@@ -372,7 +359,6 @@ extension PlaceListCell {
             }
         }
         
-        #if DevTarget
         // 외부 지도로 이동하는 버튼 관련 설정
         if let place = model as? ORBRecommendationPlaceModel {
             externalMapButton.isHidden = false
@@ -381,7 +367,6 @@ extension PlaceListCell {
             externalMapButton.isHidden = true
             externalMapButton.place = nil
         }
-        #endif
         
         contentView.layoutSubviews()
     }
@@ -405,7 +390,6 @@ final class PlaceListCellCategoryLabel: UILabel {
     
 }
 
-#if DevTarget
 /// 외부 지도로 이동하는 기능을 가진 버튼.
 /// 외부 지도로 이동할 때 외부 지도에서 띄울 장소 데이터를 selector로 전달해야 하므로, `place` 속성을 가짐.
 final class ExternalMapOpeningButton: UIButton {
@@ -423,4 +407,3 @@ final class ExternalMapOpeningButton: UIButton {
     }
     
 }
-#endif
