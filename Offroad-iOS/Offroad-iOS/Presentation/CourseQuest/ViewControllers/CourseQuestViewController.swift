@@ -205,7 +205,11 @@ extension CourseQuestViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         let quest = courseQuestPlaces[indexPath.item]
-        cell.configure(with: quest)
+        let isFirst = indexPath.item == 0
+        let isLast = indexPath.item == courseQuestPlaces.count - 1
+        
+        cell.configure(with: quest, isFirst: isFirst, isLast: isLast)
+        
         cell.onVisit = { [weak self] in
             self?.handleVisitAction(for: indexPath, in: collectionView)
         }
