@@ -28,9 +28,7 @@ final class NetworkService {
     let pushNotificationService: PushNotificationServiceProtocol = PushNotificationService()
     let characterChatService: CharacterChatService = CharacterChatService()
     let minimumSupportedVersionService = MinimumSupportedVersionService()
-    #if DevTarget
     let diarySettingService: DiarySettingServiceProtocol = DiarySettingService()
     let diaryService: DiaryServiceProtocol = DiaryService()
     let orbRecommendationService = ORBRecommendationService()
-    #endif
 }

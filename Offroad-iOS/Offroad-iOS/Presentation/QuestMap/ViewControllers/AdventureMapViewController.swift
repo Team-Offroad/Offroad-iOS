@@ -237,7 +237,6 @@ extension AdventureMapViewController {
             self.navigationController?.pushViewController(PlaceListViewController(), animated: true)
         }.disposed(by: disposeBag)
         
-        #if DevTarget
         MyDiaryManager.shared.didCompleteCreateDiary
             .bind { _ in
                 guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
@@ -247,7 +246,6 @@ extension AdventureMapViewController {
                 }
             }
             .disposed(by: disposeBag)
-        #endif
     }
     
     private func setupTooltipAction() {

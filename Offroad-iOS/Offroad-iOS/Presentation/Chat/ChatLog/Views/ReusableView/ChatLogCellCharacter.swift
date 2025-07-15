@@ -29,12 +29,8 @@ final class ChatLogCellCharacter: UICollectionViewCell {
     
     // MARK: - UI Properties
     
-#if DevTarget
     final class ChatBubble: UIView, ORBRecommendationGradientStyle { }
     private(set) var chatBubble = ChatBubble()
-#else
-    private(set) var chatBubble = UIView()
-#endif
     private let characterNameLabel = UILabel()
     private let messageLabel = UILabel()
     private let timeLabel = UILabel()
@@ -142,12 +138,10 @@ extension ChatLogCellCharacter {
         timeLabel.text = item.formattedTimeString
     }
     
-#if DevTarget
     func setRecommendationMode() {
         chatBubble.applyGradientStyle(isBackgroundBlurred: false)
         contentView.transform = .identity
         timeLabel.textColor = .main(.main2)
     }
-#endif
     
 }

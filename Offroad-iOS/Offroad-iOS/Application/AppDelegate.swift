@@ -92,13 +92,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             } else if category == "ANNOUNCEMENT_REDIRECT" {
                 completionHandler([.list, .banner])
             }
-            #if DevTarget
+            
             if category == "MEMBER_DIARY_CREATE" {
                 completionHandler([])
                 MyDiaryManager.shared.didCompleteCreateDiary.accept(())
                 MyDiaryManager.shared.didUpdateLatestDiaryInfo.accept(())
             }
-            #endif
         }
     }
     

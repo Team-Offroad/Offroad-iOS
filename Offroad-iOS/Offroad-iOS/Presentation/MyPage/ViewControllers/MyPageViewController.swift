@@ -76,7 +76,6 @@ extension MyPageViewController {
             self.getUserInfo()
         }).disposed(by: disposeBag)
         
-        #if DevTarget
         MyDiaryManager.shared.didCompleteCreateDiary
             .bind { _ in
                 guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
@@ -86,20 +85,16 @@ extension MyPageViewController {
                 }
             }
             .disposed(by: disposeBag)
-        #endif
     }
     
     // MARK: - @objc Func
         
     @objc private func myPageButtonTapped(_ sender: UIButton) {
-
-        #if DevTarget
         if sender == rootView.diaryButton {
             let diaryViewController = DiaryViewController(shouldShowLatestDiary: false)
             diaryViewController.setupCustomBackButton(buttonTitle: "마이페이지")
             self.navigationController?.pushViewController(diaryViewController, animated: true)
         }
-        #endif
         
         if sender == rootView.characterButton {
             let characterListViewController = CharacterListViewController()
