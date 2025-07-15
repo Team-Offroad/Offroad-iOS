@@ -21,6 +21,7 @@
 	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>nmap</string>
 		<string>kakaokompassauth</string>
 		<string>kakaolink</string>
 	</array>
