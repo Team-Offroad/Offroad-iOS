@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ORBToastWindow: UIWindow {
+class ORBToastWindow: UIWindow {
     
     //MARK: - Properties
     
@@ -15,8 +15,8 @@ final class ORBToastWindow: UIWindow {
     let hideAnimator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 1)
     private var inset: CGFloat
     
-    private lazy var toastViewTopConstraint = toastView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: inset)
-    private lazy var toastViewBottomConstraint = toastView.bottomAnchor.constraint(equalTo: self.topAnchor)
+    lazy var toastViewTopConstraint = toastView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: inset)
+    lazy var toastViewBottomConstraint = toastView.bottomAnchor.constraint(equalTo: self.topAnchor)
     
     //MARK: - UI Properties
     
@@ -26,8 +26,18 @@ final class ORBToastWindow: UIWindow {
     
     init(message: String, inset: CGFloat, withImage image: UIImage? = nil) {
         self.inset = inset
-//        self.messageLabel.text = message != "" ? message : "빈 토스트 메시지"
+        //        self.messageLabel.text = message != "" ? message : "빈 토스트 메시지"
         self.toastView = ORBToastView(message: message, withImage: image)
+        super.init(windowScene: UIWindowScene.current)
+        
+        setupHierarchy()
+        setupLayout()
+        setupAnimator()
+    }
+    
+    init(toastView: ORBToastView, inset: CGFloat) {
+        self.toastView = toastView
+        self.inset = inset
         super.init(windowScene: UIWindowScene.current)
         
         setupHierarchy()

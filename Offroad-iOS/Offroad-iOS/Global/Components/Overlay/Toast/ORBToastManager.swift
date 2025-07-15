@@ -40,4 +40,23 @@ final class ORBToastManager {
         self.toastWindow?.hideToast()
     }
     
+    func showCustomToast(toastView: ORBToastView, inset: CGFloat = 66.3) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            
+            self.toastWindow?.hideAnimator.stopAnimation(true)
+            self.toastWindow = nil
+            
+            let toastWindow = ORBToastWindow(toastView: toastView, inset: inset)
+            self.toastWindow = toastWindow
+            toastWindow.isHidden = false
+            
+            toastWindow.hideAnimator.addCompletion { [weak self] _ in
+                self?.toastWindow = nil
+            }
+            
+            toastWindow.showToast()
+        }
+    }
+    
 }
