@@ -65,12 +65,7 @@ final class ORBRecommendationMainViewController: UIViewController {
         }.disposed(by: disposeBag)
         
         rootView.orbMessageButton.rx.tap.subscribe { [weak self] _ in
-            guard let self else { return }
-            if UserDefaults.standard.bool(forKey: "useORBRecommendationChat") {
-                self.presentChatViewController()
-            } else {
-                self.navigationController?.pushViewController(ORBRecommendationOrderViewController(), animated: true)
-            }
+            self?.presentChatViewController()
         }.disposed(by: disposeBag)
         
         rootView.orbMapView.exploreButtonTapped.subscribe { [weak self] place in

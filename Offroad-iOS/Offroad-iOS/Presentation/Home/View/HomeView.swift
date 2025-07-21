@@ -26,11 +26,10 @@ final class HomeView: UIView {
     let shareButton = UIButton()
     let changeCharacterButton = UIButton()
     let recommendButton = UIButton()
-    #if DevTarget
     let orbRecommendationButton = UIButton()
     let diaryButton = UIButton()
     let diaryUnreadDotView = UIView()
-    #endif
+    
     private let buttonStackView = UIStackView()
     private let characterMotionView = LottieAnimationView()
     private let titleView = UIView()
@@ -107,7 +106,6 @@ extension HomeView {
             $0.setImage(.btnRecommend, for: .normal)
         }
         
-        #if DevTarget
         orbRecommendationButton.do {
             $0.setImage(.btnOrbRecommendationHome, for: .normal)
         }
@@ -128,14 +126,6 @@ extension HomeView {
             button.layer.shadowOpacity = 0.1
             button.layer.shadowRadius = 4
         }
-        #else
-        [chatButton, recommendButton, changeCharacterButton].forEach { button in
-            button.layer.shadowColor = UIColor.black.cgColor
-            button.layer.shadowOffset = CGSize(width: 0, height: 1)
-            button.layer.shadowOpacity = 0.1
-            button.layer.shadowRadius = 4
-        }
-        #endif
         
         buttonStackView.do {
             $0.axis = .vertical
@@ -205,7 +195,6 @@ extension HomeView {
         
         characterNameView.addSubview(characterNameLabel)
         
-        #if DevTarget
         buttonStackView.addArrangedSubviews(
             chatButton,
             orbRecommendationButton,
@@ -213,13 +202,6 @@ extension HomeView {
             diaryButton
         )
         diaryButton.addSubview(diaryUnreadDotView)
-        #else
-        buttonStackView.addArrangedSubviews(
-            chatButton,
-            shareButton,
-            changeCharacterButton
-        )
-        #endif
         chatButton.addSubview(chatUnreadDotView)
         titleView.addSubviews(titleLabel, changeTitleButton)
         questStackView.addArrangedSubviews(recentQuestView, almostDoneQuestView)
@@ -262,7 +244,6 @@ extension HomeView {
             $0.size.equalTo(8)
         }
         
-        #if DevTarget
         [chatButton, orbRecommendationButton, changeCharacterButton, diaryButton].forEach { button in
             button.snp.makeConstraints {
                 $0.size.equalTo(44)
@@ -274,13 +255,6 @@ extension HomeView {
             $0.trailing.equalToSuperview().inset(4)
             $0.size.equalTo(8)
         }
-        #else
-        [chatButton, shareButton, changeCharacterButton].forEach { button in
-            button.snp.makeConstraints {
-                $0.size.equalTo(44)
-            }
-        }
-        #endif
         
         characterMotionView.snp.makeConstraints {
             $0.top.equalTo(characterNameView.snp.bottom)

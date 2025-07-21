@@ -121,11 +121,9 @@ extension ChatLogCellUser {
         timeLabel.text = item.formattedTimeString
     }
     
-#if DevTarget
     func setRecommendationMode() {
         contentView.transform = .identity
         timeLabel.textColor = .main(.main2)
     }
-#endif
     
 }

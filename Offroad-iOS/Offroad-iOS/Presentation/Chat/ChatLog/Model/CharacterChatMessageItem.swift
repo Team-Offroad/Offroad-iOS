@@ -21,10 +21,8 @@ enum CharacterChatMessageItem: Hashable {
     /// - Note: 서버 로직이 업데이트되었을 수 있으므로 캐릭터 선톡 시 `id` 값을 같이 넘겨주는지 확인 후 업데이트 필요.
     case orbCharacter(content: String, createdDate: Date, id: Int?)
     
-    #if DevTarget
     /// 오브 캐릭터가 장소 추천 요청임을 인지하고 '오브의 추천소'로 유도하는 채팅 아이템
     case orbRecommendation(content: String, createdDate: Date, id: Int)
-    #endif
     
 }
 
@@ -35,10 +33,8 @@ extension CharacterChatMessageItem {
         case .user(_, let createdDate, _),
                 .orbCharacter(_, let createdDate, _):
             return createdDate
-        #if DevTarget
         case .orbRecommendation(_, let createdDate, _):
             return createdDate
-        #endif
         }
     }
     
@@ -46,10 +42,8 @@ extension CharacterChatMessageItem {
         switch self {
         case .user(_, _, let id), .orbCharacter(_, _, let id):
             return id
-        #if DevTarget
         case .orbRecommendation(_, _, let id):
             return id
-        #endif
         }
     }
     
@@ -68,7 +62,6 @@ extension CharacterChatMessageItem {
             }
         case "ORB_CHARACTER":
             do {
-                #if DevTarget
                 if dto.isPlaceRecommendation {
                     return .orbRecommendation(
                         content: dto.content,
@@ -82,13 +75,6 @@ extension CharacterChatMessageItem {
                         id: dto.id
                     )
                 }
-                #else
-                return .orbCharacter(
-                    content: dto.content,
-                    createdDate: try decodeToDate(from: dto.createdAt),
-                    id: dto.id
-                )
-                #endif
             } catch {
                 throw CharacterChatItemError.invalidTimeFormat(wrongValue: dto.createdAt)
             }

@@ -203,11 +203,7 @@ extension MyPageView {
         
         horizontalStackView1.addArrangedSubviews(characterButton, couponButton)
         horizontalStackView2.addArrangedSubviews(titleButton, settingButton)
-        #if DevTarget
         verticalStackView.addArrangedSubviews(diaryButton, horizontalStackView1, horizontalStackView2)
-        #else
-        verticalStackView.addArrangedSubviews(horizontalStackView1, horizontalStackView2)
-        #endif
     }
     
     private func setupLayout() {
@@ -286,11 +282,7 @@ extension MyPageView {
         verticalStackView.snp.makeConstraints {
             $0.top.equalTo(questPlaceBackgroundView.snp.bottom).offset(18)
             $0.horizontalEdges.equalToSuperview().inset(24)
-            #if DevTarget
             $0.height.equalTo((backgroundViewWidth - 24) * 444 / 345)
-            #else
-            $0.height.equalTo((backgroundViewWidth - 24) * 291 / 345)
-            #endif
         }
     }
     
