@@ -26,7 +26,6 @@ class ORBToastWindow: UIWindow {
     
     init(message: String, inset: CGFloat, withImage image: UIImage? = nil) {
         self.inset = inset
-        //        self.messageLabel.text = message != "" ? message : "빈 토스트 메시지"
         self.toastView = ORBToastView(message: message, withImage: image)
         super.init(windowScene: UIWindowScene.current)
         

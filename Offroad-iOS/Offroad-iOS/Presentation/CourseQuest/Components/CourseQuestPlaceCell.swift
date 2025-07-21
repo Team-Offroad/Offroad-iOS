@@ -112,7 +112,7 @@ final class CourseQuestPlaceCell: UICollectionViewCell, SVGFetchable {
         dottedLineView.snp.makeConstraints {
             $0.width.equalTo(2)
             $0.centerX.equalTo(indicatorImageView)
-            $0.top.equalToSuperview().offset(-19)
+            $0.top.equalToSuperview().inset(19)
             $0.bottom.equalToSuperview().offset(19)
         }
         

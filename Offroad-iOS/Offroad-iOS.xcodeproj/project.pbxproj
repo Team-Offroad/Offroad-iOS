@@ -539,6 +539,13 @@
 		87ACD2AC2E14075D0043D323 /* CourseQuestToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ACD2AB2E1407470043D323 /* CourseQuestToastView.swift */; };
 		87ACE2D32E23AA0A0043D323 /* CourseQuestToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ACE2D22E23AA0A0043D323 /* CourseQuestToastWindow.swift */; };
 		87ACE2D52E23AC4E0043D323 /* CourseQuestToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ACE2D42E23AC4E0043D323 /* CourseQuestToastManager.swift */; };
+		87AE007C2E2EA61000073746 /* CourseQuestToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ACD2AB2E1407470043D323 /* CourseQuestToastView.swift */; };
+		87AE007D2E2EA61900073746 /* CourseQuestToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ACE2D42E23AC4E0043D323 /* CourseQuestToastManager.swift */; };
+		87AE007E2E2EA62700073746 /* CourseQuestToastWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87ACE2D22E23AA0A0043D323 /* CourseQuestToastWindow.swift */; };
+		87AE007F2E2EA69A00073746 /* CourseQuestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7D88E2DD3632500B89109 /* CourseQuestViewController.swift */; };
+		87AE00802E2EA6B600073746 /* CourseQuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F51BB32DDDFD780020AF04 /* CourseQuestView.swift */; };
+		87AE00812E2EA6BC00073746 /* CourseQuestMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 878849042E0A070B00CD0E0C /* CourseQuestMapView.swift */; };
+		87AE00822E2EA6D300073746 /* CourseQuestPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7D8952DD3648600B89109 /* CourseQuestPlaceCell.swift */; };
 		87C27F6B2D7FED19008036FA /* CourseQuestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F692D7FED19008036FA /* CourseQuestCollectionViewCell.swift */; };
 		87C27F8D2D80482F008036FA /* IconLabelStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C27F8C2D80482F008036FA /* IconLabelStackView.swift */; };
 		87D9A70D2CE9BC1700F1CECD /* ScrollLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D9A70C2CE9BC1700F1CECD /* ScrollLoadingView.swift */; };
@@ -3834,6 +3841,7 @@
 				D0E7966C2C457D64005B47A5 /* AdventureInfoResponseDTO.swift in Sources */,
 				4E1CFDF02D4E5CB70067344B /* PrintLogInDevApp.swift in Sources */,
 				4E43C7412DFEAAD200CED213 /* CharacterChatMessageItem.swift in Sources */,
+				87AE00802E2EA6B600073746 /* CourseQuestView.swift in Sources */,
 				4EFCDFE32C92C1F1006DEBB6 /* ORBAlertButton.swift in Sources */,
 				4EBE34922C3FC73C006DB244 /* QuestQRViewController.swift in Sources */,
 				D063E98C2C49328300434A09 /* SVGKImage+.swift in Sources */,
@@ -3894,6 +3902,7 @@
 				D063E9A12C6107D300434A09 /* CollectedTitlesViewController.swift in Sources */,
 				4EE20BF12DE6FB5D00B818BD /* MinimumSupportedVersionAPI.swift in Sources */,
 				4EC3EC932CA9049F008139BE /* CouponCollectionViewController.swift in Sources */,
+				87AE007D2E2EA61900073746 /* CourseQuestToastManager.swift in Sources */,
 				4EBE34942C3FC749006DB244 /* QuestQRView.swift in Sources */,
 				4E37B6D32C4594D9007358DA /* CompleteChoosingCharacterViewController.swift in Sources */,
 				4EA90AC62C4521C50046A6E1 /* MyPageViewController.swift in Sources */,
@@ -3916,6 +3925,7 @@
 				4EFCDFDF2C92BD8A006DEBB6 /* ORBAlertBackgroundView.swift in Sources */,
 				87D9CA102E09EEDD00DD8493 /* CourseQuestDetailResponseDTO.swift in Sources */,
 				4EE049892CA10DC300754488 /* CouponRedemptionResponseDTO.swift in Sources */,
+				87AE007F2E2EA69A00073746 /* CourseQuestViewController.swift in Sources */,
 				D0E796152C452797005B47A5 /* AuthAPI.swift in Sources */,
 				4E0A6BDF2DF740E600956D7F /* AdventureResult.swift in Sources */,
 				D0B81AA42C472B9500C44ED9 /* CharacterChoosingResponseDTO.swift in Sources */,
@@ -3934,6 +3944,7 @@
 				D0E7963B2C45377C005B47A5 /* QuestAPI.swift in Sources */,
 				8792D0172C3E5828002051AC /* GenderView.swift in Sources */,
 				4EB32BE92C67A2DD003F98F2 /* QuestListView.swift in Sources */,
+				87AE007C2E2EA61000073746 /* CourseQuestToastView.swift in Sources */,
 				D0E6BE902CED2827006CDAA8 /* PushNotificationRedirectModel.swift in Sources */,
 				D0E7960C2C4522F2005B47A5 /* NetworkResult.swift in Sources */,
 				4E0394D92C2ABCCC007F0517 /* UIView+.swift in Sources */,
@@ -3961,6 +3972,7 @@
 				D0E937942CF6FCC20061782D /* CustomerInquiryViewController.swift in Sources */,
 				4E393C9C2C48C9B2003403EC /* QuestResultView.swift in Sources */,
 				4EEA82FE2CE3908C0062F0DE /* CharacterChatLogViewController.swift in Sources */,
+				87AE00812E2EA6BC00073746 /* CourseQuestMapView.swift in Sources */,
 				D0E7962F2C4535B1005B47A5 /* NicknameService.swift in Sources */,
 				4EF6B0432CC3F45000066640 /* ORBAlertViewScrollableContent.swift in Sources */,
 				D0E796202C4532A6005B47A5 /* ErrorResponseDTO.swift in Sources */,
@@ -4065,6 +4077,7 @@
 				4EE20BF02DE6FB5800B818BD /* MinimumSupportedVersionResponseDTO.swift in Sources */,
 				87D9CA172E09EFF600DD8493 /* CourseQuestDetailService.swift in Sources */,
 				D0EAF2242C3B7D7100566543 /* LoginView.swift in Sources */,
+				87AE007E2E2EA62700073746 /* CourseQuestToastWindow.swift in Sources */,
 				8792D0112C3DA1C9002051AC /* BirthView.swift in Sources */,
 				4E38A44A2DAAACCF00110780 /* QuestListCell.swift in Sources */,
 				D00A488C2C7830F3008B286A /* TermsConsentPopupView.swift in Sources */,
@@ -4073,6 +4086,7 @@
 				4E08B95F2C5E53C10082EFB8 /* ORBSegmentedControlButton.swift in Sources */,
 				D064669F2C898E9D00CF10FD /* EmblemListResponseDTO.swift in Sources */,
 				D03C835E2C61E44700F3094D /* TokenIntercepter.swift in Sources */,
+				87AE00822E2EA6D300073746 /* CourseQuestPlaceCell.swift in Sources */,
 				4E03942F2C2A9DCE007F0517 /* SceneDelegate.swift in Sources */,
 				4EA272562D58E27300F64B20 /* ChatTextDisplayView.swift in Sources */,
 				4E3A32692CE510DF007228D0 /* CharacterChatAPI.swift in Sources */,
