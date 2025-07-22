@@ -21,7 +21,7 @@ struct CourseQuestDetailPlaceDTO: Codable {
     let address: String
     let latitude: Double
     let longitude: Double
-    let isVisited: Bool?
+    var isVisited: Bool?
     let categoryImage: String
     let description: String
     let placeId: Int

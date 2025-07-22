@@ -47,6 +47,8 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     private let locationManager = CLLocationManager()
     private var completedQuests: [CompleteQuest] = []
     var onQuestCompleted: (([CompleteQuest]) -> Void)?
+    var onCourseQuestProgressChanged: ((Bool) -> Void)?
+    private var didProgressChanged: Bool = false
     
     // MARK: - Life Cycle
     
@@ -90,6 +92,14 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
         
         guard let offroadTabBarController = self.tabBarController as? OffroadTabBarController else { return }
         offroadTabBarController.hideTabBarAnimation()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if self.isMovingFromParent {
+            onCourseQuestProgressChanged?(didProgressChanged)
+        }
     }
     
     // MARK: - Private Func
@@ -138,32 +148,32 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
     
     @objc private func panGestureHandler(sender: UIPanGestureRecognizer) {
         let draggedDistanceY = sender.translation(in: view).y
-
+        
         courseQuestView.listContainerView.contentOffset = .zero
-
+        
         // listContainerView가 얼마나 위로 올라갔는지에 대한 offset
         let currentTopOffset = courseQuestView.listTopConstraint?.layoutConstraints.first?.constant ?? 0
         // 팬 드래그 양만큼 새로운 위치 계산
         let proposedTopOffset = currentTopOffset + draggedDistanceY
-
-         ///고정 위치 정의
-         /// -fullyCollapsedOffset: navigationBar 아래에 붙은 위치
-         /// -fullyExpandedOffset: mapView 아래 기본 위치
+        
+        ///고정 위치 정의
+        /// -fullyCollapsedOffset: navigationBar 아래에 붙은 위치
+        /// -fullyExpandedOffset: mapView 아래 기본 위치
         let fullyCollapsedOffset: CGFloat = -courseQuestView.mapView.frame.height
         let fullyExpandedOffset: CGFloat = 0
-
+        
         // 바운스 방지를 위한 offset 제한
         let boundedTopOffset = min(max(proposedTopOffset, fullyCollapsedOffset), fullyExpandedOffset)
-
+        
         courseQuestView.listTopConstraint?.update(offset: boundedTopOffset)
         sender.setTranslation(.zero, in: view)
-
+        
         /// 팬 동작이 끝났을 때: 위로 붙일지, 아래로 내릴지 결정하는 코드
         if sender.state == .ended {
             // 스냅 기준: 위로 얼마만큼 가까이 올라갔는지를 기준으로 결정
             let snapThreshold = courseQuestView.mapView.frame.height / 2
             let distanceToCollapse = abs(boundedTopOffset - fullyCollapsedOffset)
-
+            
             if distanceToCollapse < snapThreshold {
                 // 위로 절반 이상 올라갔다면: navigationBar 아래로 딱 붙이기
                 courseQuestView.listTopConstraint?.update(offset: fullyCollapsedOffset)
@@ -175,7 +185,7 @@ class CourseQuestViewController: UIViewController, UICollectionViewDelegate, UIG
                 courseQuestView.listContainerView.isScrollEnabled = false
                 courseQuestView.courseQuestPlaceCollectionView.isScrollEnabled = false
             }
-
+            
             UIView.animate(withDuration: 0.25, delay: 0, options: [.curveEaseInOut]) {
                 self.view.layoutIfNeeded()
             }
@@ -195,100 +205,78 @@ extension CourseQuestViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         let quest = courseQuestPlaces[indexPath.item]
-        cell.configure(with: quest)
+        let isFirst = indexPath.item == 0
+        let isLast = indexPath.item == courseQuestPlaces.count - 1
+        
+        cell.configure(with: quest, isFirst: isFirst, isLast: isLast)
+        
         cell.onVisit = { [weak self] in
-            guard let self else { return }
-            let place = quest
-            
-            guard let currentCoordinate = locationManager.location?.coordinate else { return }
-            
-            // 변수 먼저 선언
-            var requestDTO: AdventuresPlaceAuthenticationRequestDTO
-            
-            // 개발자 모드의 설정값 중 '탐험 시 위치 인증 무시' 값에 따라 분기 처리
-            let locationAuthenticationBypassing = UserDefaults.standard.bool(forKey: "bypassLocationAuthentication")
-            if locationAuthenticationBypassing {
-                requestDTO = AdventuresPlaceAuthenticationRequestDTO(
-                    placeId: place.placeId,
-                    latitude: place.latitude,
-                    longitude: place.longitude
-                )
-            } else {
-                requestDTO = AdventuresPlaceAuthenticationRequestDTO(
-                    placeId: place.placeId,
-                    latitude: currentCoordinate.latitude,
-                    longitude: currentCoordinate.longitude
-                )
-            }
-            
-            Task { [weak self] in
-                guard let self else { return }
-                
-                do {
-                    let result = try await AdventureService().authenticateAdventurePlace(adventureAuthDTO: requestDTO)
-                    if let completedList = result.completeQuestList {
-                        self.completedQuests = completedList
-                    }
-                    
-                    switch (result.isValidPosition, result.isFirstVisitToday) {
-                    case (true, true):
-                        // 탐험 성공
-                        self.courseQuestPlaces[indexPath.item] = CourseQuestDetailPlaceDTO(
-                            category: place.category,
-                            name: place.name,
-                            address: place.address,
-                            latitude: place.latitude,
-                            longitude: place.longitude,
-                            isVisited: true,
-                            categoryImage: place.categoryImage,
-                            description: place.description,
-                            placeId: place.placeId
-                        )
-                        self.currentCount += 1
-                        //남은 탐험 수
-                        let remainCount = max(self.totalCount - self.currentCount, 0)
-                        collectionView.reloadItems(at: [indexPath])
-                        if remainCount == 0 {
-                            CourseQuestPopUp.showPopUp(
-                                on: self.view,
-                                message: "퀘스트 클리어! 보상을 받아보세요"
-                            ) {
-                                $0.highlightText(targetText: "보상", font: .offroad(style: .iosTextBold))
-                            }
-                        } else {
-                            CourseQuestPopUp.showPopUp(
-                                on: self.view,
-                                message: "방문 성공! 앞으로 \(remainCount)곳 남았어요"
-                            ) {
-                                $0.highlightText(targetText: "\(remainCount)곳", font: .offroad(style: .iosTextBold))
-                            }
-                        }
-                        
-                    default:
-                        // 위치 인증 실패 → ORBAlertController 사용
-                        let message = AlertMessage.courseQuestFailureLocationMessage
-                        let buttonTitle = "확인"
-                        
-                        let alertController = ORBAlertController(
-                            title: AlertMessage.courseQuestFailureLocationTitle,
-                            message: message,
-                            type: .normal
-                        )
-                        alertController.configureMessageLabel {
-                            $0.highlightText(targetText: "위치", font: .offroad(style: .iosTextBold))
-                            $0.highlightText(targetText: "내일 다시", font: .offroad(style: .iosTextBold))
-                        }
-                        alertController.xButton.isHidden = true
-                        let action = ORBAlertAction(title: buttonTitle, style: .default) { _ in }
-                        alertController.addAction(action)
-                        self.present(alertController, animated: true)
-                    }
-                    
-                } catch {
-                    print("탐험 인증에 실패했어요. 다시 시도해주세요.")
-                }
-            }
+            self?.handleVisitAction(for: indexPath, in: collectionView)
         }
         return cell
+    }
+    
+    private func handleVisitAction(for indexPath: IndexPath, in collectionView: UICollectionView) {
+        let place = courseQuestPlaces[indexPath.item]
+        guard let currentCoordinate = locationManager.location?.coordinate else { return }
+        
+        let locationAuthenticationBypassing = UserDefaults.standard.bool(forKey: "bypassLocationAuthentication")
+        let requestDTO = AdventuresPlaceAuthenticationRequestDTO(
+            placeId: place.placeId,
+            latitude: locationAuthenticationBypassing ? place.latitude : currentCoordinate.latitude,
+            longitude: locationAuthenticationBypassing ? place.longitude : currentCoordinate.longitude
+        )
+        
+        Task { [weak self] in
+            guard let self else { return }
+            
+            do {
+                let result = try await AdventureService().authenticateAdventurePlace(adventureAuthDTO: requestDTO)
+                if let completedList = result.completeQuestList {
+                    self.completedQuests = completedList
+                }
+                
+                switch (result.isValidPosition, result.isFirstVisitToday) {
+                case (true, true):
+                    var updatedPlace = place
+                    updatedPlace.isVisited = true
+                    self.courseQuestPlaces[indexPath.item] = updatedPlace
+                    self.currentCount += 1
+                    self.didProgressChanged = true
+                    let remainCount = max(self.totalCount - self.currentCount, 0)
+                    collectionView.reloadItems(at: [indexPath])
+                    
+                    if remainCount == 0 {
+                        CourseQuestToastManager.shared.show(
+                            message: "퀘스트 클리어! 보상을 받아보세요"
+                        ) {
+                            $0.highlightText(targetText: "보상", font: .offroad(style: .iosTextBold))
+                        }
+                    } else {
+                        CourseQuestToastManager.shared.show(
+                            message: "방문 성공! 앞으로 \(remainCount)곳 남았어요"
+                        ) {
+                            $0.highlightText(targetText: "\(remainCount)곳", font: .offroad(style: .iosTextBold))
+                        }
+                    }
+                    
+                default:
+                    let alertController = ORBAlertController(
+                        title: AlertMessage.courseQuestFailureLocationTitle,
+                        message: AlertMessage.courseQuestFailureLocationMessage,
+                        type: .normal
+                    )
+                    alertController.configureMessageLabel {
+                        $0.highlightText(targetText: "더 가까이에서", font: .offroad(style: .iosTextBold))
+                    }
+                    alertController.xButton.isHidden = true
+                    alertController.addAction(ORBAlertAction(title: "확인", style: .default) { _ in })
+                    self.present(alertController, animated: true)
+                }
+                
+            } catch {
+                print("탐험 인증에 실패했어요. 다시 시도해주세요.")
+            }
+        }
     }
 }
